@@ -5,6 +5,7 @@ https://github.com/YeZhihao/jt808-server
 整个项目分为两部分：
 
  **1.以framework包为核心的，TCP/IP协议服务端，设计上效仿Spring MVC使用注解标记方法，暴露对外的TCP接口，序列化效仿Hibernate使用注解标注字段的类型和所处的位置。** 
+
 核心的注解有三个：
 
 @org.yzh.framework.annotation.Endpoint，标记TCP服务的接入点，相当于SpringMVC中的 @Controller；
