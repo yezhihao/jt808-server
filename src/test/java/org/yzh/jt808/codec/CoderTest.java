@@ -66,7 +66,7 @@ public class CoderTest {
     public static Header header() {
         Header header = new Header();
         header.setType(1);
-        header.setTerminalPhone("020000000015");
+        header.setPhoneNumber("020000000015");
         header.setFlowId(37);
         header.setEncryptionType(0);
         header.setReservedBit(0);
@@ -155,9 +155,12 @@ public class CoderTest {
         assert hex1.equals(hex2);
     }
 
+    /**
+     * 位置信息汇报 0x0200
+     */
     @Test
     public void testPositionReport() {
-        PositionReport bean1 = transform(PositionReport.class, "0200003c017701840207000600000000000008010000000000000000000000000000171025155537010400001c54030200002504000000003101000202000030011d2b0400000000cc");
+        PositionReport bean1 = transform(PositionReport.class, "02000064064762924071000400000150000410020000000000000000ffffffffffff190402161009000000250400060006000000e23a3836373733323033383631383237382d627566322d323031392d30342d30322d31362d31302d30392d3234322d2e6a70670008000000199d7d017cfd");
 
         String hex1 = transform(bean1);
 
