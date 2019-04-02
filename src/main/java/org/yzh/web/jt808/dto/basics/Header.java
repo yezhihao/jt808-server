@@ -7,7 +7,7 @@ public class Header extends org.yzh.framework.message.Header {
 
     protected Integer type;
     protected Integer bodyPropsField;
-    protected String phoneNumber;
+    protected String mobileNumber;
     protected Integer flowId;
 
     protected Integer subPackageTotal;
@@ -21,15 +21,15 @@ public class Header extends org.yzh.framework.message.Header {
     public Header() {
     }
 
-    public Header(Integer type, String phoneNumber) {
+    public Header(Integer type, String mobileNumber) {
         this.type = type;
-        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
     }
 
-    public Header(Integer type, Integer flowId, String phoneNumber) {
+    public Header(Integer type, Integer flowId, String mobileNumber) {
         this.type = type;
         this.flowId = flowId;
-        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
     }
 
     @Property(index = 0, type = DataType.WORD, desc = "消息ID")
@@ -71,12 +71,12 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 4, type = DataType.BCD8421, length = 6, pad = 48, desc = "终端手机号")
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     @Property(index = 10, type = DataType.WORD, desc = "流水号")

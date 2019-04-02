@@ -22,7 +22,7 @@ public class NettyConfig {
 
     @Bean
     public HandlerMapper handlerMapper() {
-        return new SpringHandlerMapper("com.web.endpoint");
+        return new SpringHandlerMapper("org.yzh.web.endpoint");
     }
 
     @Bean
