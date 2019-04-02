@@ -7,11 +7,11 @@ public class Header extends org.yzh.framework.message.Header {
 
     protected Integer type;
     protected Integer bodyPropsField;
-    protected String terminalPhone;
+    protected String phoneNumber;
     protected Integer flowId;
 
-    protected Integer totalSubPackage;
-    protected Integer subPackageSeq;
+    protected Integer subPackageTotal;
+    protected Integer subPackageNo;
 
     protected Integer bodyLength = 0;
     protected Integer encryptionType = 0b000;
@@ -21,15 +21,15 @@ public class Header extends org.yzh.framework.message.Header {
     public Header() {
     }
 
-    public Header(Integer type, String terminalPhone) {
+    public Header(Integer type, String phoneNumber) {
         this.type = type;
-        this.terminalPhone = terminalPhone;
+        this.phoneNumber = phoneNumber;
     }
 
-    public Header(Integer type, Integer flowId, String terminalPhone) {
+    public Header(Integer type, Integer flowId, String phoneNumber) {
         this.type = type;
         this.flowId = flowId;
-        this.terminalPhone = terminalPhone;
+        this.phoneNumber = phoneNumber;
     }
 
     @Property(index = 0, type = DataType.WORD, desc = "消息ID")
@@ -71,12 +71,12 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 4, type = DataType.BCD8421, length = 6, pad = 48, desc = "终端手机号")
-    public String getTerminalPhone() {
-        return terminalPhone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setTerminalPhone(String terminalPhone) {
-        this.terminalPhone = terminalPhone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Property(index = 10, type = DataType.WORD, desc = "流水号")
@@ -89,25 +89,25 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 12, type = DataType.WORD, desc = "消息包总数")
-    public Integer getTotalSubPackage() {
+    public Integer getSubPackageTotal() {
         if (!isHasSubPackage())
             return null;
-        return totalSubPackage;
+        return subPackageTotal;
     }
 
-    public void setTotalSubPackage(Integer totalSubPackage) {
-        this.totalSubPackage = totalSubPackage;
+    public void setSubPackageTotal(Integer subPackageTotal) {
+        this.subPackageTotal = subPackageTotal;
     }
 
     @Property(index = 14, type = DataType.WORD, desc = "包序号,这次发送的这个消息包是分包中的第几个消息包,从1开始")
-    public Integer getSubPackageSeq() {
+    public Integer getSubPackageNo() {
         if (!isHasSubPackage())
             return null;
-        return subPackageSeq;
+        return subPackageNo;
     }
 
-    public void setSubPackageSeq(Integer subPackageSeq) {
-        this.subPackageSeq = subPackageSeq;
+    public void setSubPackageNo(Integer subPackageNo) {
+        this.subPackageNo = subPackageNo;
     }
 
     @Override
