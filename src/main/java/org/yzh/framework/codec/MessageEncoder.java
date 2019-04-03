@@ -4,8 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
-import org.yzh.framework.commons.transform.BCD8421Operator;
-import org.yzh.framework.commons.transform.BitOperator;
+import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
@@ -65,12 +64,12 @@ public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractM
                 buf.writeBytes((byte[]) value);
                 break;
             case BCD8421:
-                buf.writeBytes(BitOperator.leftPad(BCD8421Operator.string2Bcd((String) value), length, pad));
+                buf.writeBytes(Bcd.leftPad(Bcd.decode8421((String) value), length, pad));
                 break;
             case STRING:
                 byte[] strBytes = ((String) value).getBytes(charset);
                 if (length > 0)
-                    strBytes = BitOperator.leftPad(strBytes, length, pad);
+                    strBytes = Bcd.leftPad(strBytes, length, pad);
                 buf.writeBytes(strBytes);
                 break;
             case OBJ:

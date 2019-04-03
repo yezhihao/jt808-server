@@ -3,7 +3,7 @@ package org.yzh.web.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.commons.transform.BitOperator;
+import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.nio.charset.Charset;
@@ -27,7 +27,7 @@ public class JT808MessageDecoder extends MessageDecoder {
 
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = BitOperator.xor(buf);
+        byte calculatedCheckCode = ByteBufUtils.xor(buf);
 
         if (checkCode != calculatedCheckCode)
             System.out.println("校验码错误,checkCode=" + checkCode + ",calculatedCheckCode" + calculatedCheckCode);

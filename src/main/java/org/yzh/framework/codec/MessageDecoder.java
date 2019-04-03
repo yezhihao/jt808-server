@@ -5,7 +5,7 @@ import static org.yzh.framework.enums.DataType.*;
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
-import org.yzh.framework.commons.transform.BCD8421Operator;
+import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
@@ -85,7 +85,7 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
         byte[] bytes = new byte[length];
         buf.readBytes(bytes);
         if (type == BCD8421)
-            return BCD8421Operator.bcd2String(bytes).trim();
+            return Bcd.encode8421String(bytes).trim();
         return bytes;
     }
 }

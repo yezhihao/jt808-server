@@ -3,7 +3,7 @@ package org.yzh.web.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.codec.MessageEncoder;
-import org.yzh.framework.commons.transform.BitOperator;
+import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.jt808.dto.basics.Header;
 
@@ -32,7 +32,7 @@ public class JT808MessageEncoder extends MessageEncoder<Header> {
         ByteBuf headerBuf = encode(header);
 
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
-        byte checkCode = BitOperator.xor(allBuf);
+        byte checkCode = ByteBufUtils.xor(allBuf);
 
         allBuf.writeByte(checkCode);
         allBuf = escape(allBuf);

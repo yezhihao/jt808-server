@@ -3,7 +3,9 @@ package org.yzh.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
+import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
+import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.commons.transform.JsonUtils;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
@@ -22,19 +24,20 @@ public class CoderTest {
     private static final JT808MessageEncoder encoder = new JT808MessageEncoder(Charsets.GBK);
 
     public static void main(String[] args) throws Exception {
-//        byte[] bytes = HexStringUtils.toBytes("0b");
-//        System.out.println(BitOperator.byteToInteger(ByteBufUtil.decodeHexDump("8401")));
-        int i = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump("8401")).readUnsignedShort();
-        System.out.println(i);
+//        byte[] bytes = Hex.toBytes("0b");
+//        System.out.println(ByteBufUtils.byteToInteger(ByteBufUtil.decodeHexDump("8401")));
+//        int i = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump("8401")).readUnsignedShort();
+//        System.out.println(i);
+
 //
-//        System.out.println(HexStringUtils.toHexString("JS5-HD-105V".getBytes(Charsets.GBK)));
-//        System.out.println(HexStringUtils.toHexString("T17051604-V705061".getBytes(Charsets.GBK)));
-//
-//        System.out.println(new String(HexStringUtils.toBytes("073731363033"), Charsets.GBK));
-//        System.out.println(new String(HexStringUtils.toBytes("4a53352d4c000000000000000000000000000000"), Charsets.GBK));
-//        System.out.println(new String(HexStringUtils.toBytes("8401"), Charsets.GBK));
-//
-//        System.out.println(BCD8421Operator.bcd2String(HexStringUtils.toBytes("3689860225131650397533")));
+        System.out.println(Hex.encodeHexString("JS5-HD-105V".getBytes(Charsets.GBK)));
+//        System.out.println(Hex.encodeHexString("T17051604-V705061".getBytes(Charsets.GBK)));
+
+//        System.out.println(new String(Hex.decodeHex("073731363033"), Charsets.GBK));
+//        System.out.println(new String(Hex.decodeHex("4a53352d4c000000000000000000000000000000"), Charsets.GBK));
+//        System.out.println(new String(Hex.decodeHex("8401"), Charsets.GBK));
+
+        System.out.println(Bcd.encode8421String(Hex.decodeHex("3689860225131650397533")));
     }
 
     public static PackageData<Header> register() {
