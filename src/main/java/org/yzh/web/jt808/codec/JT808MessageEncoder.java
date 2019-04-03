@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 808协议解码器
+ * 808协议编码器
  *
  * @author zhihao.ye (yezhihaoo@gmail.com)
  */

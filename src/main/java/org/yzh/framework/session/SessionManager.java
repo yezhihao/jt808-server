@@ -40,15 +40,15 @@ public class SessionManager {
         return sessionIdMap.containsValue(session);
     }
 
-    public Session findBySessionId(String id) {
-        return sessionIdMap.get(id);
+    public Session getBySessionId(String sessionId) {
+        return sessionIdMap.get(sessionId);
     }
 
-    public Session findByTerminalId(String phone) {
-        String sessionId = this.terminalMap.get(phone);
+    public Session getByMobileNumber(String mobileNumber) {
+        String sessionId = this.terminalMap.get(mobileNumber);
         if (sessionId == null)
             return null;
-        return this.findBySessionId(sessionId);
+        return this.getBySessionId(sessionId);
     }
 
     public synchronized Session put(String key, Session value) {

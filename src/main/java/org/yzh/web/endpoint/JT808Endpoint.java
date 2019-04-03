@@ -42,15 +42,15 @@ public class JT808Endpoint {
     public Object send(PackageData<Header> packageData, boolean hasReplyFlowIdId) {
         Header header = packageData.getHeader();
         String mobileNumber = header.getMobileNumber();
-        Session session = sessionManager.findByTerminalId(mobileNumber);
-        header.setFlowId(session.currentFlowId());
+        Session session = sessionManager.getByMobileNumber(mobileNumber);
+        header.setSerialNumber(session.currentFlowId());
 
         ByteBuf buf = encoder.encodeAll(packageData);
         logger.info("{}out,hex:{}\n{}", header.getType(), ByteBufUtil.hexDump(buf), packageData);
         ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{0x7e}), buf, Unpooled.wrappedBuffer(new byte[]{0x7e}));
         session.getChannel().writeAndFlush(allResultBuf);
 
-        String key = mobileNumber + (hasReplyFlowIdId ? header.getFlowId() : "");
+        String key = mobileNumber + (hasReplyFlowIdId ? header.getSerialNumber() : "");
         SyncFuture receive = messageManager.receive(key);
         try {
             return receive.get(5, TimeUnit.SECONDS);

@@ -3,7 +3,7 @@ package org.yzh.framework.message;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public abstract class Header {
+public abstract class AbstractHeader {
 
     /**
      * 消息类型

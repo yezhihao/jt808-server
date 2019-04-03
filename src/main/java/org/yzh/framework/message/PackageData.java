@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class PackageData<T extends Header> {
+public class PackageData<T extends AbstractHeader> {
 
     protected T header;
 

@@ -22,7 +22,7 @@ public class RegisterResult extends PackageData<Header> {
 
     public RegisterResult(Header header, Integer resultCode, String replyToken) {
         super(header);
-        this.flowId = header.getFlowId();
+        this.flowId = header.getSerialNumber();
         this.resultCode = resultCode;
         this.replyToken = replyToken;
     }

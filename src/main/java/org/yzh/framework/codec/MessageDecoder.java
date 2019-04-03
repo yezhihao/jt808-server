@@ -7,7 +7,7 @@ import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.BCD8421Operator;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.Header;
+import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
 
 import java.beans.PropertyDescriptor;
@@ -27,7 +27,7 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
         super(charset);
     }
 
-    public abstract Header decodeHeader(ByteBuf buf);
+    public abstract AbstractHeader decodeHeader(ByteBuf buf);
 
     public <T extends PackageData> T decodeBody(ByteBuf buf, Class<T> targetClass) {
         return decode(buf, targetClass);

@@ -67,7 +67,7 @@ public class CoderTest {
         Header header = new Header();
         header.setType(1);
         header.setMobileNumber("020000000015");
-        header.setFlowId(37);
+        header.setSerialNumber(37);
         header.setEncryptionType(0);
         header.setReservedBit(0);
         return header;

@@ -7,7 +7,7 @@ import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.BCD8421Operator;
 import org.yzh.framework.commons.transform.BitOperator;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.Header;
+import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
 
 import java.beans.PropertyDescriptor;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 基础消息编码
  */
-public abstract class MessageEncoder<T extends Header> extends AbstractMessageCoder {
+public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractMessageCoder {
 
     public MessageEncoder(Charset charset) {
         super(charset);

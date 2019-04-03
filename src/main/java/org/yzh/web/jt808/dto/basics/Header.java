@@ -2,20 +2,21 @@ package org.yzh.web.jt808.dto.basics;
 
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
+import org.yzh.framework.message.AbstractHeader;
 
-public class Header extends org.yzh.framework.message.Header {
+public class Header extends AbstractHeader {
 
     protected Integer type;
-    protected Integer bodyPropsField;
+    protected Integer bodyProperties;
     protected String mobileNumber;
-    protected Integer flowId;
+    protected Integer serialNumber;
 
     protected Integer subPackageTotal;
-    protected Integer subPackageNo;
+    protected Integer subPackageNumber;
 
     protected Integer bodyLength = 0;
     protected Integer encryptionType = 0b000;
-    protected boolean hasSubPackage = false;
+    protected boolean subPackage = false;
     protected Integer reservedBit = 0;
 
     public Header() {
@@ -26,9 +27,9 @@ public class Header extends org.yzh.framework.message.Header {
         this.mobileNumber = mobileNumber;
     }
 
-    public Header(Integer type, Integer flowId, String mobileNumber) {
+    public Header(Integer type, Integer serialNumber, String mobileNumber) {
         this.type = type;
-        this.flowId = flowId;
+        this.serialNumber = serialNumber;
         this.mobileNumber = mobileNumber;
     }
 
@@ -42,32 +43,34 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 2, type = DataType.WORD, desc = "消息体属性")
-    public Integer getBodyPropsField() {
+    public Integer getBodyProperties() {
         // [0-9] 0000,0011,1111,1111(3FF)(消息体长度)
         // [10-12] 0001,1100,0000,0000(1C00)(加密类型)
         // [13] 0010,0000,0000,0000(2000)(是否有子包)
         // [14-15] 1100,0000,0000,0000(C000)(保留位)
         if (bodyLength >= 1024)
             System.out.println("The max value of msgLen is 1023, but {} ." + bodyLength);
-        int subPkg = hasSubPackage ? 1 : 0;
-        int ret = (bodyLength & 0x3FF) | ((encryptionType << 10) & 0x1C00)
-                | ((subPkg << 13) & 0x2000) | ((reservedBit << 14) & 0xC000);
-        this.bodyPropsField = ret & 0xffff;
+        int subPkg = subPackage ? 1 : 0;
+        int ret = (bodyLength & 0x3FF) |
+                ((encryptionType << 10) & 0x1C00) |
+                ((subPkg << 13) & 0x2000) |
+                ((reservedBit << 14) & 0xC000);
+        this.bodyProperties = ret & 0xffff;
 
-        return bodyPropsField;
+        return bodyProperties;
     }
 
-    public void setBodyPropsField(Integer bodyPropsField) {
-        this.bodyPropsField = bodyPropsField;
+    public void setBodyProperties(Integer bodyProperties) {
+        this.bodyProperties = bodyProperties;
 
         // [ 0-9 ] 0000,0011,1111,1111(3FF)(消息体长度)
-        this.bodyLength = bodyPropsField & 0x3ff;
+        this.bodyLength = bodyProperties & 0x3ff;
         // [10-12] 0001,1100,0000,0000(1C00)(加密类型)
-        this.encryptionType = (bodyPropsField & 0x1c00) >> 10;
+        this.encryptionType = (bodyProperties & 0x1c00) >> 10;
         // [ 13_ ] 0010,0000,0000,0000(2000)(是否有子包)
-        this.hasSubPackage = ((bodyPropsField & 0x2000) >> 13) == 1;
+        this.subPackage = ((bodyProperties & 0x2000) >> 13) == 1;
         // [14-15] 1100,0000,0000,0000(C000)(保留位)
-        this.reservedBit = ((bodyPropsField & 0xc000) >> 14);
+        this.reservedBit = ((bodyProperties & 0xc000) >> 14);
     }
 
     @Property(index = 4, type = DataType.BCD8421, length = 6, pad = 48, desc = "终端手机号")
@@ -80,17 +83,18 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 10, type = DataType.WORD, desc = "流水号")
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Property(index = 12, type = DataType.WORD, desc = "消息包总数")
     public Integer getSubPackageTotal() {
-        if (!isHasSubPackage())
+        //如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
+        if (!hasSubPackage())
             return null;
         return subPackageTotal;
     }
@@ -100,18 +104,18 @@ public class Header extends org.yzh.framework.message.Header {
     }
 
     @Property(index = 14, type = DataType.WORD, desc = "包序号,这次发送的这个消息包是分包中的第几个消息包,从1开始")
-    public Integer getSubPackageNo() {
-        if (!isHasSubPackage())
+    public Integer getSubPackageNumber() {
+        //如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
+        if (!hasSubPackage())
             return null;
-        return subPackageNo;
+        return subPackageNumber;
     }
 
-    public void setSubPackageNo(Integer subPackageNo) {
-        this.subPackageNo = subPackageNo;
+    public void setSubPackageNumber(Integer subPackageNumber) {
+        this.subPackageNumber = subPackageNumber;
     }
 
     @Override
-    //消息体长度
     public Integer getBodyLength() {
         return bodyLength;
     }
@@ -120,7 +124,13 @@ public class Header extends org.yzh.framework.message.Header {
         this.bodyLength = bodyLength;
     }
 
-    // 数据加密方式
+    @Override
+    public Integer getHeaderLength() {
+        if (hasSubPackage())
+            return 16;
+        return 12;
+    }
+
     public Integer getEncryptionType() {
         return encryptionType;
     }
@@ -129,16 +139,18 @@ public class Header extends org.yzh.framework.message.Header {
         this.encryptionType = encryptionType;
     }
 
-    // 是否分包,true==>有消息包封装项
-    public boolean isHasSubPackage() {
-        return hasSubPackage;
+    public boolean hasSubPackage() {
+        return subPackage;
     }
 
-    public void setHasSubPackage(boolean hasSubPackage) {
-        this.hasSubPackage = hasSubPackage;
+    public void setSubPackage(boolean subPackage) {
+        this.subPackage = subPackage;
     }
 
-    // 保留位[14-15]
+    public boolean isSubPackage() {
+        return subPackage;
+    }
+
     public Integer getReservedBit() {
         return reservedBit;
     }
@@ -146,12 +158,4 @@ public class Header extends org.yzh.framework.message.Header {
     public void setReservedBit(Integer reservedBit) {
         this.reservedBit = reservedBit;
     }
-
-    @Override
-    public Integer getHeaderLength() {
-        if (isHasSubPackage())
-            return 16;
-        return 12;
-    }
-
 }

@@ -16,7 +16,7 @@ import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mapping.Handler;
 import org.yzh.framework.mapping.HandlerMapper;
-import org.yzh.framework.message.Header;
+import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
@@ -51,7 +51,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
                 return;
 
             logger.info("ip= {}", ctx.channel().remoteAddress());
-            Header header = decoder.decodeHeader(headerBodyBuf);
+            AbstractHeader header = decoder.decodeHeader(headerBodyBuf);
             Handler handler = handlerMapper.getHandler(header.getType());
 
             if (handler == null) {
@@ -71,7 +71,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             if (types.length == 1) {
                 result = handler.invoke(body);
             } else {
-                result = handler.invoke(body, sessionManager.findBySessionId(Session.buildId(ctx.channel())));
+                result = handler.invoke(body, sessionManager.getBySessionId(Session.buildId(ctx.channel())));
             }
 
             if (result == null)
@@ -101,7 +101,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         final String sessionId = Session.buildId(ctx.channel());
-        Session session = sessionManager.findBySessionId(sessionId);
+        Session session = sessionManager.getBySessionId(sessionId);
         this.sessionManager.removeBySessionId(sessionId);
         logger.debug("终端断开连接:{}", session);
         ctx.channel().close();
