@@ -6,7 +6,7 @@ import org.yzh.framework.message.PackageData;
 import org.yzh.web.jt808.dto.basics.Header;
 
 /**
- * 终端参数
+ * 终端属性
  */
 public class TerminalAttributeReply extends PackageData<Header> {
 

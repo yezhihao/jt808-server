@@ -1,6 +1,5 @@
 package org.yzh.web.jt808.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
@@ -17,7 +16,6 @@ public class TextMessage extends PackageData<Header> {
 
     private String content;
 
-    @JsonIgnore
     @Property(index = 0, type = DataType.BYTE, desc = "标志")
     public Integer getSign() {
         return sign;

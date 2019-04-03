@@ -1,6 +1,5 @@
 package org.yzh.web.jt808.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
@@ -27,7 +26,6 @@ public class Information extends PackageData<Header> {
         this.type = type;
     }
 
-    @JsonIgnore
     @Property(index = 1, type = DataType.WORD, desc = "信息长度")
     public Integer getLength() {
         if (length == null)

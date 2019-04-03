@@ -1,6 +1,5 @@
 package org.yzh.framework.message;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,7 +14,6 @@ public class PackageData<T extends AbstractHeader> {
         this.header = header;
     }
 
-    @JsonIgnore
     public T getHeader() {
         return header;
     }

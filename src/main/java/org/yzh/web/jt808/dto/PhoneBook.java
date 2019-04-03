@@ -1,6 +1,5 @@
 package org.yzh.web.jt808.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
@@ -93,7 +92,6 @@ public class PhoneBook extends PackageData<Header> {
             this.sign = sign;
         }
 
-        @JsonIgnore
         @Property(index = 1, type = DataType.BYTE, desc = "电话号码长度")
         public Integer getPhoneLength() {
             if (phoneLength == null)

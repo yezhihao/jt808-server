@@ -1,6 +1,5 @@
 package org.yzh.web.jt808.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
@@ -16,16 +15,19 @@ public class QuestionMessage extends PackageData<Header> {
 
     private Integer sign;
 
-    private int[] signs;
-
     private Integer contentLen;
 
     private String content;
 
     private List<Option> options;
 
+    public void buildSign(int[] signs) {
+        int sign = 0;
+        for (int b : signs)
+            sign |= 1 << b;
+        this.sign = sign;
+    }
 
-    @JsonIgnore
     @Property(index = 0, type = DataType.BYTE, desc = "标志")
     public Integer getSign() {
         return sign;
@@ -35,20 +37,6 @@ public class QuestionMessage extends PackageData<Header> {
         this.sign = sign;
     }
 
-    public int[] getSigns() {
-        return signs;
-    }
-
-    public void setSigns(int[] signs) {
-        int sign = 0;
-        for (int b : signs) {
-            sign |= 1 << b;
-        }
-        this.sign = sign;
-        this.signs = signs;
-    }
-
-    //    @JsonIgnore
     @Property(index = 1, type = DataType.BYTE, desc = "问题内容长度")
     public Integer getContentLen() {
         return contentLen;
@@ -58,7 +46,7 @@ public class QuestionMessage extends PackageData<Header> {
         this.contentLen = contentLen;
     }
 
-    @Property(index = 2, lengthName = "length", type = DataType.STRING, desc = "问题")
+    @Property(index = 2, lengthName = "contentLen", type = DataType.STRING, desc = "问题")
     public String getContent() {
         return content;
     }
@@ -68,7 +56,7 @@ public class QuestionMessage extends PackageData<Header> {
         this.content = content;
     }
 
-    @Property(index = 2, indexOffsetName = "length", type = DataType.LIST, desc = "候选答案列表")
+    @Property(index = 2, indexOffsetName = "content", type = DataType.LIST, desc = "候选答案列表")
     public List<Option> getOptions() {
         return options;
     }
@@ -103,7 +91,6 @@ public class QuestionMessage extends PackageData<Header> {
             this.id = id;
         }
 
-        //        @JsonIgnore
         @Property(index = 1, type = DataType.WORD, desc = "答案内容长度")
         public Integer getLength() {
             return length;
@@ -122,6 +109,5 @@ public class QuestionMessage extends PackageData<Header> {
             this.content = content;
             this.length = content.getBytes(Charsets.GBK).length;
         }
-
     }
 }

@@ -1,6 +1,5 @@
 package org.yzh.web.jt808.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
@@ -46,7 +45,6 @@ public class TerminalUpgradePack extends PackageData<Header> {
         this.manufacturerId = manufacturerId;
     }
 
-    @JsonIgnore
     @Property(index = 6, type = DataType.BYTE, desc = "版本号长度")
     public Integer getVersionLen() {
         if (versionLen == null)
@@ -68,7 +66,6 @@ public class TerminalUpgradePack extends PackageData<Header> {
         this.versionLen = version.getBytes(Charsets.GBK).length;
     }
 
-    @JsonIgnore
     @Property(index = 7, indexOffsetName = "versionLen", type = DataType.DWORD, desc = "数据包长度")
     public Long getPacketLen() {
         return packetLen;
@@ -86,5 +83,4 @@ public class TerminalUpgradePack extends PackageData<Header> {
     public void setPacket(byte[] packet) {
         this.packet = packet;
     }
-
 }
