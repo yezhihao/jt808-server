@@ -15,6 +15,8 @@ import org.yzh.web.jt808.dto.basics.Header;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * JT/T 808协议单元测试类
  *
@@ -47,14 +49,16 @@ public class CoderTest {
         String hex2 = transform(bean1);
         PackageData bean2 = transform(clazz, hex2);
 
+        String json1 = JsonUtils.toJson(bean1);
+        String json2 = JsonUtils.toJson(bean2);
         System.out.println(hex1);
         System.out.println(hex2);
-        System.out.println(JsonUtils.toJson(bean1));
-        System.out.println(JsonUtils.toJson(bean2));
+        System.out.println(json1);
+        System.out.println(json2);
         System.out.println();
 
-        assert hex1.equals(hex2);
-        assert JsonUtils.toJson(bean1).equals(JsonUtils.toJson(bean2));
+        assertEquals("hex not equals", hex1, hex2);
+        assertEquals("object not equals", json1, json2);
     }
 
     public static void selfCheck(PackageData<Header> bean1) {
@@ -63,14 +67,16 @@ public class CoderTest {
         PackageData bean2 = transform(bean1.getClass(), hex1);
         String hex2 = transform(bean2);
 
+        String json1 = JsonUtils.toJson(bean1);
+        String json2 = JsonUtils.toJson(bean2);
         System.out.println(hex1);
         System.out.println(hex2);
-        System.out.println(JsonUtils.toJson(bean1));
-        System.out.println(JsonUtils.toJson(bean2));
+        System.out.println(json1);
+        System.out.println(json2);
         System.out.println();
 
-        assert hex1.equals(hex2);
-        assert JsonUtils.toJson(bean1).equals(JsonUtils.toJson(bean2));
+        assertEquals("hex not equals", hex1, hex2);
+        assertEquals("object not equals", json1, json2);
     }
 
     public static Header header() {
@@ -92,11 +98,18 @@ public class CoderTest {
     }
 
 
+    // 终端注册应答 0x8100
+    @Test
+    public void testRegisterResult() {
+        selfCheck(RegisterResult.class, "8100000306476292482425b4000201cd");
+    }
+
+
     // 终端注册 0x0100
     @Test
     public void testRegister() {
-        PackageData bean1 = register();
-        selfCheck(bean1);
+        selfCheck(PositionReport.class, "0100002e064762924824000200000000484f4f5000bfb5b4ef562d31000000000000000000000000000000015a0d5dff02bba64450393939370002");
+        selfCheck(register());
     }
 
     public static PackageData<Header> register() {
@@ -178,5 +191,19 @@ public class CoderTest {
     @Test
     public void testCommonResult() {
         selfCheck(CommonResult.class, "0001000501770184020701840038810300cd");
+    }
+
+
+    // 终端心跳 0x0002
+    @Test
+    public void testTerminalHeartbeat() {
+        selfCheck(TerminalHeartbeat.class, "00020000064762924976042fa7");
+    }
+
+
+    // 文本信息下发 0x8300
+    @Test
+    public void testTextMessage() {
+        selfCheck(TextMessage.class, "830000050647629242562692015445535480");
     }
 }

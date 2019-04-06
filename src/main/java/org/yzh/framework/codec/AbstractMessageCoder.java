@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * 基础消息解码
+ *
+ * @author zhihao.ye (yezhihaoo@gmail.com)
  */
 public abstract class AbstractMessageCoder {
 
@@ -35,7 +37,7 @@ public abstract class AbstractMessageCoder {
                 if (pd.getReadMethod().isAnnotationPresent(Property.class))
                     result.add(pd);
 
-            Collections.sort(result, new PropertyDescriptorComparator());
+            Collections.sort(result, Comparator.comparingInt(pd -> pd.getReadMethod().getAnnotation(Property.class).index()));
             return result.toArray(new PropertyDescriptor[result.size()]);
         });
     }
@@ -56,18 +58,5 @@ public abstract class AbstractMessageCoder {
             if (!"".equals(name))
                 index += (int) BeanUtils.getValue(obj, name, 0);
         return index;
-    }
-
-    private static class PropertyDescriptorComparator implements Comparator<PropertyDescriptor> {
-        @Override
-        public int compare(PropertyDescriptor pd1, PropertyDescriptor pd2) {
-            Property p1 = pd1.getReadMethod().getAnnotation(Property.class);
-            Property p2 = pd2.getReadMethod().getAnnotation(Property.class);
-            if (p1.index() < p2.index())
-                return -1;
-            if (p1.index() > p2.index())
-                return 1;
-            return 0;
-        }
     }
 }

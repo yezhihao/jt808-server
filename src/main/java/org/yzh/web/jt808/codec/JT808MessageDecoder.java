@@ -60,9 +60,7 @@ public class JT808MessageDecoder extends MessageDecoder {
 
         bufList.add(source.slice(low, high - low));
 
-        ByteBuf[] bufs = bufList.toArray(new ByteBuf[bufList.size()]);
-
-        return Unpooled.wrappedBuffer(bufs);
+        return Unpooled.compositeBuffer(bufList.size()).addComponents(bufList);
     }
 
     /**
