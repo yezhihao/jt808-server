@@ -103,7 +103,8 @@ public class Header extends AbstractHeader {
         this.subPackageTotal = subPackageTotal;
     }
 
-    @Property(index = 14, type = DataType.WORD, desc = "包序号,这次发送的这个消息包是分包中的第几个消息包,从1开始")
+    /** 本次发送的子包是分包中的第几个消息包,从1开始 */
+    @Property(index = 14, type = DataType.WORD, desc = "包序号")
     public Integer getSubPackageNumber() {
         //如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
         if (!hasSubPackage())

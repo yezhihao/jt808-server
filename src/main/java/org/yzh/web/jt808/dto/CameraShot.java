@@ -7,6 +7,7 @@ import org.yzh.web.jt808.dto.basics.Header;
 
 /**
  * 摄像头立即拍摄命令
+ * 0x8801
  */
 public class CameraShot extends PackageData<Header> {
 
@@ -24,6 +25,7 @@ public class CameraShot extends PackageData<Header> {
     public CameraShot() {
     }
 
+    /** 大于0 */
     @Property(index = 0, type = DataType.BYTE, desc = "通道ID")
     public Integer getChannelId() {
         return channelId;
@@ -33,6 +35,7 @@ public class CameraShot extends PackageData<Header> {
         this.channelId = channelId;
     }
 
+    /** 0表示停止拍摄 0xFFFF表示录像;其它表示拍照张数 */
     @Property(index = 1, type = DataType.WORD, desc = "拍摄命令")
     public Integer getCommand() {
         return command;
@@ -42,6 +45,7 @@ public class CameraShot extends PackageData<Header> {
         this.command = command;
     }
 
+    /** 秒，0表示按最小间隔拍照或一直录像 */
     @Property(index = 3, type = DataType.WORD, desc = "拍照间隔/录像时间")
     public Integer getParameter() {
         return parameter;
@@ -51,6 +55,7 @@ public class CameraShot extends PackageData<Header> {
         this.parameter = parameter;
     }
 
+    /** 1:保存 0:实时上传 */
     @Property(index = 5, type = DataType.BYTE, desc = "保存标志")
     public Integer getSaveSign() {
         return saveSign;
@@ -60,6 +65,14 @@ public class CameraShot extends PackageData<Header> {
         this.saveSign = saveSign;
     }
 
+    /**0x01: 320*240；
+     * 0x02: 640*480；
+     * 0x03: 800*600；
+     * 0x04: 1024*768；
+     * 0x05: 176*144；[Qcif]；
+     * 0x06: 352*288；[Cif]；
+     * 0x07: 704*288；[HALF D1]；
+     * 0x08: 704*576；[D1]；*/
     @Property(index = 6, type = DataType.BYTE, desc = "分辨率")
     public Integer getResolution() {
         return resolution;
@@ -69,6 +82,7 @@ public class CameraShot extends PackageData<Header> {
         this.resolution = resolution;
     }
 
+    /** 1:代表质量损失最小 10:表示压缩比最大 */
     @Property(index = 7, type = DataType.BYTE, desc = "质量")
     public Integer getQuality() {
         return quality;

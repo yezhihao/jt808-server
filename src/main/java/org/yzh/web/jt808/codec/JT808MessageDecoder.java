@@ -1,7 +1,8 @@
 package org.yzh.web.jt808.codec;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.CompositeByteBuf;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.web.jt808.dto.basics.Header;
@@ -60,7 +61,7 @@ public class JT808MessageDecoder extends MessageDecoder {
 
         bufList.add(source.slice(low, high - low));
 
-        return Unpooled.compositeBuffer(bufList.size()).addComponents(bufList);
+        return new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, bufList.size(), bufList);
     }
 
     /**

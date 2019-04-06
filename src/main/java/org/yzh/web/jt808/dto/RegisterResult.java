@@ -5,53 +5,64 @@ import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.jt808.dto.basics.Header;
 
+/**
+ * 终端注册应答
+ * 0x8100
+ */
 public class RegisterResult extends PackageData<Header> {
 
+    /** 0：成功 */
     public static final int Success = 0;
-    public static final int CarAlreadyRegistered = 1;
-    public static final int CarNotFound = 2;
-    public static final int TerminalAlreadyRegistered = 3;
-    public static final int TerminalNotFound = 4;
+    /** 1：车辆已被注册 */
+    public static final int AlreadyRegisteredVehicle = 1;
+    /** 2：数据库中无该车辆 */
+    public static final int NotFoundVehicle = 2;
+    /** 3：终端已被注册 */
+    public static final int AlreadyRegisteredTerminal = 3;
+    /** 4：数据库中无该终端 */
+    public static final int NotFoundTerminal = 4;
 
-    private Integer flowId;
+    private Integer serialNumber;
     private Integer resultCode;
-    private String replyToken;
+    private String token;
 
     public RegisterResult() {
     }
 
-    public RegisterResult(Header header, Integer resultCode, String replyToken) {
+    public RegisterResult(Header header, Integer resultCode, String token) {
         super(header);
-        this.flowId = header.getSerialNumber();
+        this.serialNumber = header.getSerialNumber();
         this.resultCode = resultCode;
-        this.replyToken = replyToken;
+        this.token = token;
     }
 
-    @Property(index = 0, type = DataType.WORD, desc = "应答流水号,对应的终端注册消息的流水号")
-    public Integer getFlowId() {
-        return flowId;
+    /** 对应的终端注册消息的流水号 */
+    @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    @Property(index = 2, type = DataType.BYTE, desc = "结果（0:成功,1:车辆已被注册,2:数据库中无该车辆）")
+    /** 0-4 */
+    @Property(index = 2, type = DataType.BYTE, desc = "结果")
     public Integer getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(Integer code) {
-        this.resultCode = code;
+    public void setResultCode(Integer resultCode) {
+        this.resultCode = resultCode;
     }
 
-    @Property(index = 3, type = DataType.STRING, desc = "鉴权码,只有在成功后才有该字段")
-    public String getReplyToken() {
-        return replyToken;
+    /** 成功后才有该字段 */
+    @Property(index = 3, type = DataType.STRING, desc = "鉴权码")
+    public String getToken() {
+        return token;
     }
 
-    public void setReplyToken(String token) {
-        this.replyToken = token;
+    public void setToken(String token) {
+        this.token = token;
     }
-
 }

@@ -1,7 +1,5 @@
 package org.yzh.framework.codec;
 
-import static org.yzh.framework.enums.DataType.*;
-
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
@@ -17,6 +15,8 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.yzh.framework.enums.DataType.*;
 
 /**
  * 基础消息解码
@@ -50,7 +50,7 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
                 length = buf.readableBytes();
             Object value = null;
             try {
-                value = read(buf, prop.type(), length, pd);
+                value = read(buf, prop, length, pd);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -59,7 +59,8 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
         return result;
     }
 
-    public Object read(ByteBuf buf, DataType type, int length, PropertyDescriptor pd) {
+    public Object read(ByteBuf buf, Property prop, int length, PropertyDescriptor pd) {
+        DataType type = prop.type();
 
         if (type == BYTE) {
             return (int) buf.readUnsignedByte();
