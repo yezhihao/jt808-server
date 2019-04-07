@@ -1,30 +1,30 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.TerminalParameter;
 
 import java.util.List;
 
-/**
- * 终端参数
- */
+@Type(MessageId.查询终端参数应答)
 public class ParameterSettingReply extends PackageData<Header> {
 
-    private Integer flowId;
-
+    private Integer serialNumber;
     private Integer total;
 
     private List<TerminalParameter> terminalParameters;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Property(index = 2, type = DataType.BYTE, desc = "应答参数个数")
@@ -44,5 +44,4 @@ public class ParameterSettingReply extends PackageData<Header> {
     public void setTerminalParameters(List<TerminalParameter> terminalParameters) {
         this.terminalParameters = terminalParameters;
     }
-
 }

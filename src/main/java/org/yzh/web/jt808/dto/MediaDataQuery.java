@@ -1,23 +1,19 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 存储多媒体数据检索
- */
+@Type(MessageId.存储多媒体数据检索)
 public class MediaDataQuery extends PackageData<Header> {
 
     private Integer type;
-
     private Integer channelId;
-
     private Integer event;
-
     private String startTime;
-
     private String endTime;
 
     @Property(index = 0, type = DataType.BYTE, desc = "多媒体类型:0.图像；1.音频；2.视频；")

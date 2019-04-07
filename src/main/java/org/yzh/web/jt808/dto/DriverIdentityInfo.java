@@ -1,13 +1,13 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 驾驶员身份信息采集上报
- */
+@Type(MessageId.驾驶员身份信息采集上报)
 public class DriverIdentityInfo extends PackageData<Header> {
 
     private Integer status;

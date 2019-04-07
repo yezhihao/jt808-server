@@ -1,23 +1,24 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 终端鉴权消息
- */
+@Type(MessageId.终端鉴权)
 public class Authentication extends PackageData<Header> {
 
-    private String authCode;
+    /** 终端重连后上报鉴权码 */
+    private String token;
 
-    @Property(index = 0, type = DataType.STRING, desc = "鉴权码,终端连接后上报鉴权码")
-    public String getAuthCode() {
-        return authCode;
+    @Property(index = 0, type = DataType.STRING, desc = "鉴权码")
+    public String getToken() {
+        return token;
     }
 
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

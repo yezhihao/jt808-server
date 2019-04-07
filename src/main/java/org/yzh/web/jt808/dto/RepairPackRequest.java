@@ -1,40 +1,38 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 补传分包请求
- */
+@Type(MessageId.补传分包请求)
 public class RepairPackRequest extends PackageData<Header> {
 
-    private Integer originalFlowId;
-
-    private Integer total;
-
+    private Integer serialNumber;
+    private Integer packageTotal;
     private byte[] idList;
 
     public RepairPackRequest() {
     }
 
     @Property(index = 0, type = DataType.WORD, desc = "原始消息流水号")
-    public Integer getOriginalFlowId() {
-        return originalFlowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setOriginalFlowId(Integer originalFlowId) {
-        this.originalFlowId = originalFlowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    @Property(index = 4, type = DataType.BYTE, desc = "原始消息流水号")
-    public Integer getTotal() {
-        return total;
+    @Property(index = 4, type = DataType.BYTE, desc = "重传包总数")
+    public Integer getPackageTotal() {
+        return packageTotal;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setPackageTotal(Integer packageTotal) {
+        this.packageTotal = packageTotal;
     }
 
     @Property(index = 5, type = DataType.BYTES, desc = "重传包ID列表")

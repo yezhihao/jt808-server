@@ -1,32 +1,30 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 设置电话本
- */
+@Type(MessageId.设置电话本)
 public class PhoneBook extends PackageData<Header> {
 
-    //清空
+    /** 清空 */
     public static final int Clean = 0;
-    //更新（删除终端中已有全部联系人并追加消息中的联系人）
+    /** 更新（删除终端中已有全部联系人并追加消息中的联系人） */
     public static final int Update = 1;
-    //追加
+    /** 追加 */
     public static final int Append = 2;
-    //修改
+    /** 修改 */
     public static final int Modify = 3;
 
     private Integer type;
-
     private Integer total;
-
     private List<Item> list;
 
     @Property(index = 0, type = DataType.BYTE, desc = "类型")

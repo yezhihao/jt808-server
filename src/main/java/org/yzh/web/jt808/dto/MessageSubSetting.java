@@ -1,17 +1,17 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 信息点播菜单设置
- */
+@Type(MessageId.信息点播菜单设置)
 public class MessageSubSetting extends PackageData<Header> {
 
     //删除终端全部信息项
@@ -24,9 +24,7 @@ public class MessageSubSetting extends PackageData<Header> {
     public static final int Modify = 3;
 
     private Integer type;
-
     private Integer total;
-
     private List<Item> list;
 
     @Property(index = 0, type = DataType.BYTE, desc = "设置类型")

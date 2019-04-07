@@ -1,21 +1,19 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.List;
 
-/**
- * 定位数据批量上传
- */
+@Type(MessageId.定位数据批量上传)
 public class PositionReportBatch extends PackageData<Header> {
 
     private Integer total;
-
     private Integer type;
-
     private List<Item> list;
 
     @Property(index = 0, type = DataType.WORD, desc = "数据项个数")

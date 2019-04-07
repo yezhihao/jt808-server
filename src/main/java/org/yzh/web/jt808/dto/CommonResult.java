@@ -1,13 +1,13 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 终端&平台 通用应答
- */
+@Type({MessageId.平台通用应答, MessageId.终端通用应答})
 public class CommonResult extends PackageData<Header> {
 
     public static final int Success = 0;

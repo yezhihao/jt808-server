@@ -1,35 +1,25 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 终端属性
- */
+@Type(MessageId.查询终端属性应答)
 public class TerminalAttributeReply extends PackageData<Header> {
 
     private Integer type;
-
     private String manufacturerId;
-
     private String terminalType;
-
     private String terminalId;
-
     private String simId;
-
     private Integer hardwareVersionLen;
-
     private String hardwareVersion;
-
     private String firmwareVersionLen;
-
     private String firmwareVersion;
-
     private Integer gnssAttribute;
-
     private Integer networkAttribute;
 
     @Property(index = 0, type = DataType.BYTE, desc = "终端类型")

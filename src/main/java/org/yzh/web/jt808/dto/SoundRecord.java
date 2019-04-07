@@ -1,13 +1,13 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 摄像头立即拍摄命令
- */
+@Type(MessageId.摄像头立即拍摄命令)
 public class SoundRecord extends PackageData<Header> {
 
     private Integer command;
@@ -18,7 +18,8 @@ public class SoundRecord extends PackageData<Header> {
     public SoundRecord() {
     }
 
-    @Property(index = 0, type = DataType.BYTE, desc = "录音命令:0.停止录音；0x01.开始录音")
+    /** 0：停止录音；0x01：开始录音 */
+    @Property(index = 0, type = DataType.BYTE, desc = "录音命令")
     public Integer getCommand() {
         return command;
     }
@@ -36,7 +37,8 @@ public class SoundRecord extends PackageData<Header> {
         this.parameter = parameter;
     }
 
-    @Property(index = 3, type = DataType.BYTE, desc = "保存标志:0.实时上传；1.保存")
+    /** 0：实时上传；1：保存 */
+    @Property(index = 3, type = DataType.BYTE, desc = "保存标志")
     public Integer getSaveSign() {
         return saveSign;
     }
@@ -45,6 +47,13 @@ public class SoundRecord extends PackageData<Header> {
         this.saveSign = saveSign;
     }
 
+    /**
+     * 0：8K；
+     * 1：11K；
+     * 2：23K；
+     * 3：32K；
+     * 其他保留
+     */
     @Property(index = 4, type = DataType.BYTE, desc = "音频采样率")
     public Integer getAudioSampleRate() {
         return audioSampleRate;

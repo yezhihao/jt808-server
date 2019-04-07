@@ -1,16 +1,16 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 摄像头立即拍摄命令应答
- */
+@Type(MessageId.摄像头立即拍摄命令应答)
 public class CameraShotReply extends PackageData<Header> {
 
-    private Integer flowId;
+    private Integer serialNumber;
     private Integer result;
     private Integer total;
     private byte[] idList;
@@ -19,12 +19,12 @@ public class CameraShotReply extends PackageData<Header> {
     }
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Property(index = 2, type = DataType.BYTE, desc = "结果")

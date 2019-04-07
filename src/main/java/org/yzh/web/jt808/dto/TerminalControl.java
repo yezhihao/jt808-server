@@ -1,17 +1,16 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 终端控制
- */
+@Type(MessageId.终端控制)
 public class TerminalControl extends PackageData<Header> {
 
     private Integer command;
-
     private String parameter;
 
     @Property(index = 0, type = DataType.BYTE, desc = "命令字")

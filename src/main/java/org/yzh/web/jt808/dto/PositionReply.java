@@ -1,44 +1,37 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.PositionAttribute;
 
 import java.util.List;
 
-/**
- * 位置信息查询应答
- */
+@Type(MessageId.位置信息查询应答)
 public class PositionReply extends PackageData<Header> {
 
-    private Integer flowId;
-
+    private Integer serialNumber;
     private Integer warningMark;
-
     private Integer status;
-
     private Long latitude;
-
     private Long longitude;
-
     private Integer altitude;
-
     private Integer speed;
-
     private Integer direction;
-
     private String dateTime;
 
     private List<PositionAttribute> positionAttributes;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Property(index = 2, type = DataType.DWORD, desc = "报警标志")

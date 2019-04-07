@@ -1,14 +1,13 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 摄像头立即拍摄命令
- * 0x8801
- */
+@Type(MessageId.摄像头立即拍摄命令)
 public class CameraShot extends PackageData<Header> {
 
     private Integer channelId;
@@ -65,14 +64,16 @@ public class CameraShot extends PackageData<Header> {
         this.saveSign = saveSign;
     }
 
-    /**0x01: 320*240；
+    /**
+     * 0x01: 320*240；
      * 0x02: 640*480；
      * 0x03: 800*600；
      * 0x04: 1024*768；
      * 0x05: 176*144；[Qcif]；
      * 0x06: 352*288；[Cif]；
      * 0x07: 704*288；[HALF D1]；
-     * 0x08: 704*576；[D1]；*/
+     * 0x08: 704*576；[D1]；
+     */
     @Property(index = 6, type = DataType.BYTE, desc = "分辨率")
     public Integer getResolution() {
         return resolution;

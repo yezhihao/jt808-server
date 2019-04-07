@@ -44,10 +44,6 @@ public class Header extends AbstractHeader {
 
     @Property(index = 2, type = DataType.WORD, desc = "消息体属性")
     public Integer getBodyProperties() {
-        // [0-9] 0000,0011,1111,1111(3FF)(消息体长度)
-        // [10-12] 0001,1100,0000,0000(1C00)(加密类型)
-        // [13] 0010,0000,0000,0000(2000)(是否有子包)
-        // [14-15] 1100,0000,0000,0000(C000)(保留位)
         if (bodyLength >= 1024)
             System.out.println("The max value of msgLen is 1023, but {} ." + bodyLength);
         int subPkg = subPackage ? 1 : 0;
@@ -60,16 +56,18 @@ public class Header extends AbstractHeader {
         return bodyProperties;
     }
 
+    /**
+     * [ 0-9 ] 0000,0011,1111,1111(3FF)(消息体长度)
+     * [10-12] 0001,1100,0000,0000(1C00)(加密类型)
+     * [ 13 ] 0010,0000,0000,0000(2000)(是否有子包)
+     * [14-15] 1100,0000,0000,0000(C000)(保留位)
+     */
     public void setBodyProperties(Integer bodyProperties) {
         this.bodyProperties = bodyProperties;
 
-        // [ 0-9 ] 0000,0011,1111,1111(3FF)(消息体长度)
         this.bodyLength = bodyProperties & 0x3ff;
-        // [10-12] 0001,1100,0000,0000(1C00)(加密类型)
         this.encryptionType = (bodyProperties & 0x1c00) >> 10;
-        // [ 13_ ] 0010,0000,0000,0000(2000)(是否有子包)
         this.subPackage = ((bodyProperties & 0x2000) >> 13) == 1;
-        // [14-15] 1100,0000,0000,0000(C000)(保留位)
         this.reservedBit = ((bodyProperties & 0xc000) >> 14);
     }
 
@@ -91,25 +89,26 @@ public class Header extends AbstractHeader {
         this.serialNumber = serialNumber;
     }
 
+    /**
+     * 本次发送的子包是分包中的第几个消息包,从1开始
+     * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
+     */
     @Property(index = 12, type = DataType.WORD, desc = "消息包总数")
     public Integer getSubPackageTotal() {
-        //如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
-        if (!hasSubPackage())
-            return null;
-        return subPackageTotal;
+        return hasSubPackage() ? subPackageTotal : null;
     }
 
     public void setSubPackageTotal(Integer subPackageTotal) {
         this.subPackageTotal = subPackageTotal;
     }
 
-    /** 本次发送的子包是分包中的第几个消息包,从1开始 */
+    /**
+     * 本次发送的子包是分包中的第几个消息包,从1开始
+     * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
+     */
     @Property(index = 14, type = DataType.WORD, desc = "包序号")
     public Integer getSubPackageNumber() {
-        //如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
-        if (!hasSubPackage())
-            return null;
-        return subPackageNumber;
+        return hasSubPackage() ? subPackageNumber : null;
     }
 
     public void setSubPackageNumber(Integer subPackageNumber) {
@@ -127,9 +126,7 @@ public class Header extends AbstractHeader {
 
     @Override
     public Integer getHeaderLength() {
-        if (hasSubPackage())
-            return 16;
-        return 12;
+        return hasSubPackage() ? 16 : 12;
     }
 
     public Integer getEncryptionType() {

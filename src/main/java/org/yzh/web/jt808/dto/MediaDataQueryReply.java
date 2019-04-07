@@ -1,28 +1,28 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.List;
 
-/**
- * 存储多媒体数据检索应答
- */
+@Type(MessageId.存储多媒体数据检索应答)
 public class MediaDataQueryReply extends PackageData<Header> {
 
-    private Integer flowId;
+    private Integer serialNumber;
     private Integer total;
     private List<Item> list;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Property(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")
@@ -60,7 +60,7 @@ public class MediaDataQueryReply extends PackageData<Header> {
             this.id = id;
         }
 
-        @Property(index = 4, type = DataType.BYTE, desc = "多媒体类型 0：图像；1：音频；2：视频；")
+        @Property(index = 4, type = DataType.BYTE, desc = "多媒体类型 0：图像；1：音频；2：视频")
         public Integer getType() {
             return type;
         }

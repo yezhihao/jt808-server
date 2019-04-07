@@ -1,31 +1,25 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.PositionAttribute;
 
 import java.util.List;
 
-/**
- * 位置信息汇报
- */
+@Type(MessageId.位置信息汇报)
 public class PositionReport extends PackageData<Header> {
 
     private Integer warningMark;
-
     private Integer status;
-
     private Integer latitude;
-
     private Integer longitude;
-
     private Integer altitude;
-
     private Integer speed;
-
     private Integer direction;
-
     private String dateTime;
 
     private List<PositionAttribute> positionAttributes;

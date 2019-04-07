@@ -1,13 +1,13 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 文本信息
- */
+@Type(MessageId.文本信息下发)
 public class TextMessage extends PackageData<Header> {
 
     private Integer sign;

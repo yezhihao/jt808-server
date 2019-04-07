@@ -1,6 +1,6 @@
 package org.yzh.web.jt808.common;
 
-public class JT808MessageCode {
+public class MessageId {
 
     //1.终端通用应答
     public static final int 终端通用应答 = 0x0001;
@@ -58,8 +58,8 @@ public class JT808MessageCode {
     public static final int 提问应答 = 0x0302;
     //28.信息点播菜单设置
     public static final int 信息点播菜单设置 = 0x8303;
-    //29.信息点播取消
-    public static final int 信息点播取消 = 0x0303;
+    //29.信息点播/取消
+    public static final int 信息点播_取消 = 0x0303;
     //30.信息服务
     public static final int 信息服务 = 0x8304;
     //31.电话回拨

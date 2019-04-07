@@ -1,23 +1,19 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 多媒体事件信息上传
- */
+@Type(MessageId.多媒体事件信息上传)
 public class MediaEventReport extends PackageData<Header> {
 
     private Integer id;
-
     private Integer type;
-
     private Integer format;
-
     private Integer event;
-
     private Integer channelId;
 
     @Property(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")

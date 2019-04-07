@@ -1,21 +1,23 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 终端升级通知
- */
+@Type(MessageId.终端升级结果通知)
 public class TerminalUpgradeNotify extends PackageData<Header> {
 
+    /** 终端 */
     public static final int Terminal = 0;
+    /** 道路运输证IC卡 读卡器 */
     public static final int CardReader = 12;
+    /** 北斗卫星定位模块 */
     public static final int Beidou = 52;
 
     private Integer type;
-
     private Integer result;
 
     @Property(index = 0, type = DataType.BYTE, desc = "升级类型")

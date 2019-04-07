@@ -1,29 +1,28 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.MapFence;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 区域设置
- */
+@Type({MessageId.设置圆形区域, MessageId.设置多边形区域, MessageId.设置矩形区域})
 public class MapFenceSetting<T> extends PackageData<Header> {
 
-    //更新（先清空，后追加）
+    /** 更新（先清空，后追加） */
     public static final int Update = 0;
-    //追加
+    /** 追加 */
     public static final int Append = 1;
-    //修改
+    /** 修改 */
     public static final int Modify = 2;
 
     private Integer type;
-
     private Integer total;
-
     private List<T> list;
 
     @Property(index = 0, type = DataType.BYTE, desc = "设置类型")
@@ -67,5 +66,4 @@ public class MapFenceSetting<T> extends PackageData<Header> {
         this.list.add(mapFence);
         this.total = list.size();
     }
-
 }

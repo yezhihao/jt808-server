@@ -1,4 +1,4 @@
-package org.yzh.web.jt808.dto;
+package org.yzh.web.jt808.dto.basics;
 
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;

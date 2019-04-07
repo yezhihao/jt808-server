@@ -1,17 +1,17 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 事件设置
- */
+@Type(MessageId.事件设置)
 public class EventSetting extends PackageData<Header> {
 
     //清空
@@ -67,9 +67,7 @@ public class EventSetting extends PackageData<Header> {
 
     public static class Event {
         private Integer id;
-
         private Integer length;
-
         private String content;
 
         public Event() {

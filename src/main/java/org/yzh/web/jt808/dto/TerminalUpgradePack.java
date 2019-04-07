@@ -1,14 +1,14 @@
 package org.yzh.web.jt808.dto;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
+import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.Header;
 
-/**
- * 下发终端升级包
- */
+@Type(MessageId.下发终端升级包)
 public class TerminalUpgradePack extends PackageData<Header> {
 
     public static final int Terminal = 0;
