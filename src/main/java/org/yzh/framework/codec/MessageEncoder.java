@@ -5,7 +5,6 @@ import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
 
@@ -40,14 +39,17 @@ public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractM
             Object value = BeanUtils.getValue(body, readMethod);
             if (value != null) {
                 Property prop = readMethod.getDeclaredAnnotation(Property.class);
-                write(buf, prop.type(), prop.length(), prop.pad(), value);
+                write(buf, prop, value);
             }
         }
         return buf;
     }
 
-    public void write(ByteBuf buf, DataType type, int length, byte pad, Object value) {
-        switch (type) {
+    public void write(ByteBuf buf, Property prop, Object value) {
+        int length = prop.length();
+        byte pad = prop.pad();
+
+        switch (prop.type()) {
             case BYTE:
                 buf.writeByte((int) value);
                 break;
@@ -82,5 +84,4 @@ public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractM
                 break;
         }
     }
-
 }

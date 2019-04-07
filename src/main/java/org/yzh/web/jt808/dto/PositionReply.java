@@ -10,7 +10,7 @@ import org.yzh.web.jt808.dto.basics.PositionAttribute;
 
 import java.util.List;
 
-@Type(MessageId.位置信息查询应答)
+@Type({MessageId.位置信息查询应答, MessageId.车辆控制应答})
 public class PositionReply extends PackageData<Header> {
 
     private Integer serialNumber;

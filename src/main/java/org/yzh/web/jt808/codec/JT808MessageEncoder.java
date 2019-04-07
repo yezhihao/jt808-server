@@ -43,7 +43,7 @@ public class JT808MessageEncoder extends MessageEncoder<Header> {
     /**
      * 转义处理
      */
-    private static ByteBuf escape(ByteBuf source) {
+    protected ByteBuf escape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 
@@ -76,7 +76,7 @@ public class JT808MessageEncoder extends MessageEncoder<Header> {
     /**
      * 截断转义前报文，并转义
      */
-    private static ByteBuf[] slice(ByteBuf byteBuf, int index, int length) {
+    protected ByteBuf[] slice(ByteBuf byteBuf, int index, int length) {
         byte first = byteBuf.getByte(index + length - 1);
 
         ByteBuf[] bufs = new ByteBuf[2];

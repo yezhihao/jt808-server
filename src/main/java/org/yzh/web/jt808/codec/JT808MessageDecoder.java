@@ -39,7 +39,7 @@ public class JT808MessageDecoder extends MessageDecoder {
     /**
      * 转义还原
      */
-    private static ByteBuf unEscape(ByteBuf source) {
+    protected ByteBuf unEscape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 
@@ -67,7 +67,7 @@ public class JT808MessageDecoder extends MessageDecoder {
     /**
      * 截取转义前报文，并还原转义位
      */
-    private static ByteBuf slice(ByteBuf byteBuf, int index, int length) {
+    protected ByteBuf slice(ByteBuf byteBuf, int index, int length) {
         byte second = byteBuf.getByte(index + length - 1);
         if (second == 0x02)
             byteBuf.setByte(index + length - 2, 0x7e);

@@ -20,7 +20,7 @@ import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.yzh.web.jt808.common.JT808MessageCode.*;
+import static org.yzh.web.jt808.common.MessageId.*;
 
 @Endpoint
 @Component
@@ -34,6 +34,28 @@ public class JT808Endpoint {
 
     @Autowired
     private MessageEncoder encoder;
+
+    //TODO Test
+    public Object send(String mobileNumber, String hexMessage) {
+
+        if (!hexMessage.startsWith("7e"))
+            hexMessage = "7e" + hexMessage + "7e";
+        ByteBuf msg = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hexMessage));
+        Session session = SessionManager.getInstance().getByMobileNumber(mobileNumber);
+
+
+        session.getChannel().writeAndFlush(msg);
+
+        String key = mobileNumber;
+        SyncFuture receive = messageManager.receive(key);
+        try {
+            return receive.get(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            messageManager.remove(key);
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public Object send(PackageData<Header> packageData) {
         return send(packageData, true);
@@ -74,7 +96,7 @@ public class JT808Endpoint {
     public void 查询终端参数应答(ParameterSettingReply packageData) {
         Header header = packageData.getHeader();
         String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getFlowId();
+        Integer replyId = packageData.getSerialNumber();
         messageManager.put(mobileNumber + replyId, packageData);
     }
 
@@ -89,7 +111,7 @@ public class JT808Endpoint {
     public void 位置信息查询应答(PositionReply packageData) {
         Header header = packageData.getHeader();
         String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getFlowId();
+        Integer replyId = packageData.getSerialNumber();
         messageManager.put(mobileNumber + replyId, packageData);
     }
 
@@ -104,7 +126,7 @@ public class JT808Endpoint {
     public void 摄像头立即拍摄命令应答(CameraShotReply packageData) {
         Header header = packageData.getHeader();
         String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getFlowId();
+        Integer replyId = packageData.getSerialNumber();
         messageManager.put(mobileNumber + replyId, packageData);
     }
 
@@ -112,7 +134,7 @@ public class JT808Endpoint {
     public void 存储多媒体数据检索应答(MediaDataQueryReply packageData, Session session) {
         Header header = packageData.getHeader();
         String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getFlowId();
+        Integer replyId = packageData.getSerialNumber();
         messageManager.put(mobileNumber + replyId, packageData);
     }
     //=============================================================
@@ -201,11 +223,11 @@ public class JT808Endpoint {
         return new CommonResult(resultHeader, 提问应答, session.currentFlowId(), CommonResult.Success);
     }
 
-    @Mapping(types = 信息点播取消, desc = "信息点播/取消")
+    @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
     public CommonResult 信息点播取消(MessageSubOperate packageData, Session session) {
         Header header = packageData.getHeader();
         Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 信息点播取消, session.currentFlowId(), CommonResult.Success);
+        return new CommonResult(resultHeader, 信息点播_取消, session.currentFlowId(), CommonResult.Success);
     }
 
     @Mapping(types = 电话回拨, desc = "电话回拨")
