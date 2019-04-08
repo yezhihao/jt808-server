@@ -20,6 +20,8 @@ public abstract class AbstractHeader {
      */
     public abstract Integer getBodyLength();
 
+    public abstract void setBodyLength(Integer bodyLength);
+
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);

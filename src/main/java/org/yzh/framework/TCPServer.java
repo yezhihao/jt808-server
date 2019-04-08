@@ -38,6 +38,13 @@ public class TCPServer {
         this.inboundHandler = new TCPServerHandler(delimiter, messageDecoder, messageEncoder, handlerMapper);
     }
 
+    public TCPServer(int port, byte delimiter, HandlerMapper handlerMapper, MessageDecoder messageDecoder, MessageEncoder messageEncoder, org.yzh.framework.log.Logger logger) {
+        this();
+        this.port = port;
+        this.delimiter = delimiter;
+        this.inboundHandler = new TCPServerHandler(delimiter, messageDecoder, messageEncoder, handlerMapper, logger);
+    }
+
     private void bind() throws Exception {
         this.bossGroup = new NioEventLoopGroup();
         this.workerGroup = new NioEventLoopGroup();

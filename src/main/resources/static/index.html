@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JT/T 808 Server</title>
+    <style>
+        html, body {
+            height: 97%;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #AAA;
+            background-color: #EEE;
+        }
+
+        .message-box {
+            width: 100%;
+            height: 99%;
+            float: right;
+        }
+
+        .message {
+            width: 100%;
+            height: 94%;
+            overflow-x: hidden;
+        }
+        td{
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="message-box">
+        <h4>Console</h4>
+        <div class="message">
+            <table id="tb">
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script type="text/javascript">
+    function Server(callback) {
+        this.websocket;
+
+        if (typeof this.open != "function") {
+
+            Server.prototype.open = function () {
+
+                if ('WebSocket' in window) {
+                    this.websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+                } else {
+                    this.websocket = new SockJS("http://" + window.location.host + "/sockjs");
+                }
+
+                this.websocket.onopen = function (event) {
+                };
+
+                this.websocket.onmessage = function (event) {
+                    callback(event.data);
+                };
+
+                this.websocket.onerror = function (event) {
+                };
+
+                this.websocket.onclose = function (event) {
+                };
+            };
+
+            Server.prototype.close = function () {
+                this.websocket.close();
+            };
+
+            Server.prototype.sendMessage = function (message) {
+                this.websocket.send(message);
+            };
+        }
+    }
+
+    //将消息显示在网页上
+    var table = document.getElementById("tb");
+    var showMessage = function (message) {
+        var row = table.insertRow(0);
+        var cell = row.insertCell(0);
+        cell.appendChild(document.createTextNode(message));
+
+        if (table.rows.length > 100)
+            table.deleteRow(table.rows.length - 1);
+    };
+
+    var server = new Server(showMessage);
+    server.open();
+
+    //监听窗口关闭事件
+    window.onbeforeunload = function () {
+        server.close();
+    };
+</script>
+</html>

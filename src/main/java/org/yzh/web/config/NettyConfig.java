@@ -7,6 +7,7 @@ import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mapping.HandlerMapper;
 import org.yzh.framework.spring.SpringHandlerMapper;
+import org.yzh.web.component.WebLogger;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 
@@ -14,8 +15,8 @@ import org.yzh.web.jt808.codec.JT808MessageEncoder;
 public class NettyConfig {
 
     @Bean
-    public TCPServer TCPServer() {
-        TCPServer server = new TCPServer(7611, (byte) 0x7e, handlerMapper(), messageDecoder(), messageEncoder());
+    public TCPServer TCPServer(WebLogger webLogger) {
+        TCPServer server = new TCPServer(7611, (byte) 0x7e, handlerMapper(), messageDecoder(), messageEncoder(), webLogger);
         server.startServer();
         return server;
     }

@@ -1,5 +1,7 @@
 package org.yzh.framework.mapping;
 
+import org.yzh.framework.message.PackageData;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -20,8 +22,8 @@ public class Handler {
         this.targetMethod = actionMethod;
     }
 
-    public Object invoke(Object... args) throws InvocationTargetException, IllegalAccessException {
-        return targetMethod.invoke(targetObject, args);
+    public <T extends PackageData> T invoke(Object... args) throws InvocationTargetException, IllegalAccessException {
+        return (T) targetMethod.invoke(targetObject, args);
     }
 
     public Class<?>[] getTargetParameterTypes() {

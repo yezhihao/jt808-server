@@ -15,21 +15,13 @@ import org.yzh.web.jt808.dto.basics.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(description = "test")
+@Api(description = "terminal api")
 @Controller
-@RequestMapping
+@RequestMapping("terminal")
 public class TerminalController {
 
     @Autowired
     private JT808Endpoint endpoint;
-
-    @ApiOperation(value = "设置终端参数")
-    @RequestMapping(value = "{terminalId}/test", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult updateParameters(@PathVariable("terminalId") String terminalId, @RequestParam String hex) {
-        CommonResult response = (CommonResult) endpoint.send(terminalId, hex);
-        return response;
-    }
 
     @ApiOperation(value = "设置终端参数")
     @RequestMapping(value = "{terminalId}/parameters", method = RequestMethod.POST)
@@ -156,7 +148,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "电话回拨")
-    @RequestMapping(value = "{terminalId}/callPhone", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/call_phone", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult callPhone(@PathVariable("terminalId") String terminalId, @RequestBody CallPhone body) {
         body.setHeader(new Header(MessageId.电话回拨, terminalId));
@@ -165,7 +157,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "设置电话本")
-    @RequestMapping(value = "{terminalId}/phoneBook", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/phone_book", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult phoneBook(@PathVariable("terminalId") String terminalId, @RequestBody PhoneBook body) {
         body.setHeader(new Header(MessageId.设置电话本, terminalId));
@@ -183,7 +175,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "删除区域")
-    @RequestMapping(value = "{terminalId}/mapFence/remove/{type}", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/map_fence/remove/{type}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult removeMapFence(@PathVariable("terminalId") String terminalId,
                                        @ApiParam("区域类型:1.圆形 2.矩形 3.多边形") @PathVariable("type") int type,
@@ -209,7 +201,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "设置圆形区域")
-    @RequestMapping(value = "{terminalId}/mapFenceRound", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/map_fence_round", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult addMapFenceRound(@PathVariable("terminalId") String terminalId, @RequestBody MapFenceSetting<MapFenceRound> body) {
         body.setHeader(new Header(MessageId.设置圆形区域, terminalId));
@@ -218,7 +210,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "设置矩形区域")
-    @RequestMapping(value = "{terminalId}/mapFenceRectangle", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/map_fence_rectangle", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult addMapFenceRectangle(@PathVariable("terminalId") String terminalId, @RequestBody MapFenceSetting<MapFenceRectangle> body) {
         body.setHeader(new Header(MessageId.设置矩形区域, terminalId));
@@ -227,7 +219,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "设置多边形区域")
-    @RequestMapping(value = "{terminalId}/mapFencePolygon", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/map_fence_polygon", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult addMapFencePolygon(@PathVariable("terminalId") String terminalId, @RequestBody MapFenceSetting<MapFencePolygon> body) {
         body.setHeader(new Header(MessageId.设置多边形区域, terminalId));
@@ -257,7 +249,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "上报驾驶员身份信息请求")
-    @RequestMapping(value = "{terminalId}/driverIdentity", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/driver_identity", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult findDriverIdentityInfo(@PathVariable("terminalId") String terminalId) {
         PackageData body = new ParameterSetting();
@@ -267,7 +259,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "摄像头立即拍摄命令")
-    @RequestMapping(value = "{terminalId}/cameraShot", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/camera_shot", method = RequestMethod.POST)
     @ResponseBody
     public CameraShotReply cameraShot(@PathVariable("terminalId") String terminalId, @RequestBody CameraShot body) {
         body.setHeader(new Header(MessageId.摄像头立即拍摄命令, terminalId));
@@ -276,7 +268,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "存储多媒体数据检索")
-    @RequestMapping(value = "{terminalId}/mediaDataQuery", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/mediadata_query", method = RequestMethod.POST)
     @ResponseBody
     public MediaDataQueryReply mediaDataQuery(@PathVariable("terminalId") String terminalId, @RequestBody MediaDataQuery body) {
         body.setHeader(new Header(MessageId.存储多媒体数据检索, terminalId));
@@ -285,7 +277,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "存储多媒体数据上传命令")
-    @RequestMapping(value = "{terminalId}/mediaDataReportRequest", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/mediadata_report", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult mediaDataReportRequest(@PathVariable("terminalId") String terminalId, @RequestBody MediaDataReportRequest body) {
         body.setHeader(new Header(MessageId.存储多媒体数据上传命令, terminalId));
@@ -294,7 +286,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "录音开始命令")
-    @RequestMapping(value = "{terminalId}/soundRecord", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/sound_record", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult soundRecord(@PathVariable("terminalId") String terminalId, @RequestBody SoundRecord body) {
         body.setHeader(new Header(MessageId.录音开始命令, terminalId));
@@ -303,7 +295,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "单条存储多媒体数据检索上传命令")
-    @RequestMapping(value = "{terminalId}/mediaDataCommand", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/mediadata_command", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult mediaDataCommand(@PathVariable("terminalId") String terminalId, @RequestBody MediaDataCommand body) {
         body.setHeader(new Header(MessageId.单条存储多媒体数据检索上传命令, terminalId));
@@ -321,7 +313,7 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "平台RSA公钥")
-    @RequestMapping(value = "{terminalId}/rsaSwap", method = RequestMethod.POST)
+    @RequestMapping(value = "{terminalId}/rsa_swap", method = RequestMethod.POST)
     @ResponseBody
     public RSAPack rsaSwap(@PathVariable("terminalId") String terminalId, @RequestBody RSAPack body) {
         body.setHeader(new Header(MessageId.平台RSA公钥, terminalId));

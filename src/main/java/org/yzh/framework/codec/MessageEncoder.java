@@ -7,7 +7,6 @@ import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
-import org.yzh.web.jt808.dto.basics.Header;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -29,13 +28,13 @@ public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractM
     /** 签名 */
     public abstract ByteBuf sign(ByteBuf buf);
 
-    public ByteBuf encode(PackageData<Header> body) {
-        ByteBuf bodyBuf = encode(Unpooled.buffer(512), body);
+    public ByteBuf encode(PackageData<T> body) {
+        ByteBuf bodyBuf = encode(Unpooled.buffer(256), body);
 
-        Header header = body.getHeader();
+        AbstractHeader header = body.getHeader();
         header.setBodyLength(bodyBuf.readableBytes());
 
-        ByteBuf headerBuf = encode(Unpooled.buffer(100), header);
+        ByteBuf headerBuf = encode(Unpooled.buffer(16), header);
 
         ByteBuf buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
