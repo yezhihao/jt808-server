@@ -302,7 +302,6 @@ public class BeanUtils {
      *
      * @param rootClass 根对象
      * @param fieldName 属性名
-     * @return
      */
     public static Class getGenericType(Class rootClass, String fieldName) {
         try {
