@@ -210,7 +210,7 @@ public class CoderTest {
     @Test
     public void testCameraShot() {
         selfCheck(cameraShot());
-//        selfCheck(CameraShot.class, "8801000c0647629242524a43010001000a0001057d017d017d017d0123");
+        selfCheck(CameraShot.class, "8801000c0641629242524a43010001000a0001057d017d017d017d0125");
     }
 
     public static CameraShot cameraShot() {

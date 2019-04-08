@@ -26,7 +26,7 @@ public class JT808MessageDecoder extends MessageDecoder {
      */
     @Override
     public int getType(ByteBuf source) {
-        return source.getInt(0);
+        return source.getUnsignedShort(0);
     }
 
     /**
