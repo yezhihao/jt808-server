@@ -24,8 +24,6 @@ public class JT808MessageDecoder extends MessageDecoder {
 
     @Override
     public Header decodeHeader(ByteBuf buf) {
-        buf = unEscape(buf);
-
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
         byte calculatedCheckCode = ByteBufUtils.xor(buf);
@@ -39,7 +37,8 @@ public class JT808MessageDecoder extends MessageDecoder {
     /**
      * 转义还原
      */
-    protected ByteBuf unEscape(ByteBuf source) {
+    @Override
+    public ByteBuf unEscape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 

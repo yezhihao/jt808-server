@@ -30,6 +30,7 @@ public class CoderTest {
 
     public static <T extends PackageData> T transform(Class<T> clazz, String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
+        buf = decoder.unEscape(buf);
         Header header = decoder.decodeHeader(buf);
         ByteBuf slice = buf.slice(header.getHeaderLength(), header.getBodyLength());
         PackageData<Header> body = decoder.decodeBody(slice, clazz);
@@ -81,9 +82,10 @@ public class CoderTest {
 
     public static Header header() {
         Header header = new Header();
-        header.setType(1);
-        header.setMobileNumber("020000000015");
-        header.setSerialNumber(37);
+        header.setType(125);
+        header.setBodyProperties(1);
+        header.setMobileNumber("018276468888");
+        header.setSerialNumber(125);
         header.setEncryptionType(0);
         header.setReservedBit(0);
         return header;
@@ -205,5 +207,29 @@ public class CoderTest {
     @Test
     public void testTextMessage() {
         selfCheck(TextMessage.class, "830000050647629242562692015445535480");
+    }
+
+
+    // 摄像头立即拍摄命令 0x8801
+    @Test
+    public void testCameraShot() {
+        selfCheck(cameraShot());
+//        selfCheck(CameraShot.class, "8801000c0647629242524a43010001000a0001057d017d017d017d0123");
+    }
+
+    public static CameraShot cameraShot() {
+        CameraShot bean = new CameraShot();
+        bean.setHeader(header());
+        bean.setChannelId(125);
+        bean.setCommand(1);
+        bean.setParameter(125);
+        bean.setSaveSign(1);
+        bean.setResolution(125);
+        bean.setQuality(1);
+        bean.setBrightness(125);
+        bean.setContrast(1);
+        bean.setSaturation(125);
+        bean.setChroma(1);
+        return bean;
     }
 }

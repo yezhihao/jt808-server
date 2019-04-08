@@ -27,6 +27,8 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
         super(charset);
     }
 
+    public abstract ByteBuf unEscape(ByteBuf source);
+
     public abstract AbstractHeader decodeHeader(ByteBuf buf);
 
     public <T extends PackageData> T decodeBody(ByteBuf buf, Class<T> targetClass) {

@@ -51,6 +51,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
                 return;
 
             logger.info("ip= {}", ctx.channel().remoteAddress());
+            headerBodyBuf = decoder.unEscape(headerBodyBuf);
             AbstractHeader header = decoder.decodeHeader(headerBodyBuf);
             Handler handler = handlerMapper.getHandler(header.getType());
 
