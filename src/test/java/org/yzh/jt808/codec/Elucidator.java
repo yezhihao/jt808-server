@@ -7,6 +7,7 @@ import org.yzh.framework.annotation.Property;
 import org.yzh.framework.message.PackageData;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
+import org.yzh.web.jt808.dto.CameraShot;
 import org.yzh.web.jt808.dto.PositionReport;
 import org.yzh.web.jt808.dto.basics.Header;
 
@@ -29,19 +30,20 @@ public class Elucidator extends JT808MessageDecoder {
     public static void main(String[] args) {
         Class<? extends PackageData> clazz = PositionReport.class;
         String hex = "0200002d010000000000007b000000070000000600000001000000020003000400051904061915541206000000000000110100e3040000000bfe";
-        System.out.println(hex);
 
-        PackageData<Header> body = elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)), Header.class, clazz);
+        System.out.println(hex);
+        System.out.println();
+        elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)), Header.class, clazz);
     }
 
     @Override
     public Object read(ByteBuf buf, Property prop, int length, PropertyDescriptor pd) {
         buf.markReaderIndex();
-        System.out.print("\n" + prop.index() + "\t" + ByteBufUtil.hexDump(buf.readSlice(length)) + "\t\t" + prop.desc() + "\t");
+        String hex = ByteBufUtil.hexDump(buf.readSlice(length));
         buf.resetReaderIndex();
 
         Object value = super.read(buf, prop, length, pd);
-        System.out.print(value);
+        System.out.println(prop.index() + "\t" + hex + "\t" + prop.desc() + "\t" + String.valueOf(value));
         return value;
     }
 }
