@@ -16,10 +16,10 @@ import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mapping.Handler;
 import org.yzh.framework.mapping.HandlerMapper;
-import org.yzh.framework.message.AbstractHeader;
 import org.yzh.framework.message.PackageData;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
+import org.yzh.web.jt808.dto.basics.Header;
 
 @ChannelHandler.Sharable
 public class TCPServerHandler extends ChannelInboundHandlerAdapter {
@@ -51,33 +51,32 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
                 return;
 
             logger.info("ip= {}", ctx.channel().remoteAddress());
-            headerBodyBuf = decoder.unEscape(headerBodyBuf);
-            AbstractHeader header = decoder.decodeHeader(headerBodyBuf);
-            Handler handler = handlerMapper.getHandler(header.getType());
 
+            int type = decoder.getType(headerBodyBuf);
+
+            Handler handler = handlerMapper.getHandler(type);
             if (handler == null) {
-                logger.info("未知消息={}", header);
+                logger.info("未知消息={}", type);
                 return;
             }
 
             Class<?>[] types = handler.getTargetParameterTypes();
             Class<? extends PackageData> targetClass = (Class<? extends PackageData>) types[0];
 
-            ByteBuf bodyBuf = headerBodyBuf.slice(header.getHeaderLength(), header.getBodyLength());
-            PackageData body = decoder.decodeBody(bodyBuf, targetClass);
-            body.setHeader(header);
-            logger.info("{}in,hex:{}\n{}", handler, ByteBufUtil.hexDump(headerBodyBuf), body);
+            PackageData packageData = decoder.decode(headerBodyBuf, Header.class, targetClass);
+
+            logger.info("{}in,hex:{}\n{}", handler, ByteBufUtil.hexDump(headerBodyBuf), packageData);
 
             Object result;
             if (types.length == 1) {
-                result = handler.invoke(body);
+                result = handler.invoke(packageData);
             } else {
-                result = handler.invoke(body, sessionManager.getBySessionId(Session.buildId(ctx.channel())));
+                result = handler.invoke(packageData, sessionManager.getBySessionId(Session.buildId(ctx.channel())));
             }
 
             if (result == null)
                 return;
-            ByteBuf resultBuf = encoder.encodeAll((PackageData) result);
+            ByteBuf resultBuf = encoder.encode((PackageData) result);
             logger.info("{}out,hex:{}\n{}", handler, ByteBufUtil.hexDump(resultBuf), result);
             ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{delimiter}), resultBuf, Unpooled.wrappedBuffer(new byte[]{delimiter}));
             ChannelFuture future = ctx.channel().writeAndFlush(allResultBuf).sync();

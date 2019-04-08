@@ -5,7 +5,6 @@ import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.web.jt808.dto.basics.Header;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,20 +21,28 @@ public class JT808MessageDecoder extends MessageDecoder {
         super(charset);
     }
 
+    /**
+     * 获取消息类型
+     */
     @Override
-    public Header decodeHeader(ByteBuf buf) {
+    public int getType(ByteBuf source) {
+        return source.getInt(0);
+    }
+
+    /**
+     * 校验
+     */
+    @Override
+    public boolean check(ByteBuf buf) {
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
         byte calculatedCheckCode = ByteBufUtils.xor(buf);
 
-        if (checkCode != calculatedCheckCode)
-            System.out.println("校验码错误,checkCode=" + checkCode + ",calculatedCheckCode" + calculatedCheckCode);
-
-        return decode(buf, Header.class);
+        return checkCode != calculatedCheckCode;
     }
 
     /**
-     * 转义还原
+     * 反转义
      */
     @Override
     public ByteBuf unEscape(ByteBuf source) {

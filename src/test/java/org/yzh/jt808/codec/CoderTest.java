@@ -30,16 +30,12 @@ public class CoderTest {
 
     public static <T extends PackageData> T transform(Class<T> clazz, String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        buf = decoder.unEscape(buf);
-        Header header = decoder.decodeHeader(buf);
-        ByteBuf slice = buf.slice(header.getHeaderLength(), header.getBodyLength());
-        PackageData<Header> body = decoder.decodeBody(slice, clazz);
-        body.setHeader(header);
+        PackageData<Header> body = decoder.decode(buf, Header.class, clazz);
         return (T) body;
     }
 
     public static String transform(PackageData<Header> packageData) {
-        ByteBuf buf = encoder.encodeAll(packageData);
+        ByteBuf buf = encoder.encode(packageData);
         String hex = ByteBufUtil.hexDump(buf);
         return hex;
     }

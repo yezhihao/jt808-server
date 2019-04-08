@@ -67,7 +67,7 @@ public class JT808Endpoint {
         Session session = sessionManager.getByMobileNumber(mobileNumber);
         header.setSerialNumber(session.currentFlowId());
 
-        ByteBuf buf = encoder.encodeAll(packageData);
+        ByteBuf buf = encoder.encode(packageData);
         logger.info("{}out,hex:{}\n{}", header.getType(), ByteBufUtil.hexDump(buf), packageData);
         ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{0x7e}), buf, Unpooled.wrappedBuffer(new byte[]{0x7e}));
         session.getChannel().writeAndFlush(allResultBuf);

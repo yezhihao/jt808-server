@@ -29,14 +29,9 @@ public class Elucidator extends JT808MessageDecoder {
     public static void main(String[] args) {
         Class<? extends PackageData> clazz = PositionReport.class;
         String hex = "0200002d010000000000007b000000070000000600000001000000020003000400051904061915541206000000000000110100e3040000000bfe";
-
         System.out.println(hex);
-        ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        Header header = elucidator.decodeHeader(buf);
-        System.out.println();
-        ByteBuf slice = buf.slice(header.getHeaderLength(), header.getBodyLength());
-        PackageData<Header> body = elucidator.decodeBody(slice, clazz);
-        body.setHeader(header);
+
+        PackageData<Header> body = elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)), Header.class, clazz);
     }
 
     @Override

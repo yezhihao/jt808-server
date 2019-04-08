@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.framework.message.PackageData;
 import org.yzh.web.jt808.dto.basics.Header;
 
 import java.nio.charset.Charset;
@@ -23,27 +22,16 @@ public class JT808MessageEncoder extends MessageEncoder<Header> {
     }
 
     @Override
-    public ByteBuf encodeAll(PackageData<Header> body) {
-        ByteBuf bodyBuf = encode(body);
-
-        Header header = body.getHeader();
-        header.setBodyLength(bodyBuf.readableBytes());
-
-        ByteBuf headerBuf = encode(header);
-
-        ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
-        byte checkCode = ByteBufUtils.xor(allBuf);
-
-        allBuf.writeByte(checkCode);
-        allBuf = escape(allBuf);
-
-        return allBuf;
+    public ByteBuf sign(ByteBuf buf) {
+        byte checkCode = ByteBufUtils.xor(buf);
+        buf.writeByte(checkCode);
+        return buf;
     }
 
     /**
      * 转义处理
      */
-    protected ByteBuf escape(ByteBuf source) {
+    public ByteBuf escape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 

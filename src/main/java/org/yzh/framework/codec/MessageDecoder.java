@@ -1,6 +1,7 @@
 package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
@@ -20,6 +21,8 @@ import static org.yzh.framework.enums.DataType.*;
 
 /**
  * 基础消息解码
+ *
+ * @author zhihao.ye (yezhihaoo@gmail.com)
  */
 public abstract class MessageDecoder extends AbstractMessageCoder {
 
@@ -27,17 +30,33 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
         super(charset);
     }
 
-    public abstract ByteBuf unEscape(ByteBuf source);
+    /** 获取消息类型 */
+    public abstract int getType(ByteBuf buf);
 
-    public abstract AbstractHeader decodeHeader(ByteBuf buf);
+    /** 反转义 */
+    public abstract ByteBuf unEscape(ByteBuf buf);
 
-    public <T extends PackageData> T decodeBody(ByteBuf buf, Class<T> targetClass) {
-        return decode(buf, targetClass);
+    /** 校验 */
+    public abstract boolean check(ByteBuf buf);
+
+    /** 解析 */
+    public <T extends PackageData> T decode(ByteBuf buf, Class<? extends AbstractHeader> headerClass, Class<T> bodyClass) {
+        buf = unEscape(buf);
+
+        if (check(buf))
+            System.out.println("校验码错误" + ByteBufUtil.hexDump(buf));
+
+        AbstractHeader header = decode(buf, headerClass);
+
+        ByteBuf bodyBuf = buf.slice(header.getHeaderLength(), header.getBodyLength());
+
+        T packageData = decode(bodyBuf, bodyClass);
+        packageData.setHeader(header);
+        return packageData;
     }
 
     public <T> T decode(ByteBuf buf, Class<T> targetClass) {
         T result = BeanUtils.newInstance(targetClass);
-
 
         PropertyDescriptor[] pds = getPropertyDescriptor(targetClass);
         for (PropertyDescriptor pd : pds) {
