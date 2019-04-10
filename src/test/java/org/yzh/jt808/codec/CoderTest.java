@@ -5,12 +5,13 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
 import org.yzh.framework.commons.transform.JsonUtils;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.message.AbstractMessage;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 import org.yzh.web.jt808.dto.*;
-import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +29,23 @@ public class CoderTest {
 
     private static final JT808MessageEncoder encoder = new JT808MessageEncoder(Charsets.GBK);
 
-    public static <T extends PackageData> T transform(Class<T> clazz, String hex) {
+    public static <T extends AbstractBody> AbstractMessage<T> transform(Class<T> clazz, String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        PackageData<Header> body = decoder.decode(buf, Header.class, clazz);
-        return (T) body;
+        AbstractMessage<T> bean = decoder.decode(buf, Message.class, clazz);
+        return bean;
     }
 
-    public static String transform(PackageData<Header> packageData) {
-        ByteBuf buf = encoder.encode(packageData);
+    public static String transform(AbstractMessage bean) {
+        ByteBuf buf = encoder.encode(bean);
         String hex = ByteBufUtil.hexDump(buf);
         return hex;
     }
 
-    public static void selfCheck(Class<? extends PackageData> clazz, String hex1) {
-        PackageData bean1 = transform(clazz, hex1);
+    public static void selfCheck(Class<? extends AbstractBody> clazz, String hex1) {
+        AbstractMessage bean1 = transform(clazz, hex1);
 
         String hex2 = transform(bean1);
-        PackageData bean2 = transform(clazz, hex2);
+        AbstractMessage bean2 = transform(clazz, hex2);
 
         String json1 = JsonUtils.toJson(bean1);
         String json2 = JsonUtils.toJson(bean2);
@@ -58,10 +59,10 @@ public class CoderTest {
         assertEquals("object not equals", json1, json2);
     }
 
-    public static void selfCheck(PackageData<Header> bean1) {
+    public static void selfCheck(AbstractMessage bean1) {
         String hex1 = transform(bean1);
 
-        PackageData bean2 = transform(bean1.getClass(), hex1);
+        AbstractMessage bean2 = transform(bean1.getBody().getClass(), hex1);
         String hex2 = transform(bean2);
 
         String json1 = JsonUtils.toJson(bean1);
@@ -76,15 +77,16 @@ public class CoderTest {
         assertEquals("object not equals", json1, json2);
     }
 
-    public static Header header() {
-        Header header = new Header();
-        header.setType(125);
-        header.setBodyProperties(1);
-        header.setMobileNumber("018276468888");
-        header.setSerialNumber(125);
-        header.setEncryptionType(0);
-        header.setReservedBit(0);
-        return header;
+    public static Message newMessage(AbstractBody body) {
+        Message message = new Message();
+        message.setType(125);
+        message.setBodyProperties(1);
+        message.setMobileNumber("018276468888");
+        message.setSerialNumber(125);
+        message.setEncryptionType(0);
+        message.setReservedBit(0);
+        message.setBody(body);
+        return message;
     }
 
 
@@ -110,17 +112,16 @@ public class CoderTest {
         selfCheck(register());
     }
 
-    public static PackageData<Header> register() {
-        Register b = new Register();
-        b.setHeader(header());
-        b.setProvinceId(44);
-        b.setCityId(307);
-        b.setManufacturerId("测试");
-        b.setTerminalType("TEST");
-        b.setTerminalId("粤B8888");
-        b.setLicensePlateColor(0);
-        b.setLicensePlate("粤B8888");
-        return b;
+    public static Message register() {
+        Register bean = new Register();
+        bean.setProvinceId(44);
+        bean.setCityId(307);
+        bean.setManufacturerId("测试");
+        bean.setTerminalType("TEST");
+        bean.setTerminalId("粤B8888");
+        bean.setLicensePlateColor(0);
+        bean.setLicensePlate("粤B8888");
+        return newMessage(bean);
     }
 
 
@@ -132,10 +133,9 @@ public class CoderTest {
         selfCheck(questionMessage());
     }
 
-    public static PackageData<Header> questionMessage() {
+    public static Message questionMessage() {
         QuestionMessage bean = new QuestionMessage();
         List<QuestionMessage.Option> options = new ArrayList();
-        bean.setHeader(header());
 
         bean.buildSign(new int[]{1});
         bean.setContent("123");
@@ -143,7 +143,7 @@ public class CoderTest {
 
         options.add(new QuestionMessage.Option(1, "asd1"));
         options.add(new QuestionMessage.Option(2, "zxc2"));
-        return bean;
+        return newMessage(bean);
     }
 
 
@@ -155,14 +155,13 @@ public class CoderTest {
         selfCheck(phoneBook());
     }
 
-    public static PhoneBook phoneBook() {
+    public static Message phoneBook() {
         PhoneBook bean = new PhoneBook();
-        bean.setHeader(header());
         bean.setType(PhoneBook.Append);
         bean.add(new PhoneBook.Item(2, "18217341802", "张三"));
         bean.add(new PhoneBook.Item(1, "123123", "李四"));
         bean.add(new PhoneBook.Item(3, "123123", "王五"));
-        return bean;
+        return newMessage(bean);
     }
 
 
@@ -174,16 +173,14 @@ public class CoderTest {
         selfCheck(eventSetting());
     }
 
-    public static EventSetting eventSetting() {
+    public static Message eventSetting() {
         EventSetting bean = new EventSetting();
-        bean.setHeader(header());
         bean.setType(EventSetting.Append);
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
         bean.addEvent(3, "t试2");
-        return bean;
+        return newMessage(bean);
     }
-
 
     // 终端&平台通用应答 0x0001 0x8001
     @Test
@@ -213,19 +210,18 @@ public class CoderTest {
         selfCheck(CameraShot.class, "8801000c0641629242524a43010001000a0001057d017d017d017d0125");
     }
 
-    public static CameraShot cameraShot() {
-        CameraShot bean = new CameraShot();
-        bean.setHeader(header());
-        bean.setChannelId(125);
-        bean.setCommand(1);
-        bean.setParameter(125);
-        bean.setSaveSign(1);
-        bean.setResolution(125);
-        bean.setQuality(1);
-        bean.setBrightness(125);
-        bean.setContrast(1);
-        bean.setSaturation(125);
-        bean.setChroma(1);
-        return bean;
+    public static Message<CameraShot> cameraShot() {
+        CameraShot body = new CameraShot();
+        body.setChannelId(125);
+        body.setCommand(1);
+        body.setParameter(125);
+        body.setSaveSign(1);
+        body.setResolution(125);
+        body.setQuality(1);
+        body.setBrightness(125);
+        body.setContrast(1);
+        body.setSaturation(125);
+        body.setChroma(1);
+        return newMessage(body);
     }
 }

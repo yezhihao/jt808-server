@@ -4,12 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
-import org.yzh.web.jt808.dto.CameraShot;
 import org.yzh.web.jt808.dto.PositionReport;
-import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.Message;
 
 import java.beans.PropertyDescriptor;
 import java.nio.charset.Charset;
@@ -28,12 +27,12 @@ public class Elucidator extends JT808MessageDecoder {
     }
 
     public static void main(String[] args) {
-        Class<? extends PackageData> clazz = PositionReport.class;
+        Class<? extends AbstractBody> clazz = PositionReport.class;
         String hex = "0200002d010000000000007b000000070000000600000001000000020003000400051904061915541206000000000000110100e3040000000bfe";
 
         System.out.println(hex);
         System.out.println();
-        elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)), Header.class, clazz);
+        elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)), Message.class, clazz);
     }
 
     @Override

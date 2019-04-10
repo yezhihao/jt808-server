@@ -4,7 +4,10 @@ import io.netty.buffer.ByteBuf;
 
 public class ByteBufUtils {
 
-    public static byte xor(ByteBuf byteBuf) {
+    /**
+     * BCC校验(异或校验)
+     */
+    public static byte bcc(ByteBuf byteBuf) {
         byte cs = 0;
         while (byteBuf.isReadable())
             cs ^= byteBuf.readByte();

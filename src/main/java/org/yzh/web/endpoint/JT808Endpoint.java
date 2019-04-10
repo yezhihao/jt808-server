@@ -10,14 +10,15 @@ import org.springframework.stereotype.Component;
 import org.yzh.framework.annotation.Endpoint;
 import org.yzh.framework.annotation.Mapping;
 import org.yzh.framework.codec.MessageEncoder;
-import org.yzh.framework.message.PackageData;
 import org.yzh.framework.message.SyncFuture;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.web.jt808.dto.*;
-import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.Message;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.yzh.web.jt808.common.MessageId.*;
@@ -57,22 +58,21 @@ public class JT808Endpoint {
         return null;
     }
 
-    public Object send(PackageData<Header> packageData) {
-        return send(packageData, true);
+    public Object send(Message message) {
+        return send(message, true);
     }
 
-    public Object send(PackageData<Header> packageData, boolean hasReplyFlowIdId) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
+    public Object send(Message message, boolean hasReplyFlowIdId) {
+        String mobileNumber = message.getMobileNumber();
         Session session = sessionManager.getByMobileNumber(mobileNumber);
-        header.setSerialNumber(session.currentFlowId());
+        message.setSerialNumber(session.currentFlowId());
 
-        ByteBuf buf = encoder.encode(packageData);
-        logger.info("{}out,hex:{}\n{}", header.getType(), ByteBufUtil.hexDump(buf), packageData);
+        ByteBuf buf = encoder.encode(message);
+        logger.info("{}out,hex:{}\n{}", message.getType(), ByteBufUtil.hexDump(buf));
         ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{0x7e}), buf, Unpooled.wrappedBuffer(new byte[]{0x7e}));
         session.getChannel().writeAndFlush(allResultBuf);
 
-        String key = mobileNumber + (hasReplyFlowIdId ? header.getSerialNumber() : "");
+        String key = mobileNumber + (hasReplyFlowIdId ? message.getSerialNumber() : "");
         SyncFuture receive = messageManager.receive(key);
         try {
             return receive.get(5, TimeUnit.SECONDS);
@@ -85,311 +85,240 @@ public class JT808Endpoint {
 
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public void 终端通用应答(CommonResult packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getFlowId();
-        messageManager.put(mobileNumber + replyId, packageData);
+    public void 终端通用应答(Message<CommonResult> message) {
+        CommonResult body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        Integer replyId = body.getReplyId();
+        messageManager.put(mobileNumber + replyId, message);
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
-    public void 查询终端参数应答(ParameterSettingReply packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getSerialNumber();
-        messageManager.put(mobileNumber + replyId, packageData);
+    public void 查询终端参数应答(Message<ParameterSettingReply> message) {
+        ParameterSettingReply body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        Integer replyId = message.getSerialNumber();
+        messageManager.put(mobileNumber + replyId, message);
     }
 
     @Mapping(types = 查询终端属性应答, desc = "查询终端属性应答")
-    public void 查询终端属性应答(TerminalAttributeReply packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        messageManager.put(mobileNumber, packageData);
+    public void 查询终端属性应答(Message<TerminalAttributeReply> message) {
+        TerminalAttributeReply body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        messageManager.put(mobileNumber, message);
     }
 
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")
-    public void 位置信息查询应答(PositionReply packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getSerialNumber();
-        messageManager.put(mobileNumber + replyId, packageData);
+    public void 位置信息查询应答(Message<PositionReply> message) {
+        PositionReply body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        Integer replyId = message.getSerialNumber();
+        messageManager.put(mobileNumber + replyId, message);
     }
 
     @Mapping(types = 终端RSA公钥, desc = "终端RSA公钥")
-    public void 终端RSA公钥(RSAPack packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        messageManager.put(mobileNumber, packageData);
+    public void 终端RSA公钥(Message<RSAPack> message) {
+        RSAPack body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        messageManager.put(mobileNumber, message);
     }
 
     @Mapping(types = 摄像头立即拍摄命令应答, desc = "摄像头立即拍摄命令应答")
-    public void 摄像头立即拍摄命令应答(CameraShotReply packageData) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getSerialNumber();
-        messageManager.put(mobileNumber + replyId, packageData);
+    public void 摄像头立即拍摄命令应答(Message<CameraShotReply> message) {
+        CameraShotReply body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        Integer replyId = message.getSerialNumber();
+        messageManager.put(mobileNumber + replyId, message);
     }
 
     @Mapping(types = 存储多媒体数据检索应答, desc = "存储多媒体数据检索应答")
-    public void 存储多媒体数据检索应答(MediaDataQueryReply packageData, Session session) {
-        Header header = packageData.getHeader();
-        String mobileNumber = header.getMobileNumber();
-        Integer replyId = packageData.getSerialNumber();
-        messageManager.put(mobileNumber + replyId, packageData);
+    public void 存储多媒体数据检索应答(Message<MediaDataQueryReply> message, Session session) {
+        MediaDataQueryReply body = message.getBody();
+        String mobileNumber = message.getMobileNumber();
+        Integer replyId = message.getSerialNumber();
+        messageManager.put(mobileNumber + replyId, message);
     }
     //=============================================================
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
-    public CommonResult heartBeat(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
+    public CommonResult heartBeat(Message message, Session session) {
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
         //TODO
-        CommonResult result = new CommonResult(resultHeader, 终端心跳, session.currentFlowId(), CommonResult.Success);
+        CommonResult result = new CommonResult(终端心跳, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 补传分包请求, desc = "补传分包请求")
-    public CommonResult 补传分包请求(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 补传分包请求, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 补传分包请求(Message<RepairPackRequest> message, Session session) {
+        RepairPackRequest body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(补传分包请求, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
-    public RegisterResult register(Register packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(终端注册应答, session.currentFlowId(), header.getMobileNumber());
+    public RegisterResult register(Message<Register> message, Session session) {
+        Register body = message.getBody();
+        Message resultHeader = new Message(终端注册应答, session.currentFlowId(), message.getMobileNumber());
         //TODO
-        session.setTerminalId(header.getMobileNumber());
+        session.setTerminalId(message.getMobileNumber());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        RegisterResult result = new RegisterResult(resultHeader, RegisterResult.Success, "111");
+        RegisterResult result = new RegisterResult(resultHeader.getSerialNumber(), RegisterResult.Success, "111");
         return result;
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
-    public CommonResult 终端注销(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        CommonResult result = new CommonResult(resultHeader, 终端注销, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 终端注销(Message message, Session session) {
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        CommonResult result = new CommonResult(终端注销, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public CommonResult authentication(Authentication packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
+    public CommonResult authentication(Message<Authentication> message, Session session) {
+        Authentication body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
         //TODO
-        session.setTerminalId(header.getMobileNumber());
+        session.setTerminalId(message.getMobileNumber());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        CommonResult result = new CommonResult(resultHeader, 终端鉴权, session.currentFlowId(), CommonResult.Success);
+        CommonResult result = new CommonResult(终端鉴权, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 终端升级结果通知, desc = "终端升级结果通知")
-    public CommonResult 终端升级结果通知(TerminalUpgradeNotify packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        CommonResult result = new CommonResult(resultHeader, 终端升级结果通知, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 终端升级结果通知(Message<TerminalUpgradeNotify> message, Session session) {
+        TerminalUpgradeNotify body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        CommonResult result = new CommonResult(终端升级结果通知, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
-    public CommonResult 位置信息汇报(PositionReport packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        CommonResult result = new CommonResult(resultHeader, 位置信息汇报, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 位置信息汇报(Message<PositionReport> message, Session session) {
+        PositionReport body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        CommonResult result = new CommonResult(位置信息汇报, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 人工确认报警消息, desc = "人工确认报警消息")
-    public CommonResult 人工确认报警消息(WarningMessage packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        CommonResult result = new CommonResult(resultHeader, 位置信息汇报, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 人工确认报警消息(Message<WarningMessage> message, Session session) {
+        WarningMessage body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        CommonResult result = new CommonResult(位置信息汇报, message.getSerialNumber(), CommonResult.Success);
         return result;
     }
 
     @Mapping(types = 事件报告, desc = "事件报告")
-    public CommonResult 事件报告(EventReport packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 事件报告, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 事件报告(Message<EventReport> message, Session session) {
+        EventReport body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(事件报告, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 提问应答, desc = "提问应答")
-    public CommonResult 提问应答(QuestionMessageReply packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 提问应答, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 提问应答(Message<QuestionMessageReply> message, Session session) {
+        QuestionMessageReply body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(提问应答, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
-    public CommonResult 信息点播取消(MessageSubOperate packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 信息点播_取消, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 信息点播取消(Message<MessageSubOperate> message, Session session) {
+        MessageSubOperate body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(信息点播_取消, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 电话回拨, desc = "电话回拨")
-    public CommonResult 电话回拨(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 电话回拨, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 电话回拨(Message<CallPhone> message, Session session) {
+        CallPhone body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(电话回拨, message.getSerialNumber(), CommonResult.Success);
     }
 
-    @Mapping(types = 设置电话本, desc = "设置电话本")
-    public CommonResult 设置电话本(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 设置电话本, session.currentFlowId(), CommonResult.Success);
-    }
-
-
-    @Mapping(types = 设置圆形区域, desc = "设置圆形区域")
-    public CommonResult 设置圆形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 设置圆形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 删除圆形区域, desc = "删除圆形区域")
-    public CommonResult 删除圆形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 删除圆形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 设置矩形区域, desc = "设置矩形区域")
-    public CommonResult 设置矩形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 设置矩形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 删除矩形区域, desc = "删除矩形区域")
-    public CommonResult 删除矩形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 删除矩形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 设置多边形区域, desc = "设置多边形区域")
-    public CommonResult 设置多边形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 设置多边形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 删除多边形区域, desc = "删除多边形区域")
-    public CommonResult 删除多边形区域(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 删除多边形区域, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 设置路线, desc = "设置路线")
-    public CommonResult 设置路线(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 设置路线, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 删除路线, desc = "删除路线")
-    public CommonResult 删除路线(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 删除路线, session.currentFlowId(), CommonResult.Success);
-    }
-
-    @Mapping(types = 行驶记录仪数据采集命令, desc = "行驶记录仪数据采集命令")
-    public CommonResult 行驶记录仪数据采集命令(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 行驶记录仪数据采集命令, session.currentFlowId(), CommonResult.Success);
-    }
 
     @Mapping(types = 行驶记录仪数据上传, desc = "行驶记录仪数据上传")
-    public CommonResult 行驶记录仪数据上传(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 行驶记录仪数据上传, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 行驶记录仪数据上传(Message message, Session session) {
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(行驶记录仪数据上传, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 行驶记录仪参数下传命令, desc = "行驶记录仪参数下达命令")
-    public CommonResult 行驶记录仪参数下传命令(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 行驶记录仪参数下传命令, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 行驶记录仪参数下传命令(Message message, Session session) {
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(行驶记录仪参数下传命令, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
-    public CommonResult 电子运单上报(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 电子运单上报, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 电子运单上报(Message message, Session session) {
+        //TODO
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(电子运单上报, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
-    public CommonResult 驾驶员身份信息采集上报(DriverIdentityInfo packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 驾驶员身份信息采集上报, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 驾驶员身份信息采集上报(Message<DriverIdentityInfo> message, Session session) {
+        DriverIdentityInfo body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(驾驶员身份信息采集上报, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
-    public CommonResult 定位数据批量上传(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 定位数据批量上传, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 定位数据批量上传(Message<PositionReportBatch> message, Session session) {
+        PositionReportBatch body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(定位数据批量上传, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = CAN总线数据上传, desc = "定位数据批量上传")
-    public CommonResult CAN总线数据上传(CANBusReport packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, CAN总线数据上传, session.currentFlowId(), CommonResult.Success);
+    public CommonResult CAN总线数据上传(Message<CANBusReport> message, Session session) {
+        CANBusReport body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(CAN总线数据上传, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 多媒体事件信息上传, desc = "多媒体事件信息上传")
-    public CommonResult 多媒体事件信息上传(MediaEventReport packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 多媒体事件信息上传, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 多媒体事件信息上传(Message<MediaEventReport> message, Session session) {
+        MediaEventReport body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(多媒体事件信息上传, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
-    public CommonResult 多媒体数据上传(MediaDataReport packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 多媒体数据上传, session.currentFlowId(), CommonResult.Success);
+    public MediaDataReportReply 多媒体数据上传(Message<MediaDataReport> message, Session session) throws IOException {
+        MediaDataReport body = message.getBody();
+
+        byte[] packet = body.getPacket();
+        FileOutputStream fos = new FileOutputStream("D://test.jpg");
+        fos.write(packet);
+        fos.close();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+//        return new CommonResult( 多媒体数据上传, message.getSerialNumber(), CommonResult.Success);
+
+        MediaDataReportReply result = new MediaDataReportReply();
+        result.setMediaId(body.getId());
+        return result;
     }
 
-    @Mapping(types = 多媒体数据上传应答, desc = "多媒体数据上传应答")
-    public CommonResult 多媒体数据上传应答(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 多媒体数据上传应答, session.currentFlowId(), CommonResult.Success);
-    }
 
     @Mapping(types = 摄像头立即拍摄命令, desc = "摄像头立即拍摄命令")
-    public CommonResult 摄像头立即拍摄命令(PackageData<Header> packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 摄像头立即拍摄命令, session.currentFlowId(), CommonResult.Success);
+    public CommonResult 摄像头立即拍摄命令(Message<CameraShot> message, Session session) {
+        CameraShot body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(摄像头立即拍摄命令, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public CommonResult passthrough(PassthroughPack packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 数据上行透传, session.currentFlowId(), CommonResult.Success);
+    public CommonResult passthrough(Message<PassthroughPack> message, Session session) {
+        PassthroughPack body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(数据上行透传, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 数据压缩上报, desc = "数据压缩上报")
-    public CommonResult gzipPack(GZIPPack packageData, Session session) {
-        Header header = packageData.getHeader();
-        Header resultHeader = new Header(平台通用应答, session.currentFlowId(), header.getMobileNumber());
-        return new CommonResult(resultHeader, 数据压缩上报, session.currentFlowId(), CommonResult.Success);
+    public CommonResult gzipPack(Message<GZIPPack> message, Session session) {
+        GZIPPack body = message.getBody();
+        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
+        return new CommonResult(数据压缩上报, message.getSerialNumber(), CommonResult.Success);
     }
 
 }
