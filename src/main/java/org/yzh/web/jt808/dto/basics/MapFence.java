@@ -2,8 +2,9 @@ package org.yzh.web.jt808.dto.basics;
 
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
+import org.yzh.framework.message.AbstractBody;
 
-public class MapFence {
+public class MapFence extends AbstractBody {
 
     private Long id;
 

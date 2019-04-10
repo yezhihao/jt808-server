@@ -2,9 +2,10 @@ package org.yzh.web.jt808.dto.basics;
 
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.AbstractHeader;
+import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.message.AbstractMessage;
 
-public class Header extends AbstractHeader {
+public class Message<T extends AbstractBody> extends AbstractMessage<T> {
 
     protected Integer type;
     protected Integer bodyProperties;
@@ -19,15 +20,16 @@ public class Header extends AbstractHeader {
     protected boolean subPackage = false;
     protected Integer reservedBit = 0;
 
-    public Header() {
+    public Message() {
     }
 
-    public Header(Integer type, String mobileNumber) {
+    public Message(Integer type, String mobileNumber, T body) {
         this.type = type;
         this.mobileNumber = mobileNumber;
+        this.body = body;
     }
 
-    public Header(Integer type, Integer serialNumber, String mobileNumber) {
+    public Message(Integer type, Integer serialNumber, String mobileNumber) {
         this.type = type;
         this.serialNumber = serialNumber;
         this.mobileNumber = mobileNumber;
@@ -137,6 +139,7 @@ public class Header extends AbstractHeader {
         this.encryptionType = encryptionType;
     }
 
+    @Override
     public boolean hasSubPackage() {
         return subPackage;
     }

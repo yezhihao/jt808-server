@@ -3,15 +3,14 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 import org.yzh.web.jt808.dto.basics.PositionAttribute;
 
 import java.util.List;
 
 @Type(MessageId.位置信息汇报)
-public class PositionReport extends PackageData<Header> {
+public class PositionReport extends AbstractBody {
 
     private Integer warningMark;
     private Integer status;

@@ -3,14 +3,13 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.List;
 
 @Type(MessageId.存储多媒体数据检索应答)
-public class MediaDataQueryReply extends PackageData<Header> {
+public class MediaDataQueryReply extends AbstractBody {
 
     private Integer serialNumber;
     private Integer total;

@@ -4,12 +4,13 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.ParameterId;
 
 /**
  * 终端参数项
  */
-public class TerminalParameter {
+public class TerminalParameter extends AbstractBody {
 
     private Integer id;
     private ParameterId idType;

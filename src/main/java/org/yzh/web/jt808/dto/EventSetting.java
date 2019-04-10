@@ -3,16 +3,15 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Type(MessageId.事件设置)
-public class EventSetting extends PackageData<Header> {
+public class EventSetting extends AbstractBody {
 
     //清空
     public static final int Clean = 0;

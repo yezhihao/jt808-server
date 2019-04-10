@@ -1,25 +1,22 @@
 package org.yzh.framework.message;
 
+import io.netty.buffer.ByteBuf;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class PackageData<T extends AbstractHeader> {
+public abstract class AbstractBody {
 
-    protected T header;
+    protected ByteBuf payload;
 
-    public PackageData() {
+    public AbstractBody() {
     }
 
-    public PackageData(T header) {
-        this.header = header;
+    public ByteBuf getPayload() {
+        return payload;
     }
 
-    public T getHeader() {
-        return header;
-    }
-
-    public void setHeader(T header) {
-        this.header = header;
+    public void setPayload(ByteBuf payload) {
+        this.payload = payload;
     }
 
     @Override

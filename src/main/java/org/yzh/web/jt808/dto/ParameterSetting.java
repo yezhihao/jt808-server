@@ -3,15 +3,14 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 import org.yzh.web.jt808.dto.basics.TerminalParameter;
 
 import java.util.List;
 
 @Type(MessageId.查询指定终端参数)
-public class ParameterSetting extends PackageData<Header> {
+public class ParameterSetting extends AbstractBody {
 
     private Integer total;
     private List<TerminalParameter> parameters;

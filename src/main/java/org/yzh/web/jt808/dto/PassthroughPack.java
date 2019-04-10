@@ -3,12 +3,11 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 
 @Type({MessageId.数据上行透传, MessageId.数据下行透传})
-public class PassthroughPack extends PackageData<Header> {
+public class PassthroughPack extends AbstractBody {
 
     /** GNSS模块详细定位数据 */
     public static final int GNSSLocation = 0x00;

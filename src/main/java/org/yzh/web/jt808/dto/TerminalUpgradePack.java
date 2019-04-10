@@ -3,13 +3,12 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 
 @Type(MessageId.下发终端升级包)
-public class TerminalUpgradePack extends PackageData<Header> {
+public class TerminalUpgradePack extends AbstractBody {
 
     public static final int Terminal = 0;
     public static final int CardReader = 12;

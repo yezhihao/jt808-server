@@ -3,16 +3,15 @@ package org.yzh.web.jt808.dto;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.Header;
 import org.yzh.web.jt808.dto.basics.MapFence;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Type({MessageId.设置圆形区域, MessageId.设置多边形区域, MessageId.设置矩形区域})
-public class MapFenceSetting<T> extends PackageData<Header> {
+public class MapFenceSetting<T> extends AbstractBody {
 
     /** 更新（先清空，后追加） */
     public static final int Update = 0;

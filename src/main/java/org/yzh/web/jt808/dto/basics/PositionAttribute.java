@@ -4,11 +4,12 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
+import org.yzh.framework.message.AbstractBody;
 
 /**
  * 位置附加信息项
  */
-public class PositionAttribute {
+public class PositionAttribute extends AbstractBody {
 
     private Integer id;
     private Integer length;
