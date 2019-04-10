@@ -6,8 +6,8 @@ import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.AbstractHeader;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.message.AbstractMessage;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -40,19 +40,19 @@ public abstract class MessageDecoder extends AbstractMessageCoder {
     public abstract boolean check(ByteBuf buf);
 
     /** 解析 */
-    public <T extends PackageData> T decode(ByteBuf buf, Class<? extends AbstractHeader> headerClass, Class<T> bodyClass) {
+    public <T extends AbstractBody> AbstractMessage<T> decode(ByteBuf buf, Class<? extends AbstractMessage> clazz, Class<T> bodyClass) {
         buf = unEscape(buf);
 
         if (check(buf))
             System.out.println("校验码错误" + ByteBufUtil.hexDump(buf));
 
-        AbstractHeader header = decode(buf, headerClass);
+        AbstractMessage message = decode(buf, clazz);
 
-        ByteBuf bodyBuf = buf.slice(header.getHeaderLength(), header.getBodyLength());
+        ByteBuf bodyBuf = buf.slice(message.getHeaderLength(), message.getBodyLength());
 
-        T packageData = decode(bodyBuf, bodyClass);
-        packageData.setHeader(header);
-        return packageData;
+        T body = decode(bodyBuf, bodyClass);
+        message.setBody(body);
+        return message;
     }
 
     public <T> T decode(ByteBuf buf, Class<T> targetClass) {

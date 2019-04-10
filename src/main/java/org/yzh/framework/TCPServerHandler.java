@@ -12,11 +12,14 @@ import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.log.Logger;
 import org.yzh.framework.mapping.Handler;
 import org.yzh.framework.mapping.HandlerMapper;
-import org.yzh.framework.message.AbstractHeader;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.message.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.web.jt808.dto.basics.Header;
+import org.yzh.web.jt808.dto.basics.Message;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+
+import java.lang.reflect.Type;
 
 @ChannelHandler.Sharable
 public class TCPServerHandler extends ChannelInboundHandlerAdapter {
@@ -57,6 +60,8 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             if (headerBodyBuf.readableBytes() <= 0)
                 return;
 
+            logger.logMessage("i 原始数据", null, ByteBufUtil.hexDump(headerBodyBuf));
+
             Channel channel = ctx.channel();
 
             int type = decoder.getType(headerBodyBuf);
@@ -67,25 +72,28 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
                 return;
             }
 
-            Class<?>[] types = handler.getTargetParameterTypes();
-            Class<? extends PackageData> targetClass = (Class<? extends PackageData>) types[0];
+            Type[] types = handler.getTargetParameterTypes();
+            ParameterizedTypeImpl clazz = (ParameterizedTypeImpl) types[0];
 
-            PackageData packageData = decoder.decode(headerBodyBuf, Header.class, targetClass);
+            Class<? extends AbstractBody> bodyClass = (Class<? extends AbstractBody>) clazz.getActualTypeArguments()[0];
+            Class<? extends AbstractMessage> messageClass = (Class<? extends AbstractMessage>) clazz.getRawType();
+            Message messageRequest = (Message) decoder.decode(headerBodyBuf, messageClass, bodyClass);
 
             headerBodyBuf.resetReaderIndex();
-            logger.logMessage("i " + handler.toString(), packageData, ByteBufUtil.hexDump(headerBodyBuf));
+            logger.logMessage("i " + handler.toString(), messageRequest, ByteBufUtil.hexDump(headerBodyBuf));
 
-            PackageData<? extends AbstractHeader> result;
+            AbstractBody body;
             if (types.length == 1) {
-                result = handler.invoke(packageData);
+                body = handler.invoke(messageRequest);
             } else {
-                result = handler.invoke(packageData, sessionManager.getBySessionId(Session.buildId(channel)));
+                body = handler.invoke(messageRequest, sessionManager.getBySessionId(Session.buildId(channel)));
             }
 
-            if (result == null)
-                return;
-            ByteBuf resultBuf = encoder.encode(result);
-            logger.logMessage("o " + handler.toString(), result, ByteBufUtil.hexDump(resultBuf));
+            Message<AbstractBody> messageResponse = new Message<>();
+            messageResponse.setBody(body);
+
+            ByteBuf resultBuf = encoder.encode(messageResponse);
+            logger.logMessage("o " + handler.toString(), messageResponse, ByteBufUtil.hexDump(resultBuf));
             ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{delimiter}), resultBuf, Unpooled.wrappedBuffer(new byte[]{delimiter}));
             ChannelFuture future = channel.writeAndFlush(allResultBuf).sync();
         } finally {

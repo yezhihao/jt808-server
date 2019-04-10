@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.web.jt808.dto.basics.Header;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author zhihao.ye (yezhihaoo@gmail.com)
  */
-public class JT808MessageEncoder extends MessageEncoder<Header> {
+public class JT808MessageEncoder extends MessageEncoder {
 
     public JT808MessageEncoder(Charset charset) {
         super(charset);
@@ -23,7 +22,7 @@ public class JT808MessageEncoder extends MessageEncoder<Header> {
 
     @Override
     public ByteBuf sign(ByteBuf buf) {
-        byte checkCode = ByteBufUtils.xor(buf);
+        byte checkCode = ByteBufUtils.bcc(buf);
         buf.writeByte(checkCode);
         return buf;
     }

@@ -36,7 +36,7 @@ public class JT808MessageDecoder extends MessageDecoder {
     public boolean check(ByteBuf buf) {
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = ByteBufUtils.xor(buf);
+        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
 
         return checkCode != calculatedCheckCode;
     }

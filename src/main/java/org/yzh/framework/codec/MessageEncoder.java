@@ -5,8 +5,8 @@ import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.message.AbstractHeader;
-import org.yzh.framework.message.PackageData;
+import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.message.AbstractMessage;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 基础消息编码
  */
-public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractMessageCoder {
+public abstract class MessageEncoder<T extends AbstractBody> extends AbstractMessageCoder {
 
     public MessageEncoder(Charset charset) {
         super(charset);
@@ -28,13 +28,14 @@ public abstract class MessageEncoder<T extends AbstractHeader> extends AbstractM
     /** 签名 */
     public abstract ByteBuf sign(ByteBuf buf);
 
-    public ByteBuf encode(PackageData<T> body) {
+    public ByteBuf encode(AbstractMessage<T> message) {
+        AbstractBody body = message.getBody();
+
         ByteBuf bodyBuf = encode(Unpooled.buffer(256), body);
 
-        AbstractHeader header = body.getHeader();
-        header.setBodyLength(bodyBuf.readableBytes());
+        message.setBodyLength(bodyBuf.readableBytes());
 
-        ByteBuf headerBuf = encode(Unpooled.buffer(16), header);
+        ByteBuf headerBuf = encode(Unpooled.buffer(16), message);
 
         ByteBuf buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
