@@ -33,9 +33,6 @@ public class JT808Endpoint {
 
     private MessageManager messageManager = MessageManager.INSTANCE;
 
-    @Autowired
-    private MessageEncoder encoder;
-
     //TODO Test
     public Object send(String mobileNumber, String hexMessage) {
 
@@ -67,10 +64,7 @@ public class JT808Endpoint {
         Session session = sessionManager.getByMobileNumber(mobileNumber);
         message.setSerialNumber(session.currentFlowId());
 
-        ByteBuf buf = encoder.encode(message);
-        logger.info("{}out,hex:{}\n{}", message.getType(), ByteBufUtil.hexDump(buf));
-        ByteBuf allResultBuf = Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(new byte[]{0x7e}), buf, Unpooled.wrappedBuffer(new byte[]{0x7e}));
-        session.getChannel().writeAndFlush(allResultBuf);
+        session.getChannel().writeAndFlush(message);
 
         String key = mobileNumber + (hasReplyFlowIdId ? message.getSerialNumber() : "");
         SyncFuture receive = messageManager.receive(key);
@@ -155,14 +149,13 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
-    public RegisterResult register(Message<Register> message, Session session) {
+    public Message<RegisterResult> register(Message<Register> message, Session session) {
         Register body = message.getBody();
-        Message resultHeader = new Message(终端注册应答, session.currentFlowId(), message.getMobileNumber());
         //TODO
-        session.setTerminalId(message.getMobileNumber());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        RegisterResult result = new RegisterResult(resultHeader.getSerialNumber(), RegisterResult.Success, "111");
-        return result;
+
+        RegisterResult result = new RegisterResult(message.getSerialNumber(), RegisterResult.Success, "test_token");
+        return new Message(终端注册应答, session.currentFlowId(), message.getMobileNumber(), result);
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")

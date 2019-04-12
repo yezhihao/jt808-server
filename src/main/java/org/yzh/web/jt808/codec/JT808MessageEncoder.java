@@ -5,7 +5,6 @@ import io.netty.buffer.Unpooled;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +14,6 @@ import java.util.List;
  * @author zhihao.ye (yezhihaoo@gmail.com)
  */
 public class JT808MessageEncoder extends MessageEncoder {
-
-    public JT808MessageEncoder(Charset charset) {
-        super(charset);
-    }
 
     @Override
     public ByteBuf sign(ByteBuf buf) {

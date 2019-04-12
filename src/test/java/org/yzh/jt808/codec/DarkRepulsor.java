@@ -3,10 +3,7 @@ package org.yzh.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.annotation.Property;
-import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
-
-import java.nio.charset.Charset;
 
 /**
  * 逐暗者
@@ -15,11 +12,7 @@ import java.nio.charset.Charset;
  */
 public class DarkRepulsor extends JT808MessageEncoder {
 
-    private static final DarkRepulsor darkRepulsor = new DarkRepulsor(Charsets.GBK);
-
-    public DarkRepulsor(Charset charset) {
-        super(charset);
-    }
+    private static final DarkRepulsor darkRepulsor = new DarkRepulsor();
 
     public static void main(String[] args) {
         ByteBuf byteBuf = darkRepulsor.encode(CoderTest.cameraShot());

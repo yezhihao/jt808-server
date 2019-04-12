@@ -35,6 +35,13 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.mobileNumber = mobileNumber;
     }
 
+    public Message(Integer type, Integer serialNumber, String mobileNumber, T body) {
+        this.type = type;
+        this.serialNumber = serialNumber;
+        this.mobileNumber = mobileNumber;
+        this.body = body;
+    }
+
     @Property(index = 0, type = DataType.WORD, desc = "消息ID")
     public Integer getType() {
         return type;

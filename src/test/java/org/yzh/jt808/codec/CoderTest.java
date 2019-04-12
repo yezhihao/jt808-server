@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.yzh.framework.commons.transform.JsonUtils;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.framework.message.AbstractMessage;
-import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 import org.yzh.web.jt808.dto.*;
@@ -25,9 +24,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class CoderTest {
 
-    private static final JT808MessageDecoder decoder = new JT808MessageDecoder(Charsets.GBK);
+    private static final JT808MessageDecoder decoder = new JT808MessageDecoder();
 
-    private static final JT808MessageEncoder encoder = new JT808MessageEncoder(Charsets.GBK);
+    private static final JT808MessageEncoder encoder = new JT808MessageEncoder();
 
     public static <T extends AbstractBody> AbstractMessage<T> transform(Class<T> clazz, String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));

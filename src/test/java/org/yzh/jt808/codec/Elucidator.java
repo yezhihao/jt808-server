@@ -5,13 +5,11 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.message.AbstractBody;
-import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.dto.PositionReport;
 import org.yzh.web.jt808.dto.basics.Message;
 
 import java.beans.PropertyDescriptor;
-import java.nio.charset.Charset;
 
 /**
  * 阐释者
@@ -20,11 +18,7 @@ import java.nio.charset.Charset;
  */
 public class Elucidator extends JT808MessageDecoder {
 
-    private static final Elucidator elucidator = new Elucidator(Charsets.GBK);
-
-    public Elucidator(Charset charset) {
-        super(charset);
-    }
+    private static final Elucidator elucidator = new Elucidator();
 
     public static void main(String[] args) {
         Class<? extends AbstractBody> clazz = PositionReport.class;
