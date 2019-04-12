@@ -2,7 +2,10 @@ package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToByteEncoder;
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.message.AbstractBody;
@@ -16,17 +19,15 @@ import java.util.List;
 /**
  * 基础消息编码
  */
-public abstract class MessageEncoder<T extends AbstractBody> extends AbstractMessageCoder {
+public abstract class MessageEncoder<T extends AbstractBody> extends MessageToByteEncoder<AbstractMessage<T>> {
 
-    public MessageEncoder(Charset charset) {
-        super(charset);
+    @Override
+    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
+        ByteBuf buf = encode(msg);
+        out.writeByte(0x7e);
+        out.writeBytes(buf);
+        out.writeByte(0x7e);
     }
-
-    /** 转义 */
-    public abstract ByteBuf escape(ByteBuf buf);
-
-    /** 签名 */
-    public abstract ByteBuf sign(ByteBuf buf);
 
     public ByteBuf encode(AbstractMessage<T> message) {
         AbstractBody body = message.getBody();
@@ -45,8 +46,14 @@ public abstract class MessageEncoder<T extends AbstractBody> extends AbstractMes
         return buf;
     }
 
+    /** 转义 */
+    public abstract ByteBuf escape(ByteBuf buf);
+
+    /** 签名 */
+    public abstract ByteBuf sign(ByteBuf buf);
+
     private ByteBuf encode(ByteBuf buf, Object body) {
-        PropertyDescriptor[] pds = getPropertyDescriptor(body.getClass());
+        PropertyDescriptor[] pds = PropertyUtils.getPropertyDescriptor(body.getClass());
 
         for (PropertyDescriptor pd : pds) {
 
@@ -84,7 +91,7 @@ public abstract class MessageEncoder<T extends AbstractBody> extends AbstractMes
                 buf.writeBytes(Bcd.leftPad(Bcd.decode8421((String) value), length, pad));
                 break;
             case STRING:
-                byte[] strBytes = ((String) value).getBytes(charset);
+                byte[] strBytes = ((String) value).getBytes(Charset.forName(prop.charset()));
                 if (length > 0)
                     strBytes = Bcd.leftPad(strBytes, length, pad);
                 buf.writeBytes(strBytes);
