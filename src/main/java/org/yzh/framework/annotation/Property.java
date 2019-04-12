@@ -21,6 +21,8 @@ public @interface Property {
 
     DataType type() default DataType.BYTE;
 
+    String charset() default "GBK";
+
     byte pad() default 0;
 
     String desc() default "";

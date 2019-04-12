@@ -1,4 +1,4 @@
-package org.yzh.framework.codec;
+package org.yzh.framework.commons;
 
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.bean.BeanUtils;
@@ -6,7 +6,6 @@ import org.yzh.framework.commons.bean.Cache;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,15 +16,9 @@ import java.util.List;
  *
  * @author zhihao.ye (yezhihaoo@gmail.com)
  */
-public abstract class AbstractMessageCoder {
+public abstract class PropertyUtils {
 
     private static final Cache<Class<?>, PropertyDescriptor[]> propertyDescriptorCache = new Cache(32);
-
-    protected Charset charset;
-
-    public AbstractMessageCoder(Charset charset) {
-        this.charset = charset;
-    }
 
     public static PropertyDescriptor[] getPropertyDescriptor(Class<?> key) {
         return propertyDescriptorCache.get(key, () -> {
