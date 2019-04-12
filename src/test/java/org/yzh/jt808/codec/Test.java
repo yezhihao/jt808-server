@@ -17,7 +17,6 @@ public class Test {
         System.out.println(new String(Hex.decodeHex("8401"), Charsets.GBK));
 
         System.out.println(Bcd.encode8421String(Hex.decodeHex("3689860225131650397533")));
-
         System.out.println(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump("8401")).readUnsignedShort());
     }
 }
