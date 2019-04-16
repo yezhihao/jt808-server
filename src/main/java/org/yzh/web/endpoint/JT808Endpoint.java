@@ -5,11 +5,9 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yzh.framework.annotation.Endpoint;
 import org.yzh.framework.annotation.Mapping;
-import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.message.SyncFuture;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
@@ -290,14 +288,6 @@ public class JT808Endpoint {
         MediaDataReportReply result = new MediaDataReportReply();
         result.setMediaId(body.getId());
         return result;
-    }
-
-
-    @Mapping(types = 摄像头立即拍摄命令, desc = "摄像头立即拍摄命令")
-    public CommonResult 摄像头立即拍摄命令(Message<CameraShot> message, Session session) {
-        CameraShot body = message.getBody();
-        Message resultHeader = new Message(平台通用应答, session.currentFlowId(), message.getMobileNumber());
-        return new CommonResult(摄像头立即拍摄命令, message.getSerialNumber(), CommonResult.Success);
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
