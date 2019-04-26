@@ -52,12 +52,19 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
         }
 
         Type[] types = handler.getTargetParameterTypes();
-        ParameterizedTypeImpl clazz = (ParameterizedTypeImpl) types[0];
+        if (types[0] instanceof ParameterizedTypeImpl) {
+            ParameterizedTypeImpl clazz = (ParameterizedTypeImpl) types[0];
 
-        Class<? extends AbstractBody> bodyClass = (Class<? extends AbstractBody>) clazz.getActualTypeArguments()[0];
-        Class<? extends AbstractMessage> messageClass = (Class<? extends AbstractMessage>) clazz.getRawType();
-        AbstractMessage<? extends AbstractBody> decode = decode(in, messageClass, bodyClass);
-        out.add(decode);
+            Class<? extends AbstractBody> bodyClass = (Class<? extends AbstractBody>) clazz.getActualTypeArguments()[0];
+            Class<? extends AbstractMessage> messageClass = (Class<? extends AbstractMessage>) clazz.getRawType();
+            AbstractMessage<? extends AbstractBody> decode = decode(in, messageClass, bodyClass);
+            out.add(decode);
+        } else {
+            AbstractMessage<? extends AbstractBody> decode = decode(in, (Class) types[0], null);
+            out.add(decode);
+        }
+
+        in.skipBytes(in.readableBytes());
     }
 
     /** 解析 */
@@ -68,11 +75,12 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
             System.out.println("校验码错误" + ByteBufUtil.hexDump(buf));
 
         AbstractMessage message = decode(buf, clazz);
-
-        Integer headerLength = message.getHeaderLength();
-        buf.setIndex(headerLength, headerLength + message.getBodyLength());
-        T body = decode(buf, bodyClass);
-        message.setBody(body);
+        if (bodyClass != null) {
+            Integer headerLength = message.getHeaderLength();
+            buf.setIndex(headerLength, headerLength + message.getBodyLength());
+            T body = decode(buf, bodyClass);
+            message.setBody(body);
+        }
         return message;
     }
 
