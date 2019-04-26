@@ -10,11 +10,9 @@ import io.netty.util.ReferenceCountUtil;
 import org.yzh.framework.log.Logger;
 import org.yzh.framework.mapping.Handler;
 import org.yzh.framework.mapping.HandlerMapper;
+import org.yzh.framework.message.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.CommonResult;
-import org.yzh.web.jt808.dto.basics.Message;
 
 import java.lang.reflect.Type;
 
@@ -40,7 +38,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
-            Message messageRequest = (Message) msg;
+            AbstractMessage messageRequest = (AbstractMessage) msg;
             Channel channel = ctx.channel();
 
             Handler handler = handlerMapper.getHandler(messageRequest.getType());
@@ -48,20 +46,16 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             Type[] types = handler.getTargetParameterTypes();
             Session session = sessionManager.getBySessionId(Session.buildId(channel));
 
-            Message messageResponse;
+            AbstractMessage messageResponse;
             if (types.length == 1) {
                 messageResponse = handler.invoke(messageRequest);
             } else {
                 messageResponse = handler.invoke(messageRequest, session);
             }
 
-            if (messageResponse == null) {
-                messageResponse = new Message(MessageId.平台通用应答, session.currentFlowId(), messageRequest.getMobileNumber());
-                messageResponse.setBody(new CommonResult(messageRequest.getSerialNumber(), messageRequest.getType(), 0));
+            if (messageResponse != null) {
+                ChannelFuture future = channel.writeAndFlush(messageResponse).sync();
             }
-
-
-            ChannelFuture future = channel.writeAndFlush(messageResponse).sync();
         } finally {
             ReferenceCountUtil.release(msg);
         }
@@ -86,7 +80,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         String sessionId = Session.buildId(ctx.channel());
-        Session session = sessionManager.removeBySessionId(sessionId);
+        Session session = sessionManager.getBySessionId(sessionId);
         logger.logEvent("发生异常", session);
         e.printStackTrace();
     }
