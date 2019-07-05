@@ -62,3 +62,6 @@ org.yzh.jt808.codec.Elucidator（报文解释器）
 1	04		参数长度	4
 2	0000000b		参数值	[B@309e345f[PositionAttribute[id=18,length=6,bytesValue={0,0,0,0,0,0},value=<null>], PositionAttribute[id=17,length=1,bytesValue={0},value=<null>], PositionAttribute[id=227,length=4,bytesValue={0,0,0,11},value=<null>]]
 ```
+
+![使用发包工具模拟请求](https://images.gitee.com/uploads/images/2019/0705/162745_9becaf08_670717.png)
+使用发包工具模拟请求
