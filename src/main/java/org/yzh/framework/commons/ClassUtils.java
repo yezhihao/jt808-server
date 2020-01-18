@@ -3,6 +3,9 @@ package org.yzh.framework.commons;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -28,22 +31,23 @@ public class ClassUtils {
         return classList;
     }
 
-    public static List<Class<?>> getClassList(String packageName) {
-        List<Class<?>> classList = new LinkedList();
-        try {
-            Enumeration<URL> urls = getClassLoader().getResources(packageName.replace(".", "/"));
-            while (urls.hasMoreElements()) {
-                URL url = urls.nextElement();
-                if (url != null) {
-                    String packagePath = url.getPath().replaceAll("%20", " ");
-                    addClass(classList, packagePath, packageName);
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return classList;
-    }
+	public static List<Class<?>> getClassList(String packageName) {
+		List<Class<?>> classList = new LinkedList();
+		try {
+
+			ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+			Resource[] resources = resourcePatternResolver.getResources(packageName.replace(".", "/") + "/**/*.class");
+			for (Resource resource : resources) {
+				String url = resource.getURL().toString();
+				String className = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
+				doAddClass(classList, packageName + "." + className);
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return classList;
+	}
 
     private static void addClass(List<Class<?>> classList, String packagePath, String packageName) {
         try {
