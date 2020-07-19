@@ -186,7 +186,7 @@ public class CoderTest {
     // 终端&T0702 0x0001 0x8001
     @Test
     public void testCommonResult() {
-        selfCheck(T0001_8001.class, "0001000501770184020701840038810300cd");
+        selfCheck(T0001.class, "0001000501770184020701840038810300cd");
     }
 
 

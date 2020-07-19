@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yzh.web.config.SessionKey;
 import org.yzh.web.endpoint.JT808Endpoint;
-import org.yzh.web.jt808.dto.T0001_8001;
+import org.yzh.web.jt808.dto.T0001;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,8 +26,8 @@ public class ConsoleController {
 
     @GetMapping("test/{terminalId}")
     @ResponseBody
-    public T0001_8001 updateParameters(@PathVariable("terminalId") String terminalId, @RequestParam String hex) {
-        T0001_8001 response = (T0001_8001) endpoint.send(terminalId, hex);
+    public T0001 updateParameters(@PathVariable("terminalId") String terminalId, @RequestParam String hex) {
+        T0001 response = (T0001) endpoint.send(terminalId, hex);
         return response;
     }
 }

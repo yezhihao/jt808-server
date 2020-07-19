@@ -7,7 +7,7 @@ import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
 
 @Type({MessageId.终端通用应答, MessageId.平台通用应答})
-public class T0001_8001 extends AbstractBody {
+public class T0001 extends AbstractBody {
 
     public static final int Success = 0;
     public static final int Fial = 1;
@@ -21,10 +21,10 @@ public class T0001_8001 extends AbstractBody {
 
     private Integer resultCode;
 
-    public T0001_8001() {
+    public T0001() {
     }
 
-    public T0001_8001(Integer replyId, Integer serialNo, Integer resultCode) {
+    public T0001(Integer replyId, Integer serialNo, Integer resultCode) {
         this.replyId = replyId;
         this.serialNo = serialNo;
         this.resultCode = resultCode;

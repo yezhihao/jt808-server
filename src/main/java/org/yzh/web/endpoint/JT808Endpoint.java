@@ -77,8 +77,8 @@ public class JT808Endpoint {
 
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public void 终端通用应答(Message<T0001_8001> message) {
-        T0001_8001 body = message.getBody();
+    public void 终端通用应答(Message<T0001> message) {
+        T0001 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = body.getReplyId();
         messageManager.put(mobileNo + replyId, message);
@@ -133,7 +133,7 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
     public Message heartBeat(Message message, Session session) {
-        T0001_8001 result = new T0001_8001(终端心跳, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(终端心跳, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -141,7 +141,7 @@ public class JT808Endpoint {
     public Message 补传分包请求(Message<T8003> message, Session session) {
         T8003 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(补传分包请求, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(补传分包请求, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -158,7 +158,7 @@ public class JT808Endpoint {
     @Mapping(types = 终端注销, desc = "终端注销")
     public Message 终端注销(Message message, Session session) {
         //TODO
-        T0001_8001 result = new T0001_8001(终端注销, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(终端注销, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -168,7 +168,7 @@ public class JT808Endpoint {
         //TODO
         session.setTerminalId(message.getMobileNo());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        T0001_8001 result = new T0001_8001(终端鉴权, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(终端鉴权, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -176,7 +176,7 @@ public class JT808Endpoint {
     public Message 终端升级结果通知(Message<T0108> message, Session session) {
         T0108 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(终端升级结果通知, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(终端升级结果通知, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -184,7 +184,7 @@ public class JT808Endpoint {
     public Message 位置信息汇报(Message<T0200> message, Session session) {
         T0200 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(位置信息汇报, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(位置信息汇报, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -192,7 +192,7 @@ public class JT808Endpoint {
     public Message 人工确认报警消息(Message<T8203> message, Session session) {
         T8203 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(位置信息汇报, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(位置信息汇报, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -200,7 +200,7 @@ public class JT808Endpoint {
     public Message 事件报告(Message<T0301> message, Session session) {
         T0301 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(事件报告, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(事件报告, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -208,7 +208,7 @@ public class JT808Endpoint {
     public Message 提问应答(Message<T0302> message, Session session) {
         T0302 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(提问应答, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(提问应答, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -216,7 +216,7 @@ public class JT808Endpoint {
     public Message 信息点播取消(Message<T0303> message, Session session) {
         T0303 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(信息点播_取消, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(信息点播_取消, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -224,27 +224,27 @@ public class JT808Endpoint {
     public Message 电话回拨(Message<T8400> message, Session session) {
         T8400 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(电话回拨, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(电话回拨, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 行驶记录仪数据上传, desc = "行驶记录仪数据上传")
     public Message 行驶记录仪数据上传(Message message, Session session) {
-        T0001_8001 result = new T0001_8001(行驶记录仪数据上传, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(行驶记录仪数据上传, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 行驶记录仪参数下传命令, desc = "行驶记录仪参数下达命令")
     public Message 行驶记录仪参数下传命令(Message message, Session session) {
         //TODO
-        T0001_8001 result = new T0001_8001(行驶记录仪参数下传命令, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(行驶记录仪参数下传命令, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
     public Message 电子运单上报(Message message, Session session) {
         //TODO
-        T0001_8001 result = new T0001_8001(电子运单上报, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(电子运单上报, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -252,7 +252,7 @@ public class JT808Endpoint {
     public Message 驾驶员身份信息采集上报(Message<T0702> message, Session session) {
         T0702 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(驾驶员身份信息采集上报, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(驾驶员身份信息采集上报, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -260,7 +260,7 @@ public class JT808Endpoint {
     public Message 定位数据批量上传(Message<T0704> message, Session session) {
         T0704 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(定位数据批量上传, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(定位数据批量上传, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -268,7 +268,7 @@ public class JT808Endpoint {
     public Message CAN总线数据上传(Message<T0705> message, Session session) {
         T0705 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(CAN总线数据上传, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(CAN总线数据上传, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -276,7 +276,7 @@ public class JT808Endpoint {
     public Message 多媒体事件信息上传(Message<T0800> message, Session session) {
         T0800 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(多媒体事件信息上传, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(多媒体事件信息上传, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -298,7 +298,7 @@ public class JT808Endpoint {
     public Message passthrough(Message<T8900_0900> message, Session session) {
         T8900_0900 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(数据上行透传, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(数据上行透传, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
@@ -306,7 +306,7 @@ public class JT808Endpoint {
     public Message gzipPack(Message<T0901> message, Session session) {
         T0901 body = message.getBody();
         //TODO
-        T0001_8001 result = new T0001_8001(数据压缩上报, message.getSerialNo(), T0001_8001.Success);
+        T0001 result = new T0001(数据压缩上报, message.getSerialNo(), T0001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
