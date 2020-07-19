@@ -1,5 +1,7 @@
 package org.yzh.web.jt808.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.transform.Bit;
 import org.yzh.web.jt808.dto.basics.PositionAttribute;
 
@@ -9,6 +11,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 public final class PositionAttributeUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(PositionAttributeUtils.class.getSimpleName());
+
     public static int Mileage = 0x01;//4 里程，DWORD，1/10km，对应车上里程表读数
     public static int Oil = 0x02;//2 油量，WORD，1/10L，对应车上油量表读数
     public static int Speed = 0x03;//2 行驶记录功能获取的速度，WORD，1/10km/h
@@ -50,9 +55,14 @@ public final class PositionAttributeUtils {
             Integer id = attribute.getId();
             Function<byte[], Object[]> function = FUNCTIONS.get(id);
             if (function != null) {
-                Object[] objects = function.apply(attribute.getBytesValue());
-                attribute.setName((String) objects[0]);
-                attribute.setValue(objects[1]);
+                try {
+                    Object[] objects = function.apply(attribute.getBytesValue());
+                    attribute.setName((String) objects[0]);
+                    attribute.setValue(objects[1]);
+                } catch (Exception e) {
+                    log.error(attribute.toString());
+                    log.error("set positionAttributes error", e);
+                }
             }
         }
     }
