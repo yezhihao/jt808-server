@@ -11,9 +11,13 @@ import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 import org.yzh.web.jt808.dto.*;
 import org.yzh.web.jt808.dto.basics.Message;
+import org.yzh.web.jt808.dto.position.Attribute;
+import org.yzh.web.jt808.dto.position.attribute.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -94,8 +98,38 @@ public class CoderTest {
     // 位置信息汇报 0x0200
     @Test
     public void testPositionReport() {
-        String hex1 = "0200006a064762924976014d000003500004100201d9f1230743425e000300a6ffff190403133450000000250400070008000000e2403836373733323033383535333838392d627566322d323031392d30342d30332d31332d33342d34392d3735372d70686f6e652d2e6a706700000020000c14cde78d";
-        selfCheck(T0200.class, hex1);
+//        String hex1 = "0200006a064762924976014d000003500004100201d9f1230743425e000300a6ffff190403133450000000250400070008000000e2403836373733323033383535333838392d627566322d323031392d30342d30332d31332d33342d34392d3735372d70686f6e652d2e6a706700000020000c14cde78d";
+//        selfCheck(T0200.class, hex1);
+        selfCheck(t0200());
+    }
+
+    public static Message t0200() {
+        T0200 bean = new T0200();
+        bean.setWarningMark(1024);
+        bean.setStatus(2048);
+        bean.setLatitude(121321232);
+        bean.setLongitude(322131231);
+        bean.setAltitude(312);
+        bean.setSpeed(3);
+        bean.setDirection(99);
+        bean.setDateTime("200707192359");
+        Map<Integer, Attribute> attributes = new TreeMap();
+        bean.setAttributes(attributes);
+        attributes.put(AlarmEventId.attributeId, new AlarmEventId(2));
+        attributes.put(AnalogQuantity.attributeId, new AnalogQuantity(2));
+//        attributes.put(CarriageTemperature.attributeId, new CarriageTemperature(2));
+        attributes.put(GnssCount.attributeId, new GnssCount(2));
+        attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 1, 123, (byte) 2));
+        attributes.put(IoState.attributeId, new IoState(1));
+        attributes.put(Mileage.attributeId, new Mileage(1));
+        attributes.put(Oil.attributeId, new Oil(1));
+        attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 1, 8766));
+        attributes.put(RouteDriveTimeAlarm.attributeId, new RouteDriveTimeAlarm(99, 99, (byte) 1));
+        attributes.put(Signal.attributeId, new Signal(99));
+        attributes.put(SignalStrength.attributeId, new SignalStrength(99));
+        attributes.put(Speed.attributeId, new Speed(99));
+        attributes.put(TirePressure.attributeId, new TirePressure((byte) 132, (byte) 123, (byte) 123));
+        return newMessage(bean);
     }
 
 

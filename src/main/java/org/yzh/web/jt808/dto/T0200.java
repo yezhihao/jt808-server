@@ -5,10 +5,12 @@ import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.PositionAttribute;
 import org.yzh.web.jt808.common.PositionAttributeUtils;
+import org.yzh.web.jt808.dto.basics.BytesAttribute;
+import org.yzh.web.jt808.dto.position.Attribute;
 
 import java.util.List;
+import java.util.Map;
 
 @Type(MessageId.位置信息汇报)
 public class T0200 extends AbstractBody {
@@ -22,7 +24,9 @@ public class T0200 extends AbstractBody {
     private Integer direction;
     private String dateTime;
 
-    private List<PositionAttribute> positionAttributes;
+    private List<BytesAttribute> bytesAttributes;
+
+    private Map<Integer, Attribute> attributes;
 
     @Property(index = 0, type = DataType.DWORD, desc = "报警标志")
     public Integer getWarningMark() {
@@ -97,12 +101,21 @@ public class T0200 extends AbstractBody {
     }
 
     @Property(index = 28, type = DataType.LIST, desc = "位置附加信息")
-    public List<PositionAttribute> getPositionAttributes() {
-        return positionAttributes;
+    public List<BytesAttribute> getBytesAttributes() {
+        return bytesAttributes;
     }
 
-    public void setPositionAttributes(List<PositionAttribute> positionAttributes) {
-        this.positionAttributes = positionAttributes;
-        PositionAttributeUtils.fillValue(positionAttributes);
+    public void setBytesAttributes(List<BytesAttribute> bytesAttributes) {
+        this.bytesAttributes = bytesAttributes;
+        this.attributes = PositionAttributeUtils.transform(bytesAttributes);
+    }
+
+    public Map<Integer, Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<Integer, Attribute> attributes) {
+        this.attributes = attributes;
+        this.bytesAttributes = PositionAttributeUtils.transform(attributes);
     }
 }

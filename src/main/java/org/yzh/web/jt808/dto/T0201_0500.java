@@ -5,7 +5,7 @@ import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
-import org.yzh.web.jt808.dto.basics.PositionAttribute;
+import org.yzh.web.jt808.dto.basics.BytesAttribute;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class T0201_0500 extends AbstractBody {
     private Integer direction;
     private String dateTime;
 
-    private List<PositionAttribute> positionAttributes;
+    private List<BytesAttribute> bytesAttributes;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
@@ -106,11 +106,11 @@ public class T0201_0500 extends AbstractBody {
     }
 
     @Property(index = 30, type = DataType.LIST, desc = "位置附加信息")
-    public List<PositionAttribute> getPositionAttributes() {
-        return positionAttributes;
+    public List<BytesAttribute> getBytesAttributes() {
+        return bytesAttributes;
     }
 
-    public void setPositionAttributes(List<PositionAttribute> positionAttributes) {
-        this.positionAttributes = positionAttributes;
+    public void setBytesAttributes(List<BytesAttribute> bytesAttributes) {
+        this.bytesAttributes = bytesAttributes;
     }
 }
