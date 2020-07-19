@@ -1,7 +1,6 @@
 package org.yzh.web.jt808.dto.basics;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
@@ -14,9 +13,12 @@ public class PositionAttribute extends AbstractBody {
     private Integer id;
     private Integer length;
     private byte[] bytesValue;
+
+    private String name;
     private Object value;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "参数ID")
+    @JsonIgnore
+    @Property(index = 0, type = DataType.BYTE, desc = "附加信息ID")
     public Integer getId() {
         return id;
     }
@@ -25,7 +27,8 @@ public class PositionAttribute extends AbstractBody {
         this.id = id;
     }
 
-    @Property(index = 1, type = DataType.BYTE, desc = "参数长度")
+    @JsonIgnore
+    @Property(index = 1, type = DataType.BYTE, desc = "附加信息长度")
     public Integer getLength() {
         return length;
     }
@@ -34,6 +37,7 @@ public class PositionAttribute extends AbstractBody {
         this.length = length;
     }
 
+    @JsonIgnore
     @Property(index = 2, type = DataType.BYTES, lengthName = "length", desc = "参数值")
     public byte[] getBytesValue() {
         return bytesValue;
@@ -43,16 +47,19 @@ public class PositionAttribute extends AbstractBody {
         this.bytesValue = bytesValue;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Object getValue() {
         return value;
     }
 
     public void setValue(Object value) {
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

@@ -7,7 +7,7 @@ import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
-import org.yzh.web.jt808.dto.Register;
+import org.yzh.web.jt808.dto.T0100;
 import org.yzh.web.jt808.dto.basics.Message;
 
 /**
@@ -20,7 +20,7 @@ public class Elucidator extends JT808MessageDecoder {
     private static final Elucidator elucidator = new Elucidator();
 
     public static void main(String[] args) {
-        Class<? extends AbstractBody> clazz = Register.class;
+        Class<? extends AbstractBody> clazz = T0100.class;
         String hex = "007d0140550100000000001111111111007d01baf0bb63202020202020202020203420202020202020202020202020202020202020202042534a2d47462d303600000000000000000000000000000000000000000000007465737431323301b2e241383838383838e9";
 
         System.out.println(hex);

@@ -77,54 +77,54 @@ public class JT808Endpoint {
 
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public void 终端通用应答(Message<CommonResult> message) {
-        CommonResult body = message.getBody();
+    public void 终端通用应答(Message<T0001_8001> message) {
+        T0001_8001 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = body.getReplyId();
         messageManager.put(mobileNo + replyId, message);
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
-    public void 查询终端参数应答(Message<ParameterSettingReply> message) {
-        ParameterSettingReply body = message.getBody();
+    public void 查询终端参数应答(Message<T0104> message) {
+        T0104 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = message.getSerialNo();
         messageManager.put(mobileNo + replyId, message);
     }
 
     @Mapping(types = 查询终端属性应答, desc = "查询终端属性应答")
-    public void 查询终端属性应答(Message<TerminalAttributeReply> message) {
-        TerminalAttributeReply body = message.getBody();
+    public void 查询终端属性应答(Message<T0107> message) {
+        T0107 body = message.getBody();
         String mobileNo = message.getMobileNo();
         messageManager.put(mobileNo, message);
     }
 
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")
-    public void 位置信息查询应答(Message<PositionReply> message) {
-        PositionReply body = message.getBody();
+    public void 位置信息查询应答(Message<T0201_0500> message) {
+        T0201_0500 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = message.getSerialNo();
         messageManager.put(mobileNo + replyId, message);
     }
 
     @Mapping(types = 终端RSA公钥, desc = "终端RSA公钥")
-    public void 终端RSA公钥(Message<RSAPack> message) {
-        RSAPack body = message.getBody();
+    public void 终端RSA公钥(Message<T0A00_8A00> message) {
+        T0A00_8A00 body = message.getBody();
         String mobileNo = message.getMobileNo();
         messageManager.put(mobileNo, message);
     }
 
     @Mapping(types = 摄像头立即拍摄命令应答, desc = "摄像头立即拍摄命令应答")
-    public void 摄像头立即拍摄命令应答(Message<CameraShotReply> message) {
-        CameraShotReply body = message.getBody();
+    public void 摄像头立即拍摄命令应答(Message<T0805> message) {
+        T0805 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = message.getSerialNo();
         messageManager.put(mobileNo + replyId, message);
     }
 
     @Mapping(types = 存储多媒体数据检索应答, desc = "存储多媒体数据检索应答")
-    public void 存储多媒体数据检索应答(Message<MediaDataQueryReply> message, Session session) {
-        MediaDataQueryReply body = message.getBody();
+    public void 存储多媒体数据检索应答(Message<T0802> message, Session session) {
+        T0802 body = message.getBody();
         String mobileNo = message.getMobileNo();
         Integer replyId = message.getSerialNo();
         messageManager.put(mobileNo + replyId, message);
@@ -133,180 +133,180 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
     public Message heartBeat(Message message, Session session) {
-        CommonResult result = new CommonResult(终端心跳, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(终端心跳, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 补传分包请求, desc = "补传分包请求")
-    public Message 补传分包请求(Message<RepairPackRequest> message, Session session) {
-        RepairPackRequest body = message.getBody();
+    public Message 补传分包请求(Message<T8003> message, Session session) {
+        T8003 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(补传分包请求, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(补传分包请求, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
-    public Message<RegisterResult> register(Message<Register> message, Session session) {
-        Register body = message.getBody();
+    public Message<T8100> register(Message<T0100> message, Session session) {
+        T0100 body = message.getBody();
         //TODO
         sessionManager.put(Session.buildId(session.getChannel()), session);
 
-        RegisterResult result = new RegisterResult(message.getSerialNo(), RegisterResult.Success, "test_token");
+        T8100 result = new T8100(message.getSerialNo(), T8100.Success, "test_token");
         return new Message(终端注册应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
     public Message 终端注销(Message message, Session session) {
         //TODO
-        CommonResult result = new CommonResult(终端注销, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(终端注销, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public Message authentication(Message<Authentication> message, Session session) {
-        Authentication body = message.getBody();
+    public Message authentication(Message<T0102> message, Session session) {
+        T0102 body = message.getBody();
         //TODO
         session.setTerminalId(message.getMobileNo());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        CommonResult result = new CommonResult(终端鉴权, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(终端鉴权, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 终端升级结果通知, desc = "终端升级结果通知")
-    public Message 终端升级结果通知(Message<TerminalUpgradeNotify> message, Session session) {
-        TerminalUpgradeNotify body = message.getBody();
+    public Message 终端升级结果通知(Message<T0108> message, Session session) {
+        T0108 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(终端升级结果通知, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(终端升级结果通知, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
-    public Message 位置信息汇报(Message<PositionReport> message, Session session) {
-        PositionReport body = message.getBody();
+    public Message 位置信息汇报(Message<T0200> message, Session session) {
+        T0200 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(位置信息汇报, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(位置信息汇报, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 人工确认报警消息, desc = "人工确认报警消息")
-    public Message 人工确认报警消息(Message<WarningMessage> message, Session session) {
-        WarningMessage body = message.getBody();
+    public Message 人工确认报警消息(Message<T8203> message, Session session) {
+        T8203 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(位置信息汇报, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(位置信息汇报, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 事件报告, desc = "事件报告")
-    public Message 事件报告(Message<EventReport> message, Session session) {
-        EventReport body = message.getBody();
+    public Message 事件报告(Message<T0301> message, Session session) {
+        T0301 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(事件报告, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(事件报告, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 提问应答, desc = "提问应答")
-    public Message 提问应答(Message<QuestionMessageReply> message, Session session) {
-        QuestionMessageReply body = message.getBody();
+    public Message 提问应答(Message<T0302> message, Session session) {
+        T0302 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(提问应答, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(提问应答, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
-    public Message 信息点播取消(Message<MessageSubOperate> message, Session session) {
-        MessageSubOperate body = message.getBody();
+    public Message 信息点播取消(Message<T0303> message, Session session) {
+        T0303 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(信息点播_取消, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(信息点播_取消, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 电话回拨, desc = "电话回拨")
-    public Message 电话回拨(Message<CallPhone> message, Session session) {
-        CallPhone body = message.getBody();
+    public Message 电话回拨(Message<T8400> message, Session session) {
+        T8400 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(电话回拨, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(电话回拨, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 行驶记录仪数据上传, desc = "行驶记录仪数据上传")
     public Message 行驶记录仪数据上传(Message message, Session session) {
-        CommonResult result = new CommonResult(行驶记录仪数据上传, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(行驶记录仪数据上传, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 行驶记录仪参数下传命令, desc = "行驶记录仪参数下达命令")
     public Message 行驶记录仪参数下传命令(Message message, Session session) {
         //TODO
-        CommonResult result = new CommonResult(行驶记录仪参数下传命令, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(行驶记录仪参数下传命令, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
     public Message 电子运单上报(Message message, Session session) {
         //TODO
-        CommonResult result = new CommonResult(电子运单上报, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(电子运单上报, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
-    public Message 驾驶员身份信息采集上报(Message<DriverIdentityInfo> message, Session session) {
-        DriverIdentityInfo body = message.getBody();
+    public Message 驾驶员身份信息采集上报(Message<T0702> message, Session session) {
+        T0702 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(驾驶员身份信息采集上报, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(驾驶员身份信息采集上报, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
-    public Message 定位数据批量上传(Message<PositionReportBatch> message, Session session) {
-        PositionReportBatch body = message.getBody();
+    public Message 定位数据批量上传(Message<T0704> message, Session session) {
+        T0704 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(定位数据批量上传, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(定位数据批量上传, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = CAN总线数据上传, desc = "定位数据批量上传")
-    public Message CAN总线数据上传(Message<CANBusReport> message, Session session) {
-        CANBusReport body = message.getBody();
+    public Message CAN总线数据上传(Message<T0705> message, Session session) {
+        T0705 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(CAN总线数据上传, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(CAN总线数据上传, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 多媒体事件信息上传, desc = "多媒体事件信息上传")
-    public Message 多媒体事件信息上传(Message<MediaEventReport> message, Session session) {
-        MediaEventReport body = message.getBody();
+    public Message 多媒体事件信息上传(Message<T0800> message, Session session) {
+        T0800 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(多媒体事件信息上传, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(多媒体事件信息上传, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
-    public Message 多媒体数据上传(Message<MediaDataReport> message, Session session) throws IOException {
-        MediaDataReport body = message.getBody();
+    public Message 多媒体数据上传(Message<T0801> message, Session session) throws IOException {
+        T0801 body = message.getBody();
 
         byte[] packet = body.getPacket();
         FileOutputStream fos = new FileOutputStream("D://test.jpg");
         fos.write(packet);
         fos.close();
 
-        MediaDataReportReply result = new MediaDataReportReply();
+        T8800 result = new T8800();
         result.setMediaId(body.getId());
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public Message passthrough(Message<PassthroughPack> message, Session session) {
-        PassthroughPack body = message.getBody();
+    public Message passthrough(Message<T8900_0900> message, Session session) {
+        T8900_0900 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(数据上行透传, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(数据上行透传, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 
     @Mapping(types = 数据压缩上报, desc = "数据压缩上报")
-    public Message gzipPack(Message<GZIPPack> message, Session session) {
-        GZIPPack body = message.getBody();
+    public Message gzipPack(Message<T0901> message, Session session) {
+        T0901 body = message.getBody();
         //TODO
-        CommonResult result = new CommonResult(数据压缩上报, message.getSerialNo(), CommonResult.Success);
+        T0001_8001 result = new T0001_8001(数据压缩上报, message.getSerialNo(), T0001_8001.Success);
         return new Message(平台通用应答, session.currentFlowId(), message.getMobileNo(), result);
     }
 

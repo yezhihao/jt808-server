@@ -95,26 +95,26 @@ public class CoderTest {
     @Test
     public void testPositionReport() {
         String hex1 = "0200006a064762924976014d000003500004100201d9f1230743425e000300a6ffff190403133450000000250400070008000000e2403836373733323033383535333838392d627566322d323031392d30342d30332d31332d33342d34392d3735372d70686f6e652d2e6a706700000020000c14cde78d";
-        selfCheck(PositionReport.class, hex1);
+        selfCheck(T0200.class, hex1);
     }
 
 
     // 终端注册应答 0x8100
     @Test
     public void testRegisterResult() {
-        selfCheck(RegisterResult.class, "8100000306476292482425b4000201cd");
+        selfCheck(T8100.class, "8100000306476292482425b4000201cd");
     }
 
 
     // 终端注册 0x0100
     @Test
     public void testRegister() {
-        selfCheck(PositionReport.class, "0100002e064762924824000200000000484f4f5000bfb5b4ef562d31000000000000000000000000000000015a0d5dff02bba64450393939370002");
+        selfCheck(T0200.class, "0100002e064762924824000200000000484f4f5000bfb5b4ef562d31000000000000000000000000000000015a0d5dff02bba64450393939370002");
         selfCheck(register());
     }
 
     public static Message register() {
-        Register bean = new Register();
+        T0100 bean = new T0100();
         bean.setProvinceId(31);
         bean.setCityId(0115);
         bean.setManufacturerId("4");
@@ -129,21 +129,21 @@ public class CoderTest {
     // 提问下发 0x8302
     @Test
     public void testQuestionMessage() {
-        selfCheck(QuestionMessage.class, "8302001a017701840207001010062c2c2c2c2c2101000331323302000334353603000337383954");
+        selfCheck(T8302.class, "8302001a017701840207001010062c2c2c2c2c2101000331323302000334353603000337383954");
 
         selfCheck(questionMessage());
     }
 
     public static Message questionMessage() {
-        QuestionMessage bean = new QuestionMessage();
-        List<QuestionMessage.Option> options = new ArrayList();
+        T8302 bean = new T8302();
+        List<T8302.Option> options = new ArrayList();
 
         bean.buildSign(new int[]{1});
         bean.setContent("123");
         bean.setOptions(options);
 
-        options.add(new QuestionMessage.Option(1, "asd1"));
-        options.add(new QuestionMessage.Option(2, "zxc2"));
+        options.add(new T8302.Option(1, "asd1"));
+        options.add(new T8302.Option(2, "zxc2"));
         return newMessage(bean);
     }
 
@@ -151,17 +151,17 @@ public class CoderTest {
     // 设置电话本 0x8401
     @Test
     public void testPhoneBook() {
-        selfCheck(PhoneBook.class, "0001002e02000000001500250203020b043138323137333431383032d5c5c8fd010604313233313233c0eecbc4030604313233313233cdf5cee535");
+        selfCheck(T8401.class, "0001002e02000000001500250203020b043138323137333431383032d5c5c8fd010604313233313233c0eecbc4030604313233313233cdf5cee535");
 
         selfCheck(phoneBook());
     }
 
     public static Message phoneBook() {
-        PhoneBook bean = new PhoneBook();
-        bean.setType(PhoneBook.Append);
-        bean.add(new PhoneBook.Item(2, "18217341802", "张三"));
-        bean.add(new PhoneBook.Item(1, "123123", "李四"));
-        bean.add(new PhoneBook.Item(3, "123123", "王五"));
+        T8401 bean = new T8401();
+        bean.setType(T8401.Append);
+        bean.add(new T8401.Item(2, "18217341802", "张三"));
+        bean.add(new T8401.Item(1, "123123", "李四"));
+        bean.add(new T8401.Item(3, "123123", "王五"));
         return newMessage(bean);
     }
 
@@ -169,38 +169,38 @@ public class CoderTest {
     // 事件设置 0x8301
     @Test
     public void testEventSetting() {
-        selfCheck(EventSetting.class, "83010010017701840207000c0202010574657374310205746573743268");
+        selfCheck(T8301.class, "83010010017701840207000c0202010574657374310205746573743268");
 
         selfCheck(eventSetting());
     }
 
     public static Message eventSetting() {
-        EventSetting bean = new EventSetting();
-        bean.setType(EventSetting.Append);
+        T8301 bean = new T8301();
+        bean.setType(T8301.Append);
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
         bean.addEvent(3, "t试2");
         return newMessage(bean);
     }
 
-    // 终端&平台通用应答 0x0001 0x8001
+    // 终端&T0702 0x0001 0x8001
     @Test
     public void testCommonResult() {
-        selfCheck(CommonResult.class, "0001000501770184020701840038810300cd");
+        selfCheck(T0001_8001.class, "0001000501770184020701840038810300cd");
     }
 
 
     // 终端心跳 0x0002
     @Test
     public void testTerminalHeartbeat() {
-        selfCheck(TerminalHeartbeat.class, "00020000064762924976042fa7");
+        selfCheck(T0002.class, "00020000064762924976042fa7");
     }
 
 
     // 文本信息下发 0x8300
     @Test
     public void testTextMessage() {
-        selfCheck(TextMessage.class, "830000050647629242562692015445535480");
+        selfCheck(T8300.class, "830000050647629242562692015445535480");
     }
 
 
@@ -208,14 +208,14 @@ public class CoderTest {
     @Test
     public void testCameraShot() {
         selfCheck(cameraShot());
-        selfCheck(CameraShot.class, "8801000c0641629242524a43010001000a0001057d017d017d017d0125");
+        selfCheck(T8804.class, "8801000c0641629242524a43010001000a0001057d017d017d017d0125");
     }
 
-    public static Message<CameraShot> cameraShot() {
-        CameraShot body = new CameraShot();
+    public static Message<T8804> cameraShot() {
+        T8801 body = new T8801();
         body.setChannelId(125);
         body.setCommand(1);
-        body.setParameter(125);
+        body.setTime(125);
         body.setSaveSign(1);
         body.setResolution(125);
         body.setQuality(1);
