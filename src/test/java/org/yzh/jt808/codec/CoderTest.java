@@ -66,10 +66,10 @@ public class CoderTest {
 
         String json1 = JsonUtils.toJson(bean1);
         String json2 = JsonUtils.toJson(bean2);
-        System.out.println(hex1);
-        System.out.println(hex2);
-        System.out.println(json1);
-        System.out.println(json2);
+        System.out.println("hex1 " + hex1);
+        System.out.println("hex2 " + hex2);
+        System.out.println("json1 " + json1);
+        System.out.println("json2 " + json2);
         System.out.println();
 
         assertEquals("hex not equals", hex1, hex2);
@@ -78,12 +78,14 @@ public class CoderTest {
 
     public static Message newMessage(AbstractBody body) {
         Message message = new Message();
-        message.setType(125);
-        message.setBodyProperties(1);
-        message.setMobileNumber("018276468888");
-        message.setSerialNumber(125);
-        message.setEncryptionType(0);
-        message.setReservedBit(0);
+        message.setMessageId(125);
+        message.setProperties(1);
+        message.setMobileNo("11111111111");
+        message.setSerialNo(125);
+        message.setVersion(true);
+        message.setVersionNo(1);
+        message.setEncryption(0);
+        message.setReserved(false);
         message.setBody(body);
         return message;
     }
@@ -113,13 +115,13 @@ public class CoderTest {
 
     public static Message register() {
         Register bean = new Register();
-        bean.setProvinceId(44);
-        bean.setCityId(307);
-        bean.setManufacturerId("测试");
-        bean.setTerminalType("TEST");
-        bean.setTerminalId("粤B8888");
-        bean.setLicensePlateColor(0);
-        bean.setLicensePlate("粤B8888");
+        bean.setProvinceId(31);
+        bean.setCityId(0115);
+        bean.setManufacturerId("4");
+        bean.setTerminalType("BSJ-GF-06");
+        bean.setTerminalId("test123");
+        bean.setLicensePlateColor(1);
+        bean.setLicensePlate("测A888888");
         return newMessage(bean);
     }
 

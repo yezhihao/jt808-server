@@ -9,16 +9,16 @@ import org.yzh.web.jt808.common.MessageId;
 @Type(MessageId.人工确认报警消息)
 public class WarningMessage extends AbstractBody {
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer type;
 
     @Property(index = 0, type = DataType.WORD, desc = "消息流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     /**

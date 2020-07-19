@@ -23,8 +23,9 @@ public @interface Property {
 
     String charset() default "GBK";
 
-    byte pad() default 0;
+    byte pad() default 0x00;
 
     String desc() default "";
 
+    int[] version() default {0};
 }

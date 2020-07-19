@@ -41,7 +41,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             AbstractMessage messageRequest = (AbstractMessage) msg;
             Channel channel = ctx.channel();
 
-            Handler handler = handlerMapper.getHandler(messageRequest.getType());
+            Handler handler = handlerMapper.getHandler(messageRequest.getMessageId());
 
             Type[] types = handler.getTargetParameterTypes();
             Session session = sessionManager.getBySessionId(Session.buildId(channel));

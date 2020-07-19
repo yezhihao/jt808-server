@@ -12,18 +12,18 @@ import java.util.List;
 @Type(MessageId.查询终端参数应答)
 public class ParameterSettingReply extends AbstractBody {
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer total;
 
     private List<TerminalParameter> terminalParameters;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     @Property(index = 2, type = DataType.BYTE, desc = "应答参数个数")

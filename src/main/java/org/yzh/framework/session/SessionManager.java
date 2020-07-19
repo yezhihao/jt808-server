@@ -44,8 +44,8 @@ public class SessionManager {
         return sessionIdMap.get(sessionId);
     }
 
-    public Session getByMobileNumber(String mobileNumber) {
-        String sessionId = this.terminalMap.get(mobileNumber);
+    public Session getByMobileNo(String mobileNo) {
+        String sessionId = this.terminalMap.get(mobileNo);
         if (sessionId == null)
             return null;
         return this.getBySessionId(sessionId);

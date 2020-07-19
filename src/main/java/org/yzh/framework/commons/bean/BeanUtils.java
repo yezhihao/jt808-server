@@ -168,15 +168,7 @@ public class BeanUtils {
     }
 
     public static void setValue(Object obj, Method setter, Object value) {
-
         if (setter != null) {
-            if (value != null) {
-                if (!setter.getParameterTypes()[0].isAssignableFrom(value.getClass())) {
-                    log.error("设置对象值失败,类型不匹配{}", setter);
-                    return;
-                }
-            }
-
             try {
                 setter.invoke(obj, value);
             } catch (Exception e) {

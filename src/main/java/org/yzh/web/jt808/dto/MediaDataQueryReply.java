@@ -11,17 +11,17 @@ import java.util.List;
 @Type(MessageId.存储多媒体数据检索应答)
 public class MediaDataQueryReply extends AbstractBody {
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer total;
     private List<Item> list;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     @Property(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")

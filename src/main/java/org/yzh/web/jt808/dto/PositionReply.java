@@ -12,7 +12,7 @@ import java.util.List;
 @Type({MessageId.位置信息查询应答, MessageId.车辆控制应答})
 public class PositionReply extends AbstractBody {
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer warningMark;
     private Integer status;
     private Long latitude;
@@ -25,12 +25,12 @@ public class PositionReply extends AbstractBody {
     private List<PositionAttribute> positionAttributes;
 
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     @Property(index = 2, type = DataType.DWORD, desc = "报警标志")

@@ -9,7 +9,7 @@ import org.yzh.web.jt808.common.MessageId;
 @Type(MessageId.补传分包请求)
 public class RepairPackRequest extends AbstractBody {
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer packageTotal;
     private byte[] idList;
 
@@ -17,12 +17,12 @@ public class RepairPackRequest extends AbstractBody {
     }
 
     @Property(index = 0, type = DataType.WORD, desc = "原始消息流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     @Property(index = 4, type = DataType.BYTE, desc = "重传包总数")

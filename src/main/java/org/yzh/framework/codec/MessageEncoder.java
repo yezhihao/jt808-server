@@ -5,13 +5,13 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.framework.message.AbstractMessage;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -31,12 +31,13 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
 
     public ByteBuf encode(AbstractMessage<T> message) {
         AbstractBody body = message.getBody();
+        int version = message.getVersionNo();
 
-        ByteBuf bodyBuf = encode(Unpooled.buffer(256), body);
+        ByteBuf bodyBuf = encode(Unpooled.buffer(256), body, version);
 
         message.setBodyLength(bodyBuf.readableBytes());
 
-        ByteBuf headerBuf = encode(Unpooled.buffer(16), message);
+        ByteBuf headerBuf = encode(Unpooled.buffer(16), message, version);
 
         ByteBuf buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
@@ -52,22 +53,22 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
     /** 签名 */
     public abstract ByteBuf sign(ByteBuf buf);
 
-    private ByteBuf encode(ByteBuf buf, Object body) {
-        PropertyDescriptor[] pds = PropertyUtils.getPropertyDescriptor(body.getClass());
+    private ByteBuf encode(ByteBuf buf, Object body, int version) {
+        PropertySpec[] pds = PropertyUtils.getPropertySpecs(body.getClass(), version);
 
-        for (PropertyDescriptor pd : pds) {
+        for (PropertySpec propertySpec : pds) {
 
-            Method readMethod = pd.getReadMethod();
+            Method readMethod = propertySpec.readMethod;
             Object value = BeanUtils.getValue(body, readMethod);
             if (value != null) {
-                Property prop = readMethod.getDeclaredAnnotation(Property.class);
-                write(buf, prop, value);
+                write(buf, propertySpec, value, version);
             }
         }
         return buf;
     }
 
-    public void write(ByteBuf buf, Property prop, Object value) {
+    public void write(ByteBuf buf, PropertySpec pd, Object value, int version) {
+        Property prop = pd.property;
         int length = prop.length();
         byte pad = prop.pad();
 
@@ -85,10 +86,17 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
                     buf.writeInt((int) value);
                 break;
             case BYTES:
-                buf.writeBytes((byte[]) value);
+                if (pd.type.isAssignableFrom(String.class)) {
+                    byte[] strBytes = ((String) value).getBytes(Charset.forName(prop.charset()));
+                    if (length > 0)
+                        strBytes = Bcd.leftPad(strBytes, length, pad);
+                    buf.writeBytes(strBytes);
+                } else {
+                    buf.writeBytes((byte[]) value);
+                }
                 break;
             case BCD8421:
-                buf.writeBytes(Bcd.leftPad(Bcd.decode8421((String) value), length, pad));
+                buf.writeBytes(Bcd.leftPad(Bcd.strToBcd((String) value), length, pad));
                 break;
             case STRING:
                 byte[] strBytes = ((String) value).getBytes(Charset.forName(prop.charset()));
@@ -97,12 +105,12 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
                 buf.writeBytes(strBytes);
                 break;
             case OBJ:
-                encode(buf, value);
+                encode(buf, value, version);
                 break;
             case LIST:
                 List list = (List) value;
-                for (Object o : list)
-                    encode(buf, o);
+                for (Object obj : list)
+                    encode(buf, obj, version);
                 break;
         }
     }

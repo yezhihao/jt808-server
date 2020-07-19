@@ -1,169 +1,190 @@
 package org.yzh.web.jt808.dto.basics;
 
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.annotation.Ps;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.framework.message.AbstractMessage;
 
 public class Message<T extends AbstractBody> extends AbstractMessage<T> {
 
-    protected Integer type;
-    protected Integer bodyProperties;
-    protected String mobileNumber;
-    protected Integer serialNumber;
-
-    protected Integer subPackageTotal;
-    protected Integer subPackageNumber;
-
-    protected Integer bodyLength = 0;
-    protected Integer encryptionType = 0b000;
-    protected boolean subPackage = false;
-    protected Integer reservedBit = 0;
+    /** 消息类型 */
+    protected int messageId;
+    /** 消息体属性 */
+    protected int properties;
+    /** 协议版本号 */
+    protected int versionNo;
+    /** 手机号 */
+    protected String mobileNo;
+    /** 消息序列号 */
+    protected Integer serialNo;
+    /** 包总数 */
+    protected int packageTotal;
+    /** 包序号 */
+    protected int packageNo;
 
     public Message() {
     }
 
-    public Message(Integer type, String mobileNumber, T body) {
-        this.type = type;
-        this.mobileNumber = mobileNumber;
+    public Message(Integer messageId, String mobileNo, T body) {
+        this.messageId = messageId;
+        this.mobileNo = mobileNo;
         this.body = body;
     }
 
-    public Message(Integer type, Integer serialNumber, String mobileNumber) {
-        this.type = type;
-        this.serialNumber = serialNumber;
-        this.mobileNumber = mobileNumber;
-    }
-
-    public Message(Integer type, Integer serialNumber, String mobileNumber, T body) {
-        this.type = type;
-        this.serialNumber = serialNumber;
-        this.mobileNumber = mobileNumber;
+    public Message(Integer messageId, Integer serialNo, String mobileNo, T body) {
+        this.messageId = messageId;
+        this.serialNo = serialNo;
+        this.mobileNo = mobileNo;
         this.body = body;
     }
 
-    @Property(index = 0, type = DataType.WORD, desc = "消息ID")
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    @Property(index = 2, type = DataType.WORD, desc = "消息体属性")
-    public Integer getBodyProperties() {
-        if (bodyLength >= 1024)
-            System.out.println("The max value of msgLen is 1023, but {} ." + bodyLength);
-        int subPkg = subPackage ? 1 : 0;
-        int ret = (bodyLength & 0x3FF) |
-                ((encryptionType << 10) & 0x1C00) |
-                ((subPkg << 13) & 0x2000) |
-                ((reservedBit << 14) & 0xC000);
-        this.bodyProperties = ret & 0xffff;
-
-        return bodyProperties;
-    }
-
-    /**
-     * [ 0-9 ] 0000,0011,1111,1111(3FF)(消息体长度)
-     * [10-12] 0001,1100,0000,0000(1C00)(加密类型)
-     * [ 13 ] 0010,0000,0000,0000(2000)(是否有子包)
-     * [14-15] 1100,0000,0000,0000(C000)(保留位)
-     */
-    public void setBodyProperties(Integer bodyProperties) {
-        this.bodyProperties = bodyProperties;
-
-        this.bodyLength = bodyProperties & 0x3ff;
-        this.encryptionType = (bodyProperties & 0x1c00) >> 10;
-        this.subPackage = ((bodyProperties & 0x2000) >> 13) == 1;
-        this.reservedBit = ((bodyProperties & 0xc000) >> 14);
-    }
-
-    @Property(index = 4, type = DataType.BCD8421, length = 6, pad = 48, desc = "终端手机号")
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    @Property(index = 10, type = DataType.WORD, desc = "流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    /**
-     * 本次发送的子包是分包中的第几个消息包,从1开始
-     * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
-     */
-    @Property(index = 12, type = DataType.WORD, desc = "消息包总数")
-    public Integer getSubPackageTotal() {
-        return hasSubPackage() ? subPackageTotal : null;
-    }
-
-    public void setSubPackageTotal(Integer subPackageTotal) {
-        this.subPackageTotal = subPackageTotal;
-    }
-
-    /**
-     * 本次发送的子包是分包中的第几个消息包,从1开始
-     * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项
-     */
-    @Property(index = 14, type = DataType.WORD, desc = "包序号")
-    public Integer getSubPackageNumber() {
-        return hasSubPackage() ? subPackageNumber : null;
-    }
-
-    public void setSubPackageNumber(Integer subPackageNumber) {
-        this.subPackageNumber = subPackageNumber;
-    }
-
+    @Property(index = 0, type = DataType.WORD, desc = "消息ID", version = {0, 1})
     @Override
-    public Integer getBodyLength() {
-        return bodyLength;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setBodyLength(Integer bodyLength) {
-        this.bodyLength = bodyLength;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
+    @Property(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
+    public Integer getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Integer properties) {
+        this.properties = properties;
+    }
+
+    @Property(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
     @Override
-    public Integer getHeaderLength() {
-        return hasSubPackage() ? 16 : 12;
+    public int getVersionNo() {
+        return versionNo;
     }
 
-    public Integer getEncryptionType() {
-        return encryptionType;
+    public void setVersionNo(int versionNo) {
+        this.versionNo = versionNo;
     }
 
-    public void setEncryptionType(Integer encryptionType) {
-        this.encryptionType = encryptionType;
+    @Ps({@Property(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0),
+            @Property(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)})
+    public String getMobileNo() {
+        return mobileNo;
     }
 
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    @Ps({@Property(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
+            @Property(index = 15, type = DataType.WORD, desc = "流水号", version = 1)})
+    public Integer getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    @Ps({@Property(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0),
+            @Property(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)})
     @Override
-    public boolean hasSubPackage() {
-        return subPackage;
+    public Integer getPackageTotal() {
+        if (isSubpackage())
+            return packageTotal;
+        return null;
     }
 
-    public void setSubPackage(boolean subPackage) {
-        this.subPackage = subPackage;
+    public void setPackageTotal(int packageTotal) {
+        this.packageTotal = packageTotal;
     }
 
-    public boolean isSubPackage() {
-        return subPackage;
+    @Ps({@Property(index = 14, type = DataType.WORD, desc = "包序号", version = 0),
+            @Property(index = 19, type = DataType.WORD, desc = "包序号", version = 1)})
+    @Override
+    public Integer getPackageNo() {
+        if (isSubpackage())
+            return packageNo;
+        return null;
     }
 
-    public Integer getReservedBit() {
-        return reservedBit;
+    public void setPackageNo(int packageNo) {
+        this.packageNo = packageNo;
     }
 
-    public void setReservedBit(Integer reservedBit) {
-        this.reservedBit = reservedBit;
+    /** 消息头长度 */
+    @Override
+    public int getHeadLength() {
+        if (isVersion())
+            return isSubpackage() ? 21 : 17;
+        return isSubpackage() ? 16 : 12;
+    }
+
+    private static final int BODY_LENGTH = 0b0000_0011_1111_1111;
+    private static final int ENCRYPTION  = 0b00011_100_0000_0000;
+    private static final int SUBPACKAGE  = 0b0010_0000_0000_0000;
+    private static final int VERSION     = 0b0100_0000_0000_0000;
+    private static final int RESERVED    = 0b1000_0000_0000_0000;
+
+    /** 消息体长度 */
+    @Override
+    public int getBodyLength() {
+        return this.properties & BODY_LENGTH;
+    }
+
+    public void setBodyLength(int bodyLength) {
+        this.properties ^= (properties & BODY_LENGTH);
+        this.properties |= bodyLength;
+    }
+
+    /** 加密方式 */
+    @Override
+    public int getEncryption() {
+        return (properties & ENCRYPTION) >> 10;
+    }
+
+    public void setEncryption(int encryption) {
+        this.properties ^= (properties & ENCRYPTION);
+        this.properties |= (encryption << 10);
+    }
+
+    /** 是否分包 */
+    @Override
+    public boolean isSubpackage() {
+        return (properties & SUBPACKAGE) == SUBPACKAGE;
+    }
+
+    public void setSubpackage(boolean subpackage) {
+        if (subpackage)
+            this.properties |= SUBPACKAGE;
+        else
+            this.properties ^= (properties & SUBPACKAGE);
+    }
+
+    /** 是否有版本 */
+    @Override
+    public boolean isVersion() {
+        return (properties & VERSION) == VERSION;
+    }
+
+    public void setVersion(boolean version) {
+        if (version)
+            this.properties |= VERSION;
+        else
+            this.properties ^= (properties & VERSION);
+    }
+
+    /** 保留位 */
+    public boolean isReserved() {
+        return (properties & RESERVED) == RESERVED;
+    }
+
+    public void setReserved(boolean reserved) {
+        if (reserved)
+            this.properties |= RESERVED;
+        else
+            this.properties ^= (properties & RESERVED);
     }
 }

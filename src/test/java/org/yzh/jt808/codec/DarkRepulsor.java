@@ -3,6 +3,7 @@ package org.yzh.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.commons.PropertySpec;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 
 /**
@@ -21,12 +22,13 @@ public class DarkRepulsor extends JT808MessageEncoder {
     }
 
     @Override
-    public void write(ByteBuf buf, Property prop, Object value) {
+    public void write(ByteBuf buf, PropertySpec propertySpec, Object value, int version) {
+        Property prop = propertySpec.property;
         int before = buf.writerIndex();
-        super.write(buf, prop, value);
+        super.write(buf, propertySpec, value, version);
         int after = buf.writerIndex();
 
         String hex = ByteBufUtil.hexDump(buf, before, after - before);
-        System.out.println(prop.index() + "\t" + hex + "\t" + prop.desc() + "\t" + String.valueOf(value));
+        System.out.println(prop.index() + "\t" + hex + "\t" + prop.desc() + "\t" + value);
     }
 }

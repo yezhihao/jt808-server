@@ -4,12 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.annotation.Property;
+import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
-import org.yzh.web.jt808.dto.PositionReport;
+import org.yzh.web.jt808.dto.Register;
 import org.yzh.web.jt808.dto.basics.Message;
-
-import java.beans.PropertyDescriptor;
 
 /**
  * 阐释者
@@ -21,8 +20,8 @@ public class Elucidator extends JT808MessageDecoder {
     private static final Elucidator elucidator = new Elucidator();
 
     public static void main(String[] args) {
-        Class<? extends AbstractBody> clazz = PositionReport.class;
-        String hex = "0200002d010000000000007b000000070000000600000001000000020003000400051904061915541206000000000000110100e3040000000bfe";
+        Class<? extends AbstractBody> clazz = Register.class;
+        String hex = "007d0140550100000000001111111111007d01baf0bb63202020202020202020203420202020202020202020202020202020202020202042534a2d47462d303600000000000000000000000000000000000000000000007465737431323301b2e241383838383838e9";
 
         System.out.println(hex);
         System.out.println();
@@ -30,13 +29,14 @@ public class Elucidator extends JT808MessageDecoder {
     }
 
     @Override
-    public Object read(ByteBuf buf, Property prop, int length, PropertyDescriptor pd) {
-        buf.markReaderIndex();
+    public Object read(ByteBuf buf, PropertySpec ps, int length, int version) {
+        Property prop = ps.property;
+        int i = buf.readerIndex();
         String hex = ByteBufUtil.hexDump(buf.readSlice(length));
-        buf.resetReaderIndex();
+        buf.readerIndex(i);
 
-        Object value = super.read(buf, prop, length, pd);
-        System.out.println(prop.index() + "\t" + hex + "\t" + prop.desc() + "\t" + String.valueOf(value));
+        Object value = super.read(buf, ps, length, version);
+        System.out.println(prop.index() + "\t" + hex + "\t" + prop.desc() + "\t" + value);
         return value;
     }
 }

@@ -20,27 +20,27 @@ public class RegisterResult extends AbstractBody {
     /** 4：数据库中无该终端 */
     public static final int NotFoundTerminal = 4;
 
-    private Integer serialNumber;
+    private Integer serialNo;
     private Integer resultCode;
     private String token;
 
     public RegisterResult() {
     }
 
-    public RegisterResult(Integer serialNumber, Integer resultCode, String token) {
-        this.serialNumber = serialNumber;
+    public RegisterResult(Integer serialNo, Integer resultCode, String token) {
+        this.serialNo = serialNo;
         this.resultCode = resultCode;
         this.token = token;
     }
 
     /** 对应的终端注册消息的流水号 */
     @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNumber() {
-        return serialNumber;
+    public Integer getSerialNo() {
+        return serialNo;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNo(Integer serialNo) {
+        this.serialNo = serialNo;
     }
 
     /** 0-4 */
