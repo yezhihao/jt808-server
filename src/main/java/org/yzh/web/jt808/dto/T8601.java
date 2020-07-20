@@ -9,6 +9,10 @@ import org.yzh.web.jt808.common.MessageId;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type({MessageId.删除圆形区域, MessageId.删除矩形区域, MessageId.删除多边形区域})
 public class T8601 extends AbstractBody {
 

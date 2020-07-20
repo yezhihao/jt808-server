@@ -6,6 +6,10 @@ import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type({MessageId.终端通用应答, MessageId.平台通用应答})
 public class T0001 extends AbstractBody {
 

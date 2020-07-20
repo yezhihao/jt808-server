@@ -12,6 +12,10 @@ import org.yzh.web.jt808.dto.position.Attribute;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.位置信息汇报)
 public class T0200 extends AbstractBody {
 

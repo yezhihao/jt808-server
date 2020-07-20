@@ -10,6 +10,10 @@ import org.yzh.web.jt808.common.MessageId;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.信息点播菜单设置)
 public class T8303 extends AbstractBody {
 

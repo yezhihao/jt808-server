@@ -6,6 +6,10 @@ import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type({MessageId.数据上行透传, MessageId.数据下行透传})
 public class T8900_0900 extends AbstractBody {
 

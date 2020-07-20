@@ -10,6 +10,10 @@ import org.yzh.web.jt808.dto.basics.TerminalParameter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.查询终端参数应答)
 public class T0104 extends AbstractBody {
 

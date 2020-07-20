@@ -8,6 +8,10 @@ import org.yzh.web.jt808.common.MessageId;
 
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.定位数据批量上传)
 public class T0704 extends AbstractBody {
 

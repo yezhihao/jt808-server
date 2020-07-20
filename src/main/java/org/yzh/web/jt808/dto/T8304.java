@@ -7,6 +7,10 @@ import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.config.Charsets;
 import org.yzh.web.jt808.common.MessageId;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.信息服务)
 public class T8304 extends AbstractBody {
 

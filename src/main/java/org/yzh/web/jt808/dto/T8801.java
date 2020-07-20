@@ -6,6 +6,10 @@ import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.摄像头立即拍摄命令)
 public class T8801 extends AbstractBody {
 

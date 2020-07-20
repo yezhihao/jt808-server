@@ -9,6 +9,10 @@ import org.yzh.web.jt808.dto.basics.TerminalParameter;
 
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 @Type(MessageId.设置终端参数)
 public class T8103 extends AbstractBody {
 
