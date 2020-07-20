@@ -26,16 +26,42 @@ public class Bcd {
     }
 
     /**
-     * 左侧补齐
+     * 检查字节数组长度，填充或截断
      */
-    public static byte[] leftPad(byte[] bytes, int length, byte padByte) {
-        int i = length - bytes.length;
-        if (i <= 0)
-            return bytes;
-        byte[] result = new byte[length];
-        System.arraycopy(bytes, 0, result, i, bytes.length);
-        for (int j = 0; j < i; j++)
-            result[j] = padByte;
-        return result;
+    public static byte[] checkRepair(byte[] src, int length) {
+        int srcPos = src.length - length;
+
+        if (srcPos > 0) {
+            byte[] dest = new byte[length];
+            System.arraycopy(src, srcPos, dest, 0, length);
+            return dest;
+        } else if (srcPos < 0) {
+            byte[] dest = new byte[length];
+            System.arraycopy(src, 0, dest, -srcPos, src.length);
+            return dest;
+        }
+        return src;
+    }
+
+    public static String leftPad(String str, int size, char pad) {
+        int strLen = str.length();
+        int pads = size - strLen;
+        if (pads <= 0)
+            return str;
+
+        char[] padding = new char[pads];
+        for (int i = 0; i < pads; i++)
+            padding[i] = pad;
+        return new String(padding).concat(str);
+    }
+
+    public static String leftTrim(String str, char pad) {
+        char[] val = str.toCharArray();
+        int len = val.length;
+
+        int st = 0;
+        while (st < len && val[st] == pad)
+            st++;
+        return (st > 0 && st < len) ? str.substring(st) : str;
     }
 }

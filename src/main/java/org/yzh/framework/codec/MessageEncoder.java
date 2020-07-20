@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.commons.PropertyUtils;
@@ -20,6 +22,8 @@ import java.util.List;
  * 基础消息编码
  */
 public abstract class MessageEncoder<T extends AbstractBody> extends MessageToByteEncoder<AbstractMessage<T>> {
+
+    private static final Logger log = LoggerFactory.getLogger(MessageEncoder.class.getSimpleName());
 
     @Override
     protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
@@ -54,16 +58,17 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
     public abstract ByteBuf sign(ByteBuf buf);
 
     private ByteBuf encode(ByteBuf buf, Object body, int version) {
-        PropertySpec[] pds = PropertyUtils.getPropertySpecs(body.getClass(), version);
+        PropertySpec[] propertySpecs = PropertyUtils.getPropertySpecs(body.getClass(), version);
 
-        for (PropertySpec propertySpec : pds) {
+        if (propertySpecs != null)
+            for (PropertySpec propertySpec : propertySpecs) {
 
-            Method readMethod = propertySpec.readMethod;
-            Object value = BeanUtils.getValue(body, readMethod);
-            if (value != null) {
-                write(buf, propertySpec, value, version);
+                Method readMethod = propertySpec.readMethod;
+                Object value = BeanUtils.getValue(body, readMethod);
+                if (value != null) {
+                    write(buf, propertySpec, value, version);
+                }
             }
-        }
         return buf;
     }
 
@@ -87,22 +92,32 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
                 break;
             case BYTES:
                 if (pd.type.isAssignableFrom(String.class)) {
-                    byte[] strBytes = ((String) value).getBytes(Charset.forName(prop.charset()));
-                    if (length > 0)
-                        strBytes = Bcd.leftPad(strBytes, length, pad);
-                    buf.writeBytes(strBytes);
+                    byte[] bytes = ((String) value).getBytes(Charset.forName(prop.charset()));
+                    int srcLen = bytes.length;
+                    if (length > 0) {
+                        bytes = Bcd.checkRepair(bytes, length);
+                        if (srcLen > bytes.length)
+                            log.warn("数据长度超出限制[{}]原始长度{},目标长度{},[{}]", value, srcLen, bytes.length);
+                    }
+                    buf.writeBytes(bytes);
                 } else {
-                    buf.writeBytes((byte[]) value);
+                    if (length < 0) buf.writeBytes((byte[]) value);
+                    else buf.writeBytes((byte[]) value, 0, length);
                 }
                 break;
             case BCD8421:
-                buf.writeBytes(Bcd.leftPad(Bcd.strToBcd((String) value), length, pad));
+                String str = Bcd.leftPad((String) value, length * 2, '0');
+                buf.writeBytes(Bcd.strToBcd(str));
                 break;
             case STRING:
-                byte[] strBytes = ((String) value).getBytes(Charset.forName(prop.charset()));
-                if (length > 0)
-                    strBytes = Bcd.leftPad(strBytes, length, pad);
-                buf.writeBytes(strBytes);
+                byte[] bytes = ((String) value).getBytes(Charset.forName(prop.charset()));
+                int srcLen = bytes.length;
+                if (length > 0) {
+                    bytes = Bcd.checkRepair(bytes, length);
+                    if (srcLen > bytes.length)
+                        log.warn("数据长度超出限制,[{}]原始长度{},目标长度{},[{}]", value, srcLen, bytes.length);
+                }
+                buf.writeBytes(bytes);
                 break;
             case OBJ:
                 encode(buf, value, version);

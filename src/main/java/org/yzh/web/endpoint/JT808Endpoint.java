@@ -25,7 +25,7 @@ import static org.yzh.web.jt808.common.MessageId.*;
 @Component
 public class JT808Endpoint {
 
-    private static final Logger logger = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
 
     private SessionManager sessionManager = SessionManager.getInstance();
 

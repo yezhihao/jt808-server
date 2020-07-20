@@ -39,8 +39,8 @@ public class T0100 extends AbstractBody {
     }
 
     /** 终端制造商编码 */
-    @Ps({@Property(index = 4, type = DataType.BYTES, length = 5, pad = 32, desc = "制造商ID", version = 0),
-            @Property(index = 4, type = DataType.BYTES, length = 11, pad = 32, desc = "制造商ID", version = 1)})
+    @Ps({@Property(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = 0),
+            @Property(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)})
     public String getManufacturerId() {
         return manufacturerId;
     }
@@ -50,8 +50,8 @@ public class T0100 extends AbstractBody {
     }
 
     /** 由制造商自行定义,位数不足八位补空格 */
-    @Ps({@Property(index = 9, type = DataType.BYTES, length = 8, pad = 32, desc = "终端型号", version = 0),
-            @Property(index = 15, type = DataType.BYTES, length = 30, pad = 32, desc = "终端型号", version = 1)})
+    @Ps({@Property(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0),
+            @Property(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)})
     public String getTerminalType() {
         return terminalType;
     }
@@ -61,7 +61,7 @@ public class T0100 extends AbstractBody {
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义 */
-    @Ps({@Property(index = 17, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0),
+    @Ps({@Property(index = 29, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0),
             @Property(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID", version = 1)})
     public String getTerminalId() {
         return terminalId;
@@ -72,7 +72,7 @@ public class T0100 extends AbstractBody {
     }
 
     /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
-    @Ps({@Property(index = 24, type = DataType.BYTE, desc = "车牌颜色", version = 0),
+    @Ps({@Property(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0),
             @Property(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)})
     public Integer getLicensePlateColor() {
         return licensePlateColor;
@@ -83,8 +83,8 @@ public class T0100 extends AbstractBody {
     }
 
     /** 车牌颜色为0时,表示车辆VIN；否则,表示公安交通管理部门颁发的机动车号牌 */
-    @Ps({@Property(index = 25, type = DataType.STRING, desc = "车牌", version = 0),
-            @Property(index = 76, type = DataType.STRING, desc = "车牌", version = 1)})
+    @Ps({@Property(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0),
+            @Property(index = 76, type = DataType.STRING, desc = "车辆标识", version = 1)})
     public String getLicensePlate() {
         return licensePlate;
     }

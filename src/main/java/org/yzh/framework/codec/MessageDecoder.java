@@ -104,22 +104,23 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
         T result = BeanUtils.newInstance(targetClass);
 
         PropertySpec[] propertySpecs = PropertyUtils.getPropertySpecs(targetClass, version);
-        for (PropertySpec propertySpec : propertySpecs) {
+        if (propertySpecs != null)
+            for (PropertySpec propertySpec : propertySpecs) {
 
-            int length = PropertyUtils.getLength(result, propertySpec.property);
-            if (!buf.isReadable(length))
-                break;
+                int length = PropertyUtils.getLength(result, propertySpec.property);
+                if (!buf.isReadable(length))
+                    break;
 
-            if (length == -1)
-                length = buf.readableBytes();
-            Object value = null;
-            try {
-                value = read(buf, propertySpec, length, version);
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (length == -1)
+                    length = buf.readableBytes();
+                Object value = null;
+                try {
+                    value = read(buf, propertySpec, length, version);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                BeanUtils.setValue(result, propertySpec.writeMethod, value);
             }
-            BeanUtils.setValue(result, propertySpec.writeMethod, value);
-        }
         return result;
     }
 
@@ -153,7 +154,8 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
         byte[] bytes = new byte[length];
         buf.readBytes(bytes);
         if (type == BCD8421)
-            return Bcd.bcdToStr(bytes).trim();
+            return Bcd.leftTrim(Bcd.bcdToStr(bytes), '0');
+
         if (propertySpec.type.isAssignableFrom(String.class)) {
             byte pad = prop.pad();
             for (int i = 0; i < bytes.length; i++) {

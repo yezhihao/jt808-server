@@ -80,15 +80,27 @@ public class CoderTest {
         assertEquals("object not equals", json1, json2);
     }
 
-    public static Message newMessage(AbstractBody body) {
+    /** 2013版消息头 */
+    public static Message m2013(AbstractBody body) {
         Message message = new Message();
-        message.setMessageId(125);
-        message.setProperties(1);
-        message.setMobileNo("11111111111");
-        message.setSerialNo(125);
-        message.setVersion(true);
-        message.setVersionNo(1);
+        message.setMessageId(999);
+        message.setMobileNo("12345678901");
+        message.setSerialNo((int) Short.MAX_VALUE);
         message.setEncryption(0);
+        message.setReserved(false);
+        message.setBody(body);
+        return message;
+    }
+
+    /** 2019版消息头 */
+    public static Message m2019(AbstractBody body) {
+        Message message = new Message();
+        message.setMessageId(999);
+        message.setVersionNo(1);
+        message.setMobileNo("9876543210");
+        message.setSerialNo(65535);
+        message.setEncryption(0);
+        message.setVersion(true);
         message.setReserved(false);
         message.setBody(body);
         return message;
@@ -100,10 +112,10 @@ public class CoderTest {
     public void testPositionReport() {
 //        String hex1 = "0200006a064762924976014d000003500004100201d9f1230743425e000300a6ffff190403133450000000250400070008000000e2403836373733323033383535333838392d627566322d323031392d30342d30332d31332d33342d34392d3735372d70686f6e652d2e6a706700000020000c14cde78d";
 //        selfCheck(T0200.class, hex1);
-        selfCheck(t0200());
+        selfCheck(positionReport());
     }
 
-    public static Message t0200() {
+    public static Message positionReport() {
         T0200 bean = new T0200();
         bean.setWarningMark(1024);
         bean.setStatus(2048);
@@ -133,7 +145,7 @@ public class CoderTest {
         attributes.put(GnssCount.attributeId, new GnssCount(40));
 
         bean.setAttributes(attributes);
-        return newMessage(bean);
+        return m2013(bean);
     }
 
 
@@ -147,7 +159,7 @@ public class CoderTest {
     // 终端注册 0x0100
     @Test
     public void testRegister() {
-        selfCheck(T0200.class, "0100002e064762924824000200000000484f4f5000bfb5b4ef562d31000000000000000000000000000000015a0d5dff02bba64450393939370002");
+//        selfCheck(T0100.class, "0100002e064762924824000200000000484f4f5000bfb5b4ef562d31000000000000000000000000000000015a0d5dff02bba64450393939370002");
         selfCheck(register());
     }
 
@@ -160,7 +172,8 @@ public class CoderTest {
         bean.setTerminalId("test123");
         bean.setLicensePlateColor(1);
         bean.setLicensePlate("测A888888");
-        return newMessage(bean);
+        return m2019(bean);
+//        return m2013(bean);
     }
 
 
@@ -182,7 +195,7 @@ public class CoderTest {
 
         options.add(new T8302.Option(1, "asd1"));
         options.add(new T8302.Option(2, "zxc2"));
-        return newMessage(bean);
+        return m2013(bean);
     }
 
 
@@ -200,7 +213,7 @@ public class CoderTest {
         bean.add(new T8401.Item(2, "18217341802", "张三"));
         bean.add(new T8401.Item(1, "123123", "李四"));
         bean.add(new T8401.Item(3, "123123", "王五"));
-        return newMessage(bean);
+        return m2013(bean);
     }
 
 
@@ -218,7 +231,7 @@ public class CoderTest {
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
         bean.addEvent(3, "t试2");
-        return newMessage(bean);
+        return m2013(bean);
     }
 
     // 终端&T0702 0x0001 0x8001
@@ -246,21 +259,21 @@ public class CoderTest {
     @Test
     public void testCameraShot() {
         selfCheck(cameraShot());
-        selfCheck(T8804.class, "8801000c0641629242524a43010001000a0001057d017d017d017d0125");
+        selfCheck(T8804.class, "880100050641629242524a43010001000a28");
     }
 
     public static Message<T8804> cameraShot() {
         T8801 body = new T8801();
-        body.setChannelId(125);
-        body.setCommand(1);
-        body.setTime(125);
+        body.setChannelId(1);
+        body.setCommand(2);
+        body.setTime(3);
         body.setSaveSign(1);
-        body.setResolution(125);
-        body.setQuality(1);
-        body.setBrightness(125);
-        body.setContrast(1);
-        body.setSaturation(125);
-        body.setChroma(1);
-        return newMessage(body);
+        body.setResolution(4);
+        body.setQuality(5);
+        body.setBrightness(255);
+        body.setContrast(127);
+        body.setSaturation(127);
+        body.setChroma(255);
+        return m2013(body);
     }
 }

@@ -20,18 +20,18 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     private final SessionManager sessionManager = SessionManager.getInstance();
 
-    private Logger logger;
+    private Logger log;
 
     private HandlerMapper handlerMapper;
 
     public TCPServerHandler(HandlerMapper handlerMapper) {
         this.handlerMapper = handlerMapper;
-        this.logger = new Logger();
+        this.log = new Logger();
     }
 
-    public TCPServerHandler(HandlerMapper handlerMapper, Logger logger) {
+    public TCPServerHandler(HandlerMapper handlerMapper, Logger log) {
         this.handlerMapper = handlerMapper;
-        this.logger = logger;
+        this.log = log;
     }
 
 
@@ -65,14 +65,14 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         Session session = Session.buildSession(ctx.channel());
         sessionManager.put(session.getId(), session);
-        logger.logEvent("终端连接", session);
+        log.logEvent("终端连接", session);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         String sessionId = Session.buildId(ctx.channel());
         Session session = sessionManager.removeBySessionId(sessionId);
-        logger.logEvent("断开连接", session);
+        log.logEvent("断开连接", session);
         ctx.channel().close();
         // ctx.close();
     }
@@ -81,7 +81,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         String sessionId = Session.buildId(ctx.channel());
         Session session = sessionManager.getBySessionId(sessionId);
-        logger.logEvent("发生异常", session);
+        log.logEvent("发生异常", session);
         e.printStackTrace();
     }
 
@@ -91,7 +91,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             IdleStateEvent event = (IdleStateEvent) evt;
             if (event.state() == IdleState.READER_IDLE) {
                 Session session = this.sessionManager.removeBySessionId(Session.buildId(ctx.channel()));
-                logger.logEvent("服务器主动断开连接", session);
+                log.logEvent("服务器主动断开连接", session);
                 ctx.close();
             }
         }

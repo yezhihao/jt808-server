@@ -10,15 +10,13 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.annotation.Annotation;
-import java.net.URL;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ClassUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClassUtils.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(ClassUtils.class.getSimpleName());
 
     public static List<Class<?>> getClassList(String packageName, Class<? extends Annotation> annotationClass) {
         List<Class<?>> classList = getClassList(packageName);
@@ -31,23 +29,23 @@ public class ClassUtils {
         return classList;
     }
 
-	public static List<Class<?>> getClassList(String packageName) {
-		List<Class<?>> classList = new LinkedList();
-		try {
+    public static List<Class<?>> getClassList(String packageName) {
+        List<Class<?>> classList = new LinkedList();
+        try {
 
-			ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-			Resource[] resources = resourcePatternResolver.getResources(packageName.replace(".", "/") + "/**/*.class");
-			for (Resource resource : resources) {
-				String url = resource.getURL().toString();
-				String className = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
-				doAddClass(classList, packageName + "." + className);
-			}
+            ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+            Resource[] resources = resourcePatternResolver.getResources(packageName.replace(".", "/") + "/**/*.class");
+            for (Resource resource : resources) {
+                String url = resource.getURL().toString();
+                String className = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
+                doAddClass(classList, packageName + "." + className);
+            }
 
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return classList;
-	}
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return classList;
+    }
 
     private static void addClass(List<Class<?>> classList, String packagePath, String packageName) {
         try {
