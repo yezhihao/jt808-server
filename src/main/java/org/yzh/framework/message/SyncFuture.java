@@ -4,6 +4,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class SyncFuture<T> implements Future<T> {
 
     // 因为请求和响应是一一对应的，因此初始化CountDownLatch值为1。

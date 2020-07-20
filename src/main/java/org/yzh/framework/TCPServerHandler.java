@@ -16,6 +16,10 @@ import org.yzh.framework.session.SessionManager;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     private final SessionManager sessionManager = SessionManager.getInstance();

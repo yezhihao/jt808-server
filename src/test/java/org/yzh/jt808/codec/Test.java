@@ -6,6 +6,10 @@ import org.apache.commons.codec.binary.Hex;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.web.config.Charsets;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class Test {
 
     public static void main(String[] args) throws Exception {

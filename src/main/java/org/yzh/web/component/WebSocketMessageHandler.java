@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class WebSocketMessageHandler extends TextWebSocketHandler {
 
     private static final Map<Integer, WebSocketSession> webSocketMap = new ConcurrentHashMap();

@@ -3,6 +3,10 @@ package org.yzh.framework.commons.lang;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class RandomUtils {
 
     public static final String NUMERIC = "0123456789";

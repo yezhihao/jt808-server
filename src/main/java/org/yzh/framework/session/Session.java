@@ -4,6 +4,10 @@ import io.netty.channel.Channel;
 
 import java.net.SocketAddress;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class Session {
 
     private String id;

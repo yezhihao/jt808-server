@@ -14,6 +14,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class ClassUtils {
 
     private static final Logger log = LoggerFactory.getLogger(ClassUtils.class.getSimpleName());

@@ -11,6 +11,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class JsonUtils {
 
     public static final ObjectMapper mapper = new ObjectMapper();

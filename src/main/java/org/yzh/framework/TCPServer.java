@@ -20,6 +20,10 @@ import org.yzh.web.jt808.codec.JT808MessageEncoder;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class TCPServer {
 
     private static final Logger log = LoggerFactory.getLogger(TCPServer.class);

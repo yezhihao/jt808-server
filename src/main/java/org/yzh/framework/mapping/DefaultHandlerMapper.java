@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class DefaultHandlerMapper implements HandlerMapper {
 
     private Map<Integer, Handler> handlerMap = new HashMap(55);
