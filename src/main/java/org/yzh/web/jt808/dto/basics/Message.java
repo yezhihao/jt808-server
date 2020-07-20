@@ -6,6 +6,10 @@ import org.yzh.framework.enums.DataType;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.framework.message.AbstractMessage;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public class Message<T extends AbstractBody> extends AbstractMessage<T> {
 
     /** 消息类型 */
@@ -186,5 +190,10 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
             this.properties |= RESERVED;
         else
             this.properties ^= (properties & RESERVED);
+    }
+
+    @Override
+    public String getClientId() {
+        return mobileNo;
     }
 }

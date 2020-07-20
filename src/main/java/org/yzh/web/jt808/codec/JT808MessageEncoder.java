@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 808协议编码器
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public class JT808MessageEncoder extends MessageEncoder {
 

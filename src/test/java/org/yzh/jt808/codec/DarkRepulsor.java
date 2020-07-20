@@ -9,7 +9,7 @@ import org.yzh.web.jt808.codec.JT808MessageEncoder;
 /**
  * 逐暗者
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public class DarkRepulsor extends JT808MessageEncoder {
 

@@ -6,6 +6,9 @@ import org.yzh.framework.message.AbstractBody;
 
 /**
  * 位置附加信息项
+ *
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
  */
 public class BytesAttribute extends AbstractBody {
 

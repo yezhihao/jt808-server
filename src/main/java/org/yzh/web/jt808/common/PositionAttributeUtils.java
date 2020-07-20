@@ -11,6 +11,10 @@ import org.yzh.web.jt808.dto.position.attribute.*;
 import java.util.*;
 import java.util.function.Function;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public abstract class PositionAttributeUtils {
 
     private static final Logger log = LoggerFactory.getLogger(PositionAttributeUtils.class.getSimpleName());

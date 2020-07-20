@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * 获取消息模型的属性定义
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public abstract class PropertyUtils {
 

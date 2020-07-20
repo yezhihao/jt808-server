@@ -3,7 +3,7 @@ package org.yzh.framework.commons.transform;
 /**
  * 字节数组与int之间的转换
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public class Bit {
 

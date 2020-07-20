@@ -13,7 +13,7 @@ import org.yzh.web.jt808.dto.basics.Message;
 /**
  * 阐释者
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public class Elucidator extends JT808MessageDecoder {
 

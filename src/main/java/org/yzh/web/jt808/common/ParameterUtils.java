@@ -8,6 +8,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt808-server
+ */
 public enum ParameterUtils {
 
     Ox0001(0x0001, DataType.DWORD),//0x0001:终端心跳发送间隔，单位为秒(s)

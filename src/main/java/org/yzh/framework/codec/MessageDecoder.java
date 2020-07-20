@@ -2,6 +2,7 @@ package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.yzh.framework.annotation.Property;
@@ -21,16 +22,20 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import static org.yzh.framework.enums.DataType.*;
 
 /**
  * 基础消息解码
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt808-server
  */
 public abstract class MessageDecoder extends ByteToMessageDecoder {
+
+    public ConcurrentMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
     private HandlerMapper handlerMapper;
 
@@ -83,10 +88,35 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
         }
 
         if (bodyClass != null) {
-            Integer headerLength = message.getHeadLength();
-            buf.setIndex(headerLength, headerLength + message.getBodyLength());
-            T body = decode(buf, bodyClass, version);
-            message.setBody(body);
+            int headLen = message.getHeadLength();
+            int bodyLen = message.getBodyLength();
+
+            if (message.isSubpackage()) {
+
+                String clientId = message.getClientId();
+                int messageId = message.getMessageId();
+                int packageTotal = message.getPackageTotal();
+                int packetNo = message.getPackageNo();
+
+                byte[] bytes = new byte[bodyLen];
+                buf.readBytes(bytes, headLen, headLen + bodyLen);
+
+                String key = new StringBuilder(18).append(clientId).append("/").append(messageId).append("/").append(packageTotal).toString();
+                MultiPacket multiPackets = multiPacketsMap.getOrDefault(key, new MultiPacket(messageId, clientId, packageTotal));
+
+                byte[][] packages = multiPackets.addAndGet(packetNo, bytes);
+                if (packages == null)
+                    return message;
+
+                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+
+                T body = decode(bodyBuf, bodyClass, version);
+                message.setBody(body);
+            } else {
+                buf.setIndex(headLen, headLen + bodyLen);
+                T body = decode(buf, bodyClass, version);
+                message.setBody(body);
+            }
         }
         return message;
     }

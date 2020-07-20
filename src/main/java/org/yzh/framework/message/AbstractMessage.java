@@ -6,13 +6,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * 消息基类
  *
- * @author zhihao.ye (yezhihaoo@gmail.com)
+ * @author zhihao.ye (1527621790@qq.com)
  */
 public abstract class AbstractMessage<T extends AbstractBody> {
     /** 消息类型 */
     public abstract int getMessageId();
     /** 消息版本号 */
     public abstract int getVersionNo();
+    /** 终端唯一标识 */
+    public abstract String getClientId();
     /** 消息头长度 */
     public abstract int getHeadLength();
     /** 消息体长度 */
