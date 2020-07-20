@@ -22,7 +22,7 @@ public class BytesAttribute extends AbstractBody {
         this.value = value;
     }
 
-    @Property(index = 0, type = DataType.BYTE, desc = "附加信息ID")
+    @Property(index = 0, type = DataType.BYTE, desc = "附加信息ID", version = {0, 1})
     public Integer getId() {
         return id;
     }
@@ -31,7 +31,7 @@ public class BytesAttribute extends AbstractBody {
         this.id = id;
     }
 
-    @Property(index = 1, type = DataType.BYTE, desc = "附加信息长度")
+    @Property(index = 1, type = DataType.BYTE, desc = "附加信息长度", version = {0, 1})
     public Integer getLength() {
         return length;
     }
@@ -40,7 +40,7 @@ public class BytesAttribute extends AbstractBody {
         this.length = length;
     }
 
-    @Property(index = 2, type = DataType.BYTES, lengthName = "length", desc = "参数值")
+    @Property(index = 2, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {0, 1})
     public byte[] getValue() {
         return value;
     }

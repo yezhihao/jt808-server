@@ -39,7 +39,10 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
 
         ByteBuf bodyBuf = encode(Unpooled.buffer(256), body, version);
 
-        message.setBodyLength(bodyBuf.readableBytes());
+        int bodyLength = bodyBuf.readableBytes();
+        if (bodyLength > 1023)
+            throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
+        message.setBodyLength(bodyLength);
 
         ByteBuf headerBuf = encode(Unpooled.buffer(16), message, version);
 

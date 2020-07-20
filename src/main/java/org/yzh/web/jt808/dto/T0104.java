@@ -7,6 +7,7 @@ import org.yzh.framework.message.AbstractBody;
 import org.yzh.web.jt808.common.MessageId;
 import org.yzh.web.jt808.dto.basics.TerminalParameter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Type(MessageId.查询终端参数应答)
@@ -28,6 +29,8 @@ public class T0104 extends AbstractBody {
 
     @Property(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     public Integer getTotal() {
+        if (total == null)
+            return terminalParameters.size();
         return total;
     }
 
@@ -42,5 +45,11 @@ public class T0104 extends AbstractBody {
 
     public void setTerminalParameters(List<TerminalParameter> terminalParameters) {
         this.terminalParameters = terminalParameters;
+    }
+
+    public void addTerminalParameter(TerminalParameter terminalParameter) {
+        if (terminalParameters == null)
+            terminalParameters = new ArrayList<>();
+        terminalParameters.add(terminalParameter);
     }
 }

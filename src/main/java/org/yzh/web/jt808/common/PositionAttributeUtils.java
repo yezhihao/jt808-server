@@ -11,7 +11,7 @@ import org.yzh.web.jt808.dto.position.attribute.*;
 import java.util.*;
 import java.util.function.Function;
 
-public final class PositionAttributeUtils {
+public abstract class PositionAttributeUtils {
 
     private static final Logger log = LoggerFactory.getLogger(PositionAttributeUtils.class.getSimpleName());
 

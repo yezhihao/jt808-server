@@ -16,7 +16,7 @@ public class DarkRepulsor extends JT808MessageEncoder {
     private static final DarkRepulsor darkRepulsor = new DarkRepulsor();
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = darkRepulsor.encode(CoderTest.t0200());
+        ByteBuf byteBuf = darkRepulsor.encode(CoderTest.register());
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
     }

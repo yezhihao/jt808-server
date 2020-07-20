@@ -4,13 +4,16 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
+import org.yzh.framework.commons.lang.RandomUtils;
 import org.yzh.framework.commons.transform.JsonUtils;
 import org.yzh.framework.message.AbstractBody;
 import org.yzh.framework.message.AbstractMessage;
 import org.yzh.web.jt808.codec.JT808MessageDecoder;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
+import org.yzh.web.jt808.common.ParameterUtils;
 import org.yzh.web.jt808.dto.*;
 import org.yzh.web.jt808.dto.basics.Message;
+import org.yzh.web.jt808.dto.basics.TerminalParameter;
 import org.yzh.web.jt808.dto.position.Attribute;
 import org.yzh.web.jt808.dto.position.attribute.*;
 
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
 
@@ -172,6 +176,36 @@ public class CoderTest {
         bean.setTerminalId("test123");
         bean.setLicensePlateColor(1);
         bean.setLicensePlate("测A888888");
+        return m2019(bean);
+//        return m2013(bean);
+    }
+
+
+    // 查询终端参数应答 0x0104
+    @Test
+    public void testQuerySettings() {
+        selfCheck(querySettings());
+    }
+
+    public static Message querySettings() {
+        T0104 bean = new T0104();
+        bean.setSerialNo(104);
+
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+
+        ParameterUtils[] values = ParameterUtils.values();
+        for (int i = 0; i < 38; i++) {
+            ParameterUtils p = values[i];
+
+            switch (p.type) {
+                case BYTE:
+                case WORD:
+                case DWORD:
+                    bean.addTerminalParameter(new TerminalParameter(p.id, random.nextInt()));
+                default:
+                    bean.addTerminalParameter(new TerminalParameter(p.id, RandomUtils.nextString(16)));
+            }
+        }
         return m2019(bean);
 //        return m2013(bean);
     }
