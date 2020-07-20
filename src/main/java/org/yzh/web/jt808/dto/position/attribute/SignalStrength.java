@@ -6,9 +6,9 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 无线通信网络信号强度
  * length 1 BYTE
  */
-public class SignalStrength implements Attribute {
+public class SignalStrength extends Attribute {
 
-    public static int attributeId = 0x02;
+    public static int attributeId = 0x30;
     private int value;
 
     public SignalStrength() {

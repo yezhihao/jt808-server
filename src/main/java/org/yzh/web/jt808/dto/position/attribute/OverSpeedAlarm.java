@@ -7,7 +7,8 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 超速报警附加信息见表 28
  * length 1 或 5
  */
-public class OverSpeedAlarm implements Attribute {
+public class OverSpeedAlarm extends Attribute {
+
     public static int attributeId = 0x11;
     /** 位置类型 */
     private byte positionType;

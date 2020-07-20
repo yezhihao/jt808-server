@@ -7,9 +7,10 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 车厢温度, 单位摄氏度
  * length 2
  */
-public class CarriageTemperature implements Attribute {
+public class CarriageTemperature extends Attribute {
 
-    public static  int attributeId; private int value;
+    public static int attributeId;
+    private int value;
 
     public CarriageTemperature() {
     }

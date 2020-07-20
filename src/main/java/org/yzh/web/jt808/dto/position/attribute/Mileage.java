@@ -7,7 +7,8 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 里程，DWORD，1/10km，对应车上里程表读数
  * length 4
  */
-public class Mileage implements Attribute {
+public class Mileage extends Attribute {
+
     public static int attributeId = 0x01;
     private int value;
 

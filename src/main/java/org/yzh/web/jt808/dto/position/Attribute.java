@@ -1,10 +1,18 @@
 package org.yzh.web.jt808.dto.position;
 
-public interface Attribute {
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-    int getAttributeId();
+public abstract class Attribute {
 
-    <T extends Attribute> T formBytes(byte... bytes);
+    public abstract int getAttributeId();
 
-    byte[] toBytes();
+    public abstract <T extends Attribute> T formBytes(byte... bytes);
+
+    public abstract byte[] toBytes();
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 }

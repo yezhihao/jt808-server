@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 行驶记录功能获取的速度，WORD，1/10km/h
  * length 2
  */
-public class Speed implements Attribute {
+public class Speed extends Attribute {
 
     public static int attributeId = 0x03;
     private int value;

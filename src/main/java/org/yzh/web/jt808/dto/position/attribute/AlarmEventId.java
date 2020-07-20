@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 需要人工确认报警事件的 ID，WORD，从 1 开始计数
  * length 2
  */
-public class AlarmEventId implements Attribute {
+public class AlarmEventId extends Attribute {
 
     public static int attributeId = 0x04;
     private int value;

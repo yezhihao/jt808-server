@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 模拟量，bit0-15，AD0；bit16-31，AD1。
  * length 4
  */
-public class AnalogQuantity implements Attribute {
+public class AnalogQuantity extends Attribute {
 
     public static int attributeId = 0x2b;
     private int value;

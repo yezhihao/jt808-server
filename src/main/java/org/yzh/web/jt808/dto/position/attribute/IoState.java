@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * IO 状态位，定义见表 32
  * length 2
  */
-public class IoState implements Attribute {
+public class IoState extends Attribute {
 
     public static int attributeId = 0x2a;
     private int value;

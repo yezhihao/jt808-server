@@ -45,7 +45,7 @@ public final class PositionAttributeUtils {
                     result.put(attribute.getAttributeId(), attribute);
                 } catch (Exception e) {
                     log.error(bytesAttribute.toString());
-                    log.error("set bytesAttributes error", e);
+                    log.error("set attributes error", e);
                 }
             }
         }

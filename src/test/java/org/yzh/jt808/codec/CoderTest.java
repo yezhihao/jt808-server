@@ -107,28 +107,32 @@ public class CoderTest {
         T0200 bean = new T0200();
         bean.setWarningMark(1024);
         bean.setStatus(2048);
-        bean.setLatitude(121321232);
-        bean.setLongitude(322131231);
+        bean.setLatitude(116307629);
+        bean.setLongitude(40058359);
         bean.setAltitude(312);
         bean.setSpeed(3);
         bean.setDirection(99);
         bean.setDateTime("200707192359");
         Map<Integer, Attribute> attributes = new TreeMap();
-        bean.setAttributes(attributes);
-        attributes.put(AlarmEventId.attributeId, new AlarmEventId(2));
-        attributes.put(AnalogQuantity.attributeId, new AnalogQuantity(2));
+
+        attributes.put(Mileage.attributeId, new Mileage(11));
+        attributes.put(Oil.attributeId, new Oil(22));
+        attributes.put(Speed.attributeId, new Speed(33));
+        attributes.put(AlarmEventId.attributeId, new AlarmEventId(44));
+        attributes.put(TirePressure.attributeId, new TirePressure((byte) 55, (byte) 55, (byte) 55));
 //        attributes.put(CarriageTemperature.attributeId, new CarriageTemperature(2));
-        attributes.put(GnssCount.attributeId, new GnssCount(2));
-        attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 1, 123, (byte) 2));
-        attributes.put(IoState.attributeId, new IoState(1));
-        attributes.put(Mileage.attributeId, new Mileage(1));
-        attributes.put(Oil.attributeId, new Oil(1));
-        attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 1, 8766));
-        attributes.put(RouteDriveTimeAlarm.attributeId, new RouteDriveTimeAlarm(99, 99, (byte) 1));
+
+        attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 66, 66));
+        attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
+        attributes.put(RouteDriveTimeAlarm.attributeId, new RouteDriveTimeAlarm(88, 88, (byte) 88));
+
         attributes.put(Signal.attributeId, new Signal(99));
-        attributes.put(SignalStrength.attributeId, new SignalStrength(99));
-        attributes.put(Speed.attributeId, new Speed(99));
-        attributes.put(TirePressure.attributeId, new TirePressure((byte) 132, (byte) 123, (byte) 123));
+        attributes.put(IoState.attributeId, new IoState(10));
+        attributes.put(AnalogQuantity.attributeId, new AnalogQuantity(20));
+        attributes.put(SignalStrength.attributeId, new SignalStrength(30));
+        attributes.put(GnssCount.attributeId, new GnssCount(40));
+
+        bean.setAttributes(attributes);
         return newMessage(bean);
     }
 

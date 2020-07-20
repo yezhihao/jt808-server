@@ -7,7 +7,8 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 路段行驶时间不足/过长报警附加信息见表 30
  * length 7
  */
-public class RouteDriveTimeAlarm implements Attribute {
+public class RouteDriveTimeAlarm extends Attribute {
+
     public static int attributeId = 0x13;
     /** 路段ID */
     private int routeId;
@@ -41,7 +42,7 @@ public class RouteDriveTimeAlarm implements Attribute {
     public byte[] toBytes() {
         byte[] bytes = new byte[7];
         Bit.write4Byte(bytes, 0, this.routeId);
-        Bit.write4Byte(bytes, 4, this.driveTime);
+        Bit.write2Byte(bytes, 4, this.driveTime);
         bytes[6] = this.result;
         return bytes;
     }

@@ -6,7 +6,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 胎压
  * length 30
  */
-public class TirePressure implements Attribute {
+public class TirePressure extends Attribute {
 
     public static int attributeId = 0x05;
     private byte[] value;

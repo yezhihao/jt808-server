@@ -102,6 +102,8 @@ public class T0200 extends AbstractBody {
 
     @Property(index = 28, type = DataType.LIST, desc = "位置附加信息")
     public List<BytesAttribute> getBytesAttributes() {
+        if (bytesAttributes == null || bytesAttributes.size() == 0)
+            bytesAttributes = PositionAttributeUtils.transform(attributes);
         return bytesAttributes;
     }
 
@@ -111,6 +113,8 @@ public class T0200 extends AbstractBody {
     }
 
     public Map<Integer, Attribute> getAttributes() {
+        if (attributes == null || attributes.size() == 0)
+            this.bytesAttributes = PositionAttributeUtils.transform(attributes);
         return attributes;
     }
 

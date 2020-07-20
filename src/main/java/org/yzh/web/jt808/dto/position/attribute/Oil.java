@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 里程
  * length 2 油量，WORD，1/10L，对应车上油量表读数
  */
-public class Oil implements Attribute {
+public class Oil extends Attribute {
 
     public static int attributeId = 0x02;
     private int value;

@@ -7,7 +7,7 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * 进出区域/路线报警附加信息见表 29
  * length 6
  */
-public class InOutAreaAlarm implements Attribute {
+public class InOutAreaAlarm extends Attribute {
 
     public static int attributeId = 0x12;
     /** 位置类型 */

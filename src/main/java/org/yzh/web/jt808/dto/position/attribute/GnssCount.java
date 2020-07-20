@@ -6,9 +6,9 @@ import org.yzh.web.jt808.dto.position.Attribute;
  * GNSS 定位卫星数
  * length 1 BYTE
  */
-public class GnssCount implements Attribute {
+public class GnssCount extends Attribute {
 
-    public static  int attributeId;
+    public static int attributeId = 0x31;
     private int value;
 
     public GnssCount() {
@@ -19,7 +19,7 @@ public class GnssCount implements Attribute {
     }
 
     public int getAttributeId() {
-        return 0x31;
+        return attributeId;
     }
 
     @Override
