@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.web.endpoint.JT808Endpoint;
-import org.yzh.web.jt808.common.JT808;
-import org.yzh.web.jt808.dto.*;
-import org.yzh.web.jt808.dto.basics.Message;
-import org.yzh.web.jt808.dto.basics.TerminalParameter;
+import org.yzh.web.jt.common.JT808;
+import org.yzh.web.jt.t808.*;
+import org.yzh.web.jt.basics.Message;
+import org.yzh.web.jt.basics.TerminalParameter;
 
 import java.util.List;
 

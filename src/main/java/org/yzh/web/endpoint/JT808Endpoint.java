@@ -12,14 +12,14 @@ import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.framework.session.SyncFuture;
-import org.yzh.web.jt808.dto.*;
-import org.yzh.web.jt808.dto.basics.Message;
+import org.yzh.web.jt.t808.*;
+import org.yzh.web.jt.basics.Message;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.yzh.web.jt808.common.JT808.*;
+import static org.yzh.web.jt.common.JT808.*;
 
 @Endpoint
 @Component

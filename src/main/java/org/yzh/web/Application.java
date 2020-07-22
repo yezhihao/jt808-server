@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.yzh.framework.JTApplication;
 import org.yzh.framework.core.JTConfig;
-import org.yzh.web.jt808.codec.JT808MessageDecoder;
-import org.yzh.web.jt808.codec.JT808MessageEncoder;
+import org.yzh.web.jt.codec.JTMessageDecoder;
+import org.yzh.web.jt.codec.JTMessageEncoder;
 
 @EnableWebSocket
 @SpringBootApplication
@@ -21,8 +21,8 @@ public class Application {
                 .setPort(7611)
                 .setMaxFrameLength(1024)
                 .setDelimiters(new byte[]{0x7e}, new byte[]{0x7e, 0x7e})
-                .setDecoder(new JT808MessageDecoder())
-                .setEncoder(new JT808MessageEncoder())
+                .setDecoder(new JTMessageDecoder())
+                .setEncoder(new JTMessageEncoder())
                 .build();
         JTApplication.run(Application.class, jtConfig);
 

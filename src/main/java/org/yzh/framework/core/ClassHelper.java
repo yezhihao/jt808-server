@@ -7,14 +7,14 @@ import java.util.List;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt808-server
+ * @home http://gitee.com/yezhihao/jt-server
  */
 public class ClassHelper {
 
     /**
      * 获取基础包名
      */
-    private static String basePackage = "org.yzh.web.jt808.dto";
+    private static String basePackage = "org.yzh.web.jt.t808";
 
     public static void init(String packageName) {
         basePackage = packageName;

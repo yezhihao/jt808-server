@@ -4,14 +4,14 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.orm.annotation.Property;
-import org.yzh.web.jt808.codec.JT808MessageEncoder;
+import org.yzh.web.jt.codec.JTMessageEncoder;
 
 /**
  * 逐暗者
  *
  * @author zhihao.ye (1527621790@qq.com)
  */
-public class DarkRepulsor extends JT808MessageEncoder {
+public class DarkRepulsor extends JTMessageEncoder {
 
     private static final DarkRepulsor darkRepulsor = new DarkRepulsor();
 

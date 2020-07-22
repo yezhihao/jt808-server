@@ -5,14 +5,14 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.orm.annotation.Property;
 import org.yzh.framework.commons.PropertySpec;
-import org.yzh.web.jt808.codec.JT808MessageDecoder;
+import org.yzh.web.jt.codec.JTMessageDecoder;
 
 /**
  * 阐释者
  *
  * @author zhihao.ye (1527621790@qq.com)
  */
-public class Elucidator extends JT808MessageDecoder {
+public class Elucidator extends JTMessageDecoder {
 
     private static final Elucidator elucidator = new Elucidator();
 

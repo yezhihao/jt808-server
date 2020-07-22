@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.yzh.web.jt.basics.Message;
 import org.springframework.stereotype.Component;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
@@ -14,14 +15,13 @@ import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.framework.session.SyncFuture;
 import org.yzh.web.controller.ConsoleController;
-import org.yzh.web.jt808.dto.Command1205;
-import org.yzh.web.jt808.dto.T0001;
-import org.yzh.web.jt808.dto.basics.Message;
+import org.yzh.web.jt.t1078.T1205;
+import org.yzh.web.jt.t808.T0001;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.yzh.web.jt808.common.JT1078.终端上传音视频资源列表;
-import static org.yzh.web.jt808.common.JT808.平台通用应答;
+import static org.yzh.web.jt.common.JT1078.终端上传音视频资源列表;
+import static org.yzh.web.jt.common.JT808.平台通用应答;
 
 @Endpoint
 @Component
@@ -83,12 +83,12 @@ public class JT1078Endpoint {
 
 
     @Mapping(types = 终端上传音视频资源列表, desc = "终端上传音视频资源列表")
-    public Message 终端上传音视频资源列表(Message<Command1205> message, Session session) {
-        Command1205 body = message.getBody();
+    public Message 终端上传音视频资源列表(Message<T1205> message, Session session) {
+        T1205 body = message.getBody();
         if (body == null)
             return null;
         String mobileNo = message.getMobileNo();
-        Integer replyId = body.getSerialNumber();
+        Integer replyId = body.getSerialNo();
 
 
         T0001 result = new T0001(终端上传音视频资源列表, message.getSerialNo(), T0001.Success);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yzh.web.config.SessionKey;
 import org.yzh.web.endpoint.JT808Endpoint;
-import org.yzh.web.jt808.dto.T0001;
+import org.yzh.web.jt.t808.T0001;
 
 import javax.servlet.http.HttpSession;
 

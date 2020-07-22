@@ -9,14 +9,14 @@ import org.yzh.framework.commons.transform.JsonUtils;
 import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.orm.model.AbstractBody;
 import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.web.jt808.codec.JT808MessageDecoder;
-import org.yzh.web.jt808.codec.JT808MessageEncoder;
-import org.yzh.web.jt808.common.ParameterUtils;
-import org.yzh.web.jt808.dto.*;
-import org.yzh.web.jt808.dto.basics.Message;
-import org.yzh.web.jt808.dto.basics.TerminalParameter;
-import org.yzh.web.jt808.dto.position.Attribute;
-import org.yzh.web.jt808.dto.position.attribute.*;
+import org.yzh.web.jt.codec.JTMessageDecoder;
+import org.yzh.web.jt.codec.JTMessageEncoder;
+import org.yzh.web.jt.common.ParameterUtils;
+import org.yzh.web.jt.t808.*;
+import org.yzh.web.jt.basics.Message;
+import org.yzh.web.jt.basics.TerminalParameter;
+import org.yzh.web.jt.t808.position.Attribute;
+import org.yzh.web.jt.t808.position.attribute.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class CoderTest {
 
-    private static final JT808MessageDecoder decoder = new JT808MessageDecoder();
+    private static final JTMessageDecoder decoder = new JTMessageDecoder();
 
-    private static final JT808MessageEncoder encoder = new JT808MessageEncoder();
+    private static final JTMessageEncoder encoder = new JTMessageEncoder();
 
     public static <T extends AbstractBody> AbstractMessage<T> transform(String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
