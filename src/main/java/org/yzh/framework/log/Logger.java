@@ -1,7 +1,7 @@
 package org.yzh.framework.log;
 
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
 /**

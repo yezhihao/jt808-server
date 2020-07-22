@@ -1,6 +1,6 @@
 package org.yzh.framework.commons;
 
-import org.yzh.framework.annotation.Property;
+import org.yzh.framework.orm.annotation.Property;
 
 import java.lang.reflect.Method;
 

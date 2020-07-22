@@ -1,4 +1,4 @@
-package org.yzh.framework.message;
+package org.yzh.framework.session;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;

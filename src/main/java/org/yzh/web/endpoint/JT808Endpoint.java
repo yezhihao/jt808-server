@@ -6,12 +6,12 @@ import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.yzh.framework.annotation.Endpoint;
-import org.yzh.framework.annotation.Mapping;
-import org.yzh.framework.message.SyncFuture;
+import org.yzh.framework.mvc.annotation.Endpoint;
+import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
+import org.yzh.framework.session.SyncFuture;
 import org.yzh.web.jt808.dto.*;
 import org.yzh.web.jt808.dto.basics.Message;
 
@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.yzh.web.jt808.common.MessageId.*;
+import static org.yzh.web.jt808.common.JT808.*;
 
 @Endpoint
 @Component
@@ -149,6 +149,7 @@ public class JT808Endpoint {
     public Message<T8100> register(Message<T0100> message, Session session) {
         T0100 body = message.getBody();
         //TODO
+        session.setTerminalId(message.getClientId());
         sessionManager.put(Session.buildId(session.getChannel()), session);
 
         T8100 result = new T8100(message.getSerialNo(), T8100.Success, "test_token");

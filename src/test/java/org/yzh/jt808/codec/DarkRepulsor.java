@@ -2,8 +2,8 @@ package org.yzh.jt808.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.PropertySpec;
+import org.yzh.framework.orm.annotation.Property;
 import org.yzh.web.jt808.codec.JT808MessageEncoder;
 
 /**

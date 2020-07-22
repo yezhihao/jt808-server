@@ -1,4 +1,4 @@
-package org.yzh.framework.message;
+package org.yzh.framework.orm.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

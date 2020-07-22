@@ -1,7 +1,5 @@
 package org.yzh.framework.session;
 
-import org.yzh.framework.message.SyncFuture;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

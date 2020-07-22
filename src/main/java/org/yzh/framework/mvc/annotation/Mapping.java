@@ -1,4 +1,4 @@
-package org.yzh.framework.annotation;
+package org.yzh.framework.mvc.annotation;
 
 import java.lang.annotation.*;
 

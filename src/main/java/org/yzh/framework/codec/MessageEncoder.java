@@ -6,13 +6,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.annotation.Property;
 import org.yzh.framework.commons.PropertySpec;
-import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.message.AbstractBody;
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.annotation.Property;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 基础消息编码
  */
-public abstract class MessageEncoder<T extends AbstractBody> extends MessageToByteEncoder<AbstractMessage<T>> {
+public abstract class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(MessageEncoder.class.getSimpleName());
 
@@ -33,20 +33,25 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
         out.writeByte(0x7e);
     }
 
-    public ByteBuf encode(AbstractMessage<T> message) {
-        AbstractBody body = message.getBody();
+    public ByteBuf encode(AbstractMessage message) {
+        ByteBuf buf;
+
         int version = message.getVersionNo();
+        AbstractBody body = message.getBody();
+        if (body != null) {
 
-        ByteBuf bodyBuf = encode(Unpooled.buffer(256), body, version);
+            ByteBuf bodyBuf = encode(Unpooled.buffer(256), body, version);
 
-        int bodyLength = bodyBuf.readableBytes();
-        if (bodyLength > 1023)
-            throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
-        message.setBodyLength(bodyLength);
+            int bodyLength = bodyBuf.readableBytes();
+            if (bodyLength > 1023)
+                throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
+            message.setBodyLength(bodyLength);
 
-        ByteBuf headerBuf = encode(Unpooled.buffer(16), message, version);
-
-        ByteBuf buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
+            ByteBuf headerBuf = encode(Unpooled.buffer(16), message, version);
+            buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
+        } else {
+            buf = encode(Unpooled.buffer(16), message, version);
+        }
 
         buf = sign(buf);
         buf = escape(buf);
@@ -61,7 +66,7 @@ public abstract class MessageEncoder<T extends AbstractBody> extends MessageToBy
     public abstract ByteBuf sign(ByteBuf buf);
 
     private ByteBuf encode(ByteBuf buf, Object body, int version) {
-        PropertySpec[] propertySpecs = PropertyUtils.getPropertySpecs(body.getClass(), version);
+        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(body.getClass(), version);
 
         if (propertySpecs != null)
             for (PropertySpec propertySpec : propertySpecs) {

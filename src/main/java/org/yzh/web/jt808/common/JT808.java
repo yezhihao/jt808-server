@@ -4,7 +4,7 @@ package org.yzh.web.jt808.common;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt808-server
  */
-public interface MessageId {
+public interface JT808 {
 
     /** 1.终端通用应答 */
     int 终端通用应答 = 0x0001;

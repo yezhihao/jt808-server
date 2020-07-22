@@ -5,7 +5,6 @@ import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.framework.mapping.HandlerMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +15,6 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  */
 public class JT808MessageDecoder extends MessageDecoder {
-
-    public JT808MessageDecoder() {
-    }
-
-    public JT808MessageDecoder(HandlerMapper handlerMapper) {
-        super(handlerMapper);
-    }
-
-    /**
-     * 获取消息类型
-     */
-    @Override
-    public int getType(ByteBuf source) {
-        return source.getUnsignedShort(0);
-    }
 
     /**
      * 校验

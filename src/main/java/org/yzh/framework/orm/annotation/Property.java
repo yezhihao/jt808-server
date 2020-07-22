@@ -1,4 +1,4 @@
-package org.yzh.framework.annotation;
+package org.yzh.framework.orm.annotation;
 
 import org.yzh.framework.enums.DataType;
 
@@ -27,5 +27,5 @@ public @interface Property {
 
     String desc() default "";
 
-    int[] version() default {0};
+    int[] version() default {0,1};
 }

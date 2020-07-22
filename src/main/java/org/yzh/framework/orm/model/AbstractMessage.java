@@ -1,5 +1,6 @@
-package org.yzh.framework.message;
+package org.yzh.framework.orm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,6 +19,7 @@ public abstract class AbstractMessage<T extends AbstractBody> {
     /** 消息头长度 */
     public abstract int getHeadLength();
     /** 消息体长度 */
+    @JsonIgnore
     public abstract int getBodyLength();
 
     public abstract void setBodyLength(int bodyLength);

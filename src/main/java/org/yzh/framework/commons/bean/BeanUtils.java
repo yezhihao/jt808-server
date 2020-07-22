@@ -174,6 +174,8 @@ public class BeanUtils {
             } catch (Exception e) {
                 log.error("设置对象值失败", e);
             }
+        } else {
+            log.error("设置对象值失败 setter 为空");
         }
     }
 

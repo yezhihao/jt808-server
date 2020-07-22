@@ -1,4 +1,4 @@
-package org.yzh.framework.annotation;
+package org.yzh.framework.orm.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -3,7 +3,7 @@ package org.yzh.web.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yzh.framework.log.Logger;
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.orm.model.AbstractMessage;
 
 @Component
 public class WebLogger extends Logger {

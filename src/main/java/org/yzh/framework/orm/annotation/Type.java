@@ -1,4 +1,4 @@
-package org.yzh.framework.annotation;
+package org.yzh.framework.orm.annotation;
 
 import java.lang.annotation.*;
 
@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Type {
 
-    int[] value();
+    int[] value() default {};
 
     String desc() default "";
 

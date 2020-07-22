@@ -13,11 +13,11 @@ https://github.com/yezhihao/jt808-server
 
 核心的注解有三个：
 
-@org.yzh.framework.annotation.Endpoint，标记TCP服务的接入点，相当于SpringMVC中的 @Controller；
+@org.yzh.framework.mvc.annotation.Endpoint，标记TCP服务的接入点，相当于SpringMVC中的 @Controller；
 
-@org.yzh.framework.annotation.Mapping，types中定义消息ID，相当于SpringMVC中 @RequestMapping；
+@org.yzh.framework.mvc.annotation.Mapping，types中定义消息ID，相当于SpringMVC中 @RequestMapping；
 
-@org.yzh.framework.annotation.Property，定义协议中各个字段的类型和占用的字节位置，相当于Hibernate中 @Column，
+@org.yzh.framework.mvc.annotation.Property，定义协议中各个字段的类型和占用的字节位置，相当于Hibernate中 @Column，
 
 MessageDecoder、MessageEncoder实现了对@Property的处理，
 DefaultHandlerMapper(没有Spring的环境中)、SpringHandlerMapper实现了对@Endpoint和@Mapping的处理。

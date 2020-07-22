@@ -1,4 +1,4 @@
-package org.yzh.framework;
+package org.yzh.framework.core;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -8,9 +8,9 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import org.yzh.framework.log.Logger;
-import org.yzh.framework.mapping.Handler;
-import org.yzh.framework.mapping.HandlerMapper;
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.mvc.Handler;
+import org.yzh.framework.mvc.HandlerMapping;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 
@@ -26,15 +26,11 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     private Logger log;
 
-    private HandlerMapper handlerMapper;
-
-    public TCPServerHandler(HandlerMapper handlerMapper) {
-        this.handlerMapper = handlerMapper;
+    public TCPServerHandler() {
         this.log = new Logger();
     }
 
-    public TCPServerHandler(HandlerMapper handlerMapper, Logger log) {
-        this.handlerMapper = handlerMapper;
+    public TCPServerHandler( Logger log) {
         this.log = log;
     }
 
@@ -45,7 +41,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             AbstractMessage messageRequest = (AbstractMessage) msg;
             Channel channel = ctx.channel();
 
-            Handler handler = handlerMapper.getHandler(messageRequest.getMessageId());
+            Handler handler = HandlerMapping.getHandler(messageRequest.getMessageId());
 
             Type[] types = handler.getTargetParameterTypes();
             Session session = sessionManager.getBySessionId(Session.buildId(channel));

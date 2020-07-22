@@ -1,6 +1,6 @@
-package org.yzh.framework.mapping;
+package org.yzh.framework.mvc;
 
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

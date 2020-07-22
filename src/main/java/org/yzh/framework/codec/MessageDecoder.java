@@ -5,25 +5,23 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.yzh.framework.annotation.Property;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.mapping.Handler;
-import org.yzh.framework.mapping.HandlerMapper;
-import org.yzh.framework.message.AbstractBody;
-import org.yzh.framework.message.AbstractMessage;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import static org.yzh.framework.enums.DataType.*;
 
@@ -35,44 +33,20 @@ import static org.yzh.framework.enums.DataType.*;
  */
 public abstract class MessageDecoder extends ByteToMessageDecoder {
 
-    public ConcurrentMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
-
-    private HandlerMapper handlerMapper;
+    private static final Logger log = LoggerFactory.getLogger(MessageDecoder.class.getSimpleName());
 
     public MessageDecoder() {
     }
 
-    public MessageDecoder(HandlerMapper handlerMapper) {
-        this.handlerMapper = handlerMapper;
-    }
-
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
-        int type = getType(in);
-        Handler handler = handlerMapper.getHandler(type);
-
-        if (handler == null) {
-            return;
-        }
-
-        Type[] types = handler.getTargetParameterTypes();
-        if (types[0] instanceof ParameterizedTypeImpl) {
-            ParameterizedTypeImpl clazz = (ParameterizedTypeImpl) types[0];
-
-            Class<? extends AbstractBody> bodyClass = (Class<? extends AbstractBody>) clazz.getActualTypeArguments()[0];
-            Class<? extends AbstractMessage> messageClass = (Class<? extends AbstractMessage>) clazz.getRawType();
-            AbstractMessage<? extends AbstractBody> decode = decode(in, messageClass, bodyClass);
-            out.add(decode);
-        } else {
-            AbstractMessage<? extends AbstractBody> decode = decode(in, (Class) types[0], null);
-            out.add(decode);
-        }
-
-        in.skipBytes(in.readableBytes());
+    protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
+        AbstractMessage message = decode(buf);
+        out.add(message);
+        buf.skipBytes(buf.readableBytes());
     }
 
-    /** 解析 */
-    public <T extends AbstractBody> AbstractMessage<T> decode(ByteBuf buf, Class<? extends AbstractMessage> clazz, Class<T> bodyClass) {
+    public AbstractMessage decode(ByteBuf buf) {
+
         buf = unEscape(buf);
 
         if (check(buf))
@@ -80,49 +54,44 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
 
         int readerIndex = buf.readerIndex();
         int version = 0;
-        AbstractMessage message = decode(buf, clazz, version);
+        Class<? extends AbstractMessage> headerClass = MessageHelper.getHeaderClass();
+
+        AbstractMessage message = decode(buf, headerClass, version);
+
         if (message.isVersion()) {
             buf.readerIndex(readerIndex);
-            message = decode(buf, clazz, 1);
+            message = decode(buf, headerClass, 1);
             version = message.getVersionNo();
         }
 
-        if (bodyClass != null) {
+        Class<? extends AbstractBody> bodyClass = MessageHelper.getClass(message.getMessageId());
+
+        if (bodyClass == null) {
+            log.warn("未找到{}对应的BodyClass", Integer.toHexString(message.getMessageId()));
+        } else {
             int headLen = message.getHeadLength();
             int bodyLen = message.getBodyLength();
 
             if (message.isSubpackage()) {
 
-                String clientId = message.getClientId();
-                int messageId = message.getMessageId();
-                int packageTotal = message.getPackageTotal();
-                int packetNo = message.getPackageNo();
-
                 byte[] bytes = new byte[bodyLen];
-                buf.readBytes(bytes, headLen, headLen + bodyLen);
+                buf.readBytes(bytes);
 
-                String key = new StringBuilder(18).append(clientId).append("/").append(messageId).append("/").append(packageTotal).toString();
-                MultiPacket multiPackets = multiPacketsMap.getOrDefault(key, new MultiPacket(messageId, clientId, packageTotal));
+                byte[][] packages = MultiPacketManager.Instance.addAndGet(message, bytes);
+                if (packages != null) {
 
-                byte[][] packages = multiPackets.addAndGet(packetNo, bytes);
-                if (packages == null)
-                    return message;
-
-                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-
-                T body = decode(bodyBuf, bodyClass, version);
-                message.setBody(body);
+                    ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+                    AbstractBody body = decode(bodyBuf, bodyClass, version);
+                    message.setBody(body);
+                }
             } else {
                 buf.setIndex(headLen, headLen + bodyLen);
-                T body = decode(buf, bodyClass, version);
+                AbstractBody body = decode(buf, bodyClass, version);
                 message.setBody(body);
             }
         }
         return message;
     }
-
-    /** 获取消息类型 */
-    public abstract int getType(ByteBuf buf);
 
     /** 反转义 */
     public abstract ByteBuf unEscape(ByteBuf buf);
@@ -133,24 +102,25 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
     public <T> T decode(ByteBuf buf, Class<T> targetClass, int version) {
         T result = BeanUtils.newInstance(targetClass);
 
-        PropertySpec[] propertySpecs = PropertyUtils.getPropertySpecs(targetClass, version);
-        if (propertySpecs != null)
-            for (PropertySpec propertySpec : propertySpecs) {
+        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(targetClass, version);
+        if (propertySpecs == null)
+            throw new RuntimeException(targetClass.getName() + "未找到 PropertySpec");
+        for (PropertySpec propertySpec : propertySpecs) {
 
-                int length = PropertyUtils.getLength(result, propertySpec.property);
-                if (!buf.isReadable(length))
-                    break;
+            int length = PropertyUtils.getLength(result, propertySpec.property);
+            if (!buf.isReadable(length))
+                break;
 
-                if (length == -1)
-                    length = buf.readableBytes();
-                Object value = null;
-                try {
-                    value = read(buf, propertySpec, length, version);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                BeanUtils.setValue(result, propertySpec.writeMethod, value);
+            if (length == -1)
+                length = buf.readableBytes();
+            Object value = null;
+            try {
+                value = read(buf, propertySpec, length, version);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            BeanUtils.setValue(result, propertySpec.writeMethod, value);
+        }
         return result;
     }
 
