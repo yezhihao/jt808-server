@@ -1,15 +1,18 @@
 package org.yzh.web.jt808.dto.basics;
 
-import org.yzh.framework.annotation.Property;
-import org.yzh.framework.annotation.Ps;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.AbstractBody;
-import org.yzh.framework.message.AbstractMessage;
+import org.yzh.framework.orm.annotation.Header;
+import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.annotation.Ps;
+import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.model.AbstractMessage;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt808-server
  */
+@Header
 public class Message<T extends AbstractBody> extends AbstractMessage<T> {
 
     /** 消息类型 */
@@ -23,9 +26,9 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
     /** 消息序列号 */
     protected Integer serialNo;
     /** 包总数 */
-    protected int packageTotal;
+    protected Integer packageTotal;
     /** 包序号 */
-    protected int packageNo;
+    protected Integer packageNo;
 
     public Message() {
     }
@@ -53,6 +56,7 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.messageId = messageId;
     }
 
+    @JsonIgnore
     @Property(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
     public Integer getProperties() {
         return properties;
@@ -101,7 +105,7 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         return null;
     }
 
-    public void setPackageTotal(int packageTotal) {
+    public void setPackageTotal(Integer packageTotal) {
         this.packageTotal = packageTotal;
     }
 
@@ -114,7 +118,7 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         return null;
     }
 
-    public void setPackageNo(int packageNo) {
+    public void setPackageNo(Integer packageNo) {
         this.packageNo = packageNo;
     }
 

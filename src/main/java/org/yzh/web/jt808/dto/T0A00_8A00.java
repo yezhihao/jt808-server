@@ -1,16 +1,16 @@
 package org.yzh.web.jt808.dto;
 
-import org.yzh.framework.annotation.Property;
-import org.yzh.framework.annotation.Type;
+import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.AbstractBody;
-import org.yzh.web.jt808.common.MessageId;
+import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.web.jt808.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt808-server
  */
-@Type({MessageId.平台RSA公钥, MessageId.终端RSA公钥})
+@Type({JT808.平台RSA公钥, JT808.终端RSA公钥})
 public class T0A00_8A00 extends AbstractBody {
 
     private Integer e;

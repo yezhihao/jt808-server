@@ -1,11 +1,11 @@
 package org.yzh.web.jt808.dto;
 
-import org.yzh.framework.annotation.Property;
-import org.yzh.framework.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.message.AbstractBody;
+import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.annotation.Type;
+import org.yzh.framework.orm.model.AbstractBody;
 import org.yzh.web.config.Charsets;
-import org.yzh.web.jt808.common.MessageId;
+import org.yzh.web.jt808.common.JT808;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt808-server
  */
-@Type(MessageId.事件设置)
+@Type(JT808.事件设置)
 public class T8301 extends AbstractBody {
 
     //清空
@@ -68,6 +68,7 @@ public class T8301 extends AbstractBody {
         this.total = list.size();
     }
 
+    @Type
     public static class Event {
         private Integer id;
         private Integer length;
