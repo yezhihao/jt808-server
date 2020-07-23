@@ -14,7 +14,7 @@ public class ClassHelper {
     /**
      * 获取基础包名
      */
-    private static String basePackage = "org.yzh.web.jt.t808";
+    private static String basePackage = "org.yzh.web.jt";
 
     public static void init(String packageName) {
         basePackage = packageName;

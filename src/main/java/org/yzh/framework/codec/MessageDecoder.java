@@ -3,8 +3,6 @@ package org.yzh.framework.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.PropertySpec;
@@ -31,30 +29,25 @@ import static org.yzh.framework.enums.DataType.*;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-public abstract class MessageDecoder extends ByteToMessageDecoder {
+public abstract class MessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(MessageDecoder.class.getSimpleName());
 
-    public MessageDecoder() {
-    }
+    /** 转码 */
+    public abstract ByteBuf unescape(ByteBuf buf);
 
-    @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
-        AbstractMessage message = decode(buf);
-        out.add(message);
-        buf.skipBytes(buf.readableBytes());
-    }
+    /** 校验 */
+    public abstract boolean verify(ByteBuf buf);
 
     public AbstractMessage decode(ByteBuf buf) {
+        buf = unescape(buf);
 
-        buf = unEscape(buf);
+        if (verify(buf))
+            log.error("校验码错误" + ByteBufUtil.hexDump(buf));
 
-        if (check(buf))
-            System.out.println("校验码错误" + ByteBufUtil.hexDump(buf));
-
+        Class<? extends AbstractMessage> headerClass = MessageHelper.getHeaderClass();
         int readerIndex = buf.readerIndex();
         int version = 0;
-        Class<? extends AbstractMessage> headerClass = MessageHelper.getHeaderClass();
 
         AbstractMessage message = decode(buf, headerClass, version);
 
@@ -93,18 +86,14 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
         return message;
     }
 
-    /** 反转义 */
-    public abstract ByteBuf unEscape(ByteBuf buf);
 
-    /** 校验 */
-    public abstract boolean check(ByteBuf buf);
+    public <T> T decode(ByteBuf buf, Class<T> clazz, int version) {
+        T result = BeanUtils.newInstance(clazz);
 
-    public <T> T decode(ByteBuf buf, Class<T> targetClass, int version) {
-        T result = BeanUtils.newInstance(targetClass);
-
-        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(targetClass, version);
+        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(clazz, version);
         if (propertySpecs == null)
-            throw new RuntimeException(targetClass.getName() + "未找到 PropertySpec");
+            throw new RuntimeException(clazz.getName() + "未找到 PropertySpec");
+
         for (PropertySpec propertySpec : propertySpecs) {
 
             int length = PropertyUtils.getLength(result, propertySpec.property);
@@ -117,7 +106,7 @@ public abstract class MessageDecoder extends ByteToMessageDecoder {
             try {
                 value = read(buf, propertySpec, length, version);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("解码异常：", e);
             }
             BeanUtils.setValue(result, propertySpec.writeMethod, value);
         }

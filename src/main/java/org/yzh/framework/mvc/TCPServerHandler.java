@@ -1,4 +1,4 @@
-package org.yzh.framework.core;
+package org.yzh.framework.mvc;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -7,9 +7,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
-import org.yzh.framework.log.Logger;
-import org.yzh.framework.mvc.Handler;
-import org.yzh.framework.mvc.HandlerMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
@@ -22,18 +21,15 @@ import java.lang.reflect.Type;
  */
 public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
+    private static final Logger log = LoggerFactory.getLogger(TCPServerHandler.class.getSimpleName());
+
     private final SessionManager sessionManager = SessionManager.getInstance();
 
-    private Logger log;
+    private HandlerMapping handlerMapping;
 
-    public TCPServerHandler() {
-        this.log = new Logger();
+    public TCPServerHandler(HandlerMapping handlerMapping) {
+        this.handlerMapping = handlerMapping;
     }
-
-    public TCPServerHandler( Logger log) {
-        this.log = log;
-    }
-
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -41,7 +37,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             AbstractMessage messageRequest = (AbstractMessage) msg;
             Channel channel = ctx.channel();
 
-            Handler handler = HandlerMapping.getHandler(messageRequest.getMessageId());
+            Handler handler = handlerMapping.getHandler(messageRequest.getMessageId());
 
             Type[] types = handler.getTargetParameterTypes();
             Session session = sessionManager.getBySessionId(Session.buildId(channel));
@@ -65,14 +61,14 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         Session session = Session.buildSession(ctx.channel());
         sessionManager.put(session.getId(), session);
-        log.logEvent("终端连接", session);
+        log.info("终端连接", session);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         String sessionId = Session.buildId(ctx.channel());
         Session session = sessionManager.removeBySessionId(sessionId);
-        log.logEvent("断开连接", session);
+        log.info("断开连接", session);
         ctx.channel().close();
         // ctx.close();
     }
@@ -81,7 +77,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         String sessionId = Session.buildId(ctx.channel());
         Session session = sessionManager.getBySessionId(sessionId);
-        log.logEvent("发生异常", session);
+        log.info("发生异常", session);
         e.printStackTrace();
     }
 
@@ -91,7 +87,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             IdleStateEvent event = (IdleStateEvent) evt;
             if (event.state() == IdleState.READER_IDLE) {
                 Session session = this.sessionManager.removeBySessionId(Session.buildId(ctx.channel()));
-                log.logEvent("服务器主动断开连接", session);
+                log.info("服务器主动断开连接", session);
                 ctx.close();
             }
         }

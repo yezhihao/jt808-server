@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class JTMessageDecoder extends MessageDecoder {
 
-    /**
-     * 校验
-     */
+    /** 校验 */
     @Override
-    public boolean check(ByteBuf buf) {
+    public boolean verify(ByteBuf buf) {
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
         byte calculatedCheckCode = ByteBufUtils.bcc(buf);
@@ -28,11 +26,9 @@ public class JTMessageDecoder extends MessageDecoder {
         return checkCode != calculatedCheckCode;
     }
 
-    /**
-     * 反转义
-     */
+    /** 反转义 */
     @Override
-    public ByteBuf unEscape(ByteBuf source) {
+    public ByteBuf unescape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 
@@ -57,9 +53,7 @@ public class JTMessageDecoder extends MessageDecoder {
         return new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, bufList.size(), bufList);
     }
 
-    /**
-     * 截取转义前报文，并还原转义位
-     */
+    /** 截取转义前报文，并还原转义位 */
     protected ByteBuf slice(ByteBuf byteBuf, int index, int length) {
         byte second = byteBuf.getByte(index + length - 1);
         if (second == 0x02)

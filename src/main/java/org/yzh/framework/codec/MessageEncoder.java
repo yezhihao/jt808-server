@@ -2,17 +2,15 @@ package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.PropertySpec;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.model.AbstractBody;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -20,18 +18,19 @@ import java.util.List;
 
 /**
  * 基础消息编码
+ *
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt-server
  */
-public abstract class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
+public abstract class MessageEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(MessageEncoder.class.getSimpleName());
 
-    @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
-        ByteBuf buf = encode(msg);
-        out.writeByte(0x7e);
-        out.writeBytes(buf);
-        out.writeByte(0x7e);
-    }
+    /** 转码 */
+    public abstract ByteBuf escape(ByteBuf buf);
+
+    /** 签名 */
+    public abstract ByteBuf sign(ByteBuf buf);
 
     public ByteBuf encode(AbstractMessage message) {
         ByteBuf buf;
@@ -55,28 +54,25 @@ public abstract class MessageEncoder extends MessageToByteEncoder<AbstractMessag
 
         buf = sign(buf);
         buf = escape(buf);
-
         return buf;
     }
 
-    /** 转义 */
-    public abstract ByteBuf escape(ByteBuf buf);
 
-    /** 签名 */
-    public abstract ByteBuf sign(ByteBuf buf);
+    private ByteBuf encode(ByteBuf buf, Object message, int version) {
+        Class<?> clazz = message.getClass();
 
-    private ByteBuf encode(ByteBuf buf, Object body, int version) {
-        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(body.getClass(), version);
+        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(clazz, version);
+        if (propertySpecs == null)
+            throw new RuntimeException(clazz.getName() + "未找到 PropertySpec");
 
-        if (propertySpecs != null)
-            for (PropertySpec propertySpec : propertySpecs) {
+        for (PropertySpec propertySpec : propertySpecs) {
 
-                Method readMethod = propertySpec.readMethod;
-                Object value = BeanUtils.getValue(body, readMethod);
-                if (value != null) {
-                    write(buf, propertySpec, value, version);
-                }
+            Method readMethod = propertySpec.readMethod;
+            Object value = BeanUtils.getValue(message, readMethod);
+            if (value != null) {
+                write(buf, propertySpec, value, version);
             }
+        }
         return buf;
     }
 

@@ -8,15 +8,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.ByteToMessageDecoder;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -30,19 +24,10 @@ public class TCPServer {
     private EventLoopGroup bossGroup = null;
     private EventLoopGroup workerGroup = null;
 
-    private int port;
-    private ByteToMessageDecoder decoder;
-    private MessageToByteEncoder encoder;
-    private DelimiterBasedFrameDecoder delimiterBasedFrameDecoder;
+    private JTConfig jtConfig;
 
-    public TCPServer() {
-    }
-
-    public TCPServer(int port, ByteToMessageDecoder decoder, MessageToByteEncoder encoder, DelimiterBasedFrameDecoder delimiterBasedFrameDecoder) {
-        this.port = port;
-        this.decoder = decoder;
-        this.encoder = encoder;
-        this.delimiterBasedFrameDecoder = delimiterBasedFrameDecoder;
+    public TCPServer(JTConfig jtConfig) {
+        this.jtConfig = jtConfig;
     }
 
     private void bind() throws Exception {
@@ -55,18 +40,17 @@ public class TCPServer {
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast("idleStateHandler", new IdleStateHandler(30, 0, 0, TimeUnit.MINUTES));
-                        // 1024表示单条消息的最大长度，解码器在查找分隔符的时候，达到该长度还没找到的话会抛异常
-                        ch.pipeline().addLast(delimiterBasedFrameDecoder);
-                        ch.pipeline().addLast(decoder);
-                        ch.pipeline().addLast(encoder);
-                        ch.pipeline().addLast(new TCPServerHandler());
+                    public void initChannel(SocketChannel ch) {
+                        ch.pipeline()
+                                .addLast(jtConfig.getFrameDecoder())
+                                .addLast(jtConfig.getDecoder())
+                                .addLast(jtConfig.getEncoder())
+                                .addLast(jtConfig.getAdapter());
                     }
                 });
 
-        this.log.info("TCP服务启动完毕,port={}", this.port);
-        ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+        this.log.info("TCP服务启动完毕,port={}", jtConfig.getPort());
+        ChannelFuture channelFuture = serverBootstrap.bind(jtConfig.getPort()).sync();
 
         channelFuture.channel().closeFuture().sync();
     }
