@@ -1,6 +1,6 @@
 package org.yzh.framework.mvc;
 
-import org.yzh.framework.core.ClassHelper;
+import org.yzh.framework.commons.ClassUtils;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 
@@ -17,8 +17,14 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
 
     private static Map<Integer, Handler> handlerMap = new HashMap(55);
 
-    public void initial() {
-        List<Class<?>> handlerClassList = ClassHelper.getClassListByAnnotation(Endpoint.class);
+    private String endpointPackage;
+
+    public AbstractHandlerMapping(String endpointPackage) {
+        this.endpointPackage = endpointPackage;
+    }
+
+    public final void initial() {
+        List<Class<?>> handlerClassList = ClassUtils.getClassList(this.endpointPackage, Endpoint.class);
 
         for (Class<?> handlerClass : handlerClassList) {
 

@@ -2,18 +2,15 @@ package org.yzh.web.jt.basics;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.annotation.Header;
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Ps;
-import org.yzh.framework.orm.model.AbstractBody;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Fs;
+import org.yzh.framework.orm.model.AbstractHeader;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Header
-public class Message<T extends AbstractBody> extends AbstractMessage<T> {
+public class Header extends AbstractHeader {
 
     /** 消息类型 */
     protected int messageId;
@@ -30,23 +27,21 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
     /** 包序号 */
     protected Integer packageNo;
 
-    public Message() {
+    public Header() {
     }
 
-    public Message(Integer messageId, String mobileNo, T body) {
+    public Header(Integer messageId, String mobileNo) {
         this.messageId = messageId;
         this.mobileNo = mobileNo;
-        this.body = body;
     }
 
-    public Message(Integer messageId, Integer serialNo, String mobileNo, T body) {
+    public Header(Integer messageId, Integer serialNo, String mobileNo) {
         this.messageId = messageId;
         this.serialNo = serialNo;
         this.mobileNo = mobileNo;
-        this.body = body;
     }
 
-    @Property(index = 0, type = DataType.WORD, desc = "消息ID", version = {0, 1})
+    @Field(index = 0, type = DataType.WORD, desc = "消息ID", version = {0, 1})
     @Override
     public int getMessageId() {
         return messageId;
@@ -57,7 +52,7 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
     }
 
     @JsonIgnore
-    @Property(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
+    @Field(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
     public Integer getProperties() {
         return properties;
     }
@@ -66,7 +61,7 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.properties = properties;
     }
 
-    @Property(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
+    @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
     @Override
     public int getVersionNo() {
         return versionNo;
@@ -76,8 +71,8 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.versionNo = versionNo;
     }
 
-    @Ps({@Property(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0),
-            @Property(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)})
+    @Fs({@Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0),
+            @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)})
     public String getMobileNo() {
         return mobileNo;
     }
@@ -86,8 +81,8 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.mobileNo = mobileNo;
     }
 
-    @Ps({@Property(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
-            @Property(index = 15, type = DataType.WORD, desc = "流水号", version = 1)})
+    @Fs({@Field(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
+            @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)})
     public Integer getSerialNo() {
         return serialNo;
     }
@@ -96,8 +91,8 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.serialNo = serialNo;
     }
 
-    @Ps({@Property(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0),
-            @Property(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)})
+    @Fs({@Field(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0),
+            @Field(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)})
     @Override
     public Integer getPackageTotal() {
         if (isSubpackage())
@@ -109,8 +104,8 @@ public class Message<T extends AbstractBody> extends AbstractMessage<T> {
         this.packageTotal = packageTotal;
     }
 
-    @Ps({@Property(index = 14, type = DataType.WORD, desc = "包序号", version = 0),
-            @Property(index = 19, type = DataType.WORD, desc = "包序号", version = 1)})
+    @Fs({@Field(index = 14, type = DataType.WORD, desc = "包序号", version = 0),
+            @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)})
     @Override
     public Integer getPackageNo() {
         if (isSubpackage())

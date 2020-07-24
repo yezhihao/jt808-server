@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 public class SessionManager {
 
     private static volatile SessionManager instance = null;
-    // netty生成的sessionID和Session的对应关系
+
     private Map<String, Session> sessionIdMap;
-    // 终端号和netty生成的sessionID的对应关系
+
     private Map<String, String> terminalMap;
 
     public SessionManager() {
@@ -73,14 +73,14 @@ public class SessionManager {
         return session;
     }
 
-    // public synchronized void remove(String sessionId) {
+    // public synchronized void release(String sessionId) {
     // if (sessionId == null)
     // return;
-    // Session session = sessionIdMap.remove(sessionId);
+    // Session session = sessionIdMap.release(sessionId);
     // if (session == null)
     // return;
     // if (session.getTerminalId() != null)
-    // this.terminalMap.remove(session.getTerminalId());
+    // this.terminalMap.release(session.getTerminalId());
     // try {
     // if (session.getChannel() != null) {
     // if (session.getChannel().isActive() || session.getChannel().isOpen()) {

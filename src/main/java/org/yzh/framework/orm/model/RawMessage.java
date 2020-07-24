@@ -12,6 +12,10 @@ public class RawMessage<T extends AbstractHeader> extends AbstractMessage<T> {
     public RawMessage() {
     }
 
+    public RawMessage(T header) {
+        this.header = header;
+    }
+
     public T getHeader() {
         return header;
     }

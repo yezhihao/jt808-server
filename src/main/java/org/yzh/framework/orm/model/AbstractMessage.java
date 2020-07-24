@@ -1,47 +1,23 @@
 package org.yzh.framework.orm.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-/**
- * 消息基类
- *
- * @author zhihao.ye (1527621790@qq.com)
- */
-public abstract class AbstractMessage<T extends AbstractBody> {
-    /** 消息类型 */
-    public abstract int getMessageId();
-    /** 消息版本号 */
-    public abstract int getVersionNo();
-    /** 终端唯一标识 */
-    public abstract String getClientId();
-    /** 消息头长度 */
-    public abstract int getHeadLength();
-    /** 消息体长度 */
-    @JsonIgnore
-    public abstract int getBodyLength();
+import java.io.Serializable;
 
-    public abstract void setBodyLength(int bodyLength);
-    /** 加密方式 */
-    public abstract int getEncryption();
-    /** 是否分包 */
-    public abstract boolean isSubpackage();
-    /** 是否有版本 */
-    public abstract boolean isVersion();
-    /** 包总数 */
-    public abstract Integer getPackageTotal();
-    /** 包序号 */
-    public abstract Integer getPackageNo();
+public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
 
-    protected T body;
+    private T header;
 
-    public T getBody() {
-        return body;
+    public AbstractMessage() {
     }
 
-    public void setBody(T body) {
-        this.body = body;
+    public T getHeader() {
+        return header;
+    }
+
+    public void setHeader(T header) {
+        this.header = header;
     }
 
     @Override

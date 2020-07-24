@@ -55,9 +55,10 @@ public class SyncFuture<T> implements Future<T> {
     }
 
     // 用于设置响应结果，并且做countDown操作，通知请求线程
-    public void setResponse(T response) {
+    public boolean set(T response) {
         this.response = response;
         latch.countDown();
+        return true;
     }
 
     public long getBeginTime() {

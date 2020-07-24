@@ -2,8 +2,8 @@ package org.yzh.jt808.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import org.yzh.framework.commons.PropertySpec;
-import org.yzh.framework.orm.annotation.Property;
+import org.yzh.framework.orm.FieldSpec;
+import org.yzh.framework.orm.annotation.Field;
 import org.yzh.web.jt.codec.JTMessageEncoder;
 
 /**
@@ -13,7 +13,11 @@ import org.yzh.web.jt.codec.JTMessageEncoder;
  */
 public class DarkRepulsor extends JTMessageEncoder {
 
-    private static final DarkRepulsor darkRepulsor = new DarkRepulsor();
+    private static final DarkRepulsor darkRepulsor = new DarkRepulsor("org.yzh.web.jt");
+
+    public DarkRepulsor(String basePackage) {
+        super(basePackage);
+    }
 
     public static void main(String[] args) {
         ByteBuf byteBuf = darkRepulsor.encode(CoderTest.register());
@@ -22,8 +26,8 @@ public class DarkRepulsor extends JTMessageEncoder {
     }
 
     @Override
-    public void write(ByteBuf buf, PropertySpec propertySpec, Object value, int version) {
-        Property prop = propertySpec.property;
+    public void write(ByteBuf buf, FieldSpec propertySpec, Object value, int version) {
+        Field prop = propertySpec.field;
         int before = buf.writerIndex();
         super.write(buf, propertySpec, value, version);
         int after = buf.writerIndex();

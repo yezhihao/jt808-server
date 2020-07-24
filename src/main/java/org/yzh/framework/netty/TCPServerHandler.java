@@ -1,4 +1,4 @@
-package org.yzh.framework.mvc;
+package org.yzh.framework.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -9,6 +9,9 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.framework.mvc.Handler;
+import org.yzh.framework.mvc.HandlerMapping;
+import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
@@ -35,9 +38,10 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
             AbstractMessage messageRequest = (AbstractMessage) msg;
+            AbstractHeader header = messageRequest.getHeader();
             Channel channel = ctx.channel();
 
-            Handler handler = handlerMapping.getHandler(messageRequest.getMessageId());
+            Handler handler = handlerMapping.getHandler(header.getMessageId());
 
             Type[] types = handler.getTargetParameterTypes();
             Session session = sessionManager.getBySessionId(Session.buildId(channel));

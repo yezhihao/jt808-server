@@ -1,12 +1,10 @@
 package org.yzh.framework.orm;
 
-import org.yzh.framework.commons.PropertySpec;
-import org.yzh.framework.core.ClassHelper;
-import org.yzh.framework.orm.annotation.Header;
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Ps;
-import org.yzh.framework.orm.annotation.Type;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.commons.ClassUtils;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Fs;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.beans.BeanInfo;
@@ -25,43 +23,66 @@ import java.util.*;
  */
 public class MessageHelper {
 
-    private static Map<Integer, Class<? extends AbstractBody>> messageIdMap = new TreeMap<>();
+    private static Map<Integer, Class<? extends AbstractMessage>> messageIdMap = new TreeMap<>();
 
-    private static Map<String, PropertySpec[]> messagePropertySpecMap = new TreeMap();
+    private static Map<String, MessageSpec> messageSpecMap = new TreeMap();
 
-    private static Class<? extends AbstractMessage> headerClass = null;
+    private static Class<? extends AbstractHeader> headerClass = null;
 
-    public static Class<? extends AbstractBody> getClass(Integer messageId) {
+    private static volatile boolean Initial = false;
+
+    public static void initial(String basePackage) {
+        if (!Initial) {
+            synchronized (MessageHelper.class) {
+                if (!Initial) {
+                    Initial = true;
+                    List<Class<?>> classList = ClassUtils.getClassList(basePackage);
+                    for (Class<?> clazz : classList) {
+                        initMessageClassMap(clazz);
+                    }
+                }
+            }
+        }
+    }
+
+    public static Class<? extends AbstractMessage> getBodyClass(Integer messageId) {
         return messageIdMap.get(messageId);
     }
 
-    public static PropertySpec[] getPropertySpec(Class<?> clazz, int version) {
-        return messagePropertySpecMap.get(clazz.getName() + ":" + version);
+    public static MessageSpec getMessageSpec(Class<?> clazz, int version) {
+        return messageSpecMap.get(clazz.getName() + ":" + version);
     }
 
-    public static final Class<? extends AbstractMessage> getHeaderClass() {
+    public static final Class<? extends AbstractHeader> getHeaderClass() {
         return headerClass;
     }
 
-    static {
-        List<Class<?>> classList = ClassHelper.getClassList();
-        for (Class<?> clazz : classList) {
-            initMessageClassMap(clazz);
-        }
-    }
-
     private static void initMessageClassMap(Class<?> messageClass) {
-        if (messageClass.isAnnotationPresent(Header.class)) {
-            headerClass = (Class<? extends AbstractMessage>) messageClass;
-            initMessageFieldMap(messageClass);
-        }
+        Class<?> superclass = messageClass.getSuperclass();
+        if (superclass != null) {
 
-        Type type = messageClass.getAnnotation(Type.class);
-        if (type != null) {
-            initMessageFieldMap(messageClass);
-            int[] values = type.value();
-            for (int value : values) {
-                messageIdMap.put(value, (Class<? extends AbstractBody>) messageClass);
+            if (superclass.isAssignableFrom(AbstractMessage.class)) {
+                initMessageFieldMap(messageClass);
+
+                Message type = messageClass.getAnnotation(Message.class);
+                if (type != null) {
+                    int[] values = type.value();
+                    for (int value : values)
+                        messageIdMap.put(value, (Class<? extends AbstractMessage>) messageClass);
+                }
+
+            } else if (superclass.isAssignableFrom(AbstractHeader.class)) {
+                headerClass = (Class<? extends AbstractHeader>) messageClass;
+                initMessageFieldMap(messageClass);
+            }
+        } else {
+            Class<?> enclosingClass = messageClass.getEnclosingClass();
+            if (enclosingClass != null) {
+
+                superclass = enclosingClass.getSuperclass();
+                if (superclass.isAssignableFrom(AbstractMessage.class)) {
+                    initMessageFieldMap(messageClass);
+                }
             }
         }
     }
@@ -77,38 +98,39 @@ public class MessageHelper {
             return;
 
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        Map<Integer, List<PropertySpec>> multiVersionMap = new TreeMap<>();
+        Map<Integer, List<FieldSpec>> multiVersionMap = new TreeMap<>();
 
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
 
             Method readMethod = propertyDescriptor.getReadMethod();
-            if (readMethod == null)
-                continue;
             Method writeMethod = propertyDescriptor.getWriteMethod();
-            if (readMethod.isAnnotationPresent(Ps.class)) {
+            if (readMethod == null || writeMethod == null)
+                continue;
 
-                Property[] properties = readMethod.getDeclaredAnnotation(Ps.class).value();
-                for (Property property : properties) {
+            if (readMethod.isAnnotationPresent(Fs.class)) {
 
-                    PropertySpec propertySpec = new PropertySpec(property, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
+                Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
+                for (Field field : fields) {
 
-                    int[] versions = property.version();
+                    FieldSpec fieldSpec = new FieldSpec(field, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
+
+                    int[] versions = field.version();
                     for (int ver : versions) {
-                        List<PropertySpec> propertySpecs = multiVersionMap.get(ver);
-                        if (propertySpecs == null)
-                            multiVersionMap.put(ver, propertySpecs = new ArrayList(propertyDescriptors.length));
-                        propertySpecs.add(propertySpec);
+                        List<FieldSpec> fieldSpecs = multiVersionMap.get(ver);
+                        if (fieldSpecs == null)
+                            multiVersionMap.put(ver, fieldSpecs = new ArrayList(propertyDescriptors.length));
+                        fieldSpecs.add(fieldSpec);
                     }
                 }
 
-            } else if (readMethod.isAnnotationPresent(Property.class)) {
+            } else if (readMethod.isAnnotationPresent(Field.class)) {
 
-                Property property = readMethod.getDeclaredAnnotation(Property.class);
-                PropertySpec propertySpec = new PropertySpec(property, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
+                Field property = readMethod.getDeclaredAnnotation(Field.class);
+                FieldSpec propertySpec = new FieldSpec(property, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
 
                 int[] versions = property.version();
                 for (int ver : versions) {
-                    List<PropertySpec> propertySpecs = multiVersionMap.get(ver);
+                    List<FieldSpec> propertySpecs = multiVersionMap.get(ver);
                     if (propertySpecs == null)
                         multiVersionMap.put(ver, propertySpecs = new ArrayList(propertyDescriptors.length));
                     propertySpecs.add(propertySpec);
@@ -117,14 +139,23 @@ public class MessageHelper {
         }
 
         String className = clazz.getName();
-        for (Map.Entry<Integer, List<PropertySpec>> entry : multiVersionMap.entrySet()) {
+        for (Map.Entry<Integer, List<FieldSpec>> entry : multiVersionMap.entrySet()) {
 
-            List<PropertySpec> propertySpecList = entry.getValue();
-            Collections.sort(propertySpecList, Comparator.comparingInt(p -> p.property.index()));
-            PropertySpec[] propertySpecs = propertySpecList.toArray(new PropertySpec[propertySpecList.size()]);
+            List<FieldSpec> propertySpecList = entry.getValue();
+            Collections.sort(propertySpecList, Comparator.comparingInt(p -> p.field.index()));
+            FieldSpec[] propertySpecs = propertySpecList.toArray(new FieldSpec[propertySpecList.size()]);
+
+            Field lastField = propertySpecs[propertySpecs.length - 1].field;
+            int size = lastField.index();
+            int length = lastField.length();
+            if (length < 0)
+                length = lastField.type().length;
+            if (length < 0)
+                length = 4;
+            size += length;
 
             Integer v = entry.getKey();
-            messagePropertySpecMap.put(className + ":" + v, propertySpecs);
+            messageSpecMap.put(className + ":" + v, new MessageSpec(propertySpecs, size));
         }
         Introspector.flushCaches();
     }

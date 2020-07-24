@@ -1,9 +1,8 @@
 package org.yzh.web.jt.basics;
 
-import org.yzh.framework.orm.annotation.Property;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
-import org.yzh.framework.orm.annotation.Type;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.web.jt.common.ParameterUtils;
 
 import java.nio.charset.Charset;
@@ -14,8 +13,7 @@ import java.nio.charset.Charset;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type
-public class TerminalParameter extends AbstractBody {
+public class TerminalParameter extends AbstractMessage {
 
     private Integer id;
     private Integer length;
@@ -44,7 +42,7 @@ public class TerminalParameter extends AbstractBody {
         this.length = bytesValue.length;
     }
 
-    @Property(index = 0, type = DataType.DWORD, desc = "参数ID", version = {0, 1})
+    @Field(index = 0, type = DataType.DWORD, desc = "参数ID", version = {0, 1})
     public Integer getId() {
         return id;
     }
@@ -53,7 +51,7 @@ public class TerminalParameter extends AbstractBody {
         this.id = id;
     }
 
-    @Property(index = 2, type = DataType.BYTE, desc = "参数长度", version = {0, 1})
+    @Field(index = 2, type = DataType.BYTE, desc = "参数长度", version = {0, 1})
     public Integer getLength() {
         return length;
     }
@@ -62,7 +60,7 @@ public class TerminalParameter extends AbstractBody {
         this.length = length;
     }
 
-    @Property(index = 3, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {0, 1})
+    @Field(index = 3, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {0, 1})
     public byte[] getBytesValue() {
         return bytesValue;
     }

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.yzh.framework.JTApplication;
-import org.yzh.framework.core.JTConfig;
+import org.yzh.framework.netty.JTConfig;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.web.jt.codec.JTMessageDecoder;
@@ -34,16 +34,16 @@ public class Application {
                     .setMaxFrameLength(1024)
                     .setDelimiters(new byte[]{0x7e})
                     .setHandlerMapping(handlerMapping())
-                    .setDecoder(new JTMessageDecoder())
-                    .setEncoder(new JTMessageEncoder())
+                    .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
+                    .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
                     .build();
-            JTApplication.run(Application.class, jtConfig);
+            JTApplication.run(jtConfig);
             System.out.println("***Netty 启动成功***");
         };
     }
 
     @Bean
     public HandlerMapping handlerMapping() {
-        return new SpringHandlerMapping();
+        return new SpringHandlerMapping("org.yzh.web.endpoint");
     }
 }

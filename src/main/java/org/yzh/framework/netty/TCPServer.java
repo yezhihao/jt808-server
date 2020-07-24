@@ -1,4 +1,4 @@
-package org.yzh.framework.core;
+package org.yzh.framework.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -42,10 +42,10 @@ public class TCPServer {
                     @Override
                     public void initChannel(SocketChannel ch) {
                         ch.pipeline()
-                                .addLast(jtConfig.getFrameDecoder())
-                                .addLast(jtConfig.getDecoder())
-                                .addLast(jtConfig.getEncoder())
-                                .addLast(jtConfig.getAdapter());
+                                .addLast("frameDecoder", jtConfig.getFrameDecoder())
+                                .addLast("decoder", jtConfig.getDecoder())
+                                .addLast("encoder", jtConfig.getEncoder())
+                                .addLast("adapter", jtConfig.getAdapter());
                     }
                 });
 

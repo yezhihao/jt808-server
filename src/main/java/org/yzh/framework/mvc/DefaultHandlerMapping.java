@@ -8,6 +8,11 @@ import org.yzh.framework.commons.bean.BeanUtils;
  */
 public class DefaultHandlerMapping extends AbstractHandlerMapping {
 
+    public DefaultHandlerMapping(String endpointPackage) {
+        super(endpointPackage);
+        initial();
+    }
+
     public Object getEndpoint(Class<?> clazz) {
         return BeanUtils.newInstance(clazz);
     }

@@ -56,22 +56,4 @@ public class Cache<K, V> {
         read.unlock();
         return value;
     }
-
-//    private volatile Map<K, V> cache_ = new HashMap<>(32);
-//
-//    public V get_(K key, Callable<? extends V> loader) throws Exception {
-//        V identity = cache_.get(key);
-//
-//        if (identity == null) {
-//            synchronized (cache_) {
-//                identity = cache_.get(key);
-//                if (identity == null) {
-//                    identity = loader.call();
-//                    cache_.put(key, identity);
-//                }
-//            }
-//        }
-//        return identity;
-//    }
-
 }

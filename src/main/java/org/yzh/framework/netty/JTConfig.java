@@ -1,4 +1,4 @@
-package org.yzh.framework.core;
+package org.yzh.framework.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -9,9 +9,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
-import org.yzh.framework.mvc.DefaultHandlerMapping;
 import org.yzh.framework.mvc.HandlerMapping;
-import org.yzh.framework.mvc.TCPServerHandler;
 import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.util.List;
@@ -27,10 +25,6 @@ public class JTConfig {
 
     private JTConfig(int port, int maxFrameLength, byte[] delimiter, HandlerMapping handlerMapping, MessageDecoder decoder, MessageEncoder encoder) {
         this.port = port;
-        if (handlerMapping == null)
-            this.handlerMapping = new DefaultHandlerMapping();
-        else
-            this.handlerMapping = handlerMapping;
 
         this.frameDecoder = new DelimiterBasedFrameDecoder(maxFrameLength,
                 Unpooled.wrappedBuffer(delimiter),
@@ -39,7 +33,9 @@ public class JTConfig {
         this.decoder = new ByteToMessageDecoder() {
             @Override
             protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
-                out.add(decoder.decode(buf));
+                AbstractMessage message = decoder.decode(buf);
+                if (message != null)
+                    out.add(message);
                 buf.skipBytes(buf.readableBytes());
             }
         };
@@ -49,6 +45,7 @@ public class JTConfig {
             }
         };
 
+        this.handlerMapping = handlerMapping;
         this.adapter = new TCPServerHandler(this.handlerMapping);
     }
 

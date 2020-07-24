@@ -1,30 +1,80 @@
 package org.yzh.framework.session;
 
+import org.yzh.framework.orm.model.AbstractHeader;
+import org.yzh.framework.orm.model.AbstractMessage;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public enum MessageManager {
 
-    INSTANCE;
+    Instance;
 
-    private Map<String, SyncFuture> map = new ConcurrentHashMap<>();
+    private Map<String, SyncFuture> topicSubscribers = new ConcurrentHashMap<>();
+
+    private SessionManager sessionManager = SessionManager.getInstance();
+
+    public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
+        AbstractHeader header = message.getHeader();
+        String terminalId = header.getClientId();
+
+        Session session = sessionManager.getByMobileNo(terminalId);
+        if (session == null)
+            return false;
+
+        header.setSerialNo(session.currentFlowId());
+        session.getChannel().writeAndFlush(message);
+        return true;
+    }
+
+    public Object request(AbstractMessage<? extends AbstractHeader> message) {
+        return request(message, 20000);
+    }
+
+    public Object request(AbstractMessage<? extends AbstractHeader> message, long timeout) {
+        AbstractHeader header = message.getHeader();
+        String terminalId = header.getClientId();
+
+        Session session = sessionManager.getByMobileNo(terminalId);
+        if (session == null)
+            return null;
+
+        String key = getKey(header);
+        SyncFuture future = this.subscribe(key);
+        if (future == null)
+            return null;
+
+        try {
+            header.setSerialNo(session.currentFlowId());
+            session.getChannel().writeAndFlush(message);
+            return future.get(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            this.unsubscribe(key);
+        }
+        return null;
+    }
 
 
-    public SyncFuture receive(String key) {
-        SyncFuture future = new SyncFuture();
-        map.put(key, future);
+    public boolean response(AbstractMessage message) {
+        SyncFuture future = topicSubscribers.get(getKey(message.getHeader()));
+        if (future != null)
+            return future.set(message);
+        return false;
+    }
+
+    private String getKey(AbstractHeader header) {
+        return header.getClientId() + "/" + header.getSerialNo();
+    }
+
+    private SyncFuture subscribe(String key) {
+        SyncFuture future = null;
+        if (!topicSubscribers.containsKey(key))
+            topicSubscribers.put(key, future = new SyncFuture());
         return future;
     }
 
-    public void remove(String key) {
-        map.remove(key);
+    private void unsubscribe(String key) {
+        topicSubscribers.remove(key);
     }
-
-    public void put(String key, Object value) {
-        SyncFuture syncFuture = map.get(key);
-        if (syncFuture == null)
-            return;
-        syncFuture.setResponse(value);
-    }
-
 }

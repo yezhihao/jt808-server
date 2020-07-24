@@ -6,15 +6,14 @@ import io.netty.buffer.Unpooled;
 import org.junit.Test;
 import org.yzh.framework.commons.lang.RandomUtils;
 import org.yzh.framework.commons.transform.JsonUtils;
-import org.yzh.framework.orm.annotation.Type;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
+import org.yzh.web.jt.basics.TerminalParameter;
 import org.yzh.web.jt.codec.JTMessageDecoder;
 import org.yzh.web.jt.codec.JTMessageEncoder;
 import org.yzh.web.jt.common.ParameterUtils;
 import org.yzh.web.jt.t808.*;
-import org.yzh.web.jt.basics.Message;
-import org.yzh.web.jt.basics.TerminalParameter;
 import org.yzh.web.jt.t808.position.Attribute;
 import org.yzh.web.jt.t808.position.attribute.*;
 
@@ -33,13 +32,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class CoderTest {
 
-    private static final JTMessageDecoder decoder = new JTMessageDecoder();
+    private static final JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.web.jt");
 
-    private static final JTMessageEncoder encoder = new JTMessageEncoder();
+    private static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.web.jt");
 
-    public static <T extends AbstractBody> AbstractMessage<T> transform(String hex) {
+    public static AbstractMessage transform(String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        AbstractMessage<T> bean = decoder.decode(buf);
+        AbstractMessage bean = decoder.decode(buf);
         return bean;
     }
 
@@ -87,30 +86,30 @@ public class CoderTest {
     }
 
     /** 2013版消息头 */
-    public static Message m2013(AbstractBody body) {
-        Message message = new Message();
-        Type type = body.getClass().getAnnotation(Type.class);
-        message.setMessageId(type.value()[0]);
-        message.setMobileNo("12345678901");
-        message.setSerialNo((int) Short.MAX_VALUE);
-        message.setEncryption(0);
-        message.setReserved(false);
-        message.setBody(body);
+    public static AbstractMessage h2013(AbstractMessage message) {
+        Header header = new Header();
+        Message type = message.getClass().getAnnotation(Message.class);
+        header.setMessageId(type.value()[0]);
+        header.setMobileNo("12345678901");
+        header.setSerialNo((int) Short.MAX_VALUE);
+        header.setEncryption(0);
+        header.setReserved(false);
+        message.setHeader(header);
         return message;
     }
 
     /** 2019版消息头 */
-    public static Message m2019(AbstractBody body) {
-        Message message = new Message();
-        Type type = body.getClass().getAnnotation(Type.class);
-        message.setMessageId(type.value()[0]);
-        message.setVersionNo(1);
-        message.setMobileNo("17299841738");
-        message.setSerialNo(65535);
-        message.setEncryption(0);
-        message.setVersion(true);
-        message.setReserved(false);
-        message.setBody(body);
+    public static AbstractMessage h2019(AbstractMessage message) {
+        Header header = new Header();
+        Message type = message.getClass().getAnnotation(Message.class);
+        header.setMessageId(type.value()[0]);
+        header.setVersionNo(1);
+        header.setMobileNo("17299841738");
+        header.setSerialNo(65535);
+        header.setEncryption(0);
+        header.setVersion(true);
+        header.setReserved(false);
+        message.setHeader(header);
         return message;
     }
 
@@ -123,7 +122,7 @@ public class CoderTest {
         selfCheck(positionReport());
     }
 
-    public static Message positionReport() {
+    public static AbstractMessage positionReport() {
         T0200 bean = new T0200();
         bean.setWarningMark(1024);
         bean.setStatus(2048);
@@ -140,7 +139,7 @@ public class CoderTest {
         attributes.put(Speed.attributeId, new Speed(33));
         attributes.put(AlarmEventId.attributeId, new AlarmEventId(44));
         attributes.put(TirePressure.attributeId, new TirePressure((byte) 55, (byte) 55, (byte) 55));
-//        attributes.put(CarriageTemperature.attributeId, new CarriageTemperature(2));
+//        attributes.response(CarriageTemperature.attributeId, new CarriageTemperature(2));
 
         attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 66, 66));
         attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
@@ -153,14 +152,14 @@ public class CoderTest {
         attributes.put(GnssCount.attributeId, new GnssCount(40));
 
         bean.setAttributes(attributes);
-        return m2013(bean);
+        return h2013(bean);
     }
 
 
     // 终端注册应答 0x8100
     @Test
     public void testRegisterResult() {
-        selfCheck("810000040138014398460000108f0000bf");
+        selfCheck("810000030138014398460000108f09b1");
     }
 
 
@@ -171,7 +170,7 @@ public class CoderTest {
         selfCheck(register());
     }
 
-    public static Message register() {
+    public static AbstractMessage register() {
         T0100 bean = new T0100();
         bean.setProvinceId(31);
         bean.setCityId(115);
@@ -180,8 +179,8 @@ public class CoderTest {
         bean.setTerminalId("test123");
         bean.setLicensePlateColor(1);
         bean.setLicensePlate("测A888888");
-        return m2019(bean);
-//        return m2013(bean);
+        return h2019(bean);
+//        return h2013(bean);
     }
 
 
@@ -191,7 +190,7 @@ public class CoderTest {
         selfCheck(querySettings());
     }
 
-    public static Message querySettings() {
+    public static AbstractMessage querySettings() {
         T0104 bean = new T0104();
         bean.setSerialNo(104);
 
@@ -210,8 +209,9 @@ public class CoderTest {
                     bean.addTerminalParameter(new TerminalParameter(p.id, RandomUtils.nextString(16)));
             }
         }
-        return m2019(bean);
-//        return m2013(bean);
+
+        return h2019(bean);
+//        return h2013(bean);
     }
 
 
@@ -223,7 +223,7 @@ public class CoderTest {
 //        selfCheck(questionMessage());
     }
 
-    public static Message questionMessage() {
+    public static AbstractMessage questionMessage() {
         T8302 bean = new T8302();
         List<T8302.Option> options = new ArrayList();
 
@@ -233,7 +233,7 @@ public class CoderTest {
 
         options.add(new T8302.Option(1, "asd1"));
         options.add(new T8302.Option(2, "zxc2"));
-        return m2013(bean);
+        return h2013(bean);
     }
 
 
@@ -245,13 +245,13 @@ public class CoderTest {
         selfCheck(phoneBook());
     }
 
-    public static Message phoneBook() {
+    public static AbstractMessage phoneBook() {
         T8401 bean = new T8401();
         bean.setType(T8401.Append);
         bean.add(new T8401.Item(2, "18217341802", "张三"));
         bean.add(new T8401.Item(1, "123123", "李四"));
         bean.add(new T8401.Item(3, "123123", "王五"));
-        return m2013(bean);
+        return h2013(bean);
     }
 
 
@@ -263,13 +263,13 @@ public class CoderTest {
         selfCheck(eventSetting());
     }
 
-    public static Message eventSetting() {
+    public static AbstractMessage eventSetting() {
         T8301 bean = new T8301();
         bean.setType(T8301.Append);
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
         bean.addEvent(3, "t试2");
-        return m2013(bean);
+        return h2013(bean);
     }
 
     // 终端&T0702 0x0001 0x8001
@@ -300,18 +300,19 @@ public class CoderTest {
         selfCheck("880100050641629242524a43010001000a28");
     }
 
-    public static Message<T8804> cameraShot() {
-        T8801 body = new T8801();
-        body.setChannelId(1);
-        body.setCommand(2);
-        body.setTime(3);
-        body.setSaveSign(1);
-        body.setResolution(4);
-        body.setQuality(5);
-        body.setBrightness(255);
-        body.setContrast(127);
-        body.setSaturation(127);
-        body.setChroma(255);
-        return m2013(body);
+    public static T8801 cameraShot() {
+        T8801 msg = new T8801();
+        msg.setChannelId(1);
+        msg.setCommand(2);
+        msg.setTime(3);
+        msg.setSaveSign(1);
+        msg.setResolution(4);
+        msg.setQuality(5);
+        msg.setBrightness(255);
+        msg.setContrast(127);
+        msg.setSaturation(127);
+        msg.setChroma(255);
+        h2013(msg);
+        return msg;
     }
 }
