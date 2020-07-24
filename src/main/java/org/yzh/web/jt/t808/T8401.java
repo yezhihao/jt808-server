@@ -65,7 +65,6 @@ public class T8401 extends AbstractMessage<Header> {
         total = list.size();
     }
 
-    @Message
     public static class Item {
         private Integer sign;
         private Integer phoneLength;

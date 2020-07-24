@@ -69,7 +69,6 @@ public class T8301 extends AbstractMessage<Header> {
         this.total = list.size();
     }
 
-    @Message
     public static class Event {
         private Integer id;
         private Integer length;

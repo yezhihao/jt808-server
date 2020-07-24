@@ -66,7 +66,6 @@ public class T8302 extends AbstractMessage<Header> {
         this.options = options;
     }
 
-    @Message
     public static class Option {
 
         private Integer id;

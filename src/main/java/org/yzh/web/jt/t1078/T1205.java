@@ -55,7 +55,6 @@ public class T1205 extends AbstractMessage<Header> implements Serializable {
         this.videoHis = videoHis;
     }
 
-    @Message
     @ApiModel(description = "资源列表返回实体")
     public static class VideoHis {
 
