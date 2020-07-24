@@ -5,15 +5,17 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.PropertySpec;
+import org.yzh.framework.commons.FieldSpec;
+import org.yzh.framework.commons.MessageSpec;
 import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.RawMessage;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -42,46 +44,53 @@ public abstract class MessageDecoder {
     public AbstractMessage decode(ByteBuf buf) {
         buf = unescape(buf);
 
-        if (verify(buf))
+        boolean verified = verify(buf);
+        if (verified)
             log.error("校验码错误" + ByteBufUtil.hexDump(buf));
 
-        Class<? extends AbstractMessage> headerClass = MessageHelper.getHeaderClass();
+        Class<? extends AbstractHeader> headerClass = MessageHelper.getHeaderClass();
         int readerIndex = buf.readerIndex();
         int version = 0;
 
-        AbstractMessage message = decode(buf, headerClass, version);
+        AbstractHeader header = decode(buf, headerClass, version);
+        header.setVerified(verified);
 
-        if (message.isVersion()) {
+        if (header.isVersion()) {
             buf.readerIndex(readerIndex);
-            message = decode(buf, headerClass, 1);
-            version = message.getVersionNo();
+            header = decode(buf, headerClass, 1);
+            version = header.getVersionNo();
         }
 
-        Class<? extends AbstractBody> bodyClass = MessageHelper.getClass(message.getMessageId());
+        Class<? extends AbstractMessage> bodyClass = MessageHelper.getClass(header.getMessageId());
+        AbstractMessage message;
 
         if (bodyClass == null) {
-            log.warn("未找到{}对应的BodyClass", Integer.toHexString(message.getMessageId()));
-        } else {
-            int headLen = message.getHeadLength();
-            int bodyLen = message.getBodyLength();
+            message = new RawMessage();
+            message.setHeader(header);
+            return message;
+        }
 
-            if (message.isSubpackage()) {
+        int headLen = header.getHeadLength();
+        int bodyLen = header.getBodyLength();
 
-                byte[] bytes = new byte[bodyLen];
-                buf.readBytes(bytes);
+        if (header.isSubpackage()) {
 
-                byte[][] packages = MultiPacketManager.Instance.addAndGet(message, bytes);
-                if (packages != null) {
+            byte[] bytes = new byte[bodyLen];
+            buf.readBytes(bytes);
 
-                    ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-                    AbstractBody body = decode(bodyBuf, bodyClass, version);
-                    message.setBody(body);
-                }
+            byte[][] packages = MultiPacketManager.Instance.addAndGet(header, bytes);
+            if (packages != null) {
+
+                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+                message = decode(bodyBuf, bodyClass, version);
+                message.setHeader(header);
             } else {
-                buf.setIndex(headLen, headLen + bodyLen);
-                AbstractBody body = decode(buf, bodyClass, version);
-                message.setBody(body);
+                return null;
             }
+        } else {
+            buf.setIndex(headLen, headLen + bodyLen);
+            message = decode(buf, bodyClass, version);
+            message.setHeader(header);
         }
         return message;
     }
@@ -90,13 +99,13 @@ public abstract class MessageDecoder {
     public <T> T decode(ByteBuf buf, Class<T> clazz, int version) {
         T result = BeanUtils.newInstance(clazz);
 
-        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(clazz, version);
-        if (propertySpecs == null)
-            throw new RuntimeException(clazz.getName() + "未找到 PropertySpec");
+        MessageSpec messageSpec = MessageHelper.getMessageSpec(clazz, version);
+        if (messageSpec == null)
+            throw new RuntimeException(clazz.getName() + "未找到 MessageSpec");
 
-        for (PropertySpec propertySpec : propertySpecs) {
+        for (FieldSpec fieldSpec : messageSpec.fieldSpecs) {
 
-            int length = PropertyUtils.getLength(result, propertySpec.property);
+            int length = PropertyUtils.getLength(result, fieldSpec.field);
             if (!buf.isReadable(length))
                 break;
 
@@ -104,21 +113,21 @@ public abstract class MessageDecoder {
                 length = buf.readableBytes();
             Object value = null;
             try {
-                value = read(buf, propertySpec, length, version);
+                value = read(buf, fieldSpec, length, version);
             } catch (Exception e) {
                 log.error("解码异常：", e);
             }
-            BeanUtils.setValue(result, propertySpec.writeMethod, value);
+            BeanUtils.setValue(result, fieldSpec.writeMethod, value);
         }
         return result;
     }
 
-    public Object read(ByteBuf buf, PropertySpec propertySpec, int length, int version) {
-        Property prop = propertySpec.property;
+    public Object read(ByteBuf buf, FieldSpec fieldSpec, int length, int version) {
+        Field prop = fieldSpec.field;
         DataType type = prop.type();
 
         if (type == DWORD) {
-            if (propertySpec.type.isAssignableFrom(Long.class))
+            if (fieldSpec.type.isAssignableFrom(Long.class))
                 return buf.readUnsignedInt();
             return (int) buf.readUnsignedInt();
         }
@@ -127,7 +136,7 @@ public abstract class MessageDecoder {
         }
         if (type == LIST) {
             List list = new ArrayList();
-            Type clazz = ((ParameterizedType) propertySpec.readMethod.getGenericReturnType()).getActualTypeArguments()[0];
+            Type clazz = ((ParameterizedType) fieldSpec.readMethod.getGenericReturnType()).getActualTypeArguments()[0];
             ByteBuf slice = buf.readSlice(length);
             while (slice.isReadable())
                 list.add(decode(slice, (Class) clazz, version));
@@ -145,7 +154,7 @@ public abstract class MessageDecoder {
         if (type == BCD8421)
             return Bcd.leftTrim(Bcd.bcdToStr(bytes), '0');
 
-        if (propertySpec.type.isAssignableFrom(String.class)) {
+        if (fieldSpec.type.isAssignableFrom(String.class)) {
             byte pad = prop.pad();
             for (int i = 0; i < bytes.length; i++) {
                 if (bytes[i] != pad)
@@ -154,7 +163,7 @@ public abstract class MessageDecoder {
             return new String(bytes, Charset.forName(prop.charset()));
         }
         if (type == OBJ) {
-            return decode(buf.readSlice(length), propertySpec.type, version);
+            return decode(buf.readSlice(length), fieldSpec.type, version);
         }
         return bytes;
     }

@@ -4,12 +4,13 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.PropertySpec;
+import org.yzh.framework.commons.FieldSpec;
+import org.yzh.framework.commons.MessageSpec;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.lang.reflect.Method;
@@ -33,55 +34,78 @@ public abstract class MessageEncoder {
     public abstract ByteBuf sign(ByteBuf buf);
 
     public ByteBuf encode(AbstractMessage message) {
-        ByteBuf buf;
+        AbstractHeader header = message.getHeader();
+        int version = header.getVersionNo();
 
-        int version = message.getVersionNo();
-        AbstractBody body = message.getBody();
-        if (body != null) {
+        ByteBuf bodyBuf = encode(message, version);
 
-            ByteBuf bodyBuf = encode(Unpooled.buffer(256), body, version);
+        int bodyLength = bodyBuf.readableBytes();
+        if (bodyLength > 1023)
+            throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
+        header.setBodyLength(bodyLength);
 
-            int bodyLength = bodyBuf.readableBytes();
-            if (bodyLength > 1023)
-                throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
-            message.setBodyLength(bodyLength);
+        ByteBuf headerBuf = encode(header, version);
+        ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
-            ByteBuf headerBuf = encode(Unpooled.buffer(16), message, version);
-            buf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
-        } else {
-            buf = encode(Unpooled.buffer(16), message, version);
-        }
-
-        buf = sign(buf);
-        buf = escape(buf);
-        return buf;
+        allBuf = sign(allBuf);
+        allBuf = escape(allBuf);
+        return allBuf;
     }
 
+    private ByteBuf encode(Object obj, int version) {
+        Class<?> clazz = obj.getClass();
 
-    private ByteBuf encode(ByteBuf buf, Object message, int version) {
-        Class<?> clazz = message.getClass();
+        MessageSpec messageSpec = MessageHelper.getMessageSpec(clazz, version);
+        if (messageSpec == null) {
+            log.warn(clazz.getName() + "未找到 messageSpec");
+            return Unpooled.EMPTY_BUFFER;
+        }
 
-        PropertySpec[] propertySpecs = MessageHelper.getPropertySpec(clazz, version);
-        if (propertySpecs == null)
-            throw new RuntimeException(clazz.getName() + "未找到 PropertySpec");
+        ByteBuf buf = Unpooled.buffer(messageSpec.length);
+        for (FieldSpec fieldSpec : messageSpec.fieldSpecs) {
 
-        for (PropertySpec propertySpec : propertySpecs) {
-
-            Method readMethod = propertySpec.readMethod;
-            Object value = BeanUtils.getValue(message, readMethod);
+            Method readMethod = fieldSpec.readMethod;
+            Object value = BeanUtils.getValue(obj, readMethod);
             if (value != null) {
-                write(buf, propertySpec, value, version);
+                write(buf, fieldSpec, value, version);
             }
         }
         return buf;
     }
 
-    public void write(ByteBuf buf, PropertySpec pd, Object value, int version) {
-        Property prop = pd.property;
-        int length = prop.length();
-        byte pad = prop.pad();
+    private ByteBuf encode(List<Object> list, int version) {
+        int size = list.size();
+        if (size == 0)
+            return Unpooled.EMPTY_BUFFER;
+        Object first = list.get(0);
+        Class<?> clazz = first.getClass();
 
-        switch (prop.type()) {
+        MessageSpec messageSpec = MessageHelper.getMessageSpec(clazz, version);
+        if (messageSpec == null) {
+            log.warn(clazz.getName() + "未找到 messageSpec");
+            return Unpooled.EMPTY_BUFFER;
+        }
+
+        ByteBuf buf = Unpooled.buffer(messageSpec.length * size);
+        for (Object obj : list) {
+            for (FieldSpec fieldSpec : messageSpec.fieldSpecs) {
+
+                Method readMethod = fieldSpec.readMethod;
+                Object value = BeanUtils.getValue(obj, readMethod);
+                if (value != null) {
+                    write(buf, fieldSpec, value, version);
+                }
+            }
+        }
+        return buf;
+    }
+
+    public void write(ByteBuf buf, FieldSpec fieldSpec, Object value, int version) {
+        Field field = fieldSpec.field;
+        int length = field.length();
+        byte pad = field.pad();
+
+        switch (field.type()) {
             case BYTE:
                 buf.writeByte((int) value);
                 break;
@@ -95,8 +119,8 @@ public abstract class MessageEncoder {
                     buf.writeInt((int) value);
                 break;
             case BYTES:
-                if (pd.type.isAssignableFrom(String.class)) {
-                    byte[] bytes = ((String) value).getBytes(Charset.forName(prop.charset()));
+                if (fieldSpec.type.isAssignableFrom(String.class)) {
+                    byte[] bytes = ((String) value).getBytes(Charset.forName(field.charset()));
                     int srcLen = bytes.length;
                     if (length > 0) {
                         bytes = Bcd.checkRepair(bytes, length);
@@ -114,7 +138,7 @@ public abstract class MessageEncoder {
                 buf.writeBytes(Bcd.strToBcd(str));
                 break;
             case STRING:
-                byte[] bytes = ((String) value).getBytes(Charset.forName(prop.charset()));
+                byte[] bytes = ((String) value).getBytes(Charset.forName(field.charset()));
                 int srcLen = bytes.length;
                 if (length > 0) {
                     bytes = Bcd.checkRepair(bytes, length);
@@ -124,12 +148,11 @@ public abstract class MessageEncoder {
                 buf.writeBytes(bytes);
                 break;
             case OBJ:
-                encode(buf, value, version);
+                buf.writeBytes(encode(value, version));
                 break;
             case LIST:
-                List list = (List) value;
-                for (Object obj : list)
-                    encode(buf, obj, version);
+                if (value != null)
+                    buf.writeBytes(encode((List) value, version));
                 break;
         }
     }

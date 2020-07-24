@@ -1,6 +1,6 @@
 package org.yzh.framework.codec;
 
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.AbstractHeader;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,7 +16,7 @@ public enum MultiPacketManager {
 
     private static final ConcurrentMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
-    public byte[][] addAndGet(AbstractMessage message, byte[] packetData) {
+    public byte[][] addAndGet(AbstractHeader message, byte[] packetData) {
         String clientId = message.getClientId();
         int messageId = message.getMessageId();
         int packageTotal = message.getPackageTotal();
