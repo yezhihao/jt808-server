@@ -1,6 +1,6 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.enums.DataType;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;

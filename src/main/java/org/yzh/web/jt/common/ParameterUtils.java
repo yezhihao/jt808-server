@@ -1,7 +1,7 @@
 package org.yzh.web.jt.common;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.framework.enums.DataType;
+import org.yzh.framework.orm.model.DataType;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;

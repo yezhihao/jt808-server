@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.enums.DataType;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.FieldSpec;
 import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.MessageSpec;
@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.yzh.framework.enums.DataType.*;
+import static org.yzh.framework.orm.model.DataType.*;
 
 /**
  * 基础消息解码

@@ -1,6 +1,6 @@
 package org.yzh.framework.orm.annotation;
 
-import org.yzh.framework.enums.DataType;
+import org.yzh.framework.orm.model.DataType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

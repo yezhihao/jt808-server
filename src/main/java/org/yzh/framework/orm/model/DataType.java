@@ -1,4 +1,4 @@
-package org.yzh.framework.enums;
+package org.yzh.framework.orm.model;
 
 public enum DataType {
 
