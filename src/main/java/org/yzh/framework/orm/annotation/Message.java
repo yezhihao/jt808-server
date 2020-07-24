@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Type {
+public @interface Message {
 
     int[] value() default {};
 

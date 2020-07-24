@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Ps {
+public @interface Fs {
 
-    Property[] value();
+    Field[] value();
 
 }

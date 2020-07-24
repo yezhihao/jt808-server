@@ -15,6 +15,10 @@ import java.util.List;
  */
 public class JTMessageEncoder extends MessageEncoder {
 
+    public JTMessageEncoder(String basePackage) {
+        super(basePackage);
+    }
+
     @Override
     public ByteBuf sign(ByteBuf buf) {
         byte checkCode = ByteBufUtils.bcc(buf);

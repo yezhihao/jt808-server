@@ -4,11 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.FieldSpec;
-import org.yzh.framework.commons.MessageSpec;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
+import org.yzh.framework.orm.FieldSpec;
 import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.MessageSpec;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
@@ -26,6 +26,10 @@ import java.util.List;
 public abstract class MessageEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(MessageEncoder.class.getSimpleName());
+
+    public MessageEncoder(String basePackage) {
+        MessageHelper.initial(basePackage);
+    }
 
     /** 转码 */
     public abstract ByteBuf escape(ByteBuf buf);

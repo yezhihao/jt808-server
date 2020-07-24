@@ -5,13 +5,13 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.FieldSpec;
-import org.yzh.framework.commons.MessageSpec;
-import org.yzh.framework.commons.PropertyUtils;
 import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.framework.enums.DataType;
+import org.yzh.framework.orm.FieldSpec;
 import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.MessageSpec;
+import org.yzh.framework.orm.PropertyUtils;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
@@ -32,6 +32,10 @@ import static org.yzh.framework.enums.DataType.*;
  * @home http://gitee.com/yezhihao/jt-server
  */
 public abstract class MessageDecoder {
+
+    public MessageDecoder(String basePackage) {
+        MessageHelper.initial(basePackage);
+    }
 
     private static final Logger log = LoggerFactory.getLogger(MessageDecoder.class.getSimpleName());
 
@@ -61,7 +65,7 @@ public abstract class MessageDecoder {
             version = header.getVersionNo();
         }
 
-        Class<? extends AbstractMessage> bodyClass = MessageHelper.getClass(header.getMessageId());
+        Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());
         AbstractMessage message;
 
         if (bodyClass == null) {

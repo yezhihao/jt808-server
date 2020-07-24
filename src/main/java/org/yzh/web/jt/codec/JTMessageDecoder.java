@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class JTMessageDecoder extends MessageDecoder {
 
+    public JTMessageDecoder(String basePackage) {
+        super(basePackage);
+    }
+
     /** 校验 */
     @Override
     public boolean verify(ByteBuf buf) {
