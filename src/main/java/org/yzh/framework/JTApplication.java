@@ -5,7 +5,9 @@ import org.yzh.framework.netty.TCPServer;
 
 public final class JTApplication {
 
-    public static void run(JTConfig jtConfig) {
-        new TCPServer(jtConfig).startServer();
+    public static void run(JTConfig... jtConfig) {
+        for (JTConfig config : jtConfig) {
+            new TCPServer(config).startServer();
+        }
     }
 }

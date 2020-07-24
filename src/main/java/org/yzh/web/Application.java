@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.yzh.framework.JTApplication;
-import org.yzh.framework.netty.JTConfig;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
+import org.yzh.framework.netty.JTConfig;
 import org.yzh.web.jt.codec.JTMessageDecoder;
 import org.yzh.web.jt.codec.JTMessageEncoder;
 
@@ -29,7 +29,7 @@ public class Application {
     @Bean
     public ApplicationRunner runner() {
         return arguments -> {
-            JTConfig jtConfig = new JTConfig.Builder()
+            JTConfig jt808Config = new JTConfig.Builder()
                     .setPort(7611)
                     .setMaxFrameLength(1024)
                     .setDelimiters(new byte[]{0x7e})
@@ -37,7 +37,16 @@ public class Application {
                     .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
                     .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
                     .build();
-            JTApplication.run(jtConfig);
+
+            JTConfig jt1078Config = new JTConfig.Builder()
+                    .setPort(7612)
+                    .setMaxFrameLength(1024)
+                    .setDelimiters(new byte[]{0x7e})
+                    .setHandlerMapping(handlerMapping())
+                    .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
+                    .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
+                    .build();
+            JTApplication.run(jt808Config, jt1078Config);
             System.out.println("***Netty 启动成功***");
         };
     }
