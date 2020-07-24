@@ -17,7 +17,7 @@ public enum MessageManager {
 
     public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
         AbstractHeader header = message.getHeader();
-        String terminalId = header.getClientId();
+        String terminalId = header.getTerminalId();
 
         Session session = sessionManager.getByMobileNo(terminalId);
         if (session == null)
@@ -34,7 +34,7 @@ public enum MessageManager {
 
     public Object request(AbstractMessage<? extends AbstractHeader> message, long timeout) {
         AbstractHeader header = message.getHeader();
-        String terminalId = header.getClientId();
+        String terminalId = header.getTerminalId();
 
         Session session = sessionManager.getByMobileNo(terminalId);
         if (session == null)
@@ -64,7 +64,7 @@ public enum MessageManager {
     }
 
     private String getKey(AbstractHeader header) {
-        return header.getClientId() + "/" + header.getSerialNo();
+        return header.getTerminalId() + "/" + header.getSerialNo();
     }
 
     private SyncFuture subscribe(String key) {

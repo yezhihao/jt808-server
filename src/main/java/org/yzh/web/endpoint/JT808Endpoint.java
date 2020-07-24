@@ -102,7 +102,7 @@ public class JT808Endpoint {
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
         //TODO
-        session.setTerminalId(header.getClientId());
+        session.setTerminalId(header.getTerminalId());
         sessionManager.put(Session.buildId(session.getChannel()), session);
 
         T8100 result = new T8100(header.getSerialNo(), T8100.Success, "test_token");

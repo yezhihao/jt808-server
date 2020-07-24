@@ -17,7 +17,7 @@ public enum MultiPacketManager {
     private static final ConcurrentMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
     public byte[][] addAndGet(AbstractHeader message, byte[] packetData) {
-        String terminalId = message.getClientId();
+        String terminalId = message.getTerminalId();
         int messageId = message.getMessageId();
         int packageTotal = message.getPackageTotal();
         int packetNo = message.getPackageNo();
