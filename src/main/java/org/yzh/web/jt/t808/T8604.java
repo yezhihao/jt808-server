@@ -1,9 +1,10 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.设置多边形区域)
-public class T8604 extends AbstractBody {
+@Message(JT808.设置多边形区域)
+public class T8604 extends AbstractMessage<Header> {
 
     private Integer id;
     private Integer attribute;
@@ -25,7 +26,7 @@ public class T8604 extends AbstractBody {
     private Integer vertexTotal;
     private List<Coordinate> vertexes;
 
-    @Property(index = 0, type = DataType.DWORD, desc = "区域ID")
+    @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
     public Integer getId() {
         return id;
     }
@@ -34,7 +35,7 @@ public class T8604 extends AbstractBody {
         this.id = id;
     }
 
-    @Property(index = 4, type = DataType.WORD, desc = "区域属性")
+    @Field(index = 4, type = DataType.WORD, desc = "区域属性")
     public Integer getAttribute() {
         return attribute;
     }
@@ -43,7 +44,7 @@ public class T8604 extends AbstractBody {
         this.attribute = attribute;
     }
 
-    @Property(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
     public String getStartTime() {
         return startTime;
     }
@@ -52,7 +53,7 @@ public class T8604 extends AbstractBody {
         this.startTime = startTime;
     }
 
-    @Property(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
     public String getEndTime() {
         return endTime;
     }
@@ -61,7 +62,7 @@ public class T8604 extends AbstractBody {
         this.endTime = endTime;
     }
 
-    @Property(index = 18, type = DataType.WORD, desc = "最高速度")
+    @Field(index = 18, type = DataType.WORD, desc = "最高速度")
     public Integer getMaxSpeed() {
         return maxSpeed;
     }
@@ -70,7 +71,7 @@ public class T8604 extends AbstractBody {
         this.maxSpeed = maxSpeed;
     }
 
-    @Property(index = 20, type = DataType.BYTE, desc = "超速持续时间")
+    @Field(index = 20, type = DataType.BYTE, desc = "超速持续时间")
     public Integer getDuration() {
         return duration;
     }
@@ -79,7 +80,7 @@ public class T8604 extends AbstractBody {
         this.duration = duration;
     }
 
-    @Property(index = 21, type = DataType.WORD, desc = "顶点数")
+    @Field(index = 21, type = DataType.WORD, desc = "顶点数")
     public Integer getVertexTotal() {
         return vertexTotal;
     }
@@ -88,7 +89,7 @@ public class T8604 extends AbstractBody {
         this.vertexTotal = vertexTotal;
     }
 
-    @Property(index = 23, type = DataType.LIST, desc = "顶点列表")
+    @Field(index = 23, type = DataType.LIST, desc = "顶点列表")
     public List<Coordinate> getVertexes() {
         return vertexes;
     }
@@ -116,7 +117,7 @@ public class T8604 extends AbstractBody {
             this.longitude = longitude;
         }
 
-        @Property(index = 0, type = DataType.DWORD, desc = "纬度")
+        @Field(index = 0, type = DataType.DWORD, desc = "纬度")
         public Integer getLatitude() {
             return latitude;
         }
@@ -125,7 +126,7 @@ public class T8604 extends AbstractBody {
             this.latitude = latitude;
         }
 
-        @Property(index = 4, type = DataType.DWORD, desc = "经度")
+        @Field(index = 4, type = DataType.DWORD, desc = "经度")
         public Integer getLongitude() {
             return longitude;
         }

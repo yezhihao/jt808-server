@@ -1,11 +1,12 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
-import org.yzh.web.jt.common.JT808;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.web.jt.basics.BytesAttribute;
+import org.yzh.web.jt.basics.Header;
+import org.yzh.web.jt.common.JT808;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type({JT808.位置信息查询应答, JT808.车辆控制应答})
-public class T0201_0500 extends AbstractBody {
+@Message({JT808.位置信息查询应答, JT808.车辆控制应答})
+public class T0201_0500 extends AbstractMessage<Header> {
 
     private Integer serialNo;
     private Integer warningMark;
@@ -28,7 +29,7 @@ public class T0201_0500 extends AbstractBody {
 
     private List<BytesAttribute> bytesAttributes;
 
-    @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
         return serialNo;
     }
@@ -37,7 +38,7 @@ public class T0201_0500 extends AbstractBody {
         this.serialNo = serialNo;
     }
 
-    @Property(index = 2, type = DataType.DWORD, desc = "报警标志")
+    @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
     public Integer getWarningMark() {
         return warningMark;
     }
@@ -46,7 +47,7 @@ public class T0201_0500 extends AbstractBody {
         this.warningMark = warningMark;
     }
 
-    @Property(index = 6, type = DataType.DWORD, desc = "状态")
+    @Field(index = 6, type = DataType.DWORD, desc = "状态")
     public Integer getStatus() {
         return status;
     }
@@ -55,7 +56,7 @@ public class T0201_0500 extends AbstractBody {
         this.status = status;
     }
 
-    @Property(index = 10, type = DataType.DWORD, desc = "纬度")
+    @Field(index = 10, type = DataType.DWORD, desc = "纬度")
     public Integer getLatitude() {
         return latitude;
     }
@@ -64,7 +65,7 @@ public class T0201_0500 extends AbstractBody {
         this.latitude = latitude;
     }
 
-    @Property(index = 14, type = DataType.DWORD, desc = "经度")
+    @Field(index = 14, type = DataType.DWORD, desc = "经度")
     public Integer getLongitude() {
         return longitude;
     }
@@ -73,7 +74,7 @@ public class T0201_0500 extends AbstractBody {
         this.longitude = longitude;
     }
 
-    @Property(index = 18, type = DataType.WORD, desc = "海拔")
+    @Field(index = 18, type = DataType.WORD, desc = "海拔")
     public Integer getAltitude() {
         return altitude;
     }
@@ -82,7 +83,7 @@ public class T0201_0500 extends AbstractBody {
         this.altitude = altitude;
     }
 
-    @Property(index = 20, type = DataType.WORD, desc = "速度")
+    @Field(index = 20, type = DataType.WORD, desc = "速度")
     public Integer getSpeed() {
         return speed;
     }
@@ -91,7 +92,7 @@ public class T0201_0500 extends AbstractBody {
         this.speed = speed;
     }
 
-    @Property(index = 22, type = DataType.WORD, desc = "方向")
+    @Field(index = 22, type = DataType.WORD, desc = "方向")
     public Integer getDirection() {
         return direction;
     }
@@ -100,7 +101,7 @@ public class T0201_0500 extends AbstractBody {
         this.direction = direction;
     }
 
-    @Property(index = 24, type = DataType.BCD8421, length = 6, desc = "时间")
+    @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -109,7 +110,7 @@ public class T0201_0500 extends AbstractBody {
         this.dateTime = dateTime;
     }
 
-    @Property(index = 30, type = DataType.LIST, desc = "位置附加信息")
+    @Field(index = 30, type = DataType.LIST, desc = "位置附加信息")
     public List<BytesAttribute> getBytesAttributes() {
         return bytesAttributes;
     }

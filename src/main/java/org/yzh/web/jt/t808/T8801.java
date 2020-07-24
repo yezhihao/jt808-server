@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.摄像头立即拍摄命令)
-public class T8801 extends AbstractBody {
+@Message(JT808.摄像头立即拍摄命令)
+public class T8801 extends AbstractMessage<Header> {
 
     private Integer channelId;
     private Integer command;
@@ -28,7 +29,7 @@ public class T8801 extends AbstractBody {
     }
 
     /** 大于0 */
-    @Property(index = 0, type = DataType.BYTE, desc = "通道ID")
+    @Field(index = 0, type = DataType.BYTE, desc = "通道ID")
     public Integer getChannelId() {
         return channelId;
     }
@@ -38,7 +39,7 @@ public class T8801 extends AbstractBody {
     }
 
     /** 0表示停止拍摄 0xFFFF表示录像;其它表示拍照张数 */
-    @Property(index = 1, type = DataType.WORD, desc = "拍摄命令")
+    @Field(index = 1, type = DataType.WORD, desc = "拍摄命令")
     public Integer getCommand() {
         return command;
     }
@@ -48,7 +49,7 @@ public class T8801 extends AbstractBody {
     }
 
     /** 秒，0表示按最小间隔拍照或一直录像 */
-    @Property(index = 3, type = DataType.WORD, desc = "拍照间隔/录像时间")
+    @Field(index = 3, type = DataType.WORD, desc = "拍照间隔/录像时间")
     public Integer getTime() {
         return time;
     }
@@ -58,7 +59,7 @@ public class T8801 extends AbstractBody {
     }
 
     /** 1:保存 0:实时上传 */
-    @Property(index = 5, type = DataType.BYTE, desc = "保存标志")
+    @Field(index = 5, type = DataType.BYTE, desc = "保存标志")
     public Integer getSaveSign() {
         return saveSign;
     }
@@ -77,7 +78,7 @@ public class T8801 extends AbstractBody {
      * 0x07: 704*288；[HALF D1]；
      * 0x08: 704*576；[D1]；
      */
-    @Property(index = 6, type = DataType.BYTE, desc = "分辨率")
+    @Field(index = 6, type = DataType.BYTE, desc = "分辨率")
     public Integer getResolution() {
         return resolution;
     }
@@ -87,7 +88,7 @@ public class T8801 extends AbstractBody {
     }
 
     /** 1:代表质量损失最小 10:表示压缩比最大 */
-    @Property(index = 7, type = DataType.BYTE, desc = "质量")
+    @Field(index = 7, type = DataType.BYTE, desc = "质量")
     public Integer getQuality() {
         return quality;
     }
@@ -96,7 +97,7 @@ public class T8801 extends AbstractBody {
         this.quality = quality;
     }
 
-    @Property(index = 8, type = DataType.BYTE, desc = "亮度")
+    @Field(index = 8, type = DataType.BYTE, desc = "亮度")
     public Integer getBrightness() {
         return brightness;
     }
@@ -105,7 +106,7 @@ public class T8801 extends AbstractBody {
         this.brightness = brightness;
     }
 
-    @Property(index = 9, type = DataType.BYTE, desc = "对比度")
+    @Field(index = 9, type = DataType.BYTE, desc = "对比度")
     public Integer getContrast() {
         return contrast;
     }
@@ -114,7 +115,7 @@ public class T8801 extends AbstractBody {
         this.contrast = contrast;
     }
 
-    @Property(index = 10, type = DataType.BYTE, desc = "饱和度")
+    @Field(index = 10, type = DataType.BYTE, desc = "饱和度")
     public Integer getSaturation() {
         return saturation;
     }
@@ -123,7 +124,7 @@ public class T8801 extends AbstractBody {
         this.saturation = saturation;
     }
 
-    @Property(index = 11, type = DataType.BYTE, desc = "色度")
+    @Field(index = 11, type = DataType.BYTE, desc = "色度")
     public Integer getChroma() {
         return chroma;
     }

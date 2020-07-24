@@ -1,9 +1,10 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.设置路线)
-public class T8606 extends AbstractBody {
+@Message(JT808.设置路线)
+public class T8606 extends AbstractMessage<Header> {
 
     private Integer id;
     private Integer attribute;
@@ -23,7 +24,7 @@ public class T8606 extends AbstractBody {
     private Integer pointNumber;
     private List<Point> pointList;
 
-    @Property(index = 0, type = DataType.DWORD, desc = "路线ID")
+    @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
     public Integer getId() {
         return id;
     }
@@ -32,7 +33,7 @@ public class T8606 extends AbstractBody {
         this.id = id;
     }
 
-    @Property(index = 4, type = DataType.WORD, desc = "路线属性")
+    @Field(index = 4, type = DataType.WORD, desc = "路线属性")
     public Integer getAttribute() {
         return attribute;
     }
@@ -41,7 +42,7 @@ public class T8606 extends AbstractBody {
         this.attribute = attribute;
     }
 
-    @Property(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
     public String getStartTime() {
         return startTime;
     }
@@ -50,7 +51,7 @@ public class T8606 extends AbstractBody {
         this.startTime = startTime;
     }
 
-    @Property(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
     public String getEndTime() {
         return endTime;
     }
@@ -59,7 +60,7 @@ public class T8606 extends AbstractBody {
         this.endTime = endTime;
     }
 
-    @Property(index = 18, type = DataType.WORD, desc = "拐点数")
+    @Field(index = 18, type = DataType.WORD, desc = "拐点数")
     public Integer getPointNumber() {
         return pointNumber;
     }
@@ -68,7 +69,7 @@ public class T8606 extends AbstractBody {
         this.pointNumber = pointNumber;
     }
 
-    @Property(index = 20, type = DataType.LIST, desc = "拐点列表")
+    @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
     public List<Point> getPointList() {
         return pointList;
     }
@@ -110,7 +111,7 @@ public class T8606 extends AbstractBody {
             this.id = id;
         }
 
-        @Property(index = 0, type = DataType.DWORD, desc = "拐点ID")
+        @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
         public Integer getId() {
             return id;
         }
@@ -119,7 +120,7 @@ public class T8606 extends AbstractBody {
             this.id = id;
         }
 
-        @Property(index = 4, type = DataType.DWORD, desc = "路段ID")
+        @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
         public Integer getRouteId() {
             return routeId;
         }
@@ -128,7 +129,7 @@ public class T8606 extends AbstractBody {
             this.routeId = routeId;
         }
 
-        @Property(index = 8, type = DataType.DWORD, desc = "纬度")
+        @Field(index = 8, type = DataType.DWORD, desc = "纬度")
         public Integer getLatitude() {
             return latitude;
         }
@@ -137,7 +138,7 @@ public class T8606 extends AbstractBody {
             this.latitude = latitude;
         }
 
-        @Property(index = 12, type = DataType.DWORD, desc = "经度")
+        @Field(index = 12, type = DataType.DWORD, desc = "经度")
         public Integer getLongitude() {
             return longitude;
         }
@@ -146,7 +147,7 @@ public class T8606 extends AbstractBody {
             this.longitude = longitude;
         }
 
-        @Property(index = 16, type = DataType.BYTE, desc = "宽度")
+        @Field(index = 16, type = DataType.BYTE, desc = "宽度")
         public Integer getWidth() {
             return width;
         }
@@ -155,7 +156,7 @@ public class T8606 extends AbstractBody {
             this.width = width;
         }
 
-        @Property(index = 17, type = DataType.WORD, desc = "属性")
+        @Field(index = 17, type = DataType.WORD, desc = "属性")
         public Integer getAttribute() {
             return attribute;
         }
@@ -164,7 +165,7 @@ public class T8606 extends AbstractBody {
             this.attribute = attribute;
         }
 
-        @Property(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值")
+        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值")
         public Integer getUpperLimit() {
             return upperLimit;
         }
@@ -173,7 +174,7 @@ public class T8606 extends AbstractBody {
             this.upperLimit = upperLimit;
         }
 
-        @Property(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值")
+        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值")
         public Integer getLowerLimit() {
             return lowerLimit;
         }
@@ -182,7 +183,7 @@ public class T8606 extends AbstractBody {
             this.lowerLimit = lowerLimit;
         }
 
-        @Property(index = 22, type = DataType.WORD, desc = "路段最高速度")
+        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度")
         public Integer getMaxSpeed() {
             return maxSpeed;
         }
@@ -191,7 +192,7 @@ public class T8606 extends AbstractBody {
             this.maxSpeed = maxSpeed;
         }
 
-        @Property(index = 24, type = DataType.BYTE, desc = "路段超速持续时间")
+        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间")
         public Integer getDuration() {
             return duration;
         }

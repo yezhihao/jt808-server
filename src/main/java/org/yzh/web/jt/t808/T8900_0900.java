@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type({JT808.数据上行透传, JT808.数据下行透传})
-public class T8900_0900 extends AbstractBody {
+@Message({JT808.数据上行透传, JT808.数据下行透传})
+public class T8900_0900 extends AbstractMessage<Header> {
 
     /** GNSS模块详细定位数据 */
     public static final int GNSSLocation = 0x00;
@@ -35,7 +36,7 @@ public class T8900_0900 extends AbstractBody {
         this.content = content;
     }
 
-    @Property(index = 0, type = DataType.BYTE, desc = "透传消息类型")
+    @Field(index = 0, type = DataType.BYTE, desc = "透传消息类型")
     public Integer getType() {
         return type;
     }
@@ -44,7 +45,7 @@ public class T8900_0900 extends AbstractBody {
         this.type = type;
     }
 
-    @Property(index = 1, type = DataType.BYTES, desc = "透传消息内容")
+    @Field(index = 1, type = DataType.BYTES, desc = "透传消息内容")
     public byte[] getContent() {
         return content;
     }

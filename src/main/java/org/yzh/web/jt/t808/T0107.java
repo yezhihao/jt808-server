@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.查询终端属性应答)
-public class T0107 extends AbstractBody {
+@Message(JT808.查询终端属性应答)
+public class T0107 extends AbstractMessage<Header> {
 
     private Integer type;
     private String manufacturerId;
@@ -25,7 +26,7 @@ public class T0107 extends AbstractBody {
     private Integer gnssAttribute;
     private Integer networkAttribute;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "终端类型")
+    @Field(index = 0, type = DataType.BYTE, desc = "终端类型")
     public Integer getType() {
         return type;
     }
@@ -34,7 +35,7 @@ public class T0107 extends AbstractBody {
         this.type = type;
     }
 
-    @Property(index = 1, type = DataType.STRING, length = 7, pad = 32, desc = "制造商ID,终端制造商编码")
+    @Field(index = 1, type = DataType.STRING, length = 7, pad = 32, desc = "制造商ID,终端制造商编码")
     public String getManufacturerId() {
         return manufacturerId;
     }
@@ -43,7 +44,7 @@ public class T0107 extends AbstractBody {
         this.manufacturerId = manufacturerId;
     }
 
-    @Property(index = 8, type = DataType.STRING, length = 20, pad = 32, desc = "终端型号,由制造商自行定义,位数不足八位补空格")
+    @Field(index = 8, type = DataType.STRING, length = 20, pad = 32, desc = "终端型号,由制造商自行定义,位数不足八位补空格")
     public String getTerminalType() {
         return terminalType;
     }
@@ -52,7 +53,7 @@ public class T0107 extends AbstractBody {
         this.terminalType = terminalType;
     }
 
-    @Property(index = 27, type = DataType.STRING, length = 7, desc = "终端ID,由大写字母和数字组成,此终端ID由制造商自行定义")
+    @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID,由大写字母和数字组成,此终端ID由制造商自行定义")
     public String getTerminalId() {
         return terminalId;
     }
@@ -61,7 +62,7 @@ public class T0107 extends AbstractBody {
         this.terminalId = terminalId;
     }
 
-    @Property(index = 34, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID")
+    @Field(index = 34, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID")
     public String getSimId() {
         return simId;
     }
@@ -70,7 +71,7 @@ public class T0107 extends AbstractBody {
         this.simId = simId;
     }
 
-    @Property(index = 45, type = DataType.BYTE, desc = "硬件版本号长度")
+    @Field(index = 45, type = DataType.BYTE, desc = "硬件版本号长度")
     public Integer getHardwareVersionLen() {
         return hardwareVersionLen;
     }
@@ -79,7 +80,7 @@ public class T0107 extends AbstractBody {
         this.hardwareVersionLen = hardwareVersionLen;
     }
 
-    @Property(index = 46, type = DataType.STRING, lengthName = "hardwareVersionLen", desc = "硬件版本号")
+    @Field(index = 46, type = DataType.STRING, lengthName = "hardwareVersionLen", desc = "硬件版本号")
     public String getHardwareVersion() {
         return hardwareVersion;
     }
@@ -88,7 +89,7 @@ public class T0107 extends AbstractBody {
         this.hardwareVersion = hardwareVersion;
     }
 
-    @Property(index = 46, indexOffsetName = "hardwareVersionLen", type = DataType.BYTE, desc = "固件版本号长度")
+    @Field(index = 46, indexOffsetName = "hardwareVersionLen", type = DataType.BYTE, desc = "固件版本号长度")
     public String getFirmwareVersionLen() {
         return firmwareVersionLen;
     }
@@ -97,7 +98,7 @@ public class T0107 extends AbstractBody {
         this.firmwareVersionLen = firmwareVersionLen;
     }
 
-    @Property(index = 47, type = DataType.STRING, lengthName = "firmwareVersionLen", desc = "固件版本号")
+    @Field(index = 47, type = DataType.STRING, lengthName = "firmwareVersionLen", desc = "固件版本号")
     public String getFirmwareVersion() {
         return firmwareVersion;
     }
@@ -106,7 +107,7 @@ public class T0107 extends AbstractBody {
         this.firmwareVersion = firmwareVersion;
     }
 
-    @Property(index = 46, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "GNSS模块属性")
+    @Field(index = 46, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "GNSS模块属性")
     public Integer getGnssAttribute() {
         return gnssAttribute;
     }
@@ -115,7 +116,7 @@ public class T0107 extends AbstractBody {
         this.gnssAttribute = gnssAttribute;
     }
 
-    @Property(index = 47, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "通信模块属性")
+    @Field(index = 47, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "通信模块属性")
     public Integer getNetworkAttribute() {
         return networkAttribute;
     }

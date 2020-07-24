@@ -3,9 +3,10 @@ package org.yzh.web.jt.t1078;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT1078;
 
 import java.io.Serializable;
@@ -14,8 +15,8 @@ import java.util.List;
 /**
  * Created by
  */
-@Type(JT1078.终端上传音视频资源列表)
-public class T1205 extends AbstractBody implements Serializable {
+@Message(JT1078.终端上传音视频资源列表)
+public class T1205 extends AbstractMessage<Header> implements Serializable {
 
     @ApiModelProperty("序列号")
     private Integer serialNo;
@@ -27,7 +28,7 @@ public class T1205 extends AbstractBody implements Serializable {
     private List<VideoHis> videoHis;
 
     /** 对应的终端注册消息的流水号 */
-    @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
         return serialNo;
     }
@@ -36,7 +37,7 @@ public class T1205 extends AbstractBody implements Serializable {
         this.serialNo = serialNo;
     }
 
-    @Property(index = 2, type = DataType.DWORD, desc = "音视频资源总数")
+    @Field(index = 2, type = DataType.DWORD, desc = "音视频资源总数")
     public Integer getCount() {
         return count;
     }
@@ -45,7 +46,7 @@ public class T1205 extends AbstractBody implements Serializable {
         this.count = count;
     }
 
-    @Property(index = 6, type = DataType.LIST, desc = "参数项列表")
+    @Field(index = 6, type = DataType.LIST, desc = "参数项列表")
     public List<VideoHis> getVideoHis() {
         return videoHis;
     }
@@ -54,7 +55,7 @@ public class T1205 extends AbstractBody implements Serializable {
         this.videoHis = videoHis;
     }
 
-    @Type
+    @Message
     @ApiModel(description = "资源列表返回实体")
     public static class VideoHis {
 
@@ -76,7 +77,7 @@ public class T1205 extends AbstractBody implements Serializable {
         @ApiModelProperty("文件大小")
         private Long size;
 
-        @Property(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
+        @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
         public Integer getChannelId() {
             return channelId;
         }
@@ -85,7 +86,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.channelId = channelId;
         }
 
-        @Property(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
+        @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
         public String getStartTime() {
             return startTime;
         }
@@ -94,7 +95,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.startTime = startTime;
         }
 
-        @Property(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间")
+        @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间")
         public String getEndTime() {
             return endTime;
         }
@@ -103,7 +104,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.endTime = endTime;
         }
 
-        @Property(index = 13, length = 8, type = DataType.BYTES, desc = "报警标志")
+        @Field(index = 13, length = 8, type = DataType.BYTES, desc = "报警标志")
         public byte[] getWarningMark() {
             return warningMark;
         }
@@ -112,7 +113,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.warningMark = warningMark;
         }
 
-        @Property(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
+        @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
         public Integer getAvItemType() {
             return avItemType;
         }
@@ -121,7 +122,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.avItemType = avItemType;
         }
 
-        @Property(index = 22, type = DataType.BYTE, desc = "码流类型")
+        @Field(index = 22, type = DataType.BYTE, desc = "码流类型")
         public Integer getStreamType() {
             return streamType;
         }
@@ -130,7 +131,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.streamType = streamType;
         }
 
-        @Property(index = 23, type = DataType.BYTE, desc = "存储器类型")
+        @Field(index = 23, type = DataType.BYTE, desc = "存储器类型")
         public Integer getRomType() {
             return romType;
         }
@@ -139,7 +140,7 @@ public class T1205 extends AbstractBody implements Serializable {
             this.romType = romType;
         }
 
-        @Property(index = 24, type = DataType.DWORD, desc = "文件大小")
+        @Field(index = 24, type = DataType.DWORD, desc = "文件大小")
         public Long getSize() {
             return size;
         }

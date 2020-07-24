@@ -1,22 +1,23 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.查询指定终端参数)
-public class T8106 extends AbstractBody {
+@Message(JT808.查询指定终端参数)
+public class T8106 extends AbstractMessage<Header> {
 
     private Integer total;
     private byte[] ids;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "参数总数")
+    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public Integer getTotal() {
         return total;
     }
@@ -25,7 +26,7 @@ public class T8106 extends AbstractBody {
         this.total = total;
     }
 
-    @Property(index = 1, type = DataType.BYTES, desc = "参数ID列表")
+    @Field(index = 1, type = DataType.BYTES, desc = "参数ID列表")
     public byte[] getIds() {
         return ids;
     }

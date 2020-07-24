@@ -1,12 +1,13 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.BytesAttribute;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 import org.yzh.web.jt.common.PositionAttributeUtils;
-import org.yzh.web.jt.basics.BytesAttribute;
 import org.yzh.web.jt.t808.position.Attribute;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.Map;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.位置信息汇报)
-public class T0200 extends AbstractBody {
+@Message(JT808.位置信息汇报)
+public class T0200 extends AbstractMessage<Header> {
 
     private Integer warningMark;
     private Integer status;
@@ -32,7 +33,7 @@ public class T0200 extends AbstractBody {
 
     private Map<Integer, Attribute> attributes;
 
-    @Property(index = 0, type = DataType.DWORD, desc = "报警标志")
+    @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
     public Integer getWarningMark() {
         return warningMark;
     }
@@ -41,7 +42,7 @@ public class T0200 extends AbstractBody {
         this.warningMark = warningMark;
     }
 
-    @Property(index = 4, type = DataType.DWORD, desc = "状态")
+    @Field(index = 4, type = DataType.DWORD, desc = "状态")
     public Integer getStatus() {
         return status;
     }
@@ -50,7 +51,7 @@ public class T0200 extends AbstractBody {
         this.status = status;
     }
 
-    @Property(index = 8, type = DataType.DWORD, desc = "纬度")
+    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
     public Integer getLatitude() {
         return latitude;
     }
@@ -59,7 +60,7 @@ public class T0200 extends AbstractBody {
         this.latitude = latitude;
     }
 
-    @Property(index = 12, type = DataType.DWORD, desc = "经度")
+    @Field(index = 12, type = DataType.DWORD, desc = "经度")
     public Integer getLongitude() {
         return longitude;
     }
@@ -68,7 +69,7 @@ public class T0200 extends AbstractBody {
         this.longitude = longitude;
     }
 
-    @Property(index = 16, type = DataType.WORD, desc = "海拔")
+    @Field(index = 16, type = DataType.WORD, desc = "海拔")
     public Integer getAltitude() {
         return altitude;
     }
@@ -77,7 +78,7 @@ public class T0200 extends AbstractBody {
         this.altitude = altitude;
     }
 
-    @Property(index = 18, type = DataType.WORD, desc = "速度")
+    @Field(index = 18, type = DataType.WORD, desc = "速度")
     public Integer getSpeed() {
         return speed;
     }
@@ -86,7 +87,7 @@ public class T0200 extends AbstractBody {
         this.speed = speed;
     }
 
-    @Property(index = 20, type = DataType.WORD, desc = "方向")
+    @Field(index = 20, type = DataType.WORD, desc = "方向")
     public Integer getDirection() {
         return direction;
     }
@@ -95,7 +96,7 @@ public class T0200 extends AbstractBody {
         this.direction = direction;
     }
 
-    @Property(index = 22, type = DataType.BCD8421, length = 6, desc = "时间")
+    @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -104,7 +105,7 @@ public class T0200 extends AbstractBody {
         this.dateTime = dateTime;
     }
 
-    @Property(index = 28, type = DataType.LIST, desc = "位置附加信息")
+    @Field(index = 28, type = DataType.LIST, desc = "位置附加信息")
     public List<BytesAttribute> getBytesAttributes() {
         if (bytesAttributes == null || bytesAttributes.size() == 0)
             bytesAttributes = PositionAttributeUtils.transform(attributes);

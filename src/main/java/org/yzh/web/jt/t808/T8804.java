@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.录音开始命令)
-public class T8804 extends AbstractBody {
+@Message(JT808.录音开始命令)
+public class T8804 extends AbstractMessage<Header> {
 
     private Integer command;
     private Integer time;
@@ -22,7 +23,7 @@ public class T8804 extends AbstractBody {
     }
 
     /** 0：停止录音；0x01：开始录音 */
-    @Property(index = 0, type = DataType.BYTE, desc = "录音命令")
+    @Field(index = 0, type = DataType.BYTE, desc = "录音命令")
     public Integer getCommand() {
         return command;
     }
@@ -31,7 +32,7 @@ public class T8804 extends AbstractBody {
         this.command = command;
     }
 
-    @Property(index = 1, type = DataType.WORD, desc = "单位为秒（s），0 表示一直录音")
+    @Field(index = 1, type = DataType.WORD, desc = "单位为秒（s），0 表示一直录音")
     public Integer getTime() {
         return time;
     }
@@ -41,7 +42,7 @@ public class T8804 extends AbstractBody {
     }
 
     /** 0：实时上传；1：保存 */
-    @Property(index = 3, type = DataType.BYTE, desc = "保存标志")
+    @Field(index = 3, type = DataType.BYTE, desc = "保存标志")
     public Integer getSaveSign() {
         return saveSign;
     }
@@ -57,7 +58,7 @@ public class T8804 extends AbstractBody {
      * 3：32K；
      * 其他保留
      */
-    @Property(index = 4, type = DataType.BYTE, desc = "音频采样率")
+    @Field(index = 4, type = DataType.BYTE, desc = "音频采样率")
     public Integer getAudioSampleRate() {
         return audioSampleRate;
     }

@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type({JT808.终端通用应答, JT808.平台通用应答})
-public class T0001 extends AbstractBody {
+@Message({JT808.终端通用应答, JT808.平台通用应答})
+public class T0001 extends AbstractMessage<Header> {
 
     public static final int Success = 0;
     public static final int Fial = 1;
@@ -34,7 +35,7 @@ public class T0001 extends AbstractBody {
         this.resultCode = resultCode;
     }
 
-    @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
         return serialNo;
     }
@@ -43,7 +44,7 @@ public class T0001 extends AbstractBody {
         this.serialNo = serialNo;
     }
 
-    @Property(index = 2, type = DataType.WORD, desc = "应答ID")
+    @Field(index = 2, type = DataType.WORD, desc = "应答ID")
     public Integer getReplyId() {
         return replyId;
     }
@@ -52,7 +53,7 @@ public class T0001 extends AbstractBody {
         this.replyId = replyId;
     }
 
-    @Property(index = 4, type = DataType.BYTE, desc = "结果（响应码）")
+    @Field(index = 4, type = DataType.BYTE, desc = "结果（响应码）")
     public Integer getResultCode() {
         return resultCode;
     }

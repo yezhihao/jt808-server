@@ -1,18 +1,19 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.web.config.Charsets;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.下发终端升级包)
-public class T8108 extends AbstractBody {
+@Message(JT808.下发终端升级包)
+public class T8108 extends AbstractMessage<Header> {
 
     public static final int Terminal = 0;
     public static final int CardReader = 12;
@@ -30,7 +31,7 @@ public class T8108 extends AbstractBody {
 
     private byte[] packet;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "升级类型")
+    @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
     public Integer getType() {
         return type;
     }
@@ -39,7 +40,7 @@ public class T8108 extends AbstractBody {
         this.type = type;
     }
 
-    @Property(index = 1, type = DataType.STRING, length = 5, pad = 32, desc = "制造商ID,终端制造商编码")
+    @Field(index = 1, type = DataType.STRING, length = 5, pad = 32, desc = "制造商ID,终端制造商编码")
     public String getManufacturerId() {
         return manufacturerId;
     }
@@ -48,7 +49,7 @@ public class T8108 extends AbstractBody {
         this.manufacturerId = manufacturerId;
     }
 
-    @Property(index = 6, type = DataType.BYTE, desc = "版本号长度")
+    @Field(index = 6, type = DataType.BYTE, desc = "版本号长度")
     public Integer getVersionLen() {
         if (versionLen == null)
             this.versionLen = version.getBytes(Charsets.GBK).length;
@@ -59,7 +60,7 @@ public class T8108 extends AbstractBody {
         this.versionLen = versionLen;
     }
 
-    @Property(index = 7, type = DataType.STRING, lengthName = "versionLen", desc = "版本号")
+    @Field(index = 7, type = DataType.STRING, lengthName = "versionLen", desc = "版本号")
     public String getVersion() {
         return version;
     }
@@ -69,7 +70,7 @@ public class T8108 extends AbstractBody {
         this.versionLen = version.getBytes(Charsets.GBK).length;
     }
 
-    @Property(index = 7, indexOffsetName = "versionLen", type = DataType.DWORD, desc = "数据包长度")
+    @Field(index = 7, indexOffsetName = "versionLen", type = DataType.DWORD, desc = "数据包长度")
     public Integer getPacketLen() {
         return packetLen;
     }
@@ -78,7 +79,7 @@ public class T8108 extends AbstractBody {
         this.packetLen = packetLen;
     }
 
-    @Property(index = 11, indexOffsetName = "versionLen", type = DataType.BYTES, lengthName = "packetLen", desc = "数据包")
+    @Field(index = 11, indexOffsetName = "versionLen", type = DataType.BYTES, lengthName = "packetLen", desc = "数据包")
     public byte[] getPacket() {
         return packet;
     }

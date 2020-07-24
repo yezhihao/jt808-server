@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.终端注册应答)
-public class T8100 extends AbstractBody {
+@Message(JT808.终端注册应答)
+public class T8100 extends AbstractMessage<Header> {
 
     /** 0：成功 */
     public static final int Success = 0;
@@ -38,7 +39,7 @@ public class T8100 extends AbstractBody {
     }
 
     /** 对应的终端注册消息的流水号 */
-    @Property(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
         return serialNo;
     }
@@ -48,7 +49,7 @@ public class T8100 extends AbstractBody {
     }
 
     /** 0-4 */
-    @Property(index = 2, type = DataType.BYTE, desc = "结果")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果")
     public Integer getResultCode() {
         return resultCode;
     }
@@ -58,7 +59,7 @@ public class T8100 extends AbstractBody {
     }
 
     /** 成功后才有该字段 */
-    @Property(index = 3, type = DataType.STRING, desc = "鉴权码")
+    @Field(index = 3, type = DataType.STRING, desc = "鉴权码")
     public String getToken() {
         return token;
     }

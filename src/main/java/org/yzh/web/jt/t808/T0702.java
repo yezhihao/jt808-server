@@ -1,17 +1,18 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.驾驶员身份信息采集上报)
-public class T0702 extends AbstractBody {
+@Message(JT808.驾驶员身份信息采集上报)
+public class T0702 extends AbstractMessage<Header> {
 
     private Integer status;
     private String dateTime;
@@ -23,7 +24,7 @@ public class T0702 extends AbstractBody {
     private String institution;
     private String licenseValidPeriod;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "状态")
+    @Field(index = 0, type = DataType.BYTE, desc = "状态")
     public Integer getStatus() {
         return status;
     }
@@ -32,7 +33,7 @@ public class T0702 extends AbstractBody {
         this.status = status;
     }
 
-    @Property(index = 1, type = DataType.BCD8421, length = 6, desc = "时间")
+    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -41,7 +42,7 @@ public class T0702 extends AbstractBody {
         this.dateTime = dateTime;
     }
 
-    @Property(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
+    @Field(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
     public Integer getCardStatus() {
         return cardStatus;
     }
@@ -50,7 +51,7 @@ public class T0702 extends AbstractBody {
         this.cardStatus = cardStatus;
     }
 
-    @Property(index = 8, type = DataType.BYTE, desc = "驾驶员姓名长度")
+    @Field(index = 8, type = DataType.BYTE, desc = "驾驶员姓名长度")
     public Integer getNameLen() {
         return nameLen;
     }
@@ -59,7 +60,7 @@ public class T0702 extends AbstractBody {
         this.nameLen = nameLen;
     }
 
-    @Property(index = 9, type = DataType.STRING, lengthName = "nameLen", desc = "驾驶员姓名")
+    @Field(index = 9, type = DataType.STRING, lengthName = "nameLen", desc = "驾驶员姓名")
     public String getName() {
         return name;
     }
@@ -68,7 +69,7 @@ public class T0702 extends AbstractBody {
         this.name = name;
     }
 
-    @Property(index = 9, indexOffsetName = "nameLen", type = DataType.STRING, length = 20, desc = "从业资格证编码")
+    @Field(index = 9, indexOffsetName = "nameLen", type = DataType.STRING, length = 20, desc = "从业资格证编码")
     public String getLicenseNo() {
         return licenseNo;
     }
@@ -77,7 +78,7 @@ public class T0702 extends AbstractBody {
         this.licenseNo = licenseNo;
     }
 
-    @Property(index = 29, indexOffsetName = "nameLen", type = DataType.BYTE, desc = "发证机构名称长度")
+    @Field(index = 29, indexOffsetName = "nameLen", type = DataType.BYTE, desc = "发证机构名称长度")
     public Integer getInstitutionLen() {
         return institutionLen;
     }
@@ -86,7 +87,7 @@ public class T0702 extends AbstractBody {
         this.institutionLen = institutionLen;
     }
 
-    @Property(index = 30, indexOffsetName = "nameLen", type = DataType.STRING, lengthName = "institutionLen", desc = "发证机构名称")
+    @Field(index = 30, indexOffsetName = "nameLen", type = DataType.STRING, lengthName = "institutionLen", desc = "发证机构名称")
     public String getInstitution() {
         return institution;
     }
@@ -95,7 +96,7 @@ public class T0702 extends AbstractBody {
         this.institution = institution;
     }
 
-    @Property(index = 30, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.BCD8421, length = 4, desc = "证件有效期")
+    @Field(index = 30, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.BCD8421, length = 4, desc = "证件有效期")
     public String getLicenseValidPeriod() {
         return licenseValidPeriod;
     }

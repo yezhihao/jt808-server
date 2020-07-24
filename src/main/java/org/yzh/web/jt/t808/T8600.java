@@ -1,9 +1,10 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.annotation.Property;
-import org.yzh.framework.orm.annotation.Type;
 import org.yzh.framework.enums.DataType;
-import org.yzh.framework.orm.model.AbstractBody;
+import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.List;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Type(JT808.设置圆形区域)
-public class T8600 extends AbstractBody {
+@Message(JT808.设置圆形区域)
+public class T8600 extends AbstractMessage<Header> {
 
     /** 更新（先清空，后追加） */
     public static final int Update = 0;
@@ -26,7 +27,7 @@ public class T8600 extends AbstractBody {
     private Integer total;
     private List<Item> items;
 
-    @Property(index = 0, type = DataType.BYTE, desc = "设置属性")
+    @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
     public Integer getOperation() {
         return operation;
     }
@@ -35,7 +36,7 @@ public class T8600 extends AbstractBody {
         this.operation = operation;
     }
 
-    @Property(index = 1, type = DataType.BYTE, desc = "区域总数")
+    @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
     public Integer getTotal() {
         return total;
     }
@@ -44,7 +45,7 @@ public class T8600 extends AbstractBody {
         this.total = total;
     }
 
-    @Property(index = 2, type = DataType.LIST, desc = "区域列表")
+    @Field(index = 2, type = DataType.LIST, desc = "区域列表")
     public List<Item> getItems() {
         return items;
     }
@@ -65,7 +66,7 @@ public class T8600 extends AbstractBody {
         private Integer maxSpeed;
         private Integer duration;
 
-        @Property(index = 0, type = DataType.DWORD, desc = "区域ID")
+        @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         public Integer getId() {
             return id;
         }
@@ -74,7 +75,7 @@ public class T8600 extends AbstractBody {
             this.id = id;
         }
 
-        @Property(index = 4, type = DataType.WORD, desc = "区域属性")
+        @Field(index = 4, type = DataType.WORD, desc = "区域属性")
         public Integer getAttribute() {
             return attribute;
         }
@@ -83,7 +84,7 @@ public class T8600 extends AbstractBody {
             this.attribute = attribute;
         }
 
-        @Property(index = 6, type = DataType.DWORD, desc = "中心点纬度")
+        @Field(index = 6, type = DataType.DWORD, desc = "中心点纬度")
         public Integer getLatitude() {
             return latitude;
         }
@@ -92,7 +93,7 @@ public class T8600 extends AbstractBody {
             this.latitude = latitude;
         }
 
-        @Property(index = 10, type = DataType.DWORD, desc = "中心点经度")
+        @Field(index = 10, type = DataType.DWORD, desc = "中心点经度")
         public Integer getLongitude() {
             return longitude;
         }
@@ -101,7 +102,7 @@ public class T8600 extends AbstractBody {
             this.longitude = longitude;
         }
 
-        @Property(index = 14, type = DataType.DWORD, desc = "半径")
+        @Field(index = 14, type = DataType.DWORD, desc = "半径")
         public Integer getRadius() {
             return radius;
         }
@@ -110,7 +111,7 @@ public class T8600 extends AbstractBody {
             this.radius = radius;
         }
 
-        @Property(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间")
+        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间")
         public String getStartTime() {
             return startTime;
         }
@@ -119,7 +120,7 @@ public class T8600 extends AbstractBody {
             this.startTime = startTime;
         }
 
-        @Property(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间")
+        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间")
         public String getEndTime() {
             return endTime;
         }
@@ -128,7 +129,7 @@ public class T8600 extends AbstractBody {
             this.endTime = endTime;
         }
 
-        @Property(index = 30, type = DataType.WORD, desc = "最高速度")
+        @Field(index = 30, type = DataType.WORD, desc = "最高速度")
         public Integer getMaxSpeed() {
             return maxSpeed;
         }
@@ -137,7 +138,7 @@ public class T8600 extends AbstractBody {
             this.maxSpeed = maxSpeed;
         }
 
-        @Property(index = 32, type = DataType.BYTE, desc = "超速持续时间")
+        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间")
         public Integer getDuration() {
             return duration;
         }
