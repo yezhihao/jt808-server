@@ -27,7 +27,7 @@ public class TerminalController {
     public T0001 updateParameters(@PathVariable("terminalId") String terminalId, @RequestBody List<TerminalParameter> parameters) {
         T8103 message = new T8103();
         message.setHeader(new Header(JT808.设置终端参数, terminalId));
-        message.setParameters(parameters);
+        message.setItems(parameters);
         T0001 response = (T0001) messageManager.request(message);
         return response;
     }

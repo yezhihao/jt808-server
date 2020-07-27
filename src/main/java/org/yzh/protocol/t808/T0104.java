@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.TerminalParameter;
 import org.yzh.protocol.commons.JT808;
@@ -20,8 +20,7 @@ public class T0104 extends AbstractMessage<Header> {
 
     private Integer serialNo;
     private Integer total;
-
-    private List<TerminalParameter> terminalParameters;
+    private List<TerminalParameter> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
@@ -35,7 +34,7 @@ public class T0104 extends AbstractMessage<Header> {
     @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     public Integer getTotal() {
         if (total == null)
-            return terminalParameters.size();
+            return items.size();
         return total;
     }
 
@@ -44,17 +43,17 @@ public class T0104 extends AbstractMessage<Header> {
     }
 
     @Field(index = 3, type = DataType.LIST, desc = "参数项列表")
-    public List<TerminalParameter> getTerminalParameters() {
-        return terminalParameters;
+    public List<TerminalParameter> getItems() {
+        return items;
     }
 
-    public void setTerminalParameters(List<TerminalParameter> terminalParameters) {
-        this.terminalParameters = terminalParameters;
+    public void setItems(List<TerminalParameter> items) {
+        this.items = items;
     }
 
-    public void addTerminalParameter(TerminalParameter terminalParameter) {
-        if (terminalParameters == null)
-            terminalParameters = new ArrayList<>();
-        terminalParameters.add(terminalParameter);
+    public void addItem(TerminalParameter item) {
+        if (items == null)
+            items = new ArrayList<>();
+        items.add(item);
     }
 }

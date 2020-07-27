@@ -35,16 +35,7 @@ public class Application {
                     .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
                     .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                     .build();
-
-            JTConfig jt1078Config = new JTConfig.Builder()
-                    .setPort(7612)
-                    .setMaxFrameLength(1024)
-                    .setDelimiters(new byte[]{0x7e})
-                    .setHandlerMapping(handlerMapping())
-                    .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
-                    .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
-                    .build();
-            JTApplication.run(jt808Config, jt1078Config);
+            JTApplication.run(jt808Config);
             System.out.println("***Netty 启动成功***");
         };
     }

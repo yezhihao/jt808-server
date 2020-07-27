@@ -4,10 +4,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
-import org.yzh.web.commons.JsonUtils;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.web.commons.JsonUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.yzh.jt808.codec.Beans.*;
@@ -16,12 +16,13 @@ import static org.yzh.jt808.codec.Beans.*;
  * JT/T 808协议单元测试类
  *
  * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt-server
  */
 public class TestBeans {
 
-    private static final JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.web.jt");
+    public static final JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.protocol");
 
-    private static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.web.jt");
+    public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
 
     @Test
     public void testT8303() {
@@ -61,8 +62,8 @@ public class TestBeans {
 
     @Test
     public void testT0200() {
-        selfCheck(H2013(T0200()));
-        selfCheck(H2019(T0200()));
+        selfCheck(H2013(T0200Attributes()));
+        selfCheck(H2019(T0200Attributes()));
     }
 
     @Test

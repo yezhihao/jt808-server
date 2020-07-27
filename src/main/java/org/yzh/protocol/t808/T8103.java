@@ -1,13 +1,14 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.TerminalParameter;
 import org.yzh.protocol.commons.JT808;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,13 +19,13 @@ import java.util.List;
 public class T8103 extends AbstractMessage<Header> {
 
     private Integer total;
-    private List<TerminalParameter> parameters;
+    private List<TerminalParameter> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public Integer getTotal() {
-        if (parameters == null || parameters.isEmpty())
+        if (items == null || items.isEmpty())
             return 0;
-        return parameters.size();
+        return items.size();
     }
 
     public void setTotal(Integer total) {
@@ -32,11 +33,17 @@ public class T8103 extends AbstractMessage<Header> {
     }
 
     @Field(index = 1, type = DataType.LIST, desc = "参数项列表")
-    public List<TerminalParameter> getParameters() {
-        return parameters;
+    public List<TerminalParameter> getItems() {
+        return items;
     }
 
-    public void setParameters(List<TerminalParameter> parameters) {
-        this.parameters = parameters;
+    public void setItems(List<TerminalParameter> items) {
+        this.items = items;
+    }
+
+    public void addItem(TerminalParameter item) {
+        if (items == null)
+            items = new ArrayList<>();
+        items.add(item);
     }
 }

@@ -1,12 +1,12 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Charsets;
+import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class T8303 extends AbstractMessage<Header> {
 
     private Integer type;
     private Integer total;
-    private List<Item> list;
+    private List<Item> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
     public Integer getType() {
@@ -50,26 +50,24 @@ public class T8303 extends AbstractMessage<Header> {
     }
 
     @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
-    public List<Item> getList() {
-        return list;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setList(List<Item> list) {
-        this.list = list;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public void addItem(int id, String content) {
-        if (this.list == null)
-            this.list = new ArrayList();
-        this.list.add(new Item(id, content));
-        this.total = list.size();
+        if (this.items == null)
+            this.items = new ArrayList();
+        this.items.add(new Item(id, content));
+        this.total = items.size();
     }
 
     public static class Item {
         private Integer id;
-
         private Integer length;
-
         private String content;
 
         public Item() {

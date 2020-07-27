@@ -39,10 +39,6 @@ public class JT808Endpoint {
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
     public void 位置信息汇报(List<T0200> list) {
         locationService.batchInsert(list);
-        for (T0200 t0200 : list) {
-//            Header header = t0200.getHeader();
-//            messageManager.notify(new T0001(位置信息汇报, header.getSerialNo(), T0001.Success));
-        }
     }
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")

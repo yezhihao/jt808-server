@@ -1,12 +1,12 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Charsets;
+import org.yzh.protocol.commons.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -20,15 +20,10 @@ public class T8108 extends AbstractMessage<Header> {
     public static final int Beidou = 52;
 
     private Integer type;
-
     private String manufacturerId;
-
     private Integer versionLen;
-
     private String version;
-
     private Integer packetLen;
-
     private byte[] packet;
 
     @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
@@ -86,5 +81,6 @@ public class T8108 extends AbstractMessage<Header> {
 
     public void setPacket(byte[] packet) {
         this.packet = packet;
+        this.packetLen = packet.length;
     }
 }

@@ -56,6 +56,8 @@ public class TerminalParameter {
 
     @Field(index = 2, type = DataType.BYTE, desc = "参数长度", version = {0, 1})
     public Integer getLength() {
+        if (length == null)
+            return bytesValue.length;
         return length;
     }
 
@@ -70,7 +72,9 @@ public class TerminalParameter {
 
     public void setBytesValue(byte[] bytesValue) {
         this.bytesValue = bytesValue;
-        if (bytesValue != null)
+        if (bytesValue == null)
+            this.length = 0;
+        else
             this.length = bytesValue.length;
     }
 

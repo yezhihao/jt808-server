@@ -18,7 +18,7 @@ public class T0704 extends AbstractMessage<Header> {
 
     private Integer total;
     private Integer type;
-    private List<Item> list;
+    private List<Item> item;
 
     @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
     public Integer getTotal() {
@@ -39,18 +39,27 @@ public class T0704 extends AbstractMessage<Header> {
     }
 
     @Field(index = 3, type = DataType.LIST, desc = "位置汇报数据项")
-    public List<Item> getList() {
-        return list;
+    public List<Item> getItem() {
+        return item;
     }
 
-    public void setList(List<Item> list) {
-        this.list = list;
+    public void setItem(List<Item> item) {
+        this.item = item;
+        this.total = item.size();
     }
 
     public static class Item {
 
         private Integer length;
         private T0200 position;
+
+        public Item() {
+        }
+
+        public Item(Integer length, T0200 position) {
+            this.length = length;
+            this.position = position;
+        }
 
         @Field(index = 0, type = DataType.WORD, desc = "位置汇报数据体长度")
         public Integer getLength() {

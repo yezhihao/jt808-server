@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -18,7 +18,7 @@ public class T0705 extends AbstractMessage<Header> {
 
     private Integer total;
     private String dateTime;
-    private List<Item> list;
+    private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
     public Integer getTotal() {
@@ -38,18 +38,27 @@ public class T0705 extends AbstractMessage<Header> {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 7, type = DataType.BCD8421, length = 5, desc = "CAN 总线数据项")
-    public List<Item> getList() {
-        return list;
+    @Field(index = 7, type = DataType.LIST, desc = "CAN 总线数据项")
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setList(List<Item> list) {
-        this.list = list;
+    public void setItems(List<Item> items) {
+        this.items = items;
+        this.total = items.size();
     }
 
     public static class Item {
         private byte[] id;
         private byte[] data;
+
+        public Item() {
+        }
+
+        public Item(byte[] id, byte[] data) {
+            this.id = id;
+            this.data = data;
+        }
 
         @Field(index = 0, type = DataType.BYTES, length = 4, desc = "CAN ID")
         public byte[] getId() {

@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -17,7 +17,7 @@ public class T0805 extends AbstractMessage<Header> {
     private Integer serialNo;
     private Integer result;
     private Integer total;
-    private byte[] idList;
+    private byte[] items;
 
     public T0805() {
     }
@@ -50,11 +50,12 @@ public class T0805 extends AbstractMessage<Header> {
     }
 
     @Field(index = 4, type = DataType.BYTES, desc = "多媒体ID列表")
-    public byte[] getIdList() {
-        return idList;
+    public byte[] getItems() {
+        return items;
     }
 
-    public void setIdList(byte[] idList) {
-        this.idList = idList;
+    public void setItems(byte[] items) {
+        this.items = items;
+        this.total = items.length;
     }
 }

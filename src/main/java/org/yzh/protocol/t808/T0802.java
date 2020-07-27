@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -18,7 +18,7 @@ public class T0802 extends AbstractMessage<Header> {
 
     private Integer serialNo;
     private Integer total;
-    private List<Item> list;
+    private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
@@ -39,12 +39,13 @@ public class T0802 extends AbstractMessage<Header> {
     }
 
     @Field(index = 4, type = DataType.LIST, desc = "检索项")
-    public List<Item> getList() {
-        return list;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setList(List<Item> list) {
-        this.list = list;
+    public void setItems(List<Item> items) {
+        this.items = items;
+        this.total = items.size();
     }
 
     public static class Item {
@@ -54,6 +55,17 @@ public class T0802 extends AbstractMessage<Header> {
         private Integer channelId;
         private Integer event;
         private T0200 position;
+
+        public Item() {
+        }
+
+        public Item(Integer id, Integer type, Integer channelId, Integer event, T0200 position) {
+            this.id = id;
+            this.type = type;
+            this.channelId = channelId;
+            this.event = event;
+            this.position = position;
+        }
 
         @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
         public Integer getId() {

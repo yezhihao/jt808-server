@@ -5,6 +5,7 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -67,7 +68,7 @@ public class T0702 extends AbstractMessage<Header> {
 
     public void setName(String name) {
         this.name = name;
-        this.nameLen = name.length();
+        this.nameLen = name.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 9, indexOffsetName = "nameLen", type = DataType.STRING, length = 20, desc = "从业资格证编码")
@@ -88,14 +89,14 @@ public class T0702 extends AbstractMessage<Header> {
         this.institutionLen = institutionLen;
     }
 
-    @Field(index = 30, indexOffsetName = "nameLen", type = DataType.STRING, lengthName = "institutionLen", desc = "发证机构名称")
+    @Field(index = 30, indexOffsetName = "nameLen", type = DataType.STRING, lengthName = "institutionLen", desc = "从业资格证发证机构名称")
     public String getInstitution() {
         return institution;
     }
 
     public void setInstitution(String institution) {
         this.institution = institution;
-        this.institutionLen = institution.length();
+        this.institutionLen = institution.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 30, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.BCD8421, length = 4, desc = "证件有效期")
