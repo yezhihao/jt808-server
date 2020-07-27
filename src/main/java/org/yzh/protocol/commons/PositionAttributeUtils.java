@@ -41,6 +41,8 @@ public abstract class PositionAttributeUtils {
     }
 
     public static Map<Integer, Attribute> transform(List<BytesAttribute> bytesAttributes) {
+        if (bytesAttributes == null)
+            return null;
         Map<Integer, Attribute> result = new TreeMap<>();
         for (BytesAttribute bytesAttribute : bytesAttributes) {
             Integer id = bytesAttribute.getId();
@@ -59,6 +61,8 @@ public abstract class PositionAttributeUtils {
     }
 
     public static List<BytesAttribute> transform(Map<Integer, Attribute> attributes) {
+        if (attributes == null)
+            return null;
         List<BytesAttribute> result = new ArrayList<>(attributes.size());
         for (Attribute attribute : attributes.values()) {
             try {

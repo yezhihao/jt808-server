@@ -233,7 +233,7 @@ public class Beans {
         item.add(new T0704.Item(28, T0200()));
         item.add(new T0704.Item(28, T0200()));
         item.add(new T0704.Item(28, T0200()));
-        bean.setItem(item);
+        bean.setItems(item);
         return bean;
     }
 
