@@ -5,8 +5,8 @@ spring:
     password: 123@abc
     driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    schema: classpath:sql/schema_h2.sql
-#    data: classpath:sql/initial.sql
+    schema: classpath:sql/schema_h2.sql # 数据库文件C:\Users\xxx\.h2
+    #    data: classpath:sql/initial.sql
     hikari:
       minimum-idle: 1
       maximum-pool-size: 5

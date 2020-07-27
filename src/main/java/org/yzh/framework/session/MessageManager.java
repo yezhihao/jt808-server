@@ -60,13 +60,14 @@ public enum MessageManager {
         if (session == null)
             return null;
 
+        header.setSerialNo(session.currentFlowId());
+
         String key = getKey(header);
         SynchronousQueue synchronousQueue = this.subscribe(key);
         if (synchronousQueue == null)
             return null;
 
         try {
-            header.setSerialNo(session.currentFlowId());
             session.getChannel().writeAndFlush(message);
             return synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {

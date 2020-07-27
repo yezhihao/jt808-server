@@ -1,11 +1,12 @@
 package org.yzh.web.model.entity;
 
+import org.yzh.web.commons.DateUtils;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class LocationDO {
 
-    private Integer id;
     private String deviceId;
     private String plateNo;
     private Integer warningMark;
@@ -19,14 +20,6 @@ public class LocationDO {
     private LocalDate deviceDate;
     private Integer mapFenceId;
     private LocalDateTime createTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getDeviceId() {
         return deviceId;
@@ -144,14 +137,23 @@ public class LocationDO {
             return false;
         }
         LocationDO other = (LocationDO) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()));
+        return (this.getDeviceTime() == null ? other.getDeviceTime() == null : this.getDeviceTime().equals(other.getDeviceTime()))
+                && (this.getDeviceId() == null ? other.getDeviceId() == null : this.getDeviceId().equals(other.getDeviceId()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getDeviceTime() == null) ? 0 : getDeviceTime().hashCode());
+        result = prime * result + ((getDeviceId() == null) ? 0 : getDeviceId().hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder(32)
+                .append("[").append(deviceId).append(",")
+                .append(DateUtils.DATE_TIME_FORMATTER.format(deviceTime)).append("]").toString();
     }
 }

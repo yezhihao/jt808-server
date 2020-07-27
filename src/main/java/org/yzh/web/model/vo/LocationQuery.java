@@ -5,20 +5,11 @@ import java.time.LocalDateTime;
 
 public class LocationQuery {
 
-    private Integer id;
     private String deviceId;
     private String plateNo;
     private LocalDate day;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getDeviceId() {
         return deviceId;

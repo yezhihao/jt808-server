@@ -1,5 +1,7 @@
 package org.yzh.web.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.basics.Header;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class LocationServiceImpl implements LocationService {
+
+    private static final Logger log = LoggerFactory.getLogger(LocationService.class.getSimpleName());
 
     @Autowired
     private LocationMapper locationMapper;
@@ -56,6 +60,8 @@ public class LocationServiceImpl implements LocationService {
             location.setCreateTime(now);
         }
 
-        locationMapper.batchInsert(locations);
+        int row = locationMapper.batchInsert(locations);
+        if (row <= 0)
+            log.warn("主键重复,写入数据库失败{}", locations);
     }
 }

@@ -6,7 +6,6 @@
         select *
         from location
         <where>
-            <if test="id != null">and id = #{id,jdbcType=VARCHAR}</if>
             <if test="deviceId != null">and device_id = #{deviceId,jdbcType=CHAR}</if>
             <if test="plateNo != null">and plate_no = #{plateNo,jdbcType=CHAR}</if>
             <if test="day != null">and device_date = #{day,jdbcType=DATE}</if>
@@ -18,11 +17,11 @@
     <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.vo.Location">
         select  *
         from location
-        where id = #{id,jdbcType=INTEGER}
+        where and device_time = #{deviceTime,jdbcType=TIMESTAMP} and device_id = #{deviceId,jdbcType=CHAR}
     </select>
 
     <insert id="batchInsert" parameterType="map">
-        insert into location (device_id, plate_no, warning_mark, status, latitude, longitude,
+        insert ignore into location (device_id, plate_no, warning_mark, status, latitude, longitude,
         altitude, speed, direction, device_time, device_date, map_fence_id, create_time) values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.deviceId,jdbcType=CHAR}, #{item.plateNo,jdbcType=CHAR}, #{item.warningMark,jdbcType=INTEGER},
