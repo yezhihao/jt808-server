@@ -11,15 +11,15 @@ import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.web.jt.basics.Header;
-import org.yzh.web.jt.t808.*;
+import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.t808.*;
 import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import static org.yzh.web.jt.common.JT808.*;
+import static org.yzh.protocol.commons.JT808.*;
 
 @Endpoint
 @Component

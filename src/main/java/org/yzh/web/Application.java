@@ -6,15 +6,13 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.yzh.framework.JTApplication;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.JTConfig;
-import org.yzh.web.jt.codec.JTMessageDecoder;
-import org.yzh.web.jt.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.JTMessageDecoder;
+import org.yzh.protocol.codec.JTMessageEncoder;
 
-@EnableWebSocket
 @SpringBootApplication
 public class Application {
 
@@ -34,8 +32,8 @@ public class Application {
                     .setMaxFrameLength(1024)
                     .setDelimiters(new byte[]{0x7e})
                     .setHandlerMapping(handlerMapping())
-                    .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
-                    .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
+                    .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
+                    .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                     .build();
 
             JTConfig jt1078Config = new JTConfig.Builder()
@@ -43,8 +41,8 @@ public class Application {
                     .setMaxFrameLength(1024)
                     .setDelimiters(new byte[]{0x7e})
                     .setHandlerMapping(handlerMapping())
-                    .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
-                    .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
+                    .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
+                    .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                     .build();
             JTApplication.run(jt808Config, jt1078Config);
             System.out.println("***Netty 启动成功***");

@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.orm.FieldMetadata;
-import org.yzh.web.jt.codec.JTMessageDecoder;
+import org.yzh.protocol.codec.JTMessageDecoder;
 
 /**
  * 解码分析

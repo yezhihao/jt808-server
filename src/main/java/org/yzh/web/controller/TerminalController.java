@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.framework.session.MessageManager;
-import org.yzh.web.jt.basics.Header;
-import org.yzh.web.jt.basics.TerminalParameter;
-import org.yzh.web.jt.common.JT808;
-import org.yzh.web.jt.t808.*;
+import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.TerminalParameter;
+import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.t808.*;
 
 import java.util.List;
 

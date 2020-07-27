@@ -1,16 +1,16 @@
 package org.yzh.jt808.codec;
 
 import org.yzh.framework.commons.ClassUtils;
-import org.yzh.web.commons.RandomUtils;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.web.jt.basics.BytesAttribute;
-import org.yzh.web.jt.basics.Header;
-import org.yzh.web.jt.basics.TerminalParameter;
-import org.yzh.web.jt.common.ParameterUtils;
-import org.yzh.web.jt.t808.*;
-import org.yzh.web.jt.t808.position.Attribute;
-import org.yzh.web.jt.t808.position.attribute.*;
+import org.yzh.protocol.basics.BytesAttribute;
+import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.TerminalParameter;
+import org.yzh.protocol.commons.ParameterUtils;
+import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.additional.attribute.*;
+import org.yzh.protocol.t808.*;
+import org.yzh.web.commons.RandomUtils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

@@ -3,7 +3,7 @@ package org.yzh.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.orm.FieldMetadata;
-import org.yzh.web.jt.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.JTMessageEncoder;
 
 /**
  * 编码分析

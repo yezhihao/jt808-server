@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yzh.web.mapper.LocationMapper">
 
-    <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.entity.Location">
+    <select id="find" parameterType="org.yzh.web.model.vo.LocationQuery" resultType="org.yzh.web.model.vo.Location">
+        select *
+        from location
+        <where>
+            <if test="id != null">and id = #{id,jdbcType=VARCHAR}</if>
+            <if test="deviceId != null">and device_id = #{deviceId,jdbcType=CHAR}</if>
+            <if test="plateNo != null">and plate_no = #{plateNo,jdbcType=CHAR}</if>
+            <if test="day != null">and device_date = #{day,jdbcType=DATE}</if>
+            <if test="startTime != null">and device_time >= #{startTime,jdbcType=TIMESTAMP}</if>
+            <if test="endTime != null">and device_time &lt; #{endTime,jdbcType=TIMESTAMP}</if>
+        </where>
+    </select>
+
+    <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.vo.Location">
         select  *
         from location
         where id = #{id,jdbcType=INTEGER}

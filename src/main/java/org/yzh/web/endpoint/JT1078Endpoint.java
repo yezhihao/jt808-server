@@ -4,12 +4,12 @@ import org.springframework.stereotype.Component;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.session.Session;
-import org.yzh.web.jt.basics.Header;
-import org.yzh.web.jt.t1078.T1205;
-import org.yzh.web.jt.t808.T0001;
+import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.t1078.T1205;
+import org.yzh.protocol.t808.T0001;
 
-import static org.yzh.web.jt.common.JT1078.终端上传音视频资源列表;
-import static org.yzh.web.jt.common.JT808.平台通用应答;
+import static org.yzh.protocol.commons.JT1078.终端上传音视频资源列表;
+import static org.yzh.protocol.commons.JT808.平台通用应答;
 
 @Endpoint
 @Component

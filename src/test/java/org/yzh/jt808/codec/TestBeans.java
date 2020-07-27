@@ -6,8 +6,8 @@ import io.netty.buffer.Unpooled;
 import org.junit.Test;
 import org.yzh.web.commons.JsonUtils;
 import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.web.jt.codec.JTMessageDecoder;
-import org.yzh.web.jt.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.JTMessageDecoder;
+import org.yzh.protocol.codec.JTMessageEncoder;
 
 import static org.junit.Assert.assertEquals;
 import static org.yzh.jt808.codec.Beans.*;
