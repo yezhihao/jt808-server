@@ -23,9 +23,9 @@ import java.util.*;
  */
 public class MessageHelper {
 
-    private static Map<Integer, Class<? extends AbstractMessage>> messageIdMap = new TreeMap<>();
+    private static Map<Integer, Class<? extends AbstractMessage>> messageIdMap = new HashMap<>(64);
 
-    private static Map<String, MessageSpec> messageSpecMap = new TreeMap();
+    private static Map<String, BeanMetadata> beanMetadataMap = new HashMap(140);
 
     private static Class<? extends AbstractHeader> headerClass = null;
 
@@ -37,8 +37,11 @@ public class MessageHelper {
                 if (!Initial) {
                     Initial = true;
                     List<Class<?>> classList = ClassUtils.getClassList(basePackage);
-                    for (Class<?> clazz : classList) {
-                        initMessageClassMap(clazz);
+                    try {
+                        for (Class<?> clazz : classList)
+                            initMessageClassMap(clazz);
+                    } catch (IntrospectionException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
@@ -49,15 +52,15 @@ public class MessageHelper {
         return messageIdMap.get(messageId);
     }
 
-    public static MessageSpec getMessageSpec(Class<?> clazz, int version) {
-        return messageSpecMap.get(clazz.getName() + ":" + version);
+    public static BeanMetadata getBeanMetadata(Class<?> clazz, int version) {
+        return beanMetadataMap.get(clazz.getName() + ":" + version);
     }
 
     public static final Class<? extends AbstractHeader> getHeaderClass() {
         return headerClass;
     }
 
-    private static void initMessageClassMap(Class<?> messageClass) {
+    private static void initMessageClassMap(Class<?> messageClass) throws IntrospectionException {
         Class<?> superclass = messageClass.getSuperclass();
         if (superclass != null) {
 
@@ -85,78 +88,76 @@ public class MessageHelper {
                 }
             }
         }
+        Introspector.flushCaches();
     }
 
-    private static void initMessageFieldMap(Class<?> clazz) {
-        BeanInfo beanInfo = null;
-        try {
-            beanInfo = Introspector.getBeanInfo(clazz);
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        }
+    private static void initMessageFieldMap(Class<?> clazz) throws IntrospectionException {
+        BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
         if (beanInfo == null)
             return;
 
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        Map<Integer, List<FieldSpec>> multiVersionMap = new TreeMap<>();
+        Map<Integer, Map<String, FieldMetadata>> multiVersionMap = new TreeMap<>();
 
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
 
             Method readMethod = propertyDescriptor.getReadMethod();
             Method writeMethod = propertyDescriptor.getWriteMethod();
+            Class<?> propertyType = propertyDescriptor.getPropertyType();
+
             if (readMethod == null || writeMethod == null)
                 continue;
 
             if (readMethod.isAnnotationPresent(Fs.class)) {
 
                 Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
-                for (Field field : fields) {
-
-                    FieldSpec fieldSpec = new FieldSpec(field, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
-
-                    int[] versions = field.version();
-                    for (int ver : versions) {
-                        List<FieldSpec> fieldSpecs = multiVersionMap.get(ver);
-                        if (fieldSpecs == null)
-                            multiVersionMap.put(ver, fieldSpecs = new ArrayList(propertyDescriptors.length));
-                        fieldSpecs.add(fieldSpec);
-                    }
-                }
+                for (Field field : fields)
+                    setField(multiVersionMap, readMethod, writeMethod, propertyType, field);
 
             } else if (readMethod.isAnnotationPresent(Field.class)) {
-
-                Field property = readMethod.getDeclaredAnnotation(Field.class);
-                FieldSpec propertySpec = new FieldSpec(property, propertyDescriptor.getPropertyType(), readMethod, writeMethod);
-
-                int[] versions = property.version();
-                for (int ver : versions) {
-                    List<FieldSpec> propertySpecs = multiVersionMap.get(ver);
-                    if (propertySpecs == null)
-                        multiVersionMap.put(ver, propertySpecs = new ArrayList(propertyDescriptors.length));
-                    propertySpecs.add(propertySpec);
-                }
+                setField(multiVersionMap, readMethod, writeMethod, propertyType, readMethod.getDeclaredAnnotation(Field.class));
             }
         }
 
         String className = clazz.getName();
-        for (Map.Entry<Integer, List<FieldSpec>> entry : multiVersionMap.entrySet()) {
+        for (Map.Entry<Integer, Map<String, FieldMetadata>> entry : multiVersionMap.entrySet()) {
 
-            List<FieldSpec> propertySpecList = entry.getValue();
-            Collections.sort(propertySpecList, Comparator.comparingInt(p -> p.field.index()));
-            FieldSpec[] propertySpecs = propertySpecList.toArray(new FieldSpec[propertySpecList.size()]);
+            Map<String, FieldMetadata> fieldMetadataMap = entry.getValue();
 
-            Field lastField = propertySpecs[propertySpecs.length - 1].field;
-            int size = lastField.index();
-            int length = lastField.length();
-            if (length < 0)
-                length = lastField.type().length;
+            FieldMetadata[] fieldMetadataList = fieldMetadataMap.values().toArray(new FieldMetadata[fieldMetadataMap.size()]);
+            Arrays.sort(fieldMetadataList, Comparator.comparingInt(p -> p.index));
+
+            for (FieldMetadata fieldMetadata : fieldMetadataList) {
+                String lengthName = fieldMetadata.field.lengthName();
+                if (!lengthName.equals(""))
+                    try {
+                        fieldMetadata.lengthMethod = fieldMetadataMap.get(lengthName.toLowerCase()).readMethod;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+            }
+
+            FieldMetadata lastField = fieldMetadataList[fieldMetadataList.length - 1];
+            int size = lastField.index;
+            int length = lastField.length;
             if (length < 0)
                 length = 4;
             size += length;
 
             Integer v = entry.getKey();
-            messageSpecMap.put(className + ":" + v, new MessageSpec(propertySpecs, size));
+            beanMetadataMap.put(className + ":" + v, new BeanMetadata(fieldMetadataList, size));
         }
-        Introspector.flushCaches();
+    }
+
+    private static void setField(Map<Integer, Map<String, FieldMetadata>> multiVersionMap, Method readMethod, Method writeMethod, Class<?> propertyType, Field field) {
+        FieldMetadata fieldMetadata = new FieldMetadata(field, propertyType, readMethod, writeMethod);
+
+        int[] versions = field.version();
+        for (int ver : versions) {
+            Map<String, FieldMetadata> fieldMetadataMap = multiVersionMap.get(ver);
+            if (fieldMetadataMap == null)
+                multiVersionMap.put(ver, fieldMetadataMap = new TreeMap());
+            fieldMetadataMap.put(readMethod.getName().substring(3).toLowerCase(), fieldMetadata);
+        }
     }
 }

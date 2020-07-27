@@ -11,9 +11,9 @@
             <property name="suppressDate" value="false"/>
         </commentGenerator>
 
-        <jdbcConnection driverClass="org.h2.Driver" connectionURL="jdbc:h2:mem:test" userId="root" password="abc@123"/>
+        <jdbcConnection driverClass="org.h2.Driver" connectionURL="jdbc:h2:file:~/.h2/jt;Auto_Server=True;IgnoreCase=True;Mode=MySql" userId="root" password="123@abc"/>
 
-        <javaModelGenerator targetPackage="org.yzh.web.jt.entity" targetProject="src\main\java">
+        <javaModelGenerator targetPackage="org.yzh.web.model.entity" targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>
 
@@ -21,10 +21,10 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="org.yzh.web.mapper" targetProject="src\main\resources" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="org.yzh.web.mapper" targetProject="src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="xxx" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="location" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

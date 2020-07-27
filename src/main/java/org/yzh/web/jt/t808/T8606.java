@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -21,8 +21,8 @@ public class T8606 extends AbstractMessage<Header> {
     private Integer attribute;
     private String startTime;
     private String endTime;
-    private Integer pointNumber;
-    private List<Point> pointList;
+    private Integer total;
+    private List<Point> item;
 
     @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
     public Integer getId() {
@@ -61,35 +61,36 @@ public class T8606 extends AbstractMessage<Header> {
     }
 
     @Field(index = 18, type = DataType.WORD, desc = "拐点数")
-    public Integer getPointNumber() {
-        return pointNumber;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setPointNumber(Integer pointNumber) {
-        this.pointNumber = pointNumber;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
-    public List<Point> getPointList() {
-        return pointList;
+    public List<Point> getItem() {
+        return item;
     }
 
-    public void setPointList(List<Point> pointList) {
-        this.pointList = pointList;
+    public void setItem(List<Point> item) {
+        this.item = item;
+        this.total = item.size();
     }
 
     public void addPoint(Point point) {
-        if (pointList == null)
-            pointList = new ArrayList();
-        pointList.add(point);
-        pointNumber = pointList.size();
+        if (item == null)
+            item = new ArrayList();
+        item.add(point);
+        total = item.size();
     }
 
     public void addPoint(int id) {
-        if (pointList == null)
-            pointList = new ArrayList();
-        pointList.add(new Point(id));
-        pointNumber = pointList.size();
+        if (item == null)
+            item = new ArrayList();
+        item.add(new Point(id));
+        total = item.size();
     }
 
     public static class Point {
@@ -109,6 +110,19 @@ public class T8606 extends AbstractMessage<Header> {
 
         public Point(Integer id) {
             this.id = id;
+        }
+
+        public Point(Integer id, Integer routeId, Integer latitude, Integer longitude, Integer width, Integer attribute, Integer upperLimit, Integer lowerLimit, Integer maxSpeed, Integer duration) {
+            this.id = id;
+            this.routeId = routeId;
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.width = width;
+            this.attribute = attribute;
+            this.upperLimit = upperLimit;
+            this.lowerLimit = lowerLimit;
+            this.maxSpeed = maxSpeed;
+            this.duration = duration;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")

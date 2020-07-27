@@ -1,4 +1,4 @@
-package org.yzh.framework.commons.lang;
+package org.yzh.web.commons;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

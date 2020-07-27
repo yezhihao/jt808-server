@@ -23,7 +23,7 @@ public class ConsoleController {
     @ResponseBody
     public T0001 updateParameters(@PathVariable("terminalId") String terminalId, @RequestParam String hex) {
 
-//        T0001 response = (T0001) MessageManager.Instance.request(hex);
+//        T0001 response = (T0001) MessageManager.getInstance().request(hex);
 //        return response;
         return null;
     }

@@ -1,8 +1,10 @@
 package org.yzh.web.jt.basics;
 
-import org.yzh.framework.orm.model.DataType;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.DataType;
 
 /**
  * 位置附加信息项
@@ -10,7 +12,8 @@ import org.yzh.framework.orm.model.AbstractMessage;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-public class BytesAttribute extends AbstractMessage {
+@Message
+public class BytesAttribute {
 
     private Integer id;
     private Integer length;
@@ -50,5 +53,10 @@ public class BytesAttribute extends AbstractMessage {
 
     public void setValue(byte[] value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

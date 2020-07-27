@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -23,8 +23,8 @@ public class T8604 extends AbstractMessage<Header> {
     private String endTime;
     private Integer maxSpeed;
     private Integer duration;
-    private Integer vertexTotal;
-    private List<Coordinate> vertexes;
+    private Integer total;
+    private List<Coordinate> items;
 
     @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
     public Integer getId() {
@@ -81,28 +81,29 @@ public class T8604 extends AbstractMessage<Header> {
     }
 
     @Field(index = 21, type = DataType.WORD, desc = "顶点数")
-    public Integer getVertexTotal() {
-        return vertexTotal;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setVertexTotal(Integer vertexTotal) {
-        this.vertexTotal = vertexTotal;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     @Field(index = 23, type = DataType.LIST, desc = "顶点列表")
-    public List<Coordinate> getVertexes() {
-        return vertexes;
+    public List<Coordinate> getItems() {
+        return items;
     }
 
-    public void setVertexes(List<Coordinate> vertexes) {
-        this.vertexes = vertexes;
+    public void setItems(List<Coordinate> items) {
+        this.items = items;
+        this.total = items.size();
     }
 
     public void addVertex(Integer latitude, Integer longitude) {
-        if (vertexes == null)
-            vertexes = new ArrayList();
-        vertexes.add(new Coordinate(latitude, longitude));
-        vertexTotal = vertexes.size();
+        if (items == null)
+            items = new ArrayList();
+        items.add(new Coordinate(latitude, longitude));
+        total = items.size();
     }
 
     public static class Coordinate {

@@ -1,6 +1,7 @@
 package org.yzh.framework.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -8,9 +9,12 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.framework.codec.MessageDecoderWrapper;
+import org.yzh.framework.codec.MessageEncoderWrapper;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -42,9 +46,11 @@ public class TCPServer {
                     @Override
                     public void initChannel(SocketChannel ch) {
                         ch.pipeline()
-                                .addLast("frameDecoder", jtConfig.getFrameDecoder())
-                                .addLast("decoder", jtConfig.getDecoder())
-                                .addLast("encoder", jtConfig.getEncoder())
+                                .addLast("frameDecoder", new DelimiterBasedFrameDecoder(jtConfig.getMaxFrameLength(),
+                                        Unpooled.wrappedBuffer(jtConfig.getDelimiter()),
+                                        Unpooled.wrappedBuffer(jtConfig.getDelimiter(), jtConfig.getDelimiter())))
+                                .addLast("decoder", new MessageDecoderWrapper(jtConfig.getDecoder()))
+                                .addLast("encoder", new MessageEncoderWrapper(jtConfig.getEncoder(), jtConfig.getDelimiter()))
                                 .addLast("adapter", jtConfig.getAdapter());
                     }
                 });

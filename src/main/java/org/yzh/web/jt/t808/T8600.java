@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -66,6 +66,21 @@ public class T8600 extends AbstractMessage<Header> {
         private Integer maxSpeed;
         private Integer duration;
 
+        public Item() {
+        }
+
+        public Item(Integer id, Integer attribute, Integer latitude, Integer longitude, Integer radius, String startTime, String endTime, Integer maxSpeed, Integer duration) {
+            this.id = id;
+            this.attribute = attribute;
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.radius = radius;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.maxSpeed = maxSpeed;
+            this.duration = duration;
+        }
+
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         public Integer getId() {
             return id;
@@ -102,7 +117,7 @@ public class T8600 extends AbstractMessage<Header> {
             this.longitude = longitude;
         }
 
-        @Field(index = 14, type = DataType.DWORD, desc = "半径")
+        @Field(index = 14, type = DataType.DWORD, desc = "半径(m)")
         public Integer getRadius() {
             return radius;
         }
@@ -111,7 +126,7 @@ public class T8600 extends AbstractMessage<Header> {
             this.radius = radius;
         }
 
-        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间")
+        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间（yyMMddHHmmss）")
         public String getStartTime() {
             return startTime;
         }
@@ -120,7 +135,7 @@ public class T8600 extends AbstractMessage<Header> {
             this.startTime = startTime;
         }
 
-        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间")
+        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间（yyMMddHHmmss）")
         public String getEndTime() {
             return endTime;
         }
@@ -129,7 +144,7 @@ public class T8600 extends AbstractMessage<Header> {
             this.endTime = endTime;
         }
 
-        @Field(index = 30, type = DataType.WORD, desc = "最高速度")
+        @Field(index = 30, type = DataType.WORD, desc = "最高速度(km/h)")
         public Integer getMaxSpeed() {
             return maxSpeed;
         }
@@ -138,7 +153,7 @@ public class T8600 extends AbstractMessage<Header> {
             this.maxSpeed = maxSpeed;
         }
 
-        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间")
+        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间(s)")
         public Integer getDuration() {
             return duration;
         }

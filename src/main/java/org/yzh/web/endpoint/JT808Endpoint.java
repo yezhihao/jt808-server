@@ -2,7 +2,9 @@ package org.yzh.web.endpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.orm.model.AbstractMessage;
@@ -11,9 +13,11 @@ import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.t808.*;
+import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import static org.yzh.web.jt.common.JT808.*;
 
@@ -23,9 +27,23 @@ public class JT808Endpoint {
 
     private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
 
-    private MessageManager messageManager = MessageManager.Instance;
+    private MessageManager messageManager = MessageManager.getInstance();
 
     private SessionManager sessionManager = SessionManager.getInstance();
+
+    @Autowired
+    private LocationService locationService;
+
+    //异步批量处理 队列大小20000 最大累积200处理一次 最大等待时间5秒
+    @AsyncBatch(capacity = 20000, maxElements = 200, maxWait = 5000)
+    @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
+    public void 位置信息汇报(List<T0200> list) {
+        locationService.batchInsert(list);
+        for (T0200 t0200 : list) {
+            Header header = t0200.getHeader();
+            messageManager.notify(new T0001(位置信息汇报, header.getSerialNo(), T0001.Success));
+        }
+    }
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
     public void 终端通用应答(T0001 message) {
@@ -135,15 +153,6 @@ public class JT808Endpoint {
         Header header = message.getHeader();
         //TODO
         T0001 result = new T0001(终端升级结果通知, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
-    }
-
-    @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
-    public T0001 位置信息汇报(T0200 message, Session session) {
-        Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(位置信息汇报, header.getSerialNo(), T0001.Success);
         result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
         return result;
     }

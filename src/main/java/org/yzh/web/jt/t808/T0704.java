@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -61,7 +61,7 @@ public class T0704 extends AbstractMessage<Header> {
             this.length = length;
         }
 
-        @Field(index = 2, type = DataType.OBJ, lengthName = "length", desc = "位置汇报数据项")
+        @Field(index = 2, type = DataType.OBJ, lengthName = "length", desc = "位置汇报数据体")
         public T0200 getPosition() {
             return position;
         }

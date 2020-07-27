@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -66,6 +66,22 @@ public class T8602 extends AbstractMessage<Header> {
         private String endTime;
         private Integer maxSpeed;
         private Integer duration;
+
+        public Item() {
+        }
+
+        public Item(Integer id, Integer attribute, Integer latitudeUL, Integer longitudeUL, Integer latitudeLR, Integer longitudeLR, String startTime, String endTime, Integer maxSpeed, Integer duration) {
+            this.id = id;
+            this.attribute = attribute;
+            this.latitudeUL = latitudeUL;
+            this.longitudeUL = longitudeUL;
+            this.latitudeLR = latitudeLR;
+            this.longitudeLR = longitudeLR;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.maxSpeed = maxSpeed;
+            this.duration = duration;
+        }
 
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         public Integer getId() {

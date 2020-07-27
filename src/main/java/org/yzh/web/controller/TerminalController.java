@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("terminal")
 public class TerminalController {
 
-    private MessageManager messageManager = MessageManager.Instance;
+    private MessageManager messageManager = MessageManager.getInstance();
 
     @ApiOperation(value = "设置终端参数")
     @RequestMapping(value = "{terminalId}/parameters", method = RequestMethod.POST)

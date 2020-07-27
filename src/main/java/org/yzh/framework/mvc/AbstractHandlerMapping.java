@@ -1,6 +1,8 @@
 package org.yzh.framework.mvc;
 
+import com.sun.corba.se.impl.io.TypeMismatchException;
 import org.yzh.framework.commons.ClassUtils;
+import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 
@@ -32,16 +34,29 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
             if (methods != null) {
 
                 Object endpoint = getEndpoint(handlerClass);
-
                 for (Method method : methods) {
-                    if (method.isAnnotationPresent(Mapping.class)) {
 
-                        Mapping annotation = method.getAnnotation(Mapping.class);
-                        String desc = annotation.desc();
-                        int[] types = annotation.types();
-                        Handler value = new Handler(endpoint, method, desc);
+                    Mapping mapping = method.getAnnotation(Mapping.class);
+                    if (mapping != null) {
+
+                        String desc = mapping.desc();
+                        int[] types = mapping.types();
+
+                        Handler handler;
+                        AsyncBatch asyncBatch = method.getAnnotation(AsyncBatch.class);
+
+                        if (asyncBatch == null) {
+                            handler = new SimpleHandler(endpoint, method, desc);
+                        } else {
+                            Class<?> parameterType = method.getParameterTypes()[0];
+                            if (!parameterType.isAssignableFrom(List.class))
+                                throw new TypeMismatchException("@AsyncBatch方法的参数不是List类型:" + method);
+                            handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.capacity(), asyncBatch.maxElements(), asyncBatch.maxWait());
+
+                        }
+
                         for (int type : types) {
-                            handlerMap.put(type, value);
+                            handlerMap.put(type, handler);
                         }
                     }
                 }

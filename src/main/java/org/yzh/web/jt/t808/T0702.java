@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -67,6 +67,7 @@ public class T0702 extends AbstractMessage<Header> {
 
     public void setName(String name) {
         this.name = name;
+        this.nameLen = name.length();
     }
 
     @Field(index = 9, indexOffsetName = "nameLen", type = DataType.STRING, length = 20, desc = "从业资格证编码")
@@ -94,6 +95,7 @@ public class T0702 extends AbstractMessage<Header> {
 
     public void setInstitution(String institution) {
         this.institution = institution;
+        this.institutionLen = institution.length();
     }
 
     @Field(index = 30, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.BCD8421, length = 4, desc = "证件有效期")

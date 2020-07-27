@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yzh.web.mapper.LocationMapper">
+
+    <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.entity.Location">
+        select  *
+        from location
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="batchInsert" parameterType="map">
+        insert into location (device_id, plate_no, warning_mark, status, latitude, longitude,
+        altitude, speed, direction, device_time, device_date, map_fence_id, create_time) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.deviceId,jdbcType=CHAR}, #{item.plateNo,jdbcType=CHAR}, #{item.warningMark,jdbcType=INTEGER},
+            #{item.status,jdbcType=INTEGER}, #{item.latitude,jdbcType=INTEGER}, #{item.longitude,jdbcType=INTEGER},
+            #{item.altitude,jdbcType=SMALLINT}, #{item.speed,jdbcType=TINYINT}, #{item.direction,jdbcType=SMALLINT},
+            #{item.deviceTime,jdbcType=TIMESTAMP}, #{item.deviceDate,jdbcType=DATE}, #{item.mapFenceId,jdbcType=SMALLINT},
+            #{item.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,25 +1,41 @@
 package org.yzh.framework.session;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author zhihao.ye (1527621790@qq.com)
+ * @home http://gitee.com/yezhihao/jt-server
+ */
 public enum MessageManager {
 
     Instance;
 
-    private Map<String, SyncFuture> topicSubscribers = new ConcurrentHashMap<>();
+    public static MessageManager getInstance() {
+        return Instance;
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(MessageManager.class.getSimpleName());
+
+    private Map<String, SynchronousQueue> topicSubscribers = new ConcurrentHashMap<>();
 
     private SessionManager sessionManager = SessionManager.getInstance();
 
+    /**
+     * 发送通知类消息，不接收响应
+     */
     public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
         AbstractHeader header = message.getHeader();
         String terminalId = header.getTerminalId();
 
-        Session session = sessionManager.getByMobileNo(terminalId);
+        Session session = sessionManager.getByTerminalId(terminalId);
         if (session == null)
             return false;
 
@@ -28,6 +44,10 @@ public enum MessageManager {
         return true;
     }
 
+    /**
+     * 发送同步消息，接收响应
+     * 默认超时时间20秒
+     */
     public Object request(AbstractMessage<? extends AbstractHeader> message) {
         return request(message, 20000);
     }
@@ -36,30 +56,34 @@ public enum MessageManager {
         AbstractHeader header = message.getHeader();
         String terminalId = header.getTerminalId();
 
-        Session session = sessionManager.getByMobileNo(terminalId);
+        Session session = sessionManager.getByTerminalId(terminalId);
         if (session == null)
             return null;
 
         String key = getKey(header);
-        SyncFuture future = this.subscribe(key);
-        if (future == null)
+        SynchronousQueue synchronousQueue = this.subscribe(key);
+        if (synchronousQueue == null)
             return null;
 
         try {
             header.setSerialNo(session.currentFlowId());
             session.getChannel().writeAndFlush(message);
-            return future.get(timeout, TimeUnit.MILLISECONDS);
+            return synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
+            log.warn("", e);
+        } finally {
             this.unsubscribe(key);
         }
         return null;
     }
 
-
+    /**
+     * 消息响应
+     */
     public boolean response(AbstractMessage message) {
-        SyncFuture future = topicSubscribers.get(getKey(message.getHeader()));
-        if (future != null)
-            return future.set(message);
+        SynchronousQueue queue = topicSubscribers.get(getKey(message.getHeader()));
+        if (queue != null)
+            return queue.offer(message);
         return false;
     }
 
@@ -67,11 +91,11 @@ public enum MessageManager {
         return header.getTerminalId() + "/" + header.getSerialNo();
     }
 
-    private SyncFuture subscribe(String key) {
-        SyncFuture future = null;
+    private SynchronousQueue subscribe(String key) {
+        SynchronousQueue queue = null;
         if (!topicSubscribers.containsKey(key))
-            topicSubscribers.put(key, future = new SyncFuture());
-        return future;
+            topicSubscribers.put(key, queue = new SynchronousQueue());
+        return queue;
     }
 
     private void unsubscribe(String key) {

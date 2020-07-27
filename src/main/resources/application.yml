@@ -1,21 +1,37 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
-#    url: jdbc:h2:file:~/.h2/test;Auto_Server=True;IgnoreCase=True;Mode=MySql
+    url: jdbc:h2:file:~/.h2/jt;Auto_Server=True;IgnoreCase=True;Mode=MySql
     username: root
-    password: abc@123
-    name: test
+    password: 123@abc
+    driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
+    schema: classpath:sql/schema.sql
+#    data: classpath:sql/initial.sql
     hikari:
-      connection-test-query: select 'x'
       minimum-idle: 1
-      maximum-pool-size: 10
+      maximum-pool-size: 5
       idle-timeout: 60000
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        useLocalTransactionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 server:
   port: 8000
-  tomcat:
-    uri-encoding: UTF-8
-  servlet:
-    context-path: /
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations:
+    - classpath:/mapper/*.xml

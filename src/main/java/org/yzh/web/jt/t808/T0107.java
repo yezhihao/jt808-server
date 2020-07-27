@@ -1,9 +1,9 @@
 package org.yzh.web.jt.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.basics.Header;
 import org.yzh.web.jt.common.JT808;
 
@@ -21,7 +21,7 @@ public class T0107 extends AbstractMessage<Header> {
     private String simId;
     private Integer hardwareVersionLen;
     private String hardwareVersion;
-    private String firmwareVersionLen;
+    private Integer firmwareVersionLen;
     private String firmwareVersion;
     private Integer gnssAttribute;
     private Integer networkAttribute;
@@ -87,14 +87,15 @@ public class T0107 extends AbstractMessage<Header> {
 
     public void setHardwareVersion(String hardwareVersion) {
         this.hardwareVersion = hardwareVersion;
+        this.hardwareVersionLen = hardwareVersion.length();
     }
 
     @Field(index = 46, indexOffsetName = "hardwareVersionLen", type = DataType.BYTE, desc = "固件版本号长度")
-    public String getFirmwareVersionLen() {
+    public Integer getFirmwareVersionLen() {
         return firmwareVersionLen;
     }
 
-    public void setFirmwareVersionLen(String firmwareVersionLen) {
+    public void setFirmwareVersionLen(Integer firmwareVersionLen) {
         this.firmwareVersionLen = firmwareVersionLen;
     }
 
@@ -105,6 +106,7 @@ public class T0107 extends AbstractMessage<Header> {
 
     public void setFirmwareVersion(String firmwareVersion) {
         this.firmwareVersion = firmwareVersion;
+        this.firmwareVersionLen = firmwareVersion.length();
     }
 
     @Field(index = 46, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "GNSS模块属性")

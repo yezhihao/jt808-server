@@ -27,7 +27,7 @@ public class JTMessageDecoder extends MessageDecoder {
         buf = buf.slice(0, buf.readableBytes() - 1);
         byte calculatedCheckCode = ByteBufUtils.bcc(buf);
 
-        return checkCode != calculatedCheckCode;
+        return checkCode == calculatedCheckCode;
     }
 
     /** 反转义 */

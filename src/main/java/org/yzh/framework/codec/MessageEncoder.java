@@ -4,17 +4,13 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.bean.BeanUtils;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.FieldSpec;
+import org.yzh.framework.orm.BeanMetadata;
+import org.yzh.framework.orm.FieldMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.MessageSpec;
-import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -43,10 +39,10 @@ public abstract class MessageEncoder {
 
         ByteBuf bodyBuf = encode(message, version);
 
-        int bodyLength = bodyBuf.readableBytes();
-        if (bodyLength > 1023)
-            throw new RuntimeException("消息体不能大于1023kb," + bodyLength + "Kb");
-        header.setBodyLength(bodyLength);
+        int bodyLen = bodyBuf.readableBytes();
+        if (bodyLen > 1023)
+            throw new RuntimeException("消息体不能大于1023kb," + bodyLen + "Kb");
+        header.setBodyLength(bodyLen);
 
         ByteBuf headerBuf = encode(header, version);
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
@@ -57,22 +53,21 @@ public abstract class MessageEncoder {
     }
 
     private ByteBuf encode(Object obj, int version) {
-        Class<?> clazz = obj.getClass();
-
-        MessageSpec messageSpec = MessageHelper.getMessageSpec(clazz, version);
-        if (messageSpec == null) {
-            log.warn(clazz.getName() + "未找到 messageSpec");
+        BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(obj.getClass(), version);
+        if (beanMetadata == null) {
+            log.warn("未找到BeanMetadata[{}]", obj.getClass());
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = Unpooled.buffer(messageSpec.length);
-        for (FieldSpec fieldSpec : messageSpec.fieldSpecs) {
-
-            Method readMethod = fieldSpec.readMethod;
-            Object value = BeanUtils.getValue(obj, readMethod);
-            if (value != null) {
-                write(buf, fieldSpec, value, version);
+        ByteBuf buf = Unpooled.buffer(beanMetadata.length);
+        try {
+            for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {
+                Object value = fieldMetadata.readMethod.invoke(obj);
+                if (value != null)
+                    write(buf, fieldMetadata, value, version);
             }
+        } catch (Exception e) {
+            log.error("获取对象值失败", e);
         }
         return buf;
     }
@@ -84,32 +79,31 @@ public abstract class MessageEncoder {
         Object first = list.get(0);
         Class<?> clazz = first.getClass();
 
-        MessageSpec messageSpec = MessageHelper.getMessageSpec(clazz, version);
-        if (messageSpec == null) {
-            log.warn(clazz.getName() + "未找到 messageSpec");
+        BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(clazz, version);
+        if (beanMetadata == null) {
+            log.warn(clazz.getName() + "未找到 beanMetadata");
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = Unpooled.buffer(messageSpec.length * size);
-        for (Object obj : list) {
-            for (FieldSpec fieldSpec : messageSpec.fieldSpecs) {
-
-                Method readMethod = fieldSpec.readMethod;
-                Object value = BeanUtils.getValue(obj, readMethod);
-                if (value != null) {
-                    write(buf, fieldSpec, value, version);
+        ByteBuf buf = Unpooled.buffer(beanMetadata.length * size);
+        try {
+            for (Object obj : list) {
+                for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {
+                    Object value = fieldMetadata.readMethod.invoke(obj);
+                    if (value != null)
+                        write(buf, fieldMetadata, value, version);
                 }
             }
+        } catch (Exception e) {
+            log.error("获取对象值失败", e);
         }
         return buf;
     }
 
-    public void write(ByteBuf buf, FieldSpec fieldSpec, Object value, int version) {
-        Field field = fieldSpec.field;
-        int length = field.length();
-        byte pad = field.pad();
+    public void write(ByteBuf buf, FieldMetadata fieldMetadata, Object value, int version) {
+        int length = fieldMetadata.length;
 
-        switch (field.type()) {
+        switch (fieldMetadata.dataType) {
             case BYTE:
                 buf.writeByte((int) value);
                 break;
@@ -117,14 +111,14 @@ public abstract class MessageEncoder {
                 buf.writeShort((int) value);
                 break;
             case DWORD:
-                if (value instanceof Long)
+                if (fieldMetadata.isLong)
                     buf.writeInt(((Long) value).intValue());
                 else
                     buf.writeInt((int) value);
                 break;
             case BYTES:
-                if (fieldSpec.type.isAssignableFrom(String.class)) {
-                    byte[] bytes = ((String) value).getBytes(Charset.forName(field.charset()));
+                if (fieldMetadata.isString) {
+                    byte[] bytes = ((String) value).getBytes(fieldMetadata.charset);
                     int srcLen = bytes.length;
                     if (length > 0) {
                         bytes = Bcd.checkRepair(bytes, length);
@@ -142,12 +136,12 @@ public abstract class MessageEncoder {
                 buf.writeBytes(Bcd.strToBcd(str));
                 break;
             case STRING:
-                byte[] bytes = ((String) value).getBytes(Charset.forName(field.charset()));
+                byte[] bytes = ((String) value).getBytes(fieldMetadata.charset);
                 int srcLen = bytes.length;
                 if (length > 0) {
                     bytes = Bcd.checkRepair(bytes, length);
                     if (srcLen > bytes.length)
-                        log.warn("数据长度超出限制,[{}]原始长度{},目标长度{},[{}]", value, srcLen, bytes.length);
+                        log.warn("数据长度超出限制[{}],数据长度{},目标长度{}", value, srcLen, bytes.length);
                 }
                 buf.writeBytes(bytes);
                 break;

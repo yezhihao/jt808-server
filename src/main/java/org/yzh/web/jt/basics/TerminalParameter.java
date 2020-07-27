@@ -1,8 +1,10 @@
 package org.yzh.web.jt.basics;
 
-import org.yzh.framework.orm.model.DataType;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.web.jt.common.ParameterUtils;
 
 import java.nio.charset.Charset;
@@ -13,7 +15,8 @@ import java.nio.charset.Charset;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-public class TerminalParameter extends AbstractMessage {
+@Message
+public class TerminalParameter {
 
     private Integer id;
     private Integer length;
@@ -73,5 +76,10 @@ public class TerminalParameter extends AbstractMessage {
 
     public Object getValue() {
         return ParameterUtils.toValue(id, bytesValue);
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
