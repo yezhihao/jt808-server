@@ -40,8 +40,8 @@ public class JT808Endpoint {
     public void 位置信息汇报(List<T0200> list) {
         locationService.batchInsert(list);
         for (T0200 t0200 : list) {
-            Header header = t0200.getHeader();
-            messageManager.notify(new T0001(位置信息汇报, header.getSerialNo(), T0001.Success));
+//            Header header = t0200.getHeader();
+//            messageManager.notify(new T0001(位置信息汇报, header.getSerialNo(), T0001.Success));
         }
     }
 
