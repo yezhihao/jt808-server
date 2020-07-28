@@ -1,8 +1,11 @@
 package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractMessage;
 
 /**
@@ -12,6 +15,8 @@ import org.yzh.framework.orm.model.AbstractMessage;
  * @home http://gitee.com/yezhihao/jt-server
  */
 public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage> {
+
+    private static final Logger log = LoggerFactory.getLogger(MessageEncoderWrapper.class.getSimpleName());
 
     private MessageEncoder encoder;
 
@@ -24,6 +29,8 @@ public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage>
 
     @Override
     protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
-        out.writeBytes(delimiter).writeBytes(encoder.encode(msg)).writeBytes(delimiter);
+        ByteBuf buf = encoder.encode(msg);
+        log.info("<<<<<<<<<<<<ip={},hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+        out.writeBytes(delimiter).writeBytes(buf).writeBytes(delimiter);
     }
 }
