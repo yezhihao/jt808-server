@@ -25,10 +25,10 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
     public void notFoundHandle(AbstractMessage<?> request, Session session) throws Exception {
         log.warn(">>>>>>未找到对应的Handel，{},{}", session, request);
         AbstractHeader header = request.getHeader();
-        T0001 result = new T0001(header.getMessageId(), header.getSerialNo(), T0001.NotSupport);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
+        T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.NotSupport);
+        response.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
         log.warn("<<<<<<未找到对应的Handel，{},{}", session, request);
-        session.getChannel().writeAndFlush(result);
+        session.getChannel().writeAndFlush(response);
     }
 
 
@@ -38,10 +38,10 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         log.info(">>>>>>消息请求成功，{},{}", session, request);
         AbstractHeader header = request.getHeader();
         if (JT808.终端通用应答 != header.getMessageId()) {
-            T0001 result = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Success);
-            result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
-            log.info("<<<<<<通用应答消息，{},{}", session, result);
-            session.getChannel().writeAndFlush(result);
+            T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Success);
+            response.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
+            log.info("<<<<<<通用应答消息，{},{}", session, response);
+            session.getChannel().writeAndFlush(response);
         }
     }
 
@@ -50,10 +50,10 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
     public void afterThrow(AbstractMessage<?> request, Session session, Exception ex) {
         log.warn(">>>>>>消息处理异常，{},{}", session, request);
         AbstractHeader header = request.getHeader();
-        T0001 result = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Fial);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
-        log.warn("<<<<<<异常处理应答，{},{}", session, result);
-        session.getChannel().writeAndFlush(result);
+        T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Fial);
+        response.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
+        log.warn("<<<<<<异常处理应答，{},{}", session, response);
+        session.getChannel().writeAndFlush(response);
     }
 
     /** 超出队列或线程处理能力的 */
@@ -61,10 +61,10 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
     public void queueOverflow(AbstractMessage<?> request, Session session) {
         log.warn(">>>>>>队列负载过大，{},{}", session, request);
         AbstractHeader header = request.getHeader();
-        T0001 result = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Fial);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
-        log.warn("<<<<<<队列负载过大，{},{}", session, result);
-        session.getChannel().writeAndFlush(result);
+        T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Fial);
+        response.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getTerminalId()));
+        log.warn("<<<<<<队列负载过大，{},{}", session, response);
+        session.getChannel().writeAndFlush(response);
     }
 
     /** 调用之前 */
@@ -77,6 +77,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
 
     /** 调用之后 */
     @Override
-    public void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response) throws Exception {
+    public void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response, Session session) throws Exception {
+        log.info(">>>>>>消息请求成功，{},{}", session, request);
+        log.info("<<<<<<应答消息，{},{}", session, response);
     }
 }

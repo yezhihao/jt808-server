@@ -14,7 +14,7 @@ public interface HandlerInterceptor {
     void afterHandle(AbstractMessage<?> request, Session session) throws Exception;
 
     /** 调用之后，有返回值的 */
-    void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response) throws Exception;
+    void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response, Session session) throws Exception;
 
     /** 超出队列或者线程处理能力的 */
     void queueOverflow(AbstractMessage<?> request, Session session);

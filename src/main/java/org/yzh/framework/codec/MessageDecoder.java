@@ -87,6 +87,12 @@ public abstract class MessageDecoder {
                 message = decode(bodyBuf, bodyClass, version);
                 message.setHeader(header);
             } else {
+                try {
+                    AbstractMessage abstractMessage = bodyClass.newInstance();
+                    abstractMessage.setHeader(header);
+                    return abstractMessage;
+                } catch (Exception e) {
+                }
                 return null;
             }
         } else {

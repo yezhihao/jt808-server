@@ -30,7 +30,7 @@ public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage>
     @Override
     protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
         ByteBuf buf = encoder.encode(msg);
-        log.info("<<<<<<<<<<<<ip={},hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+        log.info("<<<<<<<<<<<<原始报文ip={},hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
         out.writeBytes(delimiter).writeBytes(buf).writeBytes(delimiter);
     }
 }

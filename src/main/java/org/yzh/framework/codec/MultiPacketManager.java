@@ -37,7 +37,7 @@ public enum MultiPacketManager {
             multiPacketsMap.put(key, multiPacket = new MultiPacket(messageId, terminalId, packageTotal));
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info("分包状态{}", multiPacket);
+        log.info(">>>>>>分包状态{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
