@@ -1,5 +1,7 @@
 package org.yzh.framework.codec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractHeader;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +15,8 @@ import java.util.concurrent.ConcurrentMap;
 public enum MultiPacketManager {
 
     Instance;
+
+    private static final Logger log = LoggerFactory.getLogger(MultiPacketManager.class.getSimpleName());
 
     public static MultiPacketManager getInstance() {
         return Instance;
@@ -33,6 +37,7 @@ public enum MultiPacketManager {
             multiPacketsMap.put(key, multiPacket = new MultiPacket(messageId, terminalId, packageTotal));
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
+        log.info("分包状态{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
