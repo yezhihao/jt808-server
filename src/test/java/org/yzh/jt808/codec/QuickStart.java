@@ -17,8 +17,8 @@ public class QuickStart {
                 .setMaxFrameLength(1024)
                 .setDelimiters(new byte[]{0x7e})
                 .setHandlerMapping(new DefaultHandlerMapping("org.yzh.web.endpoint"))
-                .setDecoder(new JTMessageDecoder("org.yzh.web.jt"))
-                .setEncoder(new JTMessageEncoder("org.yzh.web.jt"))
+                .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
+                .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                 .build();
 
         JTApplication.run(jt808Config);
