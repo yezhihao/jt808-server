@@ -52,11 +52,11 @@ public class JT808Endpoint {
         messageManager.response(message);
     }
 
+    @Async
     @Mapping(types = 终端心跳, desc = "终端心跳")
     public void heartBeat(Header header, Session session) {
     }
 
-    @Async
     @Mapping(types = 查询服务器时间请求, desc = "查询服务器时间请求")
     public T8004 requestTime(Header header, Session session) {
         T8004 result = new T8004(DateUtils.FastDateFormatter.format(new Date(System.currentTimeMillis() + 50)));
