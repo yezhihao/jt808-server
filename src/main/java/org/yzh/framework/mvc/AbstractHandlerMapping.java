@@ -1,10 +1,14 @@
 package org.yzh.framework.mvc;
 
-import com.sun.corba.se.impl.io.TypeMismatchException;
 import org.yzh.framework.commons.ClassUtils;
+import org.yzh.framework.mvc.annotation.Async;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
+import org.yzh.framework.mvc.handler.AsyncBatchHandler;
+import org.yzh.framework.mvc.handler.AsyncHandler;
+import org.yzh.framework.mvc.handler.Handler;
+import org.yzh.framework.mvc.handler.SyncHandler;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -42,17 +46,18 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
                         String desc = mapping.desc();
                         int[] types = mapping.types();
 
-                        Handler handler;
                         AsyncBatch asyncBatch = method.getAnnotation(AsyncBatch.class);
+                        Async async = method.getAnnotation(Async.class);
+                        Handler handler;
 
-                        if (asyncBatch == null) {
-                            handler = new SimpleHandler(endpoint, method, desc);
-                        } else {
-                            Class<?> parameterType = method.getParameterTypes()[0];
-                            if (!parameterType.isAssignableFrom(List.class))
-                                throw new TypeMismatchException("@AsyncBatch方法的参数不是List类型:" + method);
+                        if (asyncBatch != null) {
                             handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.capacity(), asyncBatch.maxElements(), asyncBatch.maxWait());
 
+                        } else if (async != null) {
+                            handler = new AsyncHandler(endpoint, method, desc);
+
+                        } else {
+                            handler = new SyncHandler(endpoint, method, desc);
                         }
 
                         for (int type : types) {

@@ -12,6 +12,7 @@ import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.JTConfig;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.web.endpoint.JTHandlerInterceptor;
 
 @SpringBootApplication
 public class Application {
@@ -31,9 +32,10 @@ public class Application {
                     .setPort(7611)
                     .setMaxFrameLength(1024)
                     .setDelimiters(new byte[]{0x7e})
-                    .setHandlerMapping(handlerMapping())
                     .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
                     .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
+                    .setHandlerMapping(handlerMapping())
+                    .setHandlerInterceptor(new JTHandlerInterceptor())
                     .build();
             JTApplication.run(jt808Config);
             System.out.println("***Netty 启动成功***");

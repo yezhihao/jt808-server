@@ -75,6 +75,7 @@ public abstract class MessageDecoder {
         int bodyLen = header.getBodyLength();
 
         if (header.isSubpackage()) {
+            log.info("分包消息{}", header);
 
             byte[] bytes = new byte[bodyLen];
             buf.readBytes(bytes);

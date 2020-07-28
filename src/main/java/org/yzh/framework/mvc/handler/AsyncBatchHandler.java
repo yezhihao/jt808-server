@@ -1,8 +1,10 @@
-package org.yzh.framework.mvc;
+package org.yzh.framework.mvc.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.session.Session;
 import org.yzh.web.commons.JsonUtils;
 
 import java.lang.reflect.Method;
@@ -12,6 +14,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 异步批量处理
+ *
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
@@ -29,6 +33,11 @@ public class AsyncBatchHandler extends Handler {
 
     public AsyncBatchHandler(Object actionClass, Method actionMethod, String desc, int capacity, int maxElements, int maxWait) {
         super(actionClass, actionMethod, desc);
+
+        Class<?> parameterType = actionMethod.getParameterTypes()[0];
+        if (!parameterType.isAssignableFrom(List.class))
+            throw new RuntimeException("@AsyncBatch方法的参数不是List类型:" + actionMethod);
+
         this.capacity = capacity;
         this.maxElements = maxElements;
         this.maxWait = maxWait;
@@ -44,10 +53,11 @@ public class AsyncBatchHandler extends Handler {
         }, AsyncBatchHandler.class.getName()).start();
     }
 
-    public <T extends AbstractMessage> T invoke(Object... args) {
-        if (!queue.offer((AbstractMessage) args[0]))
+    public void invoke(HandlerInterceptor interceptor, Session session, AbstractMessage messageRequest) throws Exception {
+        if (!queue.offer(messageRequest)) {
             log.warn("超出队列处理能力,{}", JsonUtils.toJson(log));
-        return null;
+            interceptor.queueOverflow(messageRequest, session);
+        }
     }
 
     public void startInternal() {

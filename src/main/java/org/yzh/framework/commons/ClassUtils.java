@@ -44,7 +44,7 @@ public class ClassUtils {
                     String protocol = url.getProtocol();
 
                     if (protocol.equals("file")) {
-                        String packagePath = url.getPath().replaceAll("%20", " ");
+                        String packagePath = url.toURI().getPath();
                         addClass(classList, packagePath, packageName);
 
                     } else if (protocol.equals("jar")) {

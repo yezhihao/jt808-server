@@ -9,8 +9,9 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.Handler;
+import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
+import org.yzh.framework.mvc.handler.Handler;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
@@ -29,44 +30,35 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     private HandlerMapping handlerMapping;
 
-    public TCPServerHandler(HandlerMapping handlerMapping) {
+    private HandlerInterceptor interceptor;
+
+    public TCPServerHandler(HandlerMapping handlerMapping, HandlerInterceptor interceptor) {
         this.handlerMapping = handlerMapping;
+        this.interceptor = interceptor;
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (!(msg instanceof AbstractMessage))
             return;
-        AbstractMessage messageRequest = (AbstractMessage) msg;
+        AbstractMessage request = (AbstractMessage) msg;
+        Channel channel = ctx.channel();
+        Session session = sessionManager.getBySessionId(Session.buildId(channel));
+
         try {
-            AbstractHeader header = messageRequest.getHeader();
-            Channel channel = ctx.channel();
-
+            AbstractHeader header = request.getHeader();
             Handler handler = handlerMapping.getHandler(header.getMessageId());
-            int[] types = handler.parameterTypes;
-            Object[] args = new Object[types.length];
 
-            for (int i = 0; i < types.length; i++) {
-                int type = types[i];
-                switch (type) {
-                    case Handler.MESSAGE:
-                        args[i] = messageRequest;
-                        break;
-                    case Handler.SESSION:
-                        args[i] = sessionManager.getBySessionId(Session.buildId(channel));
-                        break;
-                    case Handler.HEADER:
-                        args[i] = messageRequest.getHeader();
-                        break;
-                }
+            if (handler == null) {
+                interceptor.notFoundHandle(request, session);
+                return;
             }
 
-            AbstractMessage messageResponse = handler.invoke(args);
+            handler.invoke(interceptor, request, session);
 
-            if (messageResponse != null)
-                channel.writeAndFlush(messageResponse);
         } catch (Exception e) {
-            log.warn(String.valueOf(messageRequest), e);
+            log.warn(String.valueOf(request), e);
+            interceptor.afterThrow(request, session, e);
         } finally {
             ReferenceCountUtil.release(msg);
         }

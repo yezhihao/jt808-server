@@ -3,6 +3,7 @@ package org.yzh.framework.netty;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
+import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 
 public class JTConfig {
@@ -14,15 +15,24 @@ public class JTConfig {
     private final MessageEncoder encoder;
     private final ChannelInboundHandlerAdapter adapter;
     private final HandlerMapping handlerMapping;
+    private final HandlerInterceptor handlerInterceptor;
 
-    private JTConfig(int port, int maxFrameLength, byte[] delimiter, HandlerMapping handlerMapping, MessageDecoder decoder, MessageEncoder encoder) {
+    private JTConfig(int port,
+                     int maxFrameLength,
+                     byte[] delimiter,
+                     MessageDecoder decoder,
+                     MessageEncoder encoder,
+                     HandlerMapping handlerMapping,
+                     HandlerInterceptor handlerInterceptor
+    ) {
         this.port = port;
         this.maxFrameLength = maxFrameLength;
         this.delimiter = delimiter;
         this.decoder = decoder;
         this.encoder = encoder;
         this.handlerMapping = handlerMapping;
-        this.adapter = new TCPServerHandler(this.handlerMapping);
+        this.handlerInterceptor = handlerInterceptor;
+        this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor);
     }
 
     public int getPort() {
@@ -62,15 +72,26 @@ public class JTConfig {
         private int port;
         private int maxFrameLength;
         private byte[] delimiters;
-        private HandlerMapping handlerMapping;
         private MessageDecoder decoder;
         private MessageEncoder encoder;
+        private HandlerMapping handlerMapping;
+        private HandlerInterceptor handlerInterceptor;
 
         public Builder() {
         }
 
         public Builder setPort(int port) {
             this.port = port;
+            return this;
+        }
+
+        public Builder setMaxFrameLength(int maxFrameLength) {
+            this.maxFrameLength = maxFrameLength;
+            return this;
+        }
+
+        public Builder setDelimiters(byte[] delimiters) {
+            this.delimiters = delimiters;
             return this;
         }
 
@@ -89,13 +110,8 @@ public class JTConfig {
             return this;
         }
 
-        public Builder setMaxFrameLength(int maxFrameLength) {
-            this.maxFrameLength = maxFrameLength;
-            return this;
-        }
-
-        public Builder setDelimiters(byte[] delimiters) {
-            this.delimiters = delimiters;
+        public Builder setHandlerInterceptor(HandlerInterceptor handlerInterceptor) {
+            this.handlerInterceptor = handlerInterceptor;
             return this;
         }
 
@@ -104,9 +120,10 @@ public class JTConfig {
                     this.port,
                     this.maxFrameLength,
                     this.delimiters,
-                    this.handlerMapping,
                     this.decoder,
-                    this.encoder
+                    this.encoder,
+                    this.handlerMapping,
+                    this.handlerInterceptor
             );
         }
     }

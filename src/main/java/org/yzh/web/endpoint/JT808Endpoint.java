@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yzh.framework.mvc.annotation.Async;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
@@ -13,10 +14,12 @@ import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.*;
+import org.yzh.web.commons.DateUtils;
 import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import static org.yzh.protocol.commons.JT808.*;
@@ -47,6 +50,18 @@ public class JT808Endpoint {
         String mobileNo = header.getMobileNo();
         Integer replyId = message.getReplyId();
         messageManager.response(message);
+    }
+
+    @Mapping(types = 终端心跳, desc = "终端心跳")
+    public void heartBeat(Header header, Session session) {
+    }
+
+    @Async
+    @Mapping(types = 查询服务器时间请求, desc = "查询服务器时间请求")
+    public T8004 requestTime(Header header, Session session) {
+        T8004 result = new T8004(DateUtils.FastDateFormatter.format(new Date(System.currentTimeMillis() + 50)));
+        result.setHeader(new Header(查询服务器时间应答, session.currentFlowId(), header.getTerminalId()));
+        return result;
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
@@ -94,164 +109,98 @@ public class JT808Endpoint {
         Integer replyId = header.getSerialNo();
         messageManager.response(message);
     }
+
     //=============================================================
 
-    @Mapping(types = 终端心跳, desc = "终端心跳")
-    public T0001 heartBeat(Header header, Session session) {
-        T0001 result = new T0001(终端心跳, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
-    }
-
     @Mapping(types = 补传分包请求, desc = "补传分包请求")
-    public T0001 补传分包请求(T8003 message, Session session) {
+    public void 补传分包请求(T8003 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(补传分包请求, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
-        //TODO
         session.setTerminalId(header.getTerminalId());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-
         T8100 result = new T8100(header.getSerialNo(), T8100.Success, "test_token");
         result.setHeader(new Header(终端注册应答, session.currentFlowId(), header.getMobileNo()));
         return result;
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
-    public T0001 终端注销(AbstractMessage message, Session session) {
+    public void 终端注销(AbstractMessage message, Session session) {
         Header header = (Header) message.getHeader();
-        //TODO
-        T0001 result = new T0001(终端注销, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public T0001 authentication(T0102 message, Session session) {
+    public void authentication(T0102 message, Session session) {
         Header header = message.getHeader();
-        //TODO
         session.setTerminalId(header.getMobileNo());
         sessionManager.put(Session.buildId(session.getChannel()), session);
-        T0001 result = new T0001(终端鉴权, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 终端升级结果通知, desc = "终端升级结果通知")
-    public T0001 终端升级结果通知(T0108 message, Session session) {
+    public void 终端升级结果通知(T0108 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(终端升级结果通知, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 人工确认报警消息, desc = "人工确认报警消息")
-    public T0001 人工确认报警消息(T8203 message, Session session) {
+    public void 人工确认报警消息(T8203 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(位置信息汇报, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 事件报告, desc = "事件报告")
-    public T0001 事件报告(T0301 message, Session session) {
+    public void 事件报告(T0301 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(事件报告, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 提问应答, desc = "提问应答")
-    public T0001 提问应答(T0302 message, Session session) {
+    public void 提问应答(T0302 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(提问应答, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
-    public T0001 信息点播取消(T0303 message, Session session) {
+    public void 信息点播取消(T0303 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(信息点播_取消, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 行驶记录仪数据上传, desc = "行驶记录仪数据上传")
-    public T0001 行驶记录仪数据上传(AbstractMessage message, Session session) {
+    public void 行驶记录仪数据上传(AbstractMessage message, Session session) {
         Header header = (Header) message.getHeader();
-        //TODO
-        T0001 result = new T0001(行驶记录仪数据上传, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
-    public T0001 电子运单上报(AbstractMessage message, Session session) {
+    public void 电子运单上报(AbstractMessage message, Session session) {
         Header header = (Header) message.getHeader();
-        //TODO
-        T0001 result = new T0001(电子运单上报, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
-    public T0001 驾驶员身份信息采集上报(T0702 message, Session session) {
+    public void 驾驶员身份信息采集上报(T0702 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(驾驶员身份信息采集上报, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
-    public T0001 定位数据批量上传(T0704 message, Session session) {
+    public void 定位数据批量上传(T0704 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(定位数据批量上传, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = CAN总线数据上传, desc = "定位数据批量上传")
-    public T0001 CAN总线数据上传(T0705 message, Session session) {
+    public void CAN总线数据上传(T0705 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(CAN总线数据上传, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 多媒体事件信息上传, desc = "多媒体事件信息上传")
-    public T0001 多媒体事件信息上传(T0800 message, Session session) {
+    public void 多媒体事件信息上传(T0800 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(多媒体事件信息上传, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
     public T8800 多媒体数据上传(T0801 message, Session session) throws IOException {
         Header header = message.getHeader();
-
         byte[] packet = message.getPacket();
         FileOutputStream fos = new FileOutputStream("D://test.jpg");
         fos.write(packet);
         fos.close();
-
         T8800 result = new T8800();
         result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
         result.setMediaId(1);
@@ -259,21 +208,12 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public T0001 passthrough(T8900_0900 message, Session session) {
+    public void passthrough(T8900_0900 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(数据上行透传, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
 
     @Mapping(types = 数据压缩上报, desc = "数据压缩上报")
-    public T0001 gzipPack(T0901 message, Session session) {
+    public void gzipPack(T0901 message, Session session) {
         Header header = message.getHeader();
-        //TODO
-        T0001 result = new T0001(数据压缩上报, header.getSerialNo(), T0001.Success);
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
-        return result;
     }
-
 }

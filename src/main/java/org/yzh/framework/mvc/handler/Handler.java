@@ -1,5 +1,6 @@
-package org.yzh.framework.mvc;
+package org.yzh.framework.mvc.handler;
 
+import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
@@ -21,11 +22,13 @@ public abstract class Handler {
     public final Object targetObject;
     public final Method targetMethod;
     public final int[] parameterTypes;
+    public final boolean hasReturn;
     public final String desc;
 
     public Handler(Object actionClass, Method actionMethod, String desc) {
         this.targetObject = actionClass;
         this.targetMethod = actionMethod;
+        this.hasReturn = !actionMethod.getReturnType().isAssignableFrom(Void.TYPE);
         this.desc = desc;
 
         Type[] types = actionMethod.getGenericParameterTypes();
@@ -57,7 +60,37 @@ public abstract class Handler {
         this.parameterTypes = parameterTypes;
     }
 
-    public abstract <T extends AbstractMessage> T invoke(Object... args) throws Exception;
+    public void invoke(HandlerInterceptor interceptor, AbstractMessage request, Session session) throws Exception {
+        if (!interceptor.beforeHandle(request, session)) {
+            return;
+        }
+
+        Object[] args = new Object[parameterTypes.length];
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            int type = parameterTypes[i];
+            switch (type) {
+                case Handler.MESSAGE:
+                    args[i] = request;
+                    break;
+                case Handler.SESSION:
+                    args[i] = session;
+                    break;
+                case Handler.HEADER:
+                    args[i] = request.getHeader();
+                    break;
+            }
+        }
+
+        Object response = targetMethod.invoke(targetObject, args);
+        if (hasReturn) {
+            if (response != null)
+                session.getChannel().writeAndFlush(response);
+            interceptor.afterHandle(request, (AbstractMessage<?>) response);
+        } else {
+            interceptor.afterHandle(request, session);
+        }
+    }
 
     @Override
     public String toString() {

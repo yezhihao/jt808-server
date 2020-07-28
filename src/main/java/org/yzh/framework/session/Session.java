@@ -10,6 +10,7 @@ import java.net.SocketAddress;
  */
 public class Session {
 
+    private String ip;
     private String id;
     private String terminalId;
     private Channel channel = null;
@@ -34,11 +35,16 @@ public class Session {
 
     public static Session buildSession(Channel channel, String terminalId) {
         Session session = new Session();
+        session.setIp(channel.remoteAddress().toString());
         session.setChannel(channel);
         session.setId(buildId(channel));
         session.setTerminalId(terminalId);
         session.setLastCommunicateTimeStamp(System.currentTimeMillis());
         return session;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public String getId() {
@@ -118,6 +124,6 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session [identity=" + id + ", terminalId=" + terminalId + ", channel=" + channel + "]";
+        return "[ip=" + ip + ", terminalId=" + terminalId + ']';
     }
 }
