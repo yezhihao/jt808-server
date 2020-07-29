@@ -5,6 +5,7 @@ import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.commons.ResultCode;
 import org.yzh.protocol.t1078.T1205;
 import org.yzh.protocol.t808.T0001;
 
@@ -20,7 +21,7 @@ public class JT1078Endpoint {
         Header header = message.getHeader();
         String mobileNo = header.getMobileNo();
 
-        T0001 result = new T0001(终端上传音视频资源列表, message.getSerialNo(), T0001.Success);
+        T0001 result = new T0001(终端上传音视频资源列表, message.getSerialNo(), ResultCode.Success);
         result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
         return result;
     }
