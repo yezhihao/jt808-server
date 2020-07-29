@@ -53,10 +53,10 @@ public class AsyncBatchHandler extends Handler {
         }, AsyncBatchHandler.class.getName()).start();
     }
 
-    public void invoke(HandlerInterceptor interceptor, Session session, AbstractMessage messageRequest) throws Exception {
-        if (!queue.offer(messageRequest)) {
+    public void invoke(HandlerInterceptor interceptor, AbstractMessage request, Session session) throws Exception {
+        if (!queue.offer(request)) {
             log.warn("超出队列处理能力,{}", JsonUtils.toJson(log));
-            interceptor.queueOverflow(messageRequest, session);
+            interceptor.queueOverflow(request, session);
         }
     }
 
