@@ -237,13 +237,9 @@ public class TerminalController {
 
     @ApiOperation(value = "查询区域或线路数据")
     @RequestMapping(value = "{terminalId}/location/route", method = RequestMethod.POST)
-    public T0001 locationRoute(@PathVariable("terminalId") String terminalId, @ApiParam("区域ID列表") @RequestBody int[] idList) {
-        T8606 message = new T8606();
-        //TODO 2019
-        for (int id : idList)
-            message.addPoint(id);
+    public T0608 locationRoute(@PathVariable("terminalId") String terminalId, @RequestBody T8608 message) {
         message.setHeader(new Header(JT808.查询区域或线路数据, terminalId));
-        T0001 response = messageManager.request(message, T0001.class);
+        T0608 response = messageManager.request(message, T0608.class);
         return response;
     }
 

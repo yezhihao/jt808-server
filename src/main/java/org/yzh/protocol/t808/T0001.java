@@ -1,11 +1,12 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.ResultCode;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -14,16 +15,9 @@ import org.yzh.protocol.commons.JT808;
 @Message({JT808.终端通用应答, JT808.平台通用应答})
 public class T0001 extends AbstractMessage<Header> {
 
-    public static final int Success = 0;
-    public static final int Fial = 1;
-    public static final int MessageError = 2;
-    public static final int NotSupport = 3;
-    public static final int AlarmConfirmation = 4;
-
     private Integer serialNo;
-
     private Integer replyId;
-
+    /** @see ResultCode */
     private Integer resultCode;
 
     public T0001() {

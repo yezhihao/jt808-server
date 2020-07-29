@@ -18,15 +18,7 @@ import java.util.List;
 @Message(JT808.信息点播菜单设置)
 public class T8303 extends AbstractMessage<Header> {
 
-    //删除终端全部信息项
-    public static final int Clean = 0;
-    //更新菜单
-    public static final int Update = 1;
-    //追加菜单
-    public static final int Append = 2;
-    //修改菜单
-    public static final int Modify = 3;
-
+    /** @see org.yzh.protocol.commons.Action */
     private Integer type;
     private Integer total;
     private List<Item> items;

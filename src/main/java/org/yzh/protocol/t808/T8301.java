@@ -1,12 +1,12 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Charsets;
+import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +18,10 @@ import java.util.List;
 @Message(JT808.事件设置)
 public class T8301 extends AbstractMessage<Header> {
 
-    //清空
-    public static final int Clean = 0;
-    //更新（先清空，后追加）
-    public static final int Update = 1;
-    //追加
-    public static final int Append = 2;
-    //修改
-    public static final int Modify = 3;
-    //删除特定几项事件，之后事件项中无需带事件内容
-    public static final int Delete = 4;
-
+    /** @see org.yzh.protocol.commons.Action */
     private Integer type;
-
     private Integer total;
-
-    private List<Event> list;
+    private List<Event> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
     public Integer getType() {
@@ -54,19 +42,19 @@ public class T8301 extends AbstractMessage<Header> {
     }
 
     @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
-    public List<Event> getList() {
-        return list;
+    public List<Event> getItems() {
+        return items;
     }
 
-    public void setList(List<Event> list) {
-        this.list = list;
+    public void setItems(List<Event> items) {
+        this.items = items;
     }
 
     public void addEvent(int id, String content) {
-        if (this.list == null)
-            this.list = new ArrayList();
-        this.list.add(new Event(id, content));
-        this.total = list.size();
+        if (this.items == null)
+            this.items = new ArrayList();
+        this.items.add(new Event(id, content));
+        this.total = items.size();
     }
 
     public static class Event {

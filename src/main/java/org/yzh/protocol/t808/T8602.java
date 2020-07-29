@@ -16,13 +16,7 @@ import java.util.List;
 @Message(JT808.设置矩形区域)
 public class T8602 extends AbstractMessage<Header> {
 
-    /** 更新（先清空，后追加） */
-    public static final int Update = 0;
-    /** 追加 */
-    public static final int Append = 1;
-    /** 修改 */
-    public static final int Modify = 2;
-
+    /** @see org.yzh.protocol.commons.ShapeAction */
     private Integer operation;
     private Integer total;
     private List<Item> items;
