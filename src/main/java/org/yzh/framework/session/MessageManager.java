@@ -48,12 +48,12 @@ public enum MessageManager {
      * 发送同步消息，接收响应
      * 默认超时时间20秒
      */
-    public Object request(AbstractMessage<? extends AbstractHeader> message) {
-        return request(message, 20000);
+    public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz) {
+        return request(request, clazz, 20000);
     }
 
-    public Object request(AbstractMessage<? extends AbstractHeader> message, long timeout) {
-        AbstractHeader header = message.getHeader();
+    public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz, long timeout) {
+        AbstractHeader header = request.getHeader();
         String terminalId = header.getTerminalId();
 
         Session session = sessionManager.getByTerminalId(terminalId);
@@ -62,14 +62,14 @@ public enum MessageManager {
 
         header.setSerialNo(session.currentFlowId());
 
-        String key = getKey(header);
+        String key = getKey(header, clazz);
         SynchronousQueue synchronousQueue = this.subscribe(key);
         if (synchronousQueue == null)
             return null;
 
         try {
-            session.getChannel().writeAndFlush(message);
-            return synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
+            session.getChannel().writeAndFlush(request);
+            return (T) synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             log.warn("", e);
         } finally {
@@ -82,14 +82,14 @@ public enum MessageManager {
      * 消息响应
      */
     public boolean response(AbstractMessage message) {
-        SynchronousQueue queue = topicSubscribers.get(getKey(message.getHeader()));
+        SynchronousQueue queue = topicSubscribers.get(getKey(message.getHeader(), message.getClass()));
         if (queue != null)
             return queue.offer(message);
         return false;
     }
 
-    private String getKey(AbstractHeader header) {
-        return header.getTerminalId() + "/" + header.getSerialNo();
+    private String getKey(AbstractHeader header, Class clazz) {
+        return header.getTerminalId() + "/" + clazz.getName();
     }
 
     private SynchronousQueue subscribe(String key) {
