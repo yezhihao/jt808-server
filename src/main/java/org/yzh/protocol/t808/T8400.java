@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -20,7 +20,16 @@ public class T8400 extends AbstractMessage<Header> {
     public static final int Listen = 1;
 
     private Integer type;
-    private String content;
+    private String mobileNo;
+
+    public T8400() {
+    }
+
+    public T8400(Header header, Integer type, String mobileNo) {
+        super(header);
+        this.type = type;
+        this.mobileNo = mobileNo;
+    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "标志")
     public Integer getType() {
@@ -31,12 +40,12 @@ public class T8400 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 20, desc = "文本信息")
-    public String getContent() {
-        return content;
+    @Field(index = 1, type = DataType.STRING, length = 20, desc = "电话号码")
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 }

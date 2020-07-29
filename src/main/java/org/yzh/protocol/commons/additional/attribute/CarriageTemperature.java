@@ -25,8 +25,7 @@ public class CarriageTemperature extends Attribute {
 
     @Override
     public CarriageTemperature formBytes(byte... bytes) {
-        //TODO
-        this.value = Bit.readInt16(bytes, 0);
+        this.value = (short) Bit.readInt16(bytes, 0);
         return this;
     }
 

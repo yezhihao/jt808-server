@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -16,6 +16,15 @@ public class T8202 extends AbstractMessage<Header> {
 
     private Integer interval;
     private Integer validityPeriod;
+
+    public T8202() {
+    }
+
+    public T8202(Header header, Integer interval, Integer validityPeriod) {
+        super(header);
+        this.interval = interval;
+        this.validityPeriod = validityPeriod;
+    }
 
     @Field(index = 0, type = DataType.WORD, desc = "时间间隔（秒）")
     public Integer getInterval() {

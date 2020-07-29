@@ -19,6 +19,14 @@ public class T8304 extends AbstractMessage<Header> {
     private Integer length;
     private String content;
 
+    public T8304() {
+    }
+
+    public T8304(Header header, Integer type) {
+        super(header);
+        this.type = type;
+    }
+
     @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
     public Integer getType() {
         return type;

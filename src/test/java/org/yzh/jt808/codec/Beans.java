@@ -431,7 +431,7 @@ public class Beans {
     public static T8400 T8400() {
         T8400 bean = new T8400();
         bean.setType(T8400.Normal);
-        bean.setContent("1234567890123");
+        bean.setMobileNo("1234567890123");
         return bean;
     }
 

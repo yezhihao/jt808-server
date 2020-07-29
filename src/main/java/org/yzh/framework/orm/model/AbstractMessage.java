@@ -12,6 +12,10 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
     public AbstractMessage() {
     }
 
+    public AbstractMessage(T header) {
+        this.header = header;
+    }
+
     public T getHeader() {
         return header;
     }
