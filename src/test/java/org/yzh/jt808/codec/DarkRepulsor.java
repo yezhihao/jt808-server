@@ -12,7 +12,7 @@ import org.yzh.protocol.codec.JTMessageEncoder;
  */
 public class DarkRepulsor extends JTMessageEncoder {
 
-    private static final DarkRepulsor darkRepulsor = new DarkRepulsor("org.yzh.web.jt");
+    private static final DarkRepulsor darkRepulsor = new DarkRepulsor("org.yzh.protocol");
 
     public DarkRepulsor(String basePackage) {
         super(basePackage);

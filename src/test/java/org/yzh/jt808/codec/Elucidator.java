@@ -13,7 +13,7 @@ import org.yzh.protocol.codec.JTMessageDecoder;
  */
 public class Elucidator extends JTMessageDecoder {
 
-    private static final Elucidator elucidator = new Elucidator("org.yzh.web.jt");
+    private static final Elucidator elucidator = new Elucidator("org.yzh.protocol");
 
     public Elucidator(String basePackage) {
         super(basePackage);

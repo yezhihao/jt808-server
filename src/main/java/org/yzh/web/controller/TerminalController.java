@@ -95,8 +95,8 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "服务器向终端发起链路检测请求")
-    @RequestMapping(value = "{terminalId}/alarm_ack", method = RequestMethod.POST)
-    public T0001 服务器向终端发起链路检测请求(@PathVariable("terminalId") String terminalId) {
+    @RequestMapping(value = "{terminalId}/check_link", method = RequestMethod.POST)
+    public T0001 checkLink(@PathVariable("terminalId") String terminalId) {
         RawMessage message = new RawMessage(new Header(JT808.服务器向终端发起链路检测请求, terminalId));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
@@ -256,8 +256,8 @@ public class TerminalController {
     }
 
     @ApiOperation(value = "行驶记录仪参数下传命令")
-    @RequestMapping(value = "{terminalId}/data_record", method = RequestMethod.GET)
-    public T0001 行驶记录仪参数下传命令(@PathVariable("terminalId") String terminalId) {
+    @RequestMapping(value = "{terminalId}/recorder", method = RequestMethod.GET)
+    public T0001 recorder(@PathVariable("terminalId") String terminalId) {
         //TODO 2019
         RawMessage message = new RawMessage(new Header(JT808.行驶记录仪参数下传命令, terminalId));
         T0001 response = messageManager.request(message, T0001.class);
