@@ -168,7 +168,7 @@ public class Beans {
         attributes.put(Speed.attributeId, new Speed(33));
         attributes.put(AlarmEventId.attributeId, new AlarmEventId(44));
         attributes.put(TirePressure.attributeId, new TirePressure((byte) 55, (byte) 55, (byte) 55));
-//        attributes.response(CarriageTemperature.attributeId, new CarriageTemperature(2));
+        attributes.put(CarriageTemperature.attributeId, new CarriageTemperature(2));
         attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 66, 66));
         attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
         attributes.put(RouteDriveTimeAlarm.attributeId, new RouteDriveTimeAlarm(88, 88, (byte) 88));

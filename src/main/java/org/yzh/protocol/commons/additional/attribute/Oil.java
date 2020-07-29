@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class Oil extends Attribute {
 
-    public static int attributeId = 0x02;
+    public static final int attributeId = 0x02;
     private int value;
 
     public Oil() {

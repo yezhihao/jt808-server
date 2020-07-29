@@ -24,20 +24,20 @@ public abstract class PositionAttributeUtils {
     private static final Map<Integer, Function<byte[], Attribute>> FUNCTIONS = new HashMap<>(15);
 
     static {
-        FUNCTIONS.put(new Mileage().getAttributeId(), bytes -> new Mileage().formBytes(bytes));
-        FUNCTIONS.put(new Oil().getAttributeId(), bytes -> new Oil().formBytes(bytes));
-        FUNCTIONS.put(new Speed().getAttributeId(), bytes -> new Speed().formBytes(bytes));
-        FUNCTIONS.put(new AlarmEventId().getAttributeId(), bytes -> new AlarmEventId().formBytes(bytes));
-        FUNCTIONS.put(new TirePressure().getAttributeId(), bytes -> new TirePressure().formBytes(bytes));
-        FUNCTIONS.put(new CarriageTemperature().getAttributeId(), bytes -> new CarriageTemperature().formBytes(bytes));
-        FUNCTIONS.put(new OverSpeedAlarm().getAttributeId(), bytes -> new OverSpeedAlarm().formBytes(bytes));
-        FUNCTIONS.put(new InOutAreaAlarm().getAttributeId(), bytes -> new InOutAreaAlarm().formBytes(bytes));
-        FUNCTIONS.put(new RouteDriveTimeAlarm().getAttributeId(), bytes -> new RouteDriveTimeAlarm().formBytes(bytes));
-        FUNCTIONS.put(new Signal().getAttributeId(), bytes -> new Signal().formBytes(bytes));
-        FUNCTIONS.put(new IoState().getAttributeId(), bytes -> new IoState().formBytes(bytes));
-        FUNCTIONS.put(new AnalogQuantity().getAttributeId(), bytes -> new AnalogQuantity().formBytes(bytes));
-        FUNCTIONS.put(new SignalStrength().getAttributeId(), bytes -> new SignalStrength().formBytes(bytes));
-        FUNCTIONS.put(new GnssCount().getAttributeId(), bytes -> new GnssCount().formBytes(bytes));
+        FUNCTIONS.put(Mileage.attributeId, bytes -> new Mileage().formBytes(bytes));
+        FUNCTIONS.put(Oil.attributeId, bytes -> new Oil().formBytes(bytes));
+        FUNCTIONS.put(Speed.attributeId, bytes -> new Speed().formBytes(bytes));
+        FUNCTIONS.put(AlarmEventId.attributeId, bytes -> new AlarmEventId().formBytes(bytes));
+        FUNCTIONS.put(TirePressure.attributeId, bytes -> new TirePressure().formBytes(bytes));
+        FUNCTIONS.put(CarriageTemperature.attributeId, bytes -> new CarriageTemperature().formBytes(bytes));
+        FUNCTIONS.put(OverSpeedAlarm.attributeId, bytes -> new OverSpeedAlarm().formBytes(bytes));
+        FUNCTIONS.put(InOutAreaAlarm.attributeId, bytes -> new InOutAreaAlarm().formBytes(bytes));
+        FUNCTIONS.put(RouteDriveTimeAlarm.attributeId, bytes -> new RouteDriveTimeAlarm().formBytes(bytes));
+        FUNCTIONS.put(Signal.attributeId, bytes -> new Signal().formBytes(bytes));
+        FUNCTIONS.put(IoState.attributeId, bytes -> new IoState().formBytes(bytes));
+        FUNCTIONS.put(AnalogQuantity.attributeId, bytes -> new AnalogQuantity().formBytes(bytes));
+        FUNCTIONS.put(SignalStrength.attributeId, bytes -> new SignalStrength().formBytes(bytes));
+        FUNCTIONS.put(GnssCount.attributeId, bytes -> new GnssCount().formBytes(bytes));
     }
 
     public static Map<Integer, Attribute> transform(List<BytesAttribute> bytesAttributes) {

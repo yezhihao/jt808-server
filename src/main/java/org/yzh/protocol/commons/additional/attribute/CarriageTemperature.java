@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class CarriageTemperature extends Attribute {
 
-    public static int attributeId;
+    public static final int attributeId = 0x06;
     private int value;
 
     public CarriageTemperature() {
@@ -20,7 +20,7 @@ public class CarriageTemperature extends Attribute {
     }
 
     public int getAttributeId() {
-        return 0x06;
+        return attributeId;
     }
 
     @Override

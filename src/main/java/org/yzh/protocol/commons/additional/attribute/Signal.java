@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class Signal extends Attribute {
 
-    public static int attributeId = 0x25;
+    public static final int attributeId = 0x25;
     private int value;
 
     public Signal() {

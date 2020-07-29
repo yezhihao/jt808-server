@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class Mileage extends Attribute {
 
-    public static int attributeId = 0x01;
+    public static final int attributeId = 0x01;
     private int value;
 
     public Mileage() {

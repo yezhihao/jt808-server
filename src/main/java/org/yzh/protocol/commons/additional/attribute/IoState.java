@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class IoState extends Attribute {
 
-    public static int attributeId = 0x2a;
+    public static final int attributeId = 0x2a;
     private int value;
 
     public IoState() {

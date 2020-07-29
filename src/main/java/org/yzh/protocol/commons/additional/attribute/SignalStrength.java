@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class SignalStrength extends Attribute {
 
-    public static int attributeId = 0x30;
+    public static final int attributeId = 0x30;
     private int value;
 
     public SignalStrength() {

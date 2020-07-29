@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class Speed extends Attribute {
 
-    public static int attributeId = 0x03;
+    public static final int attributeId = 0x03;
     private int value;
 
     public Speed() {

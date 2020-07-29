@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class InOutAreaAlarm extends Attribute {
 
-    public static int attributeId = 0x12;
+    public static final int attributeId = 0x12;
     /** 位置类型 */
     private byte positionType;
     /** 区域或路段ID */

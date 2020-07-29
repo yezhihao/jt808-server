@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class TirePressure extends Attribute {
 
-    public static int attributeId = 0x05;
+    public static final int attributeId = 0x05;
     private byte[] value;
 
     public TirePressure() {

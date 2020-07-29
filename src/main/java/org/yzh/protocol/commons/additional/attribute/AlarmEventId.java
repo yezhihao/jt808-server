@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class AlarmEventId extends Attribute {
 
-    public static int attributeId = 0x04;
+    public static final int attributeId = 0x04;
     private int value;
 
     public AlarmEventId() {

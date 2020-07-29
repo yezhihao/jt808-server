@@ -331,19 +331,26 @@ public class TestBeans {
         return hex;
     }
 
+    private static boolean show = true;
+
+    private static void println(String hex1) {
+        if (show)
+            System.out.println(hex1);
+    }
+
     public static void selfCheck(String hex1) {
-        System.out.println(hex1);
+        println(hex1);
 
         AbstractMessage bean1 = transform(hex1);
         String json1 = JsonUtils.toJson(bean1);
-        System.out.println(json1);
+        println(json1);
 
         String hex2 = transform(bean1);
-        System.out.println(hex2);
+        println(hex2);
 
         AbstractMessage bean2 = transform(hex2);
         String json2 = JsonUtils.toJson(bean2);
-        System.out.println(json2);
+        println(json2);
 
         System.out.println();
         assertEquals("hex not equals", hex1, hex2);
@@ -352,17 +359,17 @@ public class TestBeans {
 
     public static void selfCheck(AbstractMessage bean1) {
         String json1 = JsonUtils.toJson(bean1);
-        System.out.println("json1 " + json1);
+        println("json1 " + json1);
 
         String hex1 = transform(bean1);
-        System.out.println("hex1 " + hex1);
+        println("hex1 " + hex1);
 
         AbstractMessage bean2 = transform(hex1);
         String json2 = JsonUtils.toJson(bean2);
-        System.out.println("json2 " + json2);
+        println("json2 " + json2);
 
         String hex2 = transform(bean2);
-        System.out.println("hex2 " + hex2);
+        println("hex2 " + hex2);
 
         assertEquals("hex not equals", hex1, hex2);
         assertEquals("object not equals", json1, json2);

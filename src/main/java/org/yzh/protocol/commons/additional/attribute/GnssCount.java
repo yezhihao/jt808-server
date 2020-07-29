@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class GnssCount extends Attribute {
 
-    public static int attributeId = 0x31;
+    public static final int attributeId = 0x31;
     private int value;
 
     public GnssCount() {

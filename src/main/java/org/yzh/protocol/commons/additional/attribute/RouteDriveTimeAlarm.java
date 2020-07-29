@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class RouteDriveTimeAlarm extends Attribute {
 
-    public static int attributeId = 0x13;
+    public static final int attributeId = 0x13;
     /** 路段ID */
     private int routeId;
     /** 行驶时间,单位为秒(s) */

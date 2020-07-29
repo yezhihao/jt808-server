@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.additional.Attribute;
  */
 public class AnalogQuantity extends Attribute {
 
-    public static int attributeId = 0x2b;
+    public static final int attributeId = 0x2b;
     private int value;
 
     public AnalogQuantity() {
