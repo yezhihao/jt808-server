@@ -31,7 +31,8 @@ public class Beans {
     public static AbstractMessage H2013(AbstractMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
-        header.setMessageId(type.value()[0]);
+        if (type != null)
+            header.setMessageId(type.value()[0]);
         header.setMobileNo("12345678901");
         header.setSerialNo((int) Short.MAX_VALUE);
         header.setEncryption(0);
@@ -44,7 +45,8 @@ public class Beans {
     public static AbstractMessage H2019(AbstractMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
-        header.setMessageId(type.value()[0]);
+        if (type != null)
+            header.setMessageId(type.value()[0]);
         header.setVersionNo(1);
         header.setMobileNo("17299841738");
         header.setSerialNo(65535);

@@ -63,14 +63,10 @@ public abstract class MessageDecoder {
         }
 
         Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());
+        if (bodyClass == null)
+            bodyClass = RawMessage.class;
+
         AbstractMessage message = null;
-
-        if (bodyClass == null) {
-            message = new RawMessage();
-            message.setHeader(header);
-            return message;
-        }
-
         int headLen = header.getHeadLength();
         int bodyLen = header.getBodyLength();
 
