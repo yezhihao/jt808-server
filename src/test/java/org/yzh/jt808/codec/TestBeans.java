@@ -61,6 +61,12 @@ public class TestBeans {
     }
 
     @Test
+    public void testT0002() {
+        selfCheck(H2013(T0002()));
+        selfCheck(H2019(T0002()));
+    }
+
+    @Test
     public void testT0200() {
         selfCheck(H2013(T0200Attributes()));
         selfCheck(H2019(T0200Attributes()));

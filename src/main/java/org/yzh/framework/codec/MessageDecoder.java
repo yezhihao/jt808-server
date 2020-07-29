@@ -63,7 +63,7 @@ public abstract class MessageDecoder {
         }
 
         Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());
-        AbstractMessage message;
+        AbstractMessage message = null;
 
         if (bodyClass == null) {
             message = new RawMessage();
@@ -82,32 +82,30 @@ public abstract class MessageDecoder {
 
             byte[][] packages = multiPacketManager.addAndGet(header, bytes);
             if (packages != null) {
-
                 ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
                 message = decode(bodyBuf, bodyClass, version);
-                message.setHeader(header);
-            } else {
-                try {
-                    AbstractMessage abstractMessage = bodyClass.newInstance();
-                    abstractMessage.setHeader(header);
-                    return abstractMessage;
-                } catch (Exception e) {
-                }
-                return null;
             }
         } else {
             buf.readerIndex(headLen);
             message = decode(buf, bodyClass, version);
-            message.setHeader(header);
         }
+        if (message == null)
+            try {
+                message = bodyClass.newInstance();
+            } catch (Exception e) {
+            }
+
+        message.setHeader(header);
         return message;
     }
 
 
     public <T> T decode(ByteBuf buf, Class<T> clazz, int version) {
         BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(clazz, version);
-        if (beanMetadata == null)
-            throw new RuntimeException(clazz.getName() + "未找到 BeanMetadata");
+        if (beanMetadata == null) {
+            log.warn(clazz.getName() + "未找到 BeanMetadata");
+            return null;
+        }
 
         T result = null;
         boolean isEmpty = true;//防止死循环

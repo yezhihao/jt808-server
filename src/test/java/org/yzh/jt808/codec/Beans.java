@@ -3,6 +3,7 @@ package org.yzh.jt808.codec;
 import org.yzh.framework.commons.ClassUtils;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.TerminalParameter;
@@ -68,6 +69,12 @@ public class Beans {
         bean.setSerialNo(123);
         bean.setReplyId(456);
         bean.setResultCode(3);
+        return bean;
+    }
+
+    //终端心跳
+    public static RawMessage T0002() {
+        RawMessage bean = new RawMessage();
         return bean;
     }
 
