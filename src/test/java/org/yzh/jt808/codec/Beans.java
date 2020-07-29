@@ -7,7 +7,9 @@ import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.TerminalParameter;
+import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ParameterUtils;
+import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.additional.Attribute;
 import org.yzh.protocol.commons.additional.attribute.*;
 import org.yzh.protocol.t808.*;
@@ -403,7 +405,7 @@ public class Beans {
     //信息点播菜单设置
     public static T8303 T8303() {
         T8303 bean = new T8303();
-        bean.setType(T8303.Append);
+        bean.setType(Action.Append);
         int i = 0;
         bean.addItem(i++, "军事");
         bean.addItem(i++, "国内");
@@ -436,7 +438,7 @@ public class Beans {
     //设置电话本
     public static T8401 T8401() {
         T8401 bean = new T8401();
-        bean.setType(T8401.Append);
+        bean.setType(Action.Append);
         bean.add(new T8401.Item(2, "18217341802", "张三"));
         bean.add(new T8401.Item(1, "123123", "李四"));
         bean.add(new T8401.Item(3, "123123", "王五"));
@@ -453,7 +455,7 @@ public class Beans {
     //设置圆形区域
     public static T8600 T8600() {
         T8600 bean = new T8600();
-        bean.setOperation(T8600.Modify);
+        bean.setAction(ShapeAction.Modify);
         List<T8600.Item> items = new ArrayList<>();
         items.add(new T8600.Item(1, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
         items.add(new T8600.Item(2, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
@@ -477,7 +479,7 @@ public class Beans {
     //设置矩形区域
     public static T8602 T8602() {
         T8602 bean = new T8602();
-        bean.setOperation(T8602.Update);
+        bean.setAction(ShapeAction.Update);
         List<T8602.Item> items = new ArrayList<>();
         items.add(new T8602.Item(1, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
         items.add(new T8602.Item(2, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
@@ -599,7 +601,7 @@ public class Beans {
     //事件设置
     public static T8301 T8301() {
         T8301 bean = new T8301();
-        bean.setType(T8301.Append);
+        bean.setType(Action.Append);
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
         bean.addEvent(3, "t试2");

@@ -17,17 +17,17 @@ import java.util.List;
 public class T8602 extends AbstractMessage<Header> {
 
     /** @see org.yzh.protocol.commons.ShapeAction */
-    private Integer operation;
+    private Integer action;
     private Integer total;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
-    public Integer getOperation() {
-        return operation;
+    public Integer getAction() {
+        return action;
     }
 
-    public void setOperation(Integer operation) {
-        this.operation = operation;
+    public void setAction(Integer action) {
+        this.action = action;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
