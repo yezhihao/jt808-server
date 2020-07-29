@@ -272,11 +272,11 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "存储多媒体数据上传命令")
+    @ApiOperation(value = "存储多媒体数据上传")
     @RequestMapping(value = "{terminalId}/mediadata_report", method = RequestMethod.POST)
     @ResponseBody
     public T0001 mediaDataReportRequest(@PathVariable("terminalId") String terminalId, @RequestBody T8803 message) {
-        message.setHeader(new Header(JT808.存储多媒体数据上传命令, terminalId));
+        message.setHeader(new Header(JT808.存储多媒体数据上传, terminalId));
         T0001 response = (T0001) messageManager.request(message);
         return response;
     }

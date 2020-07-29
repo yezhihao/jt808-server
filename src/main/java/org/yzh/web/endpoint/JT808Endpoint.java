@@ -57,7 +57,7 @@ public class JT808Endpoint {
     public void heartBeat(Header header, Session session) {
     }
 
-    @Mapping(types = 查询服务器时间请求, desc = "查询服务器时间请求")
+    @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
     public T8004 requestTime(Header header, Session session) {
         T8004 result = new T8004(DateUtils.FastDateFormatter.format(new Date(System.currentTimeMillis() + 50)));
         result.setHeader(new Header(查询服务器时间应答, session.currentFlowId(), header.getTerminalId()));
@@ -112,8 +112,8 @@ public class JT808Endpoint {
 
     //=============================================================
 
-    @Mapping(types = 补传分包请求, desc = "补传分包请求")
-    public void 补传分包请求(T8003 message, Session session) {
+    @Mapping(types = 终端补传分包请求, desc = "终端补传分包请求")
+    public void 终端补传分包请求(T8003 message, Session session) {
         Header header = message.getHeader();
     }
 

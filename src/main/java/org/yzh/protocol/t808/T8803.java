@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -11,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Message(JT808.存储多媒体数据上传命令)
+@Message(JT808.存储多媒体数据上传)
 public class T8803 extends AbstractMessage<Header> {
 
     private Integer type;

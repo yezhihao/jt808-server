@@ -11,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
-@Message(JT808.补传分包请求)
+@Message({JT808.终端补传分包请求, JT808.服务器补传分包请求})
 public class T8003 extends AbstractMessage<Header> {
 
     private Integer serialNo;
