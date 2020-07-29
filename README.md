@@ -32,10 +32,15 @@
 #### 整个项目分为四部分：
 
 #### 1.framework，核心模块，不推荐修改，有BUG或者扩展的需求，建议提交issues或者联系本人
+
  codec 抽象的编码解码工具 
+ 
  mvc 消息分发，消息处理
+ 
  netty netty相关的实现
+ 
  orm 消息元数据的描述
+ 
  session 消息和会话的管理
  
 核心注解：
@@ -53,7 +58,7 @@ MessageDecoder、MessageEncoder实现了对@Field的处理，
 同样AsyncBatchHandler -> @Mapping、@AsyncBatch 
 
 
-#### 2.protocol包存放部标协议相关，一般不推荐做大量改动，会定期补充协议，希望其他朋友能够将定义的协议模型分享给大家
+#### 2.protocol包存放部标协议相关，一般不推荐做大量改动
 basics 部标协议通用消息头，以及复用的消息定义
 codec 部标编码解码工具
 commons 部标协议ID，附加信息工具类等
