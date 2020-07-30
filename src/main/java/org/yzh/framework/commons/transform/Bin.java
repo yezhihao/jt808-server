@@ -36,4 +36,15 @@ public class Bin {
     public static int set(int n, int i, boolean bool) {
         return bool ? n | bits[i] : n ^ (n & bits[i]);
     }
+
+    /**
+     * 按位写入int
+     * 数组第一个int为首位
+     */
+    public static int writeInt(int... bit) {
+        int r = 0;
+        for (int i = 0; i < bit.length; i++)
+            r = bit[i] > 0 ? (r | bits[i]) : (r ^ (r & bits[i]));
+        return r;
+    }
 }

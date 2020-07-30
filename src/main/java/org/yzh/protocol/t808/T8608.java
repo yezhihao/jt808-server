@@ -22,6 +22,13 @@ public class T8608 extends AbstractMessage<Header> {
     private Integer total;
     private List<Item> items;
 
+    public T8608() {
+    }
+
+    public T8608(String mobileNo) {
+        super(new Header(mobileNo, JT808.查询区域或线路数据));
+    }
+
     @Field(index = 0, type = DataType.BYTE, desc = "查询类型")
     public Integer getType() {
         return type;

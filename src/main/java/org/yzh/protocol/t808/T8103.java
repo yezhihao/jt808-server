@@ -21,6 +21,13 @@ public class T8103 extends AbstractMessage<Header> {
     private Integer total;
     private List<TerminalParameter> items;
 
+    public T8103() {
+    }
+
+    public T8103(String mobileNo) {
+        super(new Header(mobileNo, JT808.设置终端参数));
+    }
+
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public Integer getTotal() {
         if (items == null || items.isEmpty())

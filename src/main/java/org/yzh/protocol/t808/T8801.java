@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -17,7 +17,7 @@ public class T8801 extends AbstractMessage<Header> {
     private Integer channelId;
     private Integer command;
     private Integer time;
-    private Integer saveSign;
+    private Integer save;
     private Integer resolution;
     private Integer quality;
     private Integer brightness;
@@ -60,12 +60,12 @@ public class T8801 extends AbstractMessage<Header> {
 
     /** 1:保存 0:实时上传 */
     @Field(index = 5, type = DataType.BYTE, desc = "保存标志")
-    public Integer getSaveSign() {
-        return saveSign;
+    public Integer getSave() {
+        return save;
     }
 
-    public void setSaveSign(Integer saveSign) {
-        this.saveSign = saveSign;
+    public void setSave(Integer save) {
+        this.save = save;
     }
 
     /**

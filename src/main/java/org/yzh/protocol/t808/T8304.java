@@ -22,9 +22,8 @@ public class T8304 extends AbstractMessage<Header> {
     public T8304() {
     }
 
-    public T8304(Header header, Integer type) {
-        super(header);
-        this.type = type;
+    public T8304(String mobileNo) {
+        super(new Header(mobileNo, JT808.信息服务));
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "信息类型")

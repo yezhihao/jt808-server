@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -15,7 +15,16 @@ import org.yzh.protocol.commons.JT808;
 public class T8805 extends AbstractMessage<Header> {
 
     private Integer id;
-    private Integer deleteSign;
+    private Integer delete;
+
+    public T8805() {
+    }
+
+    public T8805(String terminalId, int id, int delete) {
+        super(new Header(terminalId, JT808.单条存储多媒体数据检索上传命令));
+        this.id = id;
+        this.delete = delete;
+    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID")
     public Integer getId() {
@@ -27,11 +36,11 @@ public class T8805 extends AbstractMessage<Header> {
     }
 
     @Field(index = 4, type = DataType.BYTE, desc = "删除标志:0.保留；1.删除；")
-    public Integer getDeleteSign() {
-        return deleteSign;
+    public Integer getDelete() {
+        return delete;
     }
 
-    public void setDeleteSign(Integer deleteSign) {
-        this.deleteSign = deleteSign;
+    public void setDelete(Integer delete) {
+        this.delete = delete;
     }
 }

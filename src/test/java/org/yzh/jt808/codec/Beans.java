@@ -1,6 +1,7 @@
 package org.yzh.jt808.codec;
 
 import org.yzh.framework.commons.ClassUtils;
+import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
@@ -360,7 +361,7 @@ public class Beans {
     //查询指定终端参数
     public static T8106 T8106() {
         T8106 bean = new T8106();
-        bean.setIds(new byte[]{1, 3, 5, 7, 9, 127});
+        bean.setId(new byte[]{1, 3, 5, 7, 9, 127});
         return bean;
     }
 
@@ -539,7 +540,7 @@ public class Beans {
         bean.setChannelId(1);
         bean.setCommand(2);
         bean.setTime(3);
-        bean.setSaveSign(1);
+        bean.setSave(1);
         bean.setResolution(4);
         bean.setQuality(5);
         bean.setBrightness(255);
@@ -568,7 +569,7 @@ public class Beans {
         bean.setEvent(3);
         bean.setEndTime("2012121212");
         bean.setStartTime("2012121212");
-        bean.setDeleteSign(0);
+        bean.setDelete(0);
         return bean;
     }
 
@@ -577,7 +578,7 @@ public class Beans {
         T8804 bean = new T8804();
         bean.setCommand(0x01);
         bean.setTime(6328);
-        bean.setSaveSign(1);
+        bean.setSave(1);
         bean.setAudioSampleRate(0);
         return bean;
     }
@@ -586,7 +587,7 @@ public class Beans {
     public static T8805 T8805() {
         T8805 bean = new T8805();
         bean.setId(28410);
-        bean.setDeleteSign(1);
+        bean.setDelete(1);
         return bean;
     }
 
@@ -610,7 +611,7 @@ public class Beans {
 
     public static T8300 T8300() {
         T8300 bean = new T8300();
-        bean.setSign(9);
+        bean.setSign(Bin.writeInt(1, 1, 1, 1, 1, 1));
         bean.setContent("测试123@456#abc!...结束");
         return bean;
     }

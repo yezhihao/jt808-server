@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -16,6 +16,17 @@ public class T8203 extends AbstractMessage<Header> {
 
     private Integer serialNo;
     private Integer type;
+
+
+    public T8203() {
+    }
+
+    public T8203(String mobileNo, int serialNo, int type) {
+        super(new Header(mobileNo, JT808.人工确认报警消息));
+        this.serialNo = serialNo;
+        this.type = type;
+    }
+
 
     @Field(index = 0, type = DataType.WORD, desc = "消息流水号")
     public Integer getSerialNo() {

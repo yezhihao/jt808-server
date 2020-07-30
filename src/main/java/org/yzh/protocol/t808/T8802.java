@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -19,6 +19,13 @@ public class T8802 extends AbstractMessage<Header> {
     private Integer event;
     private String startTime;
     private String endTime;
+
+    public T8802() {
+    }
+
+    public T8802(String mobileNo) {
+        super(new Header(mobileNo, JT808.存储多媒体数据检索));
+    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "多媒体类型:0.图像；1.音频；2.视频；")
     public Integer getType() {

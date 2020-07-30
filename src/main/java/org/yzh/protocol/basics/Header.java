@@ -1,10 +1,10 @@
 package org.yzh.protocol.basics;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.model.AbstractHeader;
+import org.yzh.framework.orm.model.DataType;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -38,6 +38,11 @@ public class Header extends AbstractHeader {
     public Header(Integer messageId, Integer serialNo, String mobileNo) {
         this.messageId = messageId;
         this.serialNo = serialNo;
+        this.mobileNo = mobileNo;
+    }
+
+    public Header(String mobileNo, Integer messageId) {
+        this.messageId = messageId;
         this.mobileNo = mobileNo;
     }
 

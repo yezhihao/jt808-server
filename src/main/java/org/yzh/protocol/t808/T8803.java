@@ -19,7 +19,14 @@ public class T8803 extends AbstractMessage<Header> {
     private Integer event;
     private String startTime;
     private String endTime;
-    private Integer deleteSign;
+    private Integer delete;
+
+    public T8803() {
+    }
+
+    public T8803(String mobileNo) {
+        super(new Header(mobileNo, JT808.存储多媒体数据上传));
+    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "多媒体类型:0.图像；1.音频；2.视频；")
     public Integer getType() {
@@ -67,11 +74,11 @@ public class T8803 extends AbstractMessage<Header> {
     }
 
     @Field(index = 15, type = DataType.BYTE, desc = "删除标志:0.保留；1.删除；")
-    public Integer getDeleteSign() {
-        return deleteSign;
+    public Integer getDelete() {
+        return delete;
     }
 
-    public void setDeleteSign(Integer deleteSign) {
-        this.deleteSign = deleteSign;
+    public void setDelete(Integer delete) {
+        this.delete = delete;
     }
 }
