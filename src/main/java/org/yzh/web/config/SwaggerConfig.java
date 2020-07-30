@@ -6,6 +6,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -46,8 +47,8 @@ public class SwaggerConfig {
                         "* 支持2013、2019两个版本的部标协议。\n" +
                         "* 内置封包&解包过程的分析工具，便于查错。\n" +
                         "* 完善的测试用例，稳定发版")
-                .contact("QQ: 1527621790")
-                .termsOfServiceUrl("")
+                .contact(new Contact("QQ: 1527621790", "https://gitee.com/yezhihao/jt808-server", ""))
+                .termsOfServiceUrl("https://gitee.com/yezhihao/jt808-server")
                 .license("")
                 .licenseUrl("")
                 .version("1.0.0")
