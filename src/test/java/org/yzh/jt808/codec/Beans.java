@@ -88,8 +88,8 @@ public class Beans {
         bean.setProvinceId(31);
         bean.setCityId(115);
         bean.setManufacturerId("4");
-        bean.setTerminalType("BSJ-GF-06");
-        bean.setTerminalId("test123");
+        bean.setDeviceType("BSJ-GF-06");
+        bean.setDeviceId("test123");
         bean.setLicensePlateColor(1);
         bean.setLicensePlate("测A888888");
         return bean;

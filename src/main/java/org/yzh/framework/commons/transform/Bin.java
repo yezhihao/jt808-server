@@ -8,21 +8,31 @@ package org.yzh.framework.commons.transform;
  */
 public class Bin {
 
-    private static final int[] bits = new int[33];
+    private static final int[] bits = new int[32];
 
     static {
-        bits[1] = 1;
-        for (int i = 2; i < bits.length; i++) {
-            bits[i] = bits[i - 1] * 2;
+        bits[0] = 1;
+        for (int i = 1; i < bits.length; i++) {
+            bits[i] = bits[i - 1] << 1;
         }
     }
 
-    /** 读取n的第i位 */
+    /**
+     * 读取n的第i位
+     *
+     * @param n int32
+     * @param i 取值范围0-31
+     */
     public static boolean get(int n, int i) {
         return (n & bits[i]) == bits[i];
     }
 
-    /** 写入bool到n的第i位 */
+    /**
+     * 写入bool到n的第i位
+     *
+     * @param n int32
+     * @param i 取值范围0-31
+     */
     public static int set(int n, int i, boolean bool) {
         return bool ? n | bits[i] : n ^ (n & bits[i]);
     }

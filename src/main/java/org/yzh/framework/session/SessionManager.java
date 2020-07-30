@@ -29,14 +29,6 @@ public enum SessionManager {
 
     private Map<String, Session> terminalIdMap = new ConcurrentHashMap<>();
 
-    public boolean containsKey(String sessionId) {
-        return sessionIdMap.containsKey(sessionId);
-    }
-
-    public boolean containsSession(Session session) {
-        return sessionIdMap.containsValue(session);
-    }
-
     public Session getBySessionId(String sessionId) {
         return sessionIdMap.get(sessionId);
     }

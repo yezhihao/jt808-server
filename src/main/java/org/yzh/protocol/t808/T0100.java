@@ -1,10 +1,10 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -18,8 +18,8 @@ public class T0100 extends AbstractMessage<Header> {
     private Integer provinceId;
     private Integer cityId;
     private String manufacturerId;
-    private String terminalType;
-    private String terminalId;
+    private String deviceType;
+    private String deviceId;
     private Integer licensePlateColor;
     private String licensePlate;
 
@@ -57,23 +57,23 @@ public class T0100 extends AbstractMessage<Header> {
     /** 由制造商自行定义,位数不足八位补空格 */
     @Fs({@Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0),
             @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)})
-    public String getTerminalType() {
-        return terminalType;
+    public String getDeviceType() {
+        return deviceType;
     }
 
-    public void setTerminalType(String terminalType) {
-        this.terminalType = terminalType;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义 */
     @Fs({@Field(index = 29, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0),
             @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID", version = 1)})
-    public String getTerminalId() {
-        return terminalId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
