@@ -264,7 +264,7 @@ public class TerminalController {
 
     @ApiOperation("摄像头立即拍摄命令")
     @PostMapping("{terminalId}/camera_shot")
-    public T0805 cameraShot(@PathVariable("terminalId") String terminalId, @RequestBody T8804 message) {
+    public T0805 cameraShot(@PathVariable("terminalId") String terminalId, @RequestBody T8801 message) {
         message.setHeader(new Header(JT808.摄像头立即拍摄命令, terminalId));
         T0805 response = messageManager.request(message, T0805.class);
         return response;

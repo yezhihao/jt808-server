@@ -15,10 +15,8 @@ public class APIResult<T> {
     public static final APIResult SUCCESS = (APIResult) ImmutableBean.create(new APIResult());
 
     protected int code;
-
     protected String msg;
-
-    protected String stackMsg;
+    protected String detailMsg;
 
     protected T data;
 
@@ -30,13 +28,13 @@ public class APIResult<T> {
     public APIResult(Exception e) {
         this.code = DefaultCodes.UnknownError.code;
         this.msg = e.getMessage();
-        this.stackMsg = ExceptionUtils.getStackTrace(e);
+        this.detailMsg = ExceptionUtils.getStackTrace(e);
     }
 
     public APIResult(ResultCode code, Exception e) {
         this.code = code.getCode();
         this.msg = code.getMessage();
-        this.stackMsg = ExceptionUtils.getStackTrace(e);
+        this.detailMsg = ExceptionUtils.getStackTrace(e);
     }
 
     public APIResult(APIException e) {
@@ -52,6 +50,12 @@ public class APIResult<T> {
     public APIResult(ResultCode code, String message) {
         this.code = code.getCode();
         this.msg = message;
+    }
+
+    public APIResult(ResultCode code, String message, String detailMsg) {
+        this.code = code.getCode();
+        this.msg = message;
+        this.detailMsg = detailMsg;
     }
 
     public APIResult(T t) {
@@ -76,15 +80,6 @@ public class APIResult<T> {
         this.code = code;
     }
 
-    @JsonProperty("stackMsg")
-    public String getStackMsg() {
-        return stackMsg;
-    }
-
-    public void setStackMsg(String stackMsg) {
-        this.stackMsg = stackMsg;
-    }
-
     @JsonProperty("msg")
     public String getMsg() {
         return msg;
@@ -92,6 +87,15 @@ public class APIResult<T> {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @JsonProperty("detailMsg")
+    public String getDetailMsg() {
+        return detailMsg;
+    }
+
+    public void setDetailMsg(String detailMsg) {
+        this.detailMsg = detailMsg;
     }
 
     @JsonProperty("data")
