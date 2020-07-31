@@ -82,14 +82,13 @@ public class T0704 extends AbstractMessage<Header> {
 }
 ```
 
-## 3.web 开发样例，个性化需求在这个包下开发，可随意修改
+## 3.web 开箱即用的Demo，业务需求在这个包下开发，可随意修改
 ```sh
 └── web
+    ├── config spring 相关配置
     ├── component.mybatis 附赠极简的mybatis分页插件:D
-    ├── config spring swagger相关配置
     ├── endpoint 808消息入口，所有netty进入的请求都会根据@Mapping转发到此
-    ├── controller web 接口
-    └── service mapper ... 不再赘述
+    └── controller service mapper ... 不再赘述
  ```
 ##### 消息接入：
 ```java
@@ -142,7 +141,7 @@ public class TerminalController {
 * Bootstrap UI：[http://127.0.0.1:8000/doc.html](http://127.0.0.1:8000/doc.html)
 ![Bootstrap UI](https://images.gitee.com/uploads/images/2020/0731/135035_43dfca8e_670717.png "doc2.png")
 
-## 4.Test 808协议全覆盖的测试用例，以及报文解释器
+## 4.test 808协议全覆盖的测试用例，以及报文解释器
 
 * QuickStart 不依赖Spring的启动，可用于Android客户端
 * Beans 测试数据
