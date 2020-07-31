@@ -49,7 +49,7 @@
 * @Message，协议类型，等价Hibernate的 @Table；
 * @Field，属性定义，等价Hibernate的 @Column；
 * @Fs，多版本协议支持
-====================
+
 ## 2.protocol 部标协议定义，不推荐做大量修改
 ```sh
 └── protocol
@@ -81,7 +81,7 @@ public class T0704 extends AbstractMessage<Header> {
     public void setItems(List<Item> items) { this.items = items; this.total = items.size(); }
 }
 ```
-====================
+
 ## 3.web 开发样例，个性化需求在这个包下开发，可随意修改
 ```sh
 └── web
@@ -141,8 +141,8 @@ public class TerminalController {
 * Swagger UI：[http://127.0.0.1:8000/swagger-ui.html](http://127.0.0.1:8000/swagger-ui.html)
 * Bootstrap UI：[http://127.0.0.1:8000/doc.html](http://127.0.0.1:8000/doc.html)
 ![Bootstrap UI](https://images.gitee.com/uploads/images/2020/0731/135035_43dfca8e_670717.png "doc2.png")
-====================
-#### 4.Test 808协议全覆盖的测试用例，以及报文解释器
+
+## 4.Test 808协议全覆盖的测试用例，以及报文解释器
 
 * QuickStart 不依赖Spring的启动，可用于Android客户端
 * Beans 测试数据
