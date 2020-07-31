@@ -213,10 +213,11 @@ Elucidator 运行效果如下：
 28	01040000000b02020016030200210402002c05033737371105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e310128	位置附加信息	[BytesAttribute[id=1,length=4,value={0,0,0,11}], BytesAttribute[id=2,length=2,value={0,22}], BytesAttribute[id=3,length=2,value={0,33}], BytesAttribute[id=4,length=2,value={0,44}], BytesAttribute[id=5,length=3,value={55,55,55}], BytesAttribute[id=17,length=5,value={66,0,0,0,66}], BytesAttribute[id=18,length=6,value={77,0,0,0,77,77}], BytesAttribute[id=19,length=7,value={0,0,0,88,0,88,88}], BytesAttribute[id=37,length=4,value={0,0,0,99}], BytesAttribute[id=42,length=2,value={0,10}], BytesAttribute[id=43,length=4,value={0,0,0,20}], BytesAttribute[id=48,length=1,value={30}], BytesAttribute[id=49,length=1,value={40}]]
 ```
 
-![使用发包工具模拟请求](https://images.gitee.com/uploads/images/2019/0705/162745_9becaf08_670717.png)
 使用发包工具模拟请求
-
+```
 7e020000610123456789017fff000004000000080006eeb6ad02633df701380003006320070719235901040000000b02020016030200210402002c05033737371105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e3101286b7e
+```
+![使用发包工具模拟请求](https://images.gitee.com/uploads/images/2019/0705/162745_9becaf08_670717.png)
 
 项目会不定期进行更新，建议star和watch一份，您的支持是我最大的动力。
 
