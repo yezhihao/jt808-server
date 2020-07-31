@@ -1,6 +1,6 @@
 部标808协议快速开发包
 ====================
-## 项目介绍
+# 项目介绍
 * 基于Netty，实现JT/T 808部标协议的消息分发，与编码解码；
 * 与Spring解耦合，协议编码解码和Netty服务均可独立运行（Android客户端同样适用）；
 * SpringBoot 仅负责将协议暴露至Web接口，目的是方便测试，且为二次开发提供样例；
@@ -8,7 +8,7 @@
 
 问题交流群：[906230542]
 
-## 主要特性
+# 主要特性
 * 代码足够精简，便于二次开发；
 * 致敬Spring、Hibernate设计理念，熟悉Web开发的同学上手极快；
 * 使用注解描述协议，告别繁琐的封包、解包；
@@ -17,19 +17,19 @@
 * 提供报文解释器（解析过程分析工具），编码解码不再抓瞎；
 * 全覆盖的测试用例，稳定发版。
 
-## 代码仓库
+# 代码仓库
  * Gitee仓库地址：[https://gitee.com/yezhihao/jt808-server/tree/master](https://gitee.com/yezhihao/jt808-server/tree/master)
  * Github仓库地址：[https://github.com/yezhihao/jt808-server/tree/master](https://github.com/yezhihao/jt808-server/tree/master)
 
-## 下载方式
+# 下载方式
  * Gitee下载命令：`git clone https://gitee.com/yezhihao/jt808-server -b master`
  * Github下载命令：`git clone https://github.com/yezhihao/jt808-server -b master`
 
-## 使用说明
+# 使用说明
 
-### 项目分为四部分：
+## 项目分为四部分：
 
-### 1.framework，核心模块，不推荐修改，有BUG或扩展的需求，建议提交issues或联系作者
+## 1.framework，核心模块，不推荐修改，有BUG或扩展的需求，建议提交issues或联系作者
 ```sh
 └── framework
     ├── codec 编码解码
@@ -51,7 +51,7 @@
 * @Fs，支持多版本协议
 
 
-### 2.protocol 部标协议定义，不推荐做大量修改
+## 2.protocol 部标协议定义，不推荐做大量修改
 ```sh
 └── protocol
     ├── basics 部标协议通用消息头，以及公共的消息定义
@@ -83,7 +83,7 @@ public class T0704 extends AbstractMessage<Header> {
 }
 ```
 
-### 3.web 开发样例，个性化需求在这个包下开发，可随意修改
+## 3.web 开发样例，个性化需求在这个包下开发，可随意修改
 ```sh
 └── web
     ├── component.mybatis 附赠极简的mybatis分页插件:D
