@@ -28,79 +28,68 @@ public class TCPServer {
     private EventLoopGroup bossGroup = null;
     private EventLoopGroup workerGroup = null;
 
-    private JTConfig jtConfig;
+    private NettyConfig config;
 
-    public TCPServer(JTConfig jtConfig) {
-        this.jtConfig = jtConfig;
+    public TCPServer(NettyConfig config) {
+        this.config = config;
     }
 
-    private void bind() throws Exception {
+    private void startInternal() {
         this.bossGroup = new NioEventLoopGroup();
         this.workerGroup = new NioEventLoopGroup();
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 128)
+                .option(ChannelOption.SO_BACKLOG, 512)
+                .option(ChannelOption.SO_REUSEADDR, true)
+                .childOption(ChannelOption.TCP_NODELAY, true)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
                         ch.pipeline()
-                                .addLast("frameDecoder", new DelimiterBasedFrameDecoder(jtConfig.getMaxFrameLength(),
-                                        Unpooled.wrappedBuffer(jtConfig.getDelimiter()),
-                                        Unpooled.wrappedBuffer(jtConfig.getDelimiter(), jtConfig.getDelimiter())))
-                                .addLast("decoder", new MessageDecoderWrapper(jtConfig.getDecoder()))
-                                .addLast("encoder", new MessageEncoderWrapper(jtConfig.getEncoder(), jtConfig.getDelimiter()))
-                                .addLast("adapter", jtConfig.getAdapter());
+                                .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
+                                        Unpooled.wrappedBuffer(config.delimiter),
+                                        Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
+                                .addLast("decoder", new MessageDecoderWrapper(config.decoder))
+                                .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter))
+                                .addLast("adapter", config.adapter);
                     }
                 });
 
-        this.log.info("TCP服务启动完毕,port={}", jtConfig.getPort());
-        ChannelFuture channelFuture = serverBootstrap.bind(jtConfig.getPort()).sync();
-
-        channelFuture.channel().closeFuture().sync();
+        ChannelFuture channelFuture = serverBootstrap.bind(config.port);
+        channelFuture.channel().closeFuture();
     }
 
-    public synchronized void startServer() {
+    public synchronized void start() {
         if (this.isRunning) {
-            throw new IllegalStateException(this.getName() + " is already started .");
+            log.warn("===TCP服务已经启动, port={}===", config.port);
+            return;
         }
         this.isRunning = true;
-
-        new Thread(() -> {
-            try {
-                this.bind();
-            } catch (Exception e) {
-                this.log.info("TCP服务启动出错:{}", e.getMessage());
-                e.printStackTrace();
-            }
-        }, this.getName()).start();
+        this.startInternal();
+        log.info("===TCP服务启动成功, port={}===", config.port);
     }
 
-    public synchronized void stopServer() {
+    public synchronized void stop() {
         if (!this.isRunning) {
-            throw new IllegalStateException(this.getName() + " is not yet started .");
+            log.warn("===TCP服务已经停止, port={}===", config.port);
         }
         this.isRunning = false;
-
         try {
-            Future<?> future = this.workerGroup.shutdownGracefully().await();
-            if (!future.isSuccess()) {
-                log.error("workerGroup 无法正常停止:{}", future.cause());
-            }
-
-            future = this.bossGroup.shutdownGracefully().await();
-            if (!future.isSuccess()) {
-                log.error("bossGroup 无法正常停止:{}", future.cause());
-            }
+            Future future = this.workerGroup.shutdownGracefully().await();
+            if (!future.isSuccess())
+                log.error("workerGroup 无法正常停止", future.cause());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        this.log.info("TCP服务已经停止...");
-    }
-
-    private String getName() {
-        return "TCP-Server";
+        try {
+            Future future = this.bossGroup.shutdownGracefully().await();
+            if (!future.isSuccess())
+                log.error("bossGroup 无法正常停止", future.cause());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("===TCP服务已经停止, port={}===", config.port);
     }
 }

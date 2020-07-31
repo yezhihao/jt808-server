@@ -2,9 +2,7 @@ package org.yzh.web.endpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.yzh.framework.mvc.HandlerInterceptor;
-import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
@@ -15,8 +13,6 @@ import org.yzh.protocol.t808.T0001;
 
 import static org.yzh.protocol.commons.JT808.平台通用应答;
 
-@Endpoint
-@Component
 public class JTHandlerInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class.getSimpleName());

@@ -6,24 +6,24 @@ import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 
-public class JTConfig {
+public class NettyConfig {
 
-    private final int port;
-    private final int maxFrameLength;
-    private final byte[] delimiter;
-    private final MessageDecoder decoder;
-    private final MessageEncoder encoder;
-    private final ChannelInboundHandlerAdapter adapter;
-    private final HandlerMapping handlerMapping;
-    private final HandlerInterceptor handlerInterceptor;
+    protected final int port;
+    protected final int maxFrameLength;
+    protected final byte[] delimiter;
+    protected final MessageDecoder decoder;
+    protected final MessageEncoder encoder;
+    protected final ChannelInboundHandlerAdapter adapter;
+    protected final HandlerMapping handlerMapping;
+    protected final HandlerInterceptor handlerInterceptor;
 
-    private JTConfig(int port,
-                     int maxFrameLength,
-                     byte[] delimiter,
-                     MessageDecoder decoder,
-                     MessageEncoder encoder,
-                     HandlerMapping handlerMapping,
-                     HandlerInterceptor handlerInterceptor
+    private NettyConfig(int port,
+                        int maxFrameLength,
+                        byte[] delimiter,
+                        MessageDecoder decoder,
+                        MessageEncoder encoder,
+                        HandlerMapping handlerMapping,
+                        HandlerInterceptor handlerInterceptor
     ) {
         this.port = port;
         this.maxFrameLength = maxFrameLength;
@@ -35,35 +35,7 @@ public class JTConfig {
         this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor);
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public int getMaxFrameLength() {
-        return maxFrameLength;
-    }
-
-    public byte[] getDelimiter() {
-        return delimiter;
-    }
-
-    public MessageDecoder getDecoder() {
-        return decoder;
-    }
-
-    public MessageEncoder getEncoder() {
-        return encoder;
-    }
-
-    public HandlerMapping getHandlerMapping() {
-        return handlerMapping;
-    }
-
-    public ChannelInboundHandlerAdapter getAdapter() {
-        return adapter;
-    }
-
-    public static JTConfig.Builder custom() {
+    public static NettyConfig.Builder custom() {
         return new Builder();
     }
 
@@ -115,8 +87,8 @@ public class JTConfig {
             return this;
         }
 
-        public JTConfig build() {
-            return new JTConfig(
+        public NettyConfig build() {
+            return new NettyConfig(
                     this.port,
                     this.maxFrameLength,
                     this.delimiters,
