@@ -60,7 +60,28 @@
     ├── t808 JT/T808协议定义（已完成）
     └── t1078 JT/T1078协议（待补充） 
  ```
- 
+ 消息定义样例：
+ ```java
+@Message(JT808.定位数据批量上传)
+public class T0704 extends AbstractMessage<Header> {
+
+    private Integer total;
+    private Integer type;
+    private List<Item> items;
+
+    @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
+    public Integer getTotal() { return total; }
+    public void setTotal(Integer total) { this.total = total; }
+
+    @Field(index = 2, type = DataType.BYTE, desc = "位置数据类型 0：正常位置批量汇报，1：盲区补报")
+    public Integer getType() { return type; }
+    public void setType(Integer type) { this.type = type; }
+
+    @Field(index = 3, type = DataType.LIST, desc = "位置汇报数据项")
+    public List<Item> getItems() { return items; }    
+    public void setItems(List<Item> items) { this.items = items; this.total = items.size(); }
+}
+```
 
 ### 3.web 开发样例，个性化需求在这个包下开发，可随意修改
 ```sh
