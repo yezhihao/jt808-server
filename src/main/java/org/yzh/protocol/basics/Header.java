@@ -21,7 +21,7 @@ public class Header extends AbstractHeader {
     /** 手机号 */
     protected String mobileNo;
     /** 消息序列号 */
-    protected Integer serialNo;
+    protected int serialNo;
     /** 包总数 */
     protected Integer packageTotal;
     /** 包序号 */
@@ -30,18 +30,18 @@ public class Header extends AbstractHeader {
     public Header() {
     }
 
-    public Header(Integer messageId, String mobileNo) {
+    public Header(int messageId, String mobileNo) {
         this.messageId = messageId;
         this.mobileNo = mobileNo;
     }
 
-    public Header(Integer messageId, Integer serialNo, String mobileNo) {
+    public Header(int messageId, int serialNo, String mobileNo) {
         this.messageId = messageId;
         this.serialNo = serialNo;
         this.mobileNo = mobileNo;
     }
 
-    public Header(String mobileNo, Integer messageId) {
+    public Header(String mobileNo, int messageId) {
         this.messageId = messageId;
         this.mobileNo = mobileNo;
     }
@@ -88,11 +88,11 @@ public class Header extends AbstractHeader {
 
     @Fs({@Field(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
             @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)})
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 

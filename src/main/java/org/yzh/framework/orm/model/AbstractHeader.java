@@ -28,9 +28,9 @@ public abstract class AbstractHeader {
     /** 终端唯一标识 */
     public abstract String getTerminalId();
     /** 消息流水号 */
-    public abstract Integer getSerialNo();
+    public abstract int getSerialNo();
 
-    public abstract void setSerialNo(Integer serialNo);
+    public abstract void setSerialNo(int serialNo);
     /** 消息头长度 */
     public abstract int getHeadLength();
     /** 消息体长度 */
