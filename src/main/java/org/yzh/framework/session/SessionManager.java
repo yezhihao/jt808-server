@@ -2,9 +2,6 @@ package org.yzh.framework.session;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,8 +18,6 @@ public enum SessionManager {
         return Instance;
     }
 
-    private ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-
     private Map<String, Session> terminalIdMap = new ConcurrentHashMap<>();
 
     private ChannelFutureListener remover = future -> {
@@ -37,9 +32,9 @@ public enum SessionManager {
 
     protected void put(String terminalId, Session session) {
         Channel channel = session.channel;
-        if (channelGroup.add(channel))
+        boolean added = terminalIdMap.putIfAbsent(terminalId, session) == null;
+        if (added) {
             channel.closeFuture().addListener(remover);
-
-        terminalIdMap.put(terminalId, session);
+        }
     }
 }
