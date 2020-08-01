@@ -15,31 +15,31 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.终端注册)
 public class T0100 extends AbstractMessage<Header> {
 
-    private Integer provinceId;
-    private Integer cityId;
+    private int provinceId;
+    private int cityId;
     private String manufacturerId;
     private String deviceType;
     private String deviceId;
-    private Integer licensePlateColor;
+    private int licensePlateColor;
     private String licensePlate;
 
     /** 设备安装车辆所在的省域,省域ID采用GB/T2260中规定的行政区划代码6位中前两位 */
     @Field(index = 0, type = DataType.WORD, desc = "省域ID", version = {0, 1})
-    public Integer getProvinceId() {
+    public int getProvinceId() {
         return provinceId;
     }
 
-    public void setProvinceId(Integer provinceId) {
+    public void setProvinceId(int provinceId) {
         this.provinceId = provinceId;
     }
 
     /** 设备安装车辆所在的市域或县域,市县域ID采用GB/T2260中规定的行政区划代码6位中后四位 */
     @Field(index = 2, type = DataType.WORD, desc = "市县域ID", version = {0, 1})
-    public Integer getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 
@@ -79,11 +79,11 @@ public class T0100 extends AbstractMessage<Header> {
     /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
     @Fs({@Field(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0),
             @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)})
-    public Integer getLicensePlateColor() {
+    public int getLicensePlateColor() {
         return licensePlateColor;
     }
 
-    public void setLicensePlateColor(Integer licensePlate) {
+    public void setLicensePlateColor(int licensePlate) {
         this.licensePlateColor = licensePlate;
     }
 

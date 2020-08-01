@@ -14,8 +14,8 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.单条存储多媒体数据检索上传命令)
 public class T8805 extends AbstractMessage<Header> {
 
-    private Integer id;
-    private Integer delete;
+    private int id;
+    private int delete;
 
     public T8805() {
     }
@@ -27,20 +27,20 @@ public class T8805 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID")
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Field(index = 4, type = DataType.BYTE, desc = "删除标志:0.保留；1.删除；")
-    public Integer getDelete() {
+    public int getDelete() {
         return delete;
     }
 
-    public void setDelete(Integer delete) {
+    public void setDelete(int delete) {
         this.delete = delete;
     }
 }

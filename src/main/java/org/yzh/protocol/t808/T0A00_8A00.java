@@ -14,23 +14,23 @@ import org.yzh.protocol.commons.JT808;
 @Message({JT808.平台RSA公钥, JT808.终端RSA公钥})
 public class T0A00_8A00 extends AbstractMessage<Header> {
 
-    private Integer e;
+    private int e;
     private byte[] n;
 
     public T0A00_8A00() {
     }
 
-    public T0A00_8A00(Integer e, byte[] n) {
+    public T0A00_8A00(int e, byte[] n) {
         this.e = e;
         this.n = n;
     }
 
     @Field(index = 0, type = DataType.DWORD, desc = "RSA公钥{e,n}中的e")
-    public Integer getE() {
+    public int getE() {
         return e;
     }
 
-    public void setE(Integer e) {
+    public void setE(int e) {
         this.e = e;
     }
 

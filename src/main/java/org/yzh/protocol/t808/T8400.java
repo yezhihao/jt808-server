@@ -19,7 +19,7 @@ public class T8400 extends AbstractMessage<Header> {
     /** 监听 */
     public static final int Listen = 1;
 
-    private Integer type;
+    private int type;
     private String mobileNo;
 
     public T8400() {
@@ -32,11 +32,11 @@ public class T8400 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "标志")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 

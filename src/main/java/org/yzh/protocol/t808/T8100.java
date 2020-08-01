@@ -25,14 +25,14 @@ public class T8100 extends AbstractMessage<Header> {
     /** 4：数据库中无该终端 */
     public static final int NotFoundTerminal = 4;
 
-    private Integer serialNo;
-    private Integer resultCode;
+    private int serialNo;
+    private int resultCode;
     private String token;
 
     public T8100() {
     }
 
-    public T8100(Integer serialNo, Integer resultCode, String token) {
+    public T8100(int serialNo, int resultCode, String token) {
         this.serialNo = serialNo;
         this.resultCode = resultCode;
         this.token = token;
@@ -40,21 +40,21 @@ public class T8100 extends AbstractMessage<Header> {
 
     /** 对应的终端注册消息的流水号 */
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     /** 0-4 */
     @Field(index = 2, type = DataType.BYTE, desc = "结果")
-    public Integer getResultCode() {
+    public int getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(Integer resultCode) {
+    public void setResultCode(int resultCode) {
         this.resultCode = resultCode;
     }
 

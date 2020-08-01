@@ -25,23 +25,23 @@ public class T8900_0900 extends AbstractMessage<Header> {
     /** 用户自定义透传 0xF0 - 0xFF */
     public static final int Custom = 0xF0 - 0xFF;
 
-    private Integer type;
+    private int type;
     private byte[] content;
 
     public T8900_0900() {
     }
 
-    public T8900_0900(Integer type, byte[] content) {
+    public T8900_0900(int type, byte[] content) {
         this.type = type;
         this.content = content;
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "透传消息类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 

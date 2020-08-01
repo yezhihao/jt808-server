@@ -19,19 +19,19 @@ public class T8108 extends AbstractMessage<Header> {
     public static final int CardReader = 12;
     public static final int Beidou = 52;
 
-    private Integer type;
+    private int type;
     private String manufacturerId;
-    private Integer versionLen;
+    private int versionLen;
     private String version;
-    private Integer packetLen;
+    private int packetLen;
     private byte[] packet;
 
     @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -45,13 +45,11 @@ public class T8108 extends AbstractMessage<Header> {
     }
 
     @Field(index = 6, type = DataType.BYTE, desc = "版本号长度")
-    public Integer getVersionLen() {
-        if (versionLen == null)
-            this.versionLen = version.getBytes(Charsets.GBK).length;
+    public int getVersionLen() {
         return versionLen;
     }
 
-    public void setVersionLen(Integer versionLen) {
+    public void setVersionLen(int versionLen) {
         this.versionLen = versionLen;
     }
 
@@ -66,11 +64,11 @@ public class T8108 extends AbstractMessage<Header> {
     }
 
     @Field(index = 7, indexOffsetName = "versionLen", type = DataType.DWORD, desc = "数据包长度")
-    public Integer getPacketLen() {
+    public int getPacketLen() {
         return packetLen;
     }
 
-    public void setPacketLen(Integer packetLen) {
+    public void setPacketLen(int packetLen) {
         this.packetLen = packetLen;
     }
 

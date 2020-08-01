@@ -15,8 +15,8 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.信息服务)
 public class T8304 extends AbstractMessage<Header> {
 
-    private Integer type;
-    private Integer length;
+    private int type;
+    private int length;
     private String content;
 
     public T8304() {
@@ -27,22 +27,20 @@ public class T8304 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 1, type = DataType.WORD, desc = "信息长度")
-    public Integer getLength() {
-        if (length == null)
-            this.length = content.getBytes(Charsets.GBK).length;
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

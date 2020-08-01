@@ -14,9 +14,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.存储多媒体数据检索)
 public class T8802 extends AbstractMessage<Header> {
 
-    private Integer type;
-    private Integer channelId;
-    private Integer event;
+    private int type;
+    private int channelId;
+    private int event;
     private String startTime;
     private String endTime;
 
@@ -28,29 +28,29 @@ public class T8802 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "多媒体类型:0.图像；1.音频；2.视频；")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "通道ID")
-    public Integer getChannelId() {
+    public int getChannelId() {
         return channelId;
     }
 
-    public void setChannelId(Integer channelId) {
+    public void setChannelId(int channelId) {
         this.channelId = channelId;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留")
-    public Integer getEvent() {
+    public int getEvent() {
         return event;
     }
 
-    public void setEvent(Integer event) {
+    public void setEvent(int event) {
         this.event = event;
     }
 

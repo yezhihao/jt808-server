@@ -18,7 +18,7 @@ import java.util.List;
 @Message(JT808.设置终端参数)
 public class T8103 extends AbstractMessage<Header> {
 
-    private Integer total;
+    private int total;
     private List<TerminalParameter> items;
 
     public T8103() {
@@ -29,13 +29,13 @@ public class T8103 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
-    public Integer getTotal() {
+    public int getTotal() {
         if (items == null || items.isEmpty())
             return 0;
         return items.size();
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

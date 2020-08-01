@@ -15,25 +15,25 @@ import org.yzh.protocol.commons.JT808;
 public class T0608 extends AbstractMessage<Header> {
 
     /** @see org.yzh.protocol.commons.Shape */
-    private Integer type;
-    private Integer total;
+    private int type;
+    private int total;
     private byte[] bytes;
 
     @Field(index = 0, type = DataType.BYTE, desc = "查询类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 1, type = DataType.DWORD, desc = "区域总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

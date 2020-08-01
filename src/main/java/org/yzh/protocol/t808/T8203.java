@@ -14,8 +14,8 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.人工确认报警消息)
 public class T8203 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer type;
+    private int serialNo;
+    private int type;
 
 
     public T8203() {
@@ -29,11 +29,11 @@ public class T8203 extends AbstractMessage<Header> {
 
 
     @Field(index = 0, type = DataType.WORD, desc = "消息流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
@@ -51,11 +51,11 @@ public class T8203 extends AbstractMessage<Header> {
      * [29-31] 保留
      */
     @Field(index = 2, type = DataType.DWORD, desc = "报警类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

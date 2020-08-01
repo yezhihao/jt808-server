@@ -18,8 +18,8 @@ import java.util.List;
 public class T8608 extends AbstractMessage<Header> {
 
     /** @see org.yzh.protocol.commons.Shape */
-    private Integer type;
-    private Integer total;
+    private int type;
+    private int total;
     private List<Item> items;
 
     public T8608() {
@@ -30,20 +30,20 @@ public class T8608 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "查询类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "区域总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -57,7 +57,7 @@ public class T8608 extends AbstractMessage<Header> {
         this.total = items.size();
     }
 
-    public void addItem(Integer id) {
+    public void addItem(int id) {
         if (items == null)
             items = new ArrayList();
         items.add(new Item(id));
@@ -65,21 +65,21 @@ public class T8608 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-        private Integer id;
+        private int id;
 
         public Item() {
         }
 
-        public Item(Integer id) {
+        public Item(int id) {
             this.id = id;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
     }

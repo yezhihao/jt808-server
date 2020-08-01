@@ -14,18 +14,18 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.数据压缩上报)
 public class T0901 extends AbstractMessage<Header> {
 
-    private Integer length;
+    private int length;
     private byte[] body;
 
     public T0901() {
     }
 
     @Field(index = 0, type = DataType.DWORD, desc = "压缩消息长度")
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

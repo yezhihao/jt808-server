@@ -14,7 +14,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.终端控制)
 public class T8105 extends AbstractMessage<Header> {
 
-    private Integer command;
+    private int command;
     private String parameter;
 
     public T8105() {
@@ -27,11 +27,11 @@ public class T8105 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "命令字")
-    public Integer getCommand() {
+    public int getCommand() {
         return command;
     }
 
-    public void setCommand(Integer command) {
+    public void setCommand(int command) {
         this.command = command;
     }
 

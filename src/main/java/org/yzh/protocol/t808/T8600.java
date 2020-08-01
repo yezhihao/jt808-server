@@ -17,25 +17,25 @@ import java.util.List;
 public class T8600 extends AbstractMessage<Header> {
 
     /** @see org.yzh.protocol.commons.ShapeAction */
-    private Integer action;
-    private Integer total;
+    private int action;
+    private int total;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
-    public Integer getAction() {
+    public int getAction() {
         return action;
     }
 
-    public void setAction(Integer action) {
+    public void setAction(int action) {
         this.action = action;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -50,20 +50,20 @@ public class T8600 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-        private Integer id;
-        private Integer attribute;
-        private Integer latitude;
-        private Integer longitude;
-        private Integer radius;
+        private int id;
+        private int attribute;
+        private int latitude;
+        private int longitude;
+        private int radius;
         private String startTime;
         private String endTime;
-        private Integer maxSpeed;
-        private Integer duration;
+        private int maxSpeed;
+        private int duration;
 
         public Item() {
         }
 
-        public Item(Integer id, Integer attribute, Integer latitude, Integer longitude, Integer radius, String startTime, String endTime, Integer maxSpeed, Integer duration) {
+        public Item(int id, int attribute, int latitude, int longitude, int radius, String startTime, String endTime, int maxSpeed, int duration) {
             this.id = id;
             this.attribute = attribute;
             this.latitude = latitude;
@@ -76,47 +76,47 @@ public class T8600 extends AbstractMessage<Header> {
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
 
         @Field(index = 4, type = DataType.WORD, desc = "区域属性")
-        public Integer getAttribute() {
+        public int getAttribute() {
             return attribute;
         }
 
-        public void setAttribute(Integer attribute) {
+        public void setAttribute(int attribute) {
             this.attribute = attribute;
         }
 
         @Field(index = 6, type = DataType.DWORD, desc = "中心点纬度")
-        public Integer getLatitude() {
+        public int getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Integer latitude) {
+        public void setLatitude(int latitude) {
             this.latitude = latitude;
         }
 
         @Field(index = 10, type = DataType.DWORD, desc = "中心点经度")
-        public Integer getLongitude() {
+        public int getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Integer longitude) {
+        public void setLongitude(int longitude) {
             this.longitude = longitude;
         }
 
         @Field(index = 14, type = DataType.DWORD, desc = "半径(m)")
-        public Integer getRadius() {
+        public int getRadius() {
             return radius;
         }
 
-        public void setRadius(Integer radius) {
+        public void setRadius(int radius) {
             this.radius = radius;
         }
 
@@ -139,20 +139,20 @@ public class T8600 extends AbstractMessage<Header> {
         }
 
         @Field(index = 30, type = DataType.WORD, desc = "最高速度(km/h)")
-        public Integer getMaxSpeed() {
+        public int getMaxSpeed() {
             return maxSpeed;
         }
 
-        public void setMaxSpeed(Integer maxSpeed) {
+        public void setMaxSpeed(int maxSpeed) {
             this.maxSpeed = maxSpeed;
         }
 
         @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间(s)")
-        public Integer getDuration() {
+        public int getDuration() {
             return duration;
         }
 
-        public void setDuration(Integer duration) {
+        public void setDuration(int duration) {
             this.duration = duration;
         }
     }

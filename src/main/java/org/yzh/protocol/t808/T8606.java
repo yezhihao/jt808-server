@@ -17,28 +17,28 @@ import java.util.List;
 @Message(JT808.设置路线)
 public class T8606 extends AbstractMessage<Header> {
 
-    private Integer id;
-    private Integer attribute;
+    private int id;
+    private int attribute;
     private String startTime;
     private String endTime;
-    private Integer total;
+    private int total;
     private List<Point> item;
 
     @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Field(index = 4, type = DataType.WORD, desc = "路线属性")
-    public Integer getAttribute() {
+    public int getAttribute() {
         return attribute;
     }
 
-    public void setAttribute(Integer attribute) {
+    public void setAttribute(int attribute) {
         this.attribute = attribute;
     }
 
@@ -61,11 +61,11 @@ public class T8606 extends AbstractMessage<Header> {
     }
 
     @Field(index = 18, type = DataType.WORD, desc = "拐点数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -94,25 +94,25 @@ public class T8606 extends AbstractMessage<Header> {
     }
 
     public static class Point {
-        private Integer id;
-        private Integer routeId;
-        private Integer latitude;
-        private Integer longitude;
-        private Integer width;
-        private Integer attribute;
-        private Integer upperLimit;
-        private Integer lowerLimit;
-        private Integer maxSpeed;
-        private Integer duration;
+        private int id;
+        private int routeId;
+        private int latitude;
+        private int longitude;
+        private int width;
+        private int attribute;
+        private int upperLimit;
+        private int lowerLimit;
+        private int maxSpeed;
+        private int duration;
 
         public Point() {
         }
 
-        public Point(Integer id) {
+        public Point(int id) {
             this.id = id;
         }
 
-        public Point(Integer id, Integer routeId, Integer latitude, Integer longitude, Integer width, Integer attribute, Integer upperLimit, Integer lowerLimit, Integer maxSpeed, Integer duration) {
+        public Point(int id, int routeId, int latitude, int longitude, int width, int attribute, int upperLimit, int lowerLimit, int maxSpeed, int duration) {
             this.id = id;
             this.routeId = routeId;
             this.latitude = latitude;
@@ -126,92 +126,92 @@ public class T8606 extends AbstractMessage<Header> {
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
 
         @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
-        public Integer getRouteId() {
+        public int getRouteId() {
             return routeId;
         }
 
-        public void setRouteId(Integer routeId) {
+        public void setRouteId(int routeId) {
             this.routeId = routeId;
         }
 
         @Field(index = 8, type = DataType.DWORD, desc = "纬度")
-        public Integer getLatitude() {
+        public int getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Integer latitude) {
+        public void setLatitude(int latitude) {
             this.latitude = latitude;
         }
 
         @Field(index = 12, type = DataType.DWORD, desc = "经度")
-        public Integer getLongitude() {
+        public int getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Integer longitude) {
+        public void setLongitude(int longitude) {
             this.longitude = longitude;
         }
 
         @Field(index = 16, type = DataType.BYTE, desc = "宽度")
-        public Integer getWidth() {
+        public int getWidth() {
             return width;
         }
 
-        public void setWidth(Integer width) {
+        public void setWidth(int width) {
             this.width = width;
         }
 
         @Field(index = 17, type = DataType.WORD, desc = "属性")
-        public Integer getAttribute() {
+        public int getAttribute() {
             return attribute;
         }
 
-        public void setAttribute(Integer attribute) {
+        public void setAttribute(int attribute) {
             this.attribute = attribute;
         }
 
         @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值")
-        public Integer getUpperLimit() {
+        public int getUpperLimit() {
             return upperLimit;
         }
 
-        public void setUpperLimit(Integer upperLimit) {
+        public void setUpperLimit(int upperLimit) {
             this.upperLimit = upperLimit;
         }
 
         @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值")
-        public Integer getLowerLimit() {
+        public int getLowerLimit() {
             return lowerLimit;
         }
 
-        public void setLowerLimit(Integer lowerLimit) {
+        public void setLowerLimit(int lowerLimit) {
             this.lowerLimit = lowerLimit;
         }
 
         @Field(index = 22, type = DataType.WORD, desc = "路段最高速度")
-        public Integer getMaxSpeed() {
+        public int getMaxSpeed() {
             return maxSpeed;
         }
 
-        public void setMaxSpeed(Integer maxSpeed) {
+        public void setMaxSpeed(int maxSpeed) {
             this.maxSpeed = maxSpeed;
         }
 
         @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间")
-        public Integer getDuration() {
+        public int getDuration() {
             return duration;
         }
 
-        public void setDuration(Integer duration) {
+        public void setDuration(int duration) {
             this.duration = duration;
         }
     }

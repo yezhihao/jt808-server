@@ -16,25 +16,25 @@ import java.util.List;
 @Message(JT808.定位数据批量上传)
 public class T0704 extends AbstractMessage<Header> {
 
-    private Integer total;
-    private Integer type;
+    private int total;
+    private int type;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "位置数据类型 0：正常位置批量汇报，1：盲区补报")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -50,23 +50,23 @@ public class T0704 extends AbstractMessage<Header> {
 
     public static class Item {
 
-        private Integer length;
+        private int length;
         private T0200 position;
 
         public Item() {
         }
 
-        public Item(Integer length, T0200 position) {
+        public Item(int length, T0200 position) {
             this.length = length;
             this.position = position;
         }
 
         @Field(index = 0, type = DataType.WORD, desc = "位置汇报数据体长度")
-        public Integer getLength() {
+        public int getLength() {
             return length;
         }
 
-        public void setLength(Integer length) {
+        public void setLength(int length) {
             this.length = length;
         }
 

@@ -17,7 +17,7 @@ import java.util.List;
 @Message({JT808.删除圆形区域, JT808.删除矩形区域, JT808.删除多边形区域, JT808.删除路线})
 public class T8601 extends AbstractMessage<Header> {
 
-    private Integer total;
+    private int total;
     private List<Item> items;
 
     public T8601() {
@@ -28,11 +28,11 @@ public class T8601 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "区域总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -46,7 +46,7 @@ public class T8601 extends AbstractMessage<Header> {
         this.total = items.size();
     }
 
-    public void addItem(Integer id) {
+    public void addItem(int id) {
         if (items == null)
             items = new ArrayList();
         items.add(new Item(id));
@@ -54,21 +54,21 @@ public class T8601 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-        private Integer id;
+        private int id;
 
         public Item() {
         }
 
-        public Item(Integer id) {
+        public Item(int id) {
             this.id = id;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
     }

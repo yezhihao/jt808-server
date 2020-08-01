@@ -17,30 +17,30 @@ import java.util.List;
 @Message(JT808.设置多边形区域)
 public class T8604 extends AbstractMessage<Header> {
 
-    private Integer id;
-    private Integer attribute;
+    private int id;
+    private int attribute;
     private String startTime;
     private String endTime;
-    private Integer maxSpeed;
-    private Integer duration;
-    private Integer total;
+    private int maxSpeed;
+    private int duration;
+    private int total;
     private List<Coordinate> items;
 
     @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Field(index = 4, type = DataType.WORD, desc = "区域属性")
-    public Integer getAttribute() {
+    public int getAttribute() {
         return attribute;
     }
 
-    public void setAttribute(Integer attribute) {
+    public void setAttribute(int attribute) {
         this.attribute = attribute;
     }
 
@@ -63,29 +63,29 @@ public class T8604 extends AbstractMessage<Header> {
     }
 
     @Field(index = 18, type = DataType.WORD, desc = "最高速度")
-    public Integer getMaxSpeed() {
+    public int getMaxSpeed() {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(Integer maxSpeed) {
+    public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
     @Field(index = 20, type = DataType.BYTE, desc = "超速持续时间")
-    public Integer getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
     @Field(index = 21, type = DataType.WORD, desc = "顶点数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -99,7 +99,7 @@ public class T8604 extends AbstractMessage<Header> {
         this.total = items.size();
     }
 
-    public void addVertex(Integer latitude, Integer longitude) {
+    public void addVertex(int latitude, int longitude) {
         if (items == null)
             items = new ArrayList();
         items.add(new Coordinate(latitude, longitude));
@@ -107,32 +107,32 @@ public class T8604 extends AbstractMessage<Header> {
     }
 
     public static class Coordinate {
-        private Integer latitude;
-        private Integer longitude;
+        private int latitude;
+        private int longitude;
 
         public Coordinate() {
         }
 
-        public Coordinate(Integer latitude, Integer longitude) {
+        public Coordinate(int latitude, int longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "纬度")
-        public Integer getLatitude() {
+        public int getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Integer latitude) {
+        public void setLatitude(int latitude) {
             this.latitude = latitude;
         }
 
         @Field(index = 4, type = DataType.DWORD, desc = "经度")
-        public Integer getLongitude() {
+        public int getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Integer longitude) {
+        public void setLongitude(int longitude) {
             this.longitude = longitude;
         }
     }

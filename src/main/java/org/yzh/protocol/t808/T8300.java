@@ -23,7 +23,7 @@ public class T8300 extends AbstractMessage<Header> {
      * 5 0.中心导航信息，1.CAN 故障码信息
      * 6-7  保留
      */
-    private Integer sign;
+    private int sign;
     private String content;
 
     public T8300() {
@@ -34,11 +34,11 @@ public class T8300 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "标志")
-    public Integer getSign() {
+    public int getSign() {
         return sign;
     }
 
-    public void setSign(Integer sign) {
+    public void setSign(int sign) {
         this.sign = sign;
     }
 

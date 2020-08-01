@@ -14,24 +14,24 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.提问应答)
 public class T0302 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer answerId;
+    private int serialNo;
+    private int answerId;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "答案ID")
-    public Integer getAnswerId() {
+    public int getAnswerId() {
         return answerId;
     }
 
-    public void setAnswerId(Integer answerId) {
+    public void setAnswerId(int answerId) {
         this.answerId = answerId;
     }
 }

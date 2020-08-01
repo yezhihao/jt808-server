@@ -19,25 +19,25 @@ import java.util.List;
 public class T8401 extends AbstractMessage<Header> {
 
     /** @see org.yzh.protocol.commons.Action */
-    private Integer type;
-    private Integer total;
+    private int type;
+    private int total;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.BYTE, desc = "类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -58,38 +58,36 @@ public class T8401 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-        private Integer sign;
-        private Integer phoneLength;
+        private int sign;
+        private int phoneLength;
         private String phone;
-        private Integer nameLength;
+        private int nameLength;
         private String name;
 
         public Item() {
         }
 
-        public Item(Integer sign, String phone, String name) {
+        public Item(int sign, String phone, String name) {
             this.sign = sign;
             this.setPhone(phone);
             this.setName(name);
         }
 
         @Field(index = 0, type = DataType.BYTE, desc = "标志")
-        public Integer getSign() {
+        public int getSign() {
             return sign;
         }
 
-        public void setSign(Integer sign) {
+        public void setSign(int sign) {
             this.sign = sign;
         }
 
         @Field(index = 1, type = DataType.BYTE, desc = "电话号码长度")
-        public Integer getPhoneLength() {
-            if (phoneLength == null)
-                phoneLength = phone.getBytes(Charsets.GBK).length;
+        public int getPhoneLength() {
             return phoneLength;
         }
 
-        public void setPhoneLength(Integer phoneLength) {
+        public void setPhoneLength(int phoneLength) {
             this.phoneLength = phoneLength;
         }
 
@@ -104,13 +102,11 @@ public class T8401 extends AbstractMessage<Header> {
         }
 
         @Field(index = 2, indexOffsetName = "phoneLength", type = DataType.BYTE, desc = "联系人长度")
-        public Integer getNameLength() {
-            if (nameLength == null)
-                nameLength = name.getBytes(Charsets.GBK).length;
+        public int getNameLength() {
             return nameLength;
         }
 
-        public void setNameLength(Integer nameLength) {
+        public void setNameLength(int nameLength) {
             this.nameLength = nameLength;
         }
 

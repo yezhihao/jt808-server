@@ -21,24 +21,24 @@ public class T0108 extends AbstractMessage<Header> {
     /** 北斗卫星定位模块 */
     public static final int Beidou = 52;
 
-    private Integer type;
-    private Integer result;
+    private int type;
+    private int result;
 
     @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "升级结果")
-    public Integer getResult() {
+    public int getResult() {
         return result;
     }
 
-    public void setResult(Integer result) {
+    public void setResult(int result) {
         this.result = result;
     }
 }

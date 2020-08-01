@@ -14,23 +14,23 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.行驶记录仪参数下传命令)
 public class T8701 extends AbstractMessage<Header> {
 
-    private Integer type;
+    private int type;
     private byte[] content;
 
     public T8701() {
     }
 
-    public T8701(Integer type, byte[] content) {
+    public T8701(int type, byte[] content) {
         this.type = type;
         this.content = content;
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "透传消息类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 

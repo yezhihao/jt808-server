@@ -14,14 +14,14 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.事件报告)
 public class T0301 extends AbstractMessage<Header> {
 
-    private Integer eventId;
+    private int eventId;
 
     @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
-    public Integer getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
-    public void setEventId(Integer eventId) {
+    public void setEventId(int eventId) {
         this.eventId = eventId;
     }
 }

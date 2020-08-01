@@ -17,87 +17,87 @@ import java.util.List;
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
 public class T0201_0500 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer warningMark;
-    private Integer status;
-    private Integer latitude;
-    private Integer longitude;
-    private Integer altitude;
-    private Integer speed;
-    private Integer direction;
+    private int serialNo;
+    private int warningMark;
+    private int status;
+    private int latitude;
+    private int longitude;
+    private int altitude;
+    private int speed;
+    private int direction;
     private String dateTime;
 
     private List<BytesAttribute> bytesAttributes;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
-    public Integer getWarningMark() {
+    public int getWarningMark() {
         return warningMark;
     }
 
-    public void setWarningMark(Integer warningMark) {
+    public void setWarningMark(int warningMark) {
         this.warningMark = warningMark;
     }
 
     @Field(index = 6, type = DataType.DWORD, desc = "状态")
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
     @Field(index = 10, type = DataType.DWORD, desc = "纬度")
-    public Integer getLatitude() {
+    public int getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Integer latitude) {
+    public void setLatitude(int latitude) {
         this.latitude = latitude;
     }
 
     @Field(index = 14, type = DataType.DWORD, desc = "经度")
-    public Integer getLongitude() {
+    public int getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Integer longitude) {
+    public void setLongitude(int longitude) {
         this.longitude = longitude;
     }
 
     @Field(index = 18, type = DataType.WORD, desc = "海拔")
-    public Integer getAltitude() {
+    public int getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(Integer altitude) {
+    public void setAltitude(int altitude) {
         this.altitude = altitude;
     }
 
     @Field(index = 20, type = DataType.WORD, desc = "速度")
-    public Integer getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Integer speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
     @Field(index = 22, type = DataType.WORD, desc = "方向")
-    public Integer getDirection() {
+    public int getDirection() {
         return direction;
     }
 
-    public void setDirection(Integer direction) {
+    public void setDirection(int direction) {
         this.direction = direction;
     }
 

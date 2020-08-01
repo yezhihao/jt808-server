@@ -14,24 +14,24 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询终端属性应答)
 public class T0107 extends AbstractMessage<Header> {
 
-    private Integer type;
+    private int type;
     private String manufacturerId;
     private String terminalType;
     private String terminalId;
     private String simId;
-    private Integer hardwareVersionLen;
+    private int hardwareVersionLen;
     private String hardwareVersion;
-    private Integer firmwareVersionLen;
+    private int firmwareVersionLen;
     private String firmwareVersion;
-    private Integer gnssAttribute;
-    private Integer networkAttribute;
+    private int gnssAttribute;
+    private int networkAttribute;
 
     @Field(index = 0, type = DataType.BYTE, desc = "终端类型")
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -72,11 +72,11 @@ public class T0107 extends AbstractMessage<Header> {
     }
 
     @Field(index = 45, type = DataType.BYTE, desc = "硬件版本号长度")
-    public Integer getHardwareVersionLen() {
+    public int getHardwareVersionLen() {
         return hardwareVersionLen;
     }
 
-    public void setHardwareVersionLen(Integer hardwareVersionLen) {
+    public void setHardwareVersionLen(int hardwareVersionLen) {
         this.hardwareVersionLen = hardwareVersionLen;
     }
 
@@ -91,11 +91,11 @@ public class T0107 extends AbstractMessage<Header> {
     }
 
     @Field(index = 46, indexOffsetName = "hardwareVersionLen", type = DataType.BYTE, desc = "固件版本号长度")
-    public Integer getFirmwareVersionLen() {
+    public int getFirmwareVersionLen() {
         return firmwareVersionLen;
     }
 
-    public void setFirmwareVersionLen(Integer firmwareVersionLen) {
+    public void setFirmwareVersionLen(int firmwareVersionLen) {
         this.firmwareVersionLen = firmwareVersionLen;
     }
 
@@ -110,20 +110,20 @@ public class T0107 extends AbstractMessage<Header> {
     }
 
     @Field(index = 46, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "GNSS模块属性")
-    public Integer getGnssAttribute() {
+    public int getGnssAttribute() {
         return gnssAttribute;
     }
 
-    public void setGnssAttribute(Integer gnssAttribute) {
+    public void setGnssAttribute(int gnssAttribute) {
         this.gnssAttribute = gnssAttribute;
     }
 
     @Field(index = 47, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "通信模块属性")
-    public Integer getNetworkAttribute() {
+    public int getNetworkAttribute() {
         return networkAttribute;
     }
 
-    public void setNetworkAttribute(Integer networkAttribute) {
+    public void setNetworkAttribute(int networkAttribute) {
         this.networkAttribute = networkAttribute;
     }
 }

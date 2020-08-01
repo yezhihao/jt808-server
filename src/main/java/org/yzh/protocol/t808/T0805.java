@@ -14,38 +14,38 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.摄像头立即拍摄命令应答)
 public class T0805 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer result;
-    private Integer total;
+    private int serialNo;
+    private int result;
+    private int total;
     private byte[] items;
 
     public T0805() {
     }
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "结果")
-    public Integer getResult() {
+    public int getResult() {
         return result;
     }
 
-    public void setResult(Integer result) {
+    public void setResult(int result) {
         this.result = result;
     }
 
     @Field(index = 2, type = DataType.WORD, desc = "多媒体ID个数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

@@ -14,7 +14,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询指定终端参数)
 public class T8106 extends AbstractMessage<Header> {
 
-    private Integer total;
+    private int total;
     private byte[] id;
 
     public T8106() {
@@ -27,11 +27,11 @@ public class T8106 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

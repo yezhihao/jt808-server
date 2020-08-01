@@ -16,16 +16,16 @@ import java.util.List;
 @Message(JT808.CAN总线数据上传)
 public class T0705 extends AbstractMessage<Header> {
 
-    private Integer total;
+    private int total;
     private String dateTime;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 

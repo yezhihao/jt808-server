@@ -15,22 +15,22 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.驾驶员身份信息采集上报)
 public class T0702 extends AbstractMessage<Header> {
 
-    private Integer status;
+    private int status;
     private String dateTime;
-    private Integer cardStatus;
-    private Integer nameLen;
+    private int cardStatus;
+    private int nameLen;
     private String name;
     private String licenseNo;
-    private Integer institutionLen;
+    private int institutionLen;
     private String institution;
     private String licenseValidPeriod;
 
     @Field(index = 0, type = DataType.BYTE, desc = "状态")
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -44,20 +44,20 @@ public class T0702 extends AbstractMessage<Header> {
     }
 
     @Field(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
-    public Integer getCardStatus() {
+    public int getCardStatus() {
         return cardStatus;
     }
 
-    public void setCardStatus(Integer cardStatus) {
+    public void setCardStatus(int cardStatus) {
         this.cardStatus = cardStatus;
     }
 
     @Field(index = 8, type = DataType.BYTE, desc = "驾驶员姓名长度")
-    public Integer getNameLen() {
+    public int getNameLen() {
         return nameLen;
     }
 
-    public void setNameLen(Integer nameLen) {
+    public void setNameLen(int nameLen) {
         this.nameLen = nameLen;
     }
 
@@ -81,11 +81,11 @@ public class T0702 extends AbstractMessage<Header> {
     }
 
     @Field(index = 29, indexOffsetName = "nameLen", type = DataType.BYTE, desc = "发证机构名称长度")
-    public Integer getInstitutionLen() {
+    public int getInstitutionLen() {
         return institutionLen;
     }
 
-    public void setInstitutionLen(Integer institutionLen) {
+    public void setInstitutionLen(int institutionLen) {
         this.institutionLen = institutionLen;
     }
 

@@ -17,8 +17,8 @@ import java.util.List;
 @Message(JT808.提问下发)
 public class T8302 extends AbstractMessage<Header> {
 
-    private Integer sign;
-    private Integer contentLen;
+    private int sign;
+    private int contentLen;
     private String content;
     private List<Option> options;
 
@@ -30,20 +30,20 @@ public class T8302 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "标志")
-    public Integer getSign() {
+    public int getSign() {
         return sign;
     }
 
-    public void setSign(Integer sign) {
+    public void setSign(int sign) {
         this.sign = sign;
     }
 
     @Field(index = 1, type = DataType.BYTE, desc = "问题内容长度")
-    public Integer getContentLen() {
+    public int getContentLen() {
         return contentLen;
     }
 
-    public void setContentLen(Integer contentLen) {
+    public void setContentLen(int contentLen) {
         this.contentLen = contentLen;
     }
 
@@ -68,34 +68,34 @@ public class T8302 extends AbstractMessage<Header> {
 
     public static class Option {
 
-        private Integer id;
-        private Integer length;
+        private int id;
+        private int length;
         private String content;
 
         public Option() {
         }
 
-        public Option(Integer id, String content) {
+        public Option(int id, String content) {
             this.id = id;
             this.content = content;
             this.length = content.getBytes(Charsets.GBK).length;
         }
 
         @Field(index = 0, type = DataType.BYTE, desc = "答案ID")
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
 
         @Field(index = 1, type = DataType.WORD, desc = "答案内容长度")
-        public Integer getLength() {
+        public int getLength() {
             return length;
         }
 
-        public void setLength(Integer length) {
+        public void setLength(int length) {
             this.length = length;
         }
 

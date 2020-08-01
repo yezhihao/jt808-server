@@ -19,7 +19,7 @@ public class T8500 extends AbstractMessage<Header> {
      * [ 0 ] 0.车门解锁；1.车门加锁
      * [1-7] 保留
      */
-    private Integer sign;
+    private int sign;
 
     public T8500() {
     }
@@ -29,11 +29,11 @@ public class T8500 extends AbstractMessage<Header> {
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "控制标志")
-    public Integer getSign() {
+    public int getSign() {
         return sign;
     }
 
-    public void setSign(Integer sign) {
+    public void setSign(int sign) {
         this.sign = sign;
     }
 

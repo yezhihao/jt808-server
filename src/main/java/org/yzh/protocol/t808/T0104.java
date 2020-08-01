@@ -18,27 +18,25 @@ import java.util.List;
 @Message(JT808.查询终端参数应答)
 public class T0104 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer total;
+    private int serialNo;
+    private int total;
     private List<TerminalParameter> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
-    public Integer getTotal() {
-        if (total == null)
-            return items.size();
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -49,11 +47,13 @@ public class T0104 extends AbstractMessage<Header> {
 
     public void setItems(List<TerminalParameter> items) {
         this.items = items;
+        this.total = items.size();
     }
 
     public void addItem(TerminalParameter item) {
         if (items == null)
             items = new ArrayList<>();
         items.add(item);
+        total = items.size();
     }
 }
