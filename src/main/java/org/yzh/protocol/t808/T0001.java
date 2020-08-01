@@ -31,12 +31,6 @@ public class T0001 extends AbstractMessage<Header> {
         super(new Header(JT808.平台通用应答, serialNo, mobileNo));
     }
 
-    public T0001(int replyId, int serialNo, int resultCode) {
-        this.replyId = replyId;
-        this.serialNo = serialNo;
-        this.resultCode = resultCode;
-    }
-
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getSerialNo() {
         return serialNo;
@@ -63,5 +57,4 @@ public class T0001 extends AbstractMessage<Header> {
     public void setResultCode(int resultCode) {
         this.resultCode = resultCode;
     }
-
 }
