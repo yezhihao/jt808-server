@@ -39,7 +39,7 @@ public enum MessageManager {
         if (session == null)
             return false;
 
-        header.setSerialNo(session.currentFlowId());
+        header.setSerialNo(session.nextSerialNo());
         session.getChannel().writeAndFlush(message);
         return true;
     }
@@ -60,7 +60,7 @@ public enum MessageManager {
         if (session == null)
             return null;
 
-        header.setSerialNo(session.currentFlowId());
+        header.setSerialNo(session.nextSerialNo());
 
         String key = getKey(header, clazz);
         SynchronousQueue synchronousQueue = this.subscribe(key);

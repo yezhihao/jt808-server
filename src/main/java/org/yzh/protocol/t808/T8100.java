@@ -1,9 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -32,10 +32,8 @@ public class T8100 extends AbstractMessage<Header> {
     public T8100() {
     }
 
-    public T8100(int serialNo, int resultCode, String token) {
-        this.serialNo = serialNo;
-        this.resultCode = resultCode;
-        this.token = token;
+    public T8100(int serialNo, String mobileNo) {
+        super(new Header(JT808.终端注册应答, serialNo, mobileNo));
     }
 
     /** 对应的终端注册消息的流水号 */

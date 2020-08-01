@@ -15,6 +15,7 @@ import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
+import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
@@ -37,6 +38,9 @@ public class JT808Endpoint {
     @Autowired
     private LocationService locationService;
 
+    @Autowired
+    private DeviceService deviceService;
+
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
     public void 终端通用应答(T0001 message) {
         messageManager.response(message);
@@ -55,7 +59,7 @@ public class JT808Endpoint {
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
     public T8004 查询服务器时间(Header header, Session session) {
         T8004 result = new T8004(DateUtils.FastDateFormatter.format(new Date(System.currentTimeMillis() + 50)));
-        result.setHeader(new Header(查询服务器时间应答, session.currentFlowId(), header.getTerminalId()));
+        result.setHeader(new Header(查询服务器时间应答, session.nextSerialNo(), header.getTerminalId()));
         return result;
     }
 
@@ -64,21 +68,47 @@ public class JT808Endpoint {
         Header header = message.getHeader();
     }
 
+    @Async
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
-        session.setTerminalId(header.getTerminalId());
-        sessionManager.put(Session.buildId(session.getChannel()), session);
-        T8100 result = new T8100(header.getSerialNo(), T8100.Success, "test_token");
-        result.setHeader(new Header(终端注册应答, session.currentFlowId(), header.getMobileNo()));
+
+        T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
+        result.setSerialNo(header.getSerialNo());
+
+        String token = deviceService.register(message);
+        if (token != null) {
+            session.setTerminalId(header.getTerminalId());
+            sessionManager.put(Session.buildId(session.getChannel()), session);
+
+            result.setResultCode(T8100.Success);
+            result.setToken(token);
+        } else {
+
+            result.setResultCode(T8100.NotFoundTerminal);
+        }
         return result;
     }
 
+    @Async
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public void authentication(T0102 message, Session session) {
+    public T0001 authentication(T0102 message, Session session) {
         Header header = message.getHeader();
-        session.setTerminalId(header.getMobileNo());
-        sessionManager.put(Session.buildId(session.getChannel()), session);
+
+        T0001 result = new T0001(session.nextSerialNo(), header.getMobileNo());
+        result.setSerialNo(header.getSerialNo());
+        result.setReplyId(header.getMessageId());
+
+        if (deviceService.authentication(message.getToken())) {
+            session.setTerminalId(header.getTerminalId());
+            sessionManager.put(Session.buildId(session.getChannel()), session);
+
+            result.setResultCode(T0001.Success);
+        } else {
+
+            result.setResultCode(T0001.Failure);
+        }
+        return result;
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
@@ -174,7 +204,7 @@ public class JT808Endpoint {
         fos.write(packet);
         fos.close();
         T8800 result = new T8800();
-        result.setHeader(new Header(平台通用应答, session.currentFlowId(), header.getMobileNo()));
+        result.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getMobileNo()));
         result.setMediaId(1);
         return result;
     }

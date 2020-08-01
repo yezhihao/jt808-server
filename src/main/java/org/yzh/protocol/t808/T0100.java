@@ -20,8 +20,8 @@ public class T0100 extends AbstractMessage<Header> {
     private String manufacturerId;
     private String deviceType;
     private String deviceId;
-    private int licensePlateColor;
-    private String licensePlate;
+    private int plateColor;
+    private String plateNo;
 
     /** 设备安装车辆所在的省域,省域ID采用GB/T2260中规定的行政区划代码6位中前两位 */
     @Field(index = 0, type = DataType.WORD, desc = "省域ID", version = {0, 1})
@@ -79,22 +79,22 @@ public class T0100 extends AbstractMessage<Header> {
     /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
     @Fs({@Field(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0),
             @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)})
-    public int getLicensePlateColor() {
-        return licensePlateColor;
+    public int getPlateColor() {
+        return plateColor;
     }
 
-    public void setLicensePlateColor(int licensePlate) {
-        this.licensePlateColor = licensePlate;
+    public void setPlateColor(int licensePlate) {
+        this.plateColor = licensePlate;
     }
 
     /** 车牌颜色为0时,表示车辆VIN；否则,表示公安交通管理部门颁发的机动车号牌 */
     @Fs({@Field(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0),
             @Field(index = 76, type = DataType.STRING, desc = "车辆标识", version = 1)})
-    public String getLicensePlate() {
-        return licensePlate;
+    public String getPlateNo() {
+        return plateNo;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
     }
 }

@@ -91,15 +91,15 @@ public class Beans {
         bean.setManufacturerId("4");
         bean.setDeviceType("BSJ-GF-06");
         bean.setDeviceId("test123");
-        bean.setLicensePlateColor(1);
-        bean.setLicensePlate("测A888888");
+        bean.setPlateColor(1);
+        bean.setPlateNo("测A888888");
         return bean;
     }
 
     //终端鉴权
     public static T0102 T0102() {
         T0102 bean = new T0102();
-        bean.setToken("abc@123&456");
+        bean.setToken("a13t9hCg8sjSI92PL+MOkb+cm01sTeKGH8IlV+Ig28VMoksWJD+6EsocIHckWEOODLReTUDL/RRU+7IJ3RRH54Xso+rSkUQyqjtlGMtE+fY=");
         return bean;
     }
 

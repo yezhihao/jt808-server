@@ -6,7 +6,6 @@ import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.ResultCode;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -15,12 +14,21 @@ import org.yzh.protocol.commons.ResultCode;
 @Message({JT808.终端通用应答, JT808.平台通用应答})
 public class T0001 extends AbstractMessage<Header> {
 
+    public static final int Success = 0; //成功、确认
+    public static final int Failure = 1;//失败
+    public static final int MessageError = 2;//消息有误
+    public static final int NotSupport = 3;//不支持
+    public static final int AlarmAck = 4;//报警处理确认
+
     private int serialNo;
     private int replyId;
-    /** @see ResultCode */
     private int resultCode;
 
     public T0001() {
+    }
+
+    public T0001(int serialNo, String mobileNo) {
+        super(new Header(JT808.平台通用应答, serialNo, mobileNo));
     }
 
     public T0001(int replyId, int serialNo, int resultCode) {

@@ -16,7 +16,7 @@ public class Session {
     private Channel channel = null;
     private boolean isAuthenticated = false;
     // 消息流水号 word(16) 按发送顺序从 0 开始循环累加
-    private int currentFlowId = 0;
+    private int serialNo = 0;
     // 客户端上次的连接时间，该值改变的情况:
     // 1. terminal --> server 心跳包
     // 2. terminal --> server 数据包
@@ -91,10 +91,10 @@ public class Session {
         return this.channel.remoteAddress();
     }
 
-    public synchronized int currentFlowId() {
-        if (currentFlowId >= 0xffff)
-            currentFlowId = 0;
-        return currentFlowId++;
+    public synchronized int nextSerialNo() {
+        if (serialNo >= 0xffff)
+            serialNo = 0;
+        return serialNo++;
     }
 
     @Override
