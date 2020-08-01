@@ -1,8 +1,13 @@
 package org.yzh.framework.session;
 
 import io.netty.channel.Channel;
+import io.netty.util.AttributeKey;
+import org.yzh.framework.orm.model.AbstractHeader;
 
-import java.net.SocketAddress;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -10,120 +15,116 @@ import java.net.SocketAddress;
  */
 public class Session {
 
-    private String ip;
-    private String id;
+    public static final AttributeKey<Session> KEY = AttributeKey.newInstance(Session.class.getName());
+
+    protected final Channel channel;
+
+    private volatile int serialNo = 0;
+    private boolean registered = false;
     private String terminalId;
-    private Channel channel = null;
-    private boolean isAuthenticated = false;
-    // 消息流水号 word(16) 按发送顺序从 0 开始循环累加
-    private int serialNo = 0;
-    // 客户端上次的连接时间，该值改变的情况:
-    // 1. terminal --> server 心跳包
-    // 2. terminal --> server 数据包
-    private long lastCommunicateTimeStamp = 0l;
 
-    public Session() {
+    private final long creationTime;
+    private long lastAccessedTime;
+    private final Map<String, Object> attributes;
+
+    public Session(Channel channel) {
+        this.channel = channel;
+        this.creationTime = System.currentTimeMillis();
+        this.lastAccessedTime = creationTime;
+        this.attributes = new TreeMap<>();
+        channel.attr(Session.KEY).set(this);
     }
 
-    public static String buildId(Channel channel) {
-        return channel.id().asLongText();
+
+    public void writeObject(Object message) {
+        channel.writeAndFlush(message);
     }
 
-    public static Session buildSession(Channel channel) {
-        return buildSession(channel, null);
+    public int getId() {
+        return channel.id().hashCode();
     }
 
-    public static Session buildSession(Channel channel, String terminalId) {
-        Session session = new Session();
-        session.setIp(channel.remoteAddress().toString());
-        session.setChannel(channel);
-        session.setId(buildId(channel));
-        session.setTerminalId(terminalId);
-        session.setLastCommunicateTimeStamp(System.currentTimeMillis());
-        return session;
+    public int serialNo() {
+        return serialNo;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public int nextSerialNo() {
+        if (serialNo >= 0xffff)
+            serialNo = 0;
+        return serialNo++;
     }
 
-    public String getId() {
-        return id;
+    public boolean isRegistered() {
+        return registered;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /**
+     * 注册到SessionManager
+     */
+    public void register(AbstractHeader header) {
+        this.terminalId = header.getTerminalId();
+        this.registered = true;
+        SessionManager.Instance.put(terminalId, this);
     }
 
     public String getTerminalId() {
         return terminalId;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+
+    public long getCreationTime() {
+        return creationTime;
     }
 
-    public Channel getChannel() {
-        return channel;
+    public long getLastAccessedTime() {
+        return lastAccessedTime;
     }
 
-    public void setChannel(Channel channel) {
-        this.channel = channel;
+    public void access() {
+        this.lastAccessedTime = System.currentTimeMillis();
     }
 
-    public boolean isAuthenticated() {
-        return isAuthenticated;
+    public Collection<String> getAttributeNames() {
+        return attributes.keySet();
     }
 
-    public void setAuthenticated(boolean isAuthenticated) {
-        this.isAuthenticated = isAuthenticated;
+    public Object getAttribute(String name) {
+        return attributes.get(name);
     }
 
-    public long getLastCommunicateTimeStamp() {
-        return lastCommunicateTimeStamp;
+    public void setAttribute(String name, Object value) {
+        attributes.put(name, value);
     }
 
-    public void setLastCommunicateTimeStamp(long lastCommunicateTimeStamp) {
-        this.lastCommunicateTimeStamp = lastCommunicateTimeStamp;
+    public Object removeAttribute(String name) {
+        return attributes.remove(name);
     }
 
-    public SocketAddress getRemoteAddr() {
-        return this.channel.remoteAddress();
+    public void invalidate() {
+        channel.close();
+        channel.attr(KEY).set(null);
     }
 
-    public synchronized int nextSerialNo() {
-        if (serialNo >= 0xffff)
-            serialNo = 0;
-        return serialNo++;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Session that = (Session) o;
+        return Objects.equals(this.getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that)
-            return true;
-        if (that == null)
-            return false;
-        if (getClass() != that.getClass())
-            return false;
-        Session other = (Session) that;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        return getId();
     }
 
     @Override
     public String toString() {
-        return "[ip=" + ip + ", terminalId=" + terminalId + ']';
+        return "[ip=" + channel.remoteAddress() +
+                ", terminalId=" + terminalId +
+                ", registered=" + registered +
+                ']';
     }
 }

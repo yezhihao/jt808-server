@@ -99,7 +99,7 @@ public class Beans {
     //终端鉴权
     public static T0102 T0102() {
         T0102 bean = new T0102();
-        bean.setToken("a13t9hCg8sjSI92PL+MOkb+cm01sTeKGH8IlV+Ig28VMoksWJD+6EsocIHckWEOODLReTUDL/RRU+7IJ3RRH54Xso+rSkUQyqjtlGMtE+fY=");
+        bean.setToken("pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8=");
         return bean;
     }
 

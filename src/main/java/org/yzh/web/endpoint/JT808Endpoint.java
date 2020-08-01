@@ -78,8 +78,7 @@ public class JT808Endpoint {
 
         String token = deviceService.register(message);
         if (token != null) {
-            session.setTerminalId(header.getTerminalId());
-            sessionManager.put(Session.buildId(session.getChannel()), session);
+            session.register(header);
 
             result.setResultCode(T8100.Success);
             result.setToken(token);
@@ -100,12 +99,12 @@ public class JT808Endpoint {
         result.setReplyId(header.getMessageId());
 
         if (deviceService.authentication(message.getToken())) {
-            session.setTerminalId(header.getTerminalId());
-            sessionManager.put(Session.buildId(session.getChannel()), session);
+            session.register(header);
 
             result.setResultCode(T0001.Success);
         } else {
 
+            log.warn("终端鉴权失败，{}{}", session, message);
             result.setResultCode(T0001.Failure);
         }
         return result;

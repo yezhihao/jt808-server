@@ -24,7 +24,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.NotSupport);
         response.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getTerminalId()));
         log.warn("<<<<<<未找到对应的Handel，{},{}", session, request);
-        session.getChannel().writeAndFlush(response);
+        session.writeObject(response);
     }
 
 
@@ -37,7 +37,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
             T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Success);
             response.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getTerminalId()));
             log.info("<<<<<<通用应答消息，{},{}", session, response);
-            session.getChannel().writeAndFlush(response);
+            session.writeObject(response);
         }
     }
 
@@ -49,7 +49,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Failure);
         response.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getTerminalId()));
         log.warn("<<<<<<异常处理应答，{},{}", session, response);
-        session.getChannel().writeAndFlush(response);
+        session.writeObject(response);
     }
 
     /** 超出队列或线程处理能力的 */
@@ -60,14 +60,19 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         T0001 response = new T0001(header.getMessageId(), header.getSerialNo(), T0001.Failure);
         response.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getTerminalId()));
         log.warn("<<<<<<队列负载过大，{},{}", session, response);
-        session.getChannel().writeAndFlush(response);
+        session.writeObject(response);
     }
 
     /** 调用之前 */
     @Override
     public boolean beforeHandle(AbstractMessage<?> request, Session session) throws Exception {
-        if (session.isAuthenticated())
+        int messageId = request.getHeader().getMessageId();
+        if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
+        if (!session.isRegistered()) {
+            log.warn(">>>>>>未注册的设备，{},{}", session, request);
+            return true;
+        }
         return true;
     }
 

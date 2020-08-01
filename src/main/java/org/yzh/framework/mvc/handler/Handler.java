@@ -85,7 +85,7 @@ public abstract class Handler {
         Object response = targetMethod.invoke(targetObject, args);
         if (hasReturn) {
             if (response != null)
-                session.getChannel().writeAndFlush(response);
+                session.writeObject(response);
             interceptor.afterHandle(request, (AbstractMessage<?>) response, session);
         } else {
             interceptor.afterHandle(request, session);

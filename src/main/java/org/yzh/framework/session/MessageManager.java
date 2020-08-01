@@ -35,12 +35,12 @@ public enum MessageManager {
         AbstractHeader header = message.getHeader();
         String terminalId = header.getTerminalId();
 
-        Session session = sessionManager.getByTerminalId(terminalId);
+        Session session = sessionManager.get(terminalId);
         if (session == null)
             return false;
 
         header.setSerialNo(session.nextSerialNo());
-        session.getChannel().writeAndFlush(message);
+        session.writeObject(message);
         return true;
     }
 
@@ -56,7 +56,7 @@ public enum MessageManager {
         AbstractHeader header = request.getHeader();
         String terminalId = header.getTerminalId();
 
-        Session session = sessionManager.getByTerminalId(terminalId);
+        Session session = sessionManager.get(terminalId);
         if (session == null)
             return null;
 
@@ -68,7 +68,7 @@ public enum MessageManager {
             return null;
 
         try {
-            session.getChannel().writeAndFlush(request);
+            session.writeObject(request);
             return (T) synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             log.warn("", e);
