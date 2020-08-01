@@ -102,7 +102,6 @@ public class Session {
 
     public void invalidate() {
         channel.close();
-        channel.attr(KEY).set(null);
     }
 
     @Override
