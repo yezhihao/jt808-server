@@ -51,9 +51,10 @@ public class JT808Endpoint {
     public void heartBeat(Header header, Session session) {
     }
 
+    @Async
     @Mapping(types = 终端注销, desc = "终端注销")
     public void 终端注销(AbstractMessage message, Session session) {
-        Header header = (Header) message.getHeader();
+        session.invalidate();
     }
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
