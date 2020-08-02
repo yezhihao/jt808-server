@@ -6,9 +6,9 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
@@ -35,54 +35,52 @@ public class TCPServer {
     }
 
     private void startInternal() {
-        this.bossGroup = new NioEventLoopGroup();
-        this.workerGroup = new NioEventLoopGroup();
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
-        serverBootstrap.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .option(NioChannelOption.SO_BACKLOG, 512)
-                .option(NioChannelOption.SO_REUSEADDR, true)
-                .childOption(NioChannelOption.TCP_NODELAY, true)
-                .childOption(NioChannelOption.SO_KEEPALIVE, true)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    public void initChannel(SocketChannel ch) {
-                        ch.pipeline()
-                                .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
-                                        Unpooled.wrappedBuffer(config.delimiter),
-                                        Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
-                                .addLast("decoder", new MessageDecoderWrapper(config.decoder))
-                                .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter))
-                                .addLast("adapter", config.adapter);
-                    }
-                });
+        try {
+            this.bossGroup = new NioEventLoopGroup();
+            this.workerGroup = new NioEventLoopGroup();
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.channel(NioServerSocketChannel.class);
+            bootstrap.group(bossGroup, workerGroup);
+            bootstrap.option(NioChannelOption.SO_BACKLOG, 1024)
+                    .option(NioChannelOption.SO_REUSEADDR, true)
+                    .childOption(NioChannelOption.TCP_NODELAY, true)
+                    .childHandler(new ChannelInitializer<NioSocketChannel>() {
+                        @Override
+                        public void initChannel(NioSocketChannel channel) {
+                            channel.pipeline()
+                                    .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
+                                            Unpooled.wrappedBuffer(config.delimiter),
+                                            Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
+                                    .addLast("decoder", new MessageDecoderWrapper(config.decoder))
+                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter))
+                                    .addLast("adapter", config.adapter);
+                        }
+                    });
 
-        ChannelFuture channelFuture = serverBootstrap.bind(config.port);
-        channelFuture.channel().closeFuture();
+            ChannelFuture channelFuture = bootstrap.bind(config.port).sync();
+            log.info("===TCP Server启动成功, port={}===", config.port);
+            channelFuture.channel().closeFuture().sync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            stop();
+        }
     }
 
     public synchronized void start() {
         if (this.isRunning) {
-            log.warn("===TCP服务已经启动, port={}===", config.port);
+            log.warn("===TCP Server已经启动, port={}===", config.port);
             return;
         }
         this.isRunning = true;
-        this.startInternal();
-        log.info("===TCP服务启动成功, port={}===", config.port);
+        new Thread(() -> startInternal()).start();
     }
 
     public synchronized void stop() {
         if (!this.isRunning) {
-            log.warn("===TCP服务已经停止, port={}===", config.port);
+            log.warn("===TCP Server已经停止, port={}===", config.port);
         }
         this.isRunning = false;
-        try {
-            Future future = this.workerGroup.shutdownGracefully().await();
-            if (!future.isSuccess())
-                log.error("workerGroup 无法正常停止", future.cause());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         try {
             Future future = this.bossGroup.shutdownGracefully().await();
             if (!future.isSuccess())
@@ -90,6 +88,13 @@ public class TCPServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("===TCP服务已经停止, port={}===", config.port);
+        try {
+            Future future = this.workerGroup.shutdownGracefully().await();
+            if (!future.isSuccess())
+                log.error("workerGroup 无法正常停止", future.cause());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("===TCP Server已经停止, port={}===", config.port);
     }
 }

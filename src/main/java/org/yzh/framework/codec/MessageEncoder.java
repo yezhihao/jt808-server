@@ -1,6 +1,7 @@
 package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public abstract class MessageEncoder {
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = Unpooled.buffer(beanMetadata.length);
+        ByteBuf buf = PooledByteBufAllocator.DEFAULT.buffer(beanMetadata.length);
         try {
             for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {
                 Object value = fieldMetadata.readMethod.invoke(obj);
@@ -85,7 +86,7 @@ public abstract class MessageEncoder {
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = Unpooled.buffer(beanMetadata.length * size);
+        ByteBuf buf = PooledByteBufAllocator.DEFAULT.buffer(beanMetadata.length * size);
         try {
             for (Object obj : list) {
                 for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {

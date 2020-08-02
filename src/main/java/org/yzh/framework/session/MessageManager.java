@@ -71,7 +71,7 @@ public enum MessageManager {
             session.writeObject(request);
             return (T) synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            log.warn("", e);
+            log.warn("等待响应超时" + session, e);
         } finally {
             this.unsubscribe(key);
         }

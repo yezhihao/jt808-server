@@ -27,6 +27,10 @@ public class T0001 extends AbstractMessage<Header> {
     public T0001() {
     }
 
+    public T0001(String mobileNo, int serialNo) {
+        super(new Header(JT808.终端通用应答, serialNo, mobileNo));
+    }
+
     public T0001(int serialNo, String mobileNo) {
         super(new Header(JT808.平台通用应答, serialNo, mobileNo));
     }
