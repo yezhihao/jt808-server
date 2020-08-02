@@ -97,6 +97,9 @@ public class JT808Endpoint {
 
     @Autowired
     private LocationService locationService;
+    
+    @Autowired
+    private DeviceService deviceService;
 
     //异步批量处理 队列大小20000 最大累积200处理一次 最大等待时间5秒
     @AsyncBatch(capacity = 20000, maxElements = 200, maxWait = 5000)
@@ -105,13 +108,24 @@ public class JT808Endpoint {
         locationService.batchInsert(list);
     }
 
+    @Async
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
-        session.setTerminalId(header.getTerminalId());
-        sessionManager.put(Session.buildId(session.getChannel()), session);
-        T8100 result = new T8100(header.getSerialNo(), T8100.Success, "test_token");
-        result.setHeader(new Header(终端注册应答, session.currentFlowId(), header.getMobileNo()));
+
+        T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
+        result.setSerialNo(header.getSerialNo());
+
+        String token = deviceService.register(message);
+        if (token != null) {
+            session.register(header);
+
+            result.setResultCode(T8100.Success);
+            result.setToken(token);
+        } else {
+
+            result.setResultCode(T8100.NotFoundTerminal);
+        }
         return result;
     }
 }
