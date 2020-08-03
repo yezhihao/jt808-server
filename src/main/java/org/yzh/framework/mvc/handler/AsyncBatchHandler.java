@@ -56,9 +56,10 @@ public class AsyncBatchHandler extends Handler {
                 new BasicThreadFactory.Builder().namingPattern(actionMethod.getName() + "-pool-%d").build());
 
         for (int i = 0; i < poolSize; i++) {
+            boolean master = i == 0;
             executor.execute(() -> {
                 try {
-                    startInternal();
+                    startInternal(master);
                 } catch (Exception e) {
                     log.error("批处理线程出错", e);
                 }
@@ -74,7 +75,7 @@ public class AsyncBatchHandler extends Handler {
         }
     }
 
-    public void startInternal() {
+    public void startInternal(boolean master) {
         AbstractMessage[] array = new AbstractMessage[maxElements];
 
         while (true) {
@@ -97,17 +98,28 @@ public class AsyncBatchHandler extends Handler {
                 }
             }
 
-            int size = queue.size();
-            if (size < maxElements) {
-                try {
-                    log.warn("批处理队列等待数据中...size:{}", size);
-                    for (int j = 0; j < i; j++)
-                        array[j] = null;
-                    Thread.sleep(maxWait);
-                } catch (InterruptedException e) {
+            if (master) {
+                int size = queue.size();
+                if (size < maxElements) {
+                    try {
+                        log.warn("批处理队列等待数据中...size:{}", size);
+                        for (int j = 0; j < i; j++)
+                            array[j] = null;
+                        Thread.sleep(maxWait);
+                    } catch (InterruptedException e) {
+                    }
+                } else if (size > warningLines) {
+                    log.warn("批处理队列繁忙, size:{}", size);
                 }
-            } else if (size > warningLines) {
-                log.warn("批处理队列繁忙, size:{}", size);
+            } else {
+                if (i < maxElements) {
+                    try {
+                        for (int j = 0; j < i; j++)
+                            array[j] = null;
+                        Thread.sleep(maxWait);
+                    } catch (InterruptedException e) {
+                    }
+                }
             }
         }
     }
