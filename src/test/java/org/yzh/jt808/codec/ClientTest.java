@@ -6,10 +6,14 @@ import org.yzh.framework.netty.client.TCPClient;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 
+import java.util.Scanner;
+
 /**
  * 不依赖spring，快速启动netty服务
  */
 public class ClientTest {
+
+    private static final Scanner scanner = new Scanner(System.in);
 
     private static TCPClient tcpClient;
 
@@ -28,13 +32,22 @@ public class ClientTest {
     }
 
     public static void main(String[] args) {
-
-
-        tcpClient.writeObject(Beans.H2013(Beans.T0100()));
-        tcpClient.writeObject(Beans.H2013(Beans.T0200Attributes()));
-        tcpClient.writeObject(Beans.H2013(Beans.T0200Attributes()));
-        tcpClient.writeObject(Beans.H2013(Beans.T0200Attributes()));
-
-        tcpClient.stop();
+        while (true) {
+            System.out.println("选择发送的消息：1.注册 2.位置信息上报");
+            while (scanner.hasNext()) {
+                int i = scanner.nextInt();
+                switch (i) {
+                    case 0:
+                        tcpClient.stop();
+                        return;
+                    case 1:
+                        tcpClient.writeObject(Beans.H2013(Beans.T0100()));
+                        break;
+                    case 2:
+                        tcpClient.writeObject(Beans.H2013(Beans.T0200Attributes()));
+                        break;
+                }
+            }
+        }
     }
 }
