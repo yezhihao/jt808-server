@@ -77,6 +77,8 @@ public class AsyncBatchHandler extends Handler {
 
     public void startInternal(boolean master) {
         AbstractMessage[] array = new AbstractMessage[maxElements];
+        long logtime = 0;
+        long time = 0;
 
         while (true) {
             AbstractMessage temp;
@@ -88,36 +90,29 @@ public class AsyncBatchHandler extends Handler {
             }
 
             if (i > 0) {
+                time = System.currentTimeMillis();
                 try {
-                    long time = System.currentTimeMillis();
                     targetMethod.invoke(targetObject, new VirtualList<>(array, i));
-                    time = System.currentTimeMillis() - time;
-                    log.warn("批处理耗时:{}ms,共{}条记录", time, i);
                 } catch (Exception e) {
                     log.warn(targetMethod.getName(), e);
                 }
+                log.warn("批处理耗时:{}ms,共{}条记录", System.currentTimeMillis() - time, i);
             }
 
-            if (master) {
-                int size = queue.size();
-                if (size < maxElements) {
-                    try {
-                        log.warn("批处理队列等待数据中...size:{}", size);
-                        for (int j = 0; j < i; j++)
-                            array[j] = null;
-                        Thread.sleep(maxWait);
-                    } catch (InterruptedException e) {
-                    }
-                } else if (size > warningLines) {
-                    log.warn("批处理队列繁忙, size:{}", size);
+            if (i < maxElements) {
+                try {
+                    for (int j = 0; j < i; j++)
+                        array[j] = null;
+                    Thread.sleep(maxWait);
+                } catch (InterruptedException e) {
                 }
-            } else {
-                if (i < maxElements) {
-                    try {
-                        for (int j = 0; j < i; j++)
-                            array[j] = null;
-                        Thread.sleep(maxWait);
-                    } catch (InterruptedException e) {
+            } else if (master) {
+                if (logtime < time) {
+                    logtime = time + 5000L;
+
+                    int size = queue.size();
+                    if (size > warningLines) {
+                        log.warn("批处理队列繁忙, size:{}", size);
                     }
                 }
             }

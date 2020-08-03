@@ -58,10 +58,10 @@ public class TCPServer {
                     });
 
             ChannelFuture channelFuture = bootstrap.bind(config.port).sync();
-            log.info("===TCP Server启动成功, port={}===", config.port);
+            log.warn("===TCP Server启动成功, port={}===", config.port);
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("===TCP Server出现异常, port={}===", e);
         } finally {
             stop();
         }
@@ -81,20 +81,15 @@ public class TCPServer {
             log.warn("===TCP Server已经停止, port={}===", config.port);
         }
         this.isRunning = false;
-        try {
-            Future future = this.bossGroup.shutdownGracefully().await();
-            if (!future.isSuccess())
-                log.error("bossGroup 无法正常停止", future.cause());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            Future future = this.workerGroup.shutdownGracefully().await();
-            if (!future.isSuccess())
-                log.error("workerGroup 无法正常停止", future.cause());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        log.info("===TCP Server已经停止, port={}===", config.port);
+
+        Future future = this.bossGroup.shutdownGracefully();
+        if (!future.isSuccess())
+            log.warn("bossGroup 无法正常停止", future.cause());
+
+        future = this.workerGroup.shutdownGracefully();
+        if (!future.isSuccess())
+            log.warn("workerGroup 无法正常停止", future.cause());
+
+        log.warn("===TCP Server已经停止, port={}===", config.port);
     }
 }
