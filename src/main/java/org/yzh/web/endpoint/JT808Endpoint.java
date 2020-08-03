@@ -59,7 +59,7 @@ public class JT808Endpoint {
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
     public T8004 查询服务器时间(Header header, Session session) {
-        T8004 result = new T8004(DateUtils.FastDateFormatter.format(new Date(System.currentTimeMillis() + 50)));
+        T8004 result = new T8004(DateUtils.yyMMddHHmmss.format(new Date(System.currentTimeMillis() + 50)));
         result.setHeader(new Header(查询服务器时间应答, session.nextSerialNo(), header.getTerminalId()));
         return result;
     }

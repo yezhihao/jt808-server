@@ -2,8 +2,7 @@ package org.yzh.web.model.entity;
 
 import org.yzh.web.commons.DateUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class LocationDO {
 
@@ -16,10 +15,10 @@ public class LocationDO {
     private Integer altitude;
     private Integer speed;
     private Integer direction;
-    private LocalDateTime deviceTime;
-    private LocalDate deviceDate;
+    private Date deviceTime;
+    private Date deviceDate;
     private Integer mapFenceId;
-    private LocalDateTime createTime;
+    private Date createTime;
 
     public String getDeviceId() {
         return deviceId;
@@ -93,19 +92,19 @@ public class LocationDO {
         this.direction = direction;
     }
 
-    public LocalDateTime getDeviceTime() {
+    public Date getDeviceTime() {
         return deviceTime;
     }
 
-    public void setDeviceTime(LocalDateTime deviceTime) {
+    public void setDeviceTime(Date deviceTime) {
         this.deviceTime = deviceTime;
     }
 
-    public LocalDate getDeviceDate() {
+    public Date getDeviceDate() {
         return deviceDate;
     }
 
-    public void setDeviceDate(LocalDate deviceDate) {
+    public void setDeviceDate(Date deviceDate) {
         this.deviceDate = deviceDate;
     }
 
@@ -117,11 +116,11 @@ public class LocationDO {
         this.mapFenceId = mapFenceId;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -154,6 +153,6 @@ public class LocationDO {
     public String toString() {
         return new StringBuilder(32)
                 .append("[").append(deviceId).append(",")
-                .append(DateUtils.DATE_TIME_FORMATTER.format(deviceTime)).append("]").toString();
+                .append(DateUtils.yyMMddHHmmss.format(deviceTime)).append("]").toString();
     }
 }

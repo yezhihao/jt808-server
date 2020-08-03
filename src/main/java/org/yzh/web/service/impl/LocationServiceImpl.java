@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.mapper.LocationMapper;
@@ -13,9 +12,8 @@ import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,14 +34,16 @@ public class LocationServiceImpl implements LocationService {
     public void batchInsert(List<T0200> list) {
         int size = list.size();
         List<LocationDO> locations = new ArrayList<>(size);
-        LocalDateTime now = LocalDateTime.now();
+        Date now = new Date();
         for (T0200 t : list) {
-            Header header = t.getHeader();
+            Date date = DateUtils.parse(t.getDateTime());
+            if (date == null)
+                continue;
 
             LocationDO location = new LocationDO();
             locations.add(location);
 
-            location.setDeviceId(header.getTerminalId());
+            location.setDeviceId(t.getHeader().getTerminalId());
             location.setPlateNo("TODO");
             location.setWarningMark(t.getWarningMark());
             location.setStatus(t.getStatus());
@@ -52,10 +52,7 @@ public class LocationServiceImpl implements LocationService {
             location.setAltitude(t.getAltitude());
             location.setSpeed(t.getSpeed());
             location.setDirection(t.getDirection());
-            LocalDateTime deviceTime = LocalDateTime.parse(t.getDateTime(), DateUtils.yyMMddHHmmss);
-            LocalDate deviceDate = deviceTime.toLocalDate();
-            location.setDeviceTime(deviceTime);
-            location.setDeviceDate(deviceDate);
+            location.setDeviceTime(date);
             location.setMapFenceId(0);
             location.setCreateTime(now);
         }
