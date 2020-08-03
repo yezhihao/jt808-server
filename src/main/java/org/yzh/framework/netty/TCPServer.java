@@ -36,7 +36,7 @@ public class TCPServer {
 
     private void startInternal() {
         try {
-            this.bossGroup = new NioEventLoopGroup();
+            this.bossGroup = new NioEventLoopGroup(1);
             this.workerGroup = new NioEventLoopGroup();
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.channel(NioServerSocketChannel.class);

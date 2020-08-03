@@ -7,7 +7,7 @@
         <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
     </settings>
     <typeHandlers>
     </typeHandlers>

@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface AsyncBatch {
 
-    int capacity() default 1000;
+    int poolSize() default 4;
 
     int maxElements() default 100;
 

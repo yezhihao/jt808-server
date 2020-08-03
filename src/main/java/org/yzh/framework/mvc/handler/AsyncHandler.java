@@ -21,7 +21,7 @@ public class AsyncHandler extends Handler {
 
     private static final Logger log = LoggerFactory.getLogger(AsyncHandler.class.getSimpleName());
 
-    private static final ThreadPoolExecutor POOL_EXECUTOR = new ThreadPoolExecutor(2, 8, 60L, TimeUnit.SECONDS,
+    private static final ThreadPoolExecutor POOL_EXECUTOR = new ThreadPoolExecutor(2, 4, 2L, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(2000));
 
     public AsyncHandler(Object actionClass, Method actionMethod, String desc) {

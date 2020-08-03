@@ -51,7 +51,7 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
                         Handler handler;
 
                         if (asyncBatch != null) {
-                            handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.capacity(), asyncBatch.maxElements(), asyncBatch.maxWait());
+                            handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.poolSize(), asyncBatch.maxElements(), asyncBatch.maxWait());
 
                         } else if (async != null) {
                             handler = new AsyncHandler(endpoint, method, desc);
