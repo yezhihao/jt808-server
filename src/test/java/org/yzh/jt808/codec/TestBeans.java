@@ -188,8 +188,8 @@ public class TestBeans {
 
     @Test
     public void testT0102() {
-        selfCheck(H2013(T0102()));
-        selfCheck(H2019(T0102()));
+        selfCheck(H2013(T0102_2013()));
+        selfCheck(H2019(T0102_2019()));
     }
 
     @Test
@@ -212,8 +212,8 @@ public class TestBeans {
 
     @Test
     public void testT8600() {
-        selfCheck(H2013(T8600()));
-        selfCheck(H2019(T8600()));
+        selfCheck(H2013(T8600_2013()));
+        selfCheck(H2019(T8600_2019()));
     }
 
     @Test
@@ -290,8 +290,8 @@ public class TestBeans {
 
     @Test
     public void testT8300() {
-        selfCheck(H2013(T8300()));
-        selfCheck(H2019(T8300()));
+        selfCheck(H2013(T8300_2013()));
+        selfCheck(H2019(T8300_2019()));
     }
 
     @Test

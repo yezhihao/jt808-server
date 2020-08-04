@@ -11,6 +11,7 @@ import org.yzh.protocol.commons.JT808;
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
+ * 该消息2019版本已删除
  */
 @Message(JT808.信息服务)
 public class T8304 extends AbstractMessage<Header> {

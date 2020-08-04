@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
+ * 该消息2019版本已删除
  */
 @Message(JT808.信息点播菜单设置)
 public class T8303 extends AbstractMessage<Header> {

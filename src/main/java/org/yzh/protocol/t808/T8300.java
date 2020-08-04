@@ -2,6 +2,7 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
@@ -24,6 +25,11 @@ public class T8300 extends AbstractMessage<Header> {
      * 6-7  保留
      */
     private int sign;
+    /**
+     * 1.通知
+     * 2.服务
+     */
+    private int type;
     private String content;
 
     public T8300() {
@@ -46,7 +52,17 @@ public class T8300 extends AbstractMessage<Header> {
         this.sign = Bin.writeInt(sign);
     }
 
-    @Field(index = 1, type = DataType.STRING, desc = "文本信息")
+    @Field(index = 1, type = DataType.BYTE, desc = "类型", version = 1)
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    @Fs({@Field(index = 1, type = DataType.STRING, desc = "文本信息", version = 0),
+            @Field(index = 2, type = DataType.STRING, desc = "文本信息", version = 1)})
     public String getContent() {
         return content;
     }

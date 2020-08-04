@@ -97,9 +97,17 @@ public class Beans {
     }
 
     //终端鉴权
-    public static T0102 T0102() {
+    public static T0102 T0102_2013() {
         T0102 bean = new T0102();
         bean.setToken("pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8=");
+        return bean;
+    }
+
+    public static T0102 T0102_2019() {
+        T0102 bean = new T0102();
+        bean.setToken("pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8=");
+        bean.setImei("123456789012345");
+        bean.setVersion("3.7.15");
         return bean;
     }
 
@@ -454,7 +462,7 @@ public class Beans {
     }
 
     //设置圆形区域
-    public static T8600 T8600() {
+    public static T8600 T8600_2013() {
         T8600 bean = new T8600();
         bean.setAction(ShapeAction.Modify);
         List<T8600.Item> items = new ArrayList<>();
@@ -463,6 +471,19 @@ public class Beans {
         items.add(new T8600.Item(3, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
         items.add(new T8600.Item(4, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
         items.add(new T8600.Item(5, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
+        bean.setItems(items);
+        return bean;
+    }
+
+    public static T8600 T8600_2019() {
+        T8600 bean = new T8600();
+        bean.setAction(ShapeAction.Modify);
+        List<T8600.Item> items = new ArrayList<>();
+        items.add(new T8600.Item(1, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏1"));
+        items.add(new T8600.Item(2, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏2"));
+        items.add(new T8600.Item(3, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏3"));
+        items.add(new T8600.Item(4, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏4"));
+        items.add(new T8600.Item(5, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏5"));
         bean.setItems(items);
         return bean;
     }
@@ -609,9 +630,18 @@ public class Beans {
         return bean;
     }
 
-    public static T8300 T8300() {
+    //文本信息下发
+    public static T8300 T8300_2013() {
         T8300 bean = new T8300();
         bean.setSign(Bin.writeInt(1, 1, 1, 1, 1, 1));
+        bean.setContent("测试123@456#abc!...结束");
+        return bean;
+    }
+
+    public static T8300 T8300_2019() {
+        T8300 bean = new T8300();
+        bean.setSign(Bin.writeInt(1, 1, 1, 1, 1, 1));
+        bean.setType(1);
         bean.setContent("测试123@456#abc!...结束");
         return bean;
     }

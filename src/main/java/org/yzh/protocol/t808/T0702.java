@@ -24,6 +24,7 @@ public class T0702 extends AbstractMessage<Header> {
     private int institutionLen;
     private String institution;
     private String licenseValidPeriod;
+    private String idCard;
 
     @Field(index = 0, type = DataType.BYTE, desc = "状态")
     public int getStatus() {
@@ -106,5 +107,14 @@ public class T0702 extends AbstractMessage<Header> {
 
     public void setLicenseValidPeriod(String licenseValidPeriod) {
         this.licenseValidPeriod = licenseValidPeriod;
+    }
+
+    @Field(index = 34, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }
