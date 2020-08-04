@@ -24,8 +24,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.NotSupport);
 
-        session.writeObject(response);
         log.info("<<<<<<未找到对应的Handel，{},{}", session, response);
+        session.writeObject(response);
     }
 
 
@@ -41,8 +41,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
             response.setReplyId(header.getMessageId());
             response.setResultCode(T0001.Success);
 
-            session.writeObject(response);
             log.info("<<<<<<通用应答消息，{},{}", session, response);
+            session.writeObject(response);
         }
     }
 
@@ -57,8 +57,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.Failure);
 
-        session.writeObject(response);
         log.info("<<<<<<异常处理应答，{},{}", session, response);
+        session.writeObject(response);
     }
 
     /** 超出队列或线程处理能力的 */

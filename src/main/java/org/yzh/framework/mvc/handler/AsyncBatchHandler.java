@@ -78,7 +78,7 @@ public class AsyncBatchHandler extends Handler {
     public void startInternal(boolean master) {
         AbstractMessage[] array = new AbstractMessage[maxElements];
         long logtime = 0;
-        long time = 0;
+        long starttime = 0;
 
         while (true) {
             AbstractMessage temp;
@@ -90,13 +90,15 @@ public class AsyncBatchHandler extends Handler {
             }
 
             if (i > 0) {
-                time = System.currentTimeMillis();
+                starttime = System.currentTimeMillis();
                 try {
                     targetMethod.invoke(targetObject, new VirtualList<>(array, i));
                 } catch (Exception e) {
                     log.warn(targetMethod.getName(), e);
                 }
-                log.warn("批处理耗时:{}ms,共{}条记录", System.currentTimeMillis() - time, i);
+                long time = System.currentTimeMillis() - starttime;
+                if (time > 2000L)
+                    log.warn("批处理耗时:{}ms,共{}条记录", time, i);
             }
 
             if (i < maxElements) {
@@ -107,8 +109,8 @@ public class AsyncBatchHandler extends Handler {
                 } catch (InterruptedException e) {
                 }
             } else if (master) {
-                if (logtime < time) {
-                    logtime = time + 5000L;
+                if (logtime < starttime) {
+                    logtime = starttime + 5000L;
 
                     int size = queue.size();
                     if (size > warningLines) {
