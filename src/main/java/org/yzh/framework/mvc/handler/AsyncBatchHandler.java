@@ -97,7 +97,7 @@ public class AsyncBatchHandler extends Handler {
                     log.warn(targetMethod.getName(), e);
                 }
                 long time = System.currentTimeMillis() - starttime;
-                if (time > 2000L)
+                if (time > 1000L)
                     log.warn("批处理耗时:{}ms,共{}条记录", time, i);
             }
 

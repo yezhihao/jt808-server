@@ -2,6 +2,7 @@ package org.yzh.framework.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -26,7 +27,7 @@ public class TCPClient {
 
     private EventLoopGroup workerGroup;
 
-    private ChannelFuture channelFuture;
+    private Channel channel;
 
     public TCPClient(ClientConfig config) {
         this.config = config;
@@ -54,15 +55,16 @@ public class TCPClient {
                         }
                     });
 
-            this.channelFuture = bootstrap.connect(config.ip, config.port).sync();
-            this.channelFuture.channel().closeFuture();
+            ChannelFuture channelFuture = bootstrap.connect(config.ip, config.port).sync();
+            this.channel = channelFuture.channel();
+            this.channel.closeFuture();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("===TCP Client异常关闭", e);
         }
     }
 
     public void writeObject(Object message) {
-        channelFuture.channel().writeAndFlush(message);
+        channel.writeAndFlush(message);
         log.info("<<<<<<发送消息:{}", message);
     }
 

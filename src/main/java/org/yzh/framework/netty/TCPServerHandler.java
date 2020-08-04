@@ -75,7 +75,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         Session session = ctx.channel().attr(Session.KEY).get();
-        log.error("<<<<<<<<<发生异常" + session, e);
+        log.info("<<<<<<<<<发生异常" + session, e);
     }
 
     @Override

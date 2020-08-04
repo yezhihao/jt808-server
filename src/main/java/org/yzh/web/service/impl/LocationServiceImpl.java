@@ -3,6 +3,7 @@ package org.yzh.web.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
@@ -12,6 +13,9 @@ import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,10 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationMapper locationMapper;
 
+    @Qualifier("dataSource")
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public List<Location> find(LocationQuery query) {
         List<Location> result = locationMapper.find(query);
@@ -32,6 +40,52 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void batchInsert(List<T0200> list) {
+        jdbcBatchInsert(list);
+//        mybatisBatchInsert(list);
+    }
+
+    private static final String sql = "insert ignore into location(device_id,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,device_time,map_fence_id,create_time)values" +
+            "(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    private void jdbcBatchInsert(List<T0200> list) {
+        Date now = new Date();
+        Date date;
+        int size = list.size();
+        T0200 t;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            //降低事务隔离级别，提高写入速度
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+            for (int i = 0; i < size; i++) {
+                t = list.get(i);
+                date = DateUtils.parse(t.getDateTime());
+                if (date == null) continue;
+                int j = 1;
+
+                statement.setString(j++, t.getHeader().getTerminalId());
+                statement.setString(j++, "TODO");
+                statement.setInt(j++, t.getWarningMark());
+                statement.setInt(j++, t.getStatus());
+                statement.setInt(j++, t.getLatitude());
+                statement.setInt(j++, t.getLongitude());
+                statement.setInt(j++, t.getAltitude());
+                statement.setInt(j++, t.getSpeed());
+                statement.setInt(j++, t.getDirection());
+                statement.setObject(j++, date);
+                statement.setInt(j++, 0);
+                statement.setObject(j, now);
+
+                statement.addBatch();
+            }
+            statement.executeBatch();
+        } catch (Exception e) {
+            log.warn("批量写入失败", e);
+        }
+    }
+
+    private void mybatisBatchInsert(List<T0200> list) {
         int size = list.size();
         List<LocationDO> locations = new ArrayList<>(size);
         Date now = new Date();
