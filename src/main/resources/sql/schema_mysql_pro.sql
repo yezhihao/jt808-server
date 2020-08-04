@@ -1,5 +1,4 @@
 CREATE TABLE IF NOT EXISTS location (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `device_time` DATETIME NOT NULL COMMENT '设备时间',
   `device_id` VARCHAR(20) NOT NULL COMMENT '设备号',
   `plate_no` CHAR(8) NOT NULL DEFAULT '' COMMENT '车牌号',
