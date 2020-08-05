@@ -42,7 +42,6 @@
 
 * @Endpoint，服务接入点，等价SpringMVC的 @Controller；
 * @Mapping，定义消息ID，等价SpringMVC中 @RequestMapping；
-* @Async, 异步消息，等价Spring中 @Async；
 * @AsyncBatch, 异步批量消息，对于并发较高的消息，如0x0200(位置信息汇报)，使用该注解，显著提升Netty和MySQL入库性能。
 
 
