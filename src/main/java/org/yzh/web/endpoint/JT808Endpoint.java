@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.framework.mvc.annotation.Async;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
@@ -46,12 +45,10 @@ public class JT808Endpoint {
         messageManager.response(message);
     }
 
-    @Async
     @Mapping(types = 终端心跳, desc = "终端心跳")
     public void heartBeat(Header header, Session session) {
     }
 
-    @Async
     @Mapping(types = 终端注销, desc = "终端注销")
     public void 终端注销(AbstractMessage message, Session session) {
         session.invalidate();
@@ -69,7 +66,6 @@ public class JT808Endpoint {
         Header header = message.getHeader();
     }
 
-    @Async
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
@@ -90,7 +86,6 @@ public class JT808Endpoint {
         return result;
     }
 
-    @Async
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
     public T0001 authentication(T0102 message, Session session) {
         Header header = message.getHeader();

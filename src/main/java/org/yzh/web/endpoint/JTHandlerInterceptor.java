@@ -15,7 +15,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
 
     /** 未找到对应的Handle */
     @Override
-    public void notFoundHandle(AbstractMessage<?> request, Session session) throws Exception {
+    public AbstractMessage notSupported(AbstractMessage<?> request, Session session) {
         log.warn(">>>>>>未找到对应的Handel，{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
@@ -25,30 +25,31 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         response.setResultCode(T0001.NotSupport);
 
         log.info("<<<<<<未找到对应的Handel，{},{}", session, response);
-        session.writeObject(response);
+        return response;
     }
 
 
     /** 调用之后，返回值为void的 */
     @Override
-    public void afterHandle(AbstractMessage<?> request, Session session) throws Exception {
+    public AbstractMessage successful(AbstractMessage<?> request, Session session) {
         log.info(">>>>>>消息请求成功，{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
-        if (header.getMessageId() != JT808.终端通用应答) {
-            T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
-            response.setSerialNo(header.getSerialNo());
-            response.setReplyId(header.getMessageId());
-            response.setResultCode(T0001.Success);
+        if (header.getMessageId() == JT808.终端通用应答)
+            return null;
 
-            log.info("<<<<<<通用应答消息，{},{}", session, response);
-            session.writeObject(response);
-        }
+        T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
+        response.setSerialNo(header.getSerialNo());
+        response.setReplyId(header.getMessageId());
+        response.setResultCode(T0001.Success);
+
+        log.info("<<<<<<通用应答消息，{},{}", session, response);
+        return response;
     }
 
     /** 调用之后抛出异常的 */
     @Override
-    public void afterThrow(AbstractMessage<?> request, Session session, Exception ex) {
+    public AbstractMessage exceptional(AbstractMessage<?> request, Session session, Exception ex) {
         log.warn(">>>>>>消息处理异常，{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
@@ -58,26 +59,12 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         response.setResultCode(T0001.Failure);
 
         log.info("<<<<<<异常处理应答，{},{}", session, response);
-        session.writeObject(response);
-    }
-
-    /** 超出队列或线程处理能力的 */
-    @Override
-    public void queueOverflow(AbstractMessage<?> request, Session session) {
-        log.warn(">>>>>>队列负载过大，{},{}", session, request);
-
-        AbstractHeader header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
-        response.setSerialNo(header.getSerialNo());
-        response.setReplyId(header.getMessageId());
-        response.setResultCode(T0001.Failure);
-
-        session.writeObject(response);
+        return response;
     }
 
     /** 调用之前 */
     @Override
-    public boolean beforeHandle(AbstractMessage<?> request, Session session) throws Exception {
+    public boolean beforeHandle(AbstractMessage<?> request, Session session) {
         int messageId = request.getHeader().getMessageId();
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
@@ -90,7 +77,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
 
     /** 调用之后 */
     @Override
-    public void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response, Session session) throws Exception {
+    public void afterHandle(AbstractMessage<?> request, AbstractMessage<?> response, Session session) {
         log.info(">>>>>>消息请求成功，{},{}", session, request);
         log.info("<<<<<<应答消息，{},{}", session, response);
     }

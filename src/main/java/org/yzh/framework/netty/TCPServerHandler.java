@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.handler.Handler;
-import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
@@ -38,25 +37,32 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
         if (!(msg instanceof AbstractMessage))
             return;
         AbstractMessage request = (AbstractMessage) msg;
+        AbstractMessage response;
         Channel channel = ctx.channel();
         Session session = channel.attr(Session.KEY).get();
         session.access();
 
         try {
-            AbstractHeader header = request.getHeader();
-            Handler handler = handlerMapping.getHandler(header.getMessageId());
+            Handler handler = handlerMapping.getHandler(request.getHeader().getMessageId());
+            if (handler != null) {
+                if (!interceptor.beforeHandle(request, session))
+                    return;
 
-            if (handler == null) {
-                interceptor.notFoundHandle(request, session);
-                return;
+                response = handler.invoke(request, session);
+                if (handler.hasReturn) {
+                    interceptor.afterHandle(request, response, session);
+                } else {
+                    response = interceptor.successful(request, session);
+                }
+            } else {
+                response = interceptor.notSupported(request, session);
             }
-
-            handler.invoke(interceptor, request, session);
-
         } catch (Exception e) {
             log.warn(String.valueOf(request), e);
-            interceptor.afterThrow(request, session, e);
+            response = interceptor.exceptional(request, session, e);
         }
+        if (response != null)
+            ctx.writeAndFlush(response);
     }
 
     @Override

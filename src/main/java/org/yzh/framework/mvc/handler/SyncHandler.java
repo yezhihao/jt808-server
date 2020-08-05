@@ -1,6 +1,5 @@
 package org.yzh.framework.mvc.handler;
 
-import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
@@ -18,8 +17,7 @@ public class SyncHandler extends Handler {
         super(actionClass, actionMethod, desc);
     }
 
-    @Override
-    public void invoke(HandlerInterceptor interceptor, AbstractMessage request, Session session) throws Exception {
-        super.invoke(interceptor, request, session);
+    public AbstractMessage invoke(AbstractMessage request, Session session) throws Exception {
+        return super.invoke(request, session);
     }
 }

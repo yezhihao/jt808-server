@@ -1,12 +1,10 @@
 package org.yzh.framework.mvc;
 
 import org.yzh.framework.commons.ClassUtils;
-import org.yzh.framework.mvc.annotation.Async;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.mvc.handler.AsyncBatchHandler;
-import org.yzh.framework.mvc.handler.AsyncHandler;
 import org.yzh.framework.mvc.handler.Handler;
 import org.yzh.framework.mvc.handler.SyncHandler;
 
@@ -47,14 +45,10 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
                         int[] types = mapping.types();
 
                         AsyncBatch asyncBatch = method.getAnnotation(AsyncBatch.class);
-                        Async async = method.getAnnotation(Async.class);
                         Handler handler;
 
                         if (asyncBatch != null) {
                             handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.poolSize(), asyncBatch.maxElements(), asyncBatch.maxWait());
-
-                        } else if (async != null) {
-                            handler = new AsyncHandler(endpoint, method, desc);
 
                         } else {
                             handler = new SyncHandler(endpoint, method, desc);

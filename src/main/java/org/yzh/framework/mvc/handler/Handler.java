@@ -1,6 +1,5 @@
 package org.yzh.framework.mvc.handler;
 
-import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
@@ -60,11 +59,7 @@ public abstract class Handler {
         this.parameterTypes = parameterTypes;
     }
 
-    public void invoke(HandlerInterceptor interceptor, AbstractMessage request, Session session) throws Exception {
-        if (!interceptor.beforeHandle(request, session)) {
-            return;
-        }
-
+    public <T extends AbstractMessage> T invoke(T request, Session session) throws Exception {
         Object[] args = new Object[parameterTypes.length];
 
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -81,15 +76,7 @@ public abstract class Handler {
                     break;
             }
         }
-
-        Object response = targetMethod.invoke(targetObject, args);
-        if (hasReturn) {
-            if (response != null)
-                session.writeObject(response);
-            interceptor.afterHandle(request, (AbstractMessage<?>) response, session);
-        } else {
-            interceptor.afterHandle(request, session);
-        }
+        return (T) targetMethod.invoke(targetObject, args);
     }
 
     @Override

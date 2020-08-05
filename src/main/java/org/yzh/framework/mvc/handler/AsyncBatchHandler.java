@@ -4,7 +4,6 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.VirtualList;
-import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
@@ -67,12 +66,9 @@ public class AsyncBatchHandler extends Handler {
         }
     }
 
-    public void invoke(HandlerInterceptor interceptor, AbstractMessage request, Session session) throws Exception {
-        if (queue.offer(request)) {
-            interceptor.afterHandle(request, session);
-        } else {
-            interceptor.queueOverflow(request, session);
-        }
+    public AbstractMessage invoke(AbstractMessage request, Session session) {
+        queue.offer(request);
+        return null;
     }
 
     public void startInternal(boolean master) {
