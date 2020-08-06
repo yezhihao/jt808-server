@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
+@SuppressWarnings("unchecked")
 public abstract class Handler {
 
     public static final int MESSAGE = 0;
@@ -42,17 +43,12 @@ public abstract class Handler {
                 else
                     clazz = (Class<?>) type;
 
-                if (clazz.isAssignableFrom(Session.class)) {
+                if (AbstractMessage.class.isAssignableFrom(clazz))
+                    parameterTypes[i] = MESSAGE;
+                else if (AbstractHeader.class.isAssignableFrom(clazz))
+                    parameterTypes[i] = HEADER;
+                else if (Session.class.isAssignableFrom(clazz))
                     parameterTypes[i] = SESSION;
-                } else {
-                    Class<?> superclass = clazz.getSuperclass();
-                    if (superclass != null) {
-                        if (superclass.isAssignableFrom(AbstractHeader.class))
-                            parameterTypes[i] = HEADER;
-                        else if (superclass.isAssignableFrom(AbstractMessage.class))
-                            parameterTypes[i] = MESSAGE;
-                    }
-                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
