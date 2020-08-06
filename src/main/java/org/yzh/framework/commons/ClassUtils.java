@@ -7,9 +7,9 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -34,9 +34,10 @@ public class ClassUtils {
     }
 
     public static List<Class<?>> getClassList(String packageName) {
-        List<Class<?>> classList = new ArrayList<>(128);
+        List<Class<?>> classList = new LinkedList();
+        String path = packageName.replace(".", "/");
         try {
-            Enumeration<URL> urls = ClassUtils.getClassLoader().getResources(packageName.replace(".", "/"));
+            Enumeration<URL> urls = ClassUtils.getClassLoader().getResources(path);
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
 
@@ -44,8 +45,7 @@ public class ClassUtils {
                     String protocol = url.getProtocol();
 
                     if (protocol.equals("file")) {
-                        String packagePath = url.toURI().getPath();
-                        addClass(classList, packagePath, packageName);
+                        addClass(classList, url.toURI().getPath(), packageName);
 
                     } else if (protocol.equals("jar")) {
                         JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
@@ -55,11 +55,11 @@ public class ClassUtils {
                         while (jarEntries.hasMoreElements()) {
 
                             JarEntry jarEntry = jarEntries.nextElement();
-                            String jarEntryName = jarEntry.getName();
+                            String entryName = jarEntry.getName();
 
-                            if (jarEntryName.endsWith(".class")) {
-                                String className = jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replaceAll("/", ".");
-                                doAddClass(classList, className);
+                            if (entryName.startsWith(path) && entryName.endsWith(".class")) {
+                                String className = entryName.substring(0, entryName.lastIndexOf(".")).replaceAll("/", ".");
+                                addClass(classList, className);
                             }
                         }
                     }
@@ -82,7 +82,7 @@ public class ClassUtils {
                         if (packageName != null) {
                             className = packageName + "." + className;
                         }
-                        doAddClass(classList, className);
+                        addClass(classList, className);
                     } else {
                         String subPackagePath = fileName;
                         if (packageName != null) {
@@ -100,19 +100,16 @@ public class ClassUtils {
         }
     }
 
-    private static void doAddClass(List<Class<?>> classList, String className) {
-        Class<?> cls = loadClass(className, false);
-        classList.add(cls);
+    private static void addClass(List<Class<?>> classList, String className) {
+        classList.add(loadClass(className, false));
     }
 
     public static Class<?> loadClass(String className, boolean isInitialized) {
-        Class<?> cls;
         try {
-            cls = Class.forName(className, isInitialized, getClassLoader());
+            return Class.forName(className, isInitialized, getClassLoader());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return cls;
     }
 
     public static ClassLoader getClassLoader() {

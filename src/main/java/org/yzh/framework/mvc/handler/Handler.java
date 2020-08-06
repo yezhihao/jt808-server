@@ -24,6 +24,7 @@ public abstract class Handler {
     public final boolean hasReturn;
     public final String desc;
 
+    @SuppressWarnings("unchecked")
     public Handler(Object actionClass, Method actionMethod, String desc) {
         this.targetObject = actionClass;
         this.targetMethod = actionMethod;
