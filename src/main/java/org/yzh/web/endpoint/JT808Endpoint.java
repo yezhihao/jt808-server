@@ -50,7 +50,7 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
-    public void 终端注销(AbstractMessage message, Session session) {
+    public void 终端注销(Header header, Session session) {
         session.invalidate();
     }
 
