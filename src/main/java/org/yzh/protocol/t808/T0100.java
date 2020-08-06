@@ -17,8 +17,8 @@ public class T0100 extends AbstractMessage<Header> {
 
     private int provinceId;
     private int cityId;
-    private String manufacturerId;
-    private String deviceType;
+    private String makerId;
+    private String deviceModel;
     private String deviceId;
     private int plateColor;
     private String plateNo;
@@ -46,23 +46,23 @@ public class T0100 extends AbstractMessage<Header> {
     /** 终端制造商编码 */
     @Fs({@Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = 0),
             @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)})
-    public String getManufacturerId() {
-        return manufacturerId;
+    public String getMakerId() {
+        return makerId;
     }
 
-    public void setManufacturerId(String manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setMakerId(String makerId) {
+        this.makerId = makerId;
     }
 
     /** 由制造商自行定义,位数不足八位补空格 */
     @Fs({@Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0),
             @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)})
-    public String getDeviceType() {
-        return deviceType;
+    public String getDeviceModel() {
+        return deviceModel;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义 */

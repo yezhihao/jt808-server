@@ -88,8 +88,8 @@ public class Beans {
         T0100 bean = new T0100();
         bean.setProvinceId(31);
         bean.setCityId(115);
-        bean.setManufacturerId("4");
-        bean.setDeviceType("BSJ-GF-06");
+        bean.setMakerId("4");
+        bean.setDeviceModel("BSJ-GF-06");
         bean.setDeviceId("test123");
         bean.setPlateColor(1);
         bean.setPlateNo("测A888888");
