@@ -18,21 +18,21 @@ public enum SessionManager {
         return Instance;
     }
 
-    private Map<String, Session> terminalIdMap = new ConcurrentHashMap<>();
+    private Map<String, Session> clientIdMap = new ConcurrentHashMap<>();
 
     private ChannelFutureListener remover = future -> {
         Session session = future.channel().attr(Session.KEY).get();
         if (session != null)
-            terminalIdMap.remove(session.getTerminalId());
+            clientIdMap.remove(session.getClientId());
     };
 
-    public Session get(String terminalId) {
-        return terminalIdMap.get(terminalId);
+    public Session get(String clientId) {
+        return clientIdMap.get(clientId);
     }
 
-    protected void put(String terminalId, Session session) {
+    protected void put(String clientId, Session session) {
         Channel channel = session.channel;
-        boolean added = terminalIdMap.putIfAbsent(terminalId, session) == null;
+        boolean added = clientIdMap.putIfAbsent(clientId, session) == null;
         if (added) {
             channel.closeFuture().addListener(remover);
         }

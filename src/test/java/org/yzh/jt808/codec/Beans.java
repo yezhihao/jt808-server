@@ -134,13 +134,13 @@ public class Beans {
     //查询终端属性应答
     public static T0107 T0107() {
         T0107 bean = new T0107();
-        bean.setType(127);
-        bean.setManufacturerId("2D_ANEr");
-        bean.setTerminalType("RlkgWwRKr");
-        bean.setTerminalId("5kw_noL");
-        bean.setSimId("12812121212");
-        bean.setFirmwareVersion("DDhZr9hy9");
-        bean.setHardwareVersion("ohrnEniST");
+        bean.setDeviceType(127);
+        bean.setMakerId("2D_ANEr");
+        bean.setDeviceModel("BSJ-GF-06");
+        bean.setDeviceId("5kw3noL");
+        bean.setSimNo("12345678901234567890");
+        bean.setFirmwareVersion("1.1.25");
+        bean.setHardwareVersion("3.0.0");
         bean.setGnssAttribute(127);
         bean.setNetworkAttribute(127);
         return bean;
@@ -377,7 +377,7 @@ public class Beans {
     public static T8108 T8108() {
         T8108 bean = new T8108();
         bean.setType(T8108.Beidou);
-        bean.setManufacturerId("asd");
+        bean.setMakerId("asd");
         bean.setVersion("1.1.12");
         bean.setPacket(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;

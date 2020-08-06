@@ -19,7 +19,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         log.warn(">>>>>>未找到对应的Handel，{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
+        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.NotSupport);
@@ -38,7 +38,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         if (header.getMessageId() == JT808.终端通用应答)
             return null;
 
-        T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
+        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.Success);
@@ -53,7 +53,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         log.warn(">>>>>>消息处理异常，{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getTerminalId());
+        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.Failure);

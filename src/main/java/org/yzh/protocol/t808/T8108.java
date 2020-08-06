@@ -20,7 +20,7 @@ public class T8108 extends AbstractMessage<Header> {
     public static final int Beidou = 52;
 
     private int type;
-    private String manufacturerId;
+    private String makerId;
     private int versionLen;
     private String version;
     private int packetLen;
@@ -36,12 +36,12 @@ public class T8108 extends AbstractMessage<Header> {
     }
 
     @Field(index = 1, type = DataType.STRING, length = 5, pad = 32, desc = "制造商ID,终端制造商编码")
-    public String getManufacturerId() {
-        return manufacturerId;
+    public String getMakerId() {
+        return makerId;
     }
 
-    public void setManufacturerId(String manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setMakerId(String makerId) {
+        this.makerId = makerId;
     }
 
     @Field(index = 6, type = DataType.BYTE, desc = "版本号长度")

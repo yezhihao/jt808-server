@@ -20,8 +20,8 @@ public class T8805 extends AbstractMessage<Header> {
     public T8805() {
     }
 
-    public T8805(String terminalId, int id, int delete) {
-        super(new Header(terminalId, JT808.单条存储多媒体数据检索上传命令));
+    public T8805(String clientId, int id, int delete) {
+        super(new Header(clientId, JT808.单条存储多媒体数据检索上传命令));
         this.id = id;
         this.delete = delete;
     }

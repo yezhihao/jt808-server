@@ -197,7 +197,7 @@ public class Header extends AbstractHeader {
     }
 
     @Override
-    public String getTerminalId() {
+    public String getClientId() {
         return mobileNo;
     }
 }

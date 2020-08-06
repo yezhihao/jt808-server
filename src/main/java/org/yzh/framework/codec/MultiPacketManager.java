@@ -25,16 +25,16 @@ public enum MultiPacketManager {
     private static final ConcurrentMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
     public byte[][] addAndGet(AbstractHeader message, byte[] packetData) {
-        String terminalId = message.getTerminalId();
+        String clientId = message.getClientId();
         int messageId = message.getMessageId();
         int packageTotal = message.getPackageTotal();
         int packetNo = message.getPackageNo();
 
-        String key = new StringBuilder(21).append(terminalId).append("/").append(messageId).append("/").append(packageTotal).toString();
+        String key = new StringBuilder(21).append(clientId).append("/").append(messageId).append("/").append(packageTotal).toString();
 
         MultiPacket multiPacket = multiPacketsMap.get(key);
         if (multiPacket == null)
-            multiPacketsMap.put(key, multiPacket = new MultiPacket(messageId, terminalId, packageTotal));
+            multiPacketsMap.put(key, multiPacket = new MultiPacket(messageId, clientId, packageTotal));
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
         log.info(">>>>>>分包状态{}", multiPacket);

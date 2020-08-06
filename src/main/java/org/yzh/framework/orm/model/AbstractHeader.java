@@ -25,8 +25,8 @@ public abstract class AbstractHeader {
     public abstract int getMessageId();
     /** 消息版本号 */
     public abstract int getVersionNo();
-    /** 终端唯一标识 */
-    public abstract String getTerminalId();
+    /** 客户端唯一标识 */
+    public abstract String getClientId();
     /** 消息流水号 */
     public abstract int getSerialNo();
 

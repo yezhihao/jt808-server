@@ -13,7 +13,7 @@ import java.util.TreeMap;
 public class MultiPacket {
 
     private int messageId;
-    private String terminalId;
+    private String clientId;
     private int packageTotal;
 
     private int retryCount;
@@ -22,9 +22,9 @@ public class MultiPacket {
 
     private Map<Integer, byte[]> packets = new TreeMap<>();
 
-    public MultiPacket(int messageId, String terminalId, int packageTotal) {
+    public MultiPacket(int messageId, String clientId, int packageTotal) {
         this.messageId = messageId;
-        this.terminalId = terminalId;
+        this.clientId = clientId;
         this.packageTotal = packageTotal;
         this.createTime = (int) (System.currentTimeMillis() / 1000);
         this.updateTime = createTime;
@@ -59,7 +59,7 @@ public class MultiPacket {
 
     public String toString() {
         return new StringBuilder(60)
-                .append("设备号:").append(terminalId)
+                .append("设备号:").append(clientId)
                 .append(",消息类型:").append(Integer.toHexString(messageId))
                 .append(",总包数:").append(this.packageTotal)
                 .append(",已收到:").append(this.packets.size())

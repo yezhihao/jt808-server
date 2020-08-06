@@ -14,11 +14,11 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询终端属性应答)
 public class T0107 extends AbstractMessage<Header> {
 
-    private int type;
-    private String manufacturerId;
-    private String terminalType;
-    private String terminalId;
-    private String simId;
+    private int deviceType;
+    private String makerId;
+    private String deviceModel;
+    private String deviceId;
+    private String simNo;
     private int hardwareVersionLen;
     private String hardwareVersion;
     private int firmwareVersionLen;
@@ -27,48 +27,48 @@ public class T0107 extends AbstractMessage<Header> {
     private int networkAttribute;
 
     @Field(index = 0, type = DataType.BYTE, desc = "终端类型")
-    public int getType() {
-        return type;
+    public int getDeviceType() {
+        return deviceType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setDeviceType(int deviceType) {
+        this.deviceType = deviceType;
     }
 
     @Field(index = 1, type = DataType.STRING, length = 7, pad = 32, desc = "制造商ID,终端制造商编码")
-    public String getManufacturerId() {
-        return manufacturerId;
+    public String getMakerId() {
+        return makerId;
     }
 
-    public void setManufacturerId(String manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setMakerId(String makerId) {
+        this.makerId = makerId;
     }
 
     @Field(index = 8, type = DataType.STRING, length = 20, pad = 32, desc = "终端型号,由制造商自行定义,位数不足八位补空格")
-    public String getTerminalType() {
-        return terminalType;
+    public String getDeviceModel() {
+        return deviceModel;
     }
 
-    public void setTerminalType(String terminalType) {
-        this.terminalType = terminalType;
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
     }
 
     @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID,由大写字母和数字组成,此终端ID由制造商自行定义")
-    public String getTerminalId() {
-        return terminalId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     @Field(index = 34, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID")
-    public String getSimId() {
-        return simId;
+    public String getSimNo() {
+        return simNo;
     }
 
-    public void setSimId(String simId) {
-        this.simId = simId;
+    public void setSimNo(String simNo) {
+        this.simNo = simNo;
     }
 
     @Field(index = 45, type = DataType.BYTE, desc = "硬件版本号长度")

@@ -21,7 +21,7 @@ public class Session {
 
     private volatile int serialNo = 0;
     private boolean registered = false;
-    private String terminalId;
+    private String clientId;
 
     private final long creationTime;
     private long lastAccessedTime;
@@ -62,13 +62,13 @@ public class Session {
      * 注册到SessionManager
      */
     public void register(AbstractHeader header) {
-        this.terminalId = header.getTerminalId();
+        this.clientId = header.getClientId();
         this.registered = true;
-        SessionManager.Instance.put(terminalId, this);
+        SessionManager.Instance.put(clientId, this);
     }
 
-    public String getTerminalId() {
-        return terminalId;
+    public String getClientId() {
+        return clientId;
     }
 
 
@@ -122,7 +122,7 @@ public class Session {
     @Override
     public String toString() {
         return "[ip=" + channel.remoteAddress() +
-                ", terminalId=" + terminalId +
+                ", clientId=" + clientId +
                 ", registered=" + registered +
                 ']';
     }

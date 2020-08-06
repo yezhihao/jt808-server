@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
                 if (date == null) continue;
                 int j = 1;
 
-                statement.setString(j++, t.getHeader().getTerminalId());
+                statement.setString(j++, t.getHeader().getClientId());
                 statement.setString(j++, "TODO");
                 statement.setInt(j++, t.getWarningMark());
                 statement.setInt(j++, t.getStatus());
@@ -97,7 +97,7 @@ public class LocationServiceImpl implements LocationService {
             LocationDO location = new LocationDO();
             locations.add(location);
 
-            location.setDeviceId(t.getHeader().getTerminalId());
+            location.setDeviceId(t.getHeader().getClientId());
             location.setPlateNo("TODO");
             location.setWarningMark(t.getWarningMark());
             location.setStatus(t.getStatus());

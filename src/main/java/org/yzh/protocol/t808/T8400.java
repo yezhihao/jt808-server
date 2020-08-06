@@ -25,8 +25,8 @@ public class T8400 extends AbstractMessage<Header> {
     public T8400() {
     }
 
-    public T8400(String terminalId, int type, String mobileNo) {
-        super(new Header(terminalId, JT808.电话回拨));
+    public T8400(String clientId, int type, String mobileNo) {
+        super(new Header(clientId, JT808.电话回拨));
         this.type = type;
         this.mobileNo = mobileNo;
     }

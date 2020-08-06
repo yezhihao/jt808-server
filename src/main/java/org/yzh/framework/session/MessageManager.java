@@ -33,9 +33,9 @@ public enum MessageManager {
      */
     public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
         AbstractHeader header = message.getHeader();
-        String terminalId = header.getTerminalId();
+        String clientId = header.getClientId();
 
-        Session session = sessionManager.get(terminalId);
+        Session session = sessionManager.get(clientId);
         if (session == null)
             return false;
 
@@ -54,9 +54,9 @@ public enum MessageManager {
 
     public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz, long timeout) {
         AbstractHeader header = request.getHeader();
-        String terminalId = header.getTerminalId();
+        String clientId = header.getClientId();
 
-        Session session = sessionManager.get(terminalId);
+        Session session = sessionManager.get(clientId);
         if (session == null)
             return null;
 
@@ -89,7 +89,7 @@ public enum MessageManager {
     }
 
     private String getKey(AbstractHeader header, Class clazz) {
-        return header.getTerminalId() + "/" + clazz.getName();
+        return header.getClientId() + "/" + clazz.getName();
     }
 
     private SynchronousQueue subscribe(String key) {
