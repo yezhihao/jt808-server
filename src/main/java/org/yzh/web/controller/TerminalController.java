@@ -23,7 +23,7 @@ public class TerminalController {
     private MessageManager messageManager = MessageManager.getInstance();
 
     @ApiOperation("设置终端参数")
-    @PostMapping("{clientId}/parameters")
+    @PutMapping("{clientId}/settings")
     public T0001 updateParameters(@PathVariable("clientId") String clientId, @RequestBody List<TerminalParameter> parameters) {
         T8103 request = new T8103(clientId);
         request.setItems(parameters);
@@ -32,7 +32,7 @@ public class TerminalController {
     }
 
     @ApiOperation("查询终端参数/查询指定终端参数")
-    @GetMapping("{clientId}/parameters")
+    @GetMapping("{clientId}/settings")
     public T0104 findParameters(@PathVariable("clientId") String clientId,
                                 @ApiParam("参数ID列表，为空则查询全部") @RequestParam(required = false) byte... id) {
         AbstractMessage request;
@@ -70,14 +70,14 @@ public class TerminalController {
     }
 
     @ApiOperation("位置信息查询")
-    @GetMapping("{clientId}/position")
-    public T0201_0500 position(@PathVariable("clientId") String clientId) {
+    @GetMapping("{clientId}/location")
+    public T0201_0500 location(@PathVariable("clientId") String clientId) {
         T0201_0500 response = messageManager.request(new RawMessage(new Header(clientId, JT808.位置信息查询)), T0201_0500.class);
         return response;
     }
 
     @ApiOperation("临时位置跟踪控制")
-    @PostMapping("{clientId}/track")
+    @PostMapping("{clientId}/location/track")
     public T0001 track(@PathVariable("clientId") String clientId,
                        @ApiParam("时间间隔（秒）") @RequestParam int interval,
                        @ApiParam("有效期（秒）") @RequestParam int validityPeriod) {
@@ -115,7 +115,7 @@ public class TerminalController {
     }
 
     @ApiOperation("事件设置")
-    @PostMapping("{clientId}/events")
+    @PutMapping("{clientId}/events")
     public T0001 eventSetting(@PathVariable("clientId") String clientId, @RequestBody T8301 message) {
         message.setHeader(new Header(clientId, JT808.事件设置));
         T0001 response = messageManager.request(message, T0001.class);
@@ -131,17 +131,17 @@ public class TerminalController {
     }
 
     @ApiOperation("信息点播菜单设置")
-    @PostMapping("{clientId}/information/menu")
-    public T0001 infoMenu(@PathVariable("clientId") String clientId, @RequestBody T8303 message) {
+    @PutMapping("{clientId}/news")
+    public T0001 setNews(@PathVariable("clientId") String clientId, @RequestBody T8303 message) {
         message.setHeader(new Header(clientId, JT808.信息点播菜单设置));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
     @ApiOperation("信息服务")
-    @PostMapping("{clientId}/information/push")
-    public T0001 messageSubSetting(@PathVariable("clientId") String clientId,
-                                   @ApiParam("类型") @RequestParam int type, @ApiParam("内容") @RequestParam String content) {
+    @PostMapping("{clientId}/news")
+    public T0001 postNews(@PathVariable("clientId") String clientId,
+                          @ApiParam("类型") @RequestParam int type, @ApiParam("内容") @RequestParam String content) {
         T8304 request = new T8304(clientId);
         request.setType(type);
         request.setContent(content);
@@ -159,7 +159,7 @@ public class TerminalController {
     }
 
     @ApiOperation("设置电话本")
-    @PostMapping("{clientId}/phone_book")
+    @PutMapping("{clientId}/phone_book")
     public T0001 phoneBook(@PathVariable("clientId") String clientId, @RequestBody T8401 message) {
         message.setHeader(new Header(clientId, JT808.设置电话本));
         T0001 response = messageManager.request(message, T0001.class);
@@ -199,7 +199,7 @@ public class TerminalController {
     }
 
     @ApiOperation("设置圆形区域")
-    @PostMapping("{clientId}/map_fence_round")
+    @PutMapping("{clientId}/map_fence/round")
     public T0001 addMapFenceRound(@PathVariable("clientId") String clientId, @RequestBody T8600 message) {
         message.setHeader(new Header(clientId, JT808.设置圆形区域));
         T0001 response = messageManager.request(message, T0001.class);
@@ -207,7 +207,7 @@ public class TerminalController {
     }
 
     @ApiOperation("设置矩形区域")
-    @PostMapping("{clientId}/map_fence_rectangle")
+    @PutMapping("{clientId}/map_fence/rectangle")
     public T0001 addMapFenceRectangle(@PathVariable("clientId") String clientId, @RequestBody T8602 message) {
         message.setHeader(new Header(clientId, JT808.设置矩形区域));
         T0001 response = messageManager.request(message, T0001.class);
@@ -215,7 +215,7 @@ public class TerminalController {
     }
 
     @ApiOperation("设置多边形区域")
-    @PostMapping("{clientId}/map_fence_polygon")
+    @PutMapping("{clientId}/map_fence/polygon")
     public T0001 addMapFencePolygon(@PathVariable("clientId") String clientId, @RequestBody T8604 message) {
         message.setHeader(new Header(clientId, JT808.设置多边形区域));
         T0001 response = messageManager.request(message, T0001.class);
@@ -223,7 +223,7 @@ public class TerminalController {
     }
 
     @ApiOperation("设置路线")
-    @PostMapping("{clientId}/route")
+    @PutMapping("{clientId}/map_fence/route")
     public T0001 addRoute(@PathVariable("clientId") String clientId, @RequestBody T8606 message) {
         message.setHeader(new Header(clientId, JT808.设置路线));
         T0001 response = messageManager.request(message, T0001.class);
@@ -231,7 +231,7 @@ public class TerminalController {
     }
 
     @ApiOperation("查询区域或线路数据")
-    @GetMapping("{clientId}/location/route")
+    @GetMapping("{clientId}/location/map_fence")
     public T0608 locationRoute(@PathVariable("clientId") String clientId, @ApiParam("区域ID列表(多个以逗号,分割)") @RequestParam String id) {
         T8608 request = new T8608(clientId);
         int[] ids = StrUtils.toInts(id, ",");
@@ -242,7 +242,7 @@ public class TerminalController {
     }
 
     @ApiOperation("行驶记录仪数据采集命令")
-    @GetMapping("{clientId}/data_record")
+    @GetMapping("{clientId}/drive_recorder/report")
     public T0001 getDataRecord(@PathVariable("clientId") String clientId) {
         RawMessage request = new RawMessage(new Header(clientId, JT808.行驶记录仪数据采集命令));
         T0001 response = messageManager.request(request, T0001.class);
@@ -250,7 +250,7 @@ public class TerminalController {
     }
 
     @ApiOperation("行驶记录仪参数下传命令")
-    @GetMapping("{clientId}/recorder")
+    @PutMapping("{clientId}/drive_recorder/settings")
     public T0001 recorder(@PathVariable("clientId") String clientId, @RequestBody T8701 request) {
         request.setHeader(new Header(clientId, JT808.行驶记录仪参数下传命令));
         T0001 response = messageManager.request(request, T0001.class);
@@ -258,7 +258,7 @@ public class TerminalController {
     }
 
     @ApiOperation("上报驾驶员身份信息请求")
-    @GetMapping("{clientId}/driver_identity")
+    @GetMapping("{clientId}/driver_identity/report")
     public T0702 findDriverIdentityInfo(@PathVariable("clientId") String clientId) {
         RawMessage request = new RawMessage(new Header(clientId, JT808.上报驾驶员身份信息请求));
         T0702 response = messageManager.request(request, T0702.class);
@@ -266,7 +266,7 @@ public class TerminalController {
     }
 
     @ApiOperation("摄像头立即拍摄命令")
-    @PostMapping("{clientId}/camera_shot")
+    @PostMapping("{clientId}/camera/snapshot")
     public T0805 cameraShot(@PathVariable("clientId") String clientId, T8801 request) {
         request.setHeader(new Header(clientId, JT808.摄像头立即拍摄命令));
         T0805 response = messageManager.request(request, T0805.class);
@@ -274,7 +274,7 @@ public class TerminalController {
     }
 
     @ApiOperation("存储多媒体数据检索")
-    @GetMapping("{clientId}/mediadata_query")
+    @GetMapping("{clientId}/media_data/search")
     public T0802 mediaDataQuery(@PathVariable("clientId") String clientId,
                                 @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
                                 @ApiParam("通道ID") @RequestParam Integer channelId,
@@ -292,7 +292,7 @@ public class TerminalController {
     }
 
     @ApiOperation("存储多媒体数据上传")
-    @PostMapping("{clientId}/mediadata_report")
+    @GetMapping("{clientId}/media_data/report")
     public T0001 mediaDataReportRequest(@PathVariable("clientId") String clientId,
                                         @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
                                         @ApiParam("通道ID") @RequestParam Integer channelId,
@@ -328,7 +328,7 @@ public class TerminalController {
     }
 
     @ApiOperation("单条存储多媒体数据检索上传命令")
-    @PostMapping("{clientId}/mediadata_command")
+    @PostMapping("{clientId}/media_data/command")
     public T0001 mediaDataCommand(@PathVariable("clientId") String clientId,
                                   @ApiParam("多媒体ID") @RequestParam Integer id,
                                   @ApiParam("删除标志:0.保留；1.删除；") @RequestParam int delete) {

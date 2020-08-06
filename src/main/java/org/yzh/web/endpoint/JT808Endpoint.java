@@ -161,8 +161,8 @@ public class JT808Endpoint {
         Header header = (Header) message.getHeader();
     }
 
-    @Mapping(types = 行驶记录仪数据上传, desc = "行驶记录仪数据上传")
-    public void 行驶记录仪数据上传(AbstractMessage message, Session session) {
+    @Mapping(types = 行驶记录数据上传, desc = "行驶记录仪数据上传")
+    public void 行驶记录仪数据上传(T0700 message, Session session) {
         Header header = (Header) message.getHeader();
     }
 
