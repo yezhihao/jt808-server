@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS location (
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   INDEX idx_date_plateno(`device_date`, `plate_no`),
   INDEX idx_plateno_time(`plate_no`, `device_time`),
-  PRIMARY KEY (`device_time`, `device_id`)
+  PRIMARY KEY (`device_id`, `device_time`)
 ) ENGINE=InnoDB COMMENT '位置数据' partition by range columns(device_time)(
 	partition p_2020_01_01 values less than('2020-01-01'),
 	partition p_2020_01_02 values less than('2020-01-02')

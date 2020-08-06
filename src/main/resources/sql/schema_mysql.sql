@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS location (
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   INDEX idx_date_plateno(`device_date`, `plate_no`),
   INDEX idx_plateno_time(`plate_no`, `device_time`),
-  INDEX idx_time_deviceid(`device_time`, `device_id`),
+  INDEX idx_time_deviceid(`device_id`, `device_time`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB COMMENT '位置数据';
