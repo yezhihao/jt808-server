@@ -21,7 +21,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
 
     @Bean
     public TCPServer tcpServer() {
-        NettyConfig jtConfig = new NettyConfig.Builder()
+        NettyConfig jtConfig = NettyConfig.custom()
                 .setPort(7611)
                 .setMaxFrameLength(1024)
                 .setDelimiters(new byte[]{0x7e})
@@ -29,6 +29,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
+                .setMultiPacketListener(null)
                 .build();
         return new TCPServer(jtConfig);
     }
@@ -37,6 +38,11 @@ public class JTConfig implements InitializingBean, DisposableBean {
     public JTHandlerInterceptor handlerInterceptor() {
         return new JTHandlerInterceptor();
     }
+
+//    @Bean
+//    public JTMultiPacketListener multiPacketListener() {
+//        return new JTMultiPacketListener();
+//    }
 
     @Bean
     public HandlerMapping handlerMapping() {

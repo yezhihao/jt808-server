@@ -21,6 +21,10 @@ public class T8003 extends AbstractMessage<Header> {
     public T8003() {
     }
 
+    public T8003(Header header) {
+        super(header);
+    }
+
     @Field(index = 0, type = DataType.WORD, desc = "原始消息流水号")
     public int getSerialNo() {
         return serialNo;
