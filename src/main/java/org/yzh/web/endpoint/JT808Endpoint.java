@@ -69,6 +69,10 @@ public class JT808Endpoint {
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
+        if (message.getPlateNo() == null) {
+            log.warn(">>>>>>不支持2011版本协议{},{}", session, message);
+            return null;
+        }
 
         T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
         result.setSerialNo(header.getSerialNo());
