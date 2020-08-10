@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * 基础消息解码
- *
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
@@ -28,7 +27,7 @@ public class MessageDecoderWrapper extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
-        log.info(">>>>>>>>>>>>原始报文ip={},hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+        log.info(">>>>>>>>>>>>原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
         AbstractMessage message = decoder.decode(buf);
         if (message != null)
             out.add(message);

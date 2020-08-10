@@ -3,12 +3,12 @@ package org.yzh.jt808.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
+import org.apache.commons.lang3.ArrayUtils;
 import org.yzh.framework.orm.FieldMetadata;
 import org.yzh.protocol.codec.JTMessageDecoder;
 
 /**
  * 解码分析
- *
  * @author zhihao.ye (1527621790@qq.com)
  */
 public class Elucidator extends JTMessageDecoder {
@@ -34,7 +34,7 @@ public class Elucidator extends JTMessageDecoder {
         int after = buf.readerIndex();
 
         String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
-        System.out.println(fieldMetadata.index + "\t" + hex + "\t" + fieldMetadata.desc + "\t" + value);
+        System.out.println(fieldMetadata.index + "\t" + hex + "\t" + fieldMetadata.desc + "\t" + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
         return value;
     }
 }

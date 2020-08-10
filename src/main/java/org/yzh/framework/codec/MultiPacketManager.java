@@ -24,7 +24,7 @@ public enum MultiPacketManager {
 
     private static final ConcurrentHashMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
-//    private MultiPacketListener multiPacketListener;
+    private MultiPacketListener multiPacketListener;
 
     protected byte[][] addAndGet(AbstractHeader header, byte[] packetData) {
         String clientId = header.getClientId();
@@ -42,36 +42,40 @@ public enum MultiPacketManager {
 
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info(">>>>>>分包状态{}", multiPacket);
+        log.info(">>>>>>分包信息{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
         return packages;
     }
-//
-//    private void startListener() {
-//        new Thread(() -> {
-//            while (true) {
-//                for (Map.Entry<String, MultiPacket> entry : multiPacketsMap.entrySet()) {
-//                    String key = entry.getKey();
-//
-//                    Boolean keepWaiting = multiPacketListener.receiveTimeout(entry.getValue());
-//                    if (!keepWaiting)
-//                        multiPacketsMap.remove(key);
-//                }
-//                try {
-//                    Thread.sleep(10000L);
-//                } catch (InterruptedException e) {
-//                    log.error(e.getMessage(), e);
-//                }
-//            }
-//        }, "分包管理器").start();
-//    }
-//
-//    public synchronized void addListener(MultiPacketListener multiPacketListener) {
-//        if (this.multiPacketListener == null) {
-//            this.multiPacketListener = multiPacketListener;
-//            startListener();
-//        }
-//    }
+
+    private void startListener() {
+        new Thread(() -> {
+            while (true) {
+                for (Map.Entry<String, MultiPacket> entry : multiPacketsMap.entrySet()) {
+                    MultiPacket packet = entry.getValue();
+
+                    if (packet.getWaitTime() >= multiPacketListener.timeout) {
+                        boolean keepWaiting = multiPacketListener.receiveTimeout(packet);
+                        if (!keepWaiting) {
+                            log.warn("分包接收超时 >>>>>>{}", packet);
+                            multiPacketsMap.remove(entry.getKey());
+                        }
+                    }
+                }
+                try {
+                    Thread.sleep(multiPacketListener.timeout * 1000 / 4);
+                } catch (InterruptedException e) {
+                    log.error("分包管理器", e);
+                }
+            }
+        }, "MultiPacketManager").start();
+    }
+
+    public synchronized void addListener(MultiPacketListener multiPacketListener) {
+        if (this.multiPacketListener == null) {
+            this.multiPacketListener = multiPacketListener;
+            startListener();
+        }
+    }
 }

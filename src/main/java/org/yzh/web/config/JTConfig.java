@@ -12,6 +12,7 @@ import org.yzh.framework.netty.TCPServer;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
+import org.yzh.web.endpoint.JTMultiPacketListener;
 
 @Configuration
 public class JTConfig implements InitializingBean, DisposableBean {
@@ -29,7 +30,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
-                .setMultiPacketListener(null)
+                .setMultiPacketListener(multiPacketListener())
                 .build();
         return new TCPServer(jtConfig);
     }
@@ -39,10 +40,10 @@ public class JTConfig implements InitializingBean, DisposableBean {
         return new JTHandlerInterceptor();
     }
 
-//    @Bean
-//    public JTMultiPacketListener multiPacketListener() {
-//        return new JTMultiPacketListener();
-//    }
+    @Bean
+    public JTMultiPacketListener multiPacketListener() {
+        return new JTMultiPacketListener(10);
+    }
 
     @Bean
     public HandlerMapping handlerMapping() {

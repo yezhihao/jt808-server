@@ -21,7 +21,6 @@ import static org.yzh.framework.orm.model.DataType.*;
 
 /**
  * 基础消息解码
- *
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
@@ -71,16 +70,17 @@ public abstract class MessageDecoder {
         int bodyLen = header.getBodyLength();
 
         if (header.isSubpackage()) {
-            log.info("分包消息{}", header);
 
             byte[] bytes = new byte[bodyLen];
             buf.readBytes(bytes);
 
             byte[][] packages = multiPacketManager.addAndGet(header, bytes);
-            if (packages != null) {
-                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-                message = decode(bodyBuf, bodyClass, version);
-            }
+            if (packages == null)
+                return null;
+
+            ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+            message = decode(bodyBuf, bodyClass, version);
+
         } else {
             buf.readerIndex(headLen);
             message = decode(buf, bodyClass, version);

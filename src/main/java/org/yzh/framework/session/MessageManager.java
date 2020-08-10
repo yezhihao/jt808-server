@@ -63,13 +63,13 @@ public enum MessageManager {
         header.setSerialNo(session.nextSerialNo());
 
         String key = getKey(header, clazz);
-        SynchronousQueue synchronousQueue = this.subscribe(key);
-        if (synchronousQueue == null)
+        SynchronousQueue syncQueue = this.subscribe(key);
+        if (syncQueue == null)
             return null;
 
         try {
             session.writeObject(request);
-            return (T) synchronousQueue.poll(timeout, TimeUnit.MILLISECONDS);
+            return (T) syncQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             log.warn("等待响应超时" + session, e);
         } finally {

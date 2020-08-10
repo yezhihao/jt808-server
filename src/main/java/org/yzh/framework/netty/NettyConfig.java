@@ -4,6 +4,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.codec.MultiPacketListener;
+import org.yzh.framework.codec.MultiPacketManager;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 
@@ -37,6 +38,7 @@ public class NettyConfig {
         this.handlerInterceptor = handlerInterceptor;
         this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor);
         this.multiPacketListener = multiPacketListener;
+        MultiPacketManager.getInstance().addListener(multiPacketListener);
     }
 
     public static NettyConfig.Builder custom() {

@@ -5,6 +5,7 @@ import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.commons.JT808;
 
 /**
  * @author zhihao.ye (1527621790@qq.com)
@@ -199,5 +200,23 @@ public class Header extends AbstractHeader {
     @Override
     public String getClientId() {
         return mobileNo;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder b = new StringBuilder(96);
+        b.append(JT808.get(messageId));
+        b.append('[');
+        b.append("messageId=").append(messageId);
+        b.append(", properties=").append(properties);
+        b.append(", versionNo=").append(versionNo);
+        b.append(", mobileNo=").append(mobileNo);
+        b.append(", serialNo=").append(serialNo);
+        if (isSubpackage()) {
+            b.append(", packageTotal=").append(packageTotal);
+            b.append(", packageNo=").append(packageNo);
+        }
+        b.append(']');
+        return b.toString();
     }
 }

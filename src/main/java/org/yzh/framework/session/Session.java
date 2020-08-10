@@ -2,6 +2,8 @@ package org.yzh.framework.session;
 
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractHeader;
 
 import java.util.Collection;
@@ -14,6 +16,8 @@ import java.util.TreeMap;
  * @home http://gitee.com/yezhihao/jt-server
  */
 public class Session {
+
+    private static final Logger log = LoggerFactory.getLogger(Session.class.getSimpleName());
 
     public static final AttributeKey<Session> KEY = AttributeKey.newInstance(Session.class.getName());
 
@@ -37,6 +41,7 @@ public class Session {
 
 
     public void writeObject(Object message) {
+        log.info("<<<<<<消息下发{},{}", this, message);
         channel.writeAndFlush(message);
     }
 
@@ -121,9 +126,11 @@ public class Session {
 
     @Override
     public String toString() {
-        return "[ip=" + channel.remoteAddress() +
-                ", clientId=" + clientId +
-                ", registered=" + registered +
-                ']';
+        final StringBuilder sb = new StringBuilder(66);
+        sb.append("[ip=").append(channel.remoteAddress());
+        sb.append(", cid=").append(clientId);
+        sb.append(", reg=").append(registered);
+        sb.append(']');
+        return sb.toString();
     }
 }

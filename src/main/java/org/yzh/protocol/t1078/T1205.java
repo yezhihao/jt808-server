@@ -2,14 +2,15 @@ package org.yzh.protocol.t1078;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT1078;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -148,14 +149,19 @@ public class T1205 extends AbstractMessage<Header> implements Serializable {
             this.size = size;
         }
 
-    }
-
-    @Override
-    public String toString() {
-        return "Command1205{" +
-                "serialNo=" + serialNo +
-                ", count=" + count +
-                ", videoHis=" + videoHis +
-                '}';
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("{");
+            sb.append("channelId=").append(channelId);
+            sb.append(", startTime='").append(startTime).append('\'');
+            sb.append(", endTime='").append(endTime).append('\'');
+            sb.append(", warningMark=").append(Arrays.toString(warningMark));
+            sb.append(", avItemType=").append(avItemType);
+            sb.append(", streamType=").append(streamType);
+            sb.append(", romType=").append(romType);
+            sb.append(", size=").append(size);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

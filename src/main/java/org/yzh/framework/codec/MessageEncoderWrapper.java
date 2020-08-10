@@ -10,7 +10,6 @@ import org.yzh.framework.orm.model.AbstractMessage;
 
 /**
  * 基础消息编码
- *
  * @author zhihao.ye (1527621790@qq.com)
  * @home http://gitee.com/yezhihao/jt-server
  */
@@ -30,7 +29,7 @@ public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage>
     @Override
     protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
         ByteBuf buf = encoder.encode(msg);
-        log.info("<<<<<<<<<<<<原始报文ip={},hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+        log.info("<<<<<<<<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
         out.writeBytes(delimiter).writeBytes(buf).writeBytes(delimiter);
     }
 }
