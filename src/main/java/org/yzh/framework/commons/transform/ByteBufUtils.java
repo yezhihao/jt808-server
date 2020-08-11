@@ -12,7 +12,7 @@ public class ByteBufUtils {
      * BCC校验(异或校验)
      */
     public static byte bcc(ByteBuf byteBuf) {
-        byte cs = 0;
+        byte cs = byteBuf.readByte();
         while (byteBuf.isReadable())
             cs ^= byteBuf.readByte();
         byteBuf.resetReaderIndex();

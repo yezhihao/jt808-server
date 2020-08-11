@@ -51,7 +51,7 @@ public enum MultiPacketManager {
 
     private void startListener() {
         new Thread(() -> {
-            while (true) {
+            for (; ; ) {
                 for (Map.Entry<String, MultiPacket> entry : multiPacketsMap.entrySet()) {
                     MultiPacket packet = entry.getValue();
 
