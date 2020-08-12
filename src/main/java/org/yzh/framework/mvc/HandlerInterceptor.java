@@ -4,6 +4,7 @@ import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
 /**
+ * 消息拦截器
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */

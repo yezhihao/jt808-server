@@ -5,6 +5,7 @@ import java.util.List;
 
 
 /**
+ * 分包消息
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */

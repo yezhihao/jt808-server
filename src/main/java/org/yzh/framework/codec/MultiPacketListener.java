@@ -1,6 +1,7 @@
 package org.yzh.framework.codec;
 
 /**
+ * 分包消息监听器
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
