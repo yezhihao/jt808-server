@@ -3,6 +3,10 @@ package org.yzh.framework.mvc;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public interface HandlerInterceptor {
     /** 未找到对应的Handle */
     AbstractMessage notSupported(AbstractMessage<?> request, Session session);

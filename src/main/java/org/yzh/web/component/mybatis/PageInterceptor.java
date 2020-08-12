@@ -19,6 +19,8 @@ import java.util.Properties;
 
 /**
  * MyBatis分页拦截器
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Intercepts(@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}))
 public class PageInterceptor implements Interceptor {

@@ -11,6 +11,8 @@ import static org.yzh.framework.orm.model.DataType.*;
 
 /**
  * 消息定义
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class FieldMetadata {
 

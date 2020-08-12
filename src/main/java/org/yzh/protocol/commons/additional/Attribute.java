@@ -5,9 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 位置附加信息
- *
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public abstract class Attribute {
 

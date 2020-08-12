@@ -13,8 +13,8 @@ import java.io.File;
 /**
  * JT/T 808协议单元测试类
  *
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class TestHex {
 

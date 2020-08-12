@@ -8,8 +8,8 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.终端通用应答, JT808.平台通用应答})
 public class T0001 extends AbstractMessage<Header> {

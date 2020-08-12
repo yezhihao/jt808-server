@@ -10,8 +10,8 @@ import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.终端鉴权)
 public class T0102 extends AbstractMessage<Header> {

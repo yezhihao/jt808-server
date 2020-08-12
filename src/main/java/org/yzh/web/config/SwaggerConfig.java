@@ -12,7 +12,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Created by Alan on 2017/5/22.
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Configuration
 @EnableSwagger2

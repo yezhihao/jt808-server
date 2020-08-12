@@ -8,8 +8,8 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.行驶记录仪参数下传命令)
 public class T8701 extends AbstractMessage<Header> {

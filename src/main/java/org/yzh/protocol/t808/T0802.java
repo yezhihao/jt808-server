@@ -10,8 +10,8 @@ import org.yzh.protocol.commons.JT808;
 import java.util.List;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.存储多媒体数据检索应答)
 public class T0802 extends AbstractMessage<Header> {

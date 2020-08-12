@@ -9,8 +9,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @SuppressWarnings("unchecked")
 public abstract class Handler {
@@ -25,7 +25,6 @@ public abstract class Handler {
     public final boolean hasReturn;
     public final String desc;
 
-    @SuppressWarnings("unchecked")
     public Handler(Object actionClass, Method actionMethod, String desc) {
         this.targetObject = actionClass;
         this.targetMethod = actionMethod;

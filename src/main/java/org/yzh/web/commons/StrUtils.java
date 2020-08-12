@@ -1,5 +1,9 @@
 package org.yzh.web.commons;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class StrUtils {
 
     public static final int[] EMPTY = new int[0];

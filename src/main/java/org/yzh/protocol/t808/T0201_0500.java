@@ -11,8 +11,8 @@ import org.yzh.protocol.commons.JT808;
 import java.util.List;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
 public class T0201_0500 extends AbstractMessage<Header> {

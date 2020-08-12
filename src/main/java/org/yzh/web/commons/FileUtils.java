@@ -8,6 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Stack;
 import java.util.function.Function;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class FileUtils {
 
     public static final String Separator = System.lineSeparator();

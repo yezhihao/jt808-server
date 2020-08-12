@@ -6,8 +6,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 消息基类
- *
- * @author zhihao.ye (1527621790@qq.com)
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public abstract class AbstractHeader {
     private boolean verified = true;

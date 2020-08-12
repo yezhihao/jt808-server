@@ -25,8 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * JT/T 808协议单元测试数据
- *
- * @author zhihao.ye (1527621790@qq.com)
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class Beans {
 

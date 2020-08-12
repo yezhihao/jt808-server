@@ -2,9 +2,8 @@ package org.yzh.framework.commons.transform;
 
 /**
  * 32位整型的二进制读写
- *
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class Bin {
 
@@ -19,7 +18,6 @@ public class Bin {
 
     /**
      * 读取n的第i位
-     *
      * @param n int32
      * @param i 取值范围0-31
      */
@@ -29,7 +27,6 @@ public class Bin {
 
     /**
      * 写入bool到n的第i位
-     *
      * @param n int32
      * @param i 取值范围0-31
      */

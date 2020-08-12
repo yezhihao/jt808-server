@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * JT协议解码器
- *
- * @author zhihao.ye (1527621790@qq.com)
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JTMessageDecoder extends MessageDecoder {
 

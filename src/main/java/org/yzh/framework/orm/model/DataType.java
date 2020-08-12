@@ -1,5 +1,9 @@
 package org.yzh.framework.orm.model;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public enum DataType {
 
     //无符号单字节整型（字节，8位）

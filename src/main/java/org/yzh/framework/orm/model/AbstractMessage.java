@@ -5,6 +5,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
 
     private T header;

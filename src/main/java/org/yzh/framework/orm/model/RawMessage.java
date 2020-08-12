@@ -3,6 +3,10 @@ package org.yzh.framework.orm.model;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class RawMessage<T extends AbstractHeader> extends AbstractMessage<T> {
 
     private T header;

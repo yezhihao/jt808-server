@@ -13,6 +13,8 @@ import java.security.SecureRandom;
 
 /**
  * 加密工具类
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class EncryptUtils {
 
@@ -30,7 +32,6 @@ public class EncryptUtils {
 
     /**
      * 初始化密钥
-     *
      * @param privateKey 私钥 AES固定格式为128/192/256 bits.即：16/24/32bytes。DES固定格式为128bits，即8bytes。
      * @param initVector 初始向量 AES 为16bytes. DES 为8bytes
      */

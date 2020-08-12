@@ -3,8 +3,8 @@ package org.yzh.framework.commons.transform;
 import io.netty.buffer.ByteBuf;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class ByteBufUtils {
 

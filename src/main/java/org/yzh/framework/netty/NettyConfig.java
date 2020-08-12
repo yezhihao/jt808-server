@@ -8,6 +8,10 @@ import org.yzh.framework.codec.MultiPacketManager;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 
+/**
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class NettyConfig {
 
     protected final int port;

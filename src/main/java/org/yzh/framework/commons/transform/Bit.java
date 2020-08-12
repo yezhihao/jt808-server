@@ -2,8 +2,8 @@ package org.yzh.framework.commons.transform;
 
 /**
  * 字节数组与int之间的转换
- *
- * @author zhihao.ye (1527621790@qq.com)
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class Bit {
 

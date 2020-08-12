@@ -7,8 +7,8 @@ import org.yzh.protocol.codec.JTMessageEncoder;
 
 /**
  * 编码分析
- *
- * @author zhihao.ye (1527621790@qq.com)
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class DarkRepulsor extends JTMessageEncoder {
 

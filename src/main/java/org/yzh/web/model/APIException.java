@@ -4,8 +4,8 @@ import org.yzh.web.commons.ResultCode;
 import org.yzh.web.model.enums.DefaultCodes;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 public class APIException extends RuntimeException {
 

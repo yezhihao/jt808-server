@@ -11,8 +11,8 @@ import org.yzh.protocol.commons.JT808;
 import java.util.List;
 
 /**
- * @author zhihao.ye (1527621790@qq.com)
- * @home http://gitee.com/yezhihao/jt-server
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.设置圆形区域)
 public class T8600 extends AbstractMessage<Header> {
