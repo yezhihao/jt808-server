@@ -1,16 +1,13 @@
 package org.yzh.framework.mvc;
 
-import org.yzh.framework.commons.ClassUtils;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
-import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.mvc.handler.AsyncBatchHandler;
 import org.yzh.framework.mvc.handler.Handler;
-import org.yzh.framework.mvc.handler.SyncHandler;
+import org.yzh.framework.mvc.handler.SimpleHandler;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,51 +16,38 @@ import java.util.Map;
  */
 public abstract class AbstractHandlerMapping implements HandlerMapping {
 
-    private static Map<Integer, Handler> handlerMap = new HashMap(55);
+    private final Map<Integer, Handler> handlerMap = new HashMap(60);
 
-    private String endpointPackage;
+    protected synchronized void registerHandlers(Object bean) {
+        Class<?> beanClass = bean.getClass();
+        Method[] methods = beanClass.getDeclaredMethods();
+        if (methods == null)
+            return;
 
-    public AbstractHandlerMapping(String endpointPackage) {
-        this.endpointPackage = endpointPackage;
-    }
+        for (Method method : methods) {
 
-    public final void initial() {
-        List<Class<?>> handlerClassList = ClassUtils.getClassList(this.endpointPackage, Endpoint.class);
+            Mapping mapping = method.getAnnotation(Mapping.class);
+            if (mapping != null) {
 
-        for (Class<?> handlerClass : handlerClassList) {
+                String desc = mapping.desc();
+                int[] types = mapping.types();
 
-            Method[] methods = handlerClass.getDeclaredMethods();
-            if (methods != null) {
+                AsyncBatch asyncBatch = method.getAnnotation(AsyncBatch.class);
+                Handler handler;
 
-                Object endpoint = getEndpoint(handlerClass);
-                for (Method method : methods) {
+                if (asyncBatch != null) {
+                    handler = new AsyncBatchHandler(bean, method, desc, asyncBatch.poolSize(), asyncBatch.maxElements(), asyncBatch.maxWait());
 
-                    Mapping mapping = method.getAnnotation(Mapping.class);
-                    if (mapping != null) {
+                } else {
+                    handler = new SimpleHandler(bean, method, desc);
+                }
 
-                        String desc = mapping.desc();
-                        int[] types = mapping.types();
-
-                        AsyncBatch asyncBatch = method.getAnnotation(AsyncBatch.class);
-                        Handler handler;
-
-                        if (asyncBatch != null) {
-                            handler = new AsyncBatchHandler(endpoint, method, desc, asyncBatch.poolSize(), asyncBatch.maxElements(), asyncBatch.maxWait());
-
-                        } else {
-                            handler = new SyncHandler(endpoint, method, desc);
-                        }
-
-                        for (int type : types) {
-                            handlerMap.put(type, handler);
-                        }
-                    }
+                for (int type : types) {
+                    handlerMap.put(type, handler);
                 }
             }
         }
     }
-
-    public abstract Object getEndpoint(Class<?> clazz);
 
     public Handler getHandler(int messageId) {
         return handlerMap.get(messageId);

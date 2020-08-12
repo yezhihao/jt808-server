@@ -47,7 +47,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
 
     @Bean
     public HandlerMapping handlerMapping() {
-        return new SpringHandlerMapping("org.yzh.web.endpoint");
+        return new SpringHandlerMapping();
     }
 
     @Override

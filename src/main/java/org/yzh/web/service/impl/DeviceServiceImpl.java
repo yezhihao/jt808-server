@@ -41,10 +41,14 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public boolean authentication(String token) {
-        byte[] bytes = Base64.getDecoder().decode(token);
-        bytes = EncryptUtils.decrypt(bytes);
-        if (bytes == null)
+        byte[] bytes;
+        try {
+            bytes = Base64.getDecoder().decode(token);
+            bytes = EncryptUtils.decrypt(bytes);
+        } catch (Exception e) {
+            log.warn("鉴权失败：错误的token，{}", e.getMessage());
             return false;
+        }
 
         DeviceInfo deviceInfo = formBytes(bytes);
         int currentTime = (int) (System.currentTimeMillis() / 1000);

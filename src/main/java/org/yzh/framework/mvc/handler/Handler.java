@@ -22,16 +22,16 @@ public abstract class Handler {
     public final Object targetObject;
     public final Method targetMethod;
     public final int[] parameterTypes;
-    public final boolean hasReturn;
+    public final boolean returnVoid;
     public final String desc;
 
-    public Handler(Object actionClass, Method actionMethod, String desc) {
-        this.targetObject = actionClass;
-        this.targetMethod = actionMethod;
-        this.hasReturn = !actionMethod.getReturnType().isAssignableFrom(Void.TYPE);
+    public Handler(Object targetObject, Method targetMethod, String desc) {
+        this.targetObject = targetObject;
+        this.targetMethod = targetMethod;
+        this.returnVoid = targetMethod.getReturnType().isAssignableFrom(Void.TYPE);
         this.desc = desc;
 
-        Type[] types = actionMethod.getGenericParameterTypes();
+        Type[] types = targetMethod.getGenericParameterTypes();
         int[] parameterTypes = new int[types.length];
         try {
             for (int i = 0; i < types.length; i++) {

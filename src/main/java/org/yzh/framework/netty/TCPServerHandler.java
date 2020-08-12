@@ -49,10 +49,10 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
                     return;
 
                 response = handler.invoke(request, session);
-                if (handler.hasReturn) {
-                    interceptor.afterHandle(request, response, session);
-                } else {
+                if (handler.returnVoid) {
                     response = interceptor.successful(request, session);
+                } else {
+                    interceptor.afterHandle(request, response, session);
                 }
             } else {
                 response = interceptor.notSupported(request, session);

@@ -10,9 +10,9 @@ import java.lang.reflect.Method;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class SyncHandler extends Handler {
+public class SimpleHandler extends Handler {
 
-    public SyncHandler(Object actionClass, Method actionMethod, String desc) {
+    public SimpleHandler(Object actionClass, Method actionMethod, String desc) {
         super(actionClass, actionMethod, desc);
     }
 
