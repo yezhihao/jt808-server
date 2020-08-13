@@ -30,7 +30,7 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
         if (!(msg instanceof AbstractMessage))
             return;
         AbstractMessage request = (AbstractMessage) msg;
-        log.info(">>>>>>收到消息:{}", request);
+        log.info(">>>>>>>>>>收到消息:{}", request);
         Channel channel = ctx.channel();
 
         try {
@@ -42,7 +42,7 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
             if (messageResponse != null) {
                 channel.writeAndFlush(messageResponse);
-                log.info("<<<<<<返回消息:{}", request);
+                log.info("<<<<<<<<<<返回消息:{}", request);
             }
 
         } catch (Exception e) {
@@ -53,18 +53,18 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        log.info(">>>>>>>>>连接到服务端{}", ctx.channel().remoteAddress());
+        log.info(">>>>>连接到服务端{}", ctx.channel().remoteAddress());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.warn("<<<<<<<<<断开连接");
+        log.warn("<<<<<断开连接");
         super.channelInactive(ctx);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) throws Exception {
-        log.error("<<<<<<<<<发生异常", e);
+        log.error("<<<<<发生异常", e);
         super.exceptionCaught(ctx, e);
     }
 }

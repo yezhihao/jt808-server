@@ -65,7 +65,7 @@ public class TCPClient {
 
     public void writeObject(Object message) {
         channel.writeAndFlush(message);
-        log.info("<<<<<<发送消息:{}", message);
+        log.info("<<<<<<<<<<发送消息:{}", message);
     }
 
     public synchronized TCPClient start() {

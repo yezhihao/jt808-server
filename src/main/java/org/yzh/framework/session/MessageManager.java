@@ -36,8 +36,10 @@ public enum MessageManager {
         String clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
-        if (session == null)
+        if (session == null) {
+            log.info("<<<<<<<<<<消息发送失败,未注册,{}", message);
             return false;
+        }
 
         header.setSerialNo(session.nextSerialNo());
         session.writeObject(message);
@@ -57,21 +59,24 @@ public enum MessageManager {
         String clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
-        if (session == null)
+        if (session == null) {
+            log.info("<<<<<<<<<<消息发送失败,未注册,{}", request);
             return null;
+        }
 
         header.setSerialNo(session.nextSerialNo());
 
         String key = getKey(header, clazz);
         SynchronousQueue syncQueue = this.subscribe(key);
-        if (syncQueue == null)
-            return null;
+        if (syncQueue == null) {
+            log.info("<<<<<<<<<<请勿重复发送,{}", request);
+        }
 
         try {
             session.writeObject(request);
             return (T) syncQueue.poll(timeout, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            log.warn("等待响应超时" + session, e);
+            log.warn("<<<<<<<<<<等待响应超时" + session, e);
         } finally {
             this.unsubscribe(key);
         }

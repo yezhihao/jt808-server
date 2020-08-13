@@ -43,7 +43,7 @@ public enum MultiPacketManager {
 
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info(">>>>>>分包信息{}", multiPacket);
+        log.info(">>>>>>>>>>分包信息{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
@@ -59,7 +59,7 @@ public enum MultiPacketManager {
                     if (packet.getWaitTime() >= multiPacketListener.timeout) {
                         boolean keepWaiting = multiPacketListener.receiveTimeout(packet);
                         if (!keepWaiting) {
-                            log.warn("分包接收超时 >>>>>>{}", packet);
+                            log.warn(">>>>>>>>>>分包接收超时{}", packet);
                             multiPacketsMap.remove(entry.getKey());
                         }
                     }
@@ -70,7 +70,7 @@ public enum MultiPacketManager {
                     log.error("分包管理器", e);
                 }
             }
-        }, "MultiPacketManager").start();
+        }, "MultiPacketListener").start();
     }
 
     public synchronized void addListener(MultiPacketListener multiPacketListener) {

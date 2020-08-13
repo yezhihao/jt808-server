@@ -41,7 +41,7 @@ public class Session {
 
 
     public void writeObject(Object message) {
-        log.info("<<<<<<消息下发{},{}", this, message);
+        log.info("<<<<<<<<<<消息下发{},{}", this, message);
         channel.writeAndFlush(message);
     }
 

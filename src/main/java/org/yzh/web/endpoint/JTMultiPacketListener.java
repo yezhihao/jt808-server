@@ -31,8 +31,10 @@ public class JTMultiPacketListener extends MultiPacketListener {
             items[i] = notArrived.get(i).byteValue();
         }
         request.setItems(items);
-        messageManager.notify(request);
-        multiPacket.addRetryCount(1);
-        return true;
+        if (messageManager.notify(request)) {
+            multiPacket.addRetryCount(1);
+            return true;
+        }
+        return false;
     }
 }
