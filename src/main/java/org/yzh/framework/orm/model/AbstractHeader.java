@@ -1,6 +1,5 @@
 package org.yzh.framework.orm.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,7 +11,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public abstract class AbstractHeader {
     private boolean verified = true;
 
-    @JsonIgnore
     public boolean isVerified() {
         return verified;
     }
@@ -34,7 +32,6 @@ public abstract class AbstractHeader {
     /** 消息头长度 */
     public abstract int getHeadLength();
     /** 消息体长度 */
-    @JsonIgnore
     public abstract int getBodyLength();
 
     public abstract void setBodyLength(int bodyLength);

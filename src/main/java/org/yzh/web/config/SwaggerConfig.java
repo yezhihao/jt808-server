@@ -1,10 +1,12 @@
 package org.yzh.web.config;
 
+import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.google.common.base.Optional;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yzh.framework.orm.annotation.Field;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ModelPropertyBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -52,14 +54,26 @@ public class SwaggerConfig {
         return new ApiModelPropertyPropertyBuilder(descriptions) {
             @Override
             public void apply(ModelPropertyContext context) {
-                Optional<Field> annotation = Optional.absent();
+                Optional<Field> annotation;
                 if (context.getBeanPropertyDefinition().isPresent()) {
-                    annotation = findPropertyAnnotation(context.getBeanPropertyDefinition().get(), Field.class);
-                }
-                if (annotation.isPresent()) {
-                    String desc = annotation.get().desc();
-                    if (desc.length() > 0)
-                        context.getBuilder().description(desc);
+                    BeanPropertyDefinition beanPropertyDefinition = context.getBeanPropertyDefinition().get();
+                    annotation = findPropertyAnnotation(beanPropertyDefinition, Field.class);
+
+                    ModelPropertyBuilder builder = context.getBuilder();
+                    String name = beanPropertyDefinition.getName();
+                    if (name.equals("header")) {
+                        builder.isHidden(true);
+                        return;
+                    }
+
+                    if (annotation.isPresent()) {
+                        Field field = annotation.get();
+                        builder.position(field.index());
+                        String desc = field.desc();
+                        if (desc.length() > 0) {
+                            builder.description(desc);
+                        }
+                    }
                 }
             }
         };

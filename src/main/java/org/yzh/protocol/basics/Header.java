@@ -1,6 +1,5 @@
 package org.yzh.protocol.basics;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.model.AbstractHeader;
@@ -57,7 +56,6 @@ public class Header extends AbstractHeader {
         this.messageId = messageId;
     }
 
-    @JsonIgnore
     @Field(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
     public int getProperties() {
         return properties;
