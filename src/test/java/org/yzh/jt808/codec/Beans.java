@@ -10,9 +10,9 @@ import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
-import org.yzh.protocol.commons.additional.Attribute;
-import org.yzh.protocol.commons.additional.ParameterType;
-import org.yzh.protocol.commons.additional.attribute.*;
+import org.yzh.protocol.commons.transform.Attribute;
+import org.yzh.protocol.commons.transform.ParameterType;
+import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.RandomUtils;
 

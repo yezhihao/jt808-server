@@ -7,8 +7,8 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.additional.PositionAttributeUtils;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.PositionAttributeUtils;
+import org.yzh.protocol.commons.transform.Attribute;
 
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 行驶记录功能获取的速度，WORD，1/10km/h

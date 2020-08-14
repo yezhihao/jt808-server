@@ -1,6 +1,6 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 胎压

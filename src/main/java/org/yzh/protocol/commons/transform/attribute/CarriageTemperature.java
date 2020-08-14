@@ -1,7 +1,7 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 车厢温度, 单位摄氏度

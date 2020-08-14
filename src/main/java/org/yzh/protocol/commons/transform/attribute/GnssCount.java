@@ -1,20 +1,20 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
- * 无线通信网络信号强度
+ * GNSS 定位卫星数
  * length 1 BYTE
  */
-public class SignalStrength extends Attribute {
+public class GnssCount extends Attribute {
 
-    public static final int attributeId = 0x30;
+    public static final int attributeId = 0x31;
     private int value;
 
-    public SignalStrength() {
+    public GnssCount() {
     }
 
-    public SignalStrength(int value) {
+    public GnssCount(int value) {
         this.value = value;
     }
 
@@ -23,7 +23,7 @@ public class SignalStrength extends Attribute {
     }
 
     @Override
-    public SignalStrength formBytes(byte... bytes) {
+    public GnssCount formBytes(byte... bytes) {
         this.value = bytes[0];
         return this;
     }

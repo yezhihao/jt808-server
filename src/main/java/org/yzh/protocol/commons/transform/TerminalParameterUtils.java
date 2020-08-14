@@ -1,4 +1,4 @@
-package org.yzh.protocol.commons.additional;
+package org.yzh.protocol.commons.transform;
 
 import org.yzh.framework.commons.transform.Bit;
 import org.yzh.framework.orm.model.DataType;

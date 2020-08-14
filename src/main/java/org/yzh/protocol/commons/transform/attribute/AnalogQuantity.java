@@ -1,7 +1,7 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 模拟量，bit0-15，AD0；bit16-31，AD1。

@@ -7,7 +7,7 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.additional.TerminalParameterUtils;
+import org.yzh.protocol.commons.transform.TerminalParameterUtils;
 
 import java.util.ArrayList;
 import java.util.List;

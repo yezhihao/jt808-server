@@ -1,31 +1,30 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
- * 需要人工确认报警事件的 ID，WORD，从 1 开始计数
- * length 2
+ * 里程
+ * length 2 油量，WORD，1/10L，对应车上油量表读数
  */
-public class AlarmEventId extends Attribute {
+public class Oil extends Attribute {
 
-    public static final int attributeId = 0x04;
+    public static final int attributeId = 0x02;
     private int value;
 
-    public AlarmEventId() {
+    public Oil() {
     }
 
-    public AlarmEventId(int value) {
+    public Oil(int value) {
         this.value = value;
     }
 
-    @Override
     public int getAttributeId() {
         return attributeId;
     }
 
     @Override
-    public AlarmEventId formBytes(byte... bytes) {
+    public Oil formBytes(byte... bytes) {
         this.value = Bit.readInt16(bytes, 0);
         return this;
     }

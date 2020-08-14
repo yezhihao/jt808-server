@@ -1,7 +1,7 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 路段行驶时间不足/过长报警附加信息见表 30

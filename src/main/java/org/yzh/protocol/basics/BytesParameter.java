@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.commons.additional.TerminalParameterUtils;
+import org.yzh.protocol.commons.transform.TerminalParameterUtils;
 
 import java.nio.charset.Charset;
 

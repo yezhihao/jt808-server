@@ -1,21 +1,21 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
- * 里程
- * length 2 油量，WORD，1/10L，对应车上油量表读数
+ * IO 状态位，定义见表 32
+ * length 2
  */
-public class Oil extends Attribute {
+public class IoState extends Attribute {
 
-    public static final int attributeId = 0x02;
+    public static final int attributeId = 0x2a;
     private int value;
 
-    public Oil() {
+    public IoState() {
     }
 
-    public Oil(int value) {
+    public IoState(int value) {
         this.value = value;
     }
 
@@ -24,7 +24,7 @@ public class Oil extends Attribute {
     }
 
     @Override
-    public Oil formBytes(byte... bytes) {
+    public IoState formBytes(byte... bytes) {
         this.value = Bit.readInt16(bytes, 0);
         return this;
     }

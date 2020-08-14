@@ -1,30 +1,31 @@
-package org.yzh.protocol.commons.additional.attribute;
+package org.yzh.protocol.commons.transform.attribute;
 
 import org.yzh.framework.commons.transform.Bit;
-import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.transform.Attribute;
 
 /**
- * IO 状态位，定义见表 32
+ * 需要人工确认报警事件的 ID，WORD，从 1 开始计数
  * length 2
  */
-public class IoState extends Attribute {
+public class AlarmEventId extends Attribute {
 
-    public static final int attributeId = 0x2a;
+    public static final int attributeId = 0x04;
     private int value;
 
-    public IoState() {
+    public AlarmEventId() {
     }
 
-    public IoState(int value) {
+    public AlarmEventId(int value) {
         this.value = value;
     }
 
+    @Override
     public int getAttributeId() {
         return attributeId;
     }
 
     @Override
-    public IoState formBytes(byte... bytes) {
+    public AlarmEventId formBytes(byte... bytes) {
         this.value = Bit.readInt16(bytes, 0);
         return this;
     }
