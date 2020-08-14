@@ -68,6 +68,9 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         int messageId = request.getHeader().getMessageId();
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
+        if (messageId == JT808.位置信息汇报)
+            session.setSubject(request);
+
         if (!session.isRegistered()) {
             log.warn(">>>>>>>>>>未注册的设备{},{}", session, request);
             return true;

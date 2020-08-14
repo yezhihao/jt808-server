@@ -3,6 +3,7 @@ package org.yzh.framework.session;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,6 +29,10 @@ public enum SessionManager {
 
     public Session get(String clientId) {
         return sessionMap.get(clientId);
+    }
+
+    public Collection<Session> all() {
+        return sessionMap.values();
     }
 
     protected void put(String clientId, Session session) {

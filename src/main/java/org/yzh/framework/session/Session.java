@@ -29,7 +29,8 @@ public class Session {
 
     private final long creationTime;
     private long lastAccessedTime;
-    private final Map<String, Object> attributes;
+    private Map<String, Object> attributes;
+    private Object subject;
 
     public Session(Channel channel) {
         this.channel = channel;
@@ -67,8 +68,13 @@ public class Session {
      * 注册到SessionManager
      */
     public void register(AbstractHeader header) {
+        this.register(header, null);
+    }
+
+    public void register(AbstractHeader header, Object subject) {
         this.clientId = header.getClientId();
         this.registered = true;
+        this.subject = subject;
         SessionManager.Instance.put(clientId, this);
     }
 
@@ -103,6 +109,14 @@ public class Session {
 
     public Object removeAttribute(String name) {
         return attributes.remove(name);
+    }
+
+    public Object getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Object subject) {
+        this.subject = subject;
     }
 
     public void invalidate() {

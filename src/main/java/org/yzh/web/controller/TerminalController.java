@@ -26,24 +26,35 @@ import org.yzh.web.model.enums.DefaultCodes;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 @Api(description = "terminal api")
 @RestController
 @RequestMapping("terminal")
 public class TerminalController {
+
     private MessageManager messageManager = MessageManager.getInstance();
 
-    @ApiOperation(value = "原始消息发送", tags = "其他")
+    private SessionManager sessionManager = SessionManager.getInstance();
+
+    @ApiOperation(value = "获得当前所有在线设备信息")
+    @GetMapping("all")
+    public Collection<Session> all() {
+        return sessionManager.all();
+    }
+
+    @ApiOperation(value = "原始消息发送")
     @PostMapping("raw")
     public String postRaw(@ApiParam("终端手机号") @RequestParam String clientId,
                           @ApiParam("16进制报文") @RequestParam String message) {
-        Session session = SessionManager.Instance.get(clientId);
+        Session session = sessionManager.get(clientId);
         if (session != null) {
             ByteBuf byteBuf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(message));
             session.writeObject(byteBuf);
+            return "success";
         }
-        return "";
+        return "fail";
     }
 
     @ApiOperation(value = "终端参数可选项", tags = "终端管理类协议")
