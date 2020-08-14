@@ -44,7 +44,7 @@ public class T8604 extends AbstractMessage<Header> {
         this.attribute = attribute;
     }
 
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(yyMMddHHmmss)")
     public String getStartTime() {
         return startTime;
     }
@@ -53,7 +53,7 @@ public class T8604 extends AbstractMessage<Header> {
         this.startTime = startTime;
     }
 
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(yyMMddHHmmss)")
     public String getEndTime() {
         return endTime;
     }

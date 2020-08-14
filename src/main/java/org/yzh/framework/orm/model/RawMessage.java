@@ -9,23 +9,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class RawMessage<T extends AbstractHeader> extends AbstractMessage<T> {
 
-    private T header;
-
     private byte[] payload;
 
     public RawMessage() {
     }
 
     public RawMessage(T header) {
-        this.header = header;
-    }
-
-    public T getHeader() {
-        return header;
-    }
-
-    public void setHeader(T header) {
-        this.header = header;
+        super(header);
     }
 
     public byte[] getPayload() {

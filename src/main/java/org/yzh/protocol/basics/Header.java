@@ -59,11 +59,11 @@ public class Header extends AbstractHeader {
 
     @JsonIgnore
     @Field(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
-    public Integer getProperties() {
+    public int getProperties() {
         return properties;
     }
 
-    public void setProperties(Integer properties) {
+    public void setProperties(int properties) {
         this.properties = properties;
     }
 
