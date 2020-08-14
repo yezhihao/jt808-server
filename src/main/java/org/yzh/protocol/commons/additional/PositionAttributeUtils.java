@@ -1,11 +1,10 @@
-package org.yzh.protocol.commons;
+package org.yzh.protocol.commons.additional;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.BytesAttribute;
-import org.yzh.protocol.commons.additional.Attribute;
 import org.yzh.protocol.commons.additional.attribute.*;
 
 import java.util.*;
@@ -20,23 +19,25 @@ public abstract class PositionAttributeUtils {
 
     private static final Logger log = LoggerFactory.getLogger(PositionAttributeUtils.class.getSimpleName());
 
-    private static final Map<Integer, Function<byte[], Attribute>> FUNCTIONS = new HashMap<>(15);
+    private static final Map<Integer, Function<byte[], Attribute>> MAPPER;
 
     static {
-        FUNCTIONS.put(Mileage.attributeId, bytes -> new Mileage().formBytes(bytes));
-        FUNCTIONS.put(Oil.attributeId, bytes -> new Oil().formBytes(bytes));
-        FUNCTIONS.put(Speed.attributeId, bytes -> new Speed().formBytes(bytes));
-        FUNCTIONS.put(AlarmEventId.attributeId, bytes -> new AlarmEventId().formBytes(bytes));
-        FUNCTIONS.put(TirePressure.attributeId, bytes -> new TirePressure().formBytes(bytes));
-        FUNCTIONS.put(CarriageTemperature.attributeId, bytes -> new CarriageTemperature().formBytes(bytes));
-        FUNCTIONS.put(OverSpeedAlarm.attributeId, bytes -> new OverSpeedAlarm().formBytes(bytes));
-        FUNCTIONS.put(InOutAreaAlarm.attributeId, bytes -> new InOutAreaAlarm().formBytes(bytes));
-        FUNCTIONS.put(RouteDriveTimeAlarm.attributeId, bytes -> new RouteDriveTimeAlarm().formBytes(bytes));
-        FUNCTIONS.put(Signal.attributeId, bytes -> new Signal().formBytes(bytes));
-        FUNCTIONS.put(IoState.attributeId, bytes -> new IoState().formBytes(bytes));
-        FUNCTIONS.put(AnalogQuantity.attributeId, bytes -> new AnalogQuantity().formBytes(bytes));
-        FUNCTIONS.put(SignalStrength.attributeId, bytes -> new SignalStrength().formBytes(bytes));
-        FUNCTIONS.put(GnssCount.attributeId, bytes -> new GnssCount().formBytes(bytes));
+        Map<Integer, Function<byte[], Attribute>> map = new HashMap(15);
+        map.put(Mileage.attributeId,            /**/bytes -> new Mileage().formBytes(bytes));
+        map.put(Oil.attributeId,                /**/bytes -> new Oil().formBytes(bytes));
+        map.put(Speed.attributeId,              /**/bytes -> new Speed().formBytes(bytes));
+        map.put(AlarmEventId.attributeId,       /**/bytes -> new AlarmEventId().formBytes(bytes));
+        map.put(TirePressure.attributeId,       /**/bytes -> new TirePressure().formBytes(bytes));
+        map.put(CarriageTemperature.attributeId,/**/bytes -> new CarriageTemperature().formBytes(bytes));
+        map.put(OverSpeedAlarm.attributeId,     /**/bytes -> new OverSpeedAlarm().formBytes(bytes));
+        map.put(InOutAreaAlarm.attributeId,     /**/bytes -> new InOutAreaAlarm().formBytes(bytes));
+        map.put(RouteDriveTimeAlarm.attributeId,/**/bytes -> new RouteDriveTimeAlarm().formBytes(bytes));
+        map.put(Signal.attributeId,             /**/bytes -> new Signal().formBytes(bytes));
+        map.put(IoState.attributeId,            /**/bytes -> new IoState().formBytes(bytes));
+        map.put(AnalogQuantity.attributeId,     /**/bytes -> new AnalogQuantity().formBytes(bytes));
+        map.put(SignalStrength.attributeId,     /**/bytes -> new SignalStrength().formBytes(bytes));
+        map.put(GnssCount.attributeId,          /**/bytes -> new GnssCount().formBytes(bytes));
+        MAPPER = Collections.unmodifiableMap(map);
     }
 
     public static Map<Integer, Attribute> transform(List<BytesAttribute> bytesAttributes) {
@@ -45,7 +46,7 @@ public abstract class PositionAttributeUtils {
         Map<Integer, Attribute> result = new TreeMap<>();
         for (BytesAttribute bytesAttribute : bytesAttributes) {
             Integer id = bytesAttribute.getId();
-            Function<byte[], Attribute> function = FUNCTIONS.get(id);
+            Function<byte[], Attribute> function = MAPPER.get(id);
             if (function != null) {
                 try {
                     Attribute attribute = function.apply(bytesAttribute.getValue());

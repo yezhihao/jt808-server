@@ -52,6 +52,10 @@ public class BytesAttribute {
 
     public void setValue(byte[] value) {
         this.value = value;
+        if (value == null)
+            this.length = 0;
+        else
+            this.length = value.length;
     }
 
     @Override

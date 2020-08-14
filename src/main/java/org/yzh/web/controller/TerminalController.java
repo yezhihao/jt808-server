@@ -8,7 +8,7 @@ import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.TerminalParameter;
+import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
 import org.yzh.protocol.t808.*;
@@ -24,9 +24,9 @@ public class TerminalController {
 
     @ApiOperation("设置终端参数")
     @PutMapping("{clientId}/settings")
-    public T0001 updateParameters(@PathVariable("clientId") String clientId, @RequestBody List<TerminalParameter> parameters) {
+    public T0001 updateParameters(@PathVariable("clientId") String clientId, @RequestBody List<BytesParameter> parameters) {
         T8103 request = new T8103(clientId);
-        request.setItems(parameters);
+        request.setBytesParameters(parameters);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }

@@ -4,12 +4,14 @@ import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.TerminalParameter;
 import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.additional.TerminalParameterUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yezhihao
@@ -19,7 +21,7 @@ import java.util.List;
 public class T8103 extends AbstractMessage<Header> {
 
     private int total;
-    private List<TerminalParameter> items;
+    private List<BytesParameter> bytesParameters;
 
     public T8103() {
     }
@@ -30,9 +32,9 @@ public class T8103 extends AbstractMessage<Header> {
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public int getTotal() {
-        if (items == null || items.isEmpty())
-            return 0;
-        return items.size();
+        if (bytesParameters != null)
+            return bytesParameters.size();
+        return total;
     }
 
     public void setTotal(int total) {
@@ -40,17 +42,25 @@ public class T8103 extends AbstractMessage<Header> {
     }
 
     @Field(index = 1, type = DataType.LIST, desc = "参数项列表")
-    public List<TerminalParameter> getItems() {
-        return items;
+    public List<BytesParameter> getBytesParameters() {
+        return bytesParameters;
     }
 
-    public void setItems(List<TerminalParameter> items) {
-        this.items = items;
+    public void setBytesParameters(List<BytesParameter> bytesParameters) {
+        this.bytesParameters = bytesParameters;
     }
 
-    public void addItem(TerminalParameter item) {
-        if (items == null)
-            items = new ArrayList<>();
-        items.add(item);
+    public void addParameter(BytesParameter bytesParameter) {
+        if (bytesParameters == null)
+            bytesParameters = new ArrayList<>();
+        bytesParameters.add(bytesParameter);
+    }
+
+    public Map<Integer, String> getParameters() {
+        return TerminalParameterUtils.transform(bytesParameters);
+    }
+
+    public void setParameters(Map<Integer, String> parameters) {
+        this.bytesParameters = TerminalParameterUtils.transform(parameters);
     }
 }

@@ -6,12 +6,12 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.protocol.basics.BytesAttribute;
+import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.TerminalParameter;
 import org.yzh.protocol.commons.Action;
-import org.yzh.protocol.commons.ParameterUtils;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.additional.Attribute;
+import org.yzh.protocol.commons.additional.ParameterType;
 import org.yzh.protocol.commons.additional.attribute.*;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.RandomUtils;
@@ -116,16 +116,16 @@ public class Beans {
         T0104 bean = new T0104();
         bean.setSerialNo(104);
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        ParameterUtils[] values = ParameterUtils.values();
+        ParameterType[] values = ParameterType.values();
         for (int i = 0; i < 38; i++) {
-            ParameterUtils p = values[i];
+            ParameterType p = values[i];
             switch (p.type) {
                 case BYTE:
                 case WORD:
                 case DWORD:
-                    bean.addItem(new TerminalParameter(p.id, random.nextInt()));
+                    bean.addParameter(new BytesParameter(p.id, random.nextInt()));
                 default:
-                    bean.addItem(new TerminalParameter(p.id, RandomUtils.nextString(16)));
+                    bean.addParameter(new BytesParameter(p.id, RandomUtils.nextString(16)));
             }
         }
         return bean;
@@ -343,16 +343,16 @@ public class Beans {
     public static T8103 T8103() {
         T8103 bean = new T8103();
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        ParameterUtils[] values = ParameterUtils.values();
+        ParameterType[] values = ParameterType.values();
         for (int i = 0; i < 38; i++) {
-            ParameterUtils p = values[i];
+            ParameterType p = values[i];
             switch (p.type) {
                 case BYTE:
                 case WORD:
                 case DWORD:
-                    bean.addItem(new TerminalParameter(p.id, random.nextInt()));
+                    bean.addParameter(new BytesParameter(p.id, random.nextInt()));
                 default:
-                    bean.addItem(new TerminalParameter(p.id, RandomUtils.nextString(16)));
+                    bean.addParameter(new BytesParameter(p.id, RandomUtils.nextString(16)));
             }
         }
         return bean;

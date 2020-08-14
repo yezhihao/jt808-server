@@ -7,7 +7,7 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.PositionAttributeUtils;
+import org.yzh.protocol.commons.additional.PositionAttributeUtils;
 import org.yzh.protocol.commons.additional.Attribute;
 
 import java.util.List;
@@ -28,10 +28,7 @@ public class T0200 extends AbstractMessage<Header> {
     private int speed;
     private int direction;
     private String dateTime;
-
     private List<BytesAttribute> bytesAttributes;
-
-    private Map<Integer, Attribute> attributes;
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
     public int getWarningMark() {
@@ -107,24 +104,18 @@ public class T0200 extends AbstractMessage<Header> {
 
     @Field(index = 28, type = DataType.LIST, desc = "位置附加信息")
     public List<BytesAttribute> getBytesAttributes() {
-        if (bytesAttributes == null || bytesAttributes.size() == 0)
-            bytesAttributes = PositionAttributeUtils.transform(attributes);
         return bytesAttributes;
     }
 
     public void setBytesAttributes(List<BytesAttribute> bytesAttributes) {
         this.bytesAttributes = bytesAttributes;
-        this.attributes = PositionAttributeUtils.transform(bytesAttributes);
     }
 
     public Map<Integer, Attribute> getAttributes() {
-        if (attributes == null || attributes.size() == 0)
-            this.bytesAttributes = PositionAttributeUtils.transform(attributes);
-        return attributes;
+        return PositionAttributeUtils.transform(bytesAttributes);
     }
 
     public void setAttributes(Map<Integer, Attribute> attributes) {
-        this.attributes = attributes;
         this.bytesAttributes = PositionAttributeUtils.transform(attributes);
     }
 }

@@ -14,7 +14,15 @@ public class StrUtils {
         String[] split = str.split(delimiter);
         int[] result = new int[split.length];
         for (int i = 0; i < split.length; i++)
-            result[i] = Integer.valueOf(split[i]);
+            result[i] = Integer.parseInt(split[i]);
+        return result;
+    }
+
+    public static byte[] toBytes(String str, String delimiter) {
+        String[] split = str.split(delimiter);
+        byte[] result = new byte[split.length];
+        for (int i = 0; i < split.length; i++)
+            result[i] = (byte) Integer.parseInt(split[i]);
         return result;
     }
 

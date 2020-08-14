@@ -1,7 +1,5 @@
 package org.yzh.protocol.t1078;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
@@ -9,26 +7,16 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT1078;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by
- */
 @Message(JT1078.终端上传音视频资源列表)
-public class T1205 extends AbstractMessage<Header> implements Serializable {
+public class T1205 extends AbstractMessage<Header> {
 
-    @ApiModelProperty("序列号")
     private Integer serialNo;
-
-    /** 音视频总数 */
-    @ApiModelProperty("音视频总数")
     private Integer count;
+    private List<Item> items;
 
-    private List<VideoHis> videoHis;
-
-    /** 对应的终端注册消息的流水号 */
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public Integer getSerialNo() {
         return serialNo;
@@ -48,33 +36,23 @@ public class T1205 extends AbstractMessage<Header> implements Serializable {
     }
 
     @Field(index = 6, type = DataType.LIST, desc = "参数项列表")
-    public List<VideoHis> getVideoHis() {
-        return videoHis;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setVideoHis(List<VideoHis> videoHis) {
-        this.videoHis = videoHis;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    @ApiModel(description = "资源列表返回实体")
-    public static class VideoHis {
+    public static class Item {
 
-        @ApiModelProperty("信道号")
         private Integer channelId;
-        @ApiModelProperty("开始时间")
         private String startTime;
-        @ApiModelProperty("结束时间")
         private String endTime;
-        @ApiModelProperty("报警标志")
         private byte[] warningMark;
-        @ApiModelProperty("音视频资源类型")
         private Integer avItemType;
-        @ApiModelProperty("码流类型")
         private Integer streamType = 1;
-        @ApiModelProperty("存储器类型")
         private Integer romType;
-
-        @ApiModelProperty("文件大小")
         private Long size;
 
         @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
