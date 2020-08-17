@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.util.NettyRuntime;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class TCPServer {
     private void startInternal() {
         try {
             this.bossGroup = new NioEventLoopGroup(1);
-            this.workerGroup = new NioEventLoopGroup(2);
+            this.workerGroup = new NioEventLoopGroup(NettyRuntime.availableProcessors());
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.channel(NioServerSocketChannel.class);
             bootstrap.group(bossGroup, workerGroup);

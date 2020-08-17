@@ -91,8 +91,9 @@ public class Session {
         return lastAccessedTime;
     }
 
-    public void access() {
-        this.lastAccessedTime = System.currentTimeMillis();
+    public long access() {
+        lastAccessedTime = System.currentTimeMillis();
+        return lastAccessedTime;
     }
 
     public Collection<String> getAttributeNames() {
