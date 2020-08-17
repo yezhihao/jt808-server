@@ -19,6 +19,7 @@ import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -137,6 +138,16 @@ public class JT808Endpoint {
         locationService.batchInsert(list);
     }
 
+    @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
+    public void 定位数据批量上传(T0704 message) {
+        List<T0704.Item> items = message.getItems();
+        List<T0200> list = new ArrayList<>(items.size());
+        for (T0704.Item item : items) {
+            list.add(item.getPosition());
+        }
+        locationService.batchInsert(list);
+    }
+
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")
     public void 位置信息查询应答(T0201_0500 message) {
         Header header = message.getHeader();
@@ -177,11 +188,6 @@ public class JT808Endpoint {
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
     public void 驾驶员身份信息采集上报(T0702 message, Session session) {
-        Header header = message.getHeader();
-    }
-
-    @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
-    public void 定位数据批量上传(T0704 message, Session session) {
         Header header = message.getHeader();
     }
 
