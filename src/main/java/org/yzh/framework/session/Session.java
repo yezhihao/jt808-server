@@ -8,7 +8,6 @@ import org.yzh.framework.orm.model.AbstractHeader;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -131,7 +130,7 @@ public class Session {
         if (o == null || getClass() != o.getClass())
             return false;
         Session that = (Session) o;
-        return Objects.equals(this.getId(), that.getId());
+        return this.getId() == that.getId();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package org.yzh.framework.session;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 
 import java.util.Collection;
@@ -24,7 +23,7 @@ public enum SessionManager {
     private ChannelFutureListener remover = future -> {
         Session session = future.channel().attr(Session.KEY).get();
         if (session != null)
-            sessionMap.remove(session.getClientId());
+            sessionMap.remove(session.getClientId(), session);
     };
 
     public Session get(String clientId) {
@@ -35,11 +34,10 @@ public enum SessionManager {
         return sessionMap.values();
     }
 
-    protected void put(String clientId, Session session) {
-        Channel channel = session.channel;
-        boolean added = sessionMap.putIfAbsent(clientId, session) == null;
-        if (added) {
-            channel.closeFuture().addListener(remover);
+    protected void put(String clientId, Session newSession) {
+        Session oldSession = sessionMap.put(clientId, newSession);
+        if (!newSession.equals(oldSession)) {
+            newSession.channel.closeFuture().addListener(remover);
         }
     }
 }

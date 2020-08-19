@@ -59,7 +59,7 @@ public abstract class MessageEncoder {
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = PooledByteBufAllocator.DEFAULT.buffer(beanMetadata.length);
+        ByteBuf buf = PooledByteBufAllocator.DEFAULT.heapBuffer(beanMetadata.length, 2048);
         try {
             for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {
                 Object value = fieldMetadata.readMethod.invoke(obj);
@@ -85,7 +85,7 @@ public abstract class MessageEncoder {
             return Unpooled.EMPTY_BUFFER;
         }
 
-        ByteBuf buf = PooledByteBufAllocator.DEFAULT.buffer(beanMetadata.length * size);
+        ByteBuf buf = PooledByteBufAllocator.DEFAULT.heapBuffer(beanMetadata.length * size, 2048);
         try {
             for (Object obj : list) {
                 for (FieldMetadata fieldMetadata : beanMetadata.fieldMetadataList) {
