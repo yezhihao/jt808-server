@@ -1,6 +1,5 @@
-package org.yzh.jt808.codec;
+package org.yzh.protocol;
 
-import org.yzh.framework.commons.ClassUtils;
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
@@ -16,11 +15,10 @@ import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.RandomUtils;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -28,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Beans {
+public class JT808Beans {
 
     /** 2013版消息头 */
     public static AbstractMessage H2013(AbstractMessage message) {
@@ -644,55 +642,5 @@ public class Beans {
         bean.setType(1);
         bean.setContent("测试123@456#abc!...结束");
         return bean;
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        List<Class<?>> classList = ClassUtils.getClassList("org.yzh.web.jt.t808");
-        for (Class<?> aClass : classList) {
-            String simpleName = aClass.getSimpleName();
-            BeanInfo beanInfo = Introspector.getBeanInfo(aClass);
-            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            String ps = "";
-            for (PropertyDescriptor p : propertyDescriptors) {
-                Method writeMethod = p.getWriteMethod();
-                if (writeMethod == null)
-                    continue;
-                Object val = genBaseData(p.getPropertyType());
-                String name = writeMethod.getName();
-                ps += "\t\tbean." + name + "(" + val + ");\n";
-            }
-            System.out.println("    //xxxx\n" +
-                    "    public static " + simpleName + " " + simpleName + "() {\n" +
-                    "        " + simpleName + " bean = new " + simpleName + "();\n" +
-                    ps +
-                    "        return bean;\n" +
-                    "    }");
-        }
-    }
-
-    private static <T> Object genBaseData(Class<T> clazz) {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        if (clazz.isAssignableFrom(Boolean.class) || clazz.isAssignableFrom(Boolean.TYPE))
-            return random.nextBoolean();
-        if (clazz.isAssignableFrom(Byte.class) || clazz.isAssignableFrom(Byte.TYPE))
-            return (byte) random.nextInt(0, 65536);
-        if (clazz.isAssignableFrom(Short.class) || clazz.isAssignableFrom(Short.TYPE))
-            return (short) random.nextInt(0, 65536);
-        if (clazz.isAssignableFrom(Integer.class) || clazz.isAssignableFrom(Integer.TYPE))
-            return random.nextInt(0, 65536);
-        if (clazz.isAssignableFrom(Long.class) || clazz.isAssignableFrom(Long.TYPE))
-            return random.nextLong(0, 65536);
-        if (clazz.isAssignableFrom(Float.class) || clazz.isAssignableFrom(Float.TYPE))
-            return random.nextFloat();
-        if (clazz.isAssignableFrom(Double.class) || clazz.isAssignableFrom(Double.TYPE))
-            return random.nextDouble();
-        if (clazz.isAssignableFrom(Character.class) || clazz.isAssignableFrom(Character.TYPE))
-            return RandomUtils.nextString(1).charAt(0);
-        if (clazz.isAssignableFrom(String.class))
-            return "\"" + RandomUtils.nextString(9) + "\"";
-        if (clazz.isAssignableFrom(Date.class))
-            return new Date();
-        return null;
     }
 }

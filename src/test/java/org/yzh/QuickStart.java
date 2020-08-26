@@ -1,4 +1,4 @@
-package org.yzh.jt808.codec;
+package org.yzh;
 
 import org.yzh.framework.mvc.DefaultHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;

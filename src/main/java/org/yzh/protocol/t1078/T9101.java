@@ -5,6 +5,7 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT1078;
 
 /**
@@ -38,6 +39,7 @@ public class T9101 extends AbstractMessage<Header> {
 
     public void setIp(String ip) {
         this.ip = ip;
+        this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 1, indexOffsetName = "ipLength", type = DataType.WORD, desc = "实时视频服务器TCP端口号")

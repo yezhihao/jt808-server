@@ -1,8 +1,9 @@
-package org.yzh.jt808.codec;
+package org.yzh.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageEncoder;
 
 /**
@@ -19,7 +20,7 @@ public class DarkRepulsor extends JTMessageEncoder {
     }
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = darkRepulsor.encode(Beans.H2013(Beans.T0100()));
+        ByteBuf byteBuf = darkRepulsor.encode(JT808Beans.H2013(JT808Beans.T0100()));
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
     }

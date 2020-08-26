@@ -1,8 +1,9 @@
-package org.yzh.jt808.codec;
+package org.yzh;
 
 import org.yzh.framework.netty.client.ClientConfig;
 import org.yzh.framework.netty.client.HandlerMapping;
 import org.yzh.framework.netty.client.TCPClient;
+import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 
@@ -41,10 +42,10 @@ public class ClientTest {
                         tcpClient.stop();
                         return;
                     case 1:
-                        tcpClient.writeObject(Beans.H2013(Beans.T0100()));
+                        tcpClient.writeObject(JT808Beans.H2013(JT808Beans.T0100()));
                         break;
                     case 2:
-                        tcpClient.writeObject(Beans.H2013(Beans.T0200Attributes()));
+                        tcpClient.writeObject(JT808Beans.H2013(JT808Beans.T0200Attributes()));
                         break;
                 }
             }

@@ -1,4 +1,4 @@
-package org.yzh.jt808.codec;
+package org.yzh.protocol;
 
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
@@ -11,8 +11,7 @@ import org.yzh.web.commons.JsonUtils;
 import java.io.File;
 
 /**
- * JT/T 808协议单元测试类
- *
+ * JT/T HEX单元测试类
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
@@ -20,20 +19,20 @@ public class TestHex {
 
     @Test
     public void testHex() throws Exception {
-        FileUtils.foreach(new File("target/test-classes/test_data/hex.txt"), hex -> {
+        FileUtils.foreach(new File("target/test-classes/test_data/JT808.txt"), hex -> {
             hex = hex.substring(2, hex.length() - 2);
-            TestBeans.selfCheck(hex);
+            BeanTest.selfCheck(hex);
             return true;
         });
     }
 
     @Test
     public void testSubpackage() throws Exception {
-        FileUtils.foreach(new File("target/test-classes/test_data/T1205.txt"), hex -> {
+        FileUtils.foreach(new File("target/test-classes/test_data/JT1078.txt"), hex -> {
             if (StringUtils.isBlank(hex))
                 return false;
             hex = hex.substring(2, hex.length() - 2);
-            AbstractMessage message = TestBeans.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
+            AbstractMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
             System.out.println(JsonUtils.toJson(message));
             return true;
         });

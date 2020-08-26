@@ -1,4 +1,4 @@
-package org.yzh.jt808.codec;
+package org.yzh.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;

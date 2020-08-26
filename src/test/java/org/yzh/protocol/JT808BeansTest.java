@@ -1,27 +1,16 @@
-package org.yzh.jt808.codec;
+package org.yzh.protocol;
 
-import com.google.gson.Gson;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-import io.netty.buffer.Unpooled;
 import org.junit.Test;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
 
-import static org.junit.Assert.assertEquals;
-import static org.yzh.jt808.codec.Beans.*;
+import static org.yzh.protocol.BeanTest.selfCheck;
+import static org.yzh.protocol.JT808Beans.*;
 
 /**
  * JT/T 808协议单元测试类
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class TestBeans {
-
-    public static final JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.protocol");
-
-    public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
+public class JT808BeansTest {
 
     @Test
     public void testT8303() {
@@ -315,65 +304,5 @@ public class TestBeans {
     public void testT8803() {
         selfCheck(H2013(T8803()));
         selfCheck(H2019(T8803()));
-    }
-
-
-    public static AbstractMessage transform(String hex) {
-        ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        AbstractMessage bean = decoder.decode(buf);
-        return bean;
-    }
-
-    public static String transform(AbstractMessage bean) {
-        ByteBuf buf = encoder.encode(bean);
-        String hex = ByteBufUtil.hexDump(buf);
-        return hex;
-    }
-
-    private static boolean show = true;
-
-    private static void println(String hex1) {
-        if (show)
-            System.out.println(hex1);
-    }
-
-    public static final Gson gson = new Gson();
-
-    public static void selfCheck(String hex1) {
-        println(hex1);
-
-        AbstractMessage bean1 = transform(hex1);
-        String json1 = gson.toJson(bean1);
-        println(json1);
-
-        String hex2 = transform(bean1);
-        println(hex2);
-
-        AbstractMessage bean2 = transform(hex2);
-        String json2 = gson.toJson(bean2);
-        println(json2);
-
-        System.out.println();
-        assertEquals("hex not equals", hex1, hex2);
-        assertEquals("object not equals", json1, json2);
-    }
-
-    public static void selfCheck(AbstractMessage bean) {
-        String hex1 = transform(bean);
-        println("hex1 " + hex1);
-
-        AbstractMessage bean1 = transform(hex1);
-        String json1 = gson.toJson(bean1);
-        println("json1 " + json1);
-
-        String hex2 = transform(bean1);
-        println("hex2 " + hex2);
-
-        AbstractMessage bean2 = transform(hex2);
-        String json2 = gson.toJson(bean2);
-        println("json2 " + json2);
-
-        assertEquals("hex not equals", hex1, hex2);
-        assertEquals("object not equals", json1, json2);
     }
 }
