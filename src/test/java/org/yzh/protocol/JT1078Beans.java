@@ -147,7 +147,7 @@ public class JT1078Beans {
         bean.setDataType(20635);
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
-        bean.setWarningMark(8116);
+        bean.setWarningMark(new byte[8]);
         bean.setStorageType(42752);
         bean.setStreamType(40558);
         return bean;
@@ -164,7 +164,7 @@ public class JT1078Beans {
         bean.setChannelNo(1);
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
-        bean.setWarningMark(new byte[64]);
+        bean.setWarningMark(new byte[8]);
         bean.setDataType(0);
         bean.setStorageType(1);
         bean.setStreamType(1);

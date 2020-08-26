@@ -17,7 +17,7 @@ public class T9205 extends AbstractMessage<Header> {
     private int channelNo;
     private String startTime;
     private String endTime;
-    private int warningMark;
+    private byte[] warningMark;
     private int dataType;
     private int streamType;
     private int storageType;
@@ -50,11 +50,11 @@ public class T9205 extends AbstractMessage<Header> {
     }
 
     @Field(index = 13, type = DataType.BYTES, length = 8, desc = "报警标志")
-    public int getWarningMark() {
+    public byte[] getWarningMark() {
         return warningMark;
     }
 
-    public void setWarningMark(int warningMark) {
+    public void setWarningMark(byte[] warningMark) {
         this.warningMark = warningMark;
     }
 
