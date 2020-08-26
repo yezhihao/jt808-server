@@ -4,7 +4,7 @@ import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.MessageId;
 
 /**
  * @author yezhihao
@@ -203,7 +203,7 @@ public class Header extends AbstractHeader {
     @Override
     public String toString() {
         final StringBuilder b = new StringBuilder(96);
-        b.append(JT808.get(messageId));
+        b.append(MessageId.get(messageId));
         b.append('[');
         b.append("messageId=").append(messageId);
         b.append(", properties=").append(properties);
