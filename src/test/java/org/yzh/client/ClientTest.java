@@ -1,4 +1,4 @@
-package org.yzh;
+package org.yzh.client;
 
 import org.yzh.framework.netty.client.ClientConfig;
 import org.yzh.framework.netty.client.HandlerMapping;
