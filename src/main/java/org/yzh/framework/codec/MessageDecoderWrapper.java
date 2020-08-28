@@ -2,11 +2,13 @@ package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.session.Session;
 
 import java.util.List;
 
@@ -27,8 +29,10 @@ public class MessageDecoderWrapper extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
-        log.info(">>>>>原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
-        AbstractMessage message = decoder.decode(buf);
+        Channel channel = ctx.channel();
+        log.info(">>>>>原始报文[ip={}],hex={}", channel.remoteAddress(), ByteBufUtil.hexDump(buf));
+        Session session = channel.attr(Session.KEY).get();
+        AbstractMessage message = decoder.decode(buf, session.getProtocolVersion());
         if (message != null)
             out.add(message);
         buf.skipBytes(buf.readableBytes());

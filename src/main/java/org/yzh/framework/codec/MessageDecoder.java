@@ -41,6 +41,10 @@ public abstract class MessageDecoder {
     public abstract boolean verify(ByteBuf buf);
 
     public AbstractMessage decode(ByteBuf buf) {
+        return decode(buf, 0);
+    }
+
+    public AbstractMessage decode(ByteBuf buf, int version) {
         buf = unescape(buf);
 
         boolean verified = verify(buf);
@@ -50,7 +54,6 @@ public abstract class MessageDecoder {
 
         Class<? extends AbstractHeader> headerClass = MessageHelper.getHeaderClass();
         int readerIndex = buf.readerIndex();
-        int version = 0;
 
         AbstractHeader header = decode(buf, headerClass, version);
         header.setVerified(verified);

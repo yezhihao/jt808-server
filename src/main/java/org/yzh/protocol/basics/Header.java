@@ -46,7 +46,7 @@ public class Header extends AbstractHeader {
         this.mobileNo = mobileNo;
     }
 
-    @Field(index = 0, type = DataType.WORD, desc = "消息ID", version = {0, 1})
+    @Field(index = 0, type = DataType.WORD, desc = "消息ID")
     @Override
     public int getMessageId() {
         return messageId;
@@ -56,7 +56,7 @@ public class Header extends AbstractHeader {
         this.messageId = messageId;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "消息体属性", version = {0, 1})
+    @Field(index = 2, type = DataType.WORD, desc = "消息体属性")
     public int getProperties() {
         return properties;
     }
@@ -75,7 +75,8 @@ public class Header extends AbstractHeader {
         this.versionNo = versionNo;
     }
 
-    @Fs({@Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0),
+    @Fs({@Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = -1),
+            @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0),
             @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)})
     public String getMobileNo() {
         return mobileNo;
@@ -85,7 +86,8 @@ public class Header extends AbstractHeader {
         this.mobileNo = mobileNo;
     }
 
-    @Fs({@Field(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
+    @Fs({@Field(index = 10, type = DataType.WORD, desc = "流水号", version = -1),
+            @Field(index = 10, type = DataType.WORD, desc = "流水号", version = 0),
             @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)})
     public int getSerialNo() {
         return serialNo;

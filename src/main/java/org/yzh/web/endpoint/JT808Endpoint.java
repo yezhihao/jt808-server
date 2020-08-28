@@ -71,7 +71,8 @@ public class JT808Endpoint {
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
         if (message.getPlateNo() == null) {
-            log.warn(">>>>>>>>>>不支持2011版本协议{},{}", session, message);
+            session.setProtocolVersion(-1);
+            log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         }
 

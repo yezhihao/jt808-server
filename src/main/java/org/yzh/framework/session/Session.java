@@ -30,6 +30,7 @@ public class Session {
     private long lastAccessedTime;
     private Map<String, Object> attributes;
     private Object subject;
+    private int protocolVersion = 0;
 
     public Session(Channel channel) {
         this.channel = channel;
@@ -117,6 +118,14 @@ public class Session {
 
     public void setSubject(Object subject) {
         this.subject = subject;
+    }
+
+    public int getProtocolVersion() {
+        return protocolVersion;
+    }
+
+    public void setProtocolVersion(int protocolVersion) {
+        this.protocolVersion = protocolVersion;
     }
 
     public void invalidate() {

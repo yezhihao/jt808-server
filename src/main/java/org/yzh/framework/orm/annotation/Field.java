@@ -31,5 +31,5 @@ public @interface Field {
 
     String desc() default "";
 
-    int[] version() default {0, 1};
+    int[] version() default {-1, 0, 1};
 }
