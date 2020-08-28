@@ -72,6 +72,7 @@ public class JT808Endpoint {
         Header header = message.getHeader();
         if (message.getPlateNo() == null) {
             session.setProtocolVersion(-1);
+            sessionManager.putVersion(header.getClientId(), -1);
             log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         }

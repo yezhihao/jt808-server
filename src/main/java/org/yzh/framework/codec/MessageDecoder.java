@@ -13,6 +13,7 @@ import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.model.RawMessage;
+import org.yzh.framework.session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,16 @@ public abstract class MessageDecoder {
         int readerIndex = buf.readerIndex();
 
         AbstractHeader header = decode(buf, headerClass, version);
-        header.setVerified(verified);
-
         if (header.isVersion()) {
             buf.readerIndex(readerIndex);
             header = decode(buf, headerClass, 1);
             version = header.getVersionNo();
+        }
+        header.setVerified(verified);
+
+        Integer v = SessionManager.Instance.getVersion(header.getClientId());//TODO 待优化
+        if (v != null) {
+            version = v;
         }
 
         Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());

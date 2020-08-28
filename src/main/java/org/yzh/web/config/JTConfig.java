@@ -5,6 +5,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.yzh.framework.codec.MessageDecoder;
+import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
@@ -26,13 +28,23 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setPort(7611)
                 .setMaxFrameLength(1024)
                 .setDelimiters(new byte[]{0x7e})
-                .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
-                .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
+                .setDecoder(messageDecoder())
+                .setEncoder(messageEncoder())
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
                 .setMultiPacketListener(multiPacketListener())
                 .build();
         return new TCPServer(jtConfig);
+    }
+
+    @Bean
+    public MessageDecoder messageDecoder() {
+        return new JTMessageDecoder("org.yzh.protocol");
+    }
+
+    @Bean
+    public MessageEncoder messageEncoder() {
+        return new JTMessageEncoder("org.yzh.protocol");
     }
 
     @Bean

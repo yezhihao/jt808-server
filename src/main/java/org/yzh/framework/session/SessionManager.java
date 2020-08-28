@@ -1,10 +1,13 @@
 package org.yzh.framework.session;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import io.netty.channel.ChannelFutureListener;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yezhihao
@@ -19,6 +22,9 @@ public enum SessionManager {
     }
 
     private Map<String, Session> sessionMap = new ConcurrentHashMap<>();
+
+    private Cache<String, Integer> versionCache = Caffeine.newBuilder()
+            .expireAfterWrite(5, TimeUnit.MINUTES).build();
 
     private ChannelFutureListener remover = future -> {
         Session session = future.channel().attr(Session.KEY).get();
@@ -39,5 +45,13 @@ public enum SessionManager {
         if (!newSession.equals(oldSession)) {
             newSession.channel.closeFuture().addListener(remover);
         }
+    }
+
+    public void putVersion(String clientId, int version) {
+        versionCache.put(clientId, version);
+    }
+
+    public Integer getVersion(String clientId) {
+        return versionCache.getIfPresent(clientId);
     }
 }
