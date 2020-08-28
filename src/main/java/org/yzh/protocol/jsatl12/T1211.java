@@ -5,6 +5,7 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JSATL12;
 
 /**
@@ -35,6 +36,7 @@ public class T1211 extends AbstractMessage<Header> {
 
     public void setName(String name) {
         this.name = name;
+        this.nameLength = name.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 1, indexOffsetName = "nameLength", type = DataType.BYTE, desc = "文件类型")
