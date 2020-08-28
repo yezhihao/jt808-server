@@ -10,32 +10,28 @@ import org.yzh.protocol.commons.JT1078;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
- */
 @Message(JT1078.终端上传音视频资源列表)
 public class T1205 extends AbstractMessage<Header> {
 
-    private int serialNo;
-    private int count;
+    private Integer serialNo;
+    private Integer count;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
+    public Integer getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(int serialNo) {
+    public void setSerialNo(Integer serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "音视频资源总数")
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -50,22 +46,22 @@ public class T1205 extends AbstractMessage<Header> {
 
     public static class Item {
 
-        private int channelNo;
+        private Integer channelId;
         private String startTime;
         private String endTime;
         private byte[] warningMark;
-        private int avItemType;
-        private int streamType = 1;
-        private int romType;
+        private Integer avItemType;
+        private Integer streamType = 1;
+        private Integer romType;
         private Long size;
 
         @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
-        public int getChannelNo() {
-            return channelNo;
+        public Integer getChannelId() {
+            return channelId;
         }
 
-        public void setChannelNo(int channelNo) {
-            this.channelNo = channelNo;
+        public void setChannelId(Integer channelId) {
+            this.channelId = channelId;
         }
 
         @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
@@ -96,29 +92,29 @@ public class T1205 extends AbstractMessage<Header> {
         }
 
         @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
-        public int getAvItemType() {
+        public Integer getAvItemType() {
             return avItemType;
         }
 
-        public void setAvItemType(int avItemType) {
+        public void setAvItemType(Integer avItemType) {
             this.avItemType = avItemType;
         }
 
         @Field(index = 22, type = DataType.BYTE, desc = "码流类型")
-        public int getStreamType() {
+        public Integer getStreamType() {
             return streamType;
         }
 
-        public void setStreamType(int streamType) {
+        public void setStreamType(Integer streamType) {
             this.streamType = streamType;
         }
 
         @Field(index = 23, type = DataType.BYTE, desc = "存储器类型")
-        public int getRomType() {
+        public Integer getRomType() {
             return romType;
         }
 
-        public void setRomType(int romType) {
+        public void setRomType(Integer romType) {
             this.romType = romType;
         }
 
@@ -134,7 +130,7 @@ public class T1205 extends AbstractMessage<Header> {
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("{");
-            sb.append("channelNo=").append(channelNo);
+            sb.append("channelId=").append(channelId);
             sb.append(", startTime='").append(startTime).append('\'');
             sb.append(", endTime='").append(endTime).append('\'');
             sb.append(", warningMark=").append(Arrays.toString(warningMark));

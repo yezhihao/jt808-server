@@ -3,6 +3,7 @@ package org.yzh.protocol.commons;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.yzh.protocol.commons.JSATL12.*;
 import static org.yzh.protocol.commons.JT1078.*;
 import static org.yzh.protocol.commons.JT808.*;
 
@@ -94,7 +95,7 @@ public class MessageId {
         messageId.put(单条存储多媒体数据检索上传命令, "单条存储多媒体数据检索上传命令");
         messageId.put(数据下行透传, "数据下行透传");
         messageId.put(平台RSA公钥, "平台RSA公钥");
-        //============================================
+        //============================================ 808End
         messageId.put(终端上传音视频属性, "终端上传音视频属性");
         messageId.put(终端上传乘客流量, "终端上传乘客流量");
         messageId.put(终端上传音视频资源列表, "终端上传音视频资源列表");
@@ -115,5 +116,13 @@ public class MessageId {
         messageId.put(红外补光控制, "红外补光控制");
         messageId.put(云台变倍控制, "云台变倍控制");
         messageId.put(实时音视频流及透传数据传输, "实时音视频流及透传数据传输");
+        //============================================ 1078End
+        messageId.put(报警附件上传指令, "报警附件上传指令");
+        messageId.put(文件上传完成消息应答, "文件上传完成消息应答");
+        messageId.put(报警附件信息消息, "报警附件信息消息");
+        messageId.put(文件信息上传, "文件信息上传");
+        messageId.put(文件上传完成消息, "文件上传完成消息");
+        messageId.put(文件数据上传, "文件数据上传");
+        //============================================ JSATL12End
     }
 }
