@@ -64,7 +64,7 @@ public abstract class MessageDecoder {
         }
         header.setVerified(verified);
 
-        Integer v = SessionManager.Instance.getVersion(header.getClientId());//TODO 待优化
+        Integer v = SessionManager.Instance.getVersion(header.getClientId());
         if (v != null) {
             version = v;
         }
