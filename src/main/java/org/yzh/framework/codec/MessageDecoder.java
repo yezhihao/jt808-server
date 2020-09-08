@@ -107,7 +107,7 @@ public abstract class MessageDecoder {
     public <T> T decode(ByteBuf buf, Class<T> clazz, int version) {
         BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(clazz, version);
         if (beanMetadata == null) {
-            log.warn(clazz.getName() + "未找到 BeanMetadata");
+            log.info(clazz.getName() + "未找到 BeanMetadata");
             return null;
         }
 
