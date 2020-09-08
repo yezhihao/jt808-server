@@ -26,7 +26,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
     public TCPServer tcpServer() {
         NettyConfig jtConfig = NettyConfig.custom()
                 .setPort(7611)
-                .setMaxFrameLength(1 + 21 + 1023 + 1)
+                .setMaxFrameLength(2 + 21 + 1023 + 2)
                 .setDelimiters(new byte[]{0x7e})
                 .setDecoder(messageDecoder())
                 .setEncoder(messageEncoder())
