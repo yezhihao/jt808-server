@@ -14,12 +14,12 @@ public class CoordTransform {
     /**
      * 百度坐标系 (BD-09) 与 火星坐标系 (GCJ-02)的转换
      * 即 百度 转 谷歌、高德
-     * @param bd_lon
+     * @param bd_lng
      * @param bd_lat
      * @returns {*[]}
      */
-    public static double[] bd09togcj02(double bd_lon, double bd_lat) {
-        double x = bd_lon - 0.0065;
+    public static double[] bd09togcj02(double bd_lng, double bd_lat) {
+        double x = bd_lng - 0.0065;
         double y = bd_lat - 0.006;
         double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_PI);
         double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_PI);
@@ -30,7 +30,7 @@ public class CoordTransform {
 
     /**
      * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换
-     * 即谷歌、高德 转 百度
+     * 即 谷歌、高德 转 百度
      * @param lng
      * @param lat
      * @returns {*[]}
@@ -44,7 +44,7 @@ public class CoordTransform {
     }
 
     /**
-     * WGS84转GCj02
+     * WGS-84 转 GCj-02
      * @param lng
      * @param lat
      * @returns {*[]}
@@ -68,7 +68,7 @@ public class CoordTransform {
     }
 
     /**
-     * GCJ02 转换为 WGS84
+     * GCJ-02 转换为 WGS-84
      * @param lng
      * @param lat
      * @returns {*[]}
