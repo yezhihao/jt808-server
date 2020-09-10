@@ -24,6 +24,7 @@ public class CoordUtils {
 
     /**
      * 判断坐标是否在围栏内
+     * coords [lng, lat, lng, lat, lng, lat ...]
      * coords.length = 3 圆形 最后一位为距离
      * coords.length = 4 矩形
      * coords.length > 4 多边形
