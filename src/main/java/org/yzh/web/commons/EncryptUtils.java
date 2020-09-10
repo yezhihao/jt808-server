@@ -44,7 +44,7 @@ public class EncryptUtils {
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 
-            keyGenerator.init(192, new SecureRandom("test~!@_192".getBytes(StandardCharsets.UTF_8)));
+            keyGenerator.init(128, new SecureRandom("test~!@_128".getBytes(StandardCharsets.UTF_8)));
             byte[] key = keyGenerator.generateKey().getEncoded();
 
             keyGenerator.init(128, new SecureRandom("test~!@_128".getBytes(StandardCharsets.UTF_8)));
