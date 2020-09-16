@@ -1,8 +1,5 @@
 package org.yzh.web.commons;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.IvParameterSpec;
@@ -17,8 +14,6 @@ import java.security.SecureRandom;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class EncryptUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(EncryptUtils.class);
 
     private static volatile SecretKeySpec DefKey;
 
@@ -52,7 +47,7 @@ public class EncryptUtils {
 
             initial(key, initVector);
         } catch (NoSuchAlgorithmException e) {
-            log.warn("初始化密钥失败", e);
+            throw new RuntimeException("初始化密钥失败", e);
         }
     }
 
@@ -82,8 +77,7 @@ public class EncryptUtils {
 
             return cipher.doFinal(message);
         } catch (Exception e) {
-            log.warn("解密失败", e);
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
