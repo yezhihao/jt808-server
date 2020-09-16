@@ -7,7 +7,6 @@ import org.yzh.protocol.t808.T0100;
 import org.yzh.web.commons.EncryptUtils;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
-import org.yzh.web.service.LocationService;
 
 import java.io.*;
 import java.util.Base64;
@@ -15,7 +14,7 @@ import java.util.Base64;
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
-    private static final Logger log = LoggerFactory.getLogger(LocationService.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(DeviceServiceImpl.class.getSimpleName());
 
     @Override
     public String register(T0100 request) {

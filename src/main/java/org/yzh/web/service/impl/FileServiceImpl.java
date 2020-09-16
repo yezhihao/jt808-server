@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class FileServiceImpl implements FileService {
 
-    private static final Logger log = LoggerFactory.getLogger(FileService.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class.getSimpleName());
 
     private static final String root = "D:/alarm_file/";
 

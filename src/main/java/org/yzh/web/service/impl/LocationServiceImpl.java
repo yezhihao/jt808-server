@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    private static final Logger log = LoggerFactory.getLogger(LocationService.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(LocationServiceImpl.class.getSimpleName());
 
     @Autowired
     private LocationMapper locationMapper;
