@@ -3,6 +3,7 @@ package org.yzh;
 import org.yzh.framework.mvc.DefaultHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
 import org.yzh.framework.netty.TCPServer;
+import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
@@ -23,6 +24,7 @@ public class QuickStart {
                 .setHandlerMapping(new DefaultHandlerMapping("org.yzh.web.endpoint"))
                 .setHandlerInterceptor(new JTHandlerInterceptor())
                 .setMultiPacketListener(new JTMultiPacketListener(10))
+                .setSessionManager(new SessionManager())
                 .build();
 
         TCPServer tcpServer = new TCPServer(jtConfig);
