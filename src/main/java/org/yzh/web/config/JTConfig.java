@@ -24,14 +24,14 @@ import org.yzh.web.endpoint.JTSessionListener;
 public class JTConfig implements InitializingBean, DisposableBean {
 
     @Autowired
-    private TCPServer tcpServer;
+    private TCPServer jt808Server;
 
     @Bean
-    public TCPServer tcpServer() {
+    public TCPServer jt808Server() {
         NettyConfig jtConfig = NettyConfig.custom()
                 .setPort(7611)
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
-                .setDelimiters(new byte[]{0x7e})
+                .setDelimiters(new byte[][]{{0x7e, 0x7e}, {0x7e}})
                 .setDecoder(messageDecoder())
                 .setEncoder(messageEncoder())
                 .setHandlerMapping(handlerMapping())
@@ -39,7 +39,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setMultiPacketListener(multiPacketListener())
                 .setSessionManager(sessionManager())
                 .build();
-        return new TCPServer(jtConfig);
+        return new TCPServer("808服务", jtConfig);
     }
 
     @Bean
@@ -84,11 +84,11 @@ public class JTConfig implements InitializingBean, DisposableBean {
 
     @Override
     public void afterPropertiesSet() {
-        tcpServer.start();
+        jt808Server.start();
     }
 
     @Override
     public void destroy() {
-        tcpServer.stop();
+        jt808Server.stop();
     }
 }

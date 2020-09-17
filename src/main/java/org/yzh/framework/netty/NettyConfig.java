@@ -17,7 +17,7 @@ public class NettyConfig {
 
     protected final int port;
     protected final int maxFrameLength;
-    protected final byte[] delimiter;
+    protected final byte[][] delimiter;
     protected final MessageDecoder decoder;
     protected final MessageEncoder encoder;
     protected final ChannelInboundHandlerAdapter adapter;
@@ -28,7 +28,7 @@ public class NettyConfig {
 
     private NettyConfig(int port,
                         int maxFrameLength,
-                        byte[] delimiter,
+                        byte[][] delimiter,
                         MessageDecoder decoder,
                         MessageEncoder encoder,
                         HandlerMapping handlerMapping,
@@ -57,7 +57,7 @@ public class NettyConfig {
 
         private int port;
         private int maxFrameLength;
-        private byte[] delimiters;
+        private byte[][] delimiters;
         private MessageDecoder decoder;
         private MessageEncoder encoder;
         private HandlerMapping handlerMapping;
@@ -78,7 +78,7 @@ public class NettyConfig {
             return this;
         }
 
-        public Builder setDelimiters(byte[] delimiters) {
+        public Builder setDelimiters(byte[][] delimiters) {
             this.delimiters = delimiters;
             return this;
         }

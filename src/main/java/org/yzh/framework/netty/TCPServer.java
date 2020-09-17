@@ -1,7 +1,6 @@
 package org.yzh.framework.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -17,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.codec.MessageDecoderWrapper;
 import org.yzh.framework.codec.MessageEncoderWrapper;
+import org.yzh.framework.commons.transform.ByteBufUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +32,11 @@ public class TCPServer {
     private EventLoopGroup bossGroup = null;
     private EventLoopGroup workerGroup = null;
 
+    private String name;
     private NettyConfig config;
 
-    public TCPServer(NettyConfig config) {
+    public TCPServer(String name, NettyConfig config) {
+        this.name = name;
         this.config = config;
     }
 
@@ -53,20 +55,18 @@ public class TCPServer {
                         public void initChannel(NioSocketChannel channel) {
                             channel.pipeline()
                                     .addLast(new IdleStateHandler(4, 0, 0, TimeUnit.MINUTES))
-                                    .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
-                                            Unpooled.wrappedBuffer(config.delimiter),
-                                            Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
+                                    .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength, ByteBufUtils.wrappedBuffer(config.delimiter)))
                                     .addLast("decoder", new MessageDecoderWrapper(config.decoder))
-                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter))
+                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1]))
                                     .addLast("adapter", config.adapter);
                         }
                     });
 
             ChannelFuture channelFuture = bootstrap.bind(config.port).sync();
-            log.warn("===TCP Server启动成功, port={}===", config.port);
+            log.warn("==={}启动成功, port={}===", name, config.port);
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
-            log.warn("===TCP Server出现异常, port={}===", e);
+            log.warn("==={}出现异常, port={}===", e);
         } finally {
             stop();
         }
@@ -74,7 +74,7 @@ public class TCPServer {
 
     public synchronized void start() {
         if (this.isRunning) {
-            log.warn("===TCP Server已经启动, port={}===", config.port);
+            log.warn("==={}已经启动, port={}===", name, config.port);
             return;
         }
         this.isRunning = true;
@@ -83,7 +83,7 @@ public class TCPServer {
 
     public synchronized void stop() {
         if (!this.isRunning) {
-            log.warn("===TCP Server已经停止, port={}===", config.port);
+            log.warn("==={}已经停止, port={}===", name, config.port);
         }
         this.isRunning = false;
 
@@ -95,6 +95,6 @@ public class TCPServer {
         if (!future.isSuccess())
             log.warn("workerGroup 无法正常停止", future.cause());
 
-        log.warn("===TCP Server已经停止, port={}===", config.port);
+        log.warn("==={}已经停止, port={}===", name, config.port);
     }
 }
