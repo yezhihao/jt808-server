@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
@@ -34,9 +35,11 @@ import java.util.List;
 @RequestMapping("terminal")
 public class TerminalController {
 
-    private MessageManager messageManager = MessageManager.getInstance();
+    @Autowired
+    private MessageManager messageManager;
 
-    private SessionManager sessionManager = SessionManager.getInstance();
+    @Autowired
+    private SessionManager sessionManager;
 
     @ApiOperation(value = "获得当前所有在线设备信息")
     @GetMapping("all")

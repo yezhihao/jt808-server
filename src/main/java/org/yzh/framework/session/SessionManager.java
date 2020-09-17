@@ -2,6 +2,7 @@ package org.yzh.framework.session;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 
 import java.util.Collection;
@@ -13,24 +14,47 @@ import java.util.concurrent.TimeUnit;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public enum SessionManager {
+public class SessionManager {
 
-    Instance;
+    private Map<String, Session> sessionMap;
 
-    public static SessionManager getInstance() {
-        return Instance;
+    private Cache<String, Integer> versionCache;
+
+    private ChannelFutureListener remover;
+
+    private SessionListener sessionListener;
+
+    public SessionManager() {
+        this.sessionMap = new ConcurrentHashMap<>();
+        this.versionCache = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
+        this.remover = future -> {
+            Session session = future.channel().attr(Session.KEY).get();
+            if (session != null) {
+                sessionMap.remove(session.getClientId(), session);
+            }
+        };
     }
 
-    private Map<String, Session> sessionMap = new ConcurrentHashMap<>();
+    public SessionManager(SessionListener sessionListener) {
+        this();
+        this.sessionListener = sessionListener;
+    }
 
-    private Cache<String, Integer> versionCache = Caffeine.newBuilder()
-            .expireAfterWrite(5, TimeUnit.MINUTES).build();
+    public Session newSession(Channel channel) {
+        Session session = new Session(channel, this);
+        callSessionCreatedListener(session);
+        return session;
+    }
 
-    private ChannelFutureListener remover = future -> {
-        Session session = future.channel().attr(Session.KEY).get();
-        if (session != null)
-            sessionMap.remove(session.getClientId(), session);
-    };
+    protected void callSessionDestroyedListener(Session session) {
+        if (sessionListener != null)
+            sessionListener.sessionDestroyed(session);
+    }
+
+    protected void callSessionCreatedListener(Session session) {
+        if (sessionListener != null)
+            sessionListener.sessionCreated(session);
+    }
 
     public Session get(String clientId) {
         return sessionMap.get(clientId);

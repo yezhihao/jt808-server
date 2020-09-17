@@ -14,19 +14,17 @@ import java.util.concurrent.TimeUnit;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public enum MessageManager {
-
-    Instance;
-
-    public static MessageManager getInstance() {
-        return Instance;
-    }
+public class MessageManager {
 
     private static final Logger log = LoggerFactory.getLogger(MessageManager.class.getSimpleName());
 
     private Map<String, SynchronousQueue> topicSubscribers = new ConcurrentHashMap<>();
 
-    private SessionManager sessionManager = SessionManager.getInstance();
+    private SessionManager sessionManager;
+
+    public MessageManager(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
 
     /**
      * 发送通知类消息，不接收响应

@@ -7,6 +7,7 @@ import org.yzh.framework.codec.MultiPacketListener;
 import org.yzh.framework.codec.MultiPacketManager;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
+import org.yzh.framework.session.SessionManager;
 
 /**
  * @author yezhihao
@@ -22,6 +23,7 @@ public class NettyConfig {
     protected final ChannelInboundHandlerAdapter adapter;
     protected final HandlerMapping handlerMapping;
     protected final HandlerInterceptor handlerInterceptor;
+    protected final SessionManager sessionManager;
     protected final MultiPacketListener multiPacketListener;
 
     private NettyConfig(int port,
@@ -31,6 +33,7 @@ public class NettyConfig {
                         MessageEncoder encoder,
                         HandlerMapping handlerMapping,
                         HandlerInterceptor handlerInterceptor,
+                        SessionManager sessionManager,
                         MultiPacketListener multiPacketListener
     ) {
         this.port = port;
@@ -40,7 +43,8 @@ public class NettyConfig {
         this.encoder = encoder;
         this.handlerMapping = handlerMapping;
         this.handlerInterceptor = handlerInterceptor;
-        this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor);
+        this.sessionManager = sessionManager;
+        this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor, this.sessionManager);
         this.multiPacketListener = multiPacketListener;
         MultiPacketManager.getInstance().addListener(multiPacketListener);
     }
@@ -58,6 +62,7 @@ public class NettyConfig {
         private MessageEncoder encoder;
         private HandlerMapping handlerMapping;
         private HandlerInterceptor handlerInterceptor;
+        private SessionManager sessionManager;
         private MultiPacketListener multiPacketListener;
 
         public Builder() {
@@ -103,6 +108,11 @@ public class NettyConfig {
             return this;
         }
 
+        public Builder setSessionManager(SessionManager sessionManager) {
+            this.sessionManager = sessionManager;
+            return this;
+        }
+
         public NettyConfig build() {
             return new NettyConfig(
                     this.port,
@@ -112,6 +122,7 @@ public class NettyConfig {
                     this.encoder,
                     this.handlerMapping,
                     this.handlerInterceptor,
+                    this.sessionManager,
                     this.multiPacketListener
             );
         }

@@ -13,6 +13,7 @@ import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.handler.Handler;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
+import org.yzh.framework.session.SessionManager;
 
 /**
  * @author yezhihao
@@ -27,9 +28,12 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     private HandlerInterceptor interceptor;
 
-    public TCPServerHandler(HandlerMapping handlerMapping, HandlerInterceptor interceptor) {
+    private SessionManager sessionManager;
+
+    public TCPServerHandler(HandlerMapping handlerMapping, HandlerInterceptor interceptor, SessionManager sessionManager) {
         this.handlerMapping = handlerMapping;
         this.interceptor = interceptor;
+        this.sessionManager = sessionManager;
     }
 
     @Override
@@ -70,15 +74,17 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        Session session = new Session(ctx.channel());
+        Channel channel = ctx.channel();
+        Session session = sessionManager.newSession(channel);
+        channel.attr(Session.KEY).set(session);
         log.info(">>>>>终端连接{}", session);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         Session session = ctx.channel().attr(Session.KEY).get();
-        log.info("<<<<<断开连接{}", session);
         session.invalidate();
+        log.info("<<<<<断开连接{}", session);
     }
 
     @Override

@@ -10,7 +10,6 @@ import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
-import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
@@ -31,9 +30,8 @@ public class JT808Endpoint {
 
     private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
 
-    private MessageManager messageManager = MessageManager.getInstance();
-
-    private SessionManager sessionManager = SessionManager.getInstance();
+    @Autowired
+    private MessageManager messageManager;
 
     @Autowired
     private LocationService locationService;
@@ -71,8 +69,7 @@ public class JT808Endpoint {
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
         if (message.getPlateNo() == null) {
-            session.setProtocolVersion(-1);
-            sessionManager.putVersion(header.getClientId(), -1);
+            session.setProtocolVersion(header.getClientId(), -1);
             log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         }

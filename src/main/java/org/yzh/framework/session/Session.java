@@ -27,19 +27,20 @@ public class Session {
     private String clientId;
 
     private final long creationTime;
-    private long lastAccessedTime;
+    private volatile long lastAccessedTime;
     private Map<String, Object> attributes;
     private Object subject;
     private int protocolVersion = 0;
 
-    public Session(Channel channel) {
+    private SessionManager sessionManager;
+
+    protected Session(Channel channel, SessionManager sessionManager) {
         this.channel = channel;
+        this.sessionManager = sessionManager;
         this.creationTime = System.currentTimeMillis();
         this.lastAccessedTime = creationTime;
         this.attributes = new TreeMap<>();
-        channel.attr(Session.KEY).set(this);
     }
-
 
     public void writeObject(Object message) {
         log.info("<<<<<<<<<<消息下发{},{}", this, message);
@@ -75,7 +76,7 @@ public class Session {
         this.clientId = header.getClientId();
         this.registered = true;
         this.subject = subject;
-        SessionManager.Instance.put(clientId, this);
+        sessionManager.put(clientId, this);
     }
 
     public String getClientId() {
@@ -124,12 +125,14 @@ public class Session {
         return protocolVersion;
     }
 
-    public void setProtocolVersion(int protocolVersion) {
+    public void setProtocolVersion(String clientId, int protocolVersion) {
         this.protocolVersion = protocolVersion;
+        this.sessionManager.putVersion(clientId, protocolVersion);
     }
 
     public void invalidate() {
         channel.close();
+        sessionManager.callSessionDestroyedListener(this);
     }
 
     @Override

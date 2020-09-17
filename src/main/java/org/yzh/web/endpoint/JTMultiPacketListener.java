@@ -1,5 +1,6 @@
 package org.yzh.web.endpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.yzh.framework.codec.MultiPacket;
 import org.yzh.framework.codec.MultiPacketListener;
 import org.yzh.framework.session.MessageManager;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public class JTMultiPacketListener extends MultiPacketListener {
 
-    private MessageManager messageManager = MessageManager.getInstance();
+    @Autowired
+    private MessageManager messageManager;
 
     public JTMultiPacketListener(int timeout) {
         super(timeout);

@@ -10,12 +10,15 @@ import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.NettyRuntime;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.codec.MessageDecoderWrapper;
 import org.yzh.framework.codec.MessageEncoderWrapper;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yezhihao
@@ -49,6 +52,7 @@ public class TCPServer {
                         @Override
                         public void initChannel(NioSocketChannel channel) {
                             channel.pipeline()
+                                    .addLast(new IdleStateHandler(4, 0, 0, TimeUnit.MINUTES))
                                     .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
                                             Unpooled.wrappedBuffer(config.delimiter),
                                             Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))

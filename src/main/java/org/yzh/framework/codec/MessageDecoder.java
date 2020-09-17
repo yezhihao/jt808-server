@@ -27,8 +27,15 @@ import static org.yzh.framework.orm.model.DataType.*;
  */
 public abstract class MessageDecoder {
 
+    private SessionManager sessionManager;
+
     public MessageDecoder(String basePackage) {
         MessageHelper.initial(basePackage);
+    }
+
+    public MessageDecoder(String basePackage, SessionManager sessionManager) {
+        this(basePackage);
+        this.sessionManager = sessionManager;
     }
 
     private static final Logger log = LoggerFactory.getLogger(MessageDecoder.class.getSimpleName());
@@ -64,9 +71,11 @@ public abstract class MessageDecoder {
         }
         header.setVerified(verified);
 
-        Integer v = SessionManager.Instance.getVersion(header.getClientId());
-        if (v != null) {
-            version = v;
+        if (sessionManager != null) {
+            Integer v = sessionManager.getVersion(header.getClientId());
+            if (v != null) {
+                version = v;
+            }
         }
 
         Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());

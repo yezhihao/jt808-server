@@ -11,10 +11,14 @@ import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
 import org.yzh.framework.netty.TCPServer;
+import org.yzh.framework.session.MessageManager;
+import org.yzh.framework.session.SessionListener;
+import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
+import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
 public class JTConfig implements InitializingBean, DisposableBean {
@@ -33,6 +37,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
                 .setMultiPacketListener(multiPacketListener())
+                .setSessionManager(sessionManager())
                 .build();
         return new TCPServer(jtConfig);
     }
@@ -50,6 +55,21 @@ public class JTConfig implements InitializingBean, DisposableBean {
     @Bean
     public JTHandlerInterceptor handlerInterceptor() {
         return new JTHandlerInterceptor();
+    }
+
+    @Bean
+    public MessageManager messageManager() {
+        return new MessageManager(sessionManager());
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        return new SessionManager(sessionListener());
+    }
+
+    @Bean
+    public SessionListener sessionListener() {
+        return new JTSessionListener();
     }
 
     @Bean
