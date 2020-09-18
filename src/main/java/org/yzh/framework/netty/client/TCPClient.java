@@ -1,19 +1,21 @@
 package org.yzh.framework.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.codec.MessageDecoderWrapper;
-import org.yzh.framework.codec.MessageEncoderWrapper;
+import org.yzh.framework.orm.model.AbstractMessage;
+
+import java.util.List;
 
 /**
  * @author yezhihao
@@ -49,8 +51,23 @@ public class TCPClient {
                                     .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength,
                                             Unpooled.wrappedBuffer(config.delimiter),
                                             Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
-                                    .addLast("decoder", new MessageDecoderWrapper(config.decoder))
-                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter))
+                                    .addLast("decoder", new ByteToMessageDecoder() {
+                                        @Override
+                                        protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf buf, List<Object> out) {
+                                            AbstractMessage message = config.decoder.decode(buf);
+                                            if (message != null)
+                                                out.add(message);
+                                            buf.skipBytes(buf.readableBytes());
+                                        }
+                                    })
+                                    .addLast("encoder", new MessageToByteEncoder<AbstractMessage>() {
+                                        @Override
+                                        protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
+                                            ByteBuf buf = config.encoder.encode(msg);
+                                            log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+                                            out.writeBytes(config.delimiter).writeBytes(buf).writeBytes(config.delimiter);
+                                        }
+                                    })
                                     .addLast("adapter", config.adapter);
                         }
                     });
