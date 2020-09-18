@@ -34,10 +34,10 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setDelimiters(new byte[][]{{0x7e, 0x7e}, {0x7e}})
                 .setDecoder(messageDecoder())
                 .setEncoder(messageEncoder())
+                .setSessionManager(sessionManager())
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
                 .setMultiPacketListener(multiPacketListener())
-                .setSessionManager(sessionManager())
                 .build();
         return new TCPServer("808服务", jtConfig);
     }
@@ -50,11 +50,6 @@ public class JTConfig implements InitializingBean, DisposableBean {
     @Bean
     public MessageEncoder messageEncoder() {
         return new JTMessageEncoder("org.yzh.protocol");
-    }
-
-    @Bean
-    public JTHandlerInterceptor handlerInterceptor() {
-        return new JTHandlerInterceptor();
     }
 
     @Bean
@@ -73,14 +68,20 @@ public class JTConfig implements InitializingBean, DisposableBean {
     }
 
     @Bean
+    public HandlerMapping handlerMapping() {
+        return new SpringHandlerMapping();
+    }
+
+    @Bean
+    public JTHandlerInterceptor handlerInterceptor() {
+        return new JTHandlerInterceptor();
+    }
+
+    @Bean
     public JTMultiPacketListener multiPacketListener() {
         return new JTMultiPacketListener(10);
     }
 
-    @Bean
-    public HandlerMapping handlerMapping() {
-        return new SpringHandlerMapping();
-    }
 
     @Override
     public void afterPropertiesSet() {
