@@ -8,15 +8,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.NettyRuntime;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.framework.codec.DelimiterBasedFrameDecoder;
 import org.yzh.framework.codec.MessageDecoderWrapper;
 import org.yzh.framework.codec.MessageEncoderWrapper;
-import org.yzh.framework.commons.transform.ByteBufUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,9 +54,9 @@ public class TCPServer {
                         public void initChannel(NioSocketChannel channel) {
                             channel.pipeline()
                                     .addLast(new IdleStateHandler(4, 0, 0, TimeUnit.MINUTES))
-                                    .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength, ByteBufUtils.wrappedBuffer(config.delimiter)))
+                                    .addLast("frameDecoder", new DelimiterBasedFrameDecoder(config.maxFrameLength, config.delimiter))
                                     .addLast("decoder", new MessageDecoderWrapper(config.decoder))
-                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1]))
+                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1].getValue()))
                                     .addLast("adapter", config.adapter);
                         }
                     });

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.yzh.framework.codec.Delimiter;
 import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerMapping;
@@ -31,7 +32,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
         NettyConfig jtConfig = NettyConfig.custom()
                 .setPort(7611)
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
-                .setDelimiters(new byte[][]{{0x7e, 0x7e}, {0x7e}})
+                .setDelimiters(new Delimiter(new byte[]{0x7e}))
                 .setDecoder(messageDecoder())
                 .setEncoder(messageEncoder())
                 .setSessionManager(sessionManager())

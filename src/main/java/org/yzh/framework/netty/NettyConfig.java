@@ -1,10 +1,7 @@
 package org.yzh.framework.netty;
 
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.codec.MessageEncoder;
-import org.yzh.framework.codec.MultiPacketListener;
-import org.yzh.framework.codec.MultiPacketManager;
+import org.yzh.framework.codec.*;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.session.SessionManager;
@@ -17,7 +14,7 @@ public class NettyConfig {
 
     protected final int port;
     protected final int maxFrameLength;
-    protected final byte[][] delimiter;
+    protected final Delimiter[] delimiter;
     protected final MessageDecoder decoder;
     protected final MessageEncoder encoder;
     protected final ChannelInboundHandlerAdapter adapter;
@@ -28,7 +25,7 @@ public class NettyConfig {
 
     private NettyConfig(int port,
                         int maxFrameLength,
-                        byte[][] delimiter,
+                        Delimiter[] delimiter,
                         MessageDecoder decoder,
                         MessageEncoder encoder,
                         HandlerMapping handlerMapping,
@@ -57,7 +54,7 @@ public class NettyConfig {
 
         private int port;
         private int maxFrameLength;
-        private byte[][] delimiters;
+        private Delimiter[] delimiters;
         private MessageDecoder decoder;
         private MessageEncoder encoder;
         private HandlerMapping handlerMapping;
@@ -79,6 +76,15 @@ public class NettyConfig {
         }
 
         public Builder setDelimiters(byte[][] delimiters) {
+            Delimiter[] t = new Delimiter[delimiters.length];
+            for (int i = 0; i < delimiters.length; i++) {
+                t[i] = new Delimiter(delimiters[i]);
+            }
+            this.delimiters = t;
+            return this;
+        }
+
+        public Builder setDelimiters(Delimiter... delimiters) {
             this.delimiters = delimiters;
             return this;
         }
