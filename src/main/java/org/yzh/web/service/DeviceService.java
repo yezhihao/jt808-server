@@ -1,11 +1,13 @@
 package org.yzh.web.service;
 
 import org.yzh.protocol.t808.T0100;
+import org.yzh.protocol.t808.T0102;
+import org.yzh.web.model.vo.DeviceInfo;
 
 public interface DeviceService {
 
-    String register(T0100 request);
+    DeviceInfo register(T0100 request);
 
-    boolean authentication(String token);
+    DeviceInfo authentication(T0102 request);
 
 }

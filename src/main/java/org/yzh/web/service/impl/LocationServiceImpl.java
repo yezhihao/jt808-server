@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.yzh.framework.session.Session;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
-import org.yzh.web.mapper.DeviceMapper;
 import org.yzh.web.mapper.LocationMapper;
-import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.entity.LocationDO;
+import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
@@ -29,9 +29,6 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     private LocationMapper locationMapper;
-
-    @Autowired
-    private DeviceMapper deviceMapper;
 
     @Qualifier("dataSource")
     @Autowired
@@ -55,11 +52,10 @@ public class LocationServiceImpl implements LocationService {
     private void jdbcBatchInsert(List<T0200> list) {
         Date now = new Date();
         Date date;
-        String mobileNo;
-        String deviceId;
-        String plateNo;
+        Session session;
+        String mobileNo, deviceId, plateNo;
         int size = list.size();
-        T0200 t;
+        T0200 request;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -67,15 +63,16 @@ public class LocationServiceImpl implements LocationService {
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
             for (int i = 0; i < size; i++) {
-                t = list.get(i);
-                date = DateUtils.parse(t.getDateTime());
+                request = list.get(i);
+                date = DateUtils.parse(request.getDateTime());
                 if (date == null) continue;
                 int j = 1;
 
-                mobileNo = t.getHeader().getMobileNo();
+                session = request.getSession();
+                mobileNo = request.getHeader().getMobileNo();
                 deviceId = mobileNo;
                 plateNo = "";
-                DeviceDO device = deviceMapper.getByMobileNo(mobileNo);
+                DeviceInfo device = (DeviceInfo) session.getSubject();
                 if (device != null) {
                     deviceId = device.getDeviceId();
                     plateNo = device.getPlateNo();
@@ -84,13 +81,13 @@ public class LocationServiceImpl implements LocationService {
                 statement.setString(j++, deviceId);
                 statement.setString(j++, mobileNo);
                 statement.setString(j++, plateNo);
-                statement.setInt(j++, t.getWarningMark());
-                statement.setInt(j++, t.getStatus());
-                statement.setInt(j++, t.getLatitude());
-                statement.setInt(j++, t.getLongitude());
-                statement.setInt(j++, t.getAltitude());
-                statement.setInt(j++, t.getSpeed());
-                statement.setInt(j++, t.getDirection());
+                statement.setInt(j++, request.getWarningMark());
+                statement.setInt(j++, request.getStatus());
+                statement.setInt(j++, request.getLatitude());
+                statement.setInt(j++, request.getLongitude());
+                statement.setInt(j++, request.getAltitude());
+                statement.setInt(j++, request.getSpeed());
+                statement.setInt(j++, request.getDirection());
                 statement.setObject(j++, date);
                 statement.setInt(j++, 0);
                 statement.setObject(j, now);

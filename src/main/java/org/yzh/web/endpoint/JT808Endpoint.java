@@ -13,12 +13,15 @@ import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
+import org.yzh.web.commons.EncryptUtils;
+import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +43,9 @@ public class JT808Endpoint {
     private DeviceService deviceService;
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public void 终端通用应答(T0001 message) {
+    public Object 终端通用应答(T0001 message) {
         messageManager.response(message);
+        return null;
     }
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
@@ -77,36 +81,42 @@ public class JT808Endpoint {
         T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
         result.setSerialNo(header.getSerialNo());
 
-        String token = deviceService.register(message);
-        if (token != null) {
-            session.register(header);
+        DeviceInfo device = deviceService.register(message);
+        if (device != null) {
+            session.register(header, device);
+
+            byte[] bytes = DeviceInfo.toBytes(device);
+            bytes = EncryptUtils.encrypt(bytes);
+            String token = Base64.getEncoder().encodeToString(bytes);
 
             result.setResultCode(T8100.Success);
             result.setToken(token);
         } else {
-
             result.setResultCode(T8100.NotFoundTerminal);
         }
         return result;
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public T0001 authentication(T0102 message, Session session) {
-        Header header = message.getHeader();
+    public T0001 authentication(T0102 request, Session session) {
+        Header header = request.getHeader();
 
         T0001 result = new T0001(session.nextSerialNo(), header.getMobileNo());
         result.setSerialNo(header.getSerialNo());
         result.setReplyId(header.getMessageId());
 
-        if (deviceService.authentication(message.getToken())) {
-            session.register(header);
-
-            result.setResultCode(T0001.Success);
-        } else {
-
-            log.warn("终端鉴权失败，{}{}", session, message);
-            result.setResultCode(T0001.Failure);
+        DeviceInfo device = deviceService.authentication(request);
+        if (device != null) {
+            int currentTime = (int) (System.currentTimeMillis() / 1000);
+            int expiresAt = device.getIssuedAt() + device.getValidAt();
+            if (currentTime < expiresAt) {
+                session.register(header, device);
+                result.setResultCode(T0001.Success);
+                return result;
+            }
         }
+        log.warn("终端鉴权失败，{}{}", session, request);
+        result.setResultCode(T0001.Failure);
         return result;
     }
 

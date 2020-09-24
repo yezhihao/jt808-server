@@ -35,9 +35,6 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
 
         AbstractHeader header = request.getHeader();
-        if (header.getMessageId() == JT808.终端通用应答)
-            return null;
-
         T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
@@ -69,7 +66,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
         if (messageId == JT808.位置信息汇报)
-            session.setSubject(request);
+            session.setSnapshot(request);
 
         if (!session.isRegistered()) {
             log.warn(">>>>>>>>>>未注册的设备{},{}", session, request);

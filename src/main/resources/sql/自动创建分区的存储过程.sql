@@ -12,10 +12,10 @@ CREATE PROCEDURE `proc_create_partition`(IN table_name VARCHAR(30), IN p_date DA
 BEGIN	
 	IF p_date IS NULL THEN
 	  -- 如果 p_date为空，找到当前表的最大分区，并且加一天
-		select DATE_ADD(REPLACE(partition_description,'\'',''), interval 1 day) into p_date
-		from information_schema.partitions
-		where table_name = table_name 
-		order by partition_ordinal_position desc limit 1;
+		select DATE_ADD(REPLACE(p.partition_description,'\'',''), interval 1 day) into p_date
+		from information_schema.partitions p
+		where p.table_name = table_name
+		order by p.partition_ordinal_position desc limit 1;
 	END IF;
 
 	-- 创建分区

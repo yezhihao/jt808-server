@@ -2,6 +2,7 @@ package org.yzh.framework.orm.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.yzh.framework.session.Session;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
 
+    private Session session;
     private T header;
 
     public AbstractMessage() {
@@ -20,12 +22,20 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
         this.header = header;
     }
 
+    public void setHeader(T header) {
+        this.header = header;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
     public T getHeader() {
         return header;
     }
 
-    public void setHeader(T header) {
-        this.header = header;
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     @Override

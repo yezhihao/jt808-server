@@ -30,6 +30,7 @@ public class Session {
     private volatile long lastAccessedTime;
     private Map<String, Object> attributes;
     private Object subject;
+    private Object snapshot;
     private int protocolVersion = 0;
 
     private SessionManager sessionManager;
@@ -119,6 +120,14 @@ public class Session {
 
     public void setSubject(Object subject) {
         this.subject = subject;
+    }
+
+    public Object getSnapshot() {
+        return snapshot;
+    }
+
+    public void setSnapshot(Object snapshot) {
+        this.snapshot = snapshot;
     }
 
     public int getProtocolVersion() {
