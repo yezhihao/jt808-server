@@ -7,7 +7,6 @@ public class DeviceDO {
     private String deviceId;
     private String mobileNo;
     private String plateNo;
-    private String simNo;
     private String imei;
     private Integer state;
     private Boolean online;
@@ -23,9 +22,7 @@ public class DeviceDO {
     private String makerId;
     private int cityId;
     private int provinceId;
-    private String updater;
     private String creator;
-    private LocalDateTime updateTime;
     private LocalDateTime createTime;
 
     public DeviceDO() {
@@ -59,14 +56,6 @@ public class DeviceDO {
 
     public void setPlateNo(String plateNo) {
         this.plateNo = plateNo;
-    }
-
-    public String getSimNo() {
-        return simNo;
-    }
-
-    public void setSimNo(String simNo) {
-        this.simNo = simNo;
     }
 
     public String getImei() {
@@ -189,28 +178,12 @@ public class DeviceDO {
         this.provinceId = provinceId;
     }
 
-    public String getUpdater() {
-        return updater;
-    }
-
-    public void setUpdater(String updater) {
-        this.updater = updater;
-    }
-
     public String getCreator() {
         return creator;
     }
 
     public void setCreator(String creator) {
         this.creator = creator;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public LocalDateTime getCreateTime() {

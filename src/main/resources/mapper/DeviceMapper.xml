@@ -17,10 +17,8 @@
     <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceDO">
         insert into device
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            device_id,
             <if test="mobileNo != null">mobile_no,</if>
             <if test="plateNo != null">plate_no,</if>
-            <if test="simNo != null">sim_no,</if>
             <if test="imei != null">imei,</if>
             <if test="state != null">state,</if>
             <if test="online != null">online,</if>
@@ -36,14 +34,11 @@
             <if test="makerId != null">maker_id,</if>
             <if test="cityId != null">city_id,</if>
             <if test="provinceId != null">province_id,</if>
-            updater,update_time,
-            creator,create_time
+            device_id,creator,create_time
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{deviceId,jdbcType=VARCHAR},
             <if test="mobileNo != null">#{mobileNo,jdbcType=VARCHAR},</if>
             <if test="plateNo != null">#{plateNo,jdbcType=CHAR},</if>
-            <if test="simNo != null">#{simNo,jdbcType=VARCHAR},</if>
             <if test="imei != null">#{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">#{state,jdbcType=TINYINT},</if>
             <if test="online != null">#{online,jdbcType=BOOLEAN},</if>
@@ -59,8 +54,7 @@
             <if test="makerId != null">#{makerId,jdbcType=VARCHAR},</if>
             <if test="cityId != null">#{cityId,jdbcType=SMALLINT},</if>
             <if test="provinceId != null">#{provinceId,jdbcType=TINYINT},</if>
-            #{updater,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},
-            #{creator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+            #{deviceId,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
         </trim>
     </insert>
 
@@ -69,10 +63,9 @@
         <set>
             <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=VARCHAR},</if>
             <if test="plateNo != null">plate_no = #{plateNo,jdbcType=CHAR},</if>
-            <if test="simNo != null">sim_no = #{simNo,jdbcType=VARCHAR},</if>
             <if test="imei != null">imei = #{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">state = #{state,jdbcType=TINYINT},</if>
-            <if test="online != null">online = #{state,jdbcType=BOOLEAN},</if>
+            <if test="online != null">online = #{online,jdbcType=BOOLEAN},</if>
             <if test="deviceTime != null">device_time = #{deviceTime,jdbcType=TIMESTAMP},</if>
             <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
             <if test="installTime != null">install_time = #{installTime,jdbcType=TIMESTAMP},</if>
@@ -85,7 +78,6 @@
             <if test="makerId != null">maker_id = #{makerId,jdbcType=VARCHAR},</if>
             <if test="cityId != null">city_id = #{cityId,jdbcType=SMALLINT},</if>
             <if test="provinceId != null">province_id = #{provinceId,jdbcType=TINYINT},</if>
-            updater = #{updater,jdbcType=VARCHAR}, update_time = #{updateTime,jdbcType=TIMESTAMP}
         </set>
         where device_id = #{deviceId,jdbcType=VARCHAR}
     </update>

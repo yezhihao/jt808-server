@@ -42,12 +42,15 @@ public class DeviceServiceImpl implements DeviceService {
         record.setMakerId(request.getMakerId());
         record.setCityId(request.getCityId());
         record.setProvinceId(request.getProvinceId());
-        record.setUpdater("device");
-        record.setUpdateTime(now);
         record.setDeviceTime(now);
         record.setRegisterTime(now);
         if (deviceDO == null || deviceDO.getInstallTime() == null)
             record.setInstallTime(now);
+
+        int protocolVersion = request.getSession().getProtocolVersion();
+        if (protocolVersion != -1)
+            protocolVersion = request.getHeader().getVersionNo();
+        record.setProtocolVersion(protocolVersion);
 
         int row = deviceMapper.update(record);
         if (row == 0) {
@@ -76,11 +79,14 @@ public class DeviceServiceImpl implements DeviceService {
 
             int currentTime = (int) (System.currentTimeMillis() / 1000);
             int expiresAt = device.getIssuedAt() + device.getValidAt();
-            if (expiresAt > currentTime) {
+            if (expiresAt < currentTime) {
                 log.warn("鉴权失败：过期的token，{}", token);
                 return null;
             }
-            deviceMapper.update(new DeviceDO(device.getDeviceId(), true, LocalDateTime.now()));
+            DeviceDO record = new DeviceDO(device.getDeviceId(), true, LocalDateTime.now());
+            record.setImei(request.getImei());
+            record.setSoftwareVersion(request.getVersion());
+            deviceMapper.update(record);
             return device;
         } catch (Exception e) {
             log.warn("鉴权失败：错误的token，{}", e.getMessage());

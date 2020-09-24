@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `device`  (
   `device_id` VARCHAR(30) NOT NULL COMMENT '设备号',
   `mobile_no` VARCHAR(20) COMMENT '手机号',
   `plate_no` CHAR(8) NOT NULL DEFAULT '' COMMENT '车牌号',
-  `sim_no` VARCHAR(20) NULL COMMENT 'SIM卡号',
   `imei` VARCHAR(15) NULL COMMENT 'IMEI号',
   `state` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
   `online` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0.离线 1.在线',
@@ -41,9 +40,7 @@ CREATE TABLE IF NOT EXISTS `device`  (
   `maker_id` VARCHAR(11) COMMENT '制造商',
   `city_id` SMALLINT UNSIGNED COMMENT '市县域ID',
   `province_id` TINYINT UNSIGNED COMMENT '省域ID',
-  `updater` VARCHAR(32) NOT NULL COMMENT '更新者',
-  `creator` VARCHAR(32) NOT NULL COMMENT '创建者',
-  `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `creator` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '创建者',
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UNIQUE idx_mobileno(`mobile_no`),
   PRIMARY KEY (`device_id`)
