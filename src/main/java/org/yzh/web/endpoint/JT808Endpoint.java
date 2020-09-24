@@ -107,13 +107,9 @@ public class JT808Endpoint {
 
         DeviceInfo device = deviceService.authentication(request);
         if (device != null) {
-            int currentTime = (int) (System.currentTimeMillis() / 1000);
-            int expiresAt = device.getIssuedAt() + device.getValidAt();
-            if (currentTime < expiresAt) {
-                session.register(header, device);
-                result.setResultCode(T0001.Success);
-                return result;
-            }
+            session.register(header, device);
+            result.setResultCode(T0001.Success);
+            return result;
         }
         log.warn("终端鉴权失败，{}{}", session, request);
         result.setResultCode(T0001.Failure);

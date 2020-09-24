@@ -10,6 +10,7 @@ public class DeviceDO {
     private String simNo;
     private String imei;
     private Integer state;
+    private Boolean online;
     private LocalDateTime deviceTime;
     private LocalDateTime registerTime;
     private LocalDateTime installTime;
@@ -26,6 +27,15 @@ public class DeviceDO {
     private String creator;
     private LocalDateTime updateTime;
     private LocalDateTime createTime;
+
+    public DeviceDO() {
+    }
+
+    public DeviceDO(String deviceId, Boolean online, LocalDateTime deviceTime) {
+        this.deviceId = deviceId;
+        this.online = online;
+        this.deviceTime = deviceTime;
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -73,6 +83,14 @@ public class DeviceDO {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Boolean getOnline() {
+        return online;
+    }
+
+    public void setOnline(Boolean online) {
+        this.online = online;
     }
 
     public LocalDateTime getDeviceTime() {

@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `device`  (
   `sim_no` VARCHAR(20) NULL COMMENT 'SIM卡号',
   `imei` VARCHAR(15) NULL COMMENT 'IMEI号',
   `state` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
-  `device_time` DATETIME COMMENT '设备时间（最近交互时间）',
+  `online` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0.离线 1.在线',
+  `device_time` DATETIME COMMENT '设备时间（离线在线时间）',
   `register_time` DATETIME COMMENT '注册时间（最近注册时间）',
   `install_time` DATETIME COMMENT '安装时间（首次注册时间）',
 

@@ -36,14 +36,13 @@ public class DeviceServiceImpl implements DeviceService {
         record.setDeviceId(deviceId);
         record.setMobileNo(request.getHeader().getMobileNo());
         record.setPlateNo(request.getPlateNo());
+        record.setOnline(true);
         record.setBind(true);
         record.setDeviceModel(request.getDeviceModel());
         record.setMakerId(request.getMakerId());
         record.setCityId(request.getCityId());
         record.setProvinceId(request.getProvinceId());
-        record.setCreator("device");
         record.setUpdater("device");
-        record.setCreateTime(now);
         record.setUpdateTime(now);
         record.setDeviceTime(now);
         record.setRegisterTime(now);
@@ -51,8 +50,11 @@ public class DeviceServiceImpl implements DeviceService {
             record.setInstallTime(now);
 
         int row = deviceMapper.update(record);
-        if (row == 0)
+        if (row == 0) {
+            record.setCreator("device");
+            record.setCreateTime(now);
             deviceMapper.insert(record);
+        }
 
         DeviceInfo device = new DeviceInfo();
         device.setIssuedAt((int) (System.currentTimeMillis() / 1000));
@@ -70,7 +72,16 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             bytes = Base64.getDecoder().decode(token);
             bytes = EncryptUtils.decrypt(bytes);
-            return DeviceInfo.formBytes(bytes);
+            DeviceInfo device = DeviceInfo.formBytes(bytes);
+
+            int currentTime = (int) (System.currentTimeMillis() / 1000);
+            int expiresAt = device.getIssuedAt() + device.getValidAt();
+            if (expiresAt > currentTime) {
+                log.warn("鉴权失败：过期的token，{}", token);
+                return null;
+            }
+            deviceMapper.update(new DeviceDO(device.getDeviceId(), true, LocalDateTime.now()));
+            return device;
         } catch (Exception e) {
             log.warn("鉴权失败：错误的token，{}", e.getMessage());
             return null;

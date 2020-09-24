@@ -23,6 +23,7 @@
             <if test="simNo != null">sim_no,</if>
             <if test="imei != null">imei,</if>
             <if test="state != null">state,</if>
+            <if test="online != null">online,</if>
             <if test="deviceTime != null">device_time,</if>
             <if test="registerTime != null">register_time,</if>
             <if test="installTime != null">install_time,</if>
@@ -45,6 +46,7 @@
             <if test="simNo != null">#{simNo,jdbcType=VARCHAR},</if>
             <if test="imei != null">#{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">#{state,jdbcType=TINYINT},</if>
+            <if test="online != null">#{online,jdbcType=BOOLEAN},</if>
             <if test="deviceTime != null">#{deviceTime,jdbcType=TIMESTAMP},</if>
             <if test="registerTime != null">#{registerTime,jdbcType=TIMESTAMP},</if>
             <if test="installTime != null">#{installTime,jdbcType=TIMESTAMP},</if>
@@ -70,6 +72,7 @@
             <if test="simNo != null">sim_no = #{simNo,jdbcType=VARCHAR},</if>
             <if test="imei != null">imei = #{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">state = #{state,jdbcType=TINYINT},</if>
+            <if test="online != null">online = #{state,jdbcType=BOOLEAN},</if>
             <if test="deviceTime != null">device_time = #{deviceTime,jdbcType=TIMESTAMP},</if>
             <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
             <if test="installTime != null">install_time = #{installTime,jdbcType=TIMESTAMP},</if>
