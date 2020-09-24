@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
+import org.yzh.web.mapper.DeviceMapper;
 import org.yzh.web.mapper.LocationMapper;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.entity.LocationDO;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
@@ -28,6 +30,9 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationMapper locationMapper;
 
+    @Autowired
+    private DeviceMapper deviceMapper;
+
     @Qualifier("dataSource")
     @Autowired
     private DataSource dataSource;
@@ -44,12 +49,15 @@ public class LocationServiceImpl implements LocationService {
 //        mybatisBatchInsert(list);
     }
 
-    private static final String sql = "insert ignore into location(device_id,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,device_time,map_fence_id,create_time)values" +
-            "(?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String sql = "insert ignore into location(device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,device_time,map_fence_id,create_time)values" +
+            "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private void jdbcBatchInsert(List<T0200> list) {
         Date now = new Date();
         Date date;
+        String mobileNo;
+        String deviceId;
+        String plateNo;
         int size = list.size();
         T0200 t;
 
@@ -64,8 +72,18 @@ public class LocationServiceImpl implements LocationService {
                 if (date == null) continue;
                 int j = 1;
 
-                statement.setString(j++, t.getHeader().getClientId());
-                statement.setString(j++, "TODO");
+                mobileNo = t.getHeader().getMobileNo();
+                deviceId = mobileNo;
+                plateNo = "";
+                DeviceDO device = deviceMapper.getByMobileNo(mobileNo);
+                if (device != null) {
+                    deviceId = device.getDeviceId();
+                    plateNo = device.getPlateNo();
+                }
+
+                statement.setString(j++, deviceId);
+                statement.setString(j++, mobileNo);
+                statement.setString(j++, plateNo);
                 statement.setInt(j++, t.getWarningMark());
                 statement.setInt(j++, t.getStatus());
                 statement.setInt(j++, t.getLatitude());

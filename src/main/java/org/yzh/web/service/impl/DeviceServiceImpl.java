@@ -2,13 +2,17 @@ package org.yzh.web.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.web.commons.EncryptUtils;
+import org.yzh.web.mapper.DeviceMapper;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 @Service
@@ -16,26 +20,51 @@ public class DeviceServiceImpl implements DeviceService {
 
     private static final Logger log = LoggerFactory.getLogger(DeviceServiceImpl.class.getSimpleName());
 
+    @Autowired
+    private DeviceMapper deviceMapper;
+
     @Override
     public String register(T0100 request) {
         String deviceId = request.getDeviceId();
-        if (exists(deviceId)) {
+        DeviceDO device = deviceMapper.get(deviceId);
+//        if (device == null)//TODO 根据自身业务选择是否校验设备ID
+//            return null;
 
-            int now = (int) (System.currentTimeMillis() / 1000);
+        LocalDateTime now = LocalDateTime.now();
 
-            DeviceInfo deviceInfo = new DeviceInfo();
-            deviceInfo.setIssuedAt(now);
-            deviceInfo.setValidAt(60 * 60 * 24 * 7);
-            deviceInfo.setPlateColor((byte) request.getPlateColor());
-            deviceInfo.setPlateNo(request.getPlateNo());
-            deviceInfo.setDeviceId(request.getDeviceId());
+        DeviceDO record = new DeviceDO();
+        record.setDeviceId(deviceId);
+        record.setMobileNo(request.getHeader().getMobileNo());
+        record.setPlateNo(request.getPlateNo());
+        record.setBind(true);
+        record.setDeviceModel(request.getDeviceModel());
+        record.setMakerId(request.getMakerId());
+        record.setCityId(request.getCityId());
+        record.setProvinceId(request.getProvinceId());
+        record.setCreator("device");
+        record.setUpdater("device");
+        record.setCreateTime(now);
+        record.setUpdateTime(now);
+        record.setDeviceTime(now);
+        record.setRegisterTime(now);
+        if (device == null || device.getInstallTime() == null)
+            record.setInstallTime(now);
 
-            byte[] bytes = toBytes(deviceInfo);
-            bytes = EncryptUtils.encrypt(bytes);
-            String token = Base64.getEncoder().encodeToString(bytes);
-            return token;
-        }
-        return null;
+        int row = deviceMapper.update(record);
+        if (row == 0)
+            deviceMapper.insert(record);
+
+        DeviceInfo deviceInfo = new DeviceInfo();
+        deviceInfo.setIssuedAt((int) (System.currentTimeMillis() / 1000));
+        deviceInfo.setValidAt(60 * 60 * 24 * 7);
+        deviceInfo.setPlateColor((byte) request.getPlateColor());
+        deviceInfo.setPlateNo(request.getPlateNo());
+        deviceInfo.setDeviceId(deviceId);
+
+        byte[] bytes = toBytes(deviceInfo);
+        bytes = EncryptUtils.encrypt(bytes);
+        String token = Base64.getEncoder().encodeToString(bytes);
+        return token;
     }
 
     @Override
@@ -54,13 +83,6 @@ public class DeviceServiceImpl implements DeviceService {
         int expiresAt = deviceInfo.getIssuedAt() + deviceInfo.getValidAt();
         return currentTime < expiresAt;
     }
-
-    @Override
-    public boolean exists(String deviceId) {
-        //TODO
-        return true;
-    }
-
 
     private static DeviceInfo formBytes(byte[] bytes) {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yzh.web.mapper.DeviceMapper">
+
+    <select id="get" parameterType="java.lang.String" resultType="org.yzh.web.model.entity.DeviceDO">
+        select *
+        from device
+        where device_id = #{deviceId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getByMobileNo" parameterType="java.lang.String" resultType="org.yzh.web.model.entity.DeviceDO">
+        select *
+        from device
+        where mobile_no = #{mobileNo,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceDO">
+        insert into device
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            device_id,
+            <if test="mobileNo != null">mobile_no,</if>
+            <if test="plateNo != null">plate_no,</if>
+            <if test="simNo != null">sim_no,</if>
+            <if test="imei != null">imei,</if>
+            <if test="state != null">state,</if>
+            <if test="deviceTime != null">device_time,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="installTime != null">install_time,</if>
+            <if test="bind != null">bind,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="protocolVersion != null">protocol_version,</if>
+            <if test="softwareVersion != null">software_version,</if>
+            <if test="hardwareVersion != null">hardware_version,</if>
+            <if test="deviceModel != null">device_model,</if>
+            <if test="makerId != null">maker_id,</if>
+            <if test="cityId != null">city_id,</if>
+            <if test="provinceId != null">province_id,</if>
+            updater,update_time,
+            creator,create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{deviceId,jdbcType=VARCHAR},
+            <if test="mobileNo != null">#{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="plateNo != null">#{plateNo,jdbcType=CHAR},</if>
+            <if test="simNo != null">#{simNo,jdbcType=VARCHAR},</if>
+            <if test="imei != null">#{imei,jdbcType=VARCHAR},</if>
+            <if test="state != null">#{state,jdbcType=TINYINT},</if>
+            <if test="deviceTime != null">#{deviceTime,jdbcType=TIMESTAMP},</if>
+            <if test="registerTime != null">#{registerTime,jdbcType=TIMESTAMP},</if>
+            <if test="installTime != null">#{installTime,jdbcType=TIMESTAMP},</if>
+            <if test="bind != null">#{bind,jdbcType=BOOLEAN},</if>
+            <if test="deleted != null">#{deleted,jdbcType=BOOLEAN},</if>
+            <if test="protocolVersion != null">#{protocolVersion,jdbcType=TINYINT},</if>
+            <if test="softwareVersion != null">#{softwareVersion,jdbcType=VARCHAR},</if>
+            <if test="hardwareVersion != null">#{hardwareVersion,jdbcType=VARCHAR},</if>
+            <if test="deviceModel != null">#{deviceModel,jdbcType=VARCHAR},</if>
+            <if test="makerId != null">#{makerId,jdbcType=VARCHAR},</if>
+            <if test="cityId != null">#{cityId,jdbcType=SMALLINT},</if>
+            <if test="provinceId != null">#{provinceId,jdbcType=TINYINT},</if>
+            #{updater,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},
+            #{creator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="org.yzh.web.model.entity.DeviceDO">
+        update device
+        <set>
+            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="plateNo != null">plate_no = #{plateNo,jdbcType=CHAR},</if>
+            <if test="simNo != null">sim_no = #{simNo,jdbcType=VARCHAR},</if>
+            <if test="imei != null">imei = #{imei,jdbcType=VARCHAR},</if>
+            <if test="state != null">state = #{state,jdbcType=TINYINT},</if>
+            <if test="deviceTime != null">device_time = #{deviceTime,jdbcType=TIMESTAMP},</if>
+            <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
+            <if test="installTime != null">install_time = #{installTime,jdbcType=TIMESTAMP},</if>
+            <if test="bind != null">bind = #{bind,jdbcType=BOOLEAN},</if>
+            <if test="deleted != null">deleted = #{deleted,jdbcType=BOOLEAN},</if>
+            <if test="protocolVersion != null">protocol_version = #{protocolVersion,jdbcType=TINYINT},</if>
+            <if test="softwareVersion != null">software_version = #{softwareVersion,jdbcType=VARCHAR},</if>
+            <if test="hardwareVersion != null">hardware_version = #{hardwareVersion,jdbcType=VARCHAR},</if>
+            <if test="deviceModel != null">device_model = #{deviceModel,jdbcType=VARCHAR},</if>
+            <if test="makerId != null">maker_id = #{makerId,jdbcType=VARCHAR},</if>
+            <if test="cityId != null">city_id = #{cityId,jdbcType=SMALLINT},</if>
+            <if test="provinceId != null">province_id = #{provinceId,jdbcType=TINYINT},</if>
+            updater = #{updater,jdbcType=VARCHAR}, update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </set>
+        where device_id = #{deviceId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from device
+        where device_id = #{deviceId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

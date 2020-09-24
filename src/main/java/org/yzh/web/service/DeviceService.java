@@ -8,6 +8,4 @@ public interface DeviceService {
 
     boolean authentication(String token);
 
-    boolean exists(String deviceId);
-
 }

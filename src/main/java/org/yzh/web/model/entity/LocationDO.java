@@ -7,6 +7,7 @@ import java.util.Date;
 public class LocationDO {
 
     private String deviceId;
+    private String mobileNo;
     private String plateNo;
     private Integer warningMark;
     private Integer status;
@@ -26,6 +27,14 @@ public class LocationDO {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public String getPlateNo() {
