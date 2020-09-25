@@ -143,25 +143,25 @@ public abstract class MessageDecoder {
 
     public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length, int version) {
         DataType type = fieldMetadata.dataType;
-        if (type == DWORD) {
+        if (DWORD == type) {
             if (fieldMetadata.isLong)
                 return buf.readUnsignedInt();
             return (int) buf.readUnsignedInt();
         }
-        if (type == WORD) {
+        if (WORD == type) {
             return buf.readUnsignedShort();
         }
-        if (type == BYTE) {
+        if (BYTE == type) {
             return (int) buf.readUnsignedByte();
         }
 
         if (length == -1)
             length = buf.readableBytes();
 
-        if (type == OBJ) {
+        if (OBJ == type) {
             return decode(buf.readSlice(length), fieldMetadata.classType, version);
         }
-        if (type == LIST) {
+        if (LIST == type) {
             if (length <= 0)
                 return null;
             List list = new ArrayList();
@@ -174,15 +174,20 @@ public abstract class MessageDecoder {
             return list;
         }
 
-        if (type == STRING) {
+        if (STRING == type) {
             return buf.readCharSequence(length, fieldMetadata.charset).toString().trim();
+        }
+
+        if (BCD8421 == type) {
+            byte[] bytes = new byte[length];
+            buf.readBytes(bytes);
+            if (fieldMetadata.isDateTime)
+                return Bcd.toDateTime(bytes);
+            return Bcd.leftTrim(Bcd.toStr(bytes), '0');
         }
 
         byte[] bytes = new byte[length];
         buf.readBytes(bytes);
-        if (type == BCD8421)
-            return Bcd.leftTrim(Bcd.bcdToStr(bytes), '0');
-
         if (fieldMetadata.isString) {
             for (int i = 0; i < bytes.length; i++) {
                 if (bytes[i] != fieldMetadata.pad)

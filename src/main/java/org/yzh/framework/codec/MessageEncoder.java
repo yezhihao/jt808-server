@@ -12,6 +12,7 @@ import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -132,8 +133,10 @@ public abstract class MessageEncoder {
                 }
                 break;
             case BCD8421:
-                String str = Bcd.leftPad((String) value, length * 2, '0');
-                buf.writeBytes(Bcd.strToBcd(str));
+                if (fieldMetadata.isDateTime)
+                    buf.writeBytes(Bcd.fromDateTime((LocalDateTime) value));
+                else
+                    buf.writeBytes(Bcd.fromStr(Bcd.leftPad((String) value, length * 2, '0')));
                 break;
             case STRING:
                 byte[] bytes = ((String) value).getBytes(fieldMetadata.charset);

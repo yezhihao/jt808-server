@@ -6,6 +6,7 @@ import org.yzh.framework.orm.model.DataType;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 
 import static org.yzh.framework.orm.model.DataType.*;
 
@@ -28,6 +29,7 @@ public class FieldMetadata {
     public final int length;
     public final boolean isLong;
     public final boolean isString;
+    public final boolean isDateTime;
     public final Class<?> actualType;
     public final Field field;
 
@@ -50,9 +52,15 @@ public class FieldMetadata {
         else
             this.length = field.type().length;
         if (dataType == DWORD)
-            this.isLong = classType.isAssignableFrom(Long.class);
+            this.isLong = classType.isAssignableFrom(Long.class) || classType.isAssignableFrom(Long.TYPE);
         else
             this.isLong = false;
+
+        if (dataType == BCD8421)
+            this.isDateTime = classType.isAssignableFrom(LocalDateTime.class);
+        else
+            this.isDateTime = false;
+
         if (dataType == BYTES)
             this.isString = classType.isAssignableFrom(String.class);
         else
