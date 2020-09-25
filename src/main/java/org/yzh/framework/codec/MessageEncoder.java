@@ -54,7 +54,7 @@ public abstract class MessageEncoder {
         return allBuf;
     }
 
-    private ByteBuf encode(Object obj, int version) {
+    public ByteBuf encode(Object obj, int version) {
         BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(obj.getClass(), version);
         if (beanMetadata == null) {
             log.info("未找到BeanMetadata[{}]", obj.getClass());

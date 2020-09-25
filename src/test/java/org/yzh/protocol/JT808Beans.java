@@ -576,8 +576,8 @@ public class JT808Beans {
         bean.setType(0);
         bean.setChannelId(1);
         bean.setEvent(3);
-        bean.setEndTime("201201235859");
-        bean.setStartTime("201201235859");
+        bean.setEndTime(LocalDateTime.now());
+        bean.setStartTime(LocalDateTime.now());
         return bean;
     }
 

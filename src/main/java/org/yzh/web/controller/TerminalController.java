@@ -314,8 +314,8 @@ public class TerminalController {
                                 @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
                                 @ApiParam("通道ID") @RequestParam Integer channelId,
                                 @ApiParam("事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                @ApiParam("开始时间（yyMMddHHmmss）") @RequestParam String startTime,
-                                @ApiParam("结束时间（yyMMddHHmmss）") @RequestParam String endTime) {
+                                @ApiParam("开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
+                                @ApiParam("结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime) {
         T8802 request = new T8802(clientId);
         request.setType(type);
         request.setChannelId(channelId);
