@@ -5,6 +5,7 @@ import org.yzh.framework.orm.model.DataType;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 
@@ -30,6 +31,7 @@ public class FieldMetadata {
     public final boolean isLong;
     public final boolean isString;
     public final boolean isDateTime;
+    public final boolean isByteBuffer;
     public final Class<?> actualType;
     public final Field field;
 
@@ -61,10 +63,14 @@ public class FieldMetadata {
         else
             this.isDateTime = false;
 
-        if (dataType == BYTES)
+        if (dataType == BYTES) {
             this.isString = classType.isAssignableFrom(String.class);
-        else
+            this.isByteBuffer = classType.isAssignableFrom(ByteBuffer.class);
+        } else {
             this.isString = false;
+            this.isByteBuffer = false;
+        }
+
         if (dataType == LIST)
             this.actualType = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
         else

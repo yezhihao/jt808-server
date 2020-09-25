@@ -12,6 +12,7 @@ import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 
+import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -127,6 +128,12 @@ public abstract class MessageEncoder {
                             log.warn("数据长度超出限制[{}]原始长度{},目标长度{},[{}]", value, srcLen, bytes.length);
                     }
                     buf.writeBytes(bytes);
+                } else if (fieldMetadata.isByteBuffer) {
+                    ByteBuffer byteBuffer = (ByteBuffer) value;
+                    if (length > 0)
+                        byteBuffer.position(byteBuffer.limit() - length);
+                    buf.writeBytes(byteBuffer);
+
                 } else {
                     if (length < 0) buf.writeBytes((byte[]) value);
                     else buf.writeBytes((byte[]) value, 0, length);

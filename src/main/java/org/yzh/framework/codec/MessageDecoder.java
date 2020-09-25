@@ -185,6 +185,9 @@ public abstract class MessageDecoder {
                 return Bcd.toDateTime(bytes);
             return Bcd.leftTrim(Bcd.toStr(bytes), '0');
         }
+        if (fieldMetadata.isByteBuffer) {
+            return buf.nioBuffer(buf.readerIndex(), length);
+        }
 
         byte[] bytes = new byte[length];
         buf.readBytes(bytes);
