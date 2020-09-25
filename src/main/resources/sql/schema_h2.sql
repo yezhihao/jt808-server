@@ -1,5 +1,4 @@
 CREATE TABLE IF NOT EXISTS `location` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `device_time` DATETIME NOT NULL COMMENT '设备时间',
   `device_id` VARCHAR(30) NOT NULL COMMENT '设备号',
   `mobile_no` VARCHAR(20) NOT NULL COMMENT '手机号',
@@ -14,8 +13,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `map_fence_id` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '围栏ID',
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   INDEX idx_plateno_time(`plate_no`, `device_time`),
-  INDEX idx_time_deviceid(`device_id`, `device_time`),
-  PRIMARY KEY (`id`)
+  INDEX idx_time_deviceid(`device_id`, `device_time`)
 ) ENGINE=InnoDB COMMENT '位置数据';
 
 CREATE TABLE IF NOT EXISTS `device`  (

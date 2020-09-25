@@ -15,7 +15,7 @@
     </select>
 
     <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.vo.Location">
-        select  *
+        select *
         from location
         where and device_time = #{deviceTime,jdbcType=TIMESTAMP} and device_id = #{deviceId,jdbcType=CHAR}
     </select>

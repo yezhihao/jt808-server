@@ -46,12 +46,12 @@ public class LocationServiceImpl implements LocationService {
 //        mybatisBatchInsert(list);
     }
 
-    private static final String sql = "insert ignore into location(device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,device_time,map_fence_id,create_time)values" +
+    private static final String sql = "insert ignore into location(device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time)values" +
             "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private void jdbcBatchInsert(List<T0200> list) {
         Date now = new Date();
-        Date date;
+        Date deviceTime;
         Session session;
         String mobileNo, deviceId, plateNo;
         int size = list.size();
@@ -64,8 +64,8 @@ public class LocationServiceImpl implements LocationService {
 
             for (int i = 0; i < size; i++) {
                 request = list.get(i);
-                date = DateUtils.parse(request.getDateTime());
-                if (date == null) continue;
+                deviceTime = DateUtils.parse(request.getDateTime());
+                if (deviceTime == null) continue;
                 int j = 1;
 
                 session = request.getSession();
@@ -78,6 +78,7 @@ public class LocationServiceImpl implements LocationService {
                     plateNo = device.getPlateNo();
                 }
 
+                statement.setObject(j++, deviceTime);
                 statement.setString(j++, deviceId);
                 statement.setString(j++, mobileNo);
                 statement.setString(j++, plateNo);
@@ -88,40 +89,52 @@ public class LocationServiceImpl implements LocationService {
                 statement.setInt(j++, request.getAltitude());
                 statement.setInt(j++, request.getSpeed());
                 statement.setInt(j++, request.getDirection());
-                statement.setObject(j++, date);
                 statement.setInt(j++, 0);
                 statement.setObject(j, now);
 
                 statement.addBatch();
             }
-            statement.executeBatch();
+            statement.executeLargeBatch();
         } catch (Exception e) {
             log.warn("批量写入失败", e);
         }
     }
 
     private void mybatisBatchInsert(List<T0200> list) {
+        Date now = new Date();
+        Date date;
+        Session session;
+        String mobileNo, deviceId, plateNo;
         int size = list.size();
         List<LocationDO> locations = new ArrayList<>(size);
-        Date now = new Date();
-        for (T0200 t : list) {
-            Date date = DateUtils.parse(t.getDateTime());
-            if (date == null)
-                continue;
+        for (T0200 request : list) {
+            date = DateUtils.parse(request.getDateTime());
+            if (date == null) continue;
+
+            session = request.getSession();
+            mobileNo = request.getHeader().getMobileNo();
+            deviceId = mobileNo;
+            plateNo = "";
+            DeviceInfo device = (DeviceInfo) session.getSubject();
+            if (device != null) {
+                deviceId = device.getDeviceId();
+                plateNo = device.getPlateNo();
+            }
 
             LocationDO location = new LocationDO();
             locations.add(location);
 
-            location.setDeviceId(t.getHeader().getClientId());
-            location.setPlateNo("TODO");
-            location.setWarningMark(t.getWarningMark());
-            location.setStatus(t.getStatus());
-            location.setLatitude(t.getLatitude());
-            location.setLongitude(t.getLongitude());
-            location.setAltitude(t.getAltitude());
-            location.setSpeed(t.getSpeed());
-            location.setDirection(t.getDirection());
             location.setDeviceTime(date);
+            location.setDeviceId(deviceId);
+            location.setMobileNo(mobileNo);
+            location.setPlateNo(plateNo);
+            location.setWarningMark(request.getWarningMark());
+            location.setStatus(request.getStatus());
+            location.setLatitude(request.getLatitude());
+            location.setLongitude(request.getLongitude());
+            location.setAltitude(request.getAltitude());
+            location.setSpeed(request.getSpeed());
+            location.setDirection(request.getDirection());
             location.setMapFenceId(0);
             location.setCreateTime(now);
         }
