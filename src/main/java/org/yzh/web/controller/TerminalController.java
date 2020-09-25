@@ -25,6 +25,7 @@ import org.yzh.web.commons.StrUtils;
 import org.yzh.web.model.APIException;
 import org.yzh.web.model.enums.DefaultCodes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
@@ -331,8 +332,8 @@ public class TerminalController {
                                         @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
                                         @ApiParam("通道ID") @RequestParam Integer channelId,
                                         @ApiParam("事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                        @ApiParam("开始时间（yyMMddHHmmss）") @RequestParam String startTime,
-                                        @ApiParam("结束时间（yyMMddHHmmss）") @RequestParam String endTime,
+                                        @ApiParam("开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
+                                        @ApiParam("结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime,
                                         @ApiParam("删除标志:0.保留；1.删除；") @RequestParam int delete) {
         T8803 request = new T8803(clientId);
         request.setType(type);
