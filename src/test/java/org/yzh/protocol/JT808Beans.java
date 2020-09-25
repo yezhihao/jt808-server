@@ -15,6 +15,7 @@ import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.RandomUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -162,7 +163,7 @@ public class JT808Beans {
         bean.setAltitude(312);
         bean.setSpeed(3);
         bean.setDirection(99);
-        bean.setDateTime("200707192359");
+        bean.setDateTime(LocalDateTime.now());
         return bean;
     }
 
@@ -199,7 +200,7 @@ public class JT808Beans {
         bean.setAltitude(48243);
         bean.setSpeed(10001);
         bean.setDirection(300);
-        bean.setDateTime("2005121212");
+        bean.setDateTime(LocalDateTime.now());
         List<BytesAttribute> attributes = new ArrayList<>();
         attributes.add(new BytesAttribute(1, "123".getBytes()));
         bean.setBytesAttributes(attributes);
@@ -586,8 +587,8 @@ public class JT808Beans {
         bean.setType(0);
         bean.setChannelId(1);
         bean.setEvent(3);
-        bean.setEndTime("2012121212");
-        bean.setStartTime("2012121212");
+        bean.setEndTime(LocalDateTime.now());
+        bean.setStartTime(LocalDateTime.now());
         bean.setDelete(0);
         return bean;
     }

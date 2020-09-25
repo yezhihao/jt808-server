@@ -2,7 +2,8 @@ package org.yzh.web.model.entity;
 
 import org.yzh.web.commons.DateUtils;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class LocationDO {
 
@@ -16,10 +17,10 @@ public class LocationDO {
     private Integer altitude;
     private Integer speed;
     private Integer direction;
-    private Date deviceTime;
-    private Date deviceDate;
+    private LocalDateTime deviceTime;
+    private LocalDate deviceDate;
     private Integer mapFenceId;
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public String getDeviceId() {
         return deviceId;
@@ -101,19 +102,19 @@ public class LocationDO {
         this.direction = direction;
     }
 
-    public Date getDeviceTime() {
+    public LocalDateTime getDeviceTime() {
         return deviceTime;
     }
 
-    public void setDeviceTime(Date deviceTime) {
+    public void setDeviceTime(LocalDateTime deviceTime) {
         this.deviceTime = deviceTime;
     }
 
-    public Date getDeviceDate() {
+    public LocalDate getDeviceDate() {
         return deviceDate;
     }
 
-    public void setDeviceDate(Date deviceDate) {
+    public void setDeviceDate(LocalDate deviceDate) {
         this.deviceDate = deviceDate;
     }
 
@@ -125,11 +126,11 @@ public class LocationDO {
         this.mapFenceId = mapFenceId;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 

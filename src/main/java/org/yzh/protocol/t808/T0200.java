@@ -7,9 +7,10 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.transform.PositionAttributeUtils;
 import org.yzh.protocol.commons.transform.Attribute;
+import org.yzh.protocol.commons.transform.PositionAttributeUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class T0200 extends AbstractMessage<Header> {
     private int altitude;
     private int speed;
     private int direction;
-    private String dateTime;
+    private LocalDateTime dateTime;
     private List<BytesAttribute> bytesAttributes;
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
@@ -94,11 +95,11 @@ public class T0200 extends AbstractMessage<Header> {
     }
 
     @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间")
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

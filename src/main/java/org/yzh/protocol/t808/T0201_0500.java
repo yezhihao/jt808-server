@@ -1,13 +1,14 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class T0201_0500 extends AbstractMessage<Header> {
     private int altitude;
     private int speed;
     private int direction;
-    private String dateTime;
+    private LocalDateTime dateTime;
 
     private List<BytesAttribute> bytesAttributes;
 
@@ -102,11 +103,11 @@ public class T0201_0500 extends AbstractMessage<Header> {
     }
 
     @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间")
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

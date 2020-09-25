@@ -7,6 +7,8 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
+
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
@@ -17,8 +19,8 @@ public class T8803 extends AbstractMessage<Header> {
     private int type;
     private int channelId;
     private int event;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int delete;
 
     public T8803() {
@@ -56,20 +58,20 @@ public class T8803 extends AbstractMessage<Header> {
     }
 
     @Field(index = 3, type = DataType.BCD8421, length = 6, desc = "起始时间YY-MM-DD-hh-mm-ss")
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
     @Field(index = 9, type = DataType.BCD8421, length = 6, desc = "结束时间YY-MM-DD-hh-mm-ss")
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

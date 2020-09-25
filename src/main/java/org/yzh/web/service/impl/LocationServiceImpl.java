@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.t808.T0200;
-import org.yzh.web.commons.DateUtils;
 import org.yzh.web.mapper.LocationMapper;
 import org.yzh.web.model.entity.LocationDO;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -18,8 +17,8 @@ import org.yzh.web.service.LocationService;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,8 +49,7 @@ public class LocationServiceImpl implements LocationService {
             "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private void jdbcBatchInsert(List<T0200> list) {
-        Date now = new Date();
-        Date deviceTime;
+        LocalDateTime now = LocalDateTime.now();
         Session session;
         String mobileNo, deviceId, plateNo;
         int size = list.size();
@@ -64,8 +62,6 @@ public class LocationServiceImpl implements LocationService {
 
             for (int i = 0; i < size; i++) {
                 request = list.get(i);
-                deviceTime = DateUtils.parse(request.getDateTime());
-                if (deviceTime == null) continue;
                 int j = 1;
 
                 session = request.getSession();
@@ -78,7 +74,7 @@ public class LocationServiceImpl implements LocationService {
                     plateNo = device.getPlateNo();
                 }
 
-                statement.setObject(j++, deviceTime);
+                statement.setObject(j++, request.getDateTime());
                 statement.setString(j++, deviceId);
                 statement.setString(j++, mobileNo);
                 statement.setString(j++, plateNo);
@@ -101,15 +97,12 @@ public class LocationServiceImpl implements LocationService {
     }
 
     private void mybatisBatchInsert(List<T0200> list) {
-        Date now = new Date();
-        Date date;
+        LocalDateTime now = LocalDateTime.now();
         Session session;
         String mobileNo, deviceId, plateNo;
         int size = list.size();
         List<LocationDO> locations = new ArrayList<>(size);
         for (T0200 request : list) {
-            date = DateUtils.parse(request.getDateTime());
-            if (date == null) continue;
 
             session = request.getSession();
             mobileNo = request.getHeader().getMobileNo();
@@ -124,7 +117,7 @@ public class LocationServiceImpl implements LocationService {
             LocationDO location = new LocationDO();
             locations.add(location);
 
-            location.setDeviceTime(date);
+            location.setDeviceTime(request.getDateTime());
             location.setDeviceId(deviceId);
             location.setMobileNo(mobileNo);
             location.setPlateNo(plateNo);
