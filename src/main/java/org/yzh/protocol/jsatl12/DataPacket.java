@@ -1,7 +1,10 @@
 package org.yzh.protocol.jsatl12;
 
 import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.basics.Header;
 
 import java.nio.ByteBuffer;
 
@@ -11,8 +14,8 @@ import java.nio.ByteBuffer;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-//@Message(prefix = 0x30316364)
-public class DataPacket {
+@Message
+public class DataPacket extends AbstractMessage<Header> {
 
     private int flag;
     private String name;
@@ -20,6 +23,10 @@ public class DataPacket {
     private long length;
     private ByteBuffer data;
 
+    @Override
+    public int getMessageId() {
+        return flag;
+    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "帧头标识")
     public int getFlag() {

@@ -14,6 +14,7 @@ public class NettyConfig {
 
     protected final int port;
     protected final int maxFrameLength;
+    protected final LengthField lengthField;
     protected final Delimiter[] delimiter;
     protected final MessageDecoder decoder;
     protected final MessageEncoder encoder;
@@ -25,6 +26,7 @@ public class NettyConfig {
 
     private NettyConfig(int port,
                         int maxFrameLength,
+                        LengthField lengthField,
                         Delimiter[] delimiter,
                         MessageDecoder decoder,
                         MessageEncoder encoder,
@@ -35,6 +37,7 @@ public class NettyConfig {
     ) {
         this.port = port;
         this.maxFrameLength = maxFrameLength;
+        this.lengthField = lengthField;
         this.delimiter = delimiter;
         this.decoder = decoder;
         this.encoder = encoder;
@@ -54,6 +57,7 @@ public class NettyConfig {
 
         private int port;
         private int maxFrameLength;
+        private LengthField lengthField;
         private Delimiter[] delimiters;
         private MessageDecoder decoder;
         private MessageEncoder encoder;
@@ -72,6 +76,11 @@ public class NettyConfig {
 
         public Builder setMaxFrameLength(int maxFrameLength) {
             this.maxFrameLength = maxFrameLength;
+            return this;
+        }
+
+        public Builder setLengthField(LengthField lengthField) {
+            this.lengthField = lengthField;
             return this;
         }
 
@@ -123,6 +132,7 @@ public class NettyConfig {
             return new NettyConfig(
                     this.port,
                     this.maxFrameLength,
+                    this.lengthField,
                     this.delimiters,
                     this.decoder,
                     this.encoder,

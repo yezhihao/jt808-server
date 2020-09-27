@@ -54,4 +54,11 @@ public class ByteBufUtils {
         }
         return -1;
     }
+
+    public static boolean startsWith(ByteBuf haystack, byte[] prefix) {
+        for (int i = 0, j = haystack.readerIndex(); i < prefix.length; )
+            if (prefix[i++] != haystack.getByte(j++))
+                return false;
+        return true;
+    }
 }

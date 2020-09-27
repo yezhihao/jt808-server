@@ -62,7 +62,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor {
     /** 调用之前 */
     @Override
     public boolean beforeHandle(AbstractMessage<?> request, Session session) {
-        int messageId = request.getHeader().getMessageId();
+        int messageId = request.getMessageId();
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
         if (messageId == JT808.位置信息汇报)

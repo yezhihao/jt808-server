@@ -22,20 +22,24 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
         this.header = header;
     }
 
-    public void setHeader(T header) {
-        this.header = header;
-    }
-
     public Session getSession() {
         return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public void setHeader(T header) {
+        this.header = header;
     }
 
     public T getHeader() {
         return header;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
+    public int getMessageId() {
+        return header.getMessageId();
     }
 
     @Override
