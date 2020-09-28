@@ -3,6 +3,7 @@ package org.yzh.web.config;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +34,16 @@ public class JSATLConfig implements InitializingBean, DisposableBean {
 
     public static byte[] DataFramePrefix = {0x30, 0x31, 0x63, 0x64};
 
+    @Value("${tpc-server.alarm-file.port}")
+    private int port;
+
     @Autowired
     private TCPServer alarmFileServer;
 
     @Bean
     public TCPServer alarmFileServer() {
         NettyConfig jtConfig = NettyConfig.custom()
-                .setPort(7612)
+                .setPort(port)
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
                 .setLengthField(new LengthField(DataFramePrefix, 1024 * 65, 58, 4))
                 .setDelimiters(new Delimiter(new byte[]{0x7e}))
