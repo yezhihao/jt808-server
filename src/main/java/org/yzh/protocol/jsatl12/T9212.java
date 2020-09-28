@@ -14,7 +14,7 @@ import java.util.List;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@Message(JSATL12.文件上传完成消息)
+@Message(JSATL12.文件上传完成消息应答)
 public class T9212 extends AbstractMessage<Header> {
 
     private int nameLength;

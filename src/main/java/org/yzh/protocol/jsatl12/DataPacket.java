@@ -19,8 +19,8 @@ public class DataPacket extends AbstractMessage<Header> {
 
     private int flag;
     private String name;
-    private long offset;
-    private long length;
+    private int offset;
+    private int length;
     private ByteBuffer data;
 
     @Override
@@ -47,24 +47,24 @@ public class DataPacket extends AbstractMessage<Header> {
     }
 
     @Field(index = 54, type = DataType.DWORD, desc = "数据偏移量")
-    public long getOffset() {
+    public int getOffset() {
         return offset;
     }
 
-    public void setOffset(long offset) {
+    public void setOffset(int offset) {
         this.offset = offset;
     }
 
     @Field(index = 58, type = DataType.DWORD, desc = "数据长度")
-    public long getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(long length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    @Field(index = 62, type = DataType.BYTES, desc = "数据体")
+    @Field(index = 62, type = DataType.BYTES, lengthName = "length", desc = "数据体")
     public ByteBuffer getData() {
         return data;
     }

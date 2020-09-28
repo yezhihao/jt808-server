@@ -36,12 +36,12 @@ public class JSATL12Endpoint {
         }
     }
 
-    //TODO 未完成
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
-    public void 文件数据上传(DataPacket message, Session session) {
+    public Object 文件数据上传(DataPacket message, Session session) {
         AlarmId alarmId = (AlarmId) session.getAttribute(AlarmId);
         if (alarmId != null)
             fileService.writeFile(alarmId, message);
+        return null;
     }
 
     @Mapping(types = JSATL12.文件上传完成消息, desc = "文件上传完成消息")

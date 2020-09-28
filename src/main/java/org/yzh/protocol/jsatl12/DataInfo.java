@@ -15,6 +15,9 @@ public class DataInfo {
     private long offset;
     private long length;
 
+    public DataInfo() {
+    }
+
     public DataInfo(long offset, long length) {
         this.offset = offset;
         this.length = length;

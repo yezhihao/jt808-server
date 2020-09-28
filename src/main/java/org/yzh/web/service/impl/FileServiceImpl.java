@@ -62,8 +62,9 @@ public class FileServiceImpl implements FileService {
     public void writeFile(AlarmId alarmId, DataPacket fileData) {
         File dir = getDir(alarmId);
 
-        File logFile = new File(dir, fileData.getName() + ".log");
-        File dataFile = new File(dir, fileData.getName() + ".tmp");
+        String name = fileData.getName().trim();
+        File logFile = new File(dir, name + ".log");
+        File dataFile = new File(dir, name + ".tmp");
         if (!logFile.exists())
             try {
                 logFile.createNewFile();
@@ -82,8 +83,7 @@ public class FileServiceImpl implements FileService {
             long offset = fileData.getOffset();
             long length = fileData.getLength();
 
-            file.seek(offset);
-            file.getChannel().write(fileData.getData(), 0);
+            file.getChannel().write(fileData.getData(), offset);
 
             log.skipBytes((int) log.length());
             log.writeLong(offset);

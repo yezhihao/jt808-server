@@ -102,10 +102,6 @@ public class LengthFieldAndDelimiterFrameDecoder extends DelimiterBasedFrameDeco
     }
 
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
-        if (this.discardingTooLongFrame) {
-            this.discardingTooLongFrame(in);
-        }
-
         if (in.readableBytes() < this.lengthFieldEndOffset) {
             return null;
         } else {
