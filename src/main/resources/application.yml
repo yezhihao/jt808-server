@@ -43,8 +43,8 @@ tpc-server:
     alarm-file:
       host: 127.0.0.1
       port: 7612
-      path: D:/alarm_file/
 
   alarm-file:
     enable: true
     port: 7612
+    path: D:/alarm_file/
