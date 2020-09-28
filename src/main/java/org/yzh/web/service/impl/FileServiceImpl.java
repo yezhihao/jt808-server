@@ -2,6 +2,7 @@ package org.yzh.web.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.jsatl12.*;
 import org.yzh.web.commons.FileUtils;
@@ -15,9 +16,10 @@ public class FileServiceImpl implements FileService {
 
     private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class.getSimpleName());
 
-    private static final String root = "D:/alarm_file/";
+    @Value("${tpc-server.jt808.alarm-file.path}")
+    private String root;
 
-    private static File getDir(AlarmId alarmId) {
+    private File getDir(AlarmId alarmId) {
         StringBuilder sb = new StringBuilder(32);
         sb.append(root);
         sb.append(alarmId.getDeviceId()).append("/");

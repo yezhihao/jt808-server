@@ -1,5 +1,6 @@
 package org.yzh.framework.orm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.session.Session;
@@ -12,7 +13,9 @@ import java.io.Serializable;
  */
 public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
 
+    @JsonIgnore
     private Session session;
+    @JsonIgnore
     private T header;
 
     public AbstractMessage() {

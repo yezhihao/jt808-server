@@ -3,6 +3,8 @@ package org.yzh.web.config;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yzh.framework.codec.Delimiter;
@@ -22,7 +24,11 @@ import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
+@ConditionalOnProperty(value = "tpc-server.jt808.enable", havingValue = "true")
 public class JTConfig implements InitializingBean, DisposableBean {
+
+    @Value("${tpc-server.jt808.port}")
+    private int port;
 
     @Autowired
     private TCPServer jt808Server;
@@ -30,7 +36,7 @@ public class JTConfig implements InitializingBean, DisposableBean {
     @Bean
     public TCPServer jt808Server() {
         NettyConfig jtConfig = NettyConfig.custom()
-                .setPort(7611)
+                .setPort(port)
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
                 .setDelimiters(new Delimiter(new byte[]{0x7e}))
                 .setDecoder(messageDecoder())

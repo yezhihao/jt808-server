@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
@@ -15,21 +16,22 @@ import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
 import org.yzh.protocol.commons.transform.Parameter;
 import org.yzh.protocol.commons.transform.ParameterType;
 import org.yzh.protocol.commons.transform.TerminalParameterUtils;
+import org.yzh.protocol.jsatl12.AlarmId;
+import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
+import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.StrUtils;
 import org.yzh.web.model.APIException;
 import org.yzh.web.model.enums.DefaultCodes;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Api(description = "terminal api")
 @RestController
@@ -411,6 +413,26 @@ public class TerminalController {
         T0A00_8A00 request = new T0A00_8A00(e, src);
         request.setHeader(new Header(clientId, JT808.平台RSA公钥));
         T0A00_8A00 response = messageManager.request(request, T0A00_8A00.class);
+        return response;
+    }
+
+    @Value("${tpc-server.jt808.alarm-file.host}")
+    private String host;
+    @Value("${tpc-server.jt808.alarm-file.port}")
+    private int port;
+
+    @ApiOperation(value = "报警附件上传指令/测试使用", tags = "其他")
+    @GetMapping("alarm_file/report")
+    public T0001 alarmFileReport(@ApiParam("终端手机号") @RequestParam String clientId) {
+        T9208 request = new T9208();
+        request.setHeader(new Header(clientId, JSATL12.报警附件上传指令));
+        request.setIp(host);
+        request.setTcpPort(port);
+        request.setUdpPort(0);
+
+        request.setAlarmId(new AlarmId("test", DateUtils.yyMMddHHmmss.format(new Date()), 0, 1, 0));
+        request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 }

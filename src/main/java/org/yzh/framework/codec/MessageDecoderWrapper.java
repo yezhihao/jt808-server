@@ -30,7 +30,14 @@ public class MessageDecoderWrapper extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
         Channel channel = ctx.channel();
-        log.info(">>>>>原始报文[ip={}],hex={}", channel.remoteAddress(), ByteBufUtil.hexDump(buf));
+        if (log.isInfoEnabled()) {
+            String hex;
+            if (buf.readableBytes() < 1048)
+                hex = ByteBufUtil.hexDump(buf);
+            else
+                hex = ByteBufUtil.hexDump(buf.slice(0, 32)) + "..." + ByteBufUtil.hexDump(buf.slice(buf.readableBytes() - 32, 32));
+            log.info(">>>>>原始报文[ip={}],hex={}", channel.remoteAddress(), hex);
+        }
         Session session = channel.attr(Session.KEY).get();
         AbstractMessage message = decoder.decode(buf, session.getProtocolVersion());
         if (message != null)

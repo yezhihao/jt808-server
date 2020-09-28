@@ -3,6 +3,7 @@ package org.yzh.web.config;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yzh.framework.codec.Delimiter;
@@ -25,6 +26,7 @@ import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
+@ConditionalOnProperty(value = "tpc-server.alarm-file.enable", havingValue = "true")
 public class JSATLConfig implements InitializingBean, DisposableBean {
 
     public static Class<? extends AbstractMessage> DataFrameClass = DataPacket.class;

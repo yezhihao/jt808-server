@@ -17,6 +17,14 @@ public class DeviceInfo {
     /** 设备ID */
     private String deviceId;
 
+    public DeviceInfo() {
+    }
+
+    public DeviceInfo(String plateNo, String deviceId) {
+        this.plateNo = plateNo;
+        this.deviceId = deviceId;
+    }
+
     public int getIssuedAt() {
         return issuedAt;
     }

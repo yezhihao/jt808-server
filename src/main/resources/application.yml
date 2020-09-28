@@ -28,10 +28,23 @@ spring:
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
 
-server:
-  port: 8000
-
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations:
     - classpath:/mapper/*.xml
+
+server:
+  port: 8000
+
+tpc-server:
+  jt808:
+    enable: true
+    port: 7611
+    alarm-file:
+      host: 127.0.0.1
+      port: 7612
+      path: D:/alarm_file/
+
+  alarm-file:
+    enable: true
+    port: 7612
