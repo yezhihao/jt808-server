@@ -24,7 +24,7 @@ public class MessageHelper {
 
     private static Map<Integer, Class<? extends AbstractMessage>> messageIdMap = new HashMap<>(64);
 
-    private static Map<Integer, BeanMetadata> beanMetadataMap = new HashMap(140);
+    private static Map<String, BeanMetadata> beanMetadataMap = new HashMap(140);
 
     private static Class<? extends AbstractHeader> headerClass = null;
 
@@ -36,12 +36,18 @@ public class MessageHelper {
                 if (!Initial) {
                     Initial = true;
                     List<Class<?>> classList = ClassUtils.getClassList(basePackage);
+                    List<Class<?>> types = new ArrayList<>();
                     try {
-                        for (Class<?> clazz : classList)
-                            initMessageClassMap(clazz);
+                        for (Class<?> clazz : classList) {
+                            Class<?> aClass = initMessageClassMap(clazz);
+                            if (aClass != null)
+                                types.add(aClass);
+                        }
                     } catch (IntrospectionException e) {
                         throw new RuntimeException(e);
                     }
+                    initMessageFieldMap(types);
+                    Introspector.flushCaches();
                 }
             }
         }
@@ -52,20 +58,20 @@ public class MessageHelper {
     }
 
     public static BeanMetadata getBeanMetadata(Class<?> clazz, int version) {
-        return beanMetadataMap.get(hashCode(clazz.hashCode(), version));
+        return beanMetadataMap.get(hashCode(clazz, version));
     }
 
     public static final Class<? extends AbstractHeader> getHeaderClass() {
         return headerClass;
     }
 
-    private static void initMessageClassMap(Class<?> messageClass) throws IntrospectionException {
+    private static Class<?> initMessageClassMap(Class<?> messageClass) throws IntrospectionException {
         Class<?> superclass = messageClass.getSuperclass();
-        List<Class<?>> types = new ArrayList<>();
+        Class<?> result = null;
         if (superclass != null) {
 
             if (superclass.isAssignableFrom(AbstractMessage.class)) {
-                types.add(messageClass);
+                result = messageClass;
 
                 Message type = messageClass.getAnnotation(Message.class);
                 if (type != null) {
@@ -76,7 +82,7 @@ public class MessageHelper {
 
             } else if (superclass.isAssignableFrom(AbstractHeader.class)) {
                 headerClass = (Class<? extends AbstractHeader>) messageClass;
-                types.add(messageClass);
+                result = messageClass;
             }
         } else {
             Class<?> enclosingClass = messageClass.getEnclosingClass();
@@ -84,19 +90,23 @@ public class MessageHelper {
 
                 superclass = enclosingClass.getSuperclass();
                 if (superclass.isAssignableFrom(AbstractMessage.class)) {
-                    types.add(messageClass);
+                    result = messageClass;
                 }
             }
         }
-        initMessageFieldMap(types);
-        Introspector.flushCaches();
+        return result;
     }
 
-    private static void initMessageFieldMap(List<Class<?>> types) throws IntrospectionException {
+    private static void initMessageFieldMap(List<Class<?>> types) {
         Set<FieldMetadata> fillObjectField = new HashSet<>();
 
         for (Class<?> clazz : types) {
-            BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+            BeanInfo beanInfo;
+            try {
+                beanInfo = Introspector.getBeanInfo(clazz);
+            } catch (IntrospectionException e) {
+                throw new RuntimeException(e);
+            }
             if (beanInfo == null)
                 continue;
 
@@ -123,17 +133,18 @@ public class MessageHelper {
                 }
 
                 BeanMetadata value = new BeanMetadata(clazz, fields);
-                BeanMetadata old = beanMetadataMap.put(hashCode(clazz.hashCode(), entry.getKey()), value);
+                BeanMetadata old = beanMetadataMap.put(hashCode(clazz, entry.getKey()), value);
                 if (old != null)
-                    throw new RuntimeException("BeanMetadata重复的Key" + clazz.getName());
+                    throw new RuntimeException("重复的Key" + clazz.getName());
             }
         }
 
         for (FieldMetadata obj : fillObjectField) {
-            if (obj.dataType == DataType.OBJ)
-                obj.beanMetadata = beanMetadataMap.get(hashCode(obj.classType.hashCode(), obj.version));
-            else if (obj.dataType == DataType.LIST)
-                obj.beanMetadata = beanMetadataMap.get(hashCode(obj.actualType.hashCode(), obj.version));
+            if (obj.dataType == DataType.OBJ || obj.dataType == DataType.LIST) {
+                BeanMetadata beanMetadata = beanMetadataMap.get(hashCode(obj.typeClass, obj.version));
+                if (beanMetadata != null)
+                    obj.setFieldMetadataList(beanMetadata.fieldMetadataList);
+            }
         }
 
     }
@@ -162,6 +173,8 @@ public class MessageHelper {
     }
 
     private static void putField(Map<Integer, Map<String, FieldMetadata>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+        if (field.type() == DataType.OBJ || field.type() == DataType.LIST)
+            return;
         Method readMethod = propertyDescriptor.getReadMethod();
         Method writeMethod = propertyDescriptor.getWriteMethod();
         Class<?> classType = propertyDescriptor.getPropertyType();
@@ -176,9 +189,7 @@ public class MessageHelper {
         }
     }
 
-    public static int hashCode(int clazz, int version) {
-        int result = clazz;
-        result = 31 * result + version;
-        return result;
+    public static String hashCode(Class clazz, int version) {
+        return (clazz.getName() + version);
     }
 }

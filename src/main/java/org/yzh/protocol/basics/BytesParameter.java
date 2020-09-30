@@ -44,7 +44,7 @@ public class BytesParameter {
         this.length = this.value.length;
     }
 
-    @Field(index = 0, type = DataType.DWORD, desc = "参数ID", version = {0, 1})
+    @Field(index = 0, type = DataType.DWORD, desc = "参数ID", version = {-1, 0, 1})
     public Integer getId() {
         return id;
     }
@@ -53,7 +53,7 @@ public class BytesParameter {
         this.id = id;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "参数长度", version = {0, 1})
+    @Field(index = 2, type = DataType.BYTE, desc = "参数长度", version = {-1, 0, 1})
     public Integer getLength() {
         return length;
     }
@@ -62,7 +62,7 @@ public class BytesParameter {
         this.length = length;
     }
 
-    @Field(index = 3, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {0, 1})
+    @Field(index = 3, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {-1, 0, 1})
     public byte[] getValue() {
         return value;
     }

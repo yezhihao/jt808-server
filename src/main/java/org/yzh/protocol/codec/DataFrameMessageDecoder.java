@@ -24,7 +24,7 @@ public class DataFrameMessageDecoder extends JTMessageDecoder {
 
     public AbstractMessage decode(ByteBuf buf, int version) {
         if (ByteBufUtils.startsWith(buf, dataFramePrefix))
-            return super.decode(buf, dataFrameMetadata);
+            return dataFrameMetadata.decode(buf);
         return super.decode(buf, 0);
     }
 }
