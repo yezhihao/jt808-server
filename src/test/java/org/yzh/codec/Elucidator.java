@@ -29,9 +29,9 @@ public class Elucidator extends JTMessageDecoder {
     }
 
     @Override
-    public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length, int version) {
+    public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length) {
         int before = buf.readerIndex();
-        Object value = super.read(buf, fieldMetadata, length, version);
+        Object value = super.read(buf, fieldMetadata, length);
         int after = buf.readerIndex();
 
         String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));

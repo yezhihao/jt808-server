@@ -6,6 +6,7 @@ import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.DataType;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -23,7 +24,7 @@ public class MessageHelper {
 
     private static Map<Integer, Class<? extends AbstractMessage>> messageIdMap = new HashMap<>(64);
 
-    private static Map<String, BeanMetadata> beanMetadataMap = new HashMap(140);
+    private static Map<Integer, BeanMetadata> beanMetadataMap = new HashMap(140);
 
     private static Class<? extends AbstractHeader> headerClass = null;
 
@@ -51,7 +52,7 @@ public class MessageHelper {
     }
 
     public static BeanMetadata getBeanMetadata(Class<?> clazz, int version) {
-        return beanMetadataMap.get(clazz.getName() + ":" + version);
+        return beanMetadataMap.get(hashCode(clazz.hashCode(), version));
     }
 
     public static final Class<? extends AbstractHeader> getHeaderClass() {
@@ -60,10 +61,11 @@ public class MessageHelper {
 
     private static void initMessageClassMap(Class<?> messageClass) throws IntrospectionException {
         Class<?> superclass = messageClass.getSuperclass();
+        List<Class<?>> types = new ArrayList<>();
         if (superclass != null) {
 
             if (superclass.isAssignableFrom(AbstractMessage.class)) {
-                initMessageFieldMap(messageClass);
+                types.add(messageClass);
 
                 Message type = messageClass.getAnnotation(Message.class);
                 if (type != null) {
@@ -74,7 +76,7 @@ public class MessageHelper {
 
             } else if (superclass.isAssignableFrom(AbstractHeader.class)) {
                 headerClass = (Class<? extends AbstractHeader>) messageClass;
-                initMessageFieldMap(messageClass);
+                types.add(messageClass);
             }
         } else {
             Class<?> enclosingClass = messageClass.getEnclosingClass();
@@ -82,80 +84,101 @@ public class MessageHelper {
 
                 superclass = enclosingClass.getSuperclass();
                 if (superclass.isAssignableFrom(AbstractMessage.class)) {
-                    initMessageFieldMap(messageClass);
+                    types.add(messageClass);
                 }
             }
         }
+        initMessageFieldMap(types);
         Introspector.flushCaches();
     }
 
-    private static void initMessageFieldMap(Class<?> clazz) throws IntrospectionException {
-        BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
-        if (beanInfo == null)
-            return;
+    private static void initMessageFieldMap(List<Class<?>> types) throws IntrospectionException {
+        Set<FieldMetadata> fillObjectField = new HashSet<>();
 
+        for (Class<?> clazz : types) {
+            BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+            if (beanInfo == null)
+                continue;
+
+            Map<Integer, Map<String, FieldMetadata>> multiVersionFields = getMultiVersionFields(beanInfo);
+
+            for (Map.Entry<Integer, Map<String, FieldMetadata>> entry : multiVersionFields.entrySet()) {
+
+                Map<String, FieldMetadata> fieldMap = entry.getValue();
+
+                FieldMetadata[] fields = fieldMap.values().toArray(new FieldMetadata[fieldMap.size()]);
+                Arrays.sort(fields, Comparator.comparingInt(p -> p.index));
+
+                for (FieldMetadata fieldMetadata : fields) {
+                    if (fieldMetadata.dataType == DataType.OBJ || fieldMetadata.dataType == DataType.LIST)
+                        fillObjectField.add(fieldMetadata);
+
+                    String lengthName = fieldMetadata.field.lengthName();
+                    if (!lengthName.equals(""))
+                        try {
+                            fieldMetadata.lengthMethod = fieldMap.get(lengthName.toLowerCase()).readMethod;
+                        } catch (Exception e) {
+                            throw new RuntimeException("not found read length method at lengthName is" + lengthName);
+                        }
+                }
+
+                BeanMetadata value = new BeanMetadata(clazz, fields);
+                BeanMetadata old = beanMetadataMap.put(hashCode(clazz.hashCode(), entry.getKey()), value);
+                if (old != null)
+                    throw new RuntimeException("BeanMetadata重复的Key" + clazz.getName());
+            }
+        }
+
+        for (FieldMetadata obj : fillObjectField) {
+            if (obj.dataType == DataType.OBJ)
+                obj.beanMetadata = beanMetadataMap.get(hashCode(obj.classType.hashCode(), obj.version));
+            else if (obj.dataType == DataType.LIST)
+                obj.beanMetadata = beanMetadataMap.get(hashCode(obj.actualType.hashCode(), obj.version));
+        }
+
+    }
+
+    private static Map<Integer, Map<String, FieldMetadata>> getMultiVersionFields(BeanInfo beanInfo) {
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        Map<Integer, Map<String, FieldMetadata>> multiVersionMap = new TreeMap<>();
+        Map<Integer, Map<String, FieldMetadata>> result = new TreeMap<>();
 
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
 
             Method readMethod = propertyDescriptor.getReadMethod();
-            Method writeMethod = propertyDescriptor.getWriteMethod();
-            Class<?> propertyType = propertyDescriptor.getPropertyType();
+            if (readMethod != null) {
 
-            if (readMethod == null || writeMethod == null)
-                continue;
+                if (readMethod.isAnnotationPresent(Fs.class)) {
 
-            if (readMethod.isAnnotationPresent(Fs.class)) {
+                    Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
+                    for (Field field : fields)
+                        putField(result, propertyDescriptor, field);
 
-                Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
-                for (Field field : fields)
-                    setField(multiVersionMap, readMethod, writeMethod, propertyType, field);
-
-            } else if (readMethod.isAnnotationPresent(Field.class)) {
-                setField(multiVersionMap, readMethod, writeMethod, propertyType, readMethod.getDeclaredAnnotation(Field.class));
+                } else if (readMethod.isAnnotationPresent(Field.class)) {
+                    putField(result, propertyDescriptor, readMethod.getDeclaredAnnotation(Field.class));
+                }
             }
         }
-
-        String className = clazz.getName();
-        for (Map.Entry<Integer, Map<String, FieldMetadata>> entry : multiVersionMap.entrySet()) {
-
-            Map<String, FieldMetadata> fieldMetadataMap = entry.getValue();
-
-            FieldMetadata[] fieldMetadataList = fieldMetadataMap.values().toArray(new FieldMetadata[fieldMetadataMap.size()]);
-            Arrays.sort(fieldMetadataList, Comparator.comparingInt(p -> p.index));
-
-            for (FieldMetadata fieldMetadata : fieldMetadataList) {
-                String lengthName = fieldMetadata.field.lengthName();
-                if (!lengthName.equals(""))
-                    try {
-                        fieldMetadata.lengthMethod = fieldMetadataMap.get(lengthName.toLowerCase()).readMethod;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-            }
-
-            FieldMetadata lastField = fieldMetadataList[fieldMetadataList.length - 1];
-            int size = lastField.index;
-            int length = lastField.length;
-            if (length < 0)
-                length = 4;
-            size += length;
-
-            Integer v = entry.getKey();
-            beanMetadataMap.put(className + ":" + v, new BeanMetadata(fieldMetadataList, size));
-        }
+        return result;
     }
 
-    private static void setField(Map<Integer, Map<String, FieldMetadata>> multiVersionMap, Method readMethod, Method writeMethod, Class<?> propertyType, Field field) {
-        FieldMetadata fieldMetadata = new FieldMetadata(field, propertyType, readMethod, writeMethod);
+    private static void putField(Map<Integer, Map<String, FieldMetadata>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+        Method readMethod = propertyDescriptor.getReadMethod();
+        Method writeMethod = propertyDescriptor.getWriteMethod();
+        Class<?> classType = propertyDescriptor.getPropertyType();
+
 
         int[] versions = field.version();
         for (int ver : versions) {
-            Map<String, FieldMetadata> fieldMetadataMap = multiVersionMap.get(ver);
-            if (fieldMetadataMap == null)
-                multiVersionMap.put(ver, fieldMetadataMap = new TreeMap());
-            fieldMetadataMap.put(readMethod.getName().substring(3).toLowerCase(), fieldMetadata);
+            Map<String, FieldMetadata> fields = multiVersionFields.get(ver);
+            if (fields == null)
+                multiVersionFields.put(ver, fields = new TreeMap());
+            fields.put(readMethod.getName().substring(3).toLowerCase(), new FieldMetadata(field, ver, classType, readMethod, writeMethod));
         }
+    }
+
+    public static int hashCode(int clazz, int version) {
+        int result = clazz;
+        result = 31 * result + version;
+        return result;
     }
 }

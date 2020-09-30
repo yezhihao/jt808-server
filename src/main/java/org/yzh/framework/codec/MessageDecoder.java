@@ -61,12 +61,14 @@ public abstract class MessageDecoder {
         buf = buf.slice(0, buf.readableBytes() - 1);
 
         Class<? extends AbstractHeader> headerClass = MessageHelper.getHeaderClass();
+        BeanMetadata<? extends AbstractHeader> headMetadata = MessageHelper.getBeanMetadata(headerClass, version);
         int readerIndex = buf.readerIndex();
 
-        AbstractHeader header = decode(buf, headerClass, version);
+        AbstractHeader header = decode(buf, headMetadata);
         if (header.isVersion()) {
             buf.readerIndex(readerIndex);
-            header = decode(buf, headerClass, 1);
+            headMetadata = MessageHelper.getBeanMetadata(headerClass, 1);
+            header = decode(buf, headMetadata);
             version = header.getVersionNo();
         }
         header.setVerified(verified);
@@ -82,6 +84,8 @@ public abstract class MessageDecoder {
         if (bodyClass == null)
             bodyClass = RawMessage.class;
 
+        BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(bodyClass, version);
+
         AbstractMessage message = null;
         int headLen = header.getHeadLength();
         int bodyLen = header.getBodyLength();
@@ -96,11 +100,11 @@ public abstract class MessageDecoder {
                 return null;
 
             ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-            message = decode(bodyBuf, bodyClass, version);
+            message = decode(bodyBuf, bodyMetadata);
 
         } else {
             buf.readerIndex(headLen);
-            message = decode(buf, bodyClass, version);
+            message = decode(buf, bodyMetadata);
         }
         if (message == null)
             try {
@@ -113,12 +117,12 @@ public abstract class MessageDecoder {
     }
 
 
-    public <T> T decode(ByteBuf buf, Class<T> clazz, int version) {
-        BeanMetadata beanMetadata = MessageHelper.getBeanMetadata(clazz, version);
+    public <T> T decode(ByteBuf buf, BeanMetadata<T> beanMetadata) {
         if (beanMetadata == null) {
-            log.info(clazz.getName() + "未找到 BeanMetadata");
+            log.info("未找到 BeanMetadata");
             return null;
         }
+        Class<? extends T> clazz = beanMetadata.typeClass;
 
         T result = null;
         boolean isEmpty = true;//防止死循环
@@ -129,7 +133,7 @@ public abstract class MessageDecoder {
 
                 if (!buf.isReadable(length))
                     break;
-                Object value = read(buf, fieldMetadata, length, version);
+                Object value = read(buf, fieldMetadata, length);
                 fieldMetadata.writeMethod.invoke(result, value);
                 isEmpty = false;
             }
@@ -141,7 +145,7 @@ public abstract class MessageDecoder {
         return result;
     }
 
-    public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length, int version) {
+    public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length) {
         DataType type = fieldMetadata.dataType;
         if (DWORD == type) {
             if (fieldMetadata.isLong)
@@ -159,7 +163,7 @@ public abstract class MessageDecoder {
             length = buf.readableBytes();
 
         if (OBJ == type) {
-            return decode(buf.readSlice(length), fieldMetadata.classType, version);
+            return decode(buf.readSlice(length), fieldMetadata.beanMetadata);
         }
         if (LIST == type) {
             if (length <= 0)
@@ -167,7 +171,7 @@ public abstract class MessageDecoder {
             List list = new ArrayList();
             ByteBuf slice = buf.readSlice(length);
             while (slice.isReadable()) {
-                Object obj = decode(slice, fieldMetadata.actualType, version);
+                Object obj = decode(slice, fieldMetadata.beanMetadata);
                 if (obj == null) break;
                 list.add(obj);
             }

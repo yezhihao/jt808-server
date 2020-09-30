@@ -34,12 +34,15 @@ public class FieldMetadata {
     public final boolean isByteBuffer;
     public final Class<?> actualType;
     public final Field field;
+    public final int version;
+    public BeanMetadata<?> beanMetadata;
 
 
     protected Method lengthMethod;
 
-    public FieldMetadata(Field field, Class classType, Method readMethod, Method writeMethod) {
+    public FieldMetadata(Field field, int version, Class classType, Method readMethod, Method writeMethod) {
         this.field = field;
+        this.version = version;
         this.classType = classType;
         this.readMethod = readMethod;
         this.writeMethod = writeMethod;
