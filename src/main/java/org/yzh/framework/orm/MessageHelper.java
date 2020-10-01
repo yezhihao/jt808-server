@@ -123,8 +123,8 @@ public class MessageHelper {
                     if (fieldMetadata.dataType == DataType.OBJ || fieldMetadata.dataType == DataType.LIST)
                         fillObjectField.add(fieldMetadata);
 
-                    String lengthName = fieldMetadata.field.lengthName();
-                    if (!lengthName.equals(""))
+                    String lengthName = fieldMetadata.getLengthName();
+                    if (lengthName != null)
                         try {
                             fieldMetadata.lengthMethod = fieldMap.get(lengthName.toLowerCase()).readMethod;
                         } catch (Exception e) {
@@ -185,7 +185,7 @@ public class MessageHelper {
             Map<String, FieldMetadata> fields = multiVersionFields.get(ver);
             if (fields == null)
                 multiVersionFields.put(ver, fields = new TreeMap());
-            fields.put(readMethod.getName().substring(3).toLowerCase(), new FieldMetadata(field, ver, classType, readMethod, writeMethod));
+            fields.put(readMethod.getName().substring(3).toLowerCase(), FieldMetadata.newInstance(classType, readMethod, writeMethod, ver, field));
         }
     }
 

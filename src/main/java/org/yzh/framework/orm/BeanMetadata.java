@@ -1,8 +1,6 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +39,10 @@ public class BeanMetadata<T> {
         this.fieldMetadataList = fieldMetadataList;
     }
 
+    public int getLength() {
+        return length;
+    }
+
     public <T> T decode(ByteBuf buf) {
         T result = null;
         boolean isEmpty = true;//防止死循环
@@ -66,42 +68,33 @@ public class BeanMetadata<T> {
         return result;
     }
 
-    public ByteBuf encode(Object obj) {
-        ByteBuf buf = PooledByteBufAllocator.DEFAULT.heapBuffer(length, 2048);
+    public void encode(ByteBuf buf, Object obj) {
         try {
             for (FieldMetadata field : fieldMetadataList) {
                 Object value = field.readMethod.invoke(obj);
                 if (value != null)
-                    field.write(buf, field, value);
+                    field.write(buf, value);
             }
         } catch (Exception e) {
             log.error("获取对象值失败", e);
         }
-        return buf;
     }
 
-    public ByteBuf encode(List<Object> list) {
+    public void encode(ByteBuf buf, List<Object> list) {
         int size = list.size();
         if (size == 0)
-            return Unpooled.EMPTY_BUFFER;
+            return;
 
-        int length = 128;
-        if (this.length > 0) {
-            length = this.length;
-        }
-
-        ByteBuf buf = PooledByteBufAllocator.DEFAULT.heapBuffer(length * size);
         try {
             for (Object obj : list) {
                 for (FieldMetadata field : fieldMetadataList) {
                     Object value = field.readMethod.invoke(obj);
                     if (value != null)
-                        field.write(buf, field, value);
+                        field.write(buf, value);
                 }
             }
         } catch (Exception e) {
             log.error("获取对象值失败", e);
         }
-        return buf;
     }
 }

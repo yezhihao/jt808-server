@@ -1,6 +1,7 @@
 package org.yzh.framework.codec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,8 @@ public abstract class MessageEncoder {
         BeanMetadata bodyMetadata = MessageHelper.getBeanMetadata(message.getClass(), version);
         ByteBuf bodyBuf;
         if (bodyMetadata != null) {
-            bodyBuf = bodyMetadata.encode(message);
+             bodyBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(bodyMetadata.getLength(), 2048);
+             bodyMetadata.encode(bodyBuf, message);
         } else {
             bodyBuf = Unpooled.EMPTY_BUFFER;
             log.info("未找到对应的BeanMetadata[{}]", message.getClass());
@@ -47,7 +49,8 @@ public abstract class MessageEncoder {
         header.setBodyLength(bodyLen);
 
         BeanMetadata headMetadata = MessageHelper.getBeanMetadata(header.getClass(), version);
-        ByteBuf headerBuf = headMetadata.encode(header);
+        ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headMetadata.getLength(), 2048);
+        headMetadata.encode(headerBuf,header);
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
         allBuf = sign(allBuf);

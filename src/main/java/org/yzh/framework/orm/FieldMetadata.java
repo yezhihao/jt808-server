@@ -15,70 +15,90 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.yzh.framework.orm.model.DataType.*;
-
 /**
  * 消息定义
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class FieldMetadata extends BeanMetadata {
+public abstract class FieldMetadata extends BeanMetadata {
     private static Logger log = LoggerFactory.getLogger(FieldMetadata.class.getSimpleName());
     protected DataType dataType;
     protected Method readMethod;
     protected Method writeMethod;
 
-    protected int index;
-    protected String desc;
-    protected Charset charset;
-    protected byte pad;
-    protected int size;
-    protected boolean isLong;
-    protected boolean isString;
-    protected boolean isDateTime;
-    protected boolean isByteBuffer;
-    protected Field field;
     protected int version;
+    protected int index;
+    protected String lengthName;
     protected Method lengthMethod;
+    protected String desc;
 
-    public FieldMetadata(Field field, int version, Class classType, Method readMethod, Method writeMethod) {
-        super(classType);
-        this.field = field;
-        this.version = version;
-        this.readMethod = readMethod;
-        this.writeMethod = writeMethod;
+    public FieldMetadata(Class typeClass) {
+        super(typeClass);
+    }
 
-        this.index = field.index();
-        this.dataType = field.type();
-        this.charset = Charset.forName(field.charset());
-        this.pad = field.pad();
-        this.desc = field.desc();
+    public static FieldMetadata newInstance(Class typeClass, Method readMethod, Method writeMethod, int version, Field field) {
+        FieldMetadata fieldMetadata;
+        switch (field.type()) {
+            case BYTE:
+                fieldMetadata = new BYTEToInt(typeClass);
+                break;
+            case WORD:
+                fieldMetadata = new WORDToInt(typeClass);
+                break;
+            case DWORD:
+                if (typeClass.isAssignableFrom(Long.class) || typeClass.isAssignableFrom(Long.TYPE))
+                    fieldMetadata = new DWORDToLong(typeClass);
+                else
+                    fieldMetadata = new DWORDToInt(typeClass);
+                break;
+            case BCD8421:
+                if (typeClass.isAssignableFrom(LocalDateTime.class))
+                    fieldMetadata = new BCDToDateTime(typeClass);
+                else
+                    fieldMetadata = new BCDToString(typeClass);
+                break;
+            case BYTES:
+                if (typeClass.isAssignableFrom(String.class))
+                    fieldMetadata = new ToString(typeClass, field.pad(), Charset.forName(field.charset()));
+                else if (typeClass.isAssignableFrom(ByteBuffer.class))
+                    fieldMetadata = new ToByteBuffer(typeClass);
+                else
+                    fieldMetadata = new ToBytes(typeClass);
+                break;
+            case STRING:
+                fieldMetadata = new ToString(typeClass, field.pad(), Charset.forName(field.charset()));
+                break;
+            case OBJ:
+                fieldMetadata = new ToObj(typeClass);
+                break;
+            case LIST:
+                fieldMetadata = new ToList((Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0]);
+                break;
+            default:
+                throw new RuntimeException("不支持的类型转换");
+        }
+
+        fieldMetadata.readMethod = readMethod;
+        fieldMetadata.writeMethod = writeMethod;
+        fieldMetadata.version = version;
+        fieldMetadata.index = field.index();
+        fieldMetadata.dataType = field.type();
+        fieldMetadata.desc = field.desc();
+        if (!field.lengthName().equals(""))
+            fieldMetadata.lengthName = field.lengthName();
         if (field.length() > -1)
-            this.length = field.length();
+            fieldMetadata.length = field.length();
         else
-            this.length = field.type().length;
-        if (dataType == DWORD)
-            this.isLong = classType.isAssignableFrom(Long.class) || classType.isAssignableFrom(Long.TYPE);
-        else
-            this.isLong = false;
+            fieldMetadata.length = field.type().length;
+        return fieldMetadata;
+    }
 
-        if (dataType == BCD8421)
-            this.isDateTime = classType.isAssignableFrom(LocalDateTime.class);
-        else
-            this.isDateTime = false;
+    public abstract void write(ByteBuf buf, Object value);
 
-        if (dataType == BYTES) {
-            this.isString = classType.isAssignableFrom(String.class);
-            this.isByteBuffer = classType.isAssignableFrom(ByteBuffer.class);
-        } else {
-            this.isString = false;
-            this.isByteBuffer = false;
-        }
+    public abstract Object read(ByteBuf buf, int length);
 
-        if (dataType == LIST) {
-            this.typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
-            this.length = -1;
-        }
+    public String getLengthName() {
+        return lengthName;
     }
 
     public Integer getLength(Object obj) {
@@ -91,27 +111,213 @@ public class FieldMetadata extends BeanMetadata {
         }
     }
 
-    public Object read(ByteBuf buf, int length) {
-        DataType type = this.dataType;
-        if (DWORD == type) {
-            if (this.isLong)
-                return buf.readUnsignedInt();
-            return (int) buf.readUnsignedInt();
+    public static class BYTEToInt extends FieldMetadata {
+        public BYTEToInt(Class typeClass) {
+            super(typeClass);
         }
-        if (WORD == type) {
-            return buf.readUnsignedShort();
-        }
-        if (BYTE == type) {
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
             return (int) buf.readUnsignedByte();
         }
 
-        if (length == -1)
-            length = buf.readableBytes();
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeByte((int) value);
+        }
+    }
 
-        if (OBJ == type) {
+    public static class WORDToInt extends FieldMetadata {
+        public WORDToInt(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            return buf.readUnsignedShort();
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeShort((int) value);
+        }
+    }
+
+    public static class DWORDToInt extends FieldMetadata {
+        public DWORDToInt(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            return (int) buf.readUnsignedInt();
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeInt((int) value);
+        }
+    }
+
+    public static class DWORDToLong extends FieldMetadata {
+        public DWORDToLong(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            return buf.readUnsignedInt();
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeInt(((Long) value).intValue());
+        }
+    }
+
+    public static class BCDToString extends FieldMetadata {
+        public BCDToString(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            byte[] bytes = new byte[length];
+            buf.readBytes(bytes);
+            return Bcd.leftTrim(Bcd.toStr(bytes), '0');
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeBytes(Bcd.fromStr(Bcd.leftPad((String) value, length * 2, '0')));
+        }
+    }
+
+    public static class BCDToDateTime extends FieldMetadata {
+        public BCDToDateTime(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            byte[] bytes = new byte[length];
+            buf.readBytes(bytes);
+            return Bcd.toDateTime(bytes);
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            buf.writeBytes(Bcd.fromDateTime((LocalDateTime) value));
+        }
+    }
+
+
+    public static class ToByteBuffer extends FieldMetadata {
+        public ToByteBuffer(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            return buf.nioBuffer(buf.readerIndex(), length);
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            ByteBuffer byteBuffer = (ByteBuffer) value;
+            if (length > 0)
+                byteBuffer.position(byteBuffer.limit() - length);
+            buf.writeBytes(byteBuffer);
+        }
+    }
+
+    public static class ToBytes extends FieldMetadata {
+        public ToBytes(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            if (length == -1)
+                length = buf.readableBytes();
+            byte[] bytes = new byte[length];
+            buf.readBytes(bytes);
+            return bytes;
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            if (length < 0)
+                buf.writeBytes((byte[]) value);
+            else
+                buf.writeBytes((byte[]) value, 0, length);
+        }
+    }
+
+    public static class ToString extends FieldMetadata {
+        private Charset charset;
+        private byte pad;
+
+        public ToString(Class typeClass, byte pad, Charset charset) {
+            super(typeClass);
+            this.pad = pad;
+            this.charset = charset;
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            if (length == -1) {
+                return buf.readCharSequence(buf.readableBytes(), this.charset).toString().trim();
+            } else {
+                byte[] bytes = new byte[length];
+                buf.readBytes(bytes);
+                for (int i = 0; i < bytes.length; i++) {
+                    if (bytes[i] != this.pad)
+                        return new String(bytes, i, bytes.length - i, this.charset);
+                }
+                return new String(bytes, this.charset);
+            }
+        }
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            byte[] bytes = ((String) value).getBytes(charset);
+            int srcLen = bytes.length;
+            if (length > 0) {
+                bytes = Bcd.checkRepair(bytes, length);
+                if (srcLen > bytes.length)
+                    log.warn("数据长度超出限制[{}],数据长度{},目标长度{}", value, srcLen, bytes.length);
+            }
+            buf.writeBytes(bytes);
+        }
+    }
+
+    public static class ToObj extends FieldMetadata {
+        public ToObj(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
+            if (length == -1)
+                length = buf.readableBytes();
             return decode(buf.readSlice(length));
         }
-        if (LIST == type) {
+
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            if (value != null)
+                encode(buf, value);
+        }
+    }
+
+    public static class ToList extends FieldMetadata {
+        public ToList(Class typeClass) {
+            super(typeClass);
+        }
+
+        @Override
+        public Object read(ByteBuf buf, int length) {
             if (length <= 0)
                 return null;
             List list = new ArrayList();
@@ -124,94 +330,10 @@ public class FieldMetadata extends BeanMetadata {
             return list;
         }
 
-        if (STRING == type) {
-            return buf.readCharSequence(length, this.charset).toString().trim();
-        }
-
-        if (BCD8421 == type) {
-            byte[] bytes = new byte[length];
-            buf.readBytes(bytes);
-            if (this.isDateTime)
-                return Bcd.toDateTime(bytes);
-            return Bcd.leftTrim(Bcd.toStr(bytes), '0');
-        }
-        if (this.isByteBuffer) {
-            return buf.nioBuffer(buf.readerIndex(), length);
-        }
-
-        byte[] bytes = new byte[length];
-        buf.readBytes(bytes);
-        if (this.isString) {
-            for (int i = 0; i < bytes.length; i++) {
-                if (bytes[i] != this.pad)
-                    return new String(bytes, i, bytes.length - i, this.charset);
-            }
-            return new String(bytes, this.charset);
-        }
-        return bytes;
-    }
-
-
-    public void write(ByteBuf buf, FieldMetadata field, Object value) {
-        int length = field.length;
-
-        switch (field.dataType) {
-            case BYTE:
-                buf.writeByte((int) value);
-                break;
-            case WORD:
-                buf.writeShort((int) value);
-                break;
-            case DWORD:
-                if (field.isLong)
-                    buf.writeInt(((Long) value).intValue());
-                else
-                    buf.writeInt((int) value);
-                break;
-            case BYTES:
-                if (field.isString) {
-                    byte[] bytes = ((String) value).getBytes(field.charset);
-                    int srcLen = bytes.length;
-                    if (length > 0) {
-                        bytes = Bcd.checkRepair(bytes, length);
-                        if (srcLen > bytes.length)
-                            log.warn("数据长度超出限制[{}]原始长度{},目标长度{},[{}]", value, srcLen, bytes.length);
-                    }
-                    buf.writeBytes(bytes);
-                } else if (field.isByteBuffer) {
-                    ByteBuffer byteBuffer = (ByteBuffer) value;
-                    if (length > 0)
-                        byteBuffer.position(byteBuffer.limit() - length);
-                    buf.writeBytes(byteBuffer);
-
-                } else {
-                    if (length < 0) buf.writeBytes((byte[]) value);
-                    else buf.writeBytes((byte[]) value, 0, length);
-                }
-                break;
-            case BCD8421:
-                if (field.isDateTime)
-                    buf.writeBytes(Bcd.fromDateTime((LocalDateTime) value));
-                else
-                    buf.writeBytes(Bcd.fromStr(Bcd.leftPad((String) value, length * 2, '0')));
-                break;
-            case STRING:
-                byte[] bytes = ((String) value).getBytes(field.charset);
-                int srcLen = bytes.length;
-                if (length > 0) {
-                    bytes = Bcd.checkRepair(bytes, length);
-                    if (srcLen > bytes.length)
-                        log.warn("数据长度超出限制[{}],数据长度{},目标长度{}", value, srcLen, bytes.length);
-                }
-                buf.writeBytes(bytes);
-                break;
-            case OBJ:
-                buf.writeBytes(encode(value));
-                break;
-            case LIST:
-                if (value != null)
-                    buf.writeBytes(encode((List) value));
-                break;
+        @Override
+        public void write(ByteBuf buf, Object value) {
+            if (value != null)
+                encode(buf, (List) value);
         }
     }
 
@@ -223,8 +345,6 @@ public class FieldMetadata extends BeanMetadata {
                 ", readMethod=" + readMethod +
                 ", writeMethod=" + writeMethod +
                 ", dataType=" + dataType +
-                ", charset=" + charset +
-                ", pad=" + pad +
                 ", length=" + length +
                 ", lengthMethod=" + lengthMethod +
                 '}';
