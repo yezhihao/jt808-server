@@ -5,8 +5,8 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.BeanMetadata;
+import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.RawMessage;
@@ -72,40 +72,33 @@ public abstract class MessageDecoder {
             }
         }
 
-        Class<? extends AbstractMessage> bodyClass = MessageHelper.getBodyClass(header.getMessageId());
-        if (bodyClass == null) {
-            RawMessage<AbstractHeader> rawMessage = new RawMessage<>();
-            rawMessage.setHeader(header);
-            return rawMessage;
-        }
+        AbstractMessage message;
+        BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
+        if (bodyMetadata != null) {
 
-        BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(bodyClass, version);
+            int headLen = header.getHeadLength();
+            int bodyLen = header.getBodyLength();
 
-        AbstractMessage message = null;
-        int headLen = header.getHeadLength();
-        int bodyLen = header.getBodyLength();
+            if (header.isSubpackage()) {
 
-        if (header.isSubpackage()) {
+                byte[] bytes = new byte[bodyLen];
+                buf.readBytes(bytes);
 
-            byte[] bytes = new byte[bodyLen];
-            buf.readBytes(bytes);
+                byte[][] packages = multiPacketManager.addAndGet(header, bytes);
+                if (packages == null)
+                    return null;
 
-            byte[][] packages = multiPacketManager.addAndGet(header, bytes);
-            if (packages == null)
-                return null;
+                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+                message = bodyMetadata.decode(bodyBuf);
 
-            ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-            message = bodyMetadata.decode(bodyBuf);
-
-        } else {
-            buf.readerIndex(headLen);
-            message = bodyMetadata.decode(buf);
-        }
-        if (message == null)
-            try {
-                message = bodyClass.newInstance();
-            } catch (Exception e) {
+            } else {
+                buf.readerIndex(headLen);
+                message = bodyMetadata.decode(buf);
             }
+        } else {
+            message = new RawMessage<>();
+            log.info("未找到对应的BeanMetadata[{}]", header);
+        }
 
         message.setHeader(header);
         return message;

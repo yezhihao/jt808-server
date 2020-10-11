@@ -5,14 +5,14 @@ import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.jsatl12.*;
 
-import java.util.UUID;
-
 /**
  * JT/T 808协议单元测试数据
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JSATL12Beans {
+
+    private static final String UUID = "ad72131579e54be0b0f737cfc72c5db8";
 
     /** 2013版消息头 */
     public static AbstractMessage H2013(AbstractMessage message) {
@@ -49,7 +49,7 @@ public class JSATL12Beans {
         T1210 bean = new T1210();
         bean.setTerminalId("1234567");
         bean.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
-        bean.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        bean.setAlarmNo(UUID);
         bean.setType(0);
         bean.setItems(null);
         return bean;
@@ -71,7 +71,7 @@ public class JSATL12Beans {
         bean.setTcpPort(8202);
         bean.setUdpPort(8203);
         bean.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 1, 1));
-        bean.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        bean.setAlarmNo(UUID);
         bean.setReserved(new byte[16]);
         return bean;
     }

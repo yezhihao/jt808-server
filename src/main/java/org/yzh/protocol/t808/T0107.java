@@ -35,7 +35,7 @@ public class T0107 extends AbstractMessage<Header> {
         this.deviceType = deviceType;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 7, pad = 32, desc = "制造商ID,终端制造商编码")
+    @Field(index = 1, type = DataType.STRING, length = 7, desc = "制造商ID,终端制造商编码")
     public String getMakerId() {
         return makerId;
     }
@@ -44,7 +44,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.makerId = makerId;
     }
 
-    @Field(index = 8, type = DataType.STRING, length = 20, pad = 32, desc = "终端型号,由制造商自行定义,位数不足八位补空格")
+    /** 由制造商自行定义,位数不足时，后补"0x00" */
+    @Field(index = 8, type = DataType.STRING, length = 20, desc = "终端型号")
     public String getDeviceModel() {
         return deviceModel;
     }
@@ -53,7 +54,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.deviceModel = deviceModel;
     }
 
-    @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID,由大写字母和数字组成,此终端ID由制造商自行定义")
+    /** 由大写字母和数字组成,此终端ID由制造商自行定义,位数不足时，后补"0x00" */
+    @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID")
     public String getDeviceId() {
         return deviceId;
     }

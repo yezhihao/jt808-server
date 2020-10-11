@@ -13,14 +13,9 @@ import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.commons.transform.ParameterType;
 import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.t808.*;
-import org.yzh.web.commons.RandomUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 
 /**
  * JT/T 808协议单元测试数据
@@ -28,6 +23,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JT808Beans {
+
+    private static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
+    private static final String STR16 = "O8gYkVE6kfz8ec6Y";
+    private static final Random R = new Random(1);
 
     /** 2013版消息头 */
     public static AbstractMessage H2013(AbstractMessage message) {
@@ -114,7 +113,6 @@ public class JT808Beans {
     public static T0104 T0104() {
         T0104 bean = new T0104();
         bean.setSerialNo(104);
-        ThreadLocalRandom random = ThreadLocalRandom.current();
         ParameterType[] values = ParameterType.values();
         for (int i = 0; i < 38; i++) {
             ParameterType p = values[i];
@@ -122,9 +120,9 @@ public class JT808Beans {
                 case BYTE:
                 case WORD:
                 case DWORD:
-                    bean.addParameter(new BytesParameter(p.id, random.nextInt()));
+                    bean.addParameter(new BytesParameter(p.id, R.nextInt()));
                 default:
-                    bean.addParameter(new BytesParameter(p.id, RandomUtils.nextString(16)));
+                    bean.addParameter(new BytesParameter(p.id, STR16));
             }
         }
         return bean;
@@ -163,7 +161,21 @@ public class JT808Beans {
         bean.setAltitude(312);
         bean.setSpeed(3);
         bean.setDirection(99);
-        bean.setDateTime(LocalDateTime.now());
+        bean.setDateTime(TIME);
+        return bean;
+    }
+
+    //位置信息汇报
+    public static T0200 T0200_() {
+        T0200 bean = new T0200();
+        bean.setWarningMark(1024 * 2);
+        bean.setStatus(2048 * 2);
+        bean.setLatitude(116307629 * 2);
+        bean.setLongitude(40058359 * 2);
+        bean.setAltitude(312 * 2);
+        bean.setSpeed(3 * 2);
+        bean.setDirection(99 * 2);
+        bean.setDateTime(TIME.plusYears(1));
         return bean;
     }
 
@@ -200,7 +212,7 @@ public class JT808Beans {
         bean.setAltitude(48243);
         bean.setSpeed(10001);
         bean.setDirection(300);
-        bean.setDateTime(LocalDateTime.now());
+        bean.setDateTime(TIME);
         List<BytesAttribute> attributes = new ArrayList<>();
         attributes.add(new BytesAttribute(1, "123".getBytes()));
         bean.setBytesAttributes(attributes);
@@ -298,9 +310,9 @@ public class JT808Beans {
         bean.setSerialNo(123);
         List<T0802.Item> items = new ArrayList<>();
         items.add(new T0802.Item(1, 1, 1, 1, T0200()));
-        items.add(new T0802.Item(2, 1, 1, 1, T0200()));
+        items.add(new T0802.Item(2, 1, 1, 1, T0200_()));
         items.add(new T0802.Item(3, 1, 1, 1, T0200()));
-        items.add(new T0802.Item(4, 1, 1, 1, T0200()));
+        items.add(new T0802.Item(4, 1, 1, 1, T0200_()));
         bean.setItems(items);
         return bean;
     }
@@ -341,7 +353,6 @@ public class JT808Beans {
     //设置终端参数
     public static T8103 T8103() {
         T8103 bean = new T8103();
-        ThreadLocalRandom random = ThreadLocalRandom.current();
         ParameterType[] values = ParameterType.values();
         for (int i = 0; i < 38; i++) {
             ParameterType p = values[i];
@@ -349,9 +360,9 @@ public class JT808Beans {
                 case BYTE:
                 case WORD:
                 case DWORD:
-                    bean.addParameter(new BytesParameter(p.id, random.nextInt()));
+                    bean.addParameter(new BytesParameter(p.id, R.nextInt()));
                 default:
-                    bean.addParameter(new BytesParameter(p.id, RandomUtils.nextString(16)));
+                    bean.addParameter(new BytesParameter(p.id, STR16));
             }
         }
         return bean;
@@ -576,8 +587,8 @@ public class JT808Beans {
         bean.setType(0);
         bean.setChannelId(1);
         bean.setEvent(3);
-        bean.setEndTime(LocalDateTime.now());
-        bean.setStartTime(LocalDateTime.now());
+        bean.setEndTime(TIME);
+        bean.setStartTime(TIME);
         return bean;
     }
 
@@ -587,8 +598,8 @@ public class JT808Beans {
         bean.setType(0);
         bean.setChannelId(1);
         bean.setEvent(3);
-        bean.setEndTime(LocalDateTime.now());
-        bean.setStartTime(LocalDateTime.now());
+        bean.setEndTime(TIME);
+        bean.setStartTime(TIME);
         bean.setDelete(0);
         return bean;
     }

@@ -1,10 +1,9 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * 消息元数据
@@ -12,56 +11,47 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class BeanMetadata<T> {
-    private static Logger log = LoggerFactory.getLogger(BeanMetadata.class.getSimpleName());
-    protected Class<T> typeClass;
-    protected FieldMetadata[] fieldMetadataList;
-    protected int length;
+    protected static Logger log = LoggerFactory.getLogger(BeanMetadata.class.getSimpleName());
 
-    public BeanMetadata(Class<T> typeClass) {
+    protected final int version;
+    protected final int length;
+    protected final Class<T> typeClass;
+    protected final FieldMetadata[] fields;
+
+    public BeanMetadata(Class<T> typeClass, int version, FieldMetadata[] fields) {
         this.typeClass = typeClass;
-    }
-
-    public BeanMetadata(Class<T> typeClass, FieldMetadata[] fieldMetadataList) {
-        this.typeClass = typeClass;
-        this.fieldMetadataList = fieldMetadataList;
-
-        FieldMetadata lastField = fieldMetadataList[fieldMetadataList.length - 1];
+        this.version = version;
+        this.fields = fields;
+        FieldMetadata lastField = fields[fields.length - 1];
         int lastIndex = lastField.index;
         int lastLength = lastField.length < 0 ? 4 : lastField.length;
         this.length = lastIndex + lastLength;
-    }
-
-    public FieldMetadata[] getFieldMetadataList() {
-        return fieldMetadataList;
-    }
-
-    public void setFieldMetadataList(FieldMetadata[] fieldMetadataList) {
-        this.fieldMetadataList = fieldMetadataList;
     }
 
     public int getLength() {
         return length;
     }
 
-    public <T> T decode(ByteBuf buf) {
+    public T decode(ByteBuf buf) {
         T result = null;
         boolean isEmpty = true;//防止死循环
+        FieldMetadata field = null;
+        int length;
         try {
-            result = (T) typeClass.newInstance();
-            if (this.fieldMetadataList == null)
-                return null;
+            result = typeClass.newInstance();
+            for (int i = 0; i < fields.length; i++) {
+                field = fields[i];
 
-            for (FieldMetadata field : this.fieldMetadataList) {
-                Integer length = field.getLength(result);
+                length = field.getLength(result);
 
                 if (!buf.isReadable(length))
                     break;
-                Object value = field.read(buf, length);
-                field.writeMethod.invoke(result, value);
+                Object value = field.readValue(buf, length);
+                field.setValue(result, value);
                 isEmpty = false;
             }
         } catch (Exception e) {
-            log.error("解码异常：" + typeClass.getName(), e);
+            log.error("解码异常：" + typeClass.getName() + field, e);
         }
         if (isEmpty)
             return null;
@@ -70,31 +60,22 @@ public class BeanMetadata<T> {
 
     public void encode(ByteBuf buf, Object obj) {
         try {
-            for (FieldMetadata field : fieldMetadataList) {
-                Object value = field.readMethod.invoke(obj);
+            for (FieldMetadata field : fields) {
+                Object value = field.getValue(obj);
                 if (value != null)
-                    field.write(buf, value);
+                    field.writeValue(buf, value);
             }
         } catch (Exception e) {
             log.error("获取对象值失败", e);
         }
     }
 
-    public void encode(ByteBuf buf, List<Object> list) {
-        int size = list.size();
-        if (size == 0)
-            return;
-
-        try {
-            for (Object obj : list) {
-                for (FieldMetadata field : fieldMetadataList) {
-                    Object value = field.readMethod.invoke(obj);
-                    if (value != null)
-                        field.write(buf, value);
-                }
-            }
-        } catch (Exception e) {
-            log.error("获取对象值失败", e);
-        }
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("typeClass", typeClass)
+                .append("version", version)
+                .append("length", length)
+                .toString();
     }
 }

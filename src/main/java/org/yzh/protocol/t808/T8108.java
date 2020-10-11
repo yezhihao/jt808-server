@@ -35,7 +35,7 @@ public class T8108 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 5, pad = 32, desc = "制造商ID,终端制造商编码")
+    @Field(index = 1, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码")
     public String getMakerId() {
         return makerId;
     }
