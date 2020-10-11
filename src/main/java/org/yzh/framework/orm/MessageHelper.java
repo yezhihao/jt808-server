@@ -15,7 +15,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 消息ID关系映射
@@ -127,7 +126,6 @@ public class MessageHelper {
 
     private static Map<Integer, List<FieldMetadata>> findMultiVersionFields(Map<String, Map<Integer, BeanMetadata>> root, BeanInfo beanInfo) {
         PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
-        Map<String, PropertyDescriptor> propertyMap = Arrays.stream(properties).filter(p -> p.getReadMethod() != null).collect(Collectors.toMap(PropertyDescriptor::getName, p -> p));
         Map<Integer, List<FieldMetadata>> multiVersionFields = new TreeMap<>();
 
         for (PropertyDescriptor property : properties) {
@@ -138,37 +136,34 @@ public class MessageHelper {
 
                     Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
                     for (Field field : fields)
-                        fillField(root, propertyMap, multiVersionFields, property, field);
+                        fillField(root, properties, multiVersionFields, property, field);
 
                 } else if (readMethod.isAnnotationPresent(Field.class)) {
-                    fillField(root, propertyMap, multiVersionFields, property, readMethod.getDeclaredAnnotation(Field.class));
+                    fillField(root, properties, multiVersionFields, property, readMethod.getDeclaredAnnotation(Field.class));
                 }
             }
         }
         return multiVersionFields;
     }
 
-    private static void fillField(Map<String, Map<Integer, BeanMetadata>> root, Map<String, PropertyDescriptor> properties, Map<Integer, List<FieldMetadata>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+    private static void fillField(Map<String, Map<Integer, BeanMetadata>> root, PropertyDescriptor[] properties, Map<Integer, List<FieldMetadata>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+        Class<?> typeClass = propertyDescriptor.getPropertyType();
         Method readMethod = propertyDescriptor.getReadMethod();
         Method writeMethod = propertyDescriptor.getWriteMethod();
-        Class<?> typeClass = propertyDescriptor.getPropertyType();
+        Method lengthMethod = findLengthMethod(properties, field.lengthName());
 
         FieldMetadata value;
-        String lengthName = field.lengthName();
-        Method lengthMethod = null;
-        if (!"".equals(lengthName))
-            lengthMethod = properties.get(lengthName).getReadMethod();
-
         int[] versions = field.version();
+
         for (int ver : versions) {
             if (field.type() == DataType.OBJ) {
                 initClass(root, typeClass);
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
                 value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, beanMetadata);
             } else if (field.type() == DataType.LIST) {
+                typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
                 initClass(root, typeClass);
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
                 value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, beanMetadata);
             } else {
                 value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field);
@@ -176,8 +171,17 @@ public class MessageHelper {
 
             List<FieldMetadata> fieldList = multiVersionFields.get(ver);
             if (fieldList == null)
-                multiVersionFields.put(ver, fieldList = new ArrayList<>(properties.size()));
+                multiVersionFields.put(ver, fieldList = new ArrayList<>(properties.length));
             fieldList.add(value);
         }
+    }
+
+    private static Method findLengthMethod(PropertyDescriptor[] properties, String lengthName) {
+        if ("".equals(lengthName))
+            return null;
+        for (PropertyDescriptor property : properties)
+            if (lengthName.equals(property.getName()))
+                return property.getReadMethod();
+        throw new RuntimeException("not found method " + lengthName);
     }
 }
