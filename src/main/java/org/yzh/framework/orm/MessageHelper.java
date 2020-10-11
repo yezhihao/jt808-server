@@ -126,7 +126,15 @@ public class MessageHelper {
 
     private static Map<Integer, List<FieldMetadata>> findMultiVersionFields(Map<String, Map<Integer, BeanMetadata>> root, BeanInfo beanInfo) {
         PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
-        Map<Integer, List<FieldMetadata>> multiVersionFields = new TreeMap<>();
+        Map<Integer, List<FieldMetadata>> multiVersionFields = new TreeMap<Integer, List<FieldMetadata>>() {
+            @Override
+            public List<FieldMetadata> get(Object key) {
+                List result = super.get(key);
+                if (result == null)
+                    super.put((Integer) key, result = new ArrayList<>(properties.length));
+                return result;
+            }
+        };
 
         for (PropertyDescriptor property : properties) {
             Method readMethod = property.getReadMethod();
@@ -155,24 +163,20 @@ public class MessageHelper {
         FieldMetadata value;
         int[] versions = field.version();
 
-        for (int ver : versions) {
-            if (field.type() == DataType.OBJ) {
-                initClass(root, typeClass);
-                BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, beanMetadata);
-            } else if (field.type() == DataType.LIST) {
+        if (field.type() == DataType.OBJ || field.type() == DataType.LIST) {
+            if (Collection.class.isAssignableFrom(typeClass))
                 typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
-                initClass(root, typeClass);
+            initClass(root, typeClass);
+            for (int ver : versions) {
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
                 value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, beanMetadata);
-            } else {
-                value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field);
+                multiVersionFields.get(ver).add(value);
             }
-
-            List<FieldMetadata> fieldList = multiVersionFields.get(ver);
-            if (fieldList == null)
-                multiVersionFields.put(ver, fieldList = new ArrayList<>(properties.length));
-            fieldList.add(value);
+        } else {
+            value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field);
+            for (int ver : versions) {
+                multiVersionFields.get(ver).add(value);
+            }
         }
     }
 
