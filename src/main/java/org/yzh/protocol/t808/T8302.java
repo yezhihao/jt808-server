@@ -48,7 +48,7 @@ public class T8302 extends AbstractMessage<Header> {
         this.contentLen = contentLen;
     }
 
-    @Field(index = 2, lengthName = "contentLen", type = DataType.STRING, desc = "问题")
+    @Field(index = 2, type = DataType.STRING, lengthName = "contentLen", desc = "问题")
     public String getContent() {
         return content;
     }
@@ -58,7 +58,7 @@ public class T8302 extends AbstractMessage<Header> {
         this.content = content;
     }
 
-    @Field(index = 2, indexOffsetName = "content", type = DataType.LIST, desc = "候选答案列表")
+    @Field(index = 2, type = DataType.LIST, desc = "候选答案列表")
     public List<Option> getOptions() {
         return options;
     }

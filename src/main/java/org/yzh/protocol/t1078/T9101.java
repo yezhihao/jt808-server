@@ -32,7 +32,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.ipLength = ipLength;
     }
 
-    @Field(index = 1, lengthName = "ipLength", type = DataType.STRING, desc = "服务器IP地址")
+    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
@@ -42,7 +42,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 1, indexOffsetName = "ipLength", type = DataType.WORD, desc = "实时视频服务器TCP端口号")
+    @Field(index = 2, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
     public int getTcpPort() {
         return tcpPort;
     }
@@ -51,7 +51,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.tcpPort = tcpPort;
     }
 
-    @Field(index = 3, indexOffsetName = "ipLength", type = DataType.WORD, desc = "实时视频服务器UDP端口号")
+    @Field(index = 3, type = DataType.WORD, desc = "实时视频服务器UDP端口号")
     public int getUdpPort() {
         return udpPort;
     }
@@ -60,7 +60,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.udpPort = udpPort;
     }
 
-    @Field(index = 5, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "逻辑通道号")
+    @Field(index = 5, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -69,7 +69,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 6, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "数据类型（0:音视频,1:视频,2:双向对讲,3:监听,4:中心广播,5:透传）")
+    @Field(index = 6, type = DataType.BYTE, desc = "数据类型（0:音视频,1:视频,2:双向对讲,3:监听,4:中心广播,5:透传）")
     public int getDataType() {
         return dataType;
     }
@@ -78,7 +78,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.dataType = dataType;
     }
 
-    @Field(index = 7, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "码流类型（0:主码流,1:子码流）")
+    @Field(index = 7, type = DataType.BYTE, desc = "码流类型（0:主码流,1:子码流）")
     public int getStreamType() {
         return streamType;
     }

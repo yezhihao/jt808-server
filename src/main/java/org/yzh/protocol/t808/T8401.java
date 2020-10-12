@@ -101,7 +101,7 @@ public class T8401 extends AbstractMessage<Header> {
             this.phoneLength = phone.getBytes(Charsets.GBK).length;
         }
 
-        @Field(index = 2, indexOffsetName = "phoneLength", type = DataType.BYTE, desc = "联系人长度")
+        @Field(index = 2, type = DataType.BYTE, desc = "联系人长度")
         public int getNameLength() {
             return nameLength;
         }
@@ -110,7 +110,7 @@ public class T8401 extends AbstractMessage<Header> {
             this.nameLength = nameLength;
         }
 
-        @Field(index = 3, indexOffsetName = "phoneLength", type = DataType.STRING, lengthName = "nameLength", desc = "联系人")
+        @Field(index = 3, type = DataType.STRING, lengthName = "nameLength", desc = "联系人")
         public String getName() {
             return name;
         }

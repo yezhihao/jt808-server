@@ -92,7 +92,7 @@ public class T0107 extends AbstractMessage<Header> {
         this.hardwareVersionLen = hardwareVersion.length();
     }
 
-    @Field(index = 46, indexOffsetName = "hardwareVersionLen", type = DataType.BYTE, desc = "固件版本号长度")
+    @Field(index = 46, type = DataType.BYTE, desc = "固件版本号长度")
     public int getFirmwareVersionLen() {
         return firmwareVersionLen;
     }
@@ -111,7 +111,7 @@ public class T0107 extends AbstractMessage<Header> {
         this.firmwareVersionLen = firmwareVersion.length();
     }
 
-    @Field(index = 46, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "GNSS模块属性")
+    @Field(index = 46, type = DataType.BYTE, desc = "GNSS模块属性")
     public int getGnssAttribute() {
         return gnssAttribute;
     }
@@ -120,7 +120,7 @@ public class T0107 extends AbstractMessage<Header> {
         this.gnssAttribute = gnssAttribute;
     }
 
-    @Field(index = 47, indexOffsetName = {"hardwareVersionLen", "firmwareVersionLen"}, type = DataType.BYTE, desc = "通信模块属性")
+    @Field(index = 47, type = DataType.BYTE, desc = "通信模块属性")
     public int getNetworkAttribute() {
         return networkAttribute;
     }

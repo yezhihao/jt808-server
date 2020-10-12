@@ -37,7 +37,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.ipLength = ipLength;
     }
 
-    @Field(index = 1, lengthName = "ipLength", type = DataType.STRING, desc = "服务器IP地址")
+    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
@@ -47,7 +47,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 1, indexOffsetName = "ipLength", type = DataType.WORD, desc = "实时视频服务器TCP端口号")
+    @Field(index = 1, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
     public int getTcpPort() {
         return tcpPort;
     }
@@ -56,7 +56,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.tcpPort = tcpPort;
     }
 
-    @Field(index = 3, indexOffsetName = "ipLength", type = DataType.WORD, desc = "实时视频服务器UDP端口号")
+    @Field(index = 3, type = DataType.WORD, desc = "实时视频服务器UDP端口号")
     public int getUdpPort() {
         return udpPort;
     }
@@ -65,7 +65,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.udpPort = udpPort;
     }
 
-    @Field(index = 5, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "逻辑通道号")
+    @Field(index = 5, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -74,7 +74,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 6, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "音视频类型")
+    @Field(index = 6, type = DataType.BYTE, desc = "音视频类型")
     public int getDataType() {
         return dataType;
     }
@@ -83,7 +83,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.dataType = dataType;
     }
 
-    @Field(index = 7, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "码流类型")
+    @Field(index = 7, type = DataType.BYTE, desc = "码流类型")
     public int getStreamType() {
         return streamType;
     }
@@ -92,7 +92,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.streamType = streamType;
     }
 
-    @Field(index = 8, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "存储器类型")
+    @Field(index = 8, type = DataType.BYTE, desc = "存储器类型")
     public int getStorageType() {
         return storageType;
     }
@@ -101,7 +101,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.storageType = storageType;
     }
 
-    @Field(index = 9, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "回放方式")
+    @Field(index = 9, type = DataType.BYTE, desc = "回放方式")
     public int getPlaybackMode() {
         return playbackMode;
     }
@@ -110,7 +110,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.playbackMode = playbackMode;
     }
 
-    @Field(index = 10, indexOffsetName = "ipLength", type = DataType.BYTE, desc = "快进或快退倍数")
+    @Field(index = 10, type = DataType.BYTE, desc = "快进或快退倍数")
     public int getPlaybackSpeed() {
         return playbackSpeed;
     }
@@ -119,7 +119,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.playbackSpeed = playbackSpeed;
     }
 
-    @Field(index = 11, indexOffsetName = "ipLength", type = DataType.BCD8421, length = 6, desc = "开始时间")
+    @Field(index = 11, type = DataType.BCD8421, length = 6, desc = "开始时间")
     public String getStartTime() {
         return startTime;
     }
@@ -128,7 +128,7 @@ public class T9201 extends AbstractMessage<Header> {
         this.startTime = startTime;
     }
 
-    @Field(index = 17, indexOffsetName = "ipLength", type = DataType.BCD8421, length = 6, desc = "结束时间")
+    @Field(index = 17, type = DataType.BCD8421, length = 6, desc = "结束时间")
     public String getEndTime() {
         return endTime;
     }
