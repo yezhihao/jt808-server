@@ -42,7 +42,7 @@ public class T9101 extends AbstractMessage<Header> {
         this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
+    @Field(index = 1, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
     public int getTcpPort() {
         return tcpPort;
     }

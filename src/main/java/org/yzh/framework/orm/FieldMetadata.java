@@ -122,6 +122,13 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
 
     @Override
     public int compareTo(FieldMetadata that) {
-        return Integer.compare(this.index, that.index);
+        int r = Integer.compare(this.index, that.index);
+        if (r == 0) {
+            if (this.lengthMethod == null)
+                r = 1;
+            else if (that.lengthMethod == null)
+                r = -1;
+        }
+        return r;
     }
 }
