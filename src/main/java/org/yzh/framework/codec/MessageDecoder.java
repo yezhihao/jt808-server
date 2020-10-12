@@ -52,7 +52,7 @@ public abstract class MessageDecoder {
             log.error("校验码错误" + ByteBufUtil.hexDump(buf));
         buf = buf.slice(0, buf.readableBytes() - 1);
 
-        Class<? extends AbstractHeader> headerClass = MessageHelper.getHeaderClass();
+        Class<? extends AbstractHeader> headerClass = (Class<? extends AbstractHeader>) MessageHelper.getHeaderClass();
         BeanMetadata<? extends AbstractHeader> headMetadata = MessageHelper.getBeanMetadata(headerClass, version);
         int readerIndex = buf.readerIndex();
 
