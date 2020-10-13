@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -25,13 +25,13 @@ public class Oil extends Attribute {
 
     @Override
     public Oil formBytes(byte... bytes) {
-        this.value = Bit.readInt16(bytes, 0);
+        this.value = Bytes.getInt16(bytes, 0);
         return this;
     }
 
     @Override
     public byte[] toBytes() {
-        return Bit.write2Byte(new byte[2], 0, value);
+        return Bytes.setInt16(new byte[2], 0, value);
     }
 
     public int getValue() {

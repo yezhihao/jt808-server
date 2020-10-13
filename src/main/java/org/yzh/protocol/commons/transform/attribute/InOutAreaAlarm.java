@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -34,7 +34,7 @@ public class InOutAreaAlarm extends Attribute {
     @Override
     public InOutAreaAlarm formBytes(byte[] bytes) {
         this.positionType = bytes[0];
-        this.areaId = Bit.readInt32(bytes, 1);
+        this.areaId = Bytes.getInt32(bytes, 1);
         this.direction = bytes[5];
         return this;
 
@@ -44,7 +44,7 @@ public class InOutAreaAlarm extends Attribute {
     public byte[] toBytes() {
         byte[] bytes = new byte[6];
         bytes[0] = this.positionType;
-        Bit.write4Byte(bytes, 1, this.areaId);
+        Bytes.setInt32(bytes, 1, this.areaId);
         bytes[5] = this.direction;
         return bytes;
     }

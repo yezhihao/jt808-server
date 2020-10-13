@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -25,13 +25,13 @@ public class CarriageTemperature extends Attribute {
 
     @Override
     public CarriageTemperature formBytes(byte... bytes) {
-        this.value = (short) Bit.readInt16(bytes, 0);
+        this.value = (short) Bytes.getInt16(bytes, 0);
         return this;
     }
 
     @Override
     public byte[] toBytes() {
-        return Bit.write2Byte(new byte[2], 0, value);
+        return Bytes.setInt16(new byte[2], 0, value);
     }
 
     public int getValue() {

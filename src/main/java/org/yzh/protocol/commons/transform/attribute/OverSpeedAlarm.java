@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -31,7 +31,7 @@ public class OverSpeedAlarm extends Attribute {
     public OverSpeedAlarm formBytes(byte[] bytes) {
         this.positionType = bytes[0];
         if (bytes.length >= 5)
-            this.areaId = Bit.readInt32(bytes, 1);
+            this.areaId = Bytes.getInt32(bytes, 1);
         return this;
     }
 
@@ -42,7 +42,7 @@ public class OverSpeedAlarm extends Attribute {
 
         byte[] bytes = new byte[5];
         bytes[0] = positionType;
-        Bit.write4Byte(bytes, 1, areaId);
+        Bytes.setInt32(bytes, 1, areaId);
         return bytes;
     }
 

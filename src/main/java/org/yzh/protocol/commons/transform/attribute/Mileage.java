@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -26,13 +26,13 @@ public class Mileage extends Attribute {
 
     @Override
     public Mileage formBytes(byte... bytes) {
-        this.value = Bit.readInt32(bytes, 0);
+        this.value = Bytes.getInt32(bytes, 0);
         return this;
     }
 
     @Override
     public byte[] toBytes() {
-        return Bit.write4Byte(new byte[4], 0, value);
+        return Bytes.setInt32(new byte[4], 0, value);
     }
 
     public int getValue() {

@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bit;
+import org.yzh.framework.commons.transform.Bytes;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -32,8 +32,8 @@ public class RouteDriveTimeAlarm extends Attribute {
 
     @Override
     public RouteDriveTimeAlarm formBytes(byte[] bytes) {
-        this.routeId = Bit.readInt32(bytes, 0);
-        this.driveTime = Bit.readInt16(bytes, 4);
+        this.routeId = Bytes.getInt32(bytes, 0);
+        this.driveTime = Bytes.getInt16(bytes, 4);
         this.result = bytes[6];
         return this;
     }
@@ -41,8 +41,8 @@ public class RouteDriveTimeAlarm extends Attribute {
     @Override
     public byte[] toBytes() {
         byte[] bytes = new byte[7];
-        Bit.write4Byte(bytes, 0, this.routeId);
-        Bit.write2Byte(bytes, 4, this.driveTime);
+        Bytes.setInt32(bytes, 0, this.routeId);
+        Bytes.setInt16(bytes, 4, this.driveTime);
         bytes[6] = this.result;
         return bytes;
     }
