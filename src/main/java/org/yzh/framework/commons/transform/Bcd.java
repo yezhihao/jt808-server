@@ -70,6 +70,24 @@ public class Bcd {
                 num(bcd[i]));
     }
 
+    /** 日期转BCD (yyMMdd) */
+    public static byte[] from(LocalDate date) {
+        byte[] bcd = new byte[3];
+        bcd[0] = bcd(date.getYear() % 100);
+        bcd[1] = bcd(date.getMonthValue());
+        bcd[2] = bcd(date.getDayOfMonth());
+        return bcd;
+    }
+
+    /** BCD转日期 (yyMMdd) */
+    public static LocalDate toDate(byte[] bcd) {
+        int i = bcd.length - 1;
+        int year = HUNDRED_YEAR + num(bcd[i - 2]);
+        if (year < YEAR_RANGE)
+            year += 100;
+        return LocalDate.of(year, num(bcd[i - 1]), num(bcd[i]));
+    }
+
     public static byte bcd(int num) {
         return (byte) (num / 10 << 4 | (num % 10 & 0xf));
     }

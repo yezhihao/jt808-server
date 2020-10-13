@@ -19,7 +19,8 @@ public class EncryptUtils {
 
     private static volatile IvParameterSpec DefInitVector;
 
-    private static final String MODE = "AES/CBC/PKCS5Padding";
+    private static final String MODE = "AES/CTR/NoPadding";
+//    private static final String MODE = "AES/CBC/PKCS5Padding";
 
     static {
         initial();

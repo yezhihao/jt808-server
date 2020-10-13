@@ -1,14 +1,17 @@
 package org.yzh.web.model.vo;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.yzh.framework.commons.transform.Bcd;
+import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;
+import java.time.LocalDate;
 
 public class DeviceInfo {
 
-    /** 签发时间（秒） */
-    private int issuedAt;
-    /** 有效期 （秒） */
+    /** 签发日期 */
+    private LocalDate issuedAt;
+    /** 有效期 （日） */
     private int validAt;
     /** 车牌颜色 */
     private byte plateColor;
@@ -20,16 +23,11 @@ public class DeviceInfo {
     public DeviceInfo() {
     }
 
-    public DeviceInfo(String plateNo, String deviceId) {
-        this.plateNo = plateNo;
-        this.deviceId = deviceId;
-    }
-
-    public int getIssuedAt() {
+    public LocalDate getIssuedAt() {
         return issuedAt;
     }
 
-    public void setIssuedAt(int issuedAt) {
+    public void setIssuedAt(LocalDate issuedAt) {
         this.issuedAt = issuedAt;
     }
 
@@ -71,11 +69,13 @@ public class DeviceInfo {
              DataInputStream dis = new DataInputStream(bis)) {
 
             DeviceInfo result = new DeviceInfo();
-            result.setIssuedAt(dis.readInt());
-            result.setValidAt(dis.readInt());
-            result.setPlateColor(dis.readByte());
-            result.setPlateNo(dis.readUTF());
-            result.setDeviceId(dis.readUTF());
+            byte[] temp;
+            dis.read(temp = new byte[3]);
+            result.setIssuedAt(Bcd.toDate(temp));
+            result.setValidAt(dis.readUnsignedByte());
+            int len = dis.readUnsignedByte();
+            dis.read(temp = new byte[len]);
+            result.setDeviceId(new String(temp, Charsets.GBK));
 
             return result;
         } catch (IOException e) {
@@ -87,11 +87,11 @@ public class DeviceInfo {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream(32);
              DataOutputStream dos = new DataOutputStream(bos)) {
 
-            dos.writeInt(deviceToken.getIssuedAt());
-            dos.writeInt(deviceToken.getValidAt());
-            dos.writeByte(deviceToken.getPlateColor());
-            dos.writeUTF(deviceToken.getPlateNo());
-            dos.writeUTF(deviceToken.getDeviceId());
+            dos.write(Bcd.from(deviceToken.getIssuedAt()));
+            dos.writeByte(deviceToken.getValidAt());
+            byte[] bytes = deviceToken.getDeviceId().getBytes(Charsets.GBK);
+            dos.writeByte(bytes.length);
+            dos.write(bytes);
 
             return bos.toByteArray();
         } catch (IOException e) {

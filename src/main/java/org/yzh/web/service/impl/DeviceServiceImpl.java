@@ -12,6 +12,7 @@ import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
@@ -60,8 +61,8 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
         DeviceInfo device = new DeviceInfo();
-        device.setIssuedAt((int) (System.currentTimeMillis() / 1000));
-        device.setValidAt(60 * 60 * 24 * 7);
+        device.setIssuedAt(LocalDate.now());
+        device.setValidAt(7);
         device.setPlateColor((byte) request.getPlateColor());
         device.setPlateNo(request.getPlateNo());
         device.setDeviceId(deviceId);
@@ -77,16 +78,20 @@ public class DeviceServiceImpl implements DeviceService {
             bytes = EncryptUtils.decrypt(bytes);
             DeviceInfo device = DeviceInfo.formBytes(bytes);
 
-            int currentTime = (int) (System.currentTimeMillis() / 1000);
-            int expiresAt = device.getIssuedAt() + device.getValidAt();
-            if (expiresAt < currentTime) {
+            LocalDate expiresAt = device.getIssuedAt().plusDays(device.getValidAt());
+            if (expiresAt.isBefore(LocalDate.now())) {
                 log.warn("鉴权失败：过期的token，{}", token);
                 return null;
             }
-            DeviceDO record = new DeviceDO(device.getDeviceId(), true, LocalDateTime.now());
-            record.setImei(request.getImei());
-            record.setSoftwareVersion(request.getVersion());
-            deviceMapper.update(record);
+            DeviceDO record = deviceMapper.get(device.getDeviceId());
+            if (record != null) {
+                device.setPlateNo(record.getPlateNo());
+
+                record = new DeviceDO(device.getDeviceId(), true, LocalDateTime.now());
+                record.setImei(request.getImei());
+                record.setSoftwareVersion(request.getVersion());
+                deviceMapper.update(record);
+            }
             return device;
         } catch (Exception e) {
             log.warn("鉴权失败：错误的token，{}", e.getMessage());
