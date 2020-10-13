@@ -15,26 +15,36 @@ public class Bcd {
     public static final int HUNDRED_YEAR = YEAR_RANGE / 100 * 100;
 
     /** BCD转String */
-    public static String toStr(byte[] bcd) {
-        StringBuilder str = new StringBuilder(bcd.length * 2);
-        for (int i = 0; i < bcd.length; i++) {
-            str.append(bcd[i] >> 4 & 0xf).append(bcd[i] & 0xf);
+    public static String toString(byte[] bcd) {
+        return new String(toChars(bcd));
+    }
+
+    /** BCD转char[] */
+    public static char[] toChars(byte[] bcd) {
+        char[] chars = new char[bcd.length * 2];
+        for (int i = 0, j = 0; i < bcd.length; i++) {
+            chars[j++] = (char) (48 + (bcd[i] >> 4 & 0xf));
+            chars[j++] = (char) (48 + (bcd[i] & 0xf));
         }
-        return str.toString();
+        return chars;
     }
 
     /** String转BCD */
-    public static byte[] fromStr(String str) {
-        byte[] bytes = str.getBytes();
-        byte[] bcd = new byte[bytes.length / 2];
-        for (int i = 0; i < bcd.length; i++) {
-            bcd[i] = (byte) (bytes[2 * i] << 4 | (bytes[2 * i + 1] & 0xf));
+    public static byte[] from(String str) {
+        return from(str.toCharArray());
+    }
+
+    /** char[]转BCD */
+    public static byte[] from(char[] chars) {
+        byte[] bcd = new byte[chars.length / 2];
+        for (int i = 0, j = 0; i < bcd.length; i++) {
+            bcd[i] = (byte) ((chars[j++] - 48 << 4) | ((chars[j++] - 48 & 0xf)));
         }
         return bcd;
     }
 
     /** 时间转BCD (yyMMddHHmmss) */
-    public static byte[] fromDateTime(LocalDateTime dateTime) {
+    public static byte[] from(LocalDateTime dateTime) {
         byte[] bcd = new byte[6];
         bcd[0] = bcd(dateTime.getYear() % 100);
         bcd[1] = bcd(dateTime.getMonthValue());
@@ -68,41 +78,9 @@ public class Bcd {
         return (bcd >> 4 & 0xf) * 10 + (bcd & 0xf);
     }
 
-    /** 检查字节数组长度，填充或截断 */
-    public static byte[] checkRepair(byte[] src, int length) {
-        int srcPos = src.length - length;
-
-        if (srcPos > 0) {
-            byte[] dest = new byte[length];
-            System.arraycopy(src, srcPos, dest, 0, length);
-            return dest;
-        } else if (srcPos < 0) {
-            byte[] dest = new byte[length];
-            System.arraycopy(src, 0, dest, -srcPos, src.length);
-            return dest;
-        }
-        return src;
-    }
-
-    public static String leftPad(String str, int size, char pad) {
-        int strLen = str.length();
-        int pads = size - strLen;
-        if (pads <= 0)
-            return str;
-
-        char[] padding = new char[pads];
-        for (int i = 0; i < pads; i++)
-            padding[i] = pad;
-        return new String(padding).concat(str);
-    }
-
-    public static String leftTrim(String str, char pad) {
-        char[] val = str.toCharArray();
-        int len = val.length;
-
-        int st = 0;
-        while (st < len && val[st] == pad)
-            st++;
-        return (st > 0 && st < len) ? str.substring(st) : str;
+    public static int indexOf(char[] chars, char pad) {
+        int i = 0, len = chars.length;
+        while (i < len && chars[i] == pad) i++;
+        return i;
     }
 }

@@ -22,6 +22,6 @@ public class FieldDateTimeBCD extends FieldMetadata<LocalDateTime> {
 
     @Override
     public void writeValue(ByteBuf buf, LocalDateTime value) {
-        buf.writeBytes(Bcd.fromDateTime(value));
+        buf.writeBytes(Bcd.from(value));
     }
 }
