@@ -43,7 +43,7 @@ public class T0102 extends AbstractMessage<Header> {
     }
 
 
-    @Field(index = 2, indexOffsetName = "tokenLength", type = DataType.STRING, length = 15, desc = "终端IMEI", version = 1)
+    @Field(index = 2, type = DataType.STRING, length = 15, desc = "终端IMEI", version = 1)
     public String getImei() {
         return imei;
     }
@@ -52,7 +52,7 @@ public class T0102 extends AbstractMessage<Header> {
         this.imei = imei;
     }
 
-    @Field(index = 17, indexOffsetName = "tokenLength", type = DataType.STRING, length = 20, desc = "软件版本号", version = 1)
+    @Field(index = 17, type = DataType.STRING, length = 20, desc = "软件版本号", version = 1)
     public String getVersion() {
         return version;
     }

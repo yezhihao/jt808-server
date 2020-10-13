@@ -39,7 +39,7 @@ public class T1211 extends AbstractMessage<Header> {
         this.nameLength = name.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 1, indexOffsetName = "nameLength", type = DataType.BYTE, desc = "文件类型")
+    @Field(index = 1, type = DataType.BYTE, desc = "文件类型")
     public int getType() {
         return type;
     }
@@ -48,7 +48,7 @@ public class T1211 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 2, indexOffsetName = "nameLength", type = DataType.DWORD, desc = "文件大小")
+    @Field(index = 2, type = DataType.DWORD, desc = "文件大小")
     public long getSize() {
         return size;
     }

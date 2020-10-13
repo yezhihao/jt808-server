@@ -55,7 +55,7 @@ public class T0100 extends AbstractMessage<Header> {
         this.makerId = makerId;
     }
 
-    /** 由制造商自行定义,位数不足八位补空格 */
+    /** 由制造商自行定义,,位数不足时，后补"0x00" */
     @Fs({@Field(index = 9, type = DataType.BYTES, length = 8, desc = "终端型号", version = -1),
             @Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0),
             @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)})

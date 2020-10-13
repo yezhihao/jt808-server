@@ -104,7 +104,7 @@ public class T1210 extends AbstractMessage<Header> {
             this.name = name;
         }
 
-        @Field(index = 1, indexOffsetName = "nameLength", type = DataType.DWORD, desc = "文件大小")
+        @Field(index = 1, type = DataType.DWORD, desc = "文件大小")
         public long getSize() {
             return size;
         }

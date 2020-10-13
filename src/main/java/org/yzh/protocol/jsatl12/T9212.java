@@ -50,7 +50,7 @@ public class T9212 extends AbstractMessage<Header> {
         this.nameLength = name.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 1, indexOffsetName = "nameLength", type = DataType.BYTE, desc = "文件类型")
+    @Field(index = 1, type = DataType.BYTE, desc = "文件类型")
     public int getType() {
         return type;
     }
@@ -59,7 +59,7 @@ public class T9212 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 2, indexOffsetName = "nameLength", type = DataType.BYTE, desc = "上传结果")
+    @Field(index = 2, type = DataType.BYTE, desc = "上传结果")
     public int getResult() {
         return result;
     }
@@ -68,7 +68,7 @@ public class T9212 extends AbstractMessage<Header> {
         this.result = result;
     }
 
-    @Field(index = 3, indexOffsetName = "nameLength", type = DataType.BYTE, desc = "补传数据包数量")
+    @Field(index = 3, type = DataType.BYTE, desc = "补传数据包数量")
     public int getTotal() {
         return total;
     }
@@ -77,7 +77,7 @@ public class T9212 extends AbstractMessage<Header> {
         this.total = total;
     }
 
-    @Field(index = 4, indexOffsetName = "nameLength", type = DataType.LIST, desc = "补传数据包列表")
+    @Field(index = 4, type = DataType.LIST, desc = "补传数据包列表")
     public List<DataInfo> getItems() {
         return items;
     }

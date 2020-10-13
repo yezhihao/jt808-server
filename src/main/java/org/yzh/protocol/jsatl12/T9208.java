@@ -43,7 +43,7 @@ public class T9208 extends AbstractMessage<Header> {
         this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 1, indexOffsetName = "ipLength", type = DataType.WORD, desc = "TCP端口")
+    @Field(index = 1, type = DataType.WORD, desc = "TCP端口")
     public int getTcpPort() {
         return tcpPort;
     }
@@ -52,7 +52,7 @@ public class T9208 extends AbstractMessage<Header> {
         this.tcpPort = tcpPort;
     }
 
-    @Field(index = 3, indexOffsetName = "ipLength", type = DataType.WORD, desc = "UDP端口")
+    @Field(index = 3, type = DataType.WORD, desc = "UDP端口")
     public int getUdpPort() {
         return udpPort;
     }
@@ -61,7 +61,7 @@ public class T9208 extends AbstractMessage<Header> {
         this.udpPort = udpPort;
     }
 
-    @Field(index = 5, indexOffsetName = "ipLength", length = 16, type = DataType.OBJ, desc = "报警标识号")
+    @Field(index = 5, length = 16, type = DataType.OBJ, desc = "报警标识号")
     public AlarmId getAlarmId() {
         return alarmId;
     }
@@ -70,7 +70,7 @@ public class T9208 extends AbstractMessage<Header> {
         this.alarmId = alarmId;
     }
 
-    @Field(index = 21, indexOffsetName = "ipLength", length = 32, type = DataType.BYTES, desc = "报警编号")
+    @Field(index = 21, length = 32, type = DataType.BYTES, desc = "报警编号")
     public String getAlarmNo() {
         return alarmNo;
     }
@@ -79,7 +79,7 @@ public class T9208 extends AbstractMessage<Header> {
         this.alarmNo = alarmNo;
     }
 
-    @Field(index = 53, indexOffsetName = "ipLength", length = 16, type = DataType.BYTES, desc = "预留")
+    @Field(index = 53, length = 16, type = DataType.BYTES, desc = "预留")
     public byte[] getReserved() {
         return reserved;
     }

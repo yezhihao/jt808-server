@@ -72,7 +72,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.nameLen = name.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 9, indexOffsetName = "nameLen", type = DataType.STRING, length = 20, desc = "从业资格证编码")
+    @Field(index = 9, type = DataType.STRING, length = 20, desc = "从业资格证编码")
     public String getLicenseNo() {
         return licenseNo;
     }
@@ -81,7 +81,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.licenseNo = licenseNo;
     }
 
-    @Field(index = 29, indexOffsetName = "nameLen", type = DataType.BYTE, desc = "发证机构名称长度")
+    @Field(index = 29, type = DataType.BYTE, desc = "发证机构名称长度")
     public int getInstitutionLen() {
         return institutionLen;
     }
@@ -90,7 +90,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.institutionLen = institutionLen;
     }
 
-    @Field(index = 30, indexOffsetName = "nameLen", type = DataType.STRING, lengthName = "institutionLen", desc = "从业资格证发证机构名称")
+    @Field(index = 30, type = DataType.STRING, lengthName = "institutionLen", desc = "从业资格证发证机构名称")
     public String getInstitution() {
         return institution;
     }
@@ -100,7 +100,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.institutionLen = institution.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 30, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.BCD8421, length = 4, desc = "证件有效期")
+    @Field(index = 30, type = DataType.BCD8421, length = 4, desc = "证件有效期")
     public String getLicenseValidPeriod() {
         return licenseValidPeriod;
     }
@@ -109,7 +109,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.licenseValidPeriod = licenseValidPeriod;
     }
 
-    @Field(index = 34, indexOffsetName = {"nameLen", "institutionLen"}, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
+    @Field(index = 34, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
     public String getIdCard() {
         return idCard;
     }

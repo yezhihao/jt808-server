@@ -35,7 +35,7 @@ public class T8108 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 5, pad = 32, desc = "制造商ID,终端制造商编码")
+    @Field(index = 1, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码")
     public String getMakerId() {
         return makerId;
     }
@@ -63,7 +63,7 @@ public class T8108 extends AbstractMessage<Header> {
         this.versionLen = version.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 7, indexOffsetName = "versionLen", type = DataType.DWORD, desc = "数据包长度")
+    @Field(index = 7, type = DataType.DWORD, desc = "数据包长度")
     public int getPacketLen() {
         return packetLen;
     }
@@ -72,7 +72,7 @@ public class T8108 extends AbstractMessage<Header> {
         this.packetLen = packetLen;
     }
 
-    @Field(index = 11, indexOffsetName = "versionLen", type = DataType.BYTES, lengthName = "packetLen", desc = "数据包")
+    @Field(index = 11, type = DataType.BYTES, lengthName = "packetLen", desc = "数据包")
     public byte[] getPacket() {
         return packet;
     }

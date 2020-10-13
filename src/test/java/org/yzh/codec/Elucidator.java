@@ -1,9 +1,7 @@
 package org.yzh.codec;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import org.apache.commons.lang3.ArrayUtils;
 import org.yzh.framework.orm.FieldMetadata;
 import org.yzh.protocol.codec.JTMessageDecoder;
 
@@ -12,12 +10,13 @@ import org.yzh.protocol.codec.JTMessageDecoder;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Elucidator extends JTMessageDecoder {
+public class Elucidator {
 
-    private static final Elucidator elucidator = new Elucidator("org.yzh.protocol");
+    private static JTMessageDecoder elucidator;
 
-    public Elucidator(String basePackage) {
-        super(basePackage);
+    static {
+        FieldMetadata.EXPLAIN = true;
+        elucidator = new JTMessageDecoder("org.yzh.protocol");
     }
 
     public static void main(String[] args) {
@@ -26,16 +25,5 @@ public class Elucidator extends JTMessageDecoder {
         System.out.println(hex);
         System.out.println();
         elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
-    }
-
-    @Override
-    public Object read(ByteBuf buf, FieldMetadata fieldMetadata, int length) {
-        int before = buf.readerIndex();
-        Object value = super.read(buf, fieldMetadata, length);
-        int after = buf.readerIndex();
-
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
-        System.out.println(fieldMetadata.index + "\t" + hex + "\t" + fieldMetadata.desc + "\t" + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
-        return value;
     }
 }

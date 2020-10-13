@@ -17,8 +17,6 @@ public @interface Field {
 
     int index() default -1;
 
-    String[] indexOffsetName() default "";
-
     int length() default -1;
 
     String lengthName() default "";
