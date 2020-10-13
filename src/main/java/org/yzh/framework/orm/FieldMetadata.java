@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
  */
 public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
     protected static Logger log = LoggerFactory.getLogger(FieldMetadata.class.getSimpleName());
+    public static boolean EXPLAIN = false;
 
     protected final int index;
     protected final int length;
@@ -88,6 +89,8 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
             default:
                 throw new RuntimeException("不支持的类型转换");
         }
+        if (EXPLAIN)
+            return new LoggerProxy(result);
         return result;
     }
 
