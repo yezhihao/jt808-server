@@ -5,7 +5,6 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.commons.Charsets;
 
-import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -58,7 +57,7 @@ public class TerminalParameterUtils {
                 case BYTES:
                     return bytes;
             }
-        return new String(bytes, Charset.forName("GBK"));
+        return new String(bytes, Charsets.GBK);
     }
 
     public static byte[] toBytes(int id, String value) {
