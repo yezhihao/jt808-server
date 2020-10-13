@@ -24,7 +24,7 @@ public class FieldObject<T> extends FieldMetadata<T> {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object obj) {
+    public void writeValue(ByteBuf buf, T obj) {
         beanMetadata.encode(buf, obj);
     }
 }

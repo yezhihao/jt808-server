@@ -5,14 +5,14 @@ import org.yzh.framework.orm.FieldMetadata;
 
 import java.lang.reflect.Method;
 
-public class FieldBytes extends FieldMetadata {
+public class FieldBytes extends FieldMetadata<byte[]> {
 
     public FieldBytes(int index, int length, String desc, Method readMethod, Method writeMethod, Method lengthMethod) {
         super(index, length, desc, readMethod, writeMethod, lengthMethod);
     }
 
     @Override
-    public Object readValue(ByteBuf buf, int length) {
+    public byte[] readValue(ByteBuf buf, int length) {
         if (length < 0)
             length = buf.readableBytes();
         byte[] bytes = new byte[length];
@@ -21,10 +21,10 @@ public class FieldBytes extends FieldMetadata {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object value) {
+    public void writeValue(ByteBuf buf, byte[] value) {
         if (length < 0)
-            buf.writeBytes((byte[]) value);
+            buf.writeBytes(value);
         else
-            buf.writeBytes((byte[]) value, 0, length);
+            buf.writeBytes(value, 0, length);
     }
 }

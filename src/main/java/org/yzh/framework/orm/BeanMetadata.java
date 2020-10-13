@@ -1,7 +1,6 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +50,7 @@ public class BeanMetadata<T> {
                 isEmpty = false;
             }
         } catch (Exception e) {
-            log.error("解码异常：" + typeClass.getName() + field, e);
+            log.error("decode error：" + typeClass.getName() + field, e);
         }
         if (isEmpty)
             return null;
@@ -59,23 +58,27 @@ public class BeanMetadata<T> {
     }
 
     public void encode(ByteBuf buf, Object obj) {
+        FieldMetadata field = null;
         try {
-            for (FieldMetadata field : fields) {
+            for (int i = 0; i < fields.length; i++) {
+                field = fields[i];
                 Object value = field.getValue(obj);
                 if (value != null)
                     field.writeValue(buf, value);
             }
         } catch (Exception e) {
-            log.error("获取对象值失败", e);
+            log.error("encode error: " + obj + field, e);
         }
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("typeClass", typeClass)
-                .append("version", version)
-                .append("length", length)
-                .toString();
+        final StringBuilder sb = new StringBuilder();
+        sb.append('{');
+        sb.append("typeClass=").append(typeClass.getSimpleName());
+        sb.append(", version=").append(version);
+        sb.append(", length=").append(length);
+        sb.append('}');
+        return sb.toString();
     }
 }

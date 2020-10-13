@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-public class FieldString extends FieldMetadata {
+public class FieldString extends FieldMetadata<String> {
     private byte pad;
     private Charset charset;
 
@@ -18,7 +18,7 @@ public class FieldString extends FieldMetadata {
     }
 
     @Override
-    public Object readValue(ByteBuf buf, int length) {
+    public String readValue(ByteBuf buf, int length) {
         int len = length > 0 ? length : buf.readableBytes();
         byte[] bytes = new byte[len];
         buf.readBytes(bytes);
@@ -32,8 +32,8 @@ public class FieldString extends FieldMetadata {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object value) {
-        byte[] bytes = ((String) value).getBytes(charset);
+    public void writeValue(ByteBuf buf, String value) {
+        byte[] bytes = value.getBytes(charset);
         if (length > 0) {
             int srcPos = length - bytes.length;
 

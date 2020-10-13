@@ -96,13 +96,13 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
 
     public abstract T readValue(ByteBuf buf, int length);
 
-    public abstract void writeValue(ByteBuf buf, Object value);
+    public abstract void writeValue(ByteBuf buf, T value);
 
     public final Object getValue(Object object) throws Exception {
         return readMethod.invoke(object);
     }
 
-    public final void setValue(Object object, Object value) throws Exception {
+    public final void setValue(Object object, T value) throws Exception {
         writeMethod.invoke(object, value);
     }
 
@@ -110,17 +110,6 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
         if (lengthMethod == null)
             return length;
         return (Integer) lengthMethod.invoke(obj);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "desc='" + desc + '\'' +
-                ", readMethod=" + readMethod +
-                ", writeMethod=" + writeMethod +
-                ", length=" + length +
-                ", lengthMethod=" + lengthMethod +
-                '}';
     }
 
     @Override
@@ -133,5 +122,20 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
                 r = -1;
         }
         return r;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(80);
+        sb.append('{');
+        sb.append("index=").append(index);
+        sb.append(", length=").append(length);
+        sb.append(", desc").append(desc);
+        sb.append(", readMethod=").append(readMethod);
+        sb.append(", writeMethod=").append(writeMethod);
+        if (lengthMethod != null)
+            sb.append(", lengthMethod=").append(lengthMethod);
+        sb.append('}');
+        return sb.toString();
     }
 }

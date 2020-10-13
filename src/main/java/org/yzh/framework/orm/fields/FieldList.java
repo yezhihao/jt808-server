@@ -31,8 +31,7 @@ public class FieldList<T> extends FieldMetadata<List<T>> {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object value) {
-        List list = (List) value;
+    public void writeValue(ByteBuf buf, List<T> list) {
         if (list == null || list.isEmpty())
             return;
 
