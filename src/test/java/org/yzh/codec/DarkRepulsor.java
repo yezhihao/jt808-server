@@ -21,7 +21,7 @@ public class DarkRepulsor {
     }
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = darkRepulsor.encode(JT808Beans.H2013(JT808Beans.T0100()));
+        ByteBuf byteBuf = darkRepulsor.encode(JT808Beans.H2013(JT808Beans.T0200Attributes()));
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
     }

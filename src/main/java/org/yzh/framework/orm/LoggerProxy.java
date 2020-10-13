@@ -20,7 +20,7 @@ public class LoggerProxy extends FieldMetadata {
         int after = buf.readerIndex();
 
         String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
-        System.out.println(index + "\t" + hex + "\t" + desc + "\t" + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
+        System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
         return value;
     }
 
@@ -31,6 +31,6 @@ public class LoggerProxy extends FieldMetadata {
         int after = buf.writerIndex();
 
         String hex = ByteBufUtil.hexDump(buf, before, after - before);
-        System.out.println(index + "\t" + hex + "\t" + desc + "\t" + value);
+        System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + value);
     }
 }
