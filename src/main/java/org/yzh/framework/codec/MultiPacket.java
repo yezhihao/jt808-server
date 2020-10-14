@@ -96,23 +96,23 @@ public class MultiPacket {
     @Override
     public String toString() {
         int length = packets.length;
-        final StringBuilder b = new StringBuilder(80 + (length * 3));
-        b.append('[');
-        b.append("clientId=").append(clientId);
-        b.append(", messageId=").append(Integer.toHexString(messageId));
-        b.append(", total=").append(length);
-        b.append(", count=").append(count);
-        b.append(", retryCount=").append(retryCount);
-        b.append(", time=").append(getTotalWaitTime());
-        b.append(", packets=");
-        b.append('{');
+        final StringBuilder sb = new StringBuilder(82 + (length * 3));
+        sb.append('[');
+        sb.append("clientId=").append(clientId);
+        sb.append(", messageId=").append(Integer.toHexString(messageId));
+        sb.append(", total=").append(length);
+        sb.append(", count=").append(count);
+        sb.append(", retryCount=").append(retryCount);
+        sb.append(", time=").append(getTotalWaitTime());
+        sb.append(", packets=");
+        sb.append('{');
         for (int i = 0; i < length; i++) {
-            if (packets[i] != null) b.append(i + 1);
-            else b.append(' ');
-            b.append(',');
+            if (packets[i] != null) sb.append(i + 1);
+            else sb.append(' ');
+            sb.append(',');
         }
-        b.setCharAt(b.length() - 1, '}');
-        b.append(']');
-        return b.toString();
+        sb.setCharAt(sb.length() - 1, '}');
+        sb.append(']');
+        return sb.toString();
     }
 }

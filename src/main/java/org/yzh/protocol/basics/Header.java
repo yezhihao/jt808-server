@@ -204,19 +204,19 @@ public class Header extends AbstractHeader {
 
     @Override
     public String toString() {
-        final StringBuilder b = new StringBuilder(96);
-        b.append(MessageId.get(messageId));
-        b.append('[');
-        b.append("messageId=").append(messageId);
-        b.append(", properties=").append(properties);
-        b.append(", versionNo=").append(versionNo);
-        b.append(", mobileNo=").append(mobileNo);
-        b.append(", serialNo=").append(serialNo);
+        final StringBuilder sb = new StringBuilder(102);
+        sb.append(MessageId.get(messageId));
+        sb.append('[');
+        sb.append("messageId=").append(messageId);
+        sb.append(", properties=").append(properties);
+        sb.append(", versionNo=").append(versionNo);
+        sb.append(", mobileNo=").append(mobileNo);
+        sb.append(", serialNo=").append(serialNo);
         if (isSubpackage()) {
-            b.append(", packageTotal=").append(packageTotal);
-            b.append(", packageNo=").append(packageNo);
+            sb.append(", packageTotal=").append(packageTotal);
+            sb.append(", packageNo=").append(packageNo);
         }
-        b.append(']');
-        return b.toString();
+        sb.append(']');
+        return sb.toString();
     }
 }

@@ -73,7 +73,7 @@ public class BeanMetadata<T> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder(48);
         sb.append('{');
         sb.append("typeClass=").append(typeClass.getSimpleName());
         sb.append(", version=").append(version);

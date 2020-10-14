@@ -131,10 +131,10 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
         sb.append("index=").append(index);
         sb.append(", length=").append(length);
         sb.append(", desc").append(desc);
-        sb.append(", readMethod=").append(readMethod);
-        sb.append(", writeMethod=").append(writeMethod);
+        sb.append(", readMethod=").append(readMethod.getName());
+        sb.append(", writeMethod=").append(writeMethod.getName());
         if (lengthMethod != null)
-            sb.append(", lengthMethod=").append(lengthMethod);
+            sb.append(", lengthMethod=").append(lengthMethod.getName());
         sb.append('}');
         return sb.toString();
     }
