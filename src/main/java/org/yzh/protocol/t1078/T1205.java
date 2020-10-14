@@ -13,25 +13,25 @@ import java.util.List;
 @Message(JT1078.终端上传音视频资源列表)
 public class T1205 extends AbstractMessage<Header> {
 
-    private Integer serialNo;
-    private Integer count;
+    private int serialNo;
+    private int count;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public Integer getSerialNo() {
+    public int getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(Integer serialNo) {
+    public void setSerialNo(int serialNo) {
         this.serialNo = serialNo;
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "音视频资源总数")
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
@@ -46,22 +46,22 @@ public class T1205 extends AbstractMessage<Header> {
 
     public static class Item {
 
-        private Integer channelId;
+        private int channelNo;
         private String startTime;
         private String endTime;
         private byte[] warningMark;
-        private Integer avItemType;
-        private Integer streamType = 1;
-        private Integer romType;
-        private Long size;
+        private int mediaType;
+        private int streamType = 1;
+        private int memoryType;
+        private long size;
 
         @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
-        public Integer getChannelId() {
-            return channelId;
+        public int getChannelNo() {
+            return channelNo;
         }
 
-        public void setChannelId(Integer channelId) {
-            this.channelId = channelId;
+        public void setChannelNo(int channelNo) {
+            this.channelNo = channelNo;
         }
 
         @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
@@ -92,51 +92,52 @@ public class T1205 extends AbstractMessage<Header> {
         }
 
         @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
-        public Integer getAvItemType() {
-            return avItemType;
+        public int getMediaType() {
+            return mediaType;
         }
 
-        public void setAvItemType(Integer avItemType) {
-            this.avItemType = avItemType;
+        public void setMediaType(int mediaType) {
+            this.mediaType = mediaType;
         }
 
         @Field(index = 22, type = DataType.BYTE, desc = "码流类型")
-        public Integer getStreamType() {
+        public int getStreamType() {
             return streamType;
         }
 
-        public void setStreamType(Integer streamType) {
+        public void setStreamType(int streamType) {
             this.streamType = streamType;
         }
 
         @Field(index = 23, type = DataType.BYTE, desc = "存储器类型")
-        public Integer getRomType() {
-            return romType;
+        public int getMemoryType() {
+            return memoryType;
         }
 
-        public void setRomType(Integer romType) {
-            this.romType = romType;
+        public void setMemoryType(int memoryType) {
+            this.memoryType = memoryType;
         }
 
         @Field(index = 24, type = DataType.DWORD, desc = "文件大小")
-        public Long getSize() {
+        public long getSize() {
             return size;
         }
 
-        public void setSize(Long size) {
+        public void setSize(long size) {
             this.size = size;
         }
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("{");
-            sb.append("channelId=").append(channelId);
+            final StringBuilder sb = new StringBuilder(128);
+            sb.append('{');
+            sb.append("channelNo=").append(channelNo);
             sb.append(", startTime='").append(startTime).append('\'');
             sb.append(", endTime='").append(endTime).append('\'');
             sb.append(", warningMark=").append(Arrays.toString(warningMark));
-            sb.append(", avItemType=").append(avItemType);
+            sb.append(", mediaType=").append(mediaType);
             sb.append(", streamType=").append(streamType);
-            sb.append(", romType=").append(romType);
+            sb.append(", memoryType=").append(memoryType);
             sb.append(", size=").append(size);
             sb.append('}');
             return sb.toString();

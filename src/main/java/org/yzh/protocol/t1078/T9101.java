@@ -20,7 +20,7 @@ public class T9101 extends AbstractMessage<Header> {
     private int tcpPort;
     private int udpPort;
     private int channelNo;
-    private int dataType;
+    private int mediaType;
     private int streamType;
 
     @Field(index = 0, type = DataType.BYTE, desc = "服务器IP地址长度")
@@ -70,12 +70,12 @@ public class T9101 extends AbstractMessage<Header> {
     }
 
     @Field(index = 6, type = DataType.BYTE, desc = "数据类型（0:音视频,1:视频,2:双向对讲,3:监听,4:中心广播,5:透传）")
-    public int getDataType() {
-        return dataType;
+    public int getMediaType() {
+        return mediaType;
     }
 
-    public void setDataType(int dataType) {
-        this.dataType = dataType;
+    public void setMediaType(int mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Field(index = 7, type = DataType.BYTE, desc = "码流类型（0:主码流,1:子码流）")

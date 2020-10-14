@@ -20,9 +20,9 @@ public class T9201 extends AbstractMessage<Header> {
     private int tcpPort;
     private int udpPort;
     private int channelNo;
-    private int dataType;
+    private int mediaType;
     private int streamType;
-    private int storageType;
+    private int memoryType;
     private int playbackMode;
     private int playbackSpeed;
     private String startTime;
@@ -74,13 +74,13 @@ public class T9201 extends AbstractMessage<Header> {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 6, type = DataType.BYTE, desc = "音视频类型")
-    public int getDataType() {
-        return dataType;
+    @Field(index = 6, type = DataType.BYTE, desc = "音视频资源类型")
+    public int getMediaType() {
+        return mediaType;
     }
 
-    public void setDataType(int dataType) {
-        this.dataType = dataType;
+    public void setMediaType(int mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Field(index = 7, type = DataType.BYTE, desc = "码流类型")
@@ -93,12 +93,12 @@ public class T9201 extends AbstractMessage<Header> {
     }
 
     @Field(index = 8, type = DataType.BYTE, desc = "存储器类型")
-    public int getStorageType() {
-        return storageType;
+    public int getMemoryType() {
+        return memoryType;
     }
 
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
+    public void setMemoryType(int memoryType) {
+        this.memoryType = memoryType;
     }
 
     @Field(index = 9, type = DataType.BYTE, desc = "回放方式")

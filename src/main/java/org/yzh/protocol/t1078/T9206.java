@@ -32,9 +32,9 @@ public class T9206 extends AbstractMessage<Header> {
     private String startTime;
     private String endTime;
     private byte[] warningMark;
-    private int dataType;
+    private int mediaType;
     private int streamType;
-    private int storageType;
+    private int memoryType;
     private int condition;
 
     @Field(index = 0, type = DataType.BYTE, desc = "服务器地址长度")
@@ -159,12 +159,12 @@ public class T9206 extends AbstractMessage<Header> {
     }
 
     @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型")
-    public int getDataType() {
-        return dataType;
+    public int getMediaType() {
+        return mediaType;
     }
 
-    public void setDataType(int dataType) {
-        this.dataType = dataType;
+    public void setMediaType(int mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Field(index = 28, type = DataType.BYTE, desc = "码流类型")
@@ -177,12 +177,12 @@ public class T9206 extends AbstractMessage<Header> {
     }
 
     @Field(index = 29, type = DataType.BYTE, desc = "存储位置")
-    public int getStorageType() {
-        return storageType;
+    public int getMemoryType() {
+        return memoryType;
     }
 
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
+    public void setMemoryType(int memoryType) {
+        this.memoryType = memoryType;
     }
 
 

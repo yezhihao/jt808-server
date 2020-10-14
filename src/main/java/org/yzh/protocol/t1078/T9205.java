@@ -18,9 +18,9 @@ public class T9205 extends AbstractMessage<Header> {
     private String startTime;
     private String endTime;
     private byte[] warningMark;
-    private int dataType;
+    private int mediaType;
     private int streamType;
-    private int storageType;
+    private int memoryType;
 
     @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
@@ -59,12 +59,12 @@ public class T9205 extends AbstractMessage<Header> {
     }
 
     @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型（0:音视频,1:音频,2:视频,3:视频或音视频）")
-    public int getDataType() {
-        return dataType;
+    public int getMediaType() {
+        return mediaType;
     }
 
-    public void setDataType(int dataType) {
-        this.dataType = dataType;
+    public void setMediaType(int mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Field(index = 22, type = DataType.BYTE, desc = "码流类型（0:所有码流,1:主码流,2:子码流）")
@@ -77,11 +77,11 @@ public class T9205 extends AbstractMessage<Header> {
     }
 
     @Field(index = 23, type = DataType.BYTE, desc = "存储器类型（0:所有存储器,1:主存储器,2:灾备存储器）")
-    public int getStorageType() {
-        return storageType;
+    public int getMemoryType() {
+        return memoryType;
     }
 
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
+    public void setMemoryType(int memoryType) {
+        this.memoryType = memoryType;
     }
 }

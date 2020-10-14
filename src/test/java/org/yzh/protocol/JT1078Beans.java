@@ -90,7 +90,7 @@ public class JT1078Beans {
         bean.setTcpPort(772);
         bean.setUdpPort(16582);
         bean.setChannelNo(12);
-        bean.setDataType(1);
+        bean.setMediaType(1);
         bean.setStreamType(0);
         return bean;
     }
@@ -120,9 +120,9 @@ public class JT1078Beans {
         bean.setTcpPort(42937);
         bean.setUdpPort(15468);
         bean.setChannelNo(26674);
-        bean.setDataType(2);
+        bean.setMediaType(2);
         bean.setStreamType(0);
-        bean.setStorageType(0);
+        bean.setMemoryType(0);
         bean.setPlaybackMode(0);
         bean.setPlaybackSpeed(0);
         bean.setStartTime("200707192359");
@@ -144,11 +144,11 @@ public class JT1078Beans {
     public static T9205 T9205() {
         T9205 bean = new T9205();
         bean.setChannelNo(34023);
-        bean.setDataType(20635);
+        bean.setMediaType(20635);
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
         bean.setWarningMark(new byte[8]);
-        bean.setStorageType(42752);
+        bean.setMemoryType(42752);
         bean.setStreamType(40558);
         return bean;
     }
@@ -165,8 +165,8 @@ public class JT1078Beans {
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
         bean.setWarningMark(new byte[8]);
-        bean.setDataType(0);
-        bean.setStorageType(1);
+        bean.setMediaType(0);
+        bean.setMemoryType(1);
         bean.setStreamType(1);
         bean.setCondition(1);
         return bean;
