@@ -10,16 +10,17 @@ public abstract class DynamicField<T> extends BasicField<T> {
 
     private final Method lengthReadMethod;
     private final Method lengthWriteMethod;
+    private final int lengthFieldLength;
 
     public DynamicField(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
         super(field, property);
-        if (lengthProperty != null) {
-            this.lengthReadMethod = lengthProperty.getReadMethod();
-            this.lengthWriteMethod = lengthProperty.getWriteMethod();
-        } else {
-            this.lengthReadMethod = null;
-            this.lengthWriteMethod = null;
-        }
+        this.lengthReadMethod = lengthProperty.getReadMethod();
+        this.lengthWriteMethod = lengthProperty.getWriteMethod();
+        int length = field.lengthSize();
+        Field lengthField = lengthReadMethod.getAnnotation(Field.class);
+        if (lengthField != null)
+            length = lengthField.type().length;
+        this.lengthFieldLength = length;
     }
 
     public boolean readTo(ByteBuf buf, Object target) throws Exception {
@@ -34,30 +35,45 @@ public abstract class DynamicField<T> extends BasicField<T> {
     public void writeTo(Object source, ByteBuf buf) throws Exception {
         Object value = readMethod.invoke(source);
         if (value != null) {
-            int start = buf.writerIndex();
+            int begin = buf.writerIndex();
             writeValue(buf, (T) value);
-            setLength(source, buf.writerIndex() - start);
+            int length = buf.writerIndex() - begin;
+            setLength(buf, begin - lengthFieldLength, length);
         }
     }
 
     public Integer getLength(Object obj) throws Exception {
-        if (lengthReadMethod == null)
-            return length;
         return (Integer) lengthReadMethod.invoke(obj);
     }
 
     public void setLength(Object obj, Object value) throws Exception {
-        if (lengthWriteMethod != null)
-            lengthWriteMethod.invoke(obj, value);
+        lengthWriteMethod.invoke(obj, value);
+    }
+
+    protected void setLength(ByteBuf buf, int offset, int length) {
+        switch (lengthFieldLength) {
+            case 1:
+                buf.setByte(offset, length);
+                break;
+            case 2:
+                buf.setShort(offset, length);
+                break;
+            case 3:
+                buf.setMedium(offset, length);
+                break;
+            case 4:
+                buf.setInt(offset, length);
+                break;
+            default:
+                throw new RuntimeException("unsupported lengthFieldLength: " + lengthFieldLength + " (expected: 1, 2, 3, 4)");
+        }
     }
 
     @Override
     public int compareTo(BasicField that) {
         int r = Integer.compare(this.index, that.index);
         if (r == 0) {
-            if (this.lengthReadMethod == null)
-                r = 1;
-            else
+            if (BasicField.class.isAssignableFrom(that.getClass()))
                 r = -1;
         }
         return r;

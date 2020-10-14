@@ -21,6 +21,8 @@ public @interface Field {
 
     String lengthName() default "";
 
+    int lengthSize() default 1;
+
     DataType type() default DataType.BYTE;
 
     String charset() default "GBK";

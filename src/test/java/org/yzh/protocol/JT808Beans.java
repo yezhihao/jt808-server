@@ -132,7 +132,7 @@ public class JT808Beans {
     public static T0107 T0107() {
         T0107 bean = new T0107();
         bean.setDeviceType(127);
-        bean.setMakerId("2D_ANEr");
+        bean.setMakerId("2D_AN");
         bean.setDeviceModel("BSJ-GF-06");
         bean.setDeviceId("5kw3noL");
         bean.setSimNo("12345678901234567890");
