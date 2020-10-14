@@ -3,6 +3,7 @@ package org.yzh.framework.orm.fields;
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.annotation.Field;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class FieldList<T> extends FieldMetadata<List<T>> {
 
     protected final BeanMetadata<T> beanMetadata;
 
-    public FieldList(int index, int length, String desc, Method readMethod, Method writeMethod, Method lengthMethod, BeanMetadata<T> beanMetadata) {
-        super(index, length, desc, readMethod, writeMethod, lengthMethod);
+    public FieldList(Field field, Method readMethod, Method writeMethod, Method lengthMethod, BeanMetadata<T> beanMetadata) {
+        super(field, readMethod, writeMethod, lengthMethod);
         this.beanMetadata = beanMetadata;
     }
 

@@ -2,14 +2,15 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.annotation.Field;
 
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
 public class FieldByteBuffer extends FieldMetadata<ByteBuffer> {
 
-    public FieldByteBuffer(int index, int length, String desc, Method readMethod, Method writeMethod, Method lengthMethod) {
-        super(index, length, desc, readMethod, writeMethod, lengthMethod);
+    public FieldByteBuffer(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
+        super(field, readMethod, writeMethod, lengthMethod);
     }
 
     @Override

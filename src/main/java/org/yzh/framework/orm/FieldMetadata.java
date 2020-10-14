@@ -9,7 +9,6 @@ import org.yzh.framework.orm.model.DataType;
 
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 
 /**
@@ -27,64 +26,64 @@ public abstract class FieldMetadata<T> implements Comparable<FieldMetadata> {
     protected final Method readMethod;
     protected final Method writeMethod;
     protected final Method lengthMethod;
+    protected final Field field;
 
-    public FieldMetadata(int index, int length, String desc, Method readMethod, Method writeMethod, Method lengthMethod) {
-        this.index = index;
-        this.length = length;
-        this.desc = desc;
-        this.readMethod = readMethod;
-        this.writeMethod = writeMethod;
-        this.lengthMethod = lengthMethod;
-    }
-
-    public static FieldMetadata newInstance(Class typeClass, Method readMethod, Method writeMethod, Method lengthMethod, Field field) {
-        return newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, null);
-    }
-
-    public static FieldMetadata newInstance(Class typeClass, Method readMethod, Method writeMethod, Method lengthMethod, Field field, BeanMetadata beanMetadata) {
-        DataType dataType = field.type();
-        String desc = field.desc();
-        int index = field.index();
+    public FieldMetadata(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
+        this.index = field.index();
         int length = field.length();
         if (length < 0)
             length = field.type().length;
+        this.length = length;
+        this.desc = field.desc();
+        this.readMethod = readMethod;
+        this.writeMethod = writeMethod;
+        this.lengthMethod = lengthMethod;
+        this.field = field;
+    }
+
+    public static FieldMetadata newInstance(Field field, Class typeClass, Method readMethod, Method writeMethod, Method lengthMethod) {
+        return newInstance(field, typeClass, readMethod, writeMethod, lengthMethod, null);
+    }
+
+    public static FieldMetadata newInstance(Field field, Class typeClass, Method readMethod, Method writeMethod, Method lengthMethod, BeanMetadata beanMetadata) {
+        DataType dataType = field.type();
 
         FieldMetadata result;
         switch (dataType) {
             case BYTE:
-                result = new FieldInt8(index, length, desc, readMethod, writeMethod, lengthMethod);
+                result = new FieldInt8(field, readMethod, writeMethod, lengthMethod);
                 break;
             case WORD:
-                result = new FieldInt16(index, length, desc, readMethod, writeMethod, lengthMethod);
+                result = new FieldInt16(field, readMethod, writeMethod, lengthMethod);
                 break;
             case DWORD:
                 if (typeClass.isAssignableFrom(Long.class) || typeClass.isAssignableFrom(Long.TYPE))
-                    result = new FieldLong32(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldLong32(field, readMethod, writeMethod, lengthMethod);
                 else
-                    result = new FieldInt32(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldInt32(field, readMethod, writeMethod, lengthMethod);
                 break;
             case BCD8421:
                 if (typeClass.isAssignableFrom(LocalDateTime.class))
-                    result = new FieldDateTimeBCD(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldDateTimeBCD(field, readMethod, writeMethod, lengthMethod);
                 else
-                    result = new FieldStringBCD(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldStringBCD(field, readMethod, writeMethod, lengthMethod);
                 break;
             case BYTES:
                 if (typeClass.isAssignableFrom(String.class))
-                    result = new FieldString(index, length, desc, readMethod, writeMethod, lengthMethod, field.pad(), Charset.forName(field.charset()));
+                    result = new FieldString(field, readMethod, writeMethod, lengthMethod);
                 else if (typeClass.isAssignableFrom(ByteBuffer.class))
-                    result = new FieldByteBuffer(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldByteBuffer(field, readMethod, writeMethod, lengthMethod);
                 else
-                    result = new FieldBytes(index, length, desc, readMethod, writeMethod, lengthMethod);
+                    result = new FieldBytes(field, readMethod, writeMethod, lengthMethod);
                 break;
             case STRING:
-                result = new FieldString(index, length, desc, readMethod, writeMethod, lengthMethod, field.pad(), Charset.forName(field.charset()));
+                result = new FieldString(field, readMethod, writeMethod, lengthMethod);
                 break;
             case OBJ:
-                result = new FieldObject(index, length, desc, readMethod, writeMethod, lengthMethod, beanMetadata);
+                result = new FieldObject(field, readMethod, writeMethod, lengthMethod, beanMetadata);
                 break;
             case LIST:
-                result = new FieldList(index, length, desc, readMethod, writeMethod, lengthMethod, beanMetadata);
+                result = new FieldList(field, readMethod, writeMethod, lengthMethod, beanMetadata);
                 break;
             default:
                 throw new RuntimeException("不支持的类型转换");

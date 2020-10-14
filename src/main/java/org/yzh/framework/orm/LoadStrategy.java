@@ -97,11 +97,11 @@ public abstract class LoadStrategy {
             initClass(root, typeClass);
             for (int ver : versions) {
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field, beanMetadata);
+                value = FieldMetadata.newInstance(field, typeClass, readMethod, writeMethod, lengthMethod, beanMetadata);
                 multiVersionFields.get(ver).add(value);
             }
         } else {
-            value = FieldMetadata.newInstance(typeClass, readMethod, writeMethod, lengthMethod, field);
+            value = FieldMetadata.newInstance(field, typeClass, readMethod, writeMethod, lengthMethod);
             for (int ver : versions) {
                 multiVersionFields.get(ver).add(value);
             }

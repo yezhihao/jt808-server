@@ -2,6 +2,7 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.annotation.Field;
 
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -11,10 +12,10 @@ public class FieldString extends FieldMetadata<String> {
     private byte pad;
     private Charset charset;
 
-    public FieldString(int index, int length, String desc, Method readMethod, Method writeMethod, Method lengthMethod, byte pad, Charset charset) {
-        super(index, length, desc, readMethod, writeMethod, lengthMethod);
-        this.pad = pad;
-        this.charset = charset;
+    public FieldString(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
+        super(field, readMethod, writeMethod, lengthMethod);
+        this.pad = field.pad();
+        this.charset = Charset.forName(field.charset());
     }
 
     @Override

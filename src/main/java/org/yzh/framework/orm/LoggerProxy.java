@@ -9,7 +9,7 @@ public class LoggerProxy extends FieldMetadata {
     private FieldMetadata target;
 
     public LoggerProxy(FieldMetadata target) {
-        super(target.index, target.length, target.desc, target.readMethod, target.writeMethod, target.lengthMethod);
+        super(target.field, target.readMethod, target.writeMethod, target.lengthMethod);
         this.target = target;
     }
 
