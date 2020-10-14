@@ -1,19 +1,20 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.DynamicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-public class FieldString extends FieldMetadata<String> {
-    private byte pad;
-    private Charset charset;
+public class FieldString extends DynamicField<String> {
 
-    public FieldString(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    private final byte pad;
+    private final Charset charset;
+
+    public FieldString(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
+        super(field, property, lengthProperty);
         this.pad = field.pad();
         this.charset = Charset.forName(field.charset());
     }

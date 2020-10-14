@@ -2,7 +2,7 @@ package org.yzh.codec;
 
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.BasicField;
 import org.yzh.protocol.codec.JTMessageDecoder;
 
 /**
@@ -15,7 +15,7 @@ public class Elucidator {
     private static JTMessageDecoder elucidator;
 
     static {
-        FieldMetadata.EXPLAIN = true;
+        BasicField.EXPLAIN = true;
         elucidator = new JTMessageDecoder("org.yzh.protocol");
     }
 

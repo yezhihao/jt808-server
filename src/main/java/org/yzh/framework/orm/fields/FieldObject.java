@@ -2,20 +2,19 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.BeanMetadata;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.DynamicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 
-public class FieldObject<T> extends FieldMetadata<T> {
+public class FieldObject<T> extends DynamicField<T> {
 
     protected BeanMetadata<T> beanMetadata;
 
-    public FieldObject(Field field, Method readMethod, Method writeMethod, Method lengthMethod, BeanMetadata<T> beanMetadata) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    public FieldObject(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty, BeanMetadata<T> beanMetadata) {
+        super(field, property, lengthProperty);
         this.beanMetadata = beanMetadata;
     }
-
 
     @Override
     public T readValue(ByteBuf buf, int length) {

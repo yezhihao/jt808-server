@@ -1,15 +1,15 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.DynamicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 
-public class FieldBytes extends FieldMetadata<byte[]> {
+public class FieldBytes extends DynamicField<byte[]> {
 
-    public FieldBytes(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    public FieldBytes(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
+        super(field, property, lengthProperty);
     }
 
     @Override

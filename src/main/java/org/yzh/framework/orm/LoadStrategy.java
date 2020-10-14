@@ -38,13 +38,13 @@ public abstract class LoadStrategy {
             throw new RuntimeException(e);
         }
 
-        Map<Integer, List<FieldMetadata>> multiVersionFields = findMultiVersionFields(root, beanInfo);
-        for (Map.Entry<Integer, List<FieldMetadata>> entry : multiVersionFields.entrySet()) {
+        Map<Integer, List<BasicField>> multiVersionFields = findMultiVersionFields(root, beanInfo);
+        for (Map.Entry<Integer, List<BasicField>> entry : multiVersionFields.entrySet()) {
 
             Integer version = entry.getKey();
-            List<FieldMetadata> fieldList = entry.getValue();
+            List<BasicField> fieldList = entry.getValue();
 
-            FieldMetadata[] fields = fieldList.toArray(new FieldMetadata[fieldList.size()]);
+            BasicField[] fields = fieldList.toArray(new BasicField[fieldList.size()]);
             Arrays.sort(fields);
 
             BeanMetadata beanMetadata = new BeanMetadata(typeClass, version, fields);
@@ -52,11 +52,11 @@ public abstract class LoadStrategy {
         }
     }
 
-    protected static Map<Integer, List<FieldMetadata>> findMultiVersionFields(Map<String, Map<Integer, BeanMetadata>> root, BeanInfo beanInfo) {
+    protected static Map<Integer, List<BasicField>> findMultiVersionFields(Map<String, Map<Integer, BeanMetadata>> root, BeanInfo beanInfo) {
         PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
-        Map<Integer, List<FieldMetadata>> multiVersionFields = new TreeMap<Integer, List<FieldMetadata>>() {
+        Map<Integer, List<BasicField>> multiVersionFields = new TreeMap<Integer, List<BasicField>>() {
             @Override
-            public List<FieldMetadata> get(Object key) {
+            public List<BasicField> get(Object key) {
                 List result = super.get(key);
                 if (result == null)
                     super.put((Integer) key, result = new ArrayList<>(properties.length));
@@ -82,13 +82,12 @@ public abstract class LoadStrategy {
         return multiVersionFields;
     }
 
-    protected static void fillField(Map<String, Map<Integer, BeanMetadata>> root, PropertyDescriptor[] properties, Map<Integer, List<FieldMetadata>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+    protected static void fillField(Map<String, Map<Integer, BeanMetadata>> root, PropertyDescriptor[] properties, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
         Class<?> typeClass = propertyDescriptor.getPropertyType();
         Method readMethod = propertyDescriptor.getReadMethod();
-        Method writeMethod = propertyDescriptor.getWriteMethod();
-        Method lengthMethod = findLengthMethod(properties, field.lengthName());
+        PropertyDescriptor lengthProperty = findLengthProperty(properties, field.lengthName());
 
-        FieldMetadata value;
+        BasicField value;
         int[] versions = field.version();
 
         if (field.type() == DataType.OBJ || field.type() == DataType.LIST) {
@@ -97,23 +96,23 @@ public abstract class LoadStrategy {
             initClass(root, typeClass);
             for (int ver : versions) {
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldMetadata.newInstance(field, typeClass, readMethod, writeMethod, lengthMethod, beanMetadata);
+                value = BasicField.newInstance(field, typeClass, propertyDescriptor, lengthProperty, beanMetadata);
                 multiVersionFields.get(ver).add(value);
             }
         } else {
-            value = FieldMetadata.newInstance(field, typeClass, readMethod, writeMethod, lengthMethod);
+            value = BasicField.newInstance(field, typeClass, propertyDescriptor, lengthProperty);
             for (int ver : versions) {
                 multiVersionFields.get(ver).add(value);
             }
         }
     }
 
-    protected static Method findLengthMethod(PropertyDescriptor[] properties, String lengthName) {
+    protected static PropertyDescriptor findLengthProperty(PropertyDescriptor[] properties, String lengthName) {
         if ("".equals(lengthName))
             return null;
         for (PropertyDescriptor property : properties)
             if (lengthName.equals(property.getName()))
-                return property.getReadMethod();
+                return property;
         throw new RuntimeException("not found method " + lengthName);
     }
 }

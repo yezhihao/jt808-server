@@ -4,12 +4,12 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class LoggerProxy extends FieldMetadata {
+public class LoggerProxy extends BasicField {
 
-    private FieldMetadata target;
+    private BasicField target;
 
-    public LoggerProxy(FieldMetadata target) {
-        super(target.field, target.readMethod, target.writeMethod, target.lengthMethod);
+    public LoggerProxy(BasicField target) {
+        super(target.field, target.property);
         this.target = target;
     }
 

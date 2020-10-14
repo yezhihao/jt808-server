@@ -1,15 +1,15 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 
-public class FieldInt8 extends FieldMetadata<Integer> {
+public class FieldInt8 extends BasicField<Integer> {
 
-    public FieldInt8(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    public FieldInt8(Field field, PropertyDescriptor property) {
+        super(field, property);
     }
 
     @Override
