@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -52,6 +51,5 @@ public class T8304 extends AbstractMessage<Header> {
 
     public void setContent(String content) {
         this.content = content;
-        this.length = content.getBytes(Charsets.GBK).length;
     }
 }

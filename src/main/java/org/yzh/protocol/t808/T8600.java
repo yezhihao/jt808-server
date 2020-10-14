@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.List;
@@ -92,7 +91,6 @@ public class T8600 extends AbstractMessage<Header> {
             this.duration = duration;
             this.nightMaxSpeed = nightMaxSpeed;
             this.name = name;
-            this.nameLength = name.getBytes(Charsets.GBK).length;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
@@ -201,7 +199,6 @@ public class T8600 extends AbstractMessage<Header> {
 
         public void setName(String name) {
             this.name = name;
-            this.nameLength = name.getBytes(Charsets.GBK).length;
         }
     }
 }

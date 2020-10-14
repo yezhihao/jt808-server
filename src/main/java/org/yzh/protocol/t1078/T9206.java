@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT1078;
 
 /**
@@ -53,7 +52,6 @@ public class T9206 extends AbstractMessage<Header> {
 
     public void setIp(String ip) {
         this.ip = ip;
-        this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 1, type = DataType.WORD, desc = "端口")
@@ -81,7 +79,6 @@ public class T9206 extends AbstractMessage<Header> {
 
     public void setUsername(String username) {
         this.username = username;
-        this.usernameLength = username.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 4, type = DataType.BYTE, desc = "密码长度")
@@ -100,7 +97,6 @@ public class T9206 extends AbstractMessage<Header> {
 
     public void setPassword(String password) {
         this.password = password;
-        this.passwordLength = password.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 5, type = DataType.BYTE, desc = "文件上传路径长度")
@@ -119,7 +115,6 @@ public class T9206 extends AbstractMessage<Header> {
 
     public void setPath(String path) {
         this.path = path;
-        this.pathLength = path.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 6, type = DataType.BYTE, desc = "逻辑通道号")

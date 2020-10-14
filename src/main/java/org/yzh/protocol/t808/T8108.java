@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -60,7 +59,6 @@ public class T8108 extends AbstractMessage<Header> {
 
     public void setVersion(String version) {
         this.version = version;
-        this.versionLen = version.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 7, type = DataType.DWORD, desc = "数据包长度")

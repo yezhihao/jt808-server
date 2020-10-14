@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
@@ -98,7 +97,6 @@ public class T8401 extends AbstractMessage<Header> {
 
         public void setPhone(String phone) {
             this.phone = phone;
-            this.phoneLength = phone.getBytes(Charsets.GBK).length;
         }
 
         @Field(index = 2, type = DataType.BYTE, desc = "联系人长度")
@@ -117,7 +115,6 @@ public class T8401 extends AbstractMessage<Header> {
 
         public void setName(String name) {
             this.name = name;
-            this.nameLength = name.getBytes(Charsets.GBK).length;
         }
     }
 }
