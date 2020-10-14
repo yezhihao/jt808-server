@@ -1,10 +1,10 @@
 package org.yzh.framework.orm.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.framework.session.Session;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 /**
@@ -13,9 +13,8 @@ import java.io.Serializable;
  */
 public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
 
-    @JsonIgnore
-    private Session session;
-    @JsonIgnore
+    private transient Session session;
+
     private T header;
 
     public AbstractMessage() {
@@ -25,6 +24,7 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
         this.header = header;
     }
 
+    @Transient
     public Session getSession() {
         return session;
     }
@@ -42,6 +42,8 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
     }
 
     public int getMessageId() {
+        if (header == null)
+            return 0;
         return header.getMessageId();
     }
 
