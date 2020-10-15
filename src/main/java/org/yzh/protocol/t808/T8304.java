@@ -16,7 +16,6 @@ import org.yzh.protocol.commons.JT808;
 public class T8304 extends AbstractMessage<Header> {
 
     private int type;
-    private int length;
     private String content;
 
     public T8304() {
@@ -35,16 +34,7 @@ public class T8304 extends AbstractMessage<Header> {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.WORD, desc = "信息长度")
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    @Field(index = 3, type = DataType.STRING, lengthName = "length", desc = "文本信息")
+    @Field(index = 3, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
     public String getContent() {
         return content;
     }

@@ -14,21 +14,11 @@ import org.yzh.protocol.commons.JSATL12;
 @Message({JSATL12.文件信息上传, JSATL12.文件上传完成消息})
 public class T1211 extends AbstractMessage<Header> {
 
-    private int nameLength;
     private String name;
     private int type;
     private long size;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "文件名称长度")
-    public int getNameLength() {
-        return nameLength;
-    }
-
-    public void setNameLength(int nameLength) {
-        this.nameLength = nameLength;
-    }
-
-    @Field(index = 1, type = DataType.STRING, lengthName = "nameLength", desc = "文件名称")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
     public String getName() {
         return name;
     }

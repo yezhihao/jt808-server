@@ -14,7 +14,6 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.实时音视频传输请求)
 public class T9101 extends AbstractMessage<Header> {
 
-    private int ipLength;
     private String ip;
     private int tcpPort;
     private int udpPort;
@@ -22,16 +21,7 @@ public class T9101 extends AbstractMessage<Header> {
     private int mediaType;
     private int streamType;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "服务器IP地址长度")
-    public int getIpLength() {
-        return ipLength;
-    }
-
-    public void setIpLength(int ipLength) {
-        this.ipLength = ipLength;
-    }
-
-    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器IP地址")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }

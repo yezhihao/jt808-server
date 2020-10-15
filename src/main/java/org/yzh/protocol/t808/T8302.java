@@ -18,7 +18,6 @@ import java.util.List;
 public class T8302 extends AbstractMessage<Header> {
 
     private int sign;
-    private int contentLen;
     private String content;
     private List<Option> options;
 
@@ -38,16 +37,7 @@ public class T8302 extends AbstractMessage<Header> {
         this.sign = sign;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "问题内容长度")
-    public int getContentLen() {
-        return contentLen;
-    }
-
-    public void setContentLen(int contentLen) {
-        this.contentLen = contentLen;
-    }
-
-    @Field(index = 2, type = DataType.STRING, lengthName = "contentLen", desc = "问题")
+    @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "问题")
     public String getContent() {
         return content;
     }
@@ -68,7 +58,6 @@ public class T8302 extends AbstractMessage<Header> {
     public static class Option {
 
         private int id;
-        private int length;
         private String content;
 
         public Option() {
@@ -88,16 +77,7 @@ public class T8302 extends AbstractMessage<Header> {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.WORD, desc = "答案内容长度")
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        @Field(index = 3, type = DataType.STRING, lengthName = "length", desc = "答案内容")
+        @Field(index = 3, type = DataType.STRING, lengthSize = 2, desc = "答案内容")
         public String getContent() {
             return content;
         }

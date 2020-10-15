@@ -17,10 +17,8 @@ public class T0702 extends AbstractMessage<Header> {
     private int status;
     private String dateTime;
     private int cardStatus;
-    private int nameLen;
     private String name;
     private String licenseNo;
-    private int institutionLen;
     private String institution;
     private String licenseValidPeriod;
     private String idCard;
@@ -52,16 +50,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.cardStatus = cardStatus;
     }
 
-    @Field(index = 8, type = DataType.BYTE, desc = "驾驶员姓名长度")
-    public int getNameLen() {
-        return nameLen;
-    }
-
-    public void setNameLen(int nameLen) {
-        this.nameLen = nameLen;
-    }
-
-    @Field(index = 9, type = DataType.STRING, lengthName = "nameLen", desc = "驾驶员姓名")
+    @Field(index = 9, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
     public String getName() {
         return name;
     }
@@ -79,16 +68,7 @@ public class T0702 extends AbstractMessage<Header> {
         this.licenseNo = licenseNo;
     }
 
-    @Field(index = 29, type = DataType.BYTE, desc = "发证机构名称长度")
-    public int getInstitutionLen() {
-        return institutionLen;
-    }
-
-    public void setInstitutionLen(int institutionLen) {
-        this.institutionLen = institutionLen;
-    }
-
-    @Field(index = 30, type = DataType.STRING, lengthName = "institutionLen", desc = "从业资格证发证机构名称")
+    @Field(index = 30, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
     public String getInstitution() {
         return institution;
     }

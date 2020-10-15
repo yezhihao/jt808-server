@@ -14,19 +14,11 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.文件上传指令)
 public class T9206 extends AbstractMessage<Header> {
 
-    private int ipLength;
     private String ip;
     private int port;
-
-    private int usernameLength;
     private String username;
-
-    private int passwordLength;
     private String password;
-
-    private int pathLength;
     private String path;
-
     private int channelNo;
     private String startTime;
     private String endTime;
@@ -36,16 +28,7 @@ public class T9206 extends AbstractMessage<Header> {
     private int memoryType;
     private int condition;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "服务器地址长度")
-    public int getIpLength() {
-        return ipLength;
-    }
-
-    public void setIpLength(int ipLength) {
-        this.ipLength = ipLength;
-    }
-
-    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器地址")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
     public String getIp() {
         return ip;
     }
@@ -63,16 +46,7 @@ public class T9206 extends AbstractMessage<Header> {
         this.port = port;
     }
 
-    @Field(index = 3, type = DataType.BYTE, desc = "用户名长度")
-    public int getUsernameLength() {
-        return usernameLength;
-    }
-
-    public void setUsernameLength(int usernameLength) {
-        this.usernameLength = usernameLength;
-    }
-
-    @Field(index = 4, type = DataType.STRING, lengthName = "usernameLength", desc = "用户名")
+    @Field(index = 4, type = DataType.STRING, lengthSize = 1, desc = "用户名")
     public String getUsername() {
         return username;
     }
@@ -81,16 +55,7 @@ public class T9206 extends AbstractMessage<Header> {
         this.username = username;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "密码长度")
-    public int getPasswordLength() {
-        return passwordLength;
-    }
-
-    public void setPasswordLength(int passwordLength) {
-        this.passwordLength = passwordLength;
-    }
-
-    @Field(index = 5, type = DataType.STRING, lengthName = "passwordLength", desc = "密码")
+    @Field(index = 5, type = DataType.STRING, lengthSize = 1, desc = "密码")
     public String getPassword() {
         return password;
     }
@@ -99,16 +64,7 @@ public class T9206 extends AbstractMessage<Header> {
         this.password = password;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "文件上传路径长度")
-    public int getPathLength() {
-        return pathLength;
-    }
-
-    public void setPathLength(int pathLength) {
-        this.pathLength = pathLength;
-    }
-
-    @Field(index = 6, type = DataType.STRING, lengthName = "pathLength", desc = "文件上传路径")
+    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "文件上传路径")
     public String getPath() {
         return path;
     }
@@ -179,7 +135,6 @@ public class T9206 extends AbstractMessage<Header> {
     public void setMemoryType(int memoryType) {
         this.memoryType = memoryType;
     }
-
 
     @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件")
     public int getCondition() {

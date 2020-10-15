@@ -49,28 +49,16 @@ public class T0704 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-
-        private int length;
         private T0200 position;
 
         public Item() {
         }
 
-        public Item(int length, T0200 position) {
-            this.length = length;
+        public Item(T0200 position) {
             this.position = position;
         }
 
-        @Field(index = 0, type = DataType.WORD, desc = "位置汇报数据体长度")
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        @Field(index = 2, type = DataType.OBJ, lengthName = "length", desc = "位置汇报数据体")
+        @Field(index = 2, type = DataType.OBJ, lengthSize = 2, desc = "位置汇报数据体")
         public T0200 getPosition() {
             return position;
         }

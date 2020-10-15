@@ -20,9 +20,7 @@ public class T0107 extends AbstractMessage<Header> {
     private String deviceModel;
     private String deviceId;
     private String simNo;
-    private int hardwareVersionLen;
     private String hardwareVersion;
-    private int firmwareVersionLen;
     private String firmwareVersion;
     private int gnssAttribute;
     private int networkAttribute;
@@ -77,18 +75,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.simNo = simNo;
     }
 
-    @Fs({@Field(index = 52, type = DataType.BYTE, desc = "硬件版本号长度", version = 0),
-            @Field(index = 77, type = DataType.BYTE, desc = "硬件版本号长度", version = 1)})
-    public int getHardwareVersionLen() {
-        return hardwareVersionLen;
-    }
-
-    public void setHardwareVersionLen(int hardwareVersionLen) {
-        this.hardwareVersionLen = hardwareVersionLen;
-    }
-
-    @Fs({@Field(index = 53, type = DataType.STRING, lengthName = "hardwareVersionLen", desc = "硬件版本号", version = 0),
-            @Field(index = 78, type = DataType.STRING, lengthName = "hardwareVersionLen", desc = "硬件版本号", version = 1)})
+    @Fs({@Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0),
+            @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)})
     public String getHardwareVersion() {
         return hardwareVersion;
     }
@@ -97,18 +85,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.hardwareVersion = hardwareVersion;
     }
 
-    @Fs({@Field(index = 53, type = DataType.BYTE, desc = "固件版本号长度", version = 0),
-            @Field(index = 78, type = DataType.BYTE, desc = "固件版本号长度", version = 1)})
-    public int getFirmwareVersionLen() {
-        return firmwareVersionLen;
-    }
-
-    public void setFirmwareVersionLen(int firmwareVersionLen) {
-        this.firmwareVersionLen = firmwareVersionLen;
-    }
-
-    @Fs({@Field(index = 54, type = DataType.STRING, lengthName = "firmwareVersionLen", desc = "固件版本号", version = 0),
-            @Field(index = 79, type = DataType.STRING, lengthName = "firmwareVersionLen", desc = "固件版本号", version = 1)})
+    @Fs({@Field(index = 54, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0),
+            @Field(index = 79, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)})
     public String getFirmwareVersion() {
         return firmwareVersion;
     }

@@ -59,7 +59,6 @@ public class T8301 extends AbstractMessage<Header> {
 
     public static class Event {
         private int id;
-        private int length;
         private String content;
 
         public Event() {
@@ -79,16 +78,7 @@ public class T8301 extends AbstractMessage<Header> {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.BYTE, desc = "长度")
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        @Field(index = 2, type = DataType.STRING, lengthName = "length", desc = "内容")
+        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "内容")
         public String getContent() {
             return content;
         }

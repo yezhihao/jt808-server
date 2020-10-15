@@ -59,7 +59,6 @@ public class T8303 extends AbstractMessage<Header> {
 
     public static class Item {
         private int id;
-        private int length;
         private String content;
 
         public Item() {
@@ -79,16 +78,7 @@ public class T8303 extends AbstractMessage<Header> {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.WORD, desc = "长度")
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        @Field(index = 3, type = DataType.STRING, lengthName = "length", desc = "信息名称")
+        @Field(index = 3, type = DataType.STRING, lengthSize = 2, desc = "信息名称")
         public String getContent() {
             return content;
         }

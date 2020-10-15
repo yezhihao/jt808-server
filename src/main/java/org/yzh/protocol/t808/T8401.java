@@ -58,9 +58,7 @@ public class T8401 extends AbstractMessage<Header> {
 
     public static class Item {
         private int sign;
-        private int phoneLength;
         private String phone;
-        private int nameLength;
         private String name;
 
         public Item() {
@@ -68,8 +66,8 @@ public class T8401 extends AbstractMessage<Header> {
 
         public Item(int sign, String phone, String name) {
             this.sign = sign;
-            this.setPhone(phone);
-            this.setName(name);
+            this.phone = phone;
+            this.name = name;
         }
 
         @Field(index = 0, type = DataType.BYTE, desc = "标志")
@@ -81,16 +79,7 @@ public class T8401 extends AbstractMessage<Header> {
             this.sign = sign;
         }
 
-        @Field(index = 1, type = DataType.BYTE, desc = "电话号码长度")
-        public int getPhoneLength() {
-            return phoneLength;
-        }
-
-        public void setPhoneLength(int phoneLength) {
-            this.phoneLength = phoneLength;
-        }
-
-        @Field(index = 2, type = DataType.STRING, lengthName = "phoneLength", desc = "电话号码")
+        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "电话号码")
         public String getPhone() {
             return phone;
         }
@@ -99,16 +88,7 @@ public class T8401 extends AbstractMessage<Header> {
             this.phone = phone;
         }
 
-        @Field(index = 2, type = DataType.BYTE, desc = "联系人长度")
-        public int getNameLength() {
-            return nameLength;
-        }
-
-        public void setNameLength(int nameLength) {
-            this.nameLength = nameLength;
-        }
-
-        @Field(index = 3, type = DataType.STRING, lengthName = "nameLength", desc = "联系人")
+        @Field(index = 3, type = DataType.STRING, lengthSize = 1, desc = "联系人")
         public String getName() {
             return name;
         }
