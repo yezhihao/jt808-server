@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JSATL12;
 
 /**
@@ -15,7 +14,6 @@ import org.yzh.protocol.commons.JSATL12;
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends AbstractMessage<Header> {
 
-    private int ipLength;
     private String ip;
     private int tcpPort;
     private int udpPort;
@@ -23,24 +21,13 @@ public class T9208 extends AbstractMessage<Header> {
     private String alarmNo;
     private byte[] reserved;
 
-
-    @Field(index = 0, type = DataType.BYTE, desc = "IP地址长度")
-    public int getIpLength() {
-        return ipLength;
-    }
-
-    public void setIpLength(int ipLength) {
-        this.ipLength = ipLength;
-    }
-
-    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器IP地址")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
 
     public void setIp(String ip) {
         this.ip = ip;
-        this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 1, type = DataType.WORD, desc = "TCP端口")

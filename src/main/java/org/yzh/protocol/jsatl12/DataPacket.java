@@ -64,7 +64,7 @@ public class DataPacket extends AbstractMessage<Header> {
         this.length = length;
     }
 
-    @Field(index = 62, type = DataType.BYTES, lengthName = "length", desc = "数据体")
+    @Field(index = 62, type = DataType.BYTES, desc = "数据体")
     public ByteBuffer getData() {
         return data;
     }

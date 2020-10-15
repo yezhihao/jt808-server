@@ -4,6 +4,11 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t1078.*;
+import org.yzh.web.commons.DateUtils;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JT/T 1078协议单元测试数据
@@ -11,6 +16,9 @@ import org.yzh.protocol.t1078.*;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JT1078Beans {
+
+    private static final LocalDateTime startTime = LocalDateTime.parse("2020-01-01 00:00:00", DateUtils.DATE_TIME_FORMATTER);
+    private static final LocalDateTime endTime = LocalDateTime.parse("2020-12-31 23:59:59", DateUtils.DATE_TIME_FORMATTER);
 
     /** 2013版消息头 */
     public static AbstractMessage H2013(AbstractMessage message) {
@@ -69,9 +77,15 @@ public class JT1078Beans {
 
     //终端上传音视频资源列表
     public static T1205 T1205() {
+        byte[] bytes = new byte[8];
+        List<T1205.Item> items = new ArrayList<>();
+        items.add(new T1205.Item(1, startTime, endTime, bytes, 1, 1, 1, 1024));
+        items.add(new T1205.Item(2, startTime, endTime, bytes, 2, 2, 2, 2048));
+
         T1205 bean = new T1205();
-        bean.setSerialNo(39786);
-        bean.setItems(null);
+        bean.setSerialNo(4321);
+        bean.setCount(items.size());
+        bean.setItems(items);
         return bean;
     }
 
@@ -158,8 +172,8 @@ public class JT1078Beans {
         T9206 bean = new T9206();
         bean.setIp("192.168.1.1");
         bean.setPort(11053);
-        bean.setUsername("zuBwcZxzV");
-        bean.setPassword("7HeKsQtUR");
+        bean.setUsername("username");
+        bean.setPassword("password");
         bean.setPath("/alarm_file");
         bean.setChannelNo(1);
         bean.setStartTime("200707192359");

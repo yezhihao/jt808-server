@@ -1,15 +1,15 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.BasicField;
+import org.yzh.framework.orm.DynamicField;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
 import java.nio.ByteBuffer;
 
-public class FieldByteBuffer extends BasicField<ByteBuffer> {
+public class DynamicFieldByteBuffer extends DynamicField<ByteBuffer> {
 
-    public FieldByteBuffer(Field field, PropertyDescriptor property) {
+    public DynamicFieldByteBuffer(Field field, PropertyDescriptor property) {
         super(field, property);
     }
 

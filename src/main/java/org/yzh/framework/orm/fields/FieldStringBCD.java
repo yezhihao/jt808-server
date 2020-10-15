@@ -2,17 +2,17 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 
-public class FieldStringBCD extends FieldMetadata<String> {
+public class FieldStringBCD extends BasicField<String> {
 
     private int strLen;
 
-    public FieldStringBCD(Field field, Method readMethod, Method writeMethod, Method lengthMethod) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    public FieldStringBCD(Field field, PropertyDescriptor property) {
+        super(field, property);
         this.strLen = length * 2;
     }
 

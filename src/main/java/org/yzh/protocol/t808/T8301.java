@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
@@ -60,7 +59,6 @@ public class T8301 extends AbstractMessage<Header> {
 
     public static class Event {
         private int id;
-        private int length;
         private String content;
 
         public Event() {
@@ -69,7 +67,6 @@ public class T8301 extends AbstractMessage<Header> {
         public Event(int id, String content) {
             this.id = id;
             this.content = content;
-            this.length = content.getBytes(Charsets.GBK).length;
         }
 
         @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
@@ -81,23 +78,13 @@ public class T8301 extends AbstractMessage<Header> {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.BYTE, desc = "长度")
-        public int getLength() {
-            return length;
-        }
-
-        public void setLength(int length) {
-            this.length = length;
-        }
-
-        @Field(index = 2, type = DataType.STRING, lengthName = "length", desc = "内容")
+        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "内容")
         public String getContent() {
             return content;
         }
 
         public void setContent(String content) {
             this.content = content;
-            this.length = content.getBytes(Charsets.GBK).length;
         }
     }
 }

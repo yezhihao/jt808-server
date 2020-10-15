@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -21,9 +20,7 @@ public class T8108 extends AbstractMessage<Header> {
 
     private int type;
     private String makerId;
-    private int versionLen;
     private String version;
-    private int packetLen;
     private byte[] packet;
 
     @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
@@ -44,41 +41,21 @@ public class T8108 extends AbstractMessage<Header> {
         this.makerId = makerId;
     }
 
-    @Field(index = 6, type = DataType.BYTE, desc = "版本号长度")
-    public int getVersionLen() {
-        return versionLen;
-    }
-
-    public void setVersionLen(int versionLen) {
-        this.versionLen = versionLen;
-    }
-
-    @Field(index = 7, type = DataType.STRING, lengthName = "versionLen", desc = "版本号")
+    @Field(index = 7, type = DataType.STRING, lengthSize = 1, desc = "版本号")
     public String getVersion() {
         return version;
     }
 
     public void setVersion(String version) {
         this.version = version;
-        this.versionLen = version.getBytes(Charsets.GBK).length;
     }
 
-    @Field(index = 7, type = DataType.DWORD, desc = "数据包长度")
-    public int getPacketLen() {
-        return packetLen;
-    }
-
-    public void setPacketLen(int packetLen) {
-        this.packetLen = packetLen;
-    }
-
-    @Field(index = 11, type = DataType.BYTES, lengthName = "packetLen", desc = "数据包")
+    @Field(index = 11, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
     public byte[] getPacket() {
         return packet;
     }
 
     public void setPacket(byte[] packet) {
         this.packet = packet;
-        this.packetLen = packet.length;
     }
 }

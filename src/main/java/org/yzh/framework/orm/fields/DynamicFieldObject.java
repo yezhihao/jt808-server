@@ -1,17 +1,17 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.BeanMetadata;
+import org.yzh.framework.orm.DynamicField;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
 
-public class FieldObject<T> extends BasicField<T> {
+public class DynamicFieldObject<T> extends DynamicField<T> {
 
     protected BeanMetadata<T> beanMetadata;
 
-    public FieldObject(Field field, PropertyDescriptor property, BeanMetadata<T> beanMetadata) {
+    public DynamicFieldObject(Field field, PropertyDescriptor property, BeanMetadata<T> beanMetadata) {
         super(field, property);
         this.beanMetadata = beanMetadata;
     }

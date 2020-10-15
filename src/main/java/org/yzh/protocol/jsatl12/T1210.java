@@ -82,20 +82,10 @@ public class T1210 extends AbstractMessage<Header> {
     }
 
     public static class Item {
-        private int nameLength;
         private String name;
         private long size;
 
-        @Field(index = 0, type = DataType.BYTE, desc = "文件名称长度")
-        public int getNameLength() {
-            return nameLength;
-        }
-
-        public void setNameLength(int nameLength) {
-            this.nameLength = nameLength;
-        }
-
-        @Field(index = 1, type = DataType.STRING, lengthName = "nameLength", desc = "文件名称")
+        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
         public String getName() {
             return name;
         }

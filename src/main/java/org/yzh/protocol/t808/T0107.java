@@ -1,6 +1,7 @@
 package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
@@ -19,14 +20,12 @@ public class T0107 extends AbstractMessage<Header> {
     private String deviceModel;
     private String deviceId;
     private String simNo;
-    private int hardwareVersionLen;
     private String hardwareVersion;
-    private int firmwareVersionLen;
     private String firmwareVersion;
     private int gnssAttribute;
     private int networkAttribute;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "终端类型")
+    @Field(index = 0, type = DataType.WORD, desc = "终端类型", version = {0, 1})
     public int getDeviceType() {
         return deviceType;
     }
@@ -35,7 +34,7 @@ public class T0107 extends AbstractMessage<Header> {
         this.deviceType = deviceType;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 7, desc = "制造商ID,终端制造商编码")
+    @Field(index = 2, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码", version = {0, 1})
     public String getMakerId() {
         return makerId;
     }
@@ -45,7 +44,8 @@ public class T0107 extends AbstractMessage<Header> {
     }
 
     /** 由制造商自行定义,位数不足时，后补"0x00" */
-    @Field(index = 8, type = DataType.STRING, length = 20, desc = "终端型号")
+    @Fs({@Field(index = 7, type = DataType.STRING, length = 20, desc = "终端型号", version = 0),
+            @Field(index = 7, type = DataType.STRING, length = 30, desc = "终端型号", version = 1)})
     public String getDeviceModel() {
         return deviceModel;
     }
@@ -55,7 +55,8 @@ public class T0107 extends AbstractMessage<Header> {
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义,位数不足时，后补"0x00" */
-    @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID")
+    @Fs({@Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID", version = 0),
+            @Field(index = 37, type = DataType.STRING, length = 30, desc = "终端ID", version = 1)})
     public String getDeviceId() {
         return deviceId;
     }
@@ -64,7 +65,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.deviceId = deviceId;
     }
 
-    @Field(index = 34, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID")
+    @Fs({@Field(index = 42, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 0),
+            @Field(index = 67, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 1)})
     public String getSimNo() {
         return simNo;
     }
@@ -73,45 +75,28 @@ public class T0107 extends AbstractMessage<Header> {
         this.simNo = simNo;
     }
 
-    @Field(index = 45, type = DataType.BYTE, desc = "硬件版本号长度")
-    public int getHardwareVersionLen() {
-        return hardwareVersionLen;
-    }
-
-    public void setHardwareVersionLen(int hardwareVersionLen) {
-        this.hardwareVersionLen = hardwareVersionLen;
-    }
-
-    @Field(index = 46, type = DataType.STRING, lengthName = "hardwareVersionLen", desc = "硬件版本号")
+    @Fs({@Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0),
+            @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)})
     public String getHardwareVersion() {
         return hardwareVersion;
     }
 
     public void setHardwareVersion(String hardwareVersion) {
         this.hardwareVersion = hardwareVersion;
-        this.hardwareVersionLen = hardwareVersion.length();
     }
 
-    @Field(index = 46, type = DataType.BYTE, desc = "固件版本号长度")
-    public int getFirmwareVersionLen() {
-        return firmwareVersionLen;
-    }
-
-    public void setFirmwareVersionLen(int firmwareVersionLen) {
-        this.firmwareVersionLen = firmwareVersionLen;
-    }
-
-    @Field(index = 47, type = DataType.STRING, lengthName = "firmwareVersionLen", desc = "固件版本号")
+    @Fs({@Field(index = 54, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0),
+            @Field(index = 79, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)})
     public String getFirmwareVersion() {
         return firmwareVersion;
     }
 
     public void setFirmwareVersion(String firmwareVersion) {
         this.firmwareVersion = firmwareVersion;
-        this.firmwareVersionLen = firmwareVersion.length();
     }
 
-    @Field(index = 46, type = DataType.BYTE, desc = "GNSS模块属性")
+    @Fs({@Field(index = 54, type = DataType.BYTE, desc = "GNSS模块属性", version = 0),
+            @Field(index = 79, type = DataType.BYTE, desc = "GNSS模块属性", version = 1)})
     public int getGnssAttribute() {
         return gnssAttribute;
     }
@@ -120,7 +105,8 @@ public class T0107 extends AbstractMessage<Header> {
         this.gnssAttribute = gnssAttribute;
     }
 
-    @Field(index = 47, type = DataType.BYTE, desc = "通信模块属性")
+    @Fs({@Field(index = 55, type = DataType.BYTE, desc = "通信模块属性", version = 0),
+            @Field(index = 80, type = DataType.BYTE, desc = "通信模块属性", version = 1)})
     public int getNetworkAttribute() {
         return networkAttribute;
     }

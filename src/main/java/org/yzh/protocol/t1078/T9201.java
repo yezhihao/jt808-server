@@ -5,7 +5,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT1078;
 
 /**
@@ -15,7 +14,6 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.平台下发远程录像回放请求)
 public class T9201 extends AbstractMessage<Header> {
 
-    private int ipLength;
     private String ip;
     private int tcpPort;
     private int udpPort;
@@ -28,23 +26,13 @@ public class T9201 extends AbstractMessage<Header> {
     private String startTime;
     private String endTime;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "服务器IP地址长度")
-    public int getIpLength() {
-        return ipLength;
-    }
-
-    public void setIpLength(int ipLength) {
-        this.ipLength = ipLength;
-    }
-
-    @Field(index = 1, type = DataType.STRING, lengthName = "ipLength", desc = "服务器IP地址")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
 
     public void setIp(String ip) {
         this.ip = ip;
-        this.ipLength = ip.getBytes(Charsets.GBK).length;
     }
 
     @Field(index = 1, type = DataType.WORD, desc = "实时视频服务器TCP端口号")

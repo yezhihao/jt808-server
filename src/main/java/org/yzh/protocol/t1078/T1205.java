@@ -7,6 +7,7 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT1078;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,13 +48,27 @@ public class T1205 extends AbstractMessage<Header> {
     public static class Item {
 
         private int channelNo;
-        private String startTime;
-        private String endTime;
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
         private byte[] warningMark;
         private int mediaType;
         private int streamType = 1;
         private int memoryType;
         private long size;
+
+        public Item() {
+        }
+
+        public Item(int channelNo, LocalDateTime startTime, LocalDateTime endTime, byte[] warningMark, int mediaType, int streamType, int memoryType, long size) {
+            this.channelNo = channelNo;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.warningMark = warningMark;
+            this.mediaType = mediaType;
+            this.streamType = streamType;
+            this.memoryType = memoryType;
+            this.size = size;
+        }
 
         @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
         public int getChannelNo() {
@@ -65,20 +80,20 @@ public class T1205 extends AbstractMessage<Header> {
         }
 
         @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
-        public String getStartTime() {
+        public LocalDateTime getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(String startTime) {
+        public void setStartTime(LocalDateTime startTime) {
             this.startTime = startTime;
         }
 
         @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间")
-        public String getEndTime() {
+        public LocalDateTime getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(String endTime) {
+        public void setEndTime(LocalDateTime endTime) {
             this.endTime = endTime;
         }
 

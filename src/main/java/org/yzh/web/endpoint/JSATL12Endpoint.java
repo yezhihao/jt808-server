@@ -49,7 +49,6 @@ public class JSATL12Endpoint {
         AlarmId alarmId = (AlarmId) session.getAttribute(AlarmId);
         T9212 result = new T9212(session.nextSerialNo(), message.getHeader().getMobileNo());
         result.setName(message.getName());
-        result.setNameLength(message.getNameLength());
         result.setType(message.getType());
 
         List<DataInfo> items = fileService.checkFile(alarmId, message);

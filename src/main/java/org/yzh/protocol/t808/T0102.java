@@ -6,7 +6,6 @@ import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.commons.Charsets;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -16,30 +15,19 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.终端鉴权)
 public class T0102 extends AbstractMessage<Header> {
 
-    private int tokenLength;
     /** 终端重连后上报鉴权码 */
     private String token;
     private String imei;
     private String version;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "鉴权码长度", version = 1)
-    public int getTokenLength() {
-        return tokenLength;
-    }
-
-    public void setTokenLength(int tokenLength) {
-        this.tokenLength = tokenLength;
-    }
-
     @Fs({@Field(index = 0, type = DataType.STRING, desc = "鉴权码", version = 0),
-            @Field(index = 1, type = DataType.STRING, lengthName = "tokenLength", desc = "鉴权码", version = 1)})
+            @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "鉴权码", version = 1)})
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-        this.tokenLength = token.getBytes(Charsets.GBK).length;
     }
 
 

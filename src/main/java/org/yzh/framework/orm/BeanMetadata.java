@@ -15,13 +15,13 @@ public class BeanMetadata<T> {
     protected final int version;
     protected final int length;
     protected final Class<T> typeClass;
-    protected final FieldMetadata[] fields;
+    protected final BasicField[] fields;
 
-    public BeanMetadata(Class<T> typeClass, int version, FieldMetadata[] fields) {
+    public BeanMetadata(Class<T> typeClass, int version, BasicField[] fields) {
         this.typeClass = typeClass;
         this.version = version;
         this.fields = fields;
-        FieldMetadata lastField = fields[fields.length - 1];
+        BasicField lastField = fields[fields.length - 1];
         int lastIndex = lastField.index;
         int lastLength = lastField.length < 0 ? 4 : lastField.length;
         this.length = lastIndex + lastLength;
@@ -31,22 +31,16 @@ public class BeanMetadata<T> {
         return length;
     }
 
-    public T decode(ByteBuf buf) {
-        T result = null;
+    public T decode(ByteBuf source) {
+        T target = null;
         boolean isEmpty = true;//防止死循环
-        FieldMetadata field = null;
-        int length;
+        BasicField field = null;
         try {
-            result = typeClass.newInstance();
+            target = typeClass.newInstance();
             for (int i = 0; i < fields.length; i++) {
                 field = fields[i];
-
-                length = field.getLength(result);
-
-                if (!buf.isReadable(length))
+                if (!field.readTo(source, target))
                     break;
-                Object value = field.readValue(buf, length);
-                field.setValue(result, value);
                 isEmpty = false;
             }
         } catch (Exception e) {
@@ -54,20 +48,18 @@ public class BeanMetadata<T> {
         }
         if (isEmpty)
             return null;
-        return result;
+        return target;
     }
 
-    public void encode(ByteBuf buf, Object obj) {
-        FieldMetadata field = null;
+    public void encode(ByteBuf source, Object target) {
+        BasicField field = null;
         try {
             for (int i = 0; i < fields.length; i++) {
                 field = fields[i];
-                Object value = field.getValue(obj);
-                if (value != null)
-                    field.writeValue(buf, value);
+                field.writeTo(target, source);
             }
         } catch (Exception e) {
-            log.error("encode error: " + obj + field, e);
+            log.error("encode error: " + target + field, e);
         }
     }
 

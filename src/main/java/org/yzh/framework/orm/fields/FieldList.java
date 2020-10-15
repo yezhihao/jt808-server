@@ -2,19 +2,19 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.BeanMetadata;
-import org.yzh.framework.orm.FieldMetadata;
+import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.annotation.Field;
 
-import java.lang.reflect.Method;
+import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldList<T> extends FieldMetadata<List<T>> {
+public class FieldList<T> extends BasicField<List<T>> {
 
     protected final BeanMetadata<T> beanMetadata;
 
-    public FieldList(Field field, Method readMethod, Method writeMethod, Method lengthMethod, BeanMetadata<T> beanMetadata) {
-        super(field, readMethod, writeMethod, lengthMethod);
+    public FieldList(Field field, PropertyDescriptor property, BeanMetadata<T> beanMetadata) {
+        super(field, property);
         this.beanMetadata = beanMetadata;
     }
 

@@ -15,7 +15,6 @@ import org.yzh.framework.orm.model.DataType;
 public class BytesAttribute {
 
     private Integer id;
-    private Integer length;
     private byte[] value;
 
     public BytesAttribute() {
@@ -23,7 +22,6 @@ public class BytesAttribute {
 
     public BytesAttribute(Integer id, byte[] value) {
         this.id = id;
-        this.length = value.length;
         this.value = value;
     }
 
@@ -36,26 +34,13 @@ public class BytesAttribute {
         this.id = id;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "附加信息长度", version = {-1, 0, 1})
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
-    @Field(index = 2, type = DataType.BYTES, lengthName = "length", desc = "参数值", version = {-1, 0, 1})
+    @Field(index = 2, type = DataType.BYTES, lengthSize = 1, desc = "参数值", version = {-1, 0, 1})
     public byte[] getValue() {
         return value;
     }
 
     public void setValue(byte[] value) {
         this.value = value;
-        if (value == null)
-            this.length = 0;
-        else
-            this.length = value.length;
     }
 
     @Override
