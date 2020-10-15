@@ -20,8 +20,11 @@ public class TestHex {
     @Test
     public void testHex() throws Exception {
         FileUtils.foreach(new File("target/test-classes/test_data/JT808.txt"), hex -> {
-            hex = hex.substring(2, hex.length() - 2);
-            BeanTest.selfCheck(hex);
+            if (StringUtils.isNotBlank(hex)) {
+                if (hex.startsWith("7e"))
+                    hex = hex.substring(2, hex.length() - 2);
+                BeanTest.selfCheck(hex);
+            }
             return true;
         });
     }

@@ -4,11 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class LoggerProxy extends BasicField {
+public class FieldLoggerProxy extends BasicField {
 
     private BasicField target;
 
-    public LoggerProxy(BasicField target) {
+    public FieldLoggerProxy(BasicField target) {
         super(target.field, target.property);
         this.target = target;
     }
@@ -32,5 +32,10 @@ public class LoggerProxy extends BasicField {
 
         String hex = ByteBufUtil.hexDump(buf, before, after - before);
         System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + value);
+    }
+
+    @Override
+    public int compareTo(BasicField that) {
+        return target.compareTo(that);
     }
 }

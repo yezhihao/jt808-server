@@ -2,7 +2,7 @@ package org.yzh.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import org.yzh.framework.orm.BasicField;
+import org.yzh.framework.orm.FieldFactory;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageEncoder;
 
@@ -16,7 +16,7 @@ public class DarkRepulsor {
     private static JTMessageEncoder darkRepulsor;
 
     static {
-        BasicField.EXPLAIN = true;
+        FieldFactory.EXPLAIN = true;
         darkRepulsor = new JTMessageEncoder("org.yzh.protocol");
     }
 

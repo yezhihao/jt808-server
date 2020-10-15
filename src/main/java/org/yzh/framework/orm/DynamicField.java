@@ -8,14 +8,16 @@ import java.lang.reflect.Method;
 
 public abstract class DynamicField<T> extends BasicField<T> {
 
-    private final Method lengthReadMethod;
-    private final Method lengthWriteMethod;
-    private final int lengthFieldLength;
+    protected final Method lengthReadMethod;
+    protected final Method lengthWriteMethod;
+    protected final PropertyDescriptor lengthProperty;
+    protected final int lengthFieldLength;
 
     public DynamicField(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
         super(field, property);
         this.lengthReadMethod = lengthProperty.getReadMethod();
         this.lengthWriteMethod = lengthProperty.getWriteMethod();
+        this.lengthProperty = lengthProperty;
         int length = field.lengthSize();
         Field lengthField = lengthReadMethod.getAnnotation(Field.class);
         if (lengthField != null)
