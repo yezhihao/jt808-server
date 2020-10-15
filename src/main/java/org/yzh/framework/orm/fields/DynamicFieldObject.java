@@ -11,8 +11,8 @@ public class DynamicFieldObject<T> extends DynamicField<T> {
 
     protected BeanMetadata<T> beanMetadata;
 
-    public DynamicFieldObject(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty, BeanMetadata<T> beanMetadata) {
-        super(field, property, lengthProperty);
+    public DynamicFieldObject(Field field, PropertyDescriptor property, BeanMetadata<T> beanMetadata) {
+        super(field, property);
         this.beanMetadata = beanMetadata;
     }
 

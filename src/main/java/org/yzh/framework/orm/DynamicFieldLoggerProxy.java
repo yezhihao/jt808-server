@@ -9,7 +9,7 @@ public class DynamicFieldLoggerProxy extends DynamicField {
     private DynamicField target;
 
     public DynamicFieldLoggerProxy(DynamicField target) {
-        super(target.field, target.property, target.lengthProperty);
+        super(target.field, target.property);
         this.target = target;
     }
 

@@ -8,8 +8,8 @@ import java.beans.PropertyDescriptor;
 
 public class DynamicFieldBytes extends DynamicField<byte[]> {
 
-    public DynamicFieldBytes(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
-        super(field, property, lengthProperty);
+    public DynamicFieldBytes(Field field, PropertyDescriptor property) {
+        super(field, property);
     }
 
     @Override

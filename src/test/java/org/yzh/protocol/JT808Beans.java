@@ -260,10 +260,10 @@ public class JT808Beans {
         T0704 bean = new T0704();
         bean.setType(1);
         List<T0704.Item> item = new ArrayList<>();
-        //TODO 该协议服务端仅能够解析，未实现对象length的自动设置
-        item.add(new T0704.Item(28, T0200()));
-        item.add(new T0704.Item(28, T0200()));
-        item.add(new T0704.Item(28, T0200()));
+        item.add(new T0704.Item(T0200()));
+        item.add(new T0704.Item(T0200_()));
+        item.add(new T0704.Item(T0200()));
+        item.add(new T0704.Item(T0200_()));
         bean.setItems(item);
         return bean;
     }

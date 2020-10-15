@@ -19,15 +19,15 @@ public abstract class FieldFactory {
     protected static Logger log = LoggerFactory.getLogger(FieldFactory.class.getSimpleName());
     public static boolean EXPLAIN = false;
 
-    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
-        return create(field, typeClass, property, lengthProperty, null);
+    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property) {
+        return create(field, typeClass, property, null);
     }
 
-    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property, PropertyDescriptor lengthProperty, BeanMetadata beanMetadata) {
+    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property, BeanMetadata beanMetadata) {
         DataType dataType = field.type();
 
         BasicField result;
-        if (lengthProperty == null) {
+        if (field.lengthSize() == -1) {
             switch (dataType) {
                 case BYTE:
                     result = new FieldInt8(field, property);
@@ -73,17 +73,17 @@ public abstract class FieldFactory {
             switch (dataType) {
                 case BYTES:
                     if (typeClass.isAssignableFrom(String.class))
-                        result = new DynamicFieldString(field, property, lengthProperty);
+                        result = new DynamicFieldString(field, property);
                     else if (typeClass.isAssignableFrom(ByteBuffer.class))
-                        result = new DynamicFieldByteBuffer(field, property, lengthProperty);
+                        result = new DynamicFieldByteBuffer(field, property);
                     else
-                        result = new DynamicFieldBytes(field, property, lengthProperty);
+                        result = new DynamicFieldBytes(field, property);
                     break;
                 case STRING:
-                    result = new DynamicFieldString(field, property, lengthProperty);
+                    result = new DynamicFieldString(field, property);
                     break;
                 case OBJ:
-                    result = new DynamicFieldObject(field, property, lengthProperty, beanMetadata);
+                    result = new DynamicFieldObject(field, property, beanMetadata);
                     break;
                 default:
                     throw new RuntimeException("不支持的类型转换");

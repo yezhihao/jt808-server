@@ -9,8 +9,8 @@ import java.nio.ByteBuffer;
 
 public class DynamicFieldByteBuffer extends DynamicField<ByteBuffer> {
 
-    public DynamicFieldByteBuffer(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
-        super(field, property, lengthProperty);
+    public DynamicFieldByteBuffer(Field field, PropertyDescriptor property) {
+        super(field, property);
     }
 
     @Override

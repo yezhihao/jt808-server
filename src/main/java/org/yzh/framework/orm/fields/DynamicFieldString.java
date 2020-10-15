@@ -13,8 +13,8 @@ public class DynamicFieldString extends DynamicField<String> {
     private final byte pad;
     private final Charset charset;
 
-    public DynamicFieldString(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
-        super(field, property, lengthProperty);
+    public DynamicFieldString(Field field, PropertyDescriptor property) {
+        super(field, property);
         this.pad = field.pad();
         this.charset = Charset.forName(field.charset());
     }

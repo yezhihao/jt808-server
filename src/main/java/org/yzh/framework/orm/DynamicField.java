@@ -4,29 +4,23 @@ import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 
 public abstract class DynamicField<T> extends BasicField<T> {
 
-    protected final Method lengthReadMethod;
-    protected final Method lengthWriteMethod;
-    protected final PropertyDescriptor lengthProperty;
-    protected final int lengthFieldLength;
+    protected static final byte[][] BLOCKS = new byte[][]{
+            new byte[0],
+            new byte[1], new byte[2],
+            new byte[3], new byte[4]};
 
-    public DynamicField(Field field, PropertyDescriptor property, PropertyDescriptor lengthProperty) {
+    protected final int lengthSize;
+
+    public DynamicField(Field field, PropertyDescriptor property) {
         super(field, property);
-        this.lengthReadMethod = lengthProperty.getReadMethod();
-        this.lengthWriteMethod = lengthProperty.getWriteMethod();
-        this.lengthProperty = lengthProperty;
-        int length = field.lengthSize();
-        Field lengthField = lengthReadMethod.getAnnotation(Field.class);
-        if (lengthField != null)
-            length = lengthField.type().length;
-        this.lengthFieldLength = length;
+        this.lengthSize = field.lengthSize();
     }
 
     public boolean readTo(ByteBuf buf, Object target) throws Exception {
-        int length = getLength(target);
+        int length = readLength(buf);
         if (!buf.isReadable(length))
             return false;
         Object value = readValue(buf, length);
@@ -38,22 +32,36 @@ public abstract class DynamicField<T> extends BasicField<T> {
         Object value = readMethod.invoke(source);
         if (value != null) {
             int begin = buf.writerIndex();
+            buf.writeBytes(BLOCKS[lengthSize]);
             writeValue(buf, (T) value);
-            int length = buf.writerIndex() - begin;
-            setLength(buf, begin - lengthFieldLength, length);
+            int length = buf.writerIndex() - begin - lengthSize;
+            setLength(buf, begin, length);
         }
     }
 
-    public Integer getLength(Object obj) throws Exception {
-        return (Integer) lengthReadMethod.invoke(obj);
-    }
-
-    public void setLength(Object obj, Object value) throws Exception {
-        lengthWriteMethod.invoke(obj, value);
+    protected int readLength(ByteBuf buf) {
+        int length;
+        switch (lengthSize) {
+            case 1:
+                length = buf.readUnsignedByte();
+                break;
+            case 2:
+                length = buf.readUnsignedShort();
+                break;
+            case 3:
+                length = buf.readUnsignedMedium();
+                break;
+            case 4:
+                length = buf.readInt();
+                break;
+            default:
+                throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
+        }
+        return length;
     }
 
     protected void setLength(ByteBuf buf, int offset, int length) {
-        switch (lengthFieldLength) {
+        switch (lengthSize) {
             case 1:
                 buf.setByte(offset, length);
                 break;
@@ -67,7 +75,7 @@ public abstract class DynamicField<T> extends BasicField<T> {
                 buf.setInt(offset, length);
                 break;
             default:
-                throw new RuntimeException("unsupported lengthFieldLength: " + lengthFieldLength + " (expected: 1, 2, 3, 4)");
+                throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
         }
     }
 
@@ -79,20 +87,5 @@ public abstract class DynamicField<T> extends BasicField<T> {
                 r = -1;
         }
         return r;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(80);
-        sb.append('{');
-        sb.append("index=").append(index);
-        sb.append(", length=").append(length);
-        sb.append(", desc").append(desc);
-        sb.append(", readMethod=").append(readMethod.getName());
-        sb.append(", writeMethod=").append(writeMethod.getName());
-        if (lengthReadMethod != null)
-            sb.append(", lengthReadMethod=").append(lengthReadMethod.getName());
-        sb.append('}');
-        return sb.toString();
     }
 }

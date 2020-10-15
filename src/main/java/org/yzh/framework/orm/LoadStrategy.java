@@ -72,20 +72,19 @@ public abstract class LoadStrategy {
 
                     Field[] fields = readMethod.getDeclaredAnnotation(Fs.class).value();
                     for (Field field : fields)
-                        fillField(root, properties, multiVersionFields, property, field);
+                        fillField(root, multiVersionFields, property, field);
 
                 } else if (readMethod.isAnnotationPresent(Field.class)) {
-                    fillField(root, properties, multiVersionFields, property, readMethod.getDeclaredAnnotation(Field.class));
+                    fillField(root, multiVersionFields, property, readMethod.getDeclaredAnnotation(Field.class));
                 }
             }
         }
         return multiVersionFields;
     }
 
-    protected static void fillField(Map<String, Map<Integer, BeanMetadata>> root, PropertyDescriptor[] properties, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+    protected static void fillField(Map<String, Map<Integer, BeanMetadata>> root, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
         Class<?> typeClass = propertyDescriptor.getPropertyType();
         Method readMethod = propertyDescriptor.getReadMethod();
-        PropertyDescriptor lengthProperty = findLengthProperty(properties, field.lengthName());
 
         BasicField value;
         int[] versions = field.version();
@@ -96,23 +95,14 @@ public abstract class LoadStrategy {
             initClass(root, typeClass);
             for (int ver : versions) {
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldFactory.create(field, typeClass, propertyDescriptor, lengthProperty, beanMetadata);
+                value = FieldFactory.create(field, typeClass, propertyDescriptor, beanMetadata);
                 multiVersionFields.get(ver).add(value);
             }
         } else {
-            value = FieldFactory.create(field, typeClass, propertyDescriptor, lengthProperty);
+            value = FieldFactory.create(field, typeClass, propertyDescriptor);
             for (int ver : versions) {
                 multiVersionFields.get(ver).add(value);
             }
         }
-    }
-
-    protected static PropertyDescriptor findLengthProperty(PropertyDescriptor[] properties, String lengthName) {
-        if ("".equals(lengthName))
-            return null;
-        for (PropertyDescriptor property : properties)
-            if (lengthName.equals(property.getName()))
-                return property;
-        throw new RuntimeException("not found method " + lengthName);
     }
 }
