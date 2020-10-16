@@ -1,8 +1,8 @@
 package org.yzh.web.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.yzh.framework.codec.MultiPacket;
-import org.yzh.framework.codec.MultiPacketListener;
+import org.yzh.protocol.codec.MultiPacket;
+import org.yzh.protocol.codec.MultiPacketListener;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;

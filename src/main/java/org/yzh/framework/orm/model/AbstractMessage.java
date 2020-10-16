@@ -41,10 +41,10 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
         return header;
     }
 
-    public int getMessageId() {
+    public Object getMessageType() {
         if (header == null)
-            return 0;
-        return header.getMessageId();
+            return null;
+        return header.getMessageType();
     }
 
     @Override

@@ -6,14 +6,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractMessage;
 
 /**
  * 基础消息编码
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage> {
+public class MessageEncoderWrapper extends MessageToByteEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(MessageEncoderWrapper.class.getSimpleName());
 
@@ -27,7 +26,7 @@ public class MessageEncoderWrapper extends MessageToByteEncoder<AbstractMessage>
     }
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
+    protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) {
         ByteBuf buf = encoder.encode(msg);
         if (log.isInfoEnabled())
             log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));

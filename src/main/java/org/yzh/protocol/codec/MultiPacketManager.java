@@ -1,8 +1,8 @@
-package org.yzh.framework.codec;
+package org.yzh.protocol.codec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractHeader;
+import org.yzh.protocol.basics.Header;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,7 +27,7 @@ public enum MultiPacketManager {
 
     private MultiPacketListener multiPacketListener;
 
-    protected byte[][] addAndGet(AbstractHeader header, byte[] packetData) {
+    public byte[][] addAndGet(Header header, byte[] packetData) {
         String clientId = header.getClientId();
         int messageId = header.getMessageId();
         int packageTotal = header.getPackageTotal();

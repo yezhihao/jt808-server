@@ -1,4 +1,4 @@
-package org.yzh.framework.codec;
+package org.yzh.protocol.codec;
 
 import java.util.ArrayList;
 import java.util.List;

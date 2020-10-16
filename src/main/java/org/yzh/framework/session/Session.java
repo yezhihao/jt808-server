@@ -24,7 +24,7 @@ public class Session {
 
     private volatile int serialNo = 0;
     private boolean registered = false;
-    private String clientId;
+    private Object clientId;
 
     private final long creationTime;
     private volatile long lastAccessedTime;
@@ -80,7 +80,7 @@ public class Session {
         sessionManager.put(clientId, this);
     }
 
-    public String getClientId() {
+    public Object getClientId() {
         return clientId;
     }
 

@@ -1,9 +1,16 @@
 package org.yzh.protocol.codec;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
+import org.yzh.framework.orm.BeanMetadata;
+import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.protocol.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,22 +20,52 @@ import java.util.List;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageEncoder extends MessageEncoder {
+public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>> {
+
+    private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
     public JTMessageEncoder(String basePackage) {
-        super(basePackage);
+        MessageHelper.initial(basePackage);
     }
 
     @Override
+    public ByteBuf encode(AbstractMessage<Header> message) {
+        Header header = message.getHeader();
+        int version = header.getVersionNo();
+
+        BeanMetadata bodyMetadata = MessageHelper.getBeanMetadata(message.getClass(), version);
+        ByteBuf bodyBuf;
+        if (bodyMetadata != null) {
+            bodyBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(bodyMetadata.getLength(), 2048);
+            bodyMetadata.encode(bodyBuf, message);
+        } else {
+            bodyBuf = Unpooled.EMPTY_BUFFER;
+            log.info("未找到对应的BeanMetadata[{}]", message.getClass());
+        }
+
+        int bodyLen = bodyBuf.readableBytes();
+        if (bodyLen > 1023)
+            throw new RuntimeException("消息体不能大于1023kb," + bodyLen + "Kb");
+        header.setBodyLength(bodyLen);
+
+        BeanMetadata headMetadata = MessageHelper.getBeanMetadata(header.getClass(), version);
+        ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headMetadata.getLength(), 2048);
+        headMetadata.encode(headerBuf, header);
+        ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
+
+        allBuf = sign(allBuf);
+        allBuf = escape(allBuf);
+        return allBuf;
+    }
+
+    /** 签名 */
     public ByteBuf sign(ByteBuf buf) {
         byte checkCode = ByteBufUtils.bcc(buf);
         buf.writeByte(checkCode);
         return buf;
     }
 
-    /**
-     * 转义处理
-     */
+    /** 转义处理 */
     public ByteBuf escape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
@@ -59,9 +96,7 @@ public class JTMessageEncoder extends MessageEncoder {
         return Unpooled.wrappedBuffer(bufs);
     }
 
-    /**
-     * 截断转义前报文，并转义
-     */
+    /** 截断转义前报文，并转义 */
     protected ByteBuf[] slice(ByteBuf byteBuf, int index, int length) {
         byte first = byteBuf.getByte(index + length - 1);
 

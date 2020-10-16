@@ -24,7 +24,7 @@ public class DataPacket extends AbstractMessage<Header> {
     private ByteBuffer data;
 
     @Override
-    public int getMessageId() {
+    public Object getMessageType() {
         return flag;
     }
 

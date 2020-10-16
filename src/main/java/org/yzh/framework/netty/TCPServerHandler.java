@@ -48,7 +48,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
         long time = session.access();
 
         try {
-            Handler handler = handlerMapping.getHandler(request.getMessageId());
+            Handler handler = handlerMapping.getHandler(request.getMessageType());
             if (handler != null) {
                 if (!interceptor.beforeHandle(request, session))
                     return;
@@ -68,7 +68,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
         }
         time = System.currentTimeMillis() - time;
         if (time > 200)
-            log.info("=========消息ID{},处理耗时{}ms,", Integer.toHexString(request.getMessageId()), time);
+            log.info("=========消息ID{},处理耗时{}ms,", request.getHeader(), time);
         if (response != null)
             ctx.writeAndFlush(response);
     }

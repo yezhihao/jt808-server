@@ -10,7 +10,7 @@ import org.yzh.protocol.commons.MessageId;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Header extends AbstractHeader {
+public class Header extends AbstractHeader<Integer, String> {
 
     /** 消息类型 */
     protected int messageId;
@@ -26,6 +26,8 @@ public class Header extends AbstractHeader {
     protected Integer packageTotal;
     /** 包序号 */
     protected Integer packageNo;
+    /** bcc校验 */
+    private boolean verified = true;
 
     public Header() {
     }
@@ -47,7 +49,6 @@ public class Header extends AbstractHeader {
     }
 
     @Field(index = 0, type = DataType.WORD, desc = "消息ID")
-    @Override
     public int getMessageId() {
         return messageId;
     }
@@ -66,7 +67,6 @@ public class Header extends AbstractHeader {
     }
 
     @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
-    @Override
     public int getVersionNo() {
         return versionNo;
     }
@@ -99,7 +99,6 @@ public class Header extends AbstractHeader {
 
     @Fs({@Field(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0),
             @Field(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)})
-    @Override
     public Integer getPackageTotal() {
         if (isSubpackage())
             return packageTotal;
@@ -112,7 +111,6 @@ public class Header extends AbstractHeader {
 
     @Fs({@Field(index = 14, type = DataType.WORD, desc = "包序号", version = 0),
             @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)})
-    @Override
     public Integer getPackageNo() {
         if (isSubpackage())
             return packageNo;
@@ -124,7 +122,6 @@ public class Header extends AbstractHeader {
     }
 
     /** 消息头长度 */
-    @Override
     public int getHeadLength() {
         if (isVersion())
             return isSubpackage() ? 21 : 17;
@@ -138,7 +135,6 @@ public class Header extends AbstractHeader {
     private static final int RESERVED = 0b1000_0000_0000_0000;
 
     /** 消息体长度 */
-    @Override
     public int getBodyLength() {
         return this.properties & BODY_LENGTH;
     }
@@ -149,7 +145,6 @@ public class Header extends AbstractHeader {
     }
 
     /** 加密方式 */
-    @Override
     public int getEncryption() {
         return (properties & ENCRYPTION) >> 10;
     }
@@ -160,7 +155,6 @@ public class Header extends AbstractHeader {
     }
 
     /** 是否分包 */
-    @Override
     public boolean isSubpackage() {
         return (properties & SUBPACKAGE) == SUBPACKAGE;
     }
@@ -173,7 +167,6 @@ public class Header extends AbstractHeader {
     }
 
     /** 是否有版本 */
-    @Override
     public boolean isVersion() {
         return (properties & VERSION) == VERSION;
     }
@@ -197,6 +190,19 @@ public class Header extends AbstractHeader {
             this.properties ^= (properties & RESERVED);
     }
 
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    @Override
+    public Integer getMessageType() {
+        return messageId;
+    }
+
     @Override
     public String getClientId() {
         return mobileNo;
@@ -209,7 +215,9 @@ public class Header extends AbstractHeader {
         sb.append('[');
         sb.append("messageId=").append(messageId);
         sb.append(", properties=").append(properties);
-        sb.append(", versionNo=").append(versionNo);
+        sb.append(", isVersion=").append(isVersion());
+        sb.append(", versionNo=").append(getVersionNo());
+        sb.append(", isSubpackage=").append(isSubpackage());
         sb.append(", mobileNo=").append(mobileNo);
         sb.append(", serialNo=").append(serialNo);
         if (isSubpackage()) {

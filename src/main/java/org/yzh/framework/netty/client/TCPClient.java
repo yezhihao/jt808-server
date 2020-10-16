@@ -54,7 +54,7 @@ public class TCPClient {
                                     .addLast("decoder", new ByteToMessageDecoder() {
                                         @Override
                                         protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf buf, List<Object> out) {
-                                            AbstractMessage message = config.decoder.decode(buf);
+                                            Object message = config.decoder.decode(buf);
                                             if (message != null)
                                                 out.add(message);
                                             buf.skipBytes(buf.readableBytes());

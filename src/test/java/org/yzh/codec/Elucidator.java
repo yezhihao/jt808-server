@@ -25,6 +25,6 @@ public class Elucidator {
 
         AbstractMessage decode = elucidator.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
         System.out.println(hex);
-        System.out.println(decode);
+        System.out.println(decode.getHeader());
     }
 }

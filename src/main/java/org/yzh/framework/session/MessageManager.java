@@ -31,7 +31,7 @@ public class MessageManager {
      */
     public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
         AbstractHeader header = message.getHeader();
-        String clientId = header.getClientId();
+        Object clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
         if (session == null) {
@@ -54,7 +54,7 @@ public class MessageManager {
 
     public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz, long timeout) {
         AbstractHeader header = request.getHeader();
-        String clientId = header.getClientId();
+        Object clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
         if (session == null) {

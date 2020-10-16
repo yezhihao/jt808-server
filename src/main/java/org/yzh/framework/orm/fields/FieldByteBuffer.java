@@ -15,6 +15,8 @@ public class FieldByteBuffer extends BasicField<ByteBuffer> {
 
     @Override
     public ByteBuffer readValue(ByteBuf buf, int length) {
+        if (length < 0)
+            length = buf.readableBytes();
         ByteBuffer byteBuffer = buf.nioBuffer(buf.readerIndex(), length);
         buf.skipBytes(length);
         return byteBuffer;

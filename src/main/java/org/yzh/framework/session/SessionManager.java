@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionManager {
 
-    private Map<String, Session> sessionMap;
+    private Map<Object, Session> sessionMap;
 
-    private Cache<String, Integer> versionCache;
+    private Cache<Object, Integer> versionCache;
 
     private ChannelFutureListener remover;
 
@@ -56,7 +56,7 @@ public class SessionManager {
             sessionListener.sessionCreated(session);
     }
 
-    public Session get(String clientId) {
+    public Session get(Object clientId) {
         return sessionMap.get(clientId);
     }
 
@@ -64,18 +64,18 @@ public class SessionManager {
         return sessionMap.values();
     }
 
-    protected void put(String clientId, Session newSession) {
+    protected void put(Object clientId, Session newSession) {
         Session oldSession = sessionMap.put(clientId, newSession);
         if (!newSession.equals(oldSession)) {
             newSession.channel.closeFuture().addListener(remover);
         }
     }
 
-    public void putVersion(String clientId, int version) {
+    public void putVersion(Object clientId, int version) {
         versionCache.put(clientId, version);
     }
 
-    public Integer getVersion(String clientId) {
+    public Integer getVersion(Object clientId) {
         return versionCache.getIfPresent(clientId);
     }
 }

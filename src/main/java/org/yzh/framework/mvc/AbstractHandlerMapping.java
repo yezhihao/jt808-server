@@ -11,13 +11,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 消息处理映射
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public abstract class AbstractHandlerMapping implements HandlerMapping {
 
-    private final Map<Integer, Handler> handlerMap = new HashMap(60);
+    private final Map<Object, Handler> handlerMap = new HashMap(60);
 
+    /**
+     * 将Endpoint中被@Mapping标记的方法注册到映射表
+     */
     protected synchronized void registerHandlers(Object bean) {
         Class<?> beanClass = bean.getClass();
         Method[] methods = beanClass.getDeclaredMethods();
@@ -49,7 +53,10 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
         }
     }
 
-    public Handler getHandler(int messageId) {
-        return handlerMap.get(messageId);
+    /**
+     * 根据消息类型获取Handler
+     */
+    public Handler getHandler(Object messageType) {
+        return handlerMap.get(messageType);
     }
 }
