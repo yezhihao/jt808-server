@@ -48,8 +48,8 @@ public class DeviceServiceImpl implements DeviceService {
         if (deviceDO == null || deviceDO.getInstallTime() == null)
             record.setInstallTime(now);
 
-        int protocolVersion = request.getSession().getProtocolVersion();
-        if (protocolVersion != -1)
+        Integer protocolVersion = request.getSession().getProtocolVersion();
+        if (protocolVersion == null)
             protocolVersion = request.getHeader().getVersionNo();
         record.setProtocolVersion(protocolVersion);
 

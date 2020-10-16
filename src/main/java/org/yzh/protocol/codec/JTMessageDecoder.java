@@ -4,6 +4,7 @@ import io.netty.buffer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.codec.MessageDecoder;
+import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
@@ -50,33 +51,55 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         boolean verified = verify(buf);
         if (!verified)
             log.error("校验码错误{},{}", session, ByteBufUtil.hexDump(buf));
-        buf = buf.slice(0, buf.readableBytes() - 1);
 
-        int version = 0;
+        int properties = buf.getUnsignedShort(2);
+
+        Integer version = session == null ? null : session.getProtocolVersion();
+        boolean confirmedVersion = version != null;
+        if (!confirmedVersion) {
+            //识别2019及后续版本
+            if (Bin.get(properties, 14)) {
+                version = (int) buf.getUnsignedByte(4);
+                confirmedVersion = true;
+                if (session != null)
+                    session.setProtocolVersion(version);
+            } else {
+                //缺省值为2013版本
+                version = 0;
+            }
+        }
+
+        int headLen;
+        boolean isSubpackage = Bin.get(properties, 13);
+        if (version > 0)
+            headLen = isSubpackage ? 21 : 17;
+        else
+            headLen = isSubpackage ? 16 : 12;
+
         Class<? extends Header> headerClass = (Class<? extends Header>) MessageHelper.getHeaderClass();
         BeanMetadata<? extends Header> headMetadata = MessageHelper.getBeanMetadata(headerClass, version);
 
-        Header header = headMetadata.decode(buf);
-        int readerIndex = buf.readerIndex();
-        if (header.isVersion()) {
-            buf.readerIndex(readerIndex);
-            headMetadata = MessageHelper.getBeanMetadata(headerClass, 1);
-            header = headMetadata.decode(buf);
-            version = header.getVersionNo();
-        }
+        Header header = headMetadata.decode(buf.slice(0, headLen));
         header.setVerified(verified);
+
+        if (!confirmedVersion && session != null) {
+            //通过缓存记录2011版本
+            Integer cachedVersion = session.cachedProtocolVersion(header.getClientId());
+            if (cachedVersion != null)
+                version = cachedVersion;
+            session.setProtocolVersion(version);
+        }
+
 
         AbstractMessage message;
         BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
         if (bodyMetadata != null) {
-
-            int headLen = header.getHeadLength();
             int bodyLen = header.getBodyLength();
 
-            if (header.isSubpackage()) {
+            if (isSubpackage) {
 
                 byte[] bytes = new byte[bodyLen];
-                buf.readBytes(bytes);
+                buf.getBytes(headLen, bytes);
 
                 byte[][] packages = multiPacketManager.addAndGet(header, bytes);
                 if (packages == null)
@@ -86,8 +109,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
                 message = bodyMetadata.decode(bodyBuf);
 
             } else {
-                buf.readerIndex(headLen);
-                message = bodyMetadata.decode(buf);
+                message = bodyMetadata.decode(buf.slice(headLen, bodyLen));
             }
         } else {
             message = new RawMessage<>();
