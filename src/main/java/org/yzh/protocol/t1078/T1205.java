@@ -4,6 +4,7 @@ import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.framework.orm.model.Response;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT1078;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Message(JT1078.终端上传音视频资源列表)
-public class T1205 extends AbstractMessage<Header> {
+public class T1205 extends AbstractMessage<Header> implements Response {
 
     private int serialNo;
     private int count;

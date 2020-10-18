@@ -9,6 +9,7 @@ import org.yzh.framework.orm.model.AbstractHeader;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author yezhihao
@@ -22,7 +23,7 @@ public class Session {
 
     protected final Channel channel;
 
-    private volatile int serialNo = 0;
+    private AtomicInteger serialNo = new AtomicInteger(0);
     private boolean registered = false;
     private Object clientId;
 
@@ -52,14 +53,14 @@ public class Session {
         return channel.id().hashCode();
     }
 
-    public int serialNo() {
-        return serialNo;
-    }
-
     public int nextSerialNo() {
-        if (serialNo >= 0xffff)
-            serialNo = 0;
-        return serialNo++;
+        int current;
+        int next;
+        do {
+            current = serialNo.get();
+            next = current > 0xffff ? 0 : current;
+        } while (!serialNo.compareAndSet(current, next + 1));
+        return next;
     }
 
     public boolean isRegistered() {

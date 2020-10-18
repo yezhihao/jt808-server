@@ -4,6 +4,7 @@ import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.framework.orm.model.Response;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 
@@ -12,7 +13,7 @@ import org.yzh.protocol.commons.JT808;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.终端注册应答)
-public class T8100 extends AbstractMessage<Header> {
+public class T8100 extends AbstractMessage<Header> implements Response {
 
     /** 0：成功 */
     public static final int Success = 0;

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.orm.model.Response;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,11 +49,11 @@ public class MessageManager {
      * 发送同步消息，接收响应
      * 默认超时时间20秒
      */
-    public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz) {
-        return request(request, clazz, 20000);
+    public <T> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> responseClass) {
+        return request(request, responseClass, 20000);
     }
 
-    public <T extends AbstractMessage> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> clazz, long timeout) {
+    public <T> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> responseClass, long timeout) {
         AbstractHeader header = request.getHeader();
         Object clientId = header.getClientId();
 
@@ -64,7 +65,7 @@ public class MessageManager {
 
         header.setSerialNo(session.nextSerialNo());
 
-        String key = getKey(header, clazz);
+        String key = requestKey(header, responseClass);
         SynchronousQueue syncQueue = this.subscribe(key);
         if (syncQueue == null) {
             log.info("<<<<<<<<<<请勿重复发送,{}", request);
@@ -85,14 +86,10 @@ public class MessageManager {
      * 消息响应
      */
     public boolean response(AbstractMessage message) {
-        SynchronousQueue queue = topicSubscribers.get(getKey(message.getHeader(), message.getClass()));
+        SynchronousQueue queue = topicSubscribers.get(responseKey(message));
         if (queue != null)
             return queue.offer(message);
         return false;
-    }
-
-    private String getKey(AbstractHeader header, Class clazz) {
-        return header.getClientId() + "/" + clazz.getName();
     }
 
     private SynchronousQueue subscribe(String key) {
@@ -104,5 +101,26 @@ public class MessageManager {
 
     private void unsubscribe(String key) {
         topicSubscribers.remove(key);
+    }
+
+    private static String requestKey(AbstractHeader header, Class responseClass) {
+        StringBuilder key = new StringBuilder(13 + 1 + 27 + 1 + 5);
+        key.append(header.getClientId()).append('/').append(responseClass.getName());
+
+        if (Response.class.isAssignableFrom(responseClass))
+            key.append('/').append(header.getSerialNo());
+        return key.toString();
+    }
+
+    private static String responseKey(AbstractMessage response) {
+        Class<? extends AbstractMessage> responseClass = response.getClass();
+        AbstractHeader header = response.getHeader();
+
+        StringBuilder key = new StringBuilder(13 + 1 + 27 + 1 + 5);
+        key.append(header.getClientId()).append('/').append(responseClass.getName());
+
+        if (response instanceof Response)
+            key.append('/').append(((Response) response).getSerialNo());
+        return key.toString();
     }
 }
