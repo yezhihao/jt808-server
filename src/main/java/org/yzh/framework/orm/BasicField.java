@@ -1,6 +1,8 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.annotation.Field;
@@ -53,6 +55,14 @@ public abstract class BasicField<T> implements Comparable<BasicField> {
         Object value = readMethod.invoke(source);
         if (value != null)
             writeValue(buf, (T) value);
+    }
+
+    public void println(ByteBuf buf, int before, int after, Object value) {
+        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+        if (value == null)
+            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": null");
+        else
+            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
     }
 
     @Override

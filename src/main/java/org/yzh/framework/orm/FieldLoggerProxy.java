@@ -1,8 +1,6 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class FieldLoggerProxy extends BasicField {
 
@@ -19,11 +17,7 @@ public class FieldLoggerProxy extends BasicField {
         Object value = target.readValue(buf, length);
         int after = buf.readerIndex();
 
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
-        if (value == null)
-            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": null");
-        else
-            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
+        println(buf, before, after, value);
         return value;
     }
 
@@ -32,9 +26,7 @@ public class FieldLoggerProxy extends BasicField {
         int before = buf.writerIndex();
         target.writeValue(buf, value);
         int after = buf.writerIndex();
-
-        String hex = ByteBufUtil.hexDump(buf, before, after - before);
-        System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + value);
+        println(buf, before, after, value);
     }
 
     @Override
