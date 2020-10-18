@@ -19,11 +19,11 @@ import java.util.*;
  */
 public abstract class LoadStrategy {
 
-    public abstract Class<?> getHeaderClass();
+    public abstract BeanMetadata getHeaderMetadata(Integer version);
 
-    public abstract BeanMetadata getBeanMetadata(Object typeId, int version);
+    public abstract BeanMetadata getBeanMetadata(Object typeId, Integer version);
 
-    public abstract <T> BeanMetadata<T> getBeanMetadata(Class<T> typeClass, int version);
+    public abstract <T> BeanMetadata<T> getBeanMetadata(Class<T> typeClass, Integer version);
 
     protected static void initClass(Map<String, Map<Integer, BeanMetadata>> root, Class<?> typeClass) {
         Map<Integer, BeanMetadata> beanMetadataMap = root.get(typeClass.getName());
@@ -95,11 +95,11 @@ public abstract class LoadStrategy {
             initClass(root, typeClass);
             for (int ver : versions) {
                 BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldFactory.create(field, typeClass, propertyDescriptor, beanMetadata);
+                value = FieldFactory.create(field, propertyDescriptor, beanMetadata);
                 multiVersionFields.get(ver).add(value);
             }
         } else {
-            value = FieldFactory.create(field, typeClass, propertyDescriptor);
+            value = FieldFactory.create(field, propertyDescriptor);
             for (int ver : versions) {
                 multiVersionFields.get(ver).add(value);
             }

@@ -19,12 +19,13 @@ public abstract class FieldFactory {
     protected static Logger log = LoggerFactory.getLogger(FieldFactory.class.getSimpleName());
     public static boolean EXPLAIN = false;
 
-    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property) {
-        return create(field, typeClass, property, null);
+    public static BasicField create(Field field, PropertyDescriptor property) {
+        return create(field, property, null);
     }
 
-    public static BasicField create(Field field, Class typeClass, PropertyDescriptor property, BeanMetadata beanMetadata) {
+    public static BasicField create(Field field, PropertyDescriptor property, BeanMetadata beanMetadata) {
         DataType dataType = field.type();
+        Class<?> typeClass = property.getPropertyType();
 
         BasicField result;
         if (field.lengthSize() == -1) {
@@ -36,21 +37,21 @@ public abstract class FieldFactory {
                     result = new FieldInt16(field, property);
                     break;
                 case DWORD:
-                    if (typeClass.isAssignableFrom(Long.class) || typeClass.isAssignableFrom(Long.TYPE))
+                    if (Long.class.isAssignableFrom(typeClass) || Long.TYPE.isAssignableFrom(typeClass))
                         result = new FieldLong32(field, property);
                     else
                         result = new FieldInt32(field, property);
                     break;
                 case BCD8421:
-                    if (typeClass.isAssignableFrom(LocalDateTime.class))
+                    if (LocalDateTime.class.isAssignableFrom(typeClass))
                         result = new FieldDateTimeBCD(field, property);
                     else
                         result = new FieldStringBCD(field, property);
                     break;
                 case BYTES:
-                    if (typeClass.isAssignableFrom(String.class))
+                    if (String.class.isAssignableFrom(typeClass))
                         result = new FieldString(field, property);
-                    else if (typeClass.isAssignableFrom(ByteBuffer.class))
+                    else if (ByteBuffer.class.isAssignableFrom(typeClass))
                         result = new FieldByteBuffer(field, property);
                     else
                         result = new FieldBytes(field, property);
@@ -72,9 +73,9 @@ public abstract class FieldFactory {
         } else {
             switch (dataType) {
                 case BYTES:
-                    if (typeClass.isAssignableFrom(String.class))
+                    if (String.class.isAssignableFrom(typeClass))
                         result = new DynamicFieldString(field, property);
-                    else if (typeClass.isAssignableFrom(ByteBuffer.class))
+                    else if (ByteBuffer.class.isAssignableFrom(typeClass))
                         result = new DynamicFieldByteBuffer(field, property);
                     else
                         result = new DynamicFieldBytes(field, property);

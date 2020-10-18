@@ -22,6 +22,8 @@ public class DefaultLoadStrategy extends LoadStrategy {
 
     private Class<? extends AbstractHeader> headerClass = null;
 
+    private Map<Integer, BeanMetadata> headerMetadata;
+
     public DefaultLoadStrategy(String basePackage) {
         List<Class<?>> types = ClassUtils.getClassList(basePackage);
         for (Class<?> type : types) {
@@ -29,16 +31,17 @@ public class DefaultLoadStrategy extends LoadStrategy {
             if (aClass != null)
                 initClass(typeClassMapping, aClass);
         }
+        this.headerMetadata = this.typeClassMapping.get(headerClass.getName());
         Introspector.flushCaches();
     }
 
     @Override
-    public Class<? extends AbstractHeader> getHeaderClass() {
-        return headerClass;
+    public BeanMetadata getHeaderMetadata(Integer version) {
+        return headerMetadata.get(version);
     }
 
     @Override
-    public BeanMetadata getBeanMetadata(Object typeId, int version) {
+    public BeanMetadata getBeanMetadata(Object typeId, Integer version) {
         Class<? extends AbstractMessage> typeClass = typeIdMapping.get(typeId);
         if (typeClass == null)
             return null;
@@ -46,7 +49,7 @@ public class DefaultLoadStrategy extends LoadStrategy {
     }
 
     @Override
-    public <T> BeanMetadata<T> getBeanMetadata(Class<T> clazz, int version) {
+    public <T> BeanMetadata<T> getBeanMetadata(Class<T> clazz, Integer version) {
         Map<Integer, BeanMetadata> beanMetadata = typeClassMapping.get(clazz.getName());
         if (beanMetadata != null)
             return beanMetadata.get(version);

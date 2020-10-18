@@ -48,7 +48,7 @@ public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>>
             throw new RuntimeException("消息体不能大于1023kb," + bodyLen + "Kb");
         header.setBodyLength(bodyLen);
 
-        BeanMetadata headMetadata = MessageHelper.getBeanMetadata(header.getClass(), version);
+        BeanMetadata headMetadata = MessageHelper.getHeaderMetadata(version);
         ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headMetadata.getLength(), 2048);
         headMetadata.encode(headerBuf, header);
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);

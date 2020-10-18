@@ -76,8 +76,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         else
             headLen = isSubpackage ? 16 : 12;
 
-        Class<? extends Header> headerClass = (Class<? extends Header>) MessageHelper.getHeaderClass();
-        BeanMetadata<? extends Header> headMetadata = MessageHelper.getBeanMetadata(headerClass, version);
+        BeanMetadata<? extends Header> headMetadata = MessageHelper.getHeaderMetadata(version);
 
         Header header = headMetadata.decode(buf.slice(0, headLen));
         header.setVerified(verified);
