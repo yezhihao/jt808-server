@@ -201,7 +201,7 @@ public class JT808Endpoint {
         Header header = message.getHeader();
     }
 
-    @Mapping(types = CAN总线数据上传, desc = "定位数据批量上传")
+    @Mapping(types = CAN总线数据上传, desc = "CAN总线数据上传")
     public void CAN总线数据上传(T0705 message, Session session) {
         Header header = message.getHeader();
     }

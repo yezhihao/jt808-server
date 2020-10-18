@@ -20,7 +20,10 @@ public class DynamicFieldLoggerProxy extends DynamicField {
         int after = buf.readerIndex();
 
         String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
-        System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
+        if (value == null)
+            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": null");
+        else
+            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
         return value;
     }
 
