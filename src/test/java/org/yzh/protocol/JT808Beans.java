@@ -610,7 +610,7 @@ public class JT808Beans {
         bean.setCommand(0x01);
         bean.setTime(6328);
         bean.setSave(1);
-        bean.setAudioSampleRate(0);
+        bean.setAudioSamplingRate(0);
         return bean;
     }
 

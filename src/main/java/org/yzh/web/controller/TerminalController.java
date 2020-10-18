@@ -354,12 +354,12 @@ public class TerminalController {
                              @ApiParam("0：停止录音；1：开始录音") @RequestParam Integer command,
                              @ApiParam("单位为秒（s），0 表示一直录音") @RequestParam Integer time,
                              @ApiParam("0：实时上传；1：保存") @RequestParam Integer saveSign,
-                             @ApiParam("0：8K；1：11K；2：23K；3：32K；") @RequestParam Integer audioSampleRate) {
+                             @ApiParam("0：8K；1：11K；2：23K；3：32K；") @RequestParam Integer audioSamplingRate) {
         T8804 request = new T8804(clientId);
         request.setCommand(command);
         request.setTime(time);
         request.setSave(saveSign);
-        request.setAudioSampleRate(audioSampleRate);
+        request.setAudioSamplingRate(audioSamplingRate);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }

@@ -53,14 +53,14 @@ public class JT1078Beans {
     //终端上传音视频属性
     public static T1003 T1003() {
         T1003 bean = new T1003();
-        bean.setSoundFormat(127);
-        bean.setSoundChannel(4);
-        bean.setSoundSamplingRate(2);
-        bean.setSoundSamplingBits(0);
-        bean.setSoundFrameLength(37961);
-        bean.setSoundable(1);
+        bean.setAudioFormat(127);
+        bean.setAudioChannels(4);
+        bean.setAudioSamplingRate(2);
+        bean.setAudioBitDepth(0);
+        bean.setAudioFrameLength(37961);
+        bean.setAudioSupport(1);
         bean.setVideoFormat(32);
-        bean.setMaxSoundChannels(8);
+        bean.setMaxAudioChannels(8);
         bean.setMaxVideoChannels(8);
         return bean;
     }
