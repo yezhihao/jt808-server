@@ -1,6 +1,6 @@
 package org.yzh.protocol;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
@@ -9,12 +9,16 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
+import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.RandomUtils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -39,7 +43,12 @@ public class BeanTest {
             System.out.println(hex1);
     }
 
-    public static final Gson gson = new Gson();
+    public static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, type, context) -> new JsonPrimitive(src.format(DateUtils.DATE_TIME_FORMATTER)))
+            .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateUtils.DATE_TIME_FORMATTER))
+            .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
+            .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
+            .create();
 
     public static void selfCheck(String hex1) {
         println(hex1);
