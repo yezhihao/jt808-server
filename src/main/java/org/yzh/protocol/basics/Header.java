@@ -2,7 +2,7 @@ package org.yzh.protocol.basics;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
-import org.yzh.framework.orm.model.AbstractHeader;
+import org.yzh.framework.mvc.model.AbstractHeader;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.commons.MessageId;
 

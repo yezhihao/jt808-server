@@ -3,7 +3,7 @@ package org.yzh.codec;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.orm.FieldFactory;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 
 /**

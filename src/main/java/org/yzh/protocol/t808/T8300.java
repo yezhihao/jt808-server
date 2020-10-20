@@ -4,7 +4,7 @@ import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;

@@ -1,7 +1,7 @@
 package org.yzh.framework.mvc;
 
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractHeader;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
 /**

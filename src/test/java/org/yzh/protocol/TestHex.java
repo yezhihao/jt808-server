@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.web.commons.FileUtils;
 import org.yzh.web.commons.JsonUtils;
 

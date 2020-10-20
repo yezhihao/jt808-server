@@ -13,7 +13,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 
 import java.util.List;
 

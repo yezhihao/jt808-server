@@ -1,7 +1,7 @@
 package org.yzh.protocol;
 
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t1078.*;
 import org.yzh.web.commons.DateUtils;

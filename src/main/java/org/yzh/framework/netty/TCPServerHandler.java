@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.handler.Handler;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 

@@ -15,7 +15,7 @@ import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
 import org.yzh.framework.netty.TCPServer;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.SessionListener;
 import org.yzh.framework.session.SessionManager;

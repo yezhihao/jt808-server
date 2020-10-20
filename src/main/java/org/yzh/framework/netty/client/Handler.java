@@ -1,6 +1,6 @@
 package org.yzh.framework.netty.client;
 
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

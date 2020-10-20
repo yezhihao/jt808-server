@@ -2,8 +2,8 @@ package org.yzh.protocol;
 
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.RawMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.framework.mvc.model.RawMessage;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;

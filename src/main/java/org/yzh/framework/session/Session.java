@@ -4,7 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractHeader;
+import org.yzh.framework.mvc.model.AbstractHeader;
 
 import java.util.Collection;
 import java.util.Map;

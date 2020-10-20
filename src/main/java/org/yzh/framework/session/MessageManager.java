@@ -2,9 +2,9 @@ package org.yzh.framework.session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.Response;
+import org.yzh.framework.mvc.model.AbstractHeader;
+import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Response;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

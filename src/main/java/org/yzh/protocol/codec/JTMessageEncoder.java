@@ -9,7 +9,7 @@ import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.protocol.basics.Header;
 
 import java.util.ArrayList;

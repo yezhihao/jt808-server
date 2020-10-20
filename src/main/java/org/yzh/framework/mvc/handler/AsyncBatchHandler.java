@@ -4,7 +4,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.VirtualList;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
 import java.lang.reflect.Method;

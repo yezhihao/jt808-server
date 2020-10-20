@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;

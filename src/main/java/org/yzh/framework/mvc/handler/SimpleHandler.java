@@ -1,6 +1,6 @@
 package org.yzh.framework.mvc.handler;
 
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 
 import java.lang.reflect.Method;
