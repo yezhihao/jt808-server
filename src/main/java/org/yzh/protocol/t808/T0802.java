@@ -1,11 +1,10 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.mvc.model.Response;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.framework.orm.model.Response;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.存储多媒体数据检索应答)
-public class T0802 extends AbstractMessage<Header> implements Response {
+public class T0802 extends JTMessage implements Response {
 
     private int serialNo;
     private int total;

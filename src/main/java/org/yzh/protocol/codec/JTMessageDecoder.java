@@ -3,49 +3,39 @@ package org.yzh.protocol.codec;
 import io.netty.buffer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JT协议解码器
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
+public class JTMessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
-    private MultiPacketManager multiPacketManager = MultiPacketManager.getInstance();
+    private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
 
     public JTMessageDecoder(String basePackage) {
         MessageHelper.initial(basePackage);
+        this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
     }
 
-    /** 校验 */
-    public boolean verify(ByteBuf buf) {
-        byte checkCode = buf.getByte(buf.readableBytes() - 1);
-        buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
-
-        return checkCode == calculatedCheckCode;
-    }
-
-    @Override
-    public AbstractMessage decode(ByteBuf buf) {
+    public JTMessage decode(ByteBuf buf) {
         return decode(buf, null);
     }
 
-    public AbstractMessage decode(ByteBuf buf, Session session) {
+    public JTMessage decode(ByteBuf buf, Session session) {
         buf = unescape(buf);
 
         boolean verified = verify(buf);
@@ -76,7 +66,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         else
             headLen = isSubpackage ? 16 : 12;
 
-        BeanMetadata<? extends Header> headMetadata = MessageHelper.getHeaderMetadata(version);
+        BeanMetadata<? extends Header> headMetadata = headerMetadataMap.get(version);
 
         Header header = headMetadata.decode(buf.slice(0, headLen));
         header.setVerified(verified);
@@ -90,8 +80,8 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         }
 
 
-        AbstractMessage message;
-        BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
+        JTMessage message;
+        BeanMetadata<? extends JTMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
         if (bodyMetadata != null) {
             int bodyLen = header.getBodyLength();
 
@@ -100,7 +90,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
                 byte[] bytes = new byte[bodyLen];
                 buf.getBytes(headLen, bytes);
 
-                byte[][] packages = multiPacketManager.addAndGet(header, bytes);
+                byte[][] packages = addAndGet(header, bytes);
                 if (packages == null)
                     return null;
 
@@ -111,7 +101,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
                 message = bodyMetadata.decode(buf.slice(headLen, bodyLen));
             }
         } else {
-            message = new RawMessage<>();
+            message = new JTMessage();
             log.info("未找到对应的BeanMetadata[{}]", header);
         }
 
@@ -119,8 +109,21 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         return message;
     }
 
+    protected byte[][] addAndGet(Header header, byte[] bytes) {
+        return null;
+    }
+
+    /** 校验 */
+    protected boolean verify(ByteBuf buf) {
+        byte checkCode = buf.getByte(buf.readableBytes() - 1);
+        buf = buf.slice(0, buf.readableBytes() - 1);
+        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
+
+        return checkCode == calculatedCheckCode;
+    }
+
     /** 反转义 */
-    public ByteBuf unescape(ByteBuf source) {
+    protected ByteBuf unescape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 

@@ -1,7 +1,7 @@
 package org.yzh.framework.mvc.handler;
 
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Header;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
@@ -42,9 +42,9 @@ public abstract class Handler {
                 else
                     clazz = (Class<?>) type;
 
-                if (AbstractMessage.class.isAssignableFrom(clazz))
+                if (Message.class.isAssignableFrom(clazz))
                     parameterTypes[i] = MESSAGE;
-                else if (AbstractHeader.class.isAssignableFrom(clazz))
+                else if (Header.class.isAssignableFrom(clazz))
                     parameterTypes[i] = HEADER;
                 else if (Session.class.isAssignableFrom(clazz))
                     parameterTypes[i] = SESSION;
@@ -55,7 +55,7 @@ public abstract class Handler {
         this.parameterTypes = parameterTypes;
     }
 
-    public <T extends AbstractMessage> T invoke(T request, Session session) throws Exception {
+    public <T extends Message> T invoke(T request, Session session) throws Exception {
         Object[] args = new Object[parameterTypes.length];
 
         for (int i = 0; i < parameterTypes.length; i++) {

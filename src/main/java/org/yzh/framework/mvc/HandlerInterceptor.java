@@ -1,7 +1,7 @@
 package org.yzh.framework.mvc;
 
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Header;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 
 /**
@@ -9,19 +9,19 @@ import org.yzh.framework.session.Session;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public interface HandlerInterceptor<T extends AbstractHeader> {
+public interface HandlerInterceptor<T extends Message<? extends Header>> {
     /** 未找到对应的Handle */
-    AbstractMessage notSupported(AbstractMessage<T> request, Session session);
+    T notSupported(T request, Session session);
 
     /** 调用之前 */
-    boolean beforeHandle(AbstractMessage<T> request, Session session);
+    boolean beforeHandle(T request, Session session);
 
     /** 调用之后，返回值为void的 */
-    AbstractMessage successful(AbstractMessage<T> request, Session session);
+    T successful(T request, Session session);
 
     /** 调用之后，有返回值的 */
-    void afterHandle(AbstractMessage<T> request, AbstractMessage<T> response, Session session);
+    void afterHandle(T request, T response, Session session);
 
     /** 调用之后抛出异常的 */
-    AbstractMessage exceptional(AbstractMessage<T> request, Session session, Exception e);
+    T exceptional(T request, Session session, Exception e);
 }

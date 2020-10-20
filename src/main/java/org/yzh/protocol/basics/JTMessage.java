@@ -1,27 +1,42 @@
-package org.yzh.framework.orm.model;
+package org.yzh.protocol.basics;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 
 import java.beans.Transient;
-import java.io.Serializable;
 
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public abstract class AbstractMessage<T extends AbstractHeader> implements Serializable {
+public class JTMessage implements Message<Header> {
 
     private transient Session session;
 
-    private T header;
+    protected Header header;
 
-    public AbstractMessage() {
+    public JTMessage() {
     }
 
-    public AbstractMessage(T header) {
+    public JTMessage(Header header) {
         this.header = header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    @Override
+    public Object getMessageType() {
+        if (header == null)
+            return null;
+        return header.getMessageId();
     }
 
     @Transient
@@ -31,20 +46,6 @@ public abstract class AbstractMessage<T extends AbstractHeader> implements Seria
 
     public void setSession(Session session) {
         this.session = session;
-    }
-
-    public void setHeader(T header) {
-        this.header = header;
-    }
-
-    public T getHeader() {
-        return header;
-    }
-
-    public Object getMessageType() {
-        if (header == null)
-            return null;
-        return header.getMessageType();
     }
 
     @Override

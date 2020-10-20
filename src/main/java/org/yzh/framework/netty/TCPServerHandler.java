@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.handler.Handler;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 
@@ -38,13 +38,12 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        if (!(msg instanceof AbstractMessage))
+        if (!(msg instanceof Message))
             return;
-        AbstractMessage request = (AbstractMessage) msg;
-        AbstractMessage response;
+        Message request = (Message) msg;
+        Message response;
         Channel channel = ctx.channel();
         Session session = channel.attr(Session.KEY).get();
-        request.setSession(session);
         long time = session.access();
 
         try {

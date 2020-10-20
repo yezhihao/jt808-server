@@ -2,9 +2,8 @@ package org.yzh.protocol.t1078;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
 /**
@@ -12,7 +11,7 @@ import org.yzh.protocol.commons.JT1078;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT1078.查询资源列表)
-public class T9205 extends AbstractMessage<Header> {
+public class T9205 extends JTMessage {
 
     private int channelNo;
     private String startTime;

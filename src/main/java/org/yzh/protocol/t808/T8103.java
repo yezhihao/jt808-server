@@ -2,10 +2,10 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.TerminalParameterUtils;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.设置终端参数)
-public class T8103 extends AbstractMessage<Header> {
+public class T8103 extends JTMessage {
 
     private int total;
     private List<BytesParameter> bytesParameters;

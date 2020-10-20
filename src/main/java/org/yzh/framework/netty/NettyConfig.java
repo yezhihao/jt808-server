@@ -1,12 +1,13 @@
 package org.yzh.framework.netty;
 
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.yzh.framework.codec.*;
+import org.yzh.framework.codec.Delimiter;
+import org.yzh.framework.codec.LengthField;
+import org.yzh.framework.codec.MessageDecoder;
+import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerInterceptor;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.protocol.codec.MultiPacketListener;
-import org.yzh.protocol.codec.MultiPacketManager;
 
 /**
  * @author yezhihao
@@ -24,7 +25,6 @@ public class NettyConfig {
     protected final HandlerMapping handlerMapping;
     protected final HandlerInterceptor handlerInterceptor;
     protected final SessionManager sessionManager;
-    protected final MultiPacketListener multiPacketListener;
 
     private NettyConfig(int port,
                         int maxFrameLength,
@@ -34,8 +34,7 @@ public class NettyConfig {
                         MessageEncoder encoder,
                         HandlerMapping handlerMapping,
                         HandlerInterceptor handlerInterceptor,
-                        SessionManager sessionManager,
-                        MultiPacketListener multiPacketListener
+                        SessionManager sessionManager
     ) {
         this.port = port;
         this.maxFrameLength = maxFrameLength;
@@ -47,8 +46,6 @@ public class NettyConfig {
         this.handlerInterceptor = handlerInterceptor;
         this.sessionManager = sessionManager;
         this.adapter = new TCPServerHandler(this.handlerMapping, this.handlerInterceptor, this.sessionManager);
-        this.multiPacketListener = multiPacketListener;
-        MultiPacketManager.getInstance().addListener(multiPacketListener);
     }
 
     public static NettyConfig.Builder custom() {
@@ -66,7 +63,6 @@ public class NettyConfig {
         private HandlerMapping handlerMapping;
         private HandlerInterceptor handlerInterceptor;
         private SessionManager sessionManager;
-        private MultiPacketListener multiPacketListener;
 
         public Builder() {
         }
@@ -120,11 +116,6 @@ public class NettyConfig {
             return this;
         }
 
-        public Builder setMultiPacketListener(MultiPacketListener multiPacketListener) {
-            this.multiPacketListener = multiPacketListener;
-            return this;
-        }
-
         public Builder setSessionManager(SessionManager sessionManager) {
             this.sessionManager = sessionManager;
             return this;
@@ -140,8 +131,7 @@ public class NettyConfig {
                     this.encoder,
                     this.handlerMapping,
                     this.handlerInterceptor,
-                    this.sessionManager,
-                    this.multiPacketListener
+                    this.sessionManager
             );
         }
     }

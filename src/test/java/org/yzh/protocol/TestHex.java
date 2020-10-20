@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.web.commons.FileUtils;
 import org.yzh.web.commons.JsonUtils;
 
@@ -35,7 +35,7 @@ public class TestHex {
             if (StringUtils.isBlank(hex))
                 return false;
             hex = hex.substring(2, hex.length() - 2);
-            AbstractMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
+            JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
             System.out.println(JsonUtils.toJson(message));
             return true;
         });

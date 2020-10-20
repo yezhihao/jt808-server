@@ -1,4 +1,4 @@
-package org.yzh.framework.orm.model;
+package org.yzh.framework.mvc.model;
 
 /**
  * @author yezhihao

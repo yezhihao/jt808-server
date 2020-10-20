@@ -2,11 +2,10 @@ package org.yzh.protocol;
 
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.Attribute;
@@ -29,7 +28,7 @@ public class JT808Beans {
     private static final Random R = new Random(1);
 
     /** 2013版消息头 */
-    public static AbstractMessage H2013(AbstractMessage message) {
+    public static JTMessage H2013(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)
@@ -43,7 +42,7 @@ public class JT808Beans {
     }
 
     /** 2019版消息头 */
-    public static AbstractMessage H2019(AbstractMessage message) {
+    public static JTMessage H2019(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)
@@ -76,8 +75,8 @@ public class JT808Beans {
     }
 
     //终端心跳
-    public static RawMessage T0002() {
-        RawMessage bean = new RawMessage();
+    public static JTMessage T0002() {
+        JTMessage bean = new JTMessage();
         return bean;
     }
 

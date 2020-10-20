@@ -1,11 +1,12 @@
 package org.yzh.client;
 
-import org.yzh.framework.netty.client.ClientConfig;
-import org.yzh.framework.netty.client.HandlerMapping;
-import org.yzh.framework.netty.client.TCPClient;
+import org.yzh.client.netty.ClientConfig;
+import org.yzh.client.netty.HandlerMapping;
+import org.yzh.client.netty.TCPClient;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.web.component.adapter.JTMessageAdapter;
 
 import java.util.Scanner;
 
@@ -19,14 +20,19 @@ public class ClientTest {
     private static TCPClient tcpClient;
 
     static {
+        JTMessageAdapter messageAdapter = new JTMessageAdapter(
+                new JTMessageEncoder("org.yzh.protocol"),
+                new JTMessageDecoder("org.yzh.protocol")
+        );
+
         ClientConfig jtConfig = new ClientConfig.Builder()
                 .setIp("127.0.0.1")
                 .setPort(7611)
                 .setMaxFrameLength(1024)
                 .setDelimiters(new byte[]{0x7e})
-                .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
-                .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
-                .setHandlerMapping(new HandlerMapping("org.yzh.client"))
+                .setDecoder(messageAdapter)
+                .setEncoder(messageAdapter)
+                .setHandlerMapping(new HandlerMapping("org.yzh.netty"))
                 .build();
 
         tcpClient = new TCPClient(jtConfig).start();

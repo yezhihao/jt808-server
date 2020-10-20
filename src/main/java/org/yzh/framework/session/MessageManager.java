@@ -2,9 +2,9 @@ package org.yzh.framework.session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.Response;
+import org.yzh.framework.mvc.model.Header;
+import org.yzh.framework.mvc.model.Message;
+import org.yzh.framework.mvc.model.Response;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,8 +30,8 @@ public class MessageManager {
     /**
      * 发送通知类消息，不接收响应
      */
-    public boolean notify(AbstractMessage<? extends AbstractHeader> message) {
-        AbstractHeader header = message.getHeader();
+    public boolean notify(Message<? extends Header> message) {
+        Header header = message.getHeader();
         Object clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
@@ -49,12 +49,12 @@ public class MessageManager {
      * 发送同步消息，接收响应
      * 默认超时时间20秒
      */
-    public <T> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> responseClass) {
+    public <T> T request(Message<? extends Header> request, Class<T> responseClass) {
         return request(request, responseClass, 20000);
     }
 
-    public <T> T request(AbstractMessage<? extends AbstractHeader> request, Class<T> responseClass, long timeout) {
-        AbstractHeader header = request.getHeader();
+    public <T> T request(Message<? extends Header> request, Class<T> responseClass, long timeout) {
+        Header header = request.getHeader();
         Object clientId = header.getClientId();
 
         Session session = sessionManager.get(clientId);
@@ -85,7 +85,7 @@ public class MessageManager {
     /**
      * 消息响应
      */
-    public boolean response(AbstractMessage message) {
+    public boolean response(Message message) {
         SynchronousQueue queue = topicSubscribers.get(responseKey(message));
         if (queue != null)
             return queue.offer(message);
@@ -103,7 +103,7 @@ public class MessageManager {
         topicSubscribers.remove(key);
     }
 
-    private static String requestKey(AbstractHeader header, Class responseClass) {
+    private static String requestKey(Header header, Class responseClass) {
         StringBuilder key = new StringBuilder(13 + 1 + 27 + 1 + 5);
         key.append(header.getClientId()).append('/').append(responseClass.getName());
 
@@ -112,9 +112,9 @@ public class MessageManager {
         return key.toString();
     }
 
-    private static String responseKey(AbstractMessage response) {
-        Class<? extends AbstractMessage> responseClass = response.getClass();
-        AbstractHeader header = response.getHeader();
+    private static String responseKey(Message response) {
+        Class<? extends Message> responseClass = response.getClass();
+        Header header = response.getHeader();
 
         StringBuilder key = new StringBuilder(13 + 1 + 27 + 1 + 5);
         key.append(header.getClientId()).append('/').append(responseClass.getName());

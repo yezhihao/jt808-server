@@ -4,8 +4,9 @@ import io.netty.buffer.ByteBuf;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.session.Session;
+import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.jsatl12.DataPacket;
 
 /**
  * 数据帧解码器
@@ -14,17 +15,17 @@ import org.yzh.framework.session.Session;
  */
 public class DataFrameMessageDecoder extends JTMessageDecoder {
 
-    private BeanMetadata<? extends AbstractMessage> dataFrameMetadata;
+    private BeanMetadata<? extends JTMessage> dataFrameMetadata;
     private byte[] dataFramePrefix;
 
-    public DataFrameMessageDecoder(String basePackage, Class<? extends AbstractMessage> dataFrameClass, byte[] dataFramePrefix) {
+    public DataFrameMessageDecoder(String basePackage, byte[] dataFramePrefix) {
         super(basePackage);
-        this.dataFrameMetadata = MessageHelper.getBeanMetadata(dataFrameClass, 0);
         this.dataFramePrefix = dataFramePrefix;
+        this.dataFrameMetadata = MessageHelper.getBeanMetadata(DataPacket.class, 0);
     }
 
     @Override
-    public AbstractMessage decode(ByteBuf buf, Session session) {
+    public JTMessage decode(ByteBuf buf, Session session) {
         if (ByteBufUtils.startsWith(buf, dataFramePrefix))
             return dataFrameMetadata.decode(buf);
         return super.decode(buf, session);

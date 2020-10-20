@@ -13,21 +13,26 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public enum MultiPacketManager {
+public class MultiPacketDecoder extends JTMessageDecoder {
 
-    Instance;
-
-    private static final Logger log = LoggerFactory.getLogger(MultiPacketManager.class.getSimpleName());
-
-    public static MultiPacketManager getInstance() {
-        return Instance;
-    }
+    private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class.getSimpleName());
 
     private static final ConcurrentHashMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
 
     private MultiPacketListener multiPacketListener;
 
-    public byte[][] addAndGet(Header header, byte[] packetData) {
+    public MultiPacketDecoder(String basePackage) {
+        this(basePackage, new MultiPacketListener(20));
+    }
+
+    public MultiPacketDecoder(String basePackage, MultiPacketListener multiPacketListener) {
+        super(basePackage);
+        this.multiPacketListener = multiPacketListener;
+        startListener();
+    }
+
+    @Override
+    protected byte[][] addAndGet(Header header, byte[] packetData) {
         String clientId = header.getClientId();
         int messageId = header.getMessageId();
         int packageTotal = header.getPackageTotal();
@@ -51,7 +56,7 @@ public enum MultiPacketManager {
     }
 
     private void startListener() {
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             for (; ; ) {
                 for (Map.Entry<String, MultiPacket> entry : multiPacketsMap.entrySet()) {
                     MultiPacket packet = entry.getValue();
@@ -70,13 +75,8 @@ public enum MultiPacketManager {
                     log.error("分包管理器", e);
                 }
             }
-        }, "MultiPacketListener").start();
-    }
-
-    public synchronized void addListener(MultiPacketListener multiPacketListener) {
-        if (this.multiPacketListener == null) {
-            this.multiPacketListener = multiPacketListener;
-            startListener();
-        }
+        }, "MultiPacketListener");
+        thread.setDaemon(true);
+        thread.start();
     }
 }

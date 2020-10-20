@@ -1,7 +1,7 @@
 package org.yzh.protocol;
 
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t1078.*;
 import org.yzh.web.commons.DateUtils;
@@ -21,7 +21,7 @@ public class JT1078Beans {
     private static final LocalDateTime endTime = LocalDateTime.parse("2020-12-31 23:59:59", DateUtils.DATE_TIME_FORMATTER);
 
     /** 2013版消息头 */
-    public static AbstractMessage H2013(AbstractMessage message) {
+    public static JTMessage H2013(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)
@@ -35,7 +35,7 @@ public class JT1078Beans {
     }
 
     /** 2019版消息头 */
-    public static AbstractMessage H2019(AbstractMessage message) {
+    public static JTMessage H2019(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)

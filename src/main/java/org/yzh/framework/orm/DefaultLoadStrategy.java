@@ -1,9 +1,6 @@
 package org.yzh.framework.orm;
 
 import org.yzh.framework.commons.ClassUtils;
-import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
 
 import java.beans.Introspector;
 import java.util.HashMap;
@@ -16,74 +13,50 @@ import java.util.Map;
  */
 public class DefaultLoadStrategy extends LoadStrategy {
 
-    private Map<String, Map<Integer, BeanMetadata>> typeClassMapping = new HashMap(140);
+    private Map<String, Map<Integer, BeanMetadata<?>>> typeClassMapping = new HashMap(140);
 
-    private Map<Object, Class<? extends AbstractMessage>> typeIdMapping = new HashMap<>(64);
-
-    private Class<? extends AbstractHeader> headerClass = null;
-
-    private Map<Integer, BeanMetadata> headerMetadata;
+    private Map<Object, Class<?>> typeIdMapping = new HashMap<>(64);
 
     public DefaultLoadStrategy(String basePackage) {
         List<Class<?>> types = ClassUtils.getClassList(basePackage);
         for (Class<?> type : types) {
-            Class<?> aClass = getMessageClass(type);
-            if (aClass != null)
-                initClass(typeClassMapping, aClass);
+            if (loadTypeMapping(this.typeIdMapping, type))
+                loadBeanMetadata(this.typeClassMapping, type);
         }
-        this.headerMetadata = this.typeClassMapping.get(headerClass.getName());
         Introspector.flushCaches();
     }
 
     @Override
-    public BeanMetadata getHeaderMetadata(Integer version) {
-        return headerMetadata.get(version);
-    }
-
-    @Override
     public BeanMetadata getBeanMetadata(Object typeId, Integer version) {
-        Class<? extends AbstractMessage> typeClass = typeIdMapping.get(typeId);
+        Class<?> typeClass = typeIdMapping.get(typeId);
         if (typeClass == null)
             return null;
         return getBeanMetadata(typeClass, version);
     }
 
     @Override
-    public <T> BeanMetadata<T> getBeanMetadata(Class<T> clazz, Integer version) {
-        Map<Integer, BeanMetadata> beanMetadata = typeClassMapping.get(clazz.getName());
-        if (beanMetadata != null)
-            return beanMetadata.get(version);
-        return null;
+    public <T> BeanMetadata<T> getBeanMetadata(Class<T> typeClass, Integer version) {
+        Map<Integer, BeanMetadata<?>> beanMetadata = typeClassMapping.get(typeClass.getName());
+        if (beanMetadata == null) {
+            loadBeanMetadata(typeClassMapping, typeClass);
+            beanMetadata = typeClassMapping.get(typeClass.getName());
+        }
+        if (beanMetadata == null) return null;
+        return (BeanMetadata<T>) beanMetadata.get(version);
     }
 
-    private Class<?> getMessageClass(Class<?> messageClass) {
-        Class<?> superclass = messageClass.getSuperclass();
-        Class<?> result = null;
-        if (superclass != null) {
+    @Override
+    public <T> Map<Integer, BeanMetadata<T>> getBeanMetadata(Class<T> typeClass) {
+        Map<Integer, BeanMetadata<?>> beanMetadata = typeClassMapping.get(typeClass.getName());
+        if (beanMetadata == null) {
+            loadBeanMetadata(typeClassMapping, typeClass);
+            beanMetadata = typeClassMapping.get(typeClass.getName());
+        }
+        if (beanMetadata == null) return null;
 
-            if (AbstractMessage.class.isAssignableFrom(superclass)) {
-                result = messageClass;
-
-                Message type = messageClass.getAnnotation(Message.class);
-                if (type != null) {
-                    int[] values = type.value();
-                    for (int value : values)
-                        typeIdMapping.put(value, (Class<? extends AbstractMessage>) messageClass);
-                }
-
-            } else if (AbstractHeader.class.isAssignableFrom(superclass)) {
-                headerClass = (Class<? extends AbstractHeader>) messageClass;
-                result = messageClass;
-            }
-        } else {
-            Class<?> enclosingClass = messageClass.getEnclosingClass();
-            if (enclosingClass != null) {
-
-                superclass = enclosingClass.getSuperclass();
-                if (AbstractMessage.class.isAssignableFrom(superclass)) {
-                    result = messageClass;
-                }
-            }
+        HashMap<Integer, BeanMetadata<T>> result = new HashMap<>(beanMetadata.size());
+        for (Map.Entry<Integer, BeanMetadata<?>> entry : beanMetadata.entrySet()) {
+            result.put(entry.getKey(), (BeanMetadata<T>) entry.getValue());
         }
         return result;
     }

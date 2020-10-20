@@ -2,9 +2,9 @@ package org.yzh.protocol.jsatl12;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JSATL12.文件上传完成消息应答)
-public class T9212 extends AbstractMessage<Header> {
+public class T9212 extends JTMessage {
 
     private String name;
     private int type;

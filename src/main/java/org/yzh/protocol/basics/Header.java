@@ -2,7 +2,6 @@ package org.yzh.protocol.basics;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
-import org.yzh.framework.orm.model.AbstractHeader;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.commons.MessageId;
 
@@ -10,7 +9,7 @@ import org.yzh.protocol.commons.MessageId;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Header extends AbstractHeader<Integer, String> {
+public class Header implements org.yzh.framework.mvc.model.Header<String> {
 
     /** 消息类型 */
     protected int messageId;
@@ -196,11 +195,6 @@ public class Header extends AbstractHeader<Integer, String> {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-
-    @Override
-    public Integer getMessageType() {
-        return messageId;
     }
 
     @Override

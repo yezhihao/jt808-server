@@ -1,6 +1,6 @@
-package org.yzh.framework.netty.client;
+package org.yzh.client.netty;
 
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,7 +22,7 @@ public class Handler {
         this.targetMethod = actionMethod;
     }
 
-    public <T extends AbstractMessage> T invoke(Object... args) throws InvocationTargetException, IllegalAccessException {
+    public <T extends Message> T invoke(Object... args) throws InvocationTargetException, IllegalAccessException {
         return (T) targetMethod.invoke(targetObject, args);
     }
 

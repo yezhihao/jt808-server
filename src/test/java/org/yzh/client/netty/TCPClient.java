@@ -1,4 +1,4 @@
-package org.yzh.framework.netty.client;
+package org.yzh.client.netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -13,7 +13,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 
 import java.util.List;
 
@@ -60,9 +60,9 @@ public class TCPClient {
                                             buf.skipBytes(buf.readableBytes());
                                         }
                                     })
-                                    .addLast("encoder", new MessageToByteEncoder<AbstractMessage>() {
+                                    .addLast("encoder", new MessageToByteEncoder<Message>() {
                                         @Override
-                                        protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
+                                        protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) {
                                             ByteBuf buf = config.encoder.encode(msg);
                                             log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
                                             out.writeBytes(config.delimiter).writeBytes(buf).writeBytes(config.delimiter);

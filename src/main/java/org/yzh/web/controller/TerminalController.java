@@ -9,13 +9,12 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.yzh.framework.orm.model.AbstractMessage;
-import org.yzh.framework.orm.model.RawMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
@@ -88,11 +87,11 @@ public class TerminalController {
     @ApiOperation(value = "查询终端参数", tags = "终端管理类协议")
     @GetMapping("settings")
     public T0104 getSettings(@ApiParam("终端手机号") @RequestParam String clientId, @ApiParam("参数ID列表，为空查询全部，多个以逗号[,]分隔") @RequestParam(required = false) String id) {
-        AbstractMessage request;
+        JTMessage request;
         if (id != null) {
             request = new T8106(clientId, StrUtils.toBytes(id, ","));
         } else {
-            request = new RawMessage(new Header(clientId, JT808.查询终端参数));
+            request = new JTMessage(new Header(clientId, JT808.查询终端参数));
         }
         T0104 response = messageManager.request(request, T0104.class);
         return response;
@@ -110,14 +109,14 @@ public class TerminalController {
     @ApiOperation(value = "查询终端属性", tags = "终端管理类协议")
     @GetMapping("attributes")
     public T0107 findAttributes(@ApiParam("终端手机号") @RequestParam String clientId) {
-        T0107 response = messageManager.request(new RawMessage(new Header(clientId, JT808.查询终端属性)), T0107.class);
+        T0107 response = messageManager.request(new JTMessage(new Header(clientId, JT808.查询终端属性)), T0107.class);
         return response;
     }
 
     @ApiOperation(value = "位置信息查询", tags = "位置报警类协议")
     @GetMapping("location")
     public T0201_0500 location(@ApiParam("终端手机号") @RequestParam String clientId) {
-        T0201_0500 response = messageManager.request(new RawMessage(new Header(clientId, JT808.位置信息查询)), T0201_0500.class);
+        T0201_0500 response = messageManager.request(new JTMessage(new Header(clientId, JT808.位置信息查询)), T0201_0500.class);
         return response;
     }
 
@@ -281,7 +280,7 @@ public class TerminalController {
     @ApiOperation(value = "行驶记录仪数据采集命令", tags = "信息采集类协议")
     @GetMapping("drive_recorder/report")
     public T0001 getDataRecord(@PathVariable("clientId") String clientId) {
-        RawMessage request = new RawMessage(new Header(clientId, JT808.行驶记录仪数据采集命令));
+        JTMessage request = new JTMessage(new Header(clientId, JT808.行驶记录仪数据采集命令));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
@@ -297,7 +296,7 @@ public class TerminalController {
     @ApiOperation(value = "上报驾驶员身份信息请求", tags = "信息采集类协议")
     @GetMapping("driver_identity/report")
     public T0702 findDriverIdentityInfo(@PathVariable("clientId") String clientId) {
-        RawMessage request = new RawMessage(new Header(clientId, JT808.上报驾驶员身份信息请求));
+        JTMessage request = new JTMessage(new Header(clientId, JT808.上报驾驶员身份信息请求));
         T0702 response = messageManager.request(request, T0702.class);
         return response;
     }
@@ -376,7 +375,7 @@ public class TerminalController {
     @ApiOperation(value = "服务器向终端发起链路检测请求", tags = "其他")
     @PostMapping("check_link")
     public T0001 checkLink(@PathVariable("clientId") String clientId) {
-        RawMessage request = new RawMessage(new Header(clientId, JT808.服务器向终端发起链路检测请求));
+        JTMessage request = new JTMessage(new Header(clientId, JT808.服务器向终端发起链路检测请求));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }

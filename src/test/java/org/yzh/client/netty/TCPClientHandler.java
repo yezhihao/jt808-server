@@ -1,4 +1,4 @@
-package org.yzh.framework.netty.client;
+package org.yzh.client.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -6,8 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.model.AbstractHeader;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 
 /**
  * @author yezhihao
@@ -27,17 +26,16 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        if (!(msg instanceof AbstractMessage))
+        if (!(msg instanceof Message))
             return;
-        AbstractMessage request = (AbstractMessage) msg;
+        Message request = (Message) msg;
         log.info(">>>>>>>>>>收到消息:{}", request);
         Channel channel = ctx.channel();
 
         try {
-            AbstractHeader header = request.getHeader();
-            Handler handler = handlerMapping.getHandler(header.getMessageType());
+            Handler handler = handlerMapping.getHandler(request.getMessageType());
 
-            AbstractMessage messageResponse = handler.invoke(request);
+            Message messageResponse = handler.invoke(request);
 
 
             if (messageResponse != null) {

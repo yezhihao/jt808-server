@@ -1,11 +1,10 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.mvc.model.Response;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.framework.orm.model.Response;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -14,7 +13,7 @@ import org.yzh.protocol.commons.JT808;
  * 该消息2019版本已删除
  */
 @Message(JT808.提问应答)
-public class T0302 extends AbstractMessage<Header> implements Response {
+public class T0302 extends JTMessage implements Response {
 
     private int serialNo;
     private int answerId;

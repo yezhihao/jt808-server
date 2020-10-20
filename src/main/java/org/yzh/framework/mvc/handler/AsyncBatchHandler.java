@@ -4,7 +4,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.VirtualList;
-import org.yzh.framework.orm.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 
 import java.lang.reflect.Method;
@@ -23,7 +23,7 @@ public class AsyncBatchHandler extends Handler {
 
     private static final Logger log = LoggerFactory.getLogger(AsyncBatchHandler.class.getSimpleName());
 
-    private ConcurrentLinkedQueue<AbstractMessage> queue;
+    private ConcurrentLinkedQueue<Message> queue;
 
     private ThreadPoolExecutor executor;
 
@@ -65,18 +65,18 @@ public class AsyncBatchHandler extends Handler {
         }
     }
 
-    public AbstractMessage invoke(AbstractMessage request, Session session) {
+    public Message invoke(Message request, Session session) {
         queue.offer(request);
         return null;
     }
 
     public void startInternal(boolean master) {
-        AbstractMessage[] array = new AbstractMessage[maxElements];
+        Message[] array = new Message[maxElements];
         long logtime = 0;
         long starttime = 0;
 
         for (; ; ) {
-            AbstractMessage temp;
+            Message temp;
             int i = 0;
             while ((temp = queue.poll()) != null) {
                 array[i++] = temp;

@@ -1,12 +1,11 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.mvc.model.Response;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.orm.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.framework.orm.model.Response;
 import org.yzh.protocol.basics.BytesAttribute;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
-public class T0201_0500 extends AbstractMessage<Header> implements Response {
+public class T0201_0500 extends JTMessage implements Response {
 
     private int serialNo;
     private int warningMark;
