@@ -37,6 +37,11 @@ public abstract class PositionAttributeUtils {
         map.put(AnalogQuantity.attributeId,     /**/bytes -> new AnalogQuantity().formBytes(bytes));
         map.put(SignalStrength.attributeId,     /**/bytes -> new SignalStrength().formBytes(bytes));
         map.put(GnssCount.attributeId,          /**/bytes -> new GnssCount().formBytes(bytes));
+
+        map.put(AlarmADAS.attributeId,          /**/bytes -> new AlarmADAS().formBytes(bytes));
+        map.put(AlarmBSD.attributeId,          /**/bytes -> new AlarmBSD().formBytes(bytes));
+        map.put(AlarmDSM.attributeId,          /**/bytes -> new AlarmDSM().formBytes(bytes));
+        map.put(AlarmTPMS.attributeId,          /**/bytes -> new AlarmTPMS().formBytes(bytes));
         MAPPER = Collections.unmodifiableMap(map);
     }
 

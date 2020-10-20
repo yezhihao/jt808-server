@@ -17,6 +17,9 @@ public class DefaultLoadStrategy extends LoadStrategy {
 
     private Map<Object, Class<?>> typeIdMapping = new HashMap<>(64);
 
+    public DefaultLoadStrategy() {
+    }
+
     public DefaultLoadStrategy(String basePackage) {
         List<Class<?>> types = ClassUtils.getClassList(basePackage);
         for (Class<?> type : types) {

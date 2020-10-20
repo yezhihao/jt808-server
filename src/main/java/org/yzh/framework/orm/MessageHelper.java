@@ -11,7 +11,7 @@ public class MessageHelper {
 
     private static volatile boolean Initial = false;
 
-    private static LoadStrategy LOAD_STRATEGY;
+    private static LoadStrategy LOAD_STRATEGY = new DefaultLoadStrategy();
 
     public static void initial(String basePackage) {
         if (!Initial) {
