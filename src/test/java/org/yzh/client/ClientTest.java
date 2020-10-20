@@ -1,8 +1,8 @@
 package org.yzh.client;
 
-import org.yzh.framework.netty.client.ClientConfig;
-import org.yzh.framework.netty.client.HandlerMapping;
-import org.yzh.framework.netty.client.TCPClient;
+import org.yzh.client.netty.ClientConfig;
+import org.yzh.client.netty.HandlerMapping;
+import org.yzh.client.netty.TCPClient;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
@@ -26,7 +26,7 @@ public class ClientTest {
                 .setDelimiters(new byte[]{0x7e})
                 .setDecoder(new JTMessageDecoder("org.yzh.protocol"))
                 .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
-                .setHandlerMapping(new HandlerMapping("org.yzh.client"))
+                .setHandlerMapping(new HandlerMapping("org.yzh.netty"))
                 .build();
 
         tcpClient = new TCPClient(jtConfig).start();

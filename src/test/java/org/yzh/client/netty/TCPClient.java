@@ -1,4 +1,4 @@
-package org.yzh.framework.netty.client;
+package org.yzh.client.netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;

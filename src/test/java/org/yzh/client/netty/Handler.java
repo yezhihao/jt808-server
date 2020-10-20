@@ -1,4 +1,4 @@
-package org.yzh.framework.netty.client;
+package org.yzh.client.netty;
 
 import org.yzh.framework.mvc.model.Message;
 
