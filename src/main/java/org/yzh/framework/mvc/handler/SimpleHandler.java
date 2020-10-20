@@ -1,6 +1,6 @@
 package org.yzh.framework.mvc.handler;
 
-import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 
 import java.lang.reflect.Method;
@@ -16,7 +16,7 @@ public class SimpleHandler extends Handler {
         super(actionClass, actionMethod, desc);
     }
 
-    public AbstractMessage invoke(AbstractMessage request, Session session) throws Exception {
+    public Message invoke(Message request, Session session) throws Exception {
         return super.invoke(request, session);
     }
 }

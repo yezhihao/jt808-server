@@ -1,7 +1,7 @@
 package org.yzh.framework.mvc;
 
-import org.yzh.framework.mvc.model.AbstractHeader;
-import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.framework.mvc.model.Header;
+import org.yzh.framework.mvc.model.Message;
 import org.yzh.framework.session.Session;
 
 /**
@@ -9,7 +9,7 @@ import org.yzh.framework.session.Session;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public interface HandlerInterceptor<T extends AbstractMessage<? extends AbstractHeader>> {
+public interface HandlerInterceptor<T extends Message<? extends Header>> {
     /** 未找到对应的Handle */
     T notSupported(T request, Session session);
 

@@ -4,7 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.model.AbstractHeader;
+import org.yzh.framework.mvc.model.Header;
 
 import java.util.Collection;
 import java.util.Map;
@@ -70,11 +70,11 @@ public class Session {
     /**
      * 注册到SessionManager
      */
-    public void register(AbstractHeader header) {
+    public void register(Header header) {
         this.register(header, null);
     }
 
-    public void register(AbstractHeader header, Object subject) {
+    public void register(Header header, Object subject) {
         this.clientId = header.getClientId();
         this.registered = true;
         this.subject = subject;
