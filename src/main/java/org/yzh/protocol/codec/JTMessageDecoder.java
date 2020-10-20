@@ -3,7 +3,6 @@ package org.yzh.protocol.codec;
 import io.netty.buffer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.codec.MessageDecoder;
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
@@ -21,7 +20,7 @@ import java.util.Map;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageDecoder implements MessageDecoder<JTMessage> {
+public class JTMessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
@@ -32,16 +31,6 @@ public class JTMessageDecoder implements MessageDecoder<JTMessage> {
         this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
     }
 
-    /** 校验 */
-    public boolean verify(ByteBuf buf) {
-        byte checkCode = buf.getByte(buf.readableBytes() - 1);
-        buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
-
-        return checkCode == calculatedCheckCode;
-    }
-
-    @Override
     public JTMessage decode(ByteBuf buf) {
         return decode(buf, null);
     }
@@ -124,8 +113,17 @@ public class JTMessageDecoder implements MessageDecoder<JTMessage> {
         return null;
     }
 
+    /** 校验 */
+    protected boolean verify(ByteBuf buf) {
+        byte checkCode = buf.getByte(buf.readableBytes() - 1);
+        buf = buf.slice(0, buf.readableBytes() - 1);
+        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
+
+        return checkCode == calculatedCheckCode;
+    }
+
     /** 反转义 */
-    public ByteBuf unescape(ByteBuf source) {
+    protected ByteBuf unescape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 

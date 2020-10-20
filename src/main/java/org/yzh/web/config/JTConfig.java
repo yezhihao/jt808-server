@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yzh.framework.codec.Delimiter;
-import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
@@ -19,6 +17,7 @@ import org.yzh.framework.session.SessionListener;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
+import org.yzh.web.component.adapter.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
@@ -39,8 +38,8 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setPort(port)
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
                 .setDelimiters(new Delimiter(new byte[]{0x7e}))
-                .setDecoder(messageDecoder())
-                .setEncoder(messageEncoder())
+                .setDecoder(messageAdapter())
+                .setEncoder(messageAdapter())
                 .setSessionManager(sessionManager())
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
@@ -49,13 +48,16 @@ public class JTConfig implements InitializingBean, DisposableBean {
     }
 
     @Bean
-    public MessageDecoder messageDecoder() {
-        return new MultiPacketDecoder("org.yzh.protocol", multiPacketListener());
+    public JTMessageAdapter messageAdapter() {
+        return new JTMessageAdapter(
+                new JTMessageEncoder("org.yzh.protocol"),
+                new MultiPacketDecoder("org.yzh.protocol", multiPacketListener())
+        );
     }
 
     @Bean
-    public MessageEncoder messageEncoder() {
-        return new JTMessageEncoder("org.yzh.protocol");
+    public JTMultiPacketListener multiPacketListener() {
+        return new JTMultiPacketListener(10);
     }
 
     @Bean
@@ -82,12 +84,6 @@ public class JTConfig implements InitializingBean, DisposableBean {
     public JTHandlerInterceptor handlerInterceptor() {
         return new JTHandlerInterceptor();
     }
-
-    @Bean
-    public JTMultiPacketListener multiPacketListener() {
-        return new JTMultiPacketListener(10);
-    }
-
 
     @Override
     public void afterPropertiesSet() {

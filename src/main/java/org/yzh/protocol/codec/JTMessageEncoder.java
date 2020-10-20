@@ -5,7 +5,6 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
@@ -21,7 +20,7 @@ import java.util.Map;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageEncoder implements MessageEncoder<JTMessage> {
+public class JTMessageEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
@@ -32,7 +31,6 @@ public class JTMessageEncoder implements MessageEncoder<JTMessage> {
         this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
     }
 
-    @Override
     public ByteBuf encode(JTMessage message) {
         Header header = message.getHeader();
         int version = header.getVersionNo();
@@ -63,14 +61,14 @@ public class JTMessageEncoder implements MessageEncoder<JTMessage> {
     }
 
     /** 签名 */
-    public ByteBuf sign(ByteBuf buf) {
+    protected ByteBuf sign(ByteBuf buf) {
         byte checkCode = ByteBufUtils.bcc(buf);
         buf.writeByte(checkCode);
         return buf;
     }
 
     /** 转义处理 */
-    public ByteBuf escape(ByteBuf source) {
+    protected ByteBuf escape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
 

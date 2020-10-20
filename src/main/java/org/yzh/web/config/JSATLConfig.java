@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.yzh.framework.codec.Delimiter;
 import org.yzh.framework.codec.LengthField;
-import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
@@ -20,6 +18,7 @@ import org.yzh.framework.session.SessionListener;
 import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.codec.DataFrameMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.web.component.adapter.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTSessionListener;
 
@@ -42,8 +41,8 @@ public class JSATLConfig implements InitializingBean, DisposableBean {
                 .setMaxFrameLength(2 + 21 + 1023 + 2)
                 .setLengthField(new LengthField(DataFramePrefix, 1024 * 65, 58, 4))
                 .setDelimiters(new Delimiter(new byte[]{0x7e}))
-                .setDecoder(alarmFileMessageDecoder())
-                .setEncoder(alarmFileMessageEncoder())
+                .setDecoder(alarmFileMessageAdapter())
+                .setEncoder(alarmFileMessageAdapter())
                 .setSessionManager(alarmFileSessionManager())
                 .setHandlerMapping(alarmFileHandlerMapping())
                 .setHandlerInterceptor(alarmFileHandlerInterceptor())
@@ -52,13 +51,11 @@ public class JSATLConfig implements InitializingBean, DisposableBean {
     }
 
     @Bean
-    public MessageDecoder alarmFileMessageDecoder() {
-        return new DataFrameMessageDecoder("org.yzh.protocol", DataFramePrefix);
-    }
-
-    @Bean
-    public MessageEncoder alarmFileMessageEncoder() {
-        return new JTMessageEncoder("org.yzh.protocol");
+    public JTMessageAdapter alarmFileMessageAdapter() {
+        return new JTMessageAdapter(
+                new JTMessageEncoder("org.yzh.protocol"),
+                new DataFrameMessageDecoder("org.yzh.protocol", DataFramePrefix)
+        );
     }
 
     @Bean
