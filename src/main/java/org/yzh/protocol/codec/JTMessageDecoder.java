@@ -15,6 +15,7 @@ import org.yzh.protocol.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JT协议解码器
@@ -27,8 +28,11 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
 
     private MultiPacketManager multiPacketManager = MultiPacketManager.getInstance();
 
+    private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
+
     public JTMessageDecoder(String basePackage) {
         MessageHelper.initial(basePackage);
+        this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
     }
 
     /** 校验 */
@@ -76,7 +80,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         else
             headLen = isSubpackage ? 16 : 12;
 
-        BeanMetadata<? extends Header> headMetadata = MessageHelper.getHeaderMetadata(version);
+        BeanMetadata<? extends Header> headMetadata = headerMetadataMap.get(version);
 
         Header header = headMetadata.decode(buf.slice(0, headLen));
         header.setVerified(verified);

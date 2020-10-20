@@ -14,6 +14,7 @@ import org.yzh.protocol.basics.Header;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JT协议编码器
@@ -24,8 +25,11 @@ public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>>
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
+    private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
+
     public JTMessageEncoder(String basePackage) {
         MessageHelper.initial(basePackage);
+        this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
     }
 
     @Override
@@ -48,7 +52,7 @@ public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>>
             throw new RuntimeException("消息体不能大于1023kb," + bodyLen + "Kb");
         header.setBodyLength(bodyLen);
 
-        BeanMetadata headMetadata = MessageHelper.getHeaderMetadata(version);
+        BeanMetadata headMetadata = headerMetadataMap.get(version);
         ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headMetadata.getLength(), 2048);
         headMetadata.encode(headerBuf, header);
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);

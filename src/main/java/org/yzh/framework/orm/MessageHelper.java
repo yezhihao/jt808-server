@@ -1,5 +1,7 @@
 package org.yzh.framework.orm;
 
+import java.util.Map;
+
 /**
  * 消息ID关系映射
  * @author yezhihao
@@ -30,7 +32,7 @@ public class MessageHelper {
         return LOAD_STRATEGY.getBeanMetadata(typeClass, version);
     }
 
-    public static BeanMetadata getHeaderMetadata(Integer version) {
-        return LOAD_STRATEGY.getHeaderMetadata(version);
+    public static <T> Map<Integer, BeanMetadata<T>> getBeanMetadata(Class<T> typeClass) {
+        return LOAD_STRATEGY.getBeanMetadata(typeClass);
     }
 }
