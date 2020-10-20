@@ -1,12 +1,11 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.mvc.model.Response;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.framework.mvc.model.Response;
 import org.yzh.protocol.basics.BytesParameter;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.TerminalParameterUtils;
 
@@ -19,7 +18,7 @@ import java.util.Map;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.查询终端参数应答)
-public class T0104 extends AbstractMessage<Header> implements Response {
+public class T0104 extends JTMessage implements Response {
 
     private int serialNo;
     private int total;

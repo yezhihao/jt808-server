@@ -1,10 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
-import org.yzh.protocol.basics.Header;
+import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -12,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.多媒体数据上传)
-public class T0801 extends AbstractMessage<Header> {
+public class T0801 extends JTMessage {
 
     private int id;
     private int type;

@@ -1,10 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
-import org.yzh.protocol.basics.Header;
+import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -12,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.数据上行透传, JT808.数据下行透传})
-public class T8900_0900 extends AbstractMessage<Header> {
+public class T8900_0900 extends JTMessage {
 
     /** GNSS模块详细定位数据 */
     public static final int GNSSLocation = 0x00;

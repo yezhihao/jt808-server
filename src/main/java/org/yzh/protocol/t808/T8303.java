@@ -2,9 +2,8 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  * 该消息2019版本已删除
  */
 @Message(JT808.信息点播菜单设置)
-public class T8303 extends AbstractMessage<Header> {
+public class T8303 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Action */
     private int type;

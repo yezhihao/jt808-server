@@ -2,10 +2,9 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.BytesAttribute;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.commons.transform.PositionAttributeUtils;
@@ -19,7 +18,7 @@ import java.util.Map;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.位置信息汇报)
-public class T0200 extends AbstractMessage<Header> {
+public class T0200 extends JTMessage {
 
     private int warningMark;
     private int status;

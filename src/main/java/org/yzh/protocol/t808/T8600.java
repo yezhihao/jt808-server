@@ -2,9 +2,8 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.设置圆形区域)
-public class T8600 extends AbstractMessage<Header> {
+public class T8600 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.ShapeAction */
     private int action;

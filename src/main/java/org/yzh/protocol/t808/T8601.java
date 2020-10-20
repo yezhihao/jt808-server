@@ -2,9 +2,9 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.删除圆形区域, JT808.删除矩形区域, JT808.删除多边形区域, JT808.删除路线})
-public class T8601 extends AbstractMessage<Header> {
+public class T8601 extends JTMessage {
 
     private int total;
     private List<Item> items;

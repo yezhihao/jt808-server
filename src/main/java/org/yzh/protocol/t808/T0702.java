@@ -2,9 +2,8 @@ package org.yzh.protocol.t808;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -12,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.驾驶员身份信息采集上报)
-public class T0702 extends AbstractMessage<Header> {
+public class T0702 extends JTMessage {
 
     private int status;
     private String dateTime;

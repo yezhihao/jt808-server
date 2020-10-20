@@ -1,10 +1,9 @@
 package org.yzh.protocol.t808;
 
-import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
-import org.yzh.protocol.basics.Header;
+import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -12,7 +11,7 @@ import org.yzh.protocol.commons.JT808;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.终端升级结果通知)
-public class T0108 extends AbstractMessage<Header> {
+public class T0108 extends JTMessage {
 
     /** 终端 */
     public static final int Terminal = 0;
