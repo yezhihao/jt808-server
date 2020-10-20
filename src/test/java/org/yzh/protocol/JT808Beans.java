@@ -11,6 +11,7 @@ import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.commons.transform.ParameterType;
 import org.yzh.protocol.commons.transform.attribute.*;
+import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.t808.*;
 
 import java.time.LocalDateTime;
@@ -196,6 +197,76 @@ public class JT808Beans {
         attributes.put(AnalogQuantity.attributeId, new AnalogQuantity(20));
         attributes.put(SignalStrength.attributeId, new SignalStrength(30));
         attributes.put(GnssCount.attributeId, new GnssCount(40));
+        bean.setAttributes(attributes);
+        return bean;
+    }
+
+    //位置信息汇报
+    public static T0200 T0200JSATL12() {
+        AlarmADAS alarmADAS = new AlarmADAS();
+        alarmADAS.setSerialNo(64);
+        alarmADAS.setState(1);
+        alarmADAS.setType(2);
+        alarmADAS.setLevel(2);
+        alarmADAS.setFrontSpeed(10);
+        alarmADAS.setFrontDistance(10);
+        alarmADAS.setDeviateType(2);
+        alarmADAS.setRoadSign(1);
+        alarmADAS.setRoadSignValue(10);
+        alarmADAS.setSpeed(30);
+        alarmADAS.setAltitude(100);
+        alarmADAS.setLatitude(123123);
+        alarmADAS.setLongitude(234234);
+        alarmADAS.setDateTime(TIME);
+        alarmADAS.setStatus(3);
+        alarmADAS.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
+
+        AlarmDSM alarmDSM = new AlarmDSM();
+        alarmDSM.setSerialNo(65);
+        alarmDSM.setState(1);
+        alarmDSM.setType(2);
+        alarmDSM.setLevel(2);
+        alarmDSM.setFatigueDegree(10);
+        alarmDSM.setReserved(10);
+        alarmDSM.setSpeed(30);
+        alarmDSM.setAltitude(100);
+        alarmDSM.setLatitude(123123);
+        alarmDSM.setLongitude(234234);
+        alarmDSM.setDateTime(TIME);
+        alarmDSM.setStatus(3);
+        alarmDSM.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
+
+        AlarmTPMS alarmTPMS = new AlarmTPMS();
+        alarmTPMS.setSerialNo(66);
+        alarmTPMS.setState(1);
+        alarmTPMS.setSpeed(30);
+        alarmTPMS.setAltitude(100);
+        alarmTPMS.setLatitude(123123);
+        alarmTPMS.setLongitude(234234);
+        alarmTPMS.setDateTime(TIME);
+        alarmTPMS.setStatus(3);
+        alarmTPMS.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
+
+        AlarmBSD alarmBSD = new AlarmBSD();
+        alarmBSD.setSerialNo(67);
+        alarmBSD.setState(1);
+        alarmBSD.setType(2);
+        alarmBSD.setSpeed(30);
+        alarmBSD.setAltitude(100);
+        alarmBSD.setLatitude(123123);
+        alarmBSD.setLongitude(234234);
+        alarmBSD.setDateTime(TIME);
+        alarmBSD.setStatus(3);
+        alarmBSD.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
+
+
+        T0200 bean = T0200();
+        Map<Integer, Attribute> attributes = new TreeMap();
+        attributes.put(AlarmADAS.attributeId, alarmADAS);
+        attributes.put(AlarmDSM.attributeId, alarmDSM);
+        attributes.put(AlarmTPMS.attributeId, alarmTPMS);
+        attributes.put(AlarmBSD.attributeId, alarmBSD);
+
         bean.setAttributes(attributes);
         return bean;
     }
