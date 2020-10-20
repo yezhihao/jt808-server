@@ -6,6 +6,7 @@ import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.jsatl12.DataPacket;
 
 /**
  * 数据帧解码器
@@ -17,10 +18,10 @@ public class DataFrameMessageDecoder extends JTMessageDecoder {
     private BeanMetadata<? extends JTMessage> dataFrameMetadata;
     private byte[] dataFramePrefix;
 
-    public DataFrameMessageDecoder(String basePackage, Class<? extends JTMessage> dataFrameClass, byte[] dataFramePrefix) {
+    public DataFrameMessageDecoder(String basePackage, byte[] dataFramePrefix) {
         super(basePackage);
-        this.dataFrameMetadata = MessageHelper.getBeanMetadata(dataFrameClass, 0);
         this.dataFramePrefix = dataFramePrefix;
+        this.dataFrameMetadata = MessageHelper.getBeanMetadata(DataPacket.class, 0);
     }
 
     @Override

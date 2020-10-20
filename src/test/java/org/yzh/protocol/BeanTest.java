@@ -8,6 +8,7 @@ import org.yzh.framework.commons.ClassUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.commons.RandomUtils;
 
 import java.beans.BeanInfo;
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class BeanTest {
 
-    public static final JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.protocol");
+    public static final JTMessageDecoder decoder = new MultiPacketDecoder("org.yzh.protocol");
 
     public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
 

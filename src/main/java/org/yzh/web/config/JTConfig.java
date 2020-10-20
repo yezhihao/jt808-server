@@ -17,8 +17,8 @@ import org.yzh.framework.netty.TCPServer;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.SessionListener;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
@@ -44,14 +44,13 @@ public class JTConfig implements InitializingBean, DisposableBean {
                 .setSessionManager(sessionManager())
                 .setHandlerMapping(handlerMapping())
                 .setHandlerInterceptor(handlerInterceptor())
-                .setMultiPacketListener(multiPacketListener())
                 .build();
         return new TCPServer("808服务", jtConfig);
     }
 
     @Bean
     public MessageDecoder messageDecoder() {
-        return new JTMessageDecoder("org.yzh.protocol");
+        return new MultiPacketDecoder("org.yzh.protocol", multiPacketListener());
     }
 
     @Bean

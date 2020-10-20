@@ -25,8 +25,6 @@ public class JTMessageDecoder implements MessageDecoder<JTMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
-    private MultiPacketManager multiPacketManager = MultiPacketManager.getInstance();
-
     private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
 
     public JTMessageDecoder(String basePackage) {
@@ -103,7 +101,7 @@ public class JTMessageDecoder implements MessageDecoder<JTMessage> {
                 byte[] bytes = new byte[bodyLen];
                 buf.getBytes(headLen, bytes);
 
-                byte[][] packages = multiPacketManager.addAndGet(header, bytes);
+                byte[][] packages = addAndGet(header, bytes);
                 if (packages == null)
                     return null;
 
@@ -120,6 +118,10 @@ public class JTMessageDecoder implements MessageDecoder<JTMessage> {
 
         message.setHeader(header);
         return message;
+    }
+
+    protected byte[][] addAndGet(Header header, byte[] bytes) {
+        return null;
     }
 
     /** 反转义 */

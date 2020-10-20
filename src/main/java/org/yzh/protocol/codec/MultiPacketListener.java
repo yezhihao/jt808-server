@@ -27,6 +27,6 @@ public class MultiPacketListener {
      * @return 是否继续等待
      */
     public boolean receiveTimeout(MultiPacket multiPacket) {
-        return true;
+        return false;
     }
 }

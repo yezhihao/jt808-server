@@ -7,7 +7,6 @@ import org.yzh.framework.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
-import org.yzh.web.endpoint.JTMultiPacketListener;
 
 /**
  * 不依赖spring，快速启动netty服务
@@ -23,7 +22,6 @@ public class QuickStart {
                 .setEncoder(new JTMessageEncoder("org.yzh.protocol"))
                 .setHandlerMapping(new DefaultHandlerMapping("org.yzh.web.endpoint"))
                 .setHandlerInterceptor(new JTHandlerInterceptor())
-                .setMultiPacketListener(new JTMultiPacketListener(10))
                 .setSessionManager(new SessionManager())
                 .build();
 
