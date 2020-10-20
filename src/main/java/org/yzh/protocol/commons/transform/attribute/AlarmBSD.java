@@ -14,7 +14,7 @@ public class AlarmBSD extends Attribute {
 
     public static final int attributeId = 0x67;
 
-    private int serialNo;
+    private long serialNo;
     private int state;
     private int type;
     private int speed;
@@ -31,11 +31,11 @@ public class AlarmBSD extends Attribute {
     }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
-    public int getSerialNo() {
+    public long getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(int serialNo) {
+    public void setSerialNo(long serialNo) {
         this.serialNo = serialNo;
     }
 
@@ -102,7 +102,7 @@ public class AlarmBSD extends Attribute {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 23, type = DataType.BYTE, desc = "车辆状态")
+    @Field(index = 23, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }

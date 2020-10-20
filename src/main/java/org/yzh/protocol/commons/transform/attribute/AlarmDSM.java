@@ -14,7 +14,7 @@ public class AlarmDSM extends Attribute {
 
     public static final int attributeId = 0x65;
 
-    private int serialNo;
+    private long serialNo;
     private int state;
     private int type;
     private int level;
@@ -33,13 +33,12 @@ public class AlarmDSM extends Attribute {
         return attributeId;
     }
 
-
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
-    public int getSerialNo() {
+    public long getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(int serialNo) {
+    public void setSerialNo(long serialNo) {
         this.serialNo = serialNo;
     }
 
@@ -79,7 +78,7 @@ public class AlarmDSM extends Attribute {
         this.fatigueDegree = fatigueDegree;
     }
 
-    @Field(index = 8, type = DataType.BYTE, desc = "预留")
+    @Field(index = 8, type = DataType.DWORD, length = 4, desc = "预留")
     public int getReserved() {
         return reserved;
     }
@@ -133,7 +132,7 @@ public class AlarmDSM extends Attribute {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 29, type = DataType.BYTE, desc = "车辆状态")
+    @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }

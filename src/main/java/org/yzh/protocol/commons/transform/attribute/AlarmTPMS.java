@@ -14,7 +14,7 @@ public class AlarmTPMS extends Attribute {
 
     public static final int attributeId = 0x66;
 
-    private int serialNo;
+    private long serialNo;
     private int state;
     private int speed;
     private int altitude;
@@ -30,11 +30,11 @@ public class AlarmTPMS extends Attribute {
     }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
-    public int getSerialNo() {
+    public long getSerialNo() {
         return serialNo;
     }
 
-    public void setSerialNo(int serialNo) {
+    public void setSerialNo(long serialNo) {
         this.serialNo = serialNo;
     }
 
@@ -92,7 +92,7 @@ public class AlarmTPMS extends Attribute {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 22, type = DataType.BYTE, desc = "车辆状态")
+    @Field(index = 22, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }

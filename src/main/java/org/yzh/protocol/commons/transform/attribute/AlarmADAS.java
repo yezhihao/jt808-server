@@ -163,7 +163,7 @@ public class AlarmADAS extends Attribute {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 29, type = DataType.BYTE, desc = "车辆状态")
+    @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }
