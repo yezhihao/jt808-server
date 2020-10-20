@@ -1,7 +1,7 @@
 package org.yzh.protocol;
 
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.jsatl12.*;
 
@@ -15,7 +15,7 @@ public class JSATL12Beans {
     private static final String UUID = "ad72131579e54be0b0f737cfc72c5db8";
 
     /** 2013版消息头 */
-    public static AbstractMessage H2013(AbstractMessage message) {
+    public static JTMessage H2013(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)
@@ -29,7 +29,7 @@ public class JSATL12Beans {
     }
 
     /** 2019版消息头 */
-    public static AbstractMessage H2019(AbstractMessage message) {
+    public static JTMessage H2019(JTMessage message) {
         Header header = new Header();
         Message type = message.getClass().getAnnotation(Message.class);
         if (type != null)

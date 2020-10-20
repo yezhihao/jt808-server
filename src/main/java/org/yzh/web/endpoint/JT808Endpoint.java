@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.EncryptUtils;
@@ -183,18 +183,18 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 查询区域或线路数据应答, desc = "查询区域或线路数据应答")
-    public void 查询区域或线路数据应答(AbstractMessage message, Session session) {
-        Header header = (Header) message.getHeader();
+    public void 查询区域或线路数据应答(JTMessage message, Session session) {
+        Header header = message.getHeader();
     }
 
     @Mapping(types = 行驶记录数据上传, desc = "行驶记录仪数据上传")
     public void 行驶记录仪数据上传(T0700 message, Session session) {
-        Header header = (Header) message.getHeader();
+        Header header = message.getHeader();
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
-    public void 电子运单上报(AbstractMessage message, Session session) {
-        Header header = (Header) message.getHeader();
+    public void 电子运单上报(JTMessage message, Session session) {
+        Header header = message.getHeader();
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")

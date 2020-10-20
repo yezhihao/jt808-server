@@ -15,7 +15,7 @@ import org.yzh.framework.mvc.HandlerMapping;
 import org.yzh.framework.mvc.SpringHandlerMapping;
 import org.yzh.framework.netty.NettyConfig;
 import org.yzh.framework.netty.TCPServer;
-import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.SessionListener;
 import org.yzh.framework.session.SessionManager;
@@ -30,7 +30,7 @@ import org.yzh.web.endpoint.JTSessionListener;
 @ConditionalOnProperty(value = "tpc-server.alarm-file.enable", havingValue = "true")
 public class JSATLConfig implements InitializingBean, DisposableBean {
 
-    public static Class<? extends AbstractMessage> DataFrameClass = DataPacket.class;
+    public static Class<? extends JTMessage> DataFrameClass = DataPacket.class;
 
     public static byte[] DataFramePrefix = {0x30, 0x31, 0x63, 0x64};
 

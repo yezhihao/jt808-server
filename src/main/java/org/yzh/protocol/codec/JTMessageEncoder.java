@@ -9,8 +9,8 @@ import org.yzh.framework.codec.MessageEncoder;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>> {
+public class JTMessageEncoder implements MessageEncoder<JTMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
@@ -33,7 +33,7 @@ public class JTMessageEncoder implements MessageEncoder<AbstractMessage<Header>>
     }
 
     @Override
-    public ByteBuf encode(AbstractMessage<Header> message) {
+    public ByteBuf encode(JTMessage message) {
         Header header = message.getHeader();
         int version = header.getVersionNo();
 

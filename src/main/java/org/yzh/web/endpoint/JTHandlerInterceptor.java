@@ -3,19 +3,19 @@ package org.yzh.web.endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.mvc.HandlerInterceptor;
-import org.yzh.framework.mvc.model.AbstractMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
 
-public class JTHandlerInterceptor implements HandlerInterceptor<Header> {
+public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class.getSimpleName());
 
     /** 未找到对应的Handle */
     @Override
-    public AbstractMessage notSupported(AbstractMessage<Header> request, Session session) {
+    public JTMessage notSupported(JTMessage request, Session session) {
         log.warn(">>>>>>>>>>未识别的消息{},{}", session, request);
 
         Header header = request.getHeader();
@@ -31,7 +31,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<Header> {
 
     /** 调用之后，返回值为void的 */
     @Override
-    public AbstractMessage successful(AbstractMessage<Header> request, Session session) {
+    public JTMessage successful(JTMessage request, Session session) {
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
 
         Header header = request.getHeader();
@@ -46,7 +46,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<Header> {
 
     /** 调用之后抛出异常的 */
     @Override
-    public AbstractMessage exceptional(AbstractMessage<Header> request, Session session, Exception ex) {
+    public JTMessage exceptional(JTMessage request, Session session, Exception ex) {
         log.warn(">>>>>>>>>>消息处理异常{},{}", session, request);
 
         Header header = request.getHeader();
@@ -61,7 +61,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<Header> {
 
     /** 调用之前 */
     @Override
-    public boolean beforeHandle(AbstractMessage<Header> request, Session session) {
+    public boolean beforeHandle(JTMessage request, Session session) {
+        request.setSession(session);
         Header header = request.getHeader();
         if (header != null) {
             int messageId = header.getMessageId();
@@ -79,7 +80,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<Header> {
 
     /** 调用之后 */
     @Override
-    public void afterHandle(AbstractMessage<Header> request, AbstractMessage<Header> response, Session session) {
+    public void afterHandle(JTMessage request, JTMessage response, Session session) {
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
         log.info("<<<<<<<<<<应答消息{},{}", session, response);
     }

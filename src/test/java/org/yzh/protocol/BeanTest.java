@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.framework.commons.ClassUtils;
-import org.yzh.framework.mvc.model.AbstractMessage;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.commons.RandomUtils;
@@ -43,14 +43,14 @@ public class BeanTest {
     public static void selfCheck(String hex1) {
         println(hex1);
 
-        AbstractMessage bean1 = transform(hex1);
+        JTMessage bean1 = transform(hex1);
         String json1 = gson.toJson(bean1);
         println(json1);
 
         String hex2 = transform(bean1);
         println(hex2);
 
-        AbstractMessage bean2 = transform(hex2);
+        JTMessage bean2 = transform(hex2);
         String json2 = gson.toJson(bean2);
         println(json2);
 
@@ -59,18 +59,18 @@ public class BeanTest {
         assertEquals("object not equals", json1, json2);
     }
 
-    public static void selfCheck(AbstractMessage bean) {
+    public static void selfCheck(JTMessage bean) {
         String hex1 = transform(bean);
         println("hex1 " + hex1);
 
-        AbstractMessage bean1 = transform(hex1);
+        JTMessage bean1 = transform(hex1);
         String json1 = gson.toJson(bean1);
         println("json1 " + json1);
 
         String hex2 = transform(bean1);
         println("hex2 " + hex2);
 
-        AbstractMessage bean2 = transform(hex2);
+        JTMessage bean2 = transform(hex2);
         String json2 = gson.toJson(bean2);
         println("json2 " + json2);
 
@@ -78,13 +78,13 @@ public class BeanTest {
         assertEquals("object not equals", json1, json2);
     }
 
-    public static AbstractMessage transform(String hex) {
+    public static JTMessage transform(String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        AbstractMessage bean = decoder.decode(buf);
+        JTMessage bean = decoder.decode(buf);
         return bean;
     }
 
-    public static String transform(AbstractMessage bean) {
+    public static String transform(JTMessage bean) {
         ByteBuf buf = encoder.encode(bean);
         String hex = ByteBufUtil.hexDump(buf);
         return hex;

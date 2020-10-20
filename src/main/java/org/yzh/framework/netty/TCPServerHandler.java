@@ -44,7 +44,6 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
         AbstractMessage response;
         Channel channel = ctx.channel();
         Session session = channel.attr(Session.KEY).get();
-        request.setSession(session);
         long time = session.access();
 
         try {

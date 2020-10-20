@@ -8,10 +8,9 @@ import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.mvc.model.AbstractMessage;
-import org.yzh.framework.mvc.model.RawMessage;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.Map;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
+public class JTMessageDecoder implements MessageDecoder<JTMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
@@ -45,11 +44,11 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
     }
 
     @Override
-    public AbstractMessage decode(ByteBuf buf) {
+    public JTMessage decode(ByteBuf buf) {
         return decode(buf, null);
     }
 
-    public AbstractMessage decode(ByteBuf buf, Session session) {
+    public JTMessage decode(ByteBuf buf, Session session) {
         buf = unescape(buf);
 
         boolean verified = verify(buf);
@@ -94,8 +93,8 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
         }
 
 
-        AbstractMessage message;
-        BeanMetadata<? extends AbstractMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
+        JTMessage message;
+        BeanMetadata<? extends JTMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
         if (bodyMetadata != null) {
             int bodyLen = header.getBodyLength();
 
@@ -115,7 +114,7 @@ public class JTMessageDecoder implements MessageDecoder<AbstractMessage> {
                 message = bodyMetadata.decode(buf.slice(headLen, bodyLen));
             }
         } else {
-            message = new RawMessage<>();
+            message = new JTMessage();
             log.info("未找到对应的BeanMetadata[{}]", header);
         }
 
