@@ -1,7 +1,6 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.annotation.Field;
 

@@ -2,7 +2,6 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.BasicField;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;

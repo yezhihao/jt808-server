@@ -3,6 +3,7 @@ package org.yzh.framework.orm;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
 import org.yzh.framework.orm.annotation.Message;
+import org.yzh.framework.orm.fields.BasicField;
 import org.yzh.framework.orm.model.DataType;
 
 import java.beans.BeanInfo;
