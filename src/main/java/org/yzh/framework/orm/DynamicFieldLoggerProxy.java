@@ -13,37 +13,37 @@ public class DynamicFieldLoggerProxy extends DynamicField {
     }
 
     @Override
-    public Object readValue(ByteBuf buf, int length) {
-        int before = buf.readerIndex();
-        Object value = target.readValue(buf, length);
-        int after = buf.readerIndex();
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+    public Object readValue(ByteBuf input, int length) {
+        int before = input.readerIndex();
+        Object value = target.readValue(input, length);
+        int after = input.readerIndex();
+        String hex = ByteBufUtil.hexDump(input.slice(before, after - before));
         println(this.index, this.desc, hex, value);
         return value;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object value) {
-        int before = buf.writerIndex();
-        target.writeValue(buf, value);
-        int after = buf.writerIndex();
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+    public void writeValue(ByteBuf output, Object value) {
+        int before = output.writerIndex();
+        target.writeValue(output, value);
+        int after = output.writerIndex();
+        String hex = ByteBufUtil.hexDump(output.slice(before, after - before));
         println(this.index, this.desc, hex, value);
     }
 
     @Override
-    protected int readLength(ByteBuf buf) {
-        int before = buf.readerIndex();
-        int value = target.readLength(buf);
-        int after = buf.readerIndex();
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+    protected int readLength(ByteBuf input) {
+        int before = input.readerIndex();
+        int value = target.readLength(input);
+        int after = input.readerIndex();
+        String hex = ByteBufUtil.hexDump(input.slice(before, after - before));
         println(this.index - this.lengthSize, this.desc + "长度", hex, value);
         return value;
     }
 
     @Override
-    protected void setLength(ByteBuf buf, int offset, int length) {
-        target.setLength(buf, offset, length);
+    protected void setLength(ByteBuf output, int offset, int length) {
+        target.setLength(output, offset, length);
         println(offset, this.desc + "长度", Integer.toHexString(length), length);
     }
 

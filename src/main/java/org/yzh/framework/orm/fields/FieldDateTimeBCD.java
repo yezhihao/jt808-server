@@ -15,14 +15,14 @@ public class FieldDateTimeBCD extends BasicField<LocalDateTime> {
     }
 
     @Override
-    public LocalDateTime readValue(ByteBuf buf, int length) {
+    public LocalDateTime readValue(ByteBuf input, int length) {
         byte[] bytes = new byte[length];
-        buf.readBytes(bytes);
+        input.readBytes(bytes);
         return Bcd.toDateTime(bytes);
     }
 
     @Override
-    public void writeValue(ByteBuf buf, LocalDateTime value) {
-        buf.writeBytes(Bcd.from(value));
+    public void writeValue(ByteBuf output, LocalDateTime value) {
+        output.writeBytes(Bcd.from(value));
     }
 }

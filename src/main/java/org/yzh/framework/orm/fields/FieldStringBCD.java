@@ -17,9 +17,9 @@ public class FieldStringBCD extends BasicField<String> {
     }
 
     @Override
-    public String readValue(ByteBuf buf, int length) {
+    public String readValue(ByteBuf input, int length) {
         byte[] bytes = new byte[length];
-        buf.readBytes(bytes);
+        input.readBytes(bytes);
         char[] chars = Bcd.toChars(bytes);
 
         int i = Bcd.indexOf(chars, '0');
@@ -29,7 +29,7 @@ public class FieldStringBCD extends BasicField<String> {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, String value) {
+    public void writeValue(ByteBuf output, String value) {
         char[] chars = new char[strLen];
         int i = strLen - value.length();
         if (i >= 0) {
@@ -38,9 +38,9 @@ public class FieldStringBCD extends BasicField<String> {
                 chars[--i] = '0';
         } else {
             value.getChars(-i, strLen - i, chars, 0);
-            log.warn("字符长度超出限制: {}长度[{}],[{}]", desc, strLen, value);
+            log.error("字符长度超出限制: {}长度[{}],[{}]", desc, strLen, value);
         }
         byte[] src = Bcd.from(chars);
-        buf.writeBytes(src);
+        output.writeBytes(src);
     }
 }

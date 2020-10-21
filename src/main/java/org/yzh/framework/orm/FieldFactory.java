@@ -23,7 +23,7 @@ public abstract class FieldFactory {
         return create(field, property, null);
     }
 
-    public static BasicField create(Field field, PropertyDescriptor property, BeanMetadata beanMetadata) {
+    public static BasicField create(Field field, PropertyDescriptor property, Schema schema) {
         DataType dataType = field.type();
         Class<?> typeClass = property.getPropertyType();
 
@@ -60,10 +60,10 @@ public abstract class FieldFactory {
                     result = new FieldString(field, property);
                     break;
                 case OBJ:
-                    result = new FieldObject(field, property, beanMetadata);
+                    result = new FieldObject(field, property, schema);
                     break;
                 case LIST:
-                    result = new FieldList(field, property, beanMetadata);
+                    result = new FieldList(field, property, schema);
                     break;
                 default:
                     throw new RuntimeException("不支持的类型转换");
@@ -84,7 +84,7 @@ public abstract class FieldFactory {
                     result = new DynamicFieldString(field, property);
                     break;
                 case OBJ:
-                    result = new DynamicFieldObject(field, property, beanMetadata);
+                    result = new DynamicFieldObject(field, property, schema);
                     break;
                 default:
                     throw new RuntimeException("不支持的类型转换");

@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.Schema;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
@@ -24,11 +24,11 @@ public class JTMessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
-    private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
+    private Map<Integer, Schema<Header>> headerSchemaMap;
 
     public JTMessageDecoder(String basePackage) {
         MessageHelper.initial(basePackage);
-        this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
+        this.headerSchemaMap = MessageHelper.getSchema(Header.class);
     }
 
     public JTMessage decode(ByteBuf buf) {
@@ -66,9 +66,9 @@ public class JTMessageDecoder {
         else
             headLen = isSubpackage ? 16 : 12;
 
-        BeanMetadata<? extends Header> headMetadata = headerMetadataMap.get(version);
+        Schema<? extends Header> headerSchema = headerSchemaMap.get(version);
 
-        Header header = headMetadata.decode(buf.slice(0, headLen));
+        Header header = headerSchema.readFrom(buf.slice(0, headLen));
         header.setVerified(verified);
 
         if (!confirmedVersion && session != null) {
@@ -81,8 +81,8 @@ public class JTMessageDecoder {
 
 
         JTMessage message;
-        BeanMetadata<? extends JTMessage> bodyMetadata = MessageHelper.getBeanMetadata(header.getMessageId(), version);
-        if (bodyMetadata != null) {
+        Schema<? extends JTMessage> bodySchema = MessageHelper.getSchema(header.getMessageId(), version);
+        if (bodySchema != null) {
             int bodyLen = header.getBodyLength();
 
             if (isSubpackage) {
@@ -95,14 +95,14 @@ public class JTMessageDecoder {
                     return null;
 
                 ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
-                message = bodyMetadata.decode(bodyBuf);
+                message = bodySchema.readFrom(bodyBuf);
 
             } else {
-                message = bodyMetadata.decode(buf.slice(headLen, bodyLen));
+                message = bodySchema.readFrom(buf.slice(headLen, bodyLen));
             }
         } else {
             message = new JTMessage();
-            log.info("未找到对应的BeanMetadata[{}]", header);
+            log.debug("未找到对应的Schema[{}]", header);
         }
 
         message.setHeader(header);

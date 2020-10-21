@@ -13,21 +13,21 @@ public class FieldLoggerProxy extends BasicField {
     }
 
     @Override
-    public Object readValue(ByteBuf buf, int length) {
-        int before = buf.readerIndex();
-        Object value = target.readValue(buf, length);
-        int after = buf.readerIndex();
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+    public Object readValue(ByteBuf input, int length) {
+        int before = input.readerIndex();
+        Object value = target.readValue(input, length);
+        int after = input.readerIndex();
+        String hex = ByteBufUtil.hexDump(input.slice(before, after - before));
         println(this.index, this.desc, hex, value);
         return value;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Object value) {
-        int before = buf.writerIndex();
-        target.writeValue(buf, value);
-        int after = buf.writerIndex();
-        String hex = ByteBufUtil.hexDump(buf.slice(before, after - before));
+    public void writeValue(ByteBuf output, Object value) {
+        int before = output.writerIndex();
+        target.writeValue(output, value);
+        int after = output.writerIndex();
+        String hex = ByteBufUtil.hexDump(output.slice(before, after - before));
         println(this.index, this.desc, hex, value);
     }
 

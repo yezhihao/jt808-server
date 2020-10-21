@@ -13,12 +13,12 @@ public class FieldLong32 extends BasicField<Long> {
     }
 
     @Override
-    public Long readValue(ByteBuf buf, int length) {
-        return buf.readUnsignedInt();
+    public Long readValue(ByteBuf input, int length) {
+        return input.readUnsignedInt();
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Long value) {
-        buf.writeInt(value.intValue());
+    public void writeValue(ByteBuf output, Long value) {
+        output.writeInt(value.intValue());
     }
 }

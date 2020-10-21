@@ -13,19 +13,19 @@ public class DynamicFieldBytes extends DynamicField<byte[]> {
     }
 
     @Override
-    public byte[] readValue(ByteBuf buf, int length) {
+    public byte[] readValue(ByteBuf input, int length) {
         if (length < 0)
-            length = buf.readableBytes();
+            length = input.readableBytes();
         byte[] bytes = new byte[length];
-        buf.readBytes(bytes);
+        input.readBytes(bytes);
         return bytes;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, byte[] value) {
+    public void writeValue(ByteBuf output, byte[] value) {
         if (length < 0)
-            buf.writeBytes(value);
+            output.writeBytes(value);
         else
-            buf.writeBytes(value, 0, length);
+            output.writeBytes(value, 0, length);
     }
 }

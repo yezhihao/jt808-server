@@ -1,66 +1,63 @@
 package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * 消息元数据
+ * 运行时根据Class生成的消息结构，用于序列化对象
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class BeanMetadata<T> {
-    protected static Logger log = LoggerFactory.getLogger(BeanMetadata.class.getSimpleName());
+public class RuntimeSchema<T> implements Schema<T> {
 
     protected final int version;
     protected final int length;
     protected final Class<T> typeClass;
     protected final BasicField[] fields;
 
-    public BeanMetadata(Class<T> typeClass, int version, BasicField[] fields) {
+    public RuntimeSchema(Class<T> typeClass, int version, BasicField[] fields) {
         this.typeClass = typeClass;
         this.version = version;
         this.fields = fields;
         BasicField lastField = fields[fields.length - 1];
         int lastIndex = lastField.index;
-        int lastLength = lastField.length < 0 ? 4 : lastField.length;
+        int lastLength = lastField.length < 0 ? 256 : lastField.length;
         this.length = lastIndex + lastLength;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public T decode(ByteBuf source) {
-        T target = null;
+    public T readFrom(ByteBuf input) {
+        T message = null;
         boolean isEmpty = true;//防止死循环
         BasicField field = null;
         try {
-            target = typeClass.newInstance();
+            message = typeClass.newInstance();
             for (int i = 0; i < fields.length; i++) {
                 field = fields[i];
-                if (!field.readTo(source, target))
+                if (!field.readFrom(input, message))
                     break;
                 isEmpty = false;
             }
         } catch (Exception e) {
-            log.error("decode error：" + typeClass.getName() + field, e);
+            throw new RuntimeException("Serialization failed readFrom " + typeClass.getName() + field, e);
         }
         if (isEmpty)
             return null;
-        return target;
+        return message;
     }
 
-    public void encode(ByteBuf source, Object target) {
+    public void writeTo(ByteBuf output, T message) {
         BasicField field = null;
         try {
             for (int i = 0; i < fields.length; i++) {
                 field = fields[i];
-                field.writeTo(target, source);
+                field.writeTo(output, message);
             }
         } catch (Exception e) {
-            log.error("encode error: " + target + field, e);
+            throw new RuntimeException("Serialization failed writeTo " + typeClass.getName() + field, e);
         }
+    }
+
+    public int length() {
+        return length;
     }
 
     @Override

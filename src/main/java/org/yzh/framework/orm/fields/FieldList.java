@@ -1,8 +1,8 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.BasicField;
+import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
@@ -11,33 +11,33 @@ import java.util.List;
 
 public class FieldList<T> extends BasicField<List<T>> {
 
-    protected final BeanMetadata<T> beanMetadata;
+    protected final Schema<T> schema;
 
-    public FieldList(Field field, PropertyDescriptor property, BeanMetadata<T> beanMetadata) {
+    public FieldList(Field field, PropertyDescriptor property, Schema<T> schema) {
         super(field, property);
-        this.beanMetadata = beanMetadata;
+        this.schema = schema;
     }
 
     @Override
-    public List<T> readValue(ByteBuf buf, int length) {
-        if (!buf.isReadable())
+    public List<T> readValue(ByteBuf input, int length) {
+        if (!input.isReadable())
             return null;
         List<T> list = new ArrayList<>();
         do {
-            T obj = beanMetadata.decode(buf);
+            T obj = schema.readFrom(input);
             if (obj == null) break;
             list.add(obj);
-        } while (buf.isReadable());
+        } while (input.isReadable());
         return list;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, List<T> list) {
+    public void writeValue(ByteBuf output, List<T> list) {
         if (list == null || list.isEmpty())
             return;
 
-        for (Object obj : list) {
-            beanMetadata.encode(buf, obj);
+        for (T obj : list) {
+            schema.writeTo(output, obj);
         }
     }
 }

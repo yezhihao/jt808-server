@@ -14,18 +14,18 @@ public class FieldByteBuffer extends BasicField<ByteBuffer> {
     }
 
     @Override
-    public ByteBuffer readValue(ByteBuf buf, int length) {
+    public ByteBuffer readValue(ByteBuf input, int length) {
         if (length < 0)
-            length = buf.readableBytes();
-        ByteBuffer byteBuffer = buf.nioBuffer(buf.readerIndex(), length);
-        buf.skipBytes(length);
+            length = input.readableBytes();
+        ByteBuffer byteBuffer = input.nioBuffer(input.readerIndex(), length);
+        input.skipBytes(length);
         return byteBuffer;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, ByteBuffer byteBuffer) {
+    public void writeValue(ByteBuf output, ByteBuffer value) {
         if (length > 0)
-            byteBuffer.position(byteBuffer.limit() - length);
-        buf.writeBytes(byteBuffer);
+            value.position(value.limit() - length);
+        output.writeBytes(value);
     }
 }

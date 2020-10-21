@@ -20,10 +20,10 @@ public class FieldString extends BasicField<String> {
     }
 
     @Override
-    public String readValue(ByteBuf buf, int length) {
-        int len = length > 0 ? length : buf.readableBytes();
+    public String readValue(ByteBuf input, int length) {
+        int len = length > 0 ? length : input.readableBytes();
         byte[] bytes = new byte[len];
-        buf.readBytes(bytes);
+        input.readBytes(bytes);
 
         int st = 0;
         while ((st < len) && (bytes[st] == pad))
@@ -34,7 +34,7 @@ public class FieldString extends BasicField<String> {
     }
 
     @Override
-    public void writeValue(ByteBuf buf, String value) {
+    public void writeValue(ByteBuf output, String value) {
         byte[] bytes = value.getBytes(charset);
         if (length > 0) {
             int srcPos = length - bytes.length;
@@ -43,16 +43,16 @@ public class FieldString extends BasicField<String> {
                 byte[] pads = new byte[srcPos];
                 if (pad != 0x00)
                     Arrays.fill(pads, pad);
-                buf.writeBytes(pads);
-                buf.writeBytes(bytes);
+                output.writeBytes(pads);
+                output.writeBytes(bytes);
             } else if (srcPos < 0) {
-                buf.writeBytes(bytes, -srcPos, length);
-                log.warn("字符长度超出限制: {}长度[{}],数据长度[{}],{}", desc, length, bytes.length, value);
+                output.writeBytes(bytes, -srcPos, length);
+                log.error("字符长度超出限制: {}长度[{}],数据长度[{}],{}", desc, length, bytes.length, value);
             } else {
-                buf.writeBytes(bytes);
+                output.writeBytes(bytes);
             }
         } else {
-            buf.writeBytes(bytes);
+            output.writeBytes(bytes);
         }
     }
 }

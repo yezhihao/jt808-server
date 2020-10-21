@@ -10,7 +10,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 /**
- * 消息定义
+ * 固定长度的字段
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
@@ -38,22 +38,22 @@ public abstract class BasicField<T> implements Comparable<BasicField> {
         this.property = property;
     }
 
-    public abstract T readValue(ByteBuf buf, int length);
+    public abstract T readValue(ByteBuf input, int length);
 
-    public abstract void writeValue(ByteBuf buf, T value);
+    public abstract void writeValue(ByteBuf output, T value);
 
-    public boolean readTo(ByteBuf buf, Object target) throws Exception {
-        if (!buf.isReadable(length))
+    public boolean readFrom(ByteBuf input, Object message) throws Exception {
+        if (!input.isReadable(length))
             return false;
-        Object value = readValue(buf, length);
-        writeMethod.invoke(target, value);
+        Object value = readValue(input, length);
+        writeMethod.invoke(message, value);
         return true;
     }
 
-    public void writeTo(Object source, ByteBuf buf) throws Exception {
-        Object value = readMethod.invoke(source);
+    public void writeTo(ByteBuf output, Object message) throws Exception {
+        Object value = readMethod.invoke(message);
         if (value != null)
-            writeValue(buf, (T) value);
+            writeValue(output, (T) value);
     }
 
     public void println(int index, String desc, String hex, Object value) {

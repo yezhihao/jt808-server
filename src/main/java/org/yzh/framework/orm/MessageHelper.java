@@ -24,15 +24,15 @@ public class MessageHelper {
         }
     }
 
-    public static BeanMetadata getBeanMetadata(Object typeId, Integer version) {
-        return LOAD_STRATEGY.getBeanMetadata(typeId, version);
+    public static Schema getSchema(Object typeId, Integer version) {
+        return LOAD_STRATEGY.getSchema(typeId, version);
     }
 
-    public static BeanMetadata getBeanMetadata(Class<?> typeClass, Integer version) {
-        return LOAD_STRATEGY.getBeanMetadata(typeClass, version);
+    public static Schema getSchema(Class<?> typeClass, Integer version) {
+        return LOAD_STRATEGY.getSchema(typeClass, version);
     }
 
-    public static <T> Map<Integer, BeanMetadata<T>> getBeanMetadata(Class<T> typeClass) {
-        return LOAD_STRATEGY.getBeanMetadata(typeClass);
+    public static <T> Map<Integer, Schema<T>> getSchema(Class<T> typeClass) {
+        return LOAD_STRATEGY.getSchema(typeClass);
     }
 }

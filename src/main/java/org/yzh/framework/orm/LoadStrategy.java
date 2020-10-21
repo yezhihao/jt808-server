@@ -14,17 +14,17 @@ import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 /**
- * BeanMetadata加载策略
+ * Schema加载策略
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public abstract class LoadStrategy {
 
-    public abstract <T> Map<Integer, BeanMetadata<T>> getBeanMetadata(Class<T> typeClass);
+    public abstract <T> Map<Integer, Schema<T>> getSchema(Class<T> typeClass);
 
-    public abstract BeanMetadata getBeanMetadata(Object typeId, Integer version);
+    public abstract Schema getSchema(Object typeId, Integer version);
 
-    public abstract <T> BeanMetadata<T> getBeanMetadata(Class<T> typeClass, Integer version);
+    public abstract <T> Schema<T> getSchema(Class<T> typeClass, Integer version);
 
     protected static boolean loadTypeMapping(Map<Object, Class<?>> typeIdMapping, Class<?> messageClass) {
         Message type = messageClass.getAnnotation(Message.class);
@@ -37,17 +37,17 @@ public abstract class LoadStrategy {
         return false;
     }
 
-    protected static void loadBeanMetadata(Map<String, Map<Integer, BeanMetadata<?>>> root, Class<?> typeClass) {
-        Map<Integer, BeanMetadata<?>> beanMetadataMap = root.get(typeClass.getName());
+    protected static void loadSchema(Map<String, Map<Integer, Schema<?>>> root, Class<?> typeClass) {
+        Map<Integer, Schema<?>> schemas = root.get(typeClass.getName());
         //不支持循环引用
-        if (beanMetadataMap != null)
+        if (schemas != null)
             return;
 
         List<PropertyDescriptor> properties = findFieldProperties(typeClass);
         if (properties.isEmpty())
             return;
 
-        root.put(typeClass.getName(), beanMetadataMap = new HashMap(4));
+        root.put(typeClass.getName(), schemas = new HashMap(4));
 
         Map<Integer, List<BasicField>> multiVersionFields = findMultiVersionFields(root, properties);
         for (Map.Entry<Integer, List<BasicField>> entry : multiVersionFields.entrySet()) {
@@ -58,8 +58,8 @@ public abstract class LoadStrategy {
             BasicField[] fields = fieldList.toArray(new BasicField[fieldList.size()]);
             Arrays.sort(fields);
 
-            BeanMetadata beanMetadata = new BeanMetadata(typeClass, version, fields);
-            beanMetadataMap.put(version, beanMetadata);
+            Schema schema = new RuntimeSchema(typeClass, version, fields);
+            schemas.put(version, schema);
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class LoadStrategy {
         return result;
     }
 
-    protected static Map<Integer, List<BasicField>> findMultiVersionFields(Map<String, Map<Integer, BeanMetadata<?>>> root, List<PropertyDescriptor> properties) {
+    protected static Map<Integer, List<BasicField>> findMultiVersionFields(Map<String, Map<Integer, Schema<?>>> root, List<PropertyDescriptor> properties) {
         Map<Integer, List<BasicField>> multiVersionFields = new TreeMap<Integer, List<BasicField>>() {
             @Override
             public List<BasicField> get(Object key) {
@@ -111,7 +111,7 @@ public abstract class LoadStrategy {
         return multiVersionFields;
     }
 
-    protected static void fillField(Map<String, Map<Integer, BeanMetadata<?>>> root, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+    protected static void fillField(Map<String, Map<Integer, Schema<?>>> root, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
         Class<?> typeClass = propertyDescriptor.getPropertyType();
         Method readMethod = propertyDescriptor.getReadMethod();
 
@@ -121,10 +121,10 @@ public abstract class LoadStrategy {
         if (field.type() == DataType.OBJ || field.type() == DataType.LIST) {
             if (Collection.class.isAssignableFrom(typeClass))
                 typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
-            loadBeanMetadata(root, typeClass);
+            loadSchema(root, typeClass);
             for (int ver : versions) {
-                BeanMetadata beanMetadata = root.get(typeClass.getName()).get(ver);
-                value = FieldFactory.create(field, propertyDescriptor, beanMetadata);
+                Schema schema = root.get(typeClass.getName()).get(ver);
+                value = FieldFactory.create(field, propertyDescriptor, schema);
                 multiVersionFields.get(ver).add(value);
             }
         } else {

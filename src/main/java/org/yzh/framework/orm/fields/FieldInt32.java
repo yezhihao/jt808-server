@@ -13,12 +13,12 @@ public class FieldInt32 extends BasicField<Integer> {
     }
 
     @Override
-    public Integer readValue(ByteBuf buf, int length) {
-        return (int) buf.readUnsignedInt();
+    public Integer readValue(ByteBuf input, int length) {
+        return (int) input.readUnsignedInt();
     }
 
     @Override
-    public void writeValue(ByteBuf buf, Integer value) {
-        buf.writeInt(value);
+    public void writeValue(ByteBuf output, Integer value) {
+        output.writeInt(value);
     }
 }

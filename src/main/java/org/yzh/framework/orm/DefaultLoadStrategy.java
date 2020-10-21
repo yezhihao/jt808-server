@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class DefaultLoadStrategy extends LoadStrategy {
 
-    private Map<String, Map<Integer, BeanMetadata<?>>> typeClassMapping = new HashMap(140);
+    private Map<String, Map<Integer, Schema<?>>> typeClassMapping = new HashMap(140);
 
     private Map<Object, Class<?>> typeIdMapping = new HashMap<>(64);
 
@@ -24,42 +24,42 @@ public class DefaultLoadStrategy extends LoadStrategy {
         List<Class<?>> types = ClassUtils.getClassList(basePackage);
         for (Class<?> type : types) {
             if (loadTypeMapping(this.typeIdMapping, type))
-                loadBeanMetadata(this.typeClassMapping, type);
+                loadSchema(this.typeClassMapping, type);
         }
         Introspector.flushCaches();
     }
 
     @Override
-    public BeanMetadata getBeanMetadata(Object typeId, Integer version) {
+    public Schema getSchema(Object typeId, Integer version) {
         Class<?> typeClass = typeIdMapping.get(typeId);
         if (typeClass == null)
             return null;
-        return getBeanMetadata(typeClass, version);
+        return getSchema(typeClass, version);
     }
 
     @Override
-    public <T> BeanMetadata<T> getBeanMetadata(Class<T> typeClass, Integer version) {
-        Map<Integer, BeanMetadata<?>> beanMetadata = typeClassMapping.get(typeClass.getName());
-        if (beanMetadata == null) {
-            loadBeanMetadata(typeClassMapping, typeClass);
-            beanMetadata = typeClassMapping.get(typeClass.getName());
+    public <T> Schema<T> getSchema(Class<T> typeClass, Integer version) {
+        Map<Integer, Schema<?>> schemas = typeClassMapping.get(typeClass.getName());
+        if (schemas == null) {
+            loadSchema(typeClassMapping, typeClass);
+            schemas = typeClassMapping.get(typeClass.getName());
         }
-        if (beanMetadata == null) return null;
-        return (BeanMetadata<T>) beanMetadata.get(version);
+        if (schemas == null) return null;
+        return (Schema<T>) schemas.get(version);
     }
 
     @Override
-    public <T> Map<Integer, BeanMetadata<T>> getBeanMetadata(Class<T> typeClass) {
-        Map<Integer, BeanMetadata<?>> beanMetadata = typeClassMapping.get(typeClass.getName());
-        if (beanMetadata == null) {
-            loadBeanMetadata(typeClassMapping, typeClass);
-            beanMetadata = typeClassMapping.get(typeClass.getName());
+    public <T> Map<Integer, Schema<T>> getSchema(Class<T> typeClass) {
+        Map<Integer, Schema<?>> schemas = typeClassMapping.get(typeClass.getName());
+        if (schemas == null) {
+            loadSchema(typeClassMapping, typeClass);
+            schemas = typeClassMapping.get(typeClass.getName());
         }
-        if (beanMetadata == null) return null;
+        if (schemas == null) return null;
 
-        HashMap<Integer, BeanMetadata<T>> result = new HashMap<>(beanMetadata.size());
-        for (Map.Entry<Integer, BeanMetadata<?>> entry : beanMetadata.entrySet()) {
-            result.put(entry.getKey(), (BeanMetadata<T>) entry.getValue());
+        HashMap<Integer, Schema<T>> result = new HashMap<>(schemas.size());
+        for (Map.Entry<Integer, Schema<?>> entry : schemas.entrySet()) {
+            result.put(entry.getKey(), (Schema<T>) entry.getValue());
         }
         return result;
     }

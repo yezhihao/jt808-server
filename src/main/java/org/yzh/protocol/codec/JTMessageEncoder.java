@@ -6,8 +6,8 @@ import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.framework.orm.BeanMetadata;
 import org.yzh.framework.orm.MessageHelper;
+import org.yzh.framework.orm.Schema;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 
@@ -24,25 +24,25 @@ public class JTMessageEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
-    private Map<Integer, BeanMetadata<Header>> headerMetadataMap;
+    private Map<Integer, Schema<Header>> headerSchemaMap;
 
     public JTMessageEncoder(String basePackage) {
         MessageHelper.initial(basePackage);
-        this.headerMetadataMap = MessageHelper.getBeanMetadata(Header.class);
+        this.headerSchemaMap = MessageHelper.getSchema(Header.class);
     }
 
     public ByteBuf encode(JTMessage message) {
         Header header = message.getHeader();
         int version = header.getVersionNo();
 
-        BeanMetadata bodyMetadata = MessageHelper.getBeanMetadata(message.getClass(), version);
+        Schema bodySchema = MessageHelper.getSchema(message.getClass(), version);
         ByteBuf bodyBuf;
-        if (bodyMetadata != null) {
-            bodyBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(bodyMetadata.getLength(), 2048);
-            bodyMetadata.encode(bodyBuf, message);
+        if (bodySchema != null) {
+            bodyBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(bodySchema.length(), 2048);
+            bodySchema.writeTo(bodyBuf, message);
         } else {
             bodyBuf = Unpooled.EMPTY_BUFFER;
-            log.info("未找到对应的BeanMetadata[{}]", message.getClass());
+            log.debug("未找到对应的Schema[{}]", message.getClass());
         }
 
         int bodyLen = bodyBuf.readableBytes();
@@ -50,9 +50,9 @@ public class JTMessageEncoder {
             throw new RuntimeException("消息体不能大于1023kb," + bodyLen + "Kb");
         header.setBodyLength(bodyLen);
 
-        BeanMetadata headMetadata = headerMetadataMap.get(version);
-        ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headMetadata.getLength(), 2048);
-        headMetadata.encode(headerBuf, header);
+        Schema headerSchema = headerSchemaMap.get(version);
+        ByteBuf headerBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headerSchema.length(), 2048);
+        headerSchema.writeTo(headerBuf, header);
         ByteBuf allBuf = Unpooled.wrappedBuffer(headerBuf, bodyBuf);
 
         allBuf = sign(allBuf);

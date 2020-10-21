@@ -14,16 +14,16 @@ public class DynamicFieldByteBuffer extends DynamicField<ByteBuffer> {
     }
 
     @Override
-    public ByteBuffer readValue(ByteBuf buf, int length) {
-        ByteBuffer byteBuffer = buf.nioBuffer(buf.readerIndex(), length);
-        buf.skipBytes(length);
+    public ByteBuffer readValue(ByteBuf input, int length) {
+        ByteBuffer byteBuffer = input.nioBuffer(input.readerIndex(), length);
+        input.skipBytes(length);
         return byteBuffer;
     }
 
     @Override
-    public void writeValue(ByteBuf buf, ByteBuffer byteBuffer) {
+    public void writeValue(ByteBuf output, ByteBuffer byteBuffer) {
         if (length > 0)
             byteBuffer.position(byteBuffer.limit() - length);
-        buf.writeBytes(byteBuffer);
+        output.writeBytes(byteBuffer);
     }
 }

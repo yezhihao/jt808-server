@@ -5,8 +5,14 @@ import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
 
+/**
+ * 动态长度的字段
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public abstract class DynamicField<T> extends BasicField<T> {
 
+    /** 长度域占位数据块 */
     protected static final byte[][] BLOCKS = new byte[][]{
             new byte[0],
             new byte[1], new byte[2],
@@ -19,40 +25,40 @@ public abstract class DynamicField<T> extends BasicField<T> {
         this.lengthSize = field.lengthSize();
     }
 
-    public boolean readTo(ByteBuf buf, Object target) throws Exception {
-        int length = readLength(buf);
-        if (!buf.isReadable(length))
+    public boolean readFrom(ByteBuf input, Object message) throws Exception {
+        int length = readLength(input);
+        if (!input.isReadable(length))
             return false;
-        Object value = readValue(buf, length);
-        writeMethod.invoke(target, value);
+        Object value = readValue(input, length);
+        writeMethod.invoke(message, value);
         return true;
     }
 
-    public void writeTo(Object source, ByteBuf buf) throws Exception {
-        Object value = readMethod.invoke(source);
+    public void writeTo(ByteBuf output, Object message) throws Exception {
+        Object value = readMethod.invoke(message);
         if (value != null) {
-            int begin = buf.writerIndex();
-            buf.writeBytes(BLOCKS[lengthSize]);
-            writeValue(buf, (T) value);
-            int length = buf.writerIndex() - begin - lengthSize;
-            setLength(buf, begin, length);
+            int begin = output.writerIndex();
+            output.writeBytes(BLOCKS[lengthSize]);
+            writeValue(output, (T) value);
+            int length = output.writerIndex() - begin - lengthSize;
+            setLength(output, begin, length);
         }
     }
 
-    protected int readLength(ByteBuf buf) {
+    protected int readLength(ByteBuf input) {
         int length;
         switch (lengthSize) {
             case 1:
-                length = buf.readUnsignedByte();
+                length = input.readUnsignedByte();
                 break;
             case 2:
-                length = buf.readUnsignedShort();
+                length = input.readUnsignedShort();
                 break;
             case 3:
-                length = buf.readUnsignedMedium();
+                length = input.readUnsignedMedium();
                 break;
             case 4:
-                length = buf.readInt();
+                length = input.readInt();
                 break;
             default:
                 throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
@@ -60,19 +66,19 @@ public abstract class DynamicField<T> extends BasicField<T> {
         return length;
     }
 
-    protected void setLength(ByteBuf buf, int offset, int length) {
+    protected void setLength(ByteBuf output, int offset, int length) {
         switch (lengthSize) {
             case 1:
-                buf.setByte(offset, length);
+                output.setByte(offset, length);
                 break;
             case 2:
-                buf.setShort(offset, length);
+                output.setShort(offset, length);
                 break;
             case 3:
-                buf.setMedium(offset, length);
+                output.setMedium(offset, length);
                 break;
             case 4:
-                buf.setInt(offset, length);
+                output.setInt(offset, length);
                 break;
             default:
                 throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
