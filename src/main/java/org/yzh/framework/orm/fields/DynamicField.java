@@ -12,12 +12,6 @@ import java.beans.PropertyDescriptor;
  */
 public abstract class DynamicField<T> extends BasicField<T> {
 
-    /** 长度域占位数据块 */
-    protected static final byte[][] BLOCKS = new byte[][]{
-            new byte[0],
-            new byte[1], new byte[2],
-            new byte[3], new byte[4]};
-
     protected final int lengthSize;
 
     public DynamicField(Field field, PropertyDescriptor property) {

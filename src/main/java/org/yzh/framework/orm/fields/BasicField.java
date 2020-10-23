@@ -17,6 +17,12 @@ import java.lang.reflect.Method;
 public abstract class BasicField<T> implements Comparable<BasicField> {
     protected static Logger log = LoggerFactory.getLogger(BasicField.class.getSimpleName());
 
+    /** 长度域占位数据块 */
+    protected static final byte[][] BLOCKS = new byte[][]{
+            new byte[0],
+            new byte[1], new byte[2],
+            new byte[3], new byte[4]};
+
     protected final int index;
     protected final int length;
     protected final String desc;
@@ -61,6 +67,14 @@ public abstract class BasicField<T> implements Comparable<BasicField> {
             System.out.println(index + "\t" + "[" + hex + "] " + desc + ": null");
         else
             System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
+    }
+
+    public int index() {
+        return index;
+    }
+
+    public int length() {
+        return length;
     }
 
     @Override

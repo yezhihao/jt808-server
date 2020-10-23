@@ -13,5 +13,7 @@ public interface Schema<T> {
 
     void writeTo(ByteBuf output, T message);
 
-    int length();
+    default int length() {
+        return 128;
+    }
 }

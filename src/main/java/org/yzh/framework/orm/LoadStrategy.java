@@ -2,7 +2,6 @@ package org.yzh.framework.orm;
 
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Fs;
-import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.fields.BasicField;
 import org.yzh.framework.orm.model.DataType;
 
@@ -21,32 +20,36 @@ import java.util.*;
  */
 public abstract class LoadStrategy {
 
-    public abstract <T> Map<Integer, Schema<T>> getSchema(Class<T> typeClass);
+    protected Map<Object, Map<Integer, Schema<?>>> typeIdMapping = new HashMap<>(64);
 
-    public abstract Schema getSchema(Object typeId, Integer version);
+    public abstract <T> Map<Integer, Schema<T>> getSchema(Class<T> typeClass);
 
     public abstract <T> Schema<T> getSchema(Class<T> typeClass, Integer version);
 
-    protected static boolean loadTypeMapping(Map<Object, Class<?>> typeIdMapping, Class<?> messageClass) {
-        Message type = messageClass.getAnnotation(Message.class);
-        if (type != null) {
-            int[] values = type.value();
-            for (int value : values)
-                typeIdMapping.put(value, messageClass);
-            return true;
-        }
-        return false;
+    public Schema getSchema(Object typeId, Integer version) {
+        Map<Integer, Schema<?>> schemaMap = typeIdMapping.get(typeId);
+        if (schemaMap == null)
+            return null;
+        return schemaMap.get(version);
     }
 
-    protected static void loadSchema(Map<String, Map<Integer, Schema<?>>> root, Class<?> typeClass) {
+    protected void loadSchema(Map<String, Map<Integer, Schema<?>>> root, Object typeId, Class<?> typeClass) {
+        Map<Integer, Schema<?>> schemas = typeIdMapping.get(typeId);
+        if (schemas == null) {
+            schemas = loadSchema(root, typeClass);
+            typeIdMapping.put(typeId, schemas);
+        }
+    }
+
+    protected Map<Integer, Schema<?>> loadSchema(Map<String, Map<Integer, Schema<?>>> root, Class<?> typeClass) {
         Map<Integer, Schema<?>> schemas = root.get(typeClass.getName());
         //不支持循环引用
         if (schemas != null)
-            return;
+            return schemas;
 
         List<PropertyDescriptor> properties = findFieldProperties(typeClass);
         if (properties.isEmpty())
-            return;
+            return null;
 
         root.put(typeClass.getName(), schemas = new HashMap(4));
 
@@ -62,9 +65,10 @@ public abstract class LoadStrategy {
             Schema schema = new RuntimeSchema(typeClass, version, fields);
             schemas.put(version, schema);
         }
+        return schemas;
     }
 
-    protected static List<PropertyDescriptor> findFieldProperties(Class<?> typeClass) {
+    protected List<PropertyDescriptor> findFieldProperties(Class<?> typeClass) {
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(typeClass);
@@ -86,7 +90,7 @@ public abstract class LoadStrategy {
         return result;
     }
 
-    protected static Map<Integer, List<BasicField>> findMultiVersionFields(Map<String, Map<Integer, Schema<?>>> root, List<PropertyDescriptor> properties) {
+    protected Map<Integer, List<BasicField>> findMultiVersionFields(Map<String, Map<Integer, Schema<?>>> root, List<PropertyDescriptor> properties) {
         Map<Integer, List<BasicField>> multiVersionFields = new TreeMap<Integer, List<BasicField>>() {
             @Override
             public List<BasicField> get(Object key) {
@@ -112,7 +116,7 @@ public abstract class LoadStrategy {
         return multiVersionFields;
     }
 
-    protected static void fillField(Map<String, Map<Integer, Schema<?>>> root, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
+    protected void fillField(Map<String, Map<Integer, Schema<?>>> root, Map<Integer, List<BasicField>> multiVersionFields, PropertyDescriptor propertyDescriptor, Field field) {
         Class<?> typeClass = propertyDescriptor.getPropertyType();
         Method readMethod = propertyDescriptor.getReadMethod();
 

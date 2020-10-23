@@ -65,6 +65,9 @@ public abstract class FieldFactory {
                 case LIST:
                     result = new FieldList(field, property, schema);
                     break;
+                case MAP:
+                    result = new FieldMap(field, property);
+                    break;
                 default:
                     throw new RuntimeException("不支持的类型转换");
             }

@@ -1,7 +1,6 @@
 package org.yzh.protocol.jsatl12;
 
 import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
 
 /**
@@ -9,7 +8,6 @@ import org.yzh.framework.orm.model.DataType;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@Message
 public class AlarmId {
 
     private String deviceId;
@@ -72,5 +70,17 @@ public class AlarmId {
 
     public void setReserved(int reserved) {
         this.reserved = reserved;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AlarmId{");
+        sb.append("deviceId='").append(deviceId).append('\'');
+        sb.append(", dateTime='").append(dateTime).append('\'');
+        sb.append(", order=").append(order);
+        sb.append(", total=").append(total);
+        sb.append(", reserved=").append(reserved);
+        sb.append('}');
+        return sb.toString();
     }
 }

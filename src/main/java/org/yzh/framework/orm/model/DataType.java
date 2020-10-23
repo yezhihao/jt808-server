@@ -21,7 +21,9 @@ public enum DataType {
     //对象
     OBJ(-1),
     //列表
-    LIST(-1);
+    LIST(-1),
+    //字典
+    MAP(-1);
 
     public int length;
 

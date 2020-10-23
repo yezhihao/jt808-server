@@ -20,8 +20,8 @@ public class RuntimeSchema<T> implements Schema<T> {
         this.version = version;
         this.fields = fields;
         BasicField lastField = fields[fields.length - 1];
-        int lastIndex = lastField.index;
-        int lastLength = lastField.length < 0 ? 256 : lastField.length;
+        int lastIndex = lastField.index();
+        int lastLength = lastField.length() < 0 ? 256 : lastField.length();
         this.length = lastIndex + lastLength;
     }
 
