@@ -2,21 +2,27 @@ package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.converter.MapConverter;
+import org.yzh.framework.orm.annotation.Convert;
+import org.yzh.framework.orm.converter.Converter;
+import org.yzh.framework.orm.util.ByteBufUtils;
 
 import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 字典结构
+ */
 public class MapSchema<T> implements Schema<Map<Integer, T>> {
 
     private int keySize;
     private int valueSize;
-    private MapConverter converter;
+    private Converter converter;
 
     public MapSchema(PropertyDescriptor property) {
         try {
-            org.yzh.framework.orm.annotation.MapConverter annotation = property.getReadMethod().getAnnotation(org.yzh.framework.orm.annotation.MapConverter.class);
+            log.debug("new ObjectSchema({})", property);
+            Convert annotation = property.getReadMethod().getAnnotation(Convert.class);
             this.keySize = annotation.keySize();
             this.valueSize = annotation.valueSize();
             this.converter = annotation.converter().newInstance();
@@ -31,11 +37,11 @@ public class MapSchema<T> implements Schema<Map<Integer, T>> {
             return null;
         Map<Integer, T> map = new HashMap<>();
         do {
-            int id = readInt(input, keySize);
-            int len = readInt(input, valueSize);
-            Object convert = converter.convert(id, input.readSlice(len));
-            if (convert == null) break;
-            map.put(id, (T) convert);
+            int id = ByteBufUtils.readInt(input, keySize);
+            int len = ByteBufUtils.readInt(input, valueSize);
+            Object value = converter.convert(id, input.readSlice(len));
+            if (value == null) break;
+            map.put(id, (T) value);
         } while (input.isReadable());
         return map;
     }
@@ -48,71 +54,12 @@ public class MapSchema<T> implements Schema<Map<Integer, T>> {
             Integer key = entry.getKey();
             T value = entry.getValue();
 
-            writeInt(output, keySize, key);
+            ByteBufUtils.writeInt(output, keySize, key);
             int begin = output.writerIndex();
-            output.writeBytes(BLOCKS[valueSize]);
+            output.writeBytes(ByteBufUtils.BLOCKS[valueSize]);
             converter.convert(key, output, value);
-            int length = output.writerIndex() - begin - valueSize;
-            setLength(output, valueSize, begin, length);
-        }
-    }
-
-    protected int readInt(ByteBuf input, int size) {
-        int length;
-        switch (size) {
-            case 1:
-                length = input.readUnsignedByte();
-                break;
-            case 2:
-                length = input.readUnsignedShort();
-                break;
-            case 3:
-                length = input.readUnsignedMedium();
-                break;
-            case 4:
-                length = input.readInt();
-                break;
-            default:
-                throw new RuntimeException("unsupported size: " + size + " (expected: 1, 2, 3, 4)");
-        }
-        return length;
-    }
-
-    protected void setLength(ByteBuf output, int lengthSize, int offset, int value) {
-        switch (lengthSize) {
-            case 1:
-                output.setByte(offset, value);
-                break;
-            case 2:
-                output.setShort(offset, value);
-                break;
-            case 3:
-                output.setMedium(offset, value);
-                break;
-            case 4:
-                output.setInt(offset, value);
-                break;
-            default:
-                throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
-        }
-    }
-
-    protected void writeInt(ByteBuf output, int length, int value) {
-        switch (length) {
-            case 1:
-                output.writeByte(value);
-                break;
-            case 2:
-                output.writeShort(value);
-                break;
-            case 3:
-                output.writeMedium(value);
-                break;
-            case 4:
-                output.writeInt(value);
-                break;
-            default:
-                throw new RuntimeException("unsupported lengthSize: " + length + " (expected: 1, 2, 3, 4)");
+            int len = output.writerIndex() - begin - valueSize;
+            ByteBufUtils.setInt(output, valueSize, begin, len);
         }
     }
 }

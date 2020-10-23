@@ -13,13 +13,6 @@ public interface Schema<T> {
 
     Logger log = LoggerFactory.getLogger(Schema.class.getSimpleName());
 
-
-    /** 长度域占位数据块 */
-    byte[][] BLOCKS = new byte[][]{
-            new byte[0],
-            new byte[1], new byte[2],
-            new byte[3], new byte[4]};
-
     T readFrom(ByteBuf input);
 
     void writeTo(ByteBuf output, T message);

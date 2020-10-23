@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.util.ByteBufUtils;
 
 import java.beans.PropertyDescriptor;
 
@@ -25,7 +26,7 @@ public class DynamicLengthField<T> extends BasicField<T> {
     }
 
     public boolean readFrom(ByteBuf input, Object message) throws Exception {
-        int length = readLength(input);
+        int length = ByteBufUtils.readInt(input, lengthSize);
         if (!input.isReadable(length))
             return false;
         Object value = schema.readFrom(input, length);
@@ -37,50 +38,10 @@ public class DynamicLengthField<T> extends BasicField<T> {
         Object value = readMethod.invoke(message);
         if (value != null) {
             int begin = output.writerIndex();
-            output.writeBytes(Schema.BLOCKS[lengthSize]);
+            output.writeBytes(ByteBufUtils.BLOCKS[lengthSize]);
             schema.writeTo(output, (T) value);
             int length = output.writerIndex() - begin - lengthSize;
-            setLength(output, begin, length);
-        }
-    }
-
-    protected int readLength(ByteBuf input) {
-        int length;
-        switch (lengthSize) {
-            case 1:
-                length = input.readUnsignedByte();
-                break;
-            case 2:
-                length = input.readUnsignedShort();
-                break;
-            case 3:
-                length = input.readUnsignedMedium();
-                break;
-            case 4:
-                length = input.readInt();
-                break;
-            default:
-                throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
-        }
-        return length;
-    }
-
-    protected void setLength(ByteBuf output, int offset, int length) {
-        switch (lengthSize) {
-            case 1:
-                output.setByte(offset, length);
-                break;
-            case 2:
-                output.setShort(offset, length);
-                break;
-            case 3:
-                output.setMedium(offset, length);
-                break;
-            case 4:
-                output.setInt(offset, length);
-                break;
-            default:
-                throw new RuntimeException("unsupported lengthSize: " + lengthSize + " (expected: 1, 2, 3, 4)");
+            ByteBufUtils.setInt(output, lengthSize, begin, length);
         }
     }
 
@@ -101,7 +62,7 @@ public class DynamicLengthField<T> extends BasicField<T> {
         public boolean readFrom(ByteBuf input, Object message) throws Exception {
             int before = input.readerIndex();
 
-            int length = readLength(input);
+            int length = ByteBufUtils.readInt(input, lengthSize);
             if (!input.isReadable(length))
                 return false;
             Object value = schema.readFrom(input, length);
@@ -119,10 +80,10 @@ public class DynamicLengthField<T> extends BasicField<T> {
             Object value = readMethod.invoke(message);
             if (value != null) {
                 int begin = output.writerIndex();
-                output.writeBytes(Schema.BLOCKS[lengthSize]);
+                output.writeBytes(ByteBufUtils.BLOCKS[lengthSize]);
                 schema.writeTo(output, (T) value);
                 int length = output.writerIndex() - begin - lengthSize;
-                setLength(output, begin, length);
+                ByteBufUtils.setInt(output, lengthSize, begin, length);
             }
 
             int after = output.writerIndex();

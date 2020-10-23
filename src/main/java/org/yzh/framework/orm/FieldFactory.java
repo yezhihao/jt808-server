@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 
 /**
- * 消息定义
+ * FieldFactory
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
@@ -40,10 +40,13 @@ public abstract class FieldFactory {
                 fieldSchema = IntSchema.Int16.INSTANCE;
                 break;
             case DWORD:
-                if (Long.class.isAssignableFrom(typeClass) || Long.TYPE.isAssignableFrom(typeClass))
-                    fieldSchema = LongSchema.Long32.INSTANCE;
-                else
+                if (Integer.TYPE.isAssignableFrom(typeClass) || Integer.class.isAssignableFrom(typeClass))
                     fieldSchema = IntSchema.Int32.INSTANCE;
+                else
+                    fieldSchema = LongSchema.Long32.INSTANCE;
+                break;
+            case QWORD:
+                fieldSchema = LongSchema.Long64.INSTANCE;
                 break;
             case BCD8421:
                 if (LocalDateTime.class.isAssignableFrom(typeClass))
