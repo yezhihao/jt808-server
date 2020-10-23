@@ -27,76 +27,69 @@ public abstract class FieldFactory {
         DataType dataType = field.type();
         Class<?> typeClass = property.getPropertyType();
 
-        BasicField result;
-        if (field.lengthSize() == -1) {
-            switch (dataType) {
-                case BYTE:
-                    result = new FieldInt8(field, property);
-                    break;
-                case WORD:
-                    result = new FieldInt16(field, property);
-                    break;
-                case DWORD:
-                    if (Long.class.isAssignableFrom(typeClass) || Long.TYPE.isAssignableFrom(typeClass))
-                        result = new FieldLong32(field, property);
-                    else
-                        result = new FieldInt32(field, property);
-                    break;
-                case BCD8421:
-                    if (LocalDateTime.class.isAssignableFrom(typeClass))
-                        result = new FieldDateTimeBCD(field, property);
-                    else
-                        result = new FieldStringBCD(field, property);
-                    break;
-                case BYTES:
-                    if (String.class.isAssignableFrom(typeClass))
-                        result = new FieldString(field, property);
-                    else if (ByteBuffer.class.isAssignableFrom(typeClass))
-                        result = new FieldByteBuffer(field, property);
-                    else
-                        result = new FieldBytes(field, property);
-                    break;
-                case STRING:
-                    result = new FieldString(field, property);
-                    break;
-                case OBJ:
-                    result = new FieldObject(field, property, schema);
-                    break;
-                case LIST:
-                    result = new FieldList(field, property, schema);
-                    break;
-                case MAP:
-                    result = new FieldMap(field, property);
-                    break;
-                default:
-                    throw new RuntimeException("不支持的类型转换");
-            }
-            if (EXPLAIN)
-                result = new FieldLoggerProxy(result);
-        } else {
-            switch (dataType) {
-                case BYTES:
-                    if (String.class.isAssignableFrom(typeClass))
-                        result = new DynamicFieldString(field, property);
-                    else if (ByteBuffer.class.isAssignableFrom(typeClass))
-                        result = new DynamicFieldByteBuffer(field, property);
-                    else
-                        result = new DynamicFieldBytes(field, property);
-                    break;
-                case STRING:
-                    result = new DynamicFieldString(field, property);
-                    break;
-                case OBJ:
-                    result = new DynamicFieldObject(field, property, schema);
-                    break;
-                default:
-                    throw new RuntimeException("不支持的类型转换");
-            }
-            if (EXPLAIN)
-                result = new DynamicFieldLoggerProxy((DynamicField) result);
+        Schema fieldSchema;
+        switch (dataType) {
+            case BYTE:
+                fieldSchema = FieldInt8.INSTANCE;
+                break;
+            case WORD:
+                fieldSchema = FieldInt16.INSTANCE;
+                break;
+            case DWORD:
+                if (Long.class.isAssignableFrom(typeClass) || Long.TYPE.isAssignableFrom(typeClass))
+                    fieldSchema = FieldLong32.INSTANCE;
+                else
+                    fieldSchema = FieldInt32.INSTANCE;
+                break;
+            case BCD8421:
+                if (LocalDateTime.class.isAssignableFrom(typeClass))
+                    fieldSchema = FieldDateTimeBCD.INSTANCE;
+                else
+                    fieldSchema = FieldStringBCD.INSTANCE;
+                break;
+            case BYTES:
+                if (String.class.isAssignableFrom(typeClass))
+                    fieldSchema = FieldString.getInstance(field.pad(), field.charset());
+                else if (ByteBuffer.class.isAssignableFrom(typeClass))
+                    fieldSchema = FieldByteBuffer.INSTANCE;
+                else
+                    fieldSchema = FieldBytes.INSTANCE;
+                break;
+            case STRING:
+                fieldSchema = FieldString.getInstance(field.pad(), field.charset());
+                break;
+            case OBJ:
+                fieldSchema = FieldObject.getInstance(schema);
+                break;
+            case LIST:
+                fieldSchema = FieldList.getInstance(schema);
+                break;
+            case MAP:
+                fieldSchema = new FieldMap(property);
+                break;
+            default:
+                throw new RuntimeException("不支持的类型转换");
         }
-//        if (EXPLAIN)
-//            result = (BasicField) LoggerProxy.newInstance(result);
+
+
+        BasicField result;
+        if (EXPLAIN) {
+            if (field.lengthSize() > 0) {
+                result = new DynamicLengthField.Logger(field, property, fieldSchema);
+            } else if (field.length() > 0) {
+                result = new FixedLengthField.Logger(field, property, fieldSchema);
+            } else {
+                result = new FixedField.Logger(field, property, fieldSchema);
+            }
+        } else {
+            if (field.lengthSize() > 0) {
+                result = new DynamicLengthField(field, property, fieldSchema);
+            } else if (field.length() > 0) {
+                result = new FixedLengthField(field, property, fieldSchema);
+            } else {
+                result = new FixedField(field, property, fieldSchema);
+            }
+        }
         return result;
     }
 }

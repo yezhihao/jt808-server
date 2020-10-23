@@ -2,26 +2,38 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.Schema;
 
-import java.beans.PropertyDescriptor;
 import java.time.LocalDateTime;
 
-public class FieldDateTimeBCD extends BasicField<LocalDateTime> {
+public class FieldDateTimeBCD implements Schema<LocalDateTime> {
 
-    public FieldDateTimeBCD(Field field, PropertyDescriptor property) {
-        super(field, property);
+    public static final Schema INSTANCE = new FieldDateTimeBCD();
+
+    private FieldDateTimeBCD() {
     }
 
     @Override
-    public LocalDateTime readValue(ByteBuf input, int length) {
+    public LocalDateTime readFrom(ByteBuf input) {
+        byte[] bytes = new byte[6];
+        input.readBytes(bytes);
+        return Bcd.toDateTime(bytes);
+    }
+
+    @Override
+    public LocalDateTime readFrom(ByteBuf input, int length) {
         byte[] bytes = new byte[length];
         input.readBytes(bytes);
         return Bcd.toDateTime(bytes);
     }
 
     @Override
-    public void writeValue(ByteBuf output, LocalDateTime value) {
+    public void writeTo(ByteBuf output, LocalDateTime value) {
+        output.writeBytes(Bcd.from(value));
+    }
+
+    @Override
+    public void writeTo(ByteBuf output, int length, LocalDateTime value) {
         output.writeBytes(Bcd.from(value));
     }
 }

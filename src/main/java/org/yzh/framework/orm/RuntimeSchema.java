@@ -33,8 +33,9 @@ public class RuntimeSchema<T> implements Schema<T> {
             message = typeClass.newInstance();
             for (int i = 0; i < fields.length; i++) {
                 field = fields[i];
-                if (!field.readFrom(input, message))
+                if (!input.isReadable())
                     break;
+                field.readFrom(input, message);
                 isEmpty = false;
             }
         } catch (Exception e) {

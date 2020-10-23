@@ -1,21 +1,20 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.converter.MapConverter;
 
 import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FieldMap<T> extends BasicField<Map<Integer, T>> {
+public class FieldMap<T> implements Schema<Map<Integer, T>> {
 
     private int keySize;
     private int valueSize;
     private MapConverter converter;
 
-    public FieldMap(Field field, PropertyDescriptor property) {
-        super(field, property);
+    public FieldMap(PropertyDescriptor property) {
         try {
             org.yzh.framework.orm.annotation.MapConverter annotation = property.getReadMethod().getAnnotation(org.yzh.framework.orm.annotation.MapConverter.class);
             this.keySize = annotation.keySize();
@@ -27,7 +26,7 @@ public class FieldMap<T> extends BasicField<Map<Integer, T>> {
     }
 
     @Override
-    public Map<Integer, T> readValue(ByteBuf input, int length) {
+    public Map<Integer, T> readFrom(ByteBuf input) {
         if (!input.isReadable())
             return null;
         Map<Integer, T> map = new HashMap<>();
@@ -42,7 +41,7 @@ public class FieldMap<T> extends BasicField<Map<Integer, T>> {
     }
 
     @Override
-    public void writeValue(ByteBuf output, Map<Integer, T> map) {
+    public void writeTo(ByteBuf output, Map<Integer, T> map) {
         if (map == null || map.isEmpty())
             return;
         for (Map.Entry<Integer, T> entry : map.entrySet()) {

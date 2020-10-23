@@ -1,25 +1,47 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.Schema;
 
-import java.beans.PropertyDescriptor;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class FieldString extends BasicField<String> {
+public class FieldString implements Schema<String> {
+
+    private static volatile Map<String, FieldString> cache = new HashMap<>();
+
+    public static Schema<String> getInstance(byte pad, String charset) {
+        String key = new StringBuilder(10).append((char) pad).append('/').append(charset).toString();
+        FieldString instance = cache.get(key);
+        if (instance == null) {
+            synchronized (cache) {
+                if (instance == null) {
+                    instance = new FieldString(pad, charset);
+                    cache.put(key, instance);
+                    log.debug("new FieldString({},{})", pad, charset);
+                }
+            }
+        }
+        return instance;
+    }
 
     private final byte pad;
     private final Charset charset;
 
-    public FieldString(Field field, PropertyDescriptor property) {
-        super(field, property);
-        this.pad = field.pad();
-        this.charset = Charset.forName(field.charset());
+    private FieldString(byte pad, String charset) {
+        this.pad = pad;
+        this.charset = Charset.forName(charset);
     }
 
     @Override
-    public String readValue(ByteBuf input, int length) {
+    public String readFrom(ByteBuf input) {
+        return readFrom(input, input.readableBytes());
+    }
+
+    @Override
+    public String readFrom(ByteBuf input, int length) {
         int len = length > 0 ? length : input.readableBytes();
         byte[] bytes = new byte[len];
         input.readBytes(bytes);
@@ -33,7 +55,13 @@ public class FieldString extends BasicField<String> {
     }
 
     @Override
-    public void writeValue(ByteBuf output, String value) {
+    public void writeTo(ByteBuf output, String value) {
+        byte[] bytes = value.getBytes(charset);
+        output.writeBytes(bytes);
+    }
+
+    @Override
+    public void writeTo(ByteBuf output, int length, String value) {
         byte[] bytes = value.getBytes(charset);
         if (length > 0) {
             int srcPos = length - bytes.length;
@@ -46,7 +74,7 @@ public class FieldString extends BasicField<String> {
                 output.writeBytes(bytes);
             } else if (srcPos < 0) {
                 output.writeBytes(bytes, -srcPos, length);
-                log.error("字符长度超出限制: {}长度[{}],数据长度[{}],{}", desc, length, bytes.length, value);
+                log.error("字符长度超出限制: 长度[{}],数据长度[{}],{}", length, bytes.length, value);
             } else {
                 output.writeBytes(bytes);
             }

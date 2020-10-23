@@ -1,23 +1,22 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.Schema;
 
-import java.beans.PropertyDescriptor;
+public class FieldInt16 implements Schema<Integer> {
 
-public class FieldInt16 extends BasicField<Integer> {
+    public static final Schema INSTANCE = new FieldInt16();
 
-    public FieldInt16(Field field, PropertyDescriptor property) {
-        super(field, property);
+    private FieldInt16() {
     }
 
     @Override
-    public Integer readValue(ByteBuf input, int length) {
+    public Integer readFrom(ByteBuf input) {
         return input.readUnsignedShort();
     }
 
     @Override
-    public void writeValue(ByteBuf output, Integer value) {
+    public void writeTo(ByteBuf output, Integer value) {
         output.writeShort(value);
     }
 }

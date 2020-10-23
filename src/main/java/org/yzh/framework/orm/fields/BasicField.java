@@ -14,14 +14,8 @@ import java.lang.reflect.Method;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public abstract class BasicField<T> implements Comparable<BasicField> {
+public abstract class BasicField<T> implements Comparable<BasicField<T>> {
     protected static Logger log = LoggerFactory.getLogger(BasicField.class.getSimpleName());
-
-    /** 长度域占位数据块 */
-    protected static final byte[][] BLOCKS = new byte[][]{
-            new byte[0],
-            new byte[1], new byte[2],
-            new byte[3], new byte[4]};
 
     protected final int index;
     protected final int length;
@@ -44,23 +38,9 @@ public abstract class BasicField<T> implements Comparable<BasicField> {
         this.property = property;
     }
 
-    public abstract T readValue(ByteBuf input, int length);
+    public abstract boolean readFrom(ByteBuf input, Object message) throws Exception;
 
-    public abstract void writeValue(ByteBuf output, T value);
-
-    public boolean readFrom(ByteBuf input, Object message) throws Exception {
-        if (!input.isReadable(length))
-            return false;
-        Object value = readValue(input, length);
-        writeMethod.invoke(message, value);
-        return true;
-    }
-
-    public void writeTo(ByteBuf output, Object message) throws Exception {
-        Object value = readMethod.invoke(message);
-        if (value != null)
-            writeValue(output, (T) value);
-    }
+    public abstract void writeTo(ByteBuf output, Object message) throws Exception;
 
     public void println(int index, String desc, String hex, Object value) {
         if (value == null)
@@ -78,7 +58,7 @@ public abstract class BasicField<T> implements Comparable<BasicField> {
     }
 
     @Override
-    public int compareTo(BasicField that) {
+    public int compareTo(BasicField<T> that) {
         return Integer.compare(this.index, that.index);
     }
 

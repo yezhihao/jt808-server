@@ -1,5 +1,8 @@
 package org.yzh.framework.orm;
 
+import org.yzh.framework.orm.fields.FieldInt16;
+import org.yzh.framework.orm.fields.FieldInt32;
+import org.yzh.framework.orm.fields.FieldInt8;
 import org.yzh.framework.orm.model.DataType;
 
 import java.util.HashMap;
@@ -33,19 +36,19 @@ public abstract class PrepareLoadStrategy extends IdStrategy {
     public PrepareLoadStrategy addSchema(Object key, DataType dataType) {
         switch (dataType) {
             case BYTE:
-                this.typeIdMapping.put(key, SchemaInt8.instance);
+                this.typeIdMapping.put(key, FieldInt8.INSTANCE);
                 break;
             case WORD:
-                this.typeIdMapping.put(key, SchemaInt16.instance);
+                this.typeIdMapping.put(key, FieldInt16.INSTANCE);
                 break;
             case DWORD:
-                this.typeIdMapping.put(key, SchemaInt32.instance);
+                this.typeIdMapping.put(key, FieldInt32.INSTANCE);
                 break;
             case BYTES:
-                this.typeIdMapping.put(key, SchemaBytes.instance);
+                this.typeIdMapping.put(key, null);
                 break;
             case STRING:
-                this.typeIdMapping.put(key, SchemaString.instance);
+                this.typeIdMapping.put(key, null);
                 break;
             default:
                 throw new RuntimeException("不支持的类型转换");

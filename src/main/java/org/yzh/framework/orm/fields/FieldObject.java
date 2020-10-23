@@ -2,28 +2,53 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.annotation.Field;
 
-import java.beans.PropertyDescriptor;
+import java.util.HashMap;
+import java.util.Map;
 
-public class FieldObject<T> extends BasicField<T> {
+public class FieldObject<T> implements Schema<T> {
 
-    protected Schema<T> schema;
+    private static volatile Map<Schema, FieldObject> cache = new HashMap<>();
 
-    public FieldObject(Field field, PropertyDescriptor property, Schema<T> schema) {
-        super(field, property);
+    public static Schema getInstance(Schema schema) {
+        FieldObject instance = cache.get(schema);
+        if (instance == null) {
+            synchronized (cache) {
+                if (instance == null) {
+                    instance = new FieldObject(schema);
+                    cache.put(schema, instance);
+                    log.debug("new FieldObject({})", schema);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private final Schema<T> schema;
+
+    private FieldObject(Schema<T> schema) {
         this.schema = schema;
     }
 
     @Override
-    public T readValue(ByteBuf input, int length) {
+    public T readFrom(ByteBuf input) {
+        return schema.readFrom(input);
+    }
+
+    @Override
+    public T readFrom(ByteBuf input, int length) {
         if (length > 0)
             input = input.readSlice(length);
         return schema.readFrom(input);
     }
 
     @Override
-    public void writeValue(ByteBuf output, T obj) {
+    public void writeTo(ByteBuf output, T message) {
+        schema.writeTo(output, message);
+    }
+
+    @Override
+    public void writeTo(ByteBuf output, int length, T obj) {
         schema.writeTo(output, obj);
     }
 }

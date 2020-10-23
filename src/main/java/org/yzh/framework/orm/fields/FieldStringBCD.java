@@ -2,21 +2,22 @@ package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.commons.transform.Bcd;
-import org.yzh.framework.orm.annotation.Field;
+import org.yzh.framework.orm.Schema;
 
-import java.beans.PropertyDescriptor;
+public class FieldStringBCD implements Schema<String> {
 
-public class FieldStringBCD extends BasicField<String> {
+    public static final Schema INSTANCE = new FieldStringBCD();
 
-    private int strLen;
-
-    public FieldStringBCD(Field field, PropertyDescriptor property) {
-        super(field, property);
-        this.strLen = length * 2;
+    private FieldStringBCD() {
     }
 
     @Override
-    public String readValue(ByteBuf input, int length) {
+    public String readFrom(ByteBuf input) {
+        return readFrom(input, input.readableBytes());
+    }
+
+    @Override
+    public String readFrom(ByteBuf input, int length) {
         byte[] bytes = new byte[length];
         input.readBytes(bytes);
         char[] chars = Bcd.toChars(bytes);
@@ -28,16 +29,22 @@ public class FieldStringBCD extends BasicField<String> {
     }
 
     @Override
-    public void writeValue(ByteBuf output, String value) {
-        char[] chars = new char[strLen];
-        int i = strLen - value.length();
+    public void writeTo(ByteBuf output, String value) {
+        writeTo(output, value.length() >> 1, value);
+    }
+
+    @Override
+    public void writeTo(ByteBuf output, int length, String value) {
+        int charLength = length << 1;
+        char[] chars = new char[charLength];
+        int i = charLength - value.length();
         if (i >= 0) {
-            value.getChars(0, strLen - i, chars, i);
+            value.getChars(0, charLength - i, chars, i);
             while (i > 0)
                 chars[--i] = '0';
         } else {
-            value.getChars(-i, strLen - i, chars, 0);
-            log.error("字符长度超出限制: {}长度[{}],[{}]", desc, strLen, value);
+            value.getChars(-i, charLength - i, chars, 0);
+            log.warn("字符长度超出限制: 长度[{}],[{}]", charLength, value);
         }
         byte[] src = Bcd.from(chars);
         output.writeBytes(src);

@@ -78,7 +78,7 @@ public class AlarmDSM extends Attribute {
         this.fatigueDegree = fatigueDegree;
     }
 
-    @Field(index = 8, type = DataType.DWORD, length = 4, desc = "预留")
+    @Field(index = 8, type = DataType.DWORD, desc = "预留")
     public int getReserved() {
         return reserved;
     }

@@ -1,6 +1,8 @@
 package org.yzh.framework.orm.fields;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
+import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.annotation.Field;
 
 import java.beans.PropertyDescriptor;
@@ -10,12 +12,15 @@ import java.beans.PropertyDescriptor;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public abstract class DynamicField<T> extends BasicField<T> {
+public class DynamicLengthField<T> extends BasicField<T> {
+
+    protected final Schema<T> schema;
 
     protected final int lengthSize;
 
-    public DynamicField(Field field, PropertyDescriptor property) {
+    public DynamicLengthField(Field field, PropertyDescriptor property, Schema<T> schema) {
         super(field, property);
+        this.schema = schema;
         this.lengthSize = field.lengthSize();
     }
 
@@ -23,7 +28,7 @@ public abstract class DynamicField<T> extends BasicField<T> {
         int length = readLength(input);
         if (!input.isReadable(length))
             return false;
-        Object value = readValue(input, length);
+        Object value = schema.readFrom(input, length);
         writeMethod.invoke(message, value);
         return true;
     }
@@ -32,8 +37,8 @@ public abstract class DynamicField<T> extends BasicField<T> {
         Object value = readMethod.invoke(message);
         if (value != null) {
             int begin = output.writerIndex();
-            output.writeBytes(BLOCKS[lengthSize]);
-            writeValue(output, (T) value);
+            output.writeBytes(Schema.BLOCKS[lengthSize]);
+            schema.writeTo(output, (T) value);
             int length = output.writerIndex() - begin - lengthSize;
             setLength(output, begin, length);
         }
@@ -80,12 +85,49 @@ public abstract class DynamicField<T> extends BasicField<T> {
     }
 
     @Override
-    public int compareTo(BasicField that) {
+    public int compareTo(BasicField<T> that) {
         int r = Integer.compare(this.index, that.index);
-        if (r == 0) {
-            if (BasicField.class.isAssignableFrom(that.getClass()))
-                r = -1;
-        }
+        if (r == 0)
+            r = (that instanceof DynamicLengthField) ? 1 : -1;
         return r;
+    }
+
+    public static class Logger<T> extends DynamicLengthField<T> {
+
+        public Logger(Field field, PropertyDescriptor property, Schema<T> schema) {
+            super(field, property, schema);
+        }
+
+        public boolean readFrom(ByteBuf input, Object message) throws Exception {
+            int before = input.readerIndex();
+
+            int length = readLength(input);
+            if (!input.isReadable(length))
+                return false;
+            Object value = schema.readFrom(input, length);
+            writeMethod.invoke(message, value);
+
+            int after = input.readerIndex();
+            String hex = ByteBufUtil.hexDump(input.slice(before, after - before));
+            println(this.index, this.desc, hex, value);
+            return true;
+        }
+
+        public void writeTo(ByteBuf output, Object message) throws Exception {
+            int before = output.writerIndex();
+
+            Object value = readMethod.invoke(message);
+            if (value != null) {
+                int begin = output.writerIndex();
+                output.writeBytes(Schema.BLOCKS[lengthSize]);
+                schema.writeTo(output, (T) value);
+                int length = output.writerIndex() - begin - lengthSize;
+                setLength(output, begin, length);
+            }
+
+            int after = output.writerIndex();
+            String hex = ByteBufUtil.hexDump(output.slice(before, after - before));
+            println(this.index, this.desc, hex, value);
+        }
     }
 }
