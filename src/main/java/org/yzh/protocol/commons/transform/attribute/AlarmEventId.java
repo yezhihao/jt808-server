@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -24,22 +24,31 @@ public class AlarmEventId extends Attribute {
         return attributeId;
     }
 
-    @Override
-    public AlarmEventId formBytes(byte... bytes) {
-        this.value = Bytes.getInt16(bytes, 0);
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        return Bytes.setInt16(new byte[2], 0, value);
-    }
-
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<AlarmEventId> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public AlarmEventId readFrom(ByteBuf input) {
+            AlarmEventId message = new AlarmEventId();
+            message.value = input.readUnsignedShort();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, AlarmEventId message) {
+            output.writeShort(message.value);
+        }
     }
 }

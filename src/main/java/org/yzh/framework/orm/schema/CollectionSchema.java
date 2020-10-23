@@ -67,7 +67,7 @@ public class CollectionSchema<T> implements Schema<List<T>> {
             return;
 
         for (T obj : list) {
-            ((Schema) schema).writeTo(output, length, obj);
+            schema.writeTo(output, length, obj);
         }
     }
 }

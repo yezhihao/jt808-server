@@ -7,8 +7,8 @@ import org.yzh.framework.orm.converter.Converter;
 import org.yzh.framework.orm.util.ByteBufUtils;
 
 import java.beans.PropertyDescriptor;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 字典结构
@@ -35,7 +35,7 @@ public class MapSchema<T> implements Schema<Map<Integer, T>> {
     public Map<Integer, T> readFrom(ByteBuf input) {
         if (!input.isReadable())
             return null;
-        Map<Integer, T> map = new HashMap<>();
+        Map<Integer, T> map = new TreeMap<>();
         do {
             int id = ByteBufUtils.readInt(input, keySize);
             int len = ByteBufUtils.readInt(input, valueSize);

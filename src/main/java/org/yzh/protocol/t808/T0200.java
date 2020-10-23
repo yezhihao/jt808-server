@@ -1,16 +1,15 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.orm.annotation.Convert;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.Attribute;
-import org.yzh.protocol.commons.transform.PositionAttributeUtils;
+import org.yzh.protocol.commons.transform.AttributeConverter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +27,7 @@ public class T0200 extends JTMessage {
     private int speed;
     private int direction;
     private LocalDateTime dateTime;
-    private List<BytesAttribute> bytesAttributes;
+    private Map<Integer, Attribute> attributes;
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
     public int getWarningMark() {
@@ -102,20 +101,13 @@ public class T0200 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 28, type = DataType.LIST, desc = "位置附加信息")
-    public List<BytesAttribute> getBytesAttributes() {
-        return bytesAttributes;
-    }
-
-    public void setBytesAttributes(List<BytesAttribute> bytesAttributes) {
-        this.bytesAttributes = bytesAttributes;
-    }
-
+    @Convert(converter = AttributeConverter.class)
+    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息")
     public Map<Integer, Attribute> getAttributes() {
-        return PositionAttributeUtils.transform(bytesAttributes);
+        return attributes;
     }
 
     public void setAttributes(Map<Integer, Attribute> attributes) {
-        this.bytesAttributes = PositionAttributeUtils.transform(attributes);
+        this.attributes = attributes;
     }
 }

@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -26,27 +26,8 @@ public class InOutAreaAlarm extends Attribute {
         this.direction = direction;
     }
 
-    @Override
     public int getAttributeId() {
         return attributeId;
-    }
-
-    @Override
-    public InOutAreaAlarm formBytes(byte[] bytes) {
-        this.positionType = bytes[0];
-        this.areaId = Bytes.getInt32(bytes, 1);
-        this.direction = bytes[5];
-        return this;
-
-    }
-
-    @Override
-    public byte[] toBytes() {
-        byte[] bytes = new byte[6];
-        bytes[0] = this.positionType;
-        Bytes.setInt32(bytes, 1, this.areaId);
-        bytes[5] = this.direction;
-        return bytes;
     }
 
     public byte getPositionType() {
@@ -71,5 +52,29 @@ public class InOutAreaAlarm extends Attribute {
 
     public void setDirection(byte direction) {
         this.direction = direction;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<InOutAreaAlarm> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public InOutAreaAlarm readFrom(ByteBuf input) {
+            InOutAreaAlarm message = new InOutAreaAlarm();
+            message.positionType = input.readByte();
+            message.areaId = (int) input.readUnsignedInt();
+            message.direction = input.readByte();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, InOutAreaAlarm message) {
+            output.writeByte(message.positionType);
+            output.writeInt(message.areaId);
+            output.writeByte(message.direction);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -23,22 +23,31 @@ public class Oil extends Attribute {
         return attributeId;
     }
 
-    @Override
-    public Oil formBytes(byte... bytes) {
-        this.value = Bytes.getInt16(bytes, 0);
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        return Bytes.setInt16(new byte[2], 0, value);
-    }
-
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<Oil> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public Oil readFrom(ByteBuf input) {
+            Oil message = new Oil();
+            message.value = input.readUnsignedShort();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, Oil message) {
+            output.writeShort(message.value);
+        }
     }
 }

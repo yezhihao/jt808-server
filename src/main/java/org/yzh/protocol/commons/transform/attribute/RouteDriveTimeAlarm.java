@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -30,23 +30,6 @@ public class RouteDriveTimeAlarm extends Attribute {
         return attributeId;
     }
 
-    @Override
-    public RouteDriveTimeAlarm formBytes(byte[] bytes) {
-        this.routeId = Bytes.getInt32(bytes, 0);
-        this.driveTime = Bytes.getInt16(bytes, 4);
-        this.result = bytes[6];
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        byte[] bytes = new byte[7];
-        Bytes.setInt32(bytes, 0, this.routeId);
-        Bytes.setInt16(bytes, 4, this.driveTime);
-        bytes[6] = this.result;
-        return bytes;
-    }
-
     public int getRouteId() {
         return routeId;
     }
@@ -69,5 +52,29 @@ public class RouteDriveTimeAlarm extends Attribute {
 
     public void setResult(byte result) {
         this.result = result;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<RouteDriveTimeAlarm> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public RouteDriveTimeAlarm readFrom(ByteBuf input) {
+            RouteDriveTimeAlarm message = new RouteDriveTimeAlarm();
+            message.routeId = (int) input.readUnsignedInt();
+            message.driveTime = input.readUnsignedShort();
+            message.result = input.readByte();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, RouteDriveTimeAlarm message) {
+            output.writeInt(message.routeId);
+            output.writeShort(message.driveTime);
+            output.writeByte(message.result);
+        }
     }
 }

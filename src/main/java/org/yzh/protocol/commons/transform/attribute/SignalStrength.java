@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -22,22 +23,31 @@ public class SignalStrength extends Attribute {
         return attributeId;
     }
 
-    @Override
-    public SignalStrength formBytes(byte... bytes) {
-        this.value = bytes[0];
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        return new byte[]{(byte) value};
-    }
-
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<SignalStrength> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public SignalStrength readFrom(ByteBuf input) {
+            SignalStrength message = new SignalStrength();
+            message.value = input.readUnsignedByte();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, SignalStrength message) {
+            output.writeByte(message.value);
+        }
     }
 }

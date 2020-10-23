@@ -25,6 +25,9 @@ public interface Schema<T> {
         writeTo(output, message);
     }
 
+    /**
+     * 用于预估内存分配，不需要精确值
+     */
     default int length() {
         return 128;
     }

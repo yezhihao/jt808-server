@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -24,22 +24,31 @@ public class Mileage extends Attribute {
         return attributeId;
     }
 
-    @Override
-    public Mileage formBytes(byte... bytes) {
-        this.value = Bytes.getInt32(bytes, 0);
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        return Bytes.setInt32(new byte[4], 0, value);
-    }
-
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<Mileage> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public Mileage readFrom(ByteBuf input) {
+            Mileage message = new Mileage();
+            message.value = (int) input.readUnsignedInt();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, Mileage message) {
+            output.writeInt(message.value);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.framework.commons.transform.Bytes;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -15,35 +15,16 @@ public class OverSpeedAlarm extends Attribute {
     /** 区域或路段ID */
     private Integer areaId;
 
+    public int getAttributeId() {
+        return attributeId;
+    }
+
     public OverSpeedAlarm() {
     }
 
     public OverSpeedAlarm(byte positionType, Integer areaId) {
         this.positionType = positionType;
         this.areaId = areaId;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
-    }
-
-    @Override
-    public OverSpeedAlarm formBytes(byte[] bytes) {
-        this.positionType = bytes[0];
-        if (bytes.length >= 5)
-            this.areaId = Bytes.getInt32(bytes, 1);
-        return this;
-    }
-
-    @Override
-    public byte[] toBytes() {
-        if (areaId == null)
-            return new byte[]{positionType};
-
-        byte[] bytes = new byte[5];
-        bytes[0] = positionType;
-        Bytes.setInt32(bytes, 1, areaId);
-        return bytes;
     }
 
     public byte getPositionType() {
@@ -60,5 +41,29 @@ public class OverSpeedAlarm extends Attribute {
 
     public void setAreaId(Integer areaId) {
         this.areaId = areaId;
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<OverSpeedAlarm> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public OverSpeedAlarm readFrom(ByteBuf input) {
+            OverSpeedAlarm message = new OverSpeedAlarm();
+            message.positionType = input.readByte();
+            if (message.positionType > 0)
+                message.areaId = (int) input.readUnsignedInt();
+            return message;
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, OverSpeedAlarm message) {
+            output.writeByte(message.positionType);
+            if (message.positionType > 0)
+                output.writeInt(message.areaId);
+        }
     }
 }

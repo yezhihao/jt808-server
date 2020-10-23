@@ -128,8 +128,10 @@ public class AlarmTPMS extends Attribute {
     }
 
     public void setItems(List<Item> items) {
-        this.items = items;
-        this.total = items.size();
+        if (items != null) {
+            this.items = items;
+            this.total = items.size();
+        }
     }
 
     public static class Item {
