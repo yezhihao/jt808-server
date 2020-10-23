@@ -1,7 +1,8 @@
-package org.yzh.framework.orm;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.fields.BasicField;
+import org.yzh.framework.orm.Schema;
+import org.yzh.framework.orm.field.BasicField;
 
 /**
  * 运行时根据Class生成的消息结构，用于序列化对象

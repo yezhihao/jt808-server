@@ -1,4 +1,4 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
@@ -8,13 +8,13 @@ import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FieldMap<T> implements Schema<Map<Integer, T>> {
+public class MapSchema<T> implements Schema<Map<Integer, T>> {
 
     private int keySize;
     private int valueSize;
     private MapConverter converter;
 
-    public FieldMap(PropertyDescriptor property) {
+    public MapSchema(PropertyDescriptor property) {
         try {
             org.yzh.framework.orm.annotation.MapConverter annotation = property.getReadMethod().getAnnotation(org.yzh.framework.orm.annotation.MapConverter.class);
             this.keySize = annotation.keySize();

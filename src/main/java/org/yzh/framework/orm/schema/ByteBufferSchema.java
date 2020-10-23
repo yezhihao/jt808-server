@@ -1,15 +1,15 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
 
 import java.nio.ByteBuffer;
 
-public class FieldByteBuffer implements Schema<ByteBuffer> {
+public class ByteBufferSchema implements Schema<ByteBuffer> {
 
-    public static final Schema INSTANCE = new FieldByteBuffer();
+    public static final Schema INSTANCE = new ByteBufferSchema();
 
-    private FieldByteBuffer() {
+    private ByteBufferSchema() {
     }
 
     @Override

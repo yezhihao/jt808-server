@@ -1,4 +1,4 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.field;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;

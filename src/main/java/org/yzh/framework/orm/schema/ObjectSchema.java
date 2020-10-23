@@ -1,4 +1,4 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
@@ -6,18 +6,18 @@ import org.yzh.framework.orm.Schema;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FieldObject<T> implements Schema<T> {
+public class ObjectSchema<T> implements Schema<T> {
 
-    private static volatile Map<Schema, FieldObject> cache = new HashMap<>();
+    private static volatile Map<Schema, ObjectSchema> cache = new HashMap<>();
 
     public static Schema getInstance(Schema schema) {
-        FieldObject instance = cache.get(schema);
+        ObjectSchema instance = cache.get(schema);
         if (instance == null) {
             synchronized (cache) {
                 if (instance == null) {
-                    instance = new FieldObject(schema);
+                    instance = new ObjectSchema(schema);
                     cache.put(schema, instance);
-                    log.debug("new FieldObject({})", schema);
+                    log.debug("new ObjectSchema({})", schema);
                 }
             }
         }
@@ -26,7 +26,7 @@ public class FieldObject<T> implements Schema<T> {
 
     private final Schema<T> schema;
 
-    private FieldObject(Schema<T> schema) {
+    private ObjectSchema(Schema<T> schema) {
         this.schema = schema;
     }
 

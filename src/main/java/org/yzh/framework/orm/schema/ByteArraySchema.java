@@ -1,13 +1,13 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
 
-public class FieldBytes implements Schema<byte[]> {
+public class ByteArraySchema implements Schema<byte[]> {
 
-    public static final Schema INSTANCE = new FieldBytes();
+    public static final Schema INSTANCE = new ByteArraySchema();
 
-    private FieldBytes() {
+    private ByteArraySchema() {
     }
 
     @Override

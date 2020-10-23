@@ -1,4 +1,4 @@
-package org.yzh.framework.orm.fields;
+package org.yzh.framework.orm.schema;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.Schema;
@@ -8,18 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FieldList<T> implements Schema<List<T>> {
+public class CollectionSchema<T> implements Schema<List<T>> {
 
-    private static volatile Map<Schema, FieldList> cache = new HashMap<>();
+    private static volatile Map<Schema, CollectionSchema> cache = new HashMap<>();
 
     public static Schema<List> getInstance(Schema schema) {
-        FieldList instance = cache.get(schema);
+        CollectionSchema instance = cache.get(schema);
         if (instance == null) {
             synchronized (cache) {
                 if (instance == null) {
-                    instance = new FieldList(schema);
+                    instance = new CollectionSchema(schema);
                     cache.put(schema, instance);
-                    log.debug("new FieldList({})", schema);
+                    log.debug("new CollectionSchema({})", schema);
                 }
             }
         }
@@ -28,7 +28,7 @@ public class FieldList<T> implements Schema<List<T>> {
 
     private final Schema<T> schema;
 
-    private FieldList(Schema<T> schema) {
+    private CollectionSchema(Schema<T> schema) {
         this.schema = schema;
     }
 

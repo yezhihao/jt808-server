@@ -3,8 +3,12 @@ package org.yzh.framework.orm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.fields.*;
+import org.yzh.framework.orm.field.BasicField;
+import org.yzh.framework.orm.field.DynamicLengthField;
+import org.yzh.framework.orm.field.FixedField;
+import org.yzh.framework.orm.field.FixedLengthField;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.framework.orm.schema.*;
 
 import java.beans.PropertyDescriptor;
 import java.nio.ByteBuffer;
@@ -30,42 +34,42 @@ public abstract class FieldFactory {
         Schema fieldSchema;
         switch (dataType) {
             case BYTE:
-                fieldSchema = FieldInt8.INSTANCE;
+                fieldSchema = IntSchema.Int8.INSTANCE;
                 break;
             case WORD:
-                fieldSchema = FieldInt16.INSTANCE;
+                fieldSchema = IntSchema.Int16.INSTANCE;
                 break;
             case DWORD:
                 if (Long.class.isAssignableFrom(typeClass) || Long.TYPE.isAssignableFrom(typeClass))
-                    fieldSchema = FieldLong32.INSTANCE;
+                    fieldSchema = LongSchema.Long32.INSTANCE;
                 else
-                    fieldSchema = FieldInt32.INSTANCE;
+                    fieldSchema = IntSchema.Int32.INSTANCE;
                 break;
             case BCD8421:
                 if (LocalDateTime.class.isAssignableFrom(typeClass))
-                    fieldSchema = FieldDateTimeBCD.INSTANCE;
+                    fieldSchema = DateTimeSchema.BCD.INSTANCE;
                 else
-                    fieldSchema = FieldStringBCD.INSTANCE;
+                    fieldSchema = StringSchema.BCD.INSTANCE;
                 break;
             case BYTES:
                 if (String.class.isAssignableFrom(typeClass))
-                    fieldSchema = FieldString.getInstance(field.pad(), field.charset());
+                    fieldSchema = StringSchema.Chars.getInstance(field.pad(), field.charset());
                 else if (ByteBuffer.class.isAssignableFrom(typeClass))
-                    fieldSchema = FieldByteBuffer.INSTANCE;
+                    fieldSchema = ByteBufferSchema.INSTANCE;
                 else
-                    fieldSchema = FieldBytes.INSTANCE;
+                    fieldSchema = ByteArraySchema.INSTANCE;
                 break;
             case STRING:
-                fieldSchema = FieldString.getInstance(field.pad(), field.charset());
+                fieldSchema = StringSchema.Chars.getInstance(field.pad(), field.charset());
                 break;
             case OBJ:
-                fieldSchema = FieldObject.getInstance(schema);
+                fieldSchema = ObjectSchema.getInstance(schema);
                 break;
             case LIST:
-                fieldSchema = FieldList.getInstance(schema);
+                fieldSchema = CollectionSchema.getInstance(schema);
                 break;
             case MAP:
-                fieldSchema = new FieldMap(property);
+                fieldSchema = new MapSchema(property);
                 break;
             default:
                 throw new RuntimeException("不支持的类型转换");

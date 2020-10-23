@@ -2,8 +2,9 @@ package org.yzh.framework.orm;
 
 import io.netty.buffer.ByteBuf;
 import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.fields.BasicField;
+import org.yzh.framework.orm.field.BasicField;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.framework.orm.schema.RuntimeSchema;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
