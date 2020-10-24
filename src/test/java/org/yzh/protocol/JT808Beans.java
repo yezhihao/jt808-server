@@ -3,14 +3,14 @@ package org.yzh.protocol;
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.protocol.basics.BytesAttribute;
-import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.Attribute;
-import org.yzh.protocol.commons.transform.ParameterType;
 import org.yzh.protocol.commons.transform.attribute.*;
+import org.yzh.protocol.commons.transform.parameter.ParamADAS;
+import org.yzh.protocol.commons.transform.parameter.ParamVideo;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.t808.*;
 
@@ -113,19 +113,30 @@ public class JT808Beans {
     public static T0104 T0104() {
         T0104 bean = new T0104();
         bean.setSerialNo(104);
-        ParameterType[] values = ParameterType.values();
-        for (int i = 0; i < 38; i++) {
-            ParameterType p = values[i];
-            switch (p.type) {
-                case BYTE:
-                case WORD:
-                case DWORD:
-                    bean.addParameter(new BytesParameter(p.id, R.nextInt()));
-                default:
-                    bean.addParameter(new BytesParameter(p.id, STR16));
-            }
-        }
+        bean.setParameters(parameters());
         return bean;
+    }
+
+    //终端参数列表
+    public static Map<Integer, Object> parameters() {
+        ParamVideo paramVideo = new ParamVideo();
+        paramVideo.setRealtimeEncode((byte) 1);
+        paramVideo.setRealtimeResolution((byte) 1);
+        paramVideo.setRealtimeFrameInterval((byte) 1);
+        paramVideo.setRealtimeFrameRate((byte) 1);
+        paramVideo.setRealtimeBitRate((byte) 1);
+        paramVideo.setStorageEncode((byte) 2);
+        paramVideo.setStorageResolution((byte) 2);
+        paramVideo.setStorageFrameInterval((byte) 2);
+        paramVideo.setStorageFrameRate((byte) 2);
+        paramVideo.setStorageBitRate((byte) 2);
+        paramVideo.setOdsConfig((byte) 3);
+        paramVideo.setAudioEnable((byte) 3);
+
+        Map<Integer, Object> parameters = new TreeMap<>();
+        parameters.put(ParamVideo.id, paramVideo);
+        parameters.put(ParamADAS.id, new ParamADAS());
+        return parameters;
     }
 
     //查询终端属性应答
@@ -187,7 +198,7 @@ public class JT808Beans {
         attributes.put(Oil.attributeId, new Oil(22));
         attributes.put(Speed.attributeId, new Speed(33));
         attributes.put(AlarmEventId.attributeId, new AlarmEventId(44));
-        attributes.put(TirePressure.attributeId, new TirePressure((byte) 55, (byte) 55, (byte) 55));
+        attributes.put(TirePressure.attributeId, new TirePressure(new byte[]{55, 55, 55}));
         attributes.put(CarriageTemperature.attributeId, new CarriageTemperature(2));
         attributes.put(OverSpeedAlarm.attributeId, new OverSpeedAlarm((byte) 66, 66));
         attributes.put(InOutAreaAlarm.attributeId, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
@@ -423,18 +434,7 @@ public class JT808Beans {
     //设置终端参数
     public static T8103 T8103() {
         T8103 bean = new T8103();
-        ParameterType[] values = ParameterType.values();
-        for (int i = 0; i < 38; i++) {
-            ParameterType p = values[i];
-            switch (p.type) {
-                case BYTE:
-                case WORD:
-                case DWORD:
-                    bean.addParameter(new BytesParameter(p.id, R.nextInt()));
-                default:
-                    bean.addParameter(new BytesParameter(p.id, STR16));
-            }
-        }
+        bean.setParameters(parameters());
         return bean;
     }
 

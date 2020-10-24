@@ -12,7 +12,7 @@ public class AttributeConverter implements Converter {
 
     private static final Logger log = LoggerFactory.getLogger(AttributeConverter.class);
 
-    private static final IdStrategy INSTANCE = AttributeTypes.INSTANCE;
+    private static final IdStrategy INSTANCE = AttributeType.INSTANCE;
 
     @Override
     public Object convert(Integer key, ByteBuf input) {

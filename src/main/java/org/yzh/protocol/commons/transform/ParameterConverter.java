@@ -7,11 +7,11 @@ public class ParameterConverter implements Converter {
 
     @Override
     public Object convert(Integer key, ByteBuf input) {
-        return ParameterTypes.INSTANCE.readFrom(key, input);
+        return ParameterType.INSTANCE.readFrom(key, input);
     }
 
     @Override
     public void convert(Integer key, ByteBuf output, Object value) {
-        ParameterTypes.INSTANCE.writeTo(key, output, value);
+        ParameterType.INSTANCE.writeTo(key, output, value);
     }
 }

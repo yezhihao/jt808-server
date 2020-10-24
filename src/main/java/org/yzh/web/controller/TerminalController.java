@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.yzh.framework.session.MessageManager;
 import org.yzh.framework.session.Session;
 import org.yzh.framework.session.SessionManager;
-import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
 import org.yzh.protocol.commons.transform.Parameter;
-import org.yzh.protocol.commons.transform.ParameterType;
-import org.yzh.protocol.commons.transform.TerminalParameterUtils;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
@@ -62,24 +59,22 @@ public class TerminalController {
         return "fail";
     }
 
-    @ApiOperation(value = "终端参数可选项", tags = "终端管理类协议")
-    @GetMapping("settings/option")
-    public ParameterType[] settingsOption() {
-        return ParameterType.values();
-    }
+//    @ApiOperation(value = "终端参数可选项", tags = "终端管理类协议")
+//    @GetMapping("settings/option")
+//    public ParameterType[] settingsOption() {
+//        return ParameterType.values();
+//    }
 
     @ApiOperation(value = "设置终端参数", tags = "终端管理类协议")
     @PutMapping("settings")
     public T0001 putSettings(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody Parameter... parameters) {
-        List<BytesParameter> parameterList = new ArrayList<>(parameters.length);
+        Map<Integer, Object> map = new TreeMap();
         for (Parameter parameter : parameters) {
             int id = parameter.getId();
-            byte[] value = TerminalParameterUtils.toBytes(id, parameter.getValue());
-            if (value != null)
-                parameterList.add(new BytesParameter(id, value));
+            map.put(id, Integer.valueOf(parameter.getValue()));
         }
         T8103 request = new T8103(clientId);
-        request.setBytesParameters(parameterList);
+        request.setParameters(map);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }

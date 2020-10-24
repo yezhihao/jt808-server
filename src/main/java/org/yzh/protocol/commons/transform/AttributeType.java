@@ -9,9 +9,9 @@ import org.yzh.protocol.commons.transform.attribute.*;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class AttributeTypes extends PrepareLoadStrategy {
+public class AttributeType extends PrepareLoadStrategy {
 
-    public static final IdStrategy INSTANCE = new AttributeTypes();
+    public static final IdStrategy INSTANCE = new AttributeType();
 
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {

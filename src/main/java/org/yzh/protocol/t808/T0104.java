@@ -1,17 +1,16 @@
 package org.yzh.protocol.t808;
 
 import org.yzh.framework.mvc.model.Response;
+import org.yzh.framework.orm.annotation.Convert;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.BytesParameter;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.transform.TerminalParameterUtils;
+import org.yzh.protocol.commons.transform.ParameterConverter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author yezhihao
@@ -22,7 +21,7 @@ public class T0104 extends JTMessage implements Response {
 
     private int serialNo;
     private int total;
-    private List<BytesParameter> bytesParameters;
+    private Map<Integer, Object> parameters;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getSerialNo() {
@@ -35,8 +34,8 @@ public class T0104 extends JTMessage implements Response {
 
     @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     public int getTotal() {
-        if (bytesParameters != null)
-            return bytesParameters.size();
+        if (parameters != null)
+            return parameters.size();
         return total;
     }
 
@@ -44,26 +43,19 @@ public class T0104 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 3, type = DataType.LIST, desc = "参数项列表")
-    public List<BytesParameter> getBytesParameters() {
-        return bytesParameters;
+    @Convert(keySize = 4, converter = ParameterConverter.class)
+    @Field(index = 3, type = DataType.MAP, desc = "参数项列表")
+    public Map<Integer, Object> getParameters() {
+        return parameters;
     }
 
-    public void setBytesParameters(List<BytesParameter> bytesParameters) {
-        this.bytesParameters = bytesParameters;
+    public void setParameters(Map<Integer, Object> parameters) {
+        this.parameters = parameters;
     }
 
-    public void addParameter(BytesParameter bytesParameter) {
-        if (bytesParameters == null)
-            bytesParameters = new ArrayList<>();
-        bytesParameters.add(bytesParameter);
-    }
-
-    public Map<Integer, String> getParameters() {
-        return TerminalParameterUtils.transform(bytesParameters);
-    }
-
-    public void setParameters(Map<Integer, String> parameters) {
-        this.bytesParameters = TerminalParameterUtils.transform(parameters);
+    public void addParameter(Integer key, Object value) {
+        if (parameters == null)
+            parameters = new TreeMap();
+        parameters.put(key, value);
     }
 }
