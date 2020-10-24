@@ -9,9 +9,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamImageIdentifyAlarm {
 
-    public static final byte id = 0x007B;
+    public static final int id = 0x007B;
 
-    public static byte id() {
+    public static int id() {
         return id;
     }
 

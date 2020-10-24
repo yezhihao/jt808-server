@@ -1,13 +1,17 @@
 package org.yzh.protocol.commons.transform;
 
 import org.yzh.framework.orm.PrepareLoadStrategy;
+import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.framework.orm.schema.StringSchema;
 import org.yzh.protocol.commons.transform.parameter.*;
 
 public class ParameterType extends PrepareLoadStrategy {
     public static final PrepareLoadStrategy INSTANCE = new ParameterType();
+
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
+        Schema<String> stringSchema = StringSchema.Chars.getInstance((byte) 0, "gbk");
         schemaRegistry
 
                 .addSchema(0x0001, DataType.DWORD)//"终端心跳发送间隔，单位为秒(s)"
@@ -18,31 +22,31 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0006, DataType.DWORD)//"SMS消息应答超时时间，单位为秒(s)"
                 .addSchema(0x0007, DataType.DWORD)//"SMS消息重传次数"
 
-                .addSchema(0x0010, DataType.STRING)//"主服务器APN，无线通信拨号访问点。若网络制式为CDMA，则该处为PPP拨号号码"
-                .addSchema(0x0011, DataType.STRING)//"主服务器无线通信拨号用户名"
-                .addSchema(0x0012, DataType.STRING)//"主服务器无线通信拨号密码"
-                .addSchema(0x0013, DataType.STRING)//"主服务器地址，IP或域名"
-                .addSchema(0x0014, DataType.STRING)//"备份服务器APN，无线通信拨号访问点"
-                .addSchema(0x0015, DataType.STRING)//"备份服务器无线通信拨号用户名"
-                .addSchema(0x0016, DataType.STRING)//"备份服务器无线通信拨号密码"
-                .addSchema(0x0017, DataType.STRING)//"备份服务器地址，IP或域名（2019版 以冒号分割主机和端口，多个服务器使用分号分隔）"
+                .addSchema(0x0010, stringSchema)//"主服务器APN，无线通信拨号访问点。若网络制式为CDMA，则该处为PPP拨号号码"
+                .addSchema(0x0011, stringSchema)//"主服务器无线通信拨号用户名"
+                .addSchema(0x0012, stringSchema)//"主服务器无线通信拨号密码"
+                .addSchema(0x0013, stringSchema)//"主服务器地址，IP或域名"
+                .addSchema(0x0014, stringSchema)//"备份服务器APN，无线通信拨号访问点"
+                .addSchema(0x0015, stringSchema)//"备份服务器无线通信拨号用户名"
+                .addSchema(0x0016, stringSchema)//"备份服务器无线通信拨号密码"
+                .addSchema(0x0017, stringSchema)//"备份服务器地址，IP或域名（2019版 以冒号分割主机和端口，多个服务器使用分号分隔）"
                 .addSchema(0x0018, DataType.DWORD)//"服务器TCP端口(2013版)"
                 .addSchema(0x0019, DataType.DWORD)//"服务器UDP端口(2013版)"
 
 
-                .addSchema(0x001A, DataType.STRING)//"道路运输证IC卡认证主服务器IP地址或域名"
+                .addSchema(0x001A, stringSchema)//"道路运输证IC卡认证主服务器IP地址或域名"
                 .addSchema(0x001B, DataType.DWORD)//"道路运输证IC卡认证主服务器TCP端口"
                 .addSchema(0x001C, DataType.DWORD)//"道路运输证IC卡认证主服务器UDP端口"
-                .addSchema(0x001D, DataType.STRING)//"道路运输证IC卡认证主服务器IP地址或域名，端口同主服务器"
+                .addSchema(0x001D, stringSchema)//"道路运输证IC卡认证主服务器IP地址或域名，端口同主服务器"
 
                 .addSchema(0x0020, DataType.DWORD)//"位置汇报策略，0：定时汇报；1：定距汇报；2：定时和定距汇报"
                 .addSchema(0x0021, DataType.DWORD)//"位置汇报方案，0：根据ACC状态；1：根据登录状态和ACC状态，先判断登录状态，若登录再根据ACC状态"
                 .addSchema(0x0022, DataType.DWORD)//"驾驶员未登录汇报时间间隔，单位为秒(s),>0"
 
-                .addSchema(0x0023, DataType.STRING)//"从服务器APN。该值为空时，终端应使用主服务器相同配置"
-                .addSchema(0x0024, DataType.STRING)//"从服务器无线通信拨号用户名。该值为空时，终端应使用主服务器相同配置"
-                .addSchema(0x0025, DataType.STRING)//"从服务器无线通信拨号密码。该值为空时，终端应使用主服务器相同配置"
-                .addSchema(0x0026, DataType.STRING)//"从服务器备份地址、IP或域名。主服务器IP地址或域名，端口同主服务器"
+                .addSchema(0x0023, stringSchema)//"从服务器APN。该值为空时，终端应使用主服务器相同配置"
+                .addSchema(0x0024, stringSchema)//"从服务器无线通信拨号用户名。该值为空时，终端应使用主服务器相同配置"
+                .addSchema(0x0025, stringSchema)//"从服务器无线通信拨号密码。该值为空时，终端应使用主服务器相同配置"
+                .addSchema(0x0026, stringSchema)//"从服务器备份地址、IP或域名。主服务器IP地址或域名，端口同主服务器"
 
                 .addSchema(0x0027, DataType.DWORD)//"休眠时汇报时间间隔，单位为秒(s),>0"
                 .addSchema(0x0028, DataType.DWORD)//"紧急报警时汇报时间间隔，单位为秒(s),>0"
@@ -54,18 +58,18 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x002F, DataType.DWORD)//"紧急报警时汇报距离间隔，单位为米(m),>0"
                 .addSchema(0x0030, DataType.DWORD)//"拐点补传角度，<180°"
                 .addSchema(0x0031, DataType.WORD)//"电子围栏半径，单位为米"
-                .addSchema(0x0032, DataType.BYTES)//"违规行驶时段范围，精确到分"
+                .addSchema(0x0032, TimeRange.Schema.INSTANCE)//"违规行驶时段范围，精确到分"
 
-                .addSchema(0x0040, DataType.STRING)//"监控平台电话号码"
-                .addSchema(0x0041, DataType.STRING)//"复位电话号码，可采用此电话号码拨打终端电话让终端复位"
-                .addSchema(0x0042, DataType.STRING)//"恢复出厂设置电话号码，可采用此电话号码拨打终端电话让终端恢复出厂设置"
-                .addSchema(0x0043, DataType.STRING)//"监控平台SMS电话号码"
-                .addSchema(0x0044, DataType.STRING)//"接收终端SMS文本报警号码"
+                .addSchema(0x0040, stringSchema)//"监控平台电话号码"
+                .addSchema(0x0041, stringSchema)//"复位电话号码，可采用此电话号码拨打终端电话让终端复位"
+                .addSchema(0x0042, stringSchema)//"恢复出厂设置电话号码，可采用此电话号码拨打终端电话让终端恢复出厂设置"
+                .addSchema(0x0043, stringSchema)//"监控平台SMS电话号码"
+                .addSchema(0x0044, stringSchema)//"接收终端SMS文本报警号码"
                 .addSchema(0x0045, DataType.DWORD)//"终端电话接听策略，0：自动接听；1：ACC ON时自动接听，OFF时手动接听"
                 .addSchema(0x0046, DataType.DWORD)//"每次最长通话时间，单位为秒(s),0为不允许通话，0xFFFFFFFF为不限制"
                 .addSchema(0x0047, DataType.DWORD)//"当月最长通话时间，单位为秒(s),0为不允许通话，0xFFFFFFFF为不限制"
-                .addSchema(0x0048, DataType.STRING)//"监听电话号码"
-                .addSchema(0x0049, DataType.STRING)//"监管平台特权短信号码"
+                .addSchema(0x0048, stringSchema)//"监听电话号码"
+                .addSchema(0x0049, stringSchema)//"监管平台特权短信号码"
 
                 .addSchema(0x0050, DataType.DWORD)//"报警屏蔽字。与位置信息汇报消息中的报警标志相对应，相应位为1则相应报警被屏蔽"
                 .addSchema(0x0051, DataType.DWORD)//"报警发送文本SMS开关，与位置信息汇报消息中的报警标志相对应，相应位为1则相应报警时发送文本SMS"
@@ -96,7 +100,7 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0080, DataType.DWORD)//"车辆里程表读数，1/10km"
                 .addSchema(0x0081, DataType.WORD)//"车辆所在的省域ID"
                 .addSchema(0x0082, DataType.WORD)//"车辆所在的市域ID"
-                .addSchema(0x0083, DataType.STRING)//"公安交通管理部门颁发的机动车号牌"
+                .addSchema(0x0083, stringSchema)//"公安交通管理部门颁发的机动车号牌"
                 .addSchema(0x0084, DataType.BYTE)//"车牌颜色，按照JT/T415-2006的5.4.12"
 
                 .addSchema(0x0090, DataType.BYTE)//"定位模式"

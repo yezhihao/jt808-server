@@ -15,6 +15,7 @@ public class StringSchema {
         private static volatile Map<String, Chars> cache = new HashMap<>();
 
         public static Schema<String> getInstance(byte pad, String charset) {
+            charset = charset.toLowerCase();
             String key = new StringBuilder(10).append((char) pad).append('/').append(charset).toString();
             Chars instance = cache.get(key);
             if (instance == null) {

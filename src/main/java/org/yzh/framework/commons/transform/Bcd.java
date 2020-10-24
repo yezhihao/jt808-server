@@ -97,9 +97,9 @@ public class Bcd {
     }
 
     /** BCD转时间 (HHMM) */
-    public static void writeTime2(ByteBuf input, LocalTime time) {
-        input.writeByte(bcd(time.getHour()));
-        input.writeByte(bcd(time.getMinute()));
+    public static void writeTime2(ByteBuf output, LocalTime time) {
+        output.writeByte(bcd(time.getHour()));
+        output.writeByte(bcd(time.getMinute()));
     }
 
     public static byte bcd(int num) {
