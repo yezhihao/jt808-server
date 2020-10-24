@@ -1,7 +1,10 @@
 package org.yzh.framework.commons.transform;
 
+import io.netty.buffer.ByteBuf;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * BCD编码工具类
@@ -88,8 +91,19 @@ public class Bcd {
         return LocalDate.of(year, num(bcd[i - 1]), num(bcd[i]));
     }
 
+    /** BCD转时间 (HHMM) */
+    public static LocalTime readTime2(ByteBuf input) {
+        return LocalTime.of(num(input.readByte()), num(input.readByte()));
+    }
+
+    /** BCD转时间 (HHMM) */
+    public static void writeTime2(ByteBuf input, LocalTime time) {
+        input.writeByte(bcd(time.getHour()));
+        input.writeByte(bcd(time.getMinute()));
+    }
+
     public static byte bcd(int num) {
-        return (byte) (num / 10 << 4 | (num % 10 & 0xf));
+        return (byte) ((num / 10 << 4) | (num % 10 & 0xf));
     }
 
     public static int num(byte bcd) {

@@ -2,7 +2,13 @@ package org.yzh.protocol.commons.transform;
 
 import org.yzh.framework.orm.PrepareLoadStrategy;
 import org.yzh.framework.orm.model.DataType;
+import org.yzh.protocol.commons.transform.parameter.*;
 
+/**
+ * 终端参数注册
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class ParameterTypes extends PrepareLoadStrategy {
 
     public static final PrepareLoadStrategy INSTANCE = new ParameterTypes();
@@ -80,13 +86,17 @@ public class ParameterTypes extends PrepareLoadStrategy {
                 .addSchema(0x0072, DataType.DWORD)//"对比度，0-127"
                 .addSchema(0x0073, DataType.DWORD)//"饱和度，0-127"
                 .addSchema(0x0074, DataType.DWORD)//"色度，0-255"
-//                .addSchema(0x0075, DataType.OBJ)//"音视频参数设置，描述见表2"
-//                .addSchema(0x0076, DataType.OBJ)//"音视频通道列表设置，描述见表3"
-//                .addSchema(0x0077, DataType.OBJ)//"单独视频通道参数设置,描述见表5"
-//                .addSchema(0x0079, DataType.OBJ)//"特殊报警录像参数设置,描述见表7"
+
+                //JT1078 start
+                .addSchema(ParamVideo.id, ParamVideo.Schema.INSTANCE)//"音视频参数设置，描述见表2"
+                .addSchema(ParamChannels.id, ParamChannels.Schema.INSTANCE)//"音视频通道列表设置，描述见表3"
+                .addSchema(ParamVideoSingle.id, ParamVideoSingle.Schema.INSTANCE)//"单独视频通道参数设置,描述见表5"
+                .addSchema(ParamVideoSpecialAlarm.id, ParamVideoSpecialAlarm.Schema.INSTANCE)//"特殊报警录像参数设置,描述见表7"
                 .addSchema(0x007A, DataType.DWORD)//"视频相关报警屏蔽字,和表13的视频报警标志位定义相对应,相应位为1则相应类型的报警被屏蔽"
-//                .addSchema(0x007B, DataType.OBJ)//" 图像分析报警参数设置描述见表8"
-//                .addSchema(0x007C, DataType.OBJ)//"终端休眠唤醒模式设置，描述见表9"
+                .addSchema(ParamImageIdentifyAlarm.id, ParamImageIdentifyAlarm.Schema.INSTANCE)//" 图像分析报警参数设置描述见表8"
+                .addSchema(ParamSleepWake.id, ParamSleepWake.Schema.INSTANCE)//"终端休眠唤醒模式设置，描述见表9"
+                //JT1078 end
+
                 .addSchema(0x0080, DataType.DWORD)//"车辆里程表读数，1/10km"
                 .addSchema(0x0081, DataType.WORD)//"车辆所在的省域ID"
                 .addSchema(0x0082, DataType.WORD)//"车辆所在的市域ID"
@@ -103,11 +113,12 @@ public class ParameterTypes extends PrepareLoadStrategy {
                 .addSchema(0x0102, DataType.DWORD)//"总线通道2 采集时间间隔(ms)，0 表示不采集"
                 .addSchema(0x0103, DataType.WORD)//"总线通道2 上传时间间隔(s)，0 表示不上传"
                 .addSchema(0x0110, DataType.BYTES)//"总线ID 单独采集设置"
-//                .addSchema(0xF364, ParamADAS.class)//"高级驾驶辅助系统参数，见表4-1010"
-//                .addSchema(0xF365, DataType.OBJ)//"驾驶员状态监测系统参数，见表4-1111"
-//                .addSchema(0xF366, DataType.OBJ)//"胎压监测系统参数，见表4-1212"
-//                .addSchema(0xF367, DataType.OBJ);//"盲区监测系统参数，见表4-1313"
+
+                //JSATL12 start
+                .addSchema(ParamADAS.id, ParamADAS.Schema.INSTANCE)//"高级驾驶辅助系统参数，见表4-1010"
+                .addSchema(ParamDSM.id, ParamDSM.Schema.INSTANCE)//"驾驶员状态监测系统参数，见表4-1111"
+                .addSchema(ParamTPMS.id, ParamTPMS.Schema.INSTANCE)//"胎压监测系统参数，见表4-1212"
+                .addSchema(ParamBSD.id, ParamBSD.Schema.INSTANCE)//"盲区监测系统参数，见表4-1313"
         ;
     }
-
 }

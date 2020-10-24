@@ -4,6 +4,11 @@ import org.yzh.framework.orm.IdStrategy;
 import org.yzh.framework.orm.PrepareLoadStrategy;
 import org.yzh.protocol.commons.transform.attribute.*;
 
+/**
+ * 位置附件信息注册
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class AttributeTypes extends PrepareLoadStrategy {
 
     public static final IdStrategy INSTANCE = new AttributeTypes();

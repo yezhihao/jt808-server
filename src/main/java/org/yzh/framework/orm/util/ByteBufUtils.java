@@ -2,6 +2,11 @@ package org.yzh.framework.orm.util;
 
 import io.netty.buffer.ByteBuf;
 
+/**
+ * Netty ByteBuf工具类
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class ByteBufUtils {
 
     /** 长度域占位数据块 */
@@ -88,6 +93,18 @@ public class ByteBufUtils {
                 break;
             default:
                 throw new RuntimeException("unsupported length: " + length + " (expected: 1, 2, 3, 4)");
+        }
+    }
+
+    public static void writeFixedLength(ByteBuf output, int length, byte[] bytes) {
+        int srcPos = length - bytes.length;
+        if (srcPos > 0) {
+            output.writeBytes(bytes);
+            output.writeBytes(new byte[srcPos]);
+        } else if (srcPos < 0) {
+            output.writeBytes(bytes, -srcPos, length);
+        } else {
+            output.writeBytes(bytes);
         }
     }
 }
