@@ -13,8 +13,8 @@ import org.yzh.protocol.commons.transform.PassthroughConverter;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@Message({JT808.数据上行透传, JT808.数据下行透传})
-public class T8900_0900 extends JTMessage {
+@Message(JT808.数据下行透传)
+public class T8900 extends JTMessage {
 
     /** GNSS模块详细定位数据 */
     public static final int GNSSLocation = 0x00;
@@ -29,10 +29,10 @@ public class T8900_0900 extends JTMessage {
 
     private KeyValuePair<Integer, Object> message;
 
-    public T8900_0900() {
+    public T8900() {
     }
 
-    public T8900_0900(KeyValuePair<Integer, Object> message) {
+    public T8900(KeyValuePair<Integer, Object> message) {
         this.message = message;
     }
 

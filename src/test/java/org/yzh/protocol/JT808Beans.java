@@ -691,8 +691,8 @@ public class JT808Beans {
     }
 
     //数据上行透传|数据下行透传
-    public static T8900_0900 T8900_0900() {
-        T8900_0900 bean = new T8900_0900();
+    public static T0900 T8900_0900() {
+        T0900 bean = new T0900();
         KeyValuePair<Integer, Object> message = new KeyValuePair<>();
         bean.setMessage(message);
 

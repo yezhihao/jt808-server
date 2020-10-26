@@ -385,7 +385,7 @@ public class TerminalController {
 
     @ApiOperation(value = "数据下行透传", tags = "其他")
     @PostMapping("passthrough")
-    public T0001 passthrough(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8900_0900 request) {
+    public T0001 passthrough(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T0900 request) {
         request.setHeader(new Header(clientId, JT808.数据下行透传));
         T0001 response = messageManager.request(request, T0001.class);
         return response;

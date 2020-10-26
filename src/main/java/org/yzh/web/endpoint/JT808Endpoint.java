@@ -242,7 +242,7 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public void passthrough(T8900_0900 message, Session session) {
+    public void passthrough(T0900 message, Session session) {
         Header header = message.getHeader();
     }
 
