@@ -171,9 +171,8 @@ public class PeripheralSystem {
             byte[] bytes;
             for (Item item : items) {
                 output.writeByte(item.id);
-                output.writeByte(0);
-
                 int begin = output.writerIndex();
+                output.writeByte(0);
                 bytes = item.companyName.getBytes(Charsets.GBK);
                 output.writeByte(bytes.length).writeBytes(bytes);
                 bytes = item.productModel.getBytes(Charsets.GBK);
@@ -186,7 +185,7 @@ public class PeripheralSystem {
                 output.writeByte(bytes.length).writeBytes(bytes);
                 bytes = item.userCode.getBytes(Charsets.GBK);
                 output.writeByte(bytes.length).writeBytes(bytes);
-                int len = output.writerIndex() - begin;
+                int len = output.writerIndex() - begin - 1;
                 ByteBufUtils.setInt(output, 1, begin, len);
             }
         }
