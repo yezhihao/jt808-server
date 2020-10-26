@@ -1,7 +1,8 @@
 package org.yzh.protocol.commons.transform.passthrough;
 
-import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.model.DataType;
+import io.netty.buffer.ByteBuf;
+import org.yzh.framework.orm.util.ByteBufUtils;
+import org.yzh.protocol.commons.Charsets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +11,15 @@ public class PeripheralSystem {
 
     public static final int ID = 0xF8;
 
-    private int total;
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.BYTE)
-    public int getTotal() {
-        if (items != null)
-            return items.size();
-        return total;
+    public PeripheralSystem() {
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public PeripheralSystem(List<Item> items) {
+        this.items = items;
     }
 
-    @Field(index = 1, type = DataType.LIST)
     public List<Item> getItems() {
         return items;
     }
@@ -33,24 +28,23 @@ public class PeripheralSystem {
         this.items = items;
     }
 
-    public void addItem(String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
+    public void addItem(byte id, String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
         if (items == null)
             items = new ArrayList<>();
-        items.add(new Item(companyName, productModel, hardwareVersion, firmwareVersion, deviceId, userCode));
+        items.add(new Item(id, companyName, productModel, hardwareVersion, firmwareVersion, deviceId, userCode));
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(360);
         sb.append('{');
-        sb.append("total=").append(total);
-        sb.append(", items=").append(items);
+        sb.append("items=").append(items);
         sb.append('}');
         return sb.toString();
     }
 
     public static class Item {
-
+        private byte id;
         private String companyName;
         private String productModel;
         private String hardwareVersion;
@@ -61,7 +55,8 @@ public class PeripheralSystem {
         public Item() {
         }
 
-        public Item(String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
+        public Item(byte id, String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
+            this.id = id;
             this.companyName = companyName;
             this.productModel = productModel;
             this.hardwareVersion = hardwareVersion;
@@ -70,7 +65,14 @@ public class PeripheralSystem {
             this.userCode = userCode;
         }
 
-        @Field(index = 1, type = DataType.STRING, lengthSize = 1, version = 0)
+        public byte getId() {
+            return id;
+        }
+
+        public void setId(byte id) {
+            this.id = id;
+        }
+
         public String getCompanyName() {
             return companyName;
         }
@@ -79,7 +81,6 @@ public class PeripheralSystem {
             this.companyName = companyName;
         }
 
-        @Field(index = 2, type = DataType.STRING, lengthSize = 1, version = 0)
         public String getProductModel() {
             return productModel;
         }
@@ -88,7 +89,6 @@ public class PeripheralSystem {
             this.productModel = productModel;
         }
 
-        @Field(index = 3, type = DataType.STRING, lengthSize = 1, version = 0)
         public String getHardwareVersion() {
             return hardwareVersion;
         }
@@ -97,7 +97,6 @@ public class PeripheralSystem {
             this.hardwareVersion = hardwareVersion;
         }
 
-        @Field(index = 4, type = DataType.STRING, lengthSize = 1, version = 0)
         public String getFirmwareVersion() {
             return firmwareVersion;
         }
@@ -106,7 +105,6 @@ public class PeripheralSystem {
             this.firmwareVersion = firmwareVersion;
         }
 
-        @Field(index = 5, type = DataType.STRING, lengthSize = 1, version = 0)
         public String getDeviceId() {
             return deviceId;
         }
@@ -115,7 +113,6 @@ public class PeripheralSystem {
             this.deviceId = deviceId;
         }
 
-        @Field(index = 6, type = DataType.STRING, lengthSize = 1, version = 0)
         public String getUserCode() {
             return userCode;
         }
@@ -128,7 +125,8 @@ public class PeripheralSystem {
         public String toString() {
             final StringBuilder sb = new StringBuilder(180);
             sb.append('{');
-            sb.append("companyName='").append(companyName).append('\'');
+            sb.append("id=").append(id);
+            sb.append(", companyName='").append(companyName).append('\'');
             sb.append(", productModel='").append(productModel).append('\'');
             sb.append(", hardwareVersion='").append(hardwareVersion).append('\'');
             sb.append(", firmwareVersion='").append(firmwareVersion).append('\'');
@@ -136,6 +134,61 @@ public class PeripheralSystem {
             sb.append(", userCode='").append(userCode).append('\'');
             sb.append('}');
             return sb.toString();
+        }
+    }
+
+    public static class Schema implements org.yzh.framework.orm.Schema<PeripheralSystem> {
+
+        public static final Schema INSTANCE = new Schema();
+
+        private Schema() {
+        }
+
+        @Override
+        public PeripheralSystem readFrom(ByteBuf input) {
+            byte total = input.readByte();
+            List<Item> list = new ArrayList<>(total);
+            while (input.isReadable()) {
+                Item item = new Item();
+                item.id = input.readByte();
+                input.readByte();
+                item.companyName = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                item.productModel = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                item.hardwareVersion = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                item.firmwareVersion = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                item.deviceId = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                item.userCode = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
+                list.add(item);
+            }
+            return new PeripheralSystem(list);
+        }
+
+        @Override
+        public void writeTo(ByteBuf output, PeripheralSystem message) {
+            List<Item> items = message.getItems();
+            output.writeByte(items.size());
+
+            byte[] bytes;
+            for (Item item : items) {
+                output.writeByte(item.id);
+                output.writeByte(0);
+
+                int begin = output.writerIndex();
+                bytes = item.companyName.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                bytes = item.productModel.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                bytes = item.hardwareVersion.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                bytes = item.firmwareVersion.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                bytes = item.deviceId.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                bytes = item.userCode.getBytes(Charsets.GBK);
+                output.writeByte(bytes.length).writeBytes(bytes);
+                int len = output.writerIndex() - begin;
+                ByteBufUtils.setInt(output, 1, begin, len);
+            }
         }
     }
 }

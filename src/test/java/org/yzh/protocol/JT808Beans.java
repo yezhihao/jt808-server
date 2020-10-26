@@ -690,16 +690,16 @@ public class JT808Beans {
         return bean;
     }
 
-    //数据上行透传|数据下行透传
-    public static T0900 T8900_0900() {
+    //数据上行透传
+    public static T0900 T0900() {
         T0900 bean = new T0900();
         KeyValuePair<Integer, Object> message = new KeyValuePair<>();
         bean.setMessage(message);
 
         PeripheralSystem peripheralSystem = new PeripheralSystem();
-        peripheralSystem.addItem("测试公司1", "TEST-001", "1.1.0", "1.1.1", "device_id_1", "user_code_1");
-        peripheralSystem.addItem("测试公司2", "TEST-002", "1.2.0", "1.1.2", "device_id_2", "user_code_2");
-        peripheralSystem.addItem("测试公司3", "TEST-003", "1.3.0", "1.1.3", "device_id_3", "user_code_3");
+        peripheralSystem.addItem((byte) 1, "测试公司1", "TEST-001", "1.1.0", "1.1.1", "device_id_1", "user_code_1");
+        peripheralSystem.addItem((byte) 2, "测试公司2", "TEST-002", "1.2.0", "1.1.2", "device_id_2", "user_code_2");
+        peripheralSystem.addItem((byte) 3, "测试公司3", "TEST-003", "1.3.0", "1.1.3", "device_id_3", "user_code_3");
 
         message.setId(PeripheralSystem.ID);
         message.setValue(peripheralSystem);

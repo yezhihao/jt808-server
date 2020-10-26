@@ -23,6 +23,8 @@ public abstract class PrepareLoadStrategy extends IdStrategy {
     }
 
     public PrepareLoadStrategy addSchema(Object key, Schema schema) {
+        if (schema == null)
+            throw new RuntimeException("key[" + key + "],schema is null");
         typeIdMapping.put(key, schema);
         return this;
     }

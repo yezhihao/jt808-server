@@ -17,7 +17,7 @@ public class PassthroughType extends PrepareLoadStrategy {
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
         schemaRegistry
-                .addSchema(PeripheralStatus.ID, PeripheralStatus.class)
-                .addSchema(PeripheralSystem.ID, PeripheralSystem.class);
+                .addSchema(PeripheralStatus.ID, PeripheralStatus.Schema.INSTANCE)
+                .addSchema(PeripheralSystem.ID, PeripheralSystem.Schema.INSTANCE);
     }
 }

@@ -230,8 +230,8 @@ public class JT808BeansTest {
 
     @Test
     public void testT8900_0900() {
-        selfCheck(H2013(T8900_0900()));
-        selfCheck(H2019(T8900_0900()));
+        selfCheck(H2013(T0900()));
+        selfCheck(H2019(T0900()));
     }
 
     @Test

@@ -43,9 +43,7 @@ public abstract class BasicField<T> implements Comparable<BasicField<T>> {
     public abstract void writeTo(ByteBuf output, Object message) throws Exception;
 
     public void println(int index, String desc, String hex, Object value) {
-        if (value == null)
-            System.out.println(index + "\t" + "[" + hex + "] " + desc + ": null");
-        else
+        if (value != null)
             System.out.println(index + "\t" + "[" + hex + "] " + desc + ": " + (value.getClass().isArray() ? ArrayUtils.toString(value) : value));
     }
 
