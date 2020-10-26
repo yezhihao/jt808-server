@@ -2,6 +2,7 @@ package org.yzh.framework.orm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.framework.orm.annotation.Convert;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.field.BasicField;
 import org.yzh.framework.orm.field.DynamicLengthField;
@@ -66,13 +67,19 @@ public abstract class FieldFactory {
                 fieldSchema = StringSchema.Chars.getInstance(field.pad(), field.charset());
                 break;
             case OBJ:
-                fieldSchema = ObjectSchema.getInstance(schema);
+                if (schema != null) {
+                    fieldSchema = ObjectSchema.getInstance(schema);
+                } else {
+                    Convert convert = property.getReadMethod().getAnnotation(Convert.class);
+                    fieldSchema = ConvertSchema.getInstance(convert.converter());
+                }
                 break;
             case LIST:
                 fieldSchema = CollectionSchema.getInstance(schema);
                 break;
             case MAP:
-                fieldSchema = new MapSchema(property);
+                Convert convert = property.getReadMethod().getAnnotation(Convert.class);
+                fieldSchema = ConvertSchema.getInstance(convert.converter());
                 break;
             default:
                 throw new RuntimeException("不支持的类型转换");

@@ -1,10 +1,13 @@
 package org.yzh.protocol.t808;
 
+import org.yzh.framework.orm.annotation.Convert;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.transform.PassthroughConverter;
 
 /**
  * @author yezhihao
@@ -24,32 +27,22 @@ public class T8900_0900 extends JTMessage {
     /** 用户自定义透传 0xF0 - 0xFF */
     public static final int Custom = 0xF0 - 0xFF;
 
-    private int type;
-    private byte[] content;
+    private KeyValuePair<Integer, Object> message;
 
     public T8900_0900() {
     }
 
-    public T8900_0900(int type, byte[] content) {
-        this.type = type;
-        this.content = content;
+    public T8900_0900(KeyValuePair<Integer, Object> message) {
+        this.message = message;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "透传消息类型")
-    public int getType() {
-        return type;
+    @Convert(converter = PassthroughConverter.class)
+    @Field(index = 0, type = DataType.OBJ, desc = "透传消息")
+    public KeyValuePair<Integer, Object> getMessage() {
+        return message;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    @Field(index = 1, type = DataType.BYTES, desc = "透传消息内容")
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
+    public void setMessage(KeyValuePair<Integer, Object> message) {
+        this.message = message;
     }
 }

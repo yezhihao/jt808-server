@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.IdStrategy;
 import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.converter.Converter;
+import org.yzh.framework.orm.converter.MapConverter;
 
-public class ParameterConverter implements Converter {
+public class ParameterConverter extends MapConverter<Integer, Object> {
 
     private static final Logger log = LoggerFactory.getLogger(ParameterConverter.class);
 
@@ -23,7 +23,6 @@ public class ParameterConverter implements Converter {
         input.readBytes(bytes);
         log.warn("未识别的终端参数项：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump(bytes));
         return bytes;
-
     }
 
     @Override
@@ -34,5 +33,20 @@ public class ParameterConverter implements Converter {
         } else {
             log.warn("未注册的终端参数项：ID[{}], Value[{}]", key, value);
         }
+    }
+
+    @Override
+    protected Integer readKey(ByteBuf input) {
+        return input.readInt();
+    }
+
+    @Override
+    protected void writeKey(ByteBuf output, Integer key) {
+        output.writeInt(key);
+    }
+
+    @Override
+    protected int valueSize() {
+        return 1;
     }
 }

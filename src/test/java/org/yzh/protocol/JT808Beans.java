@@ -4,12 +4,14 @@ import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.commons.transform.parameter.ParamADAS;
 import org.yzh.protocol.commons.transform.parameter.ParamVideo;
+import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.t808.*;
 
@@ -691,8 +693,16 @@ public class JT808Beans {
     //数据上行透传|数据下行透传
     public static T8900_0900 T8900_0900() {
         T8900_0900 bean = new T8900_0900();
-        bean.setType(T8900_0900.GNSSLocation);
-        bean.setContent("asdzxcqwe12335".getBytes());
+        KeyValuePair<Integer, Object> message = new KeyValuePair<>();
+        bean.setMessage(message);
+
+        PeripheralSystem peripheralSystem = new PeripheralSystem();
+        peripheralSystem.addItem("测试公司1", "TEST-001", "1.1.0", "1.1.1", "device_id_1", "user_code_1");
+        peripheralSystem.addItem("测试公司2", "TEST-002", "1.2.0", "1.1.2", "device_id_2", "user_code_2");
+        peripheralSystem.addItem("测试公司3", "TEST-003", "1.3.0", "1.1.3", "device_id_3", "user_code_3");
+
+        message.setId(PeripheralSystem.ID);
+        message.setValue(peripheralSystem);
         return bean;
     }
 

@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.orm.IdStrategy;
 import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.converter.Converter;
+import org.yzh.framework.orm.converter.MapConverter;
 
-public class AttributeConverter implements Converter {
+public class AttributeConverter extends MapConverter<Integer, Object> {
 
     private static final Logger log = LoggerFactory.getLogger(AttributeConverter.class);
 
@@ -23,7 +23,6 @@ public class AttributeConverter implements Converter {
         input.readBytes(bytes);
         log.warn("未识别的附加信息：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump(bytes));
         return bytes;
-
     }
 
     @Override
@@ -34,5 +33,20 @@ public class AttributeConverter implements Converter {
         } else {
             log.warn("未注册的附加信息：ID[{}], Value[{}]", key, value);
         }
+    }
+
+    @Override
+    protected Integer readKey(ByteBuf input) {
+        return (int) input.readByte();
+    }
+
+    @Override
+    protected void writeKey(ByteBuf output, Integer key) {
+        output.writeByte(key);
+    }
+
+    @Override
+    protected int valueSize() {
+        return 1;
     }
 }

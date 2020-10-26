@@ -112,7 +112,7 @@ public class T0201_0500 extends JTMessage implements Response {
         this.dateTime = dateTime;
     }
 
-    @Convert(keySize = 1, valueSize = 1, converter = AttributeConverter.class)
+    @Convert(converter = AttributeConverter.class)
     @Field(index = 30, type = DataType.MAP, desc = "位置附加信息")
     public Map<Integer, Attribute> getAttributes() {
         return attributes;

@@ -2,9 +2,9 @@ package org.yzh.framework.orm.converter;
 
 import io.netty.buffer.ByteBuf;
 
-public interface Converter {
+public interface Converter<T> {
 
-    Object convert(Integer key, ByteBuf input);
+    T convert(ByteBuf input);
 
-    void convert(Integer key, ByteBuf output, Object value);
+    void convert(ByteBuf output, T value);
 }

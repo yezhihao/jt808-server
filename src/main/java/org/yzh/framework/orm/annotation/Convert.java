@@ -16,9 +16,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Convert {
 
-    int keySize() default -1;
-
-    int valueSize() default -1;
-
     Class<? extends Converter> converter();
+
 }

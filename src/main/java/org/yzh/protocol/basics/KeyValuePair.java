@@ -34,6 +34,10 @@ public class KeyValuePair<K, V> {
         this.value = value;
     }
 
+    public static <K, V> KeyValuePair<K, V> of(K key, V value) {
+        return new KeyValuePair<>(key, value);
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(32);

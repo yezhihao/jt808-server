@@ -129,7 +129,8 @@ public abstract class LoadStrategy {
                 typeClass = (Class<?>) ((ParameterizedType) readMethod.getGenericReturnType()).getActualTypeArguments()[0];
             loadSchema(root, typeClass);
             for (int ver : versions) {
-                Schema schema = root.get(typeClass.getName()).get(ver);
+                Map<Integer, Schema<?>> schemaMap = root.getOrDefault(typeClass.getName(), Collections.EMPTY_MAP);
+                Schema schema = schemaMap.get(ver);
                 value = FieldFactory.create(field, propertyDescriptor, schema);
                 multiVersionFields.get(ver).add(value);
             }
