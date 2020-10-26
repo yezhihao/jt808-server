@@ -43,7 +43,7 @@ public class T0104 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Convert(keySize = 4, converter = ParameterConverter.class)
+    @Convert(keySize = 4, valueSize = 1, converter = ParameterConverter.class)
     @Field(index = 3, type = DataType.MAP, desc = "参数项列表")
     public Map<Integer, Object> getParameters() {
         return parameters;

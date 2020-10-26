@@ -2,7 +2,6 @@ package org.yzh.protocol;
 
 import org.yzh.framework.commons.transform.Bin;
 import org.yzh.framework.orm.annotation.Message;
-import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
@@ -294,9 +293,6 @@ public class JT808Beans {
         bean.setSpeed(10001);
         bean.setDirection(300);
         bean.setDateTime(TIME);
-        List<BytesAttribute> attributes = new ArrayList<>();
-        attributes.add(new BytesAttribute(1, "123".getBytes()));
-        bean.setBytesAttributes(attributes);
         return bean;
     }
 

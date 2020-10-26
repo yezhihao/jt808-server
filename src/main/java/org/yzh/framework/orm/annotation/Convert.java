@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 启用自定义消息转换
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
@@ -15,9 +16,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Convert {
 
-    int keySize() default 1;
+    int keySize() default -1;
 
-    int valueSize() default 1;
+    int valueSize() default -1;
 
     Class<? extends Converter> converter();
 }

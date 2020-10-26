@@ -101,7 +101,7 @@ public class T0200 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Convert(converter = AttributeConverter.class)
+    @Convert(keySize = 1, valueSize = 1, converter = AttributeConverter.class)
     @Field(index = 28, type = DataType.MAP, desc = "位置附加信息")
     public Map<Integer, Attribute> getAttributes() {
         return attributes;

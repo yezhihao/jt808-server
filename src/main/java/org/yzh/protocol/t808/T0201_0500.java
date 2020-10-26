@@ -1,15 +1,17 @@
 package org.yzh.protocol.t808;
 
 import org.yzh.framework.mvc.model.Response;
+import org.yzh.framework.orm.annotation.Convert;
 import org.yzh.framework.orm.annotation.Field;
 import org.yzh.framework.orm.annotation.Message;
 import org.yzh.framework.orm.model.DataType;
-import org.yzh.protocol.basics.BytesAttribute;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.transform.Attribute;
+import org.yzh.protocol.commons.transform.AttributeConverter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author yezhihao
@@ -27,8 +29,7 @@ public class T0201_0500 extends JTMessage implements Response {
     private int speed;
     private int direction;
     private LocalDateTime dateTime;
-
-    private List<BytesAttribute> bytesAttributes;
+    private Map<Integer, Attribute> attributes;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getSerialNo() {
@@ -111,12 +112,13 @@ public class T0201_0500 extends JTMessage implements Response {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 30, type = DataType.LIST, desc = "位置附加信息")
-    public List<BytesAttribute> getBytesAttributes() {
-        return bytesAttributes;
+    @Convert(keySize = 1, valueSize = 1, converter = AttributeConverter.class)
+    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息")
+    public Map<Integer, Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setBytesAttributes(List<BytesAttribute> bytesAttributes) {
-        this.bytesAttributes = bytesAttributes;
+    public void setAttributes(Map<Integer, Attribute> attributes) {
+        this.attributes = attributes;
     }
 }

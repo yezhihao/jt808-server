@@ -40,7 +40,7 @@ public class T8103 extends JTMessage {
         this.total = total;
     }
 
-    @Convert(keySize = 4, converter = ParameterConverter.class)
+    @Convert(keySize = 4, valueSize = 1, converter = ParameterConverter.class)
     @Field(index = 1, type = DataType.MAP, desc = "参数项列表")
     public Map<Integer, Object> getParameters() {
         return parameters;
