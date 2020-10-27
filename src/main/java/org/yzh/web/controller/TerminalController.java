@@ -29,7 +29,7 @@ import org.yzh.web.model.enums.DefaultCodes;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Api(description = "terminal api")
+@Api(description = "JT/T 808 API")
 @RestController
 @RequestMapping("terminal")
 public class TerminalController {
