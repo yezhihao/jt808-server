@@ -8,6 +8,11 @@ import org.yzh.framework.orm.IdStrategy;
 import org.yzh.framework.orm.Schema;
 import org.yzh.framework.orm.converter.MapConverter;
 
+/**
+ * 位置附加信息转换器
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class AttributeConverter extends MapConverter<Integer, Object> {
 
     private static final Logger log = LoggerFactory.getLogger(AttributeConverter.class);
@@ -37,7 +42,7 @@ public class AttributeConverter extends MapConverter<Integer, Object> {
 
     @Override
     protected Integer readKey(ByteBuf input) {
-        return (int) input.readByte();
+        return (int) input.readUnsignedByte();
     }
 
     @Override

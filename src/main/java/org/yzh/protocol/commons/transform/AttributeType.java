@@ -5,7 +5,7 @@ import org.yzh.framework.orm.PrepareLoadStrategy;
 import org.yzh.protocol.commons.transform.attribute.*;
 
 /**
- * 位置附件信息注册
+ * 位置附加信息注册
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
