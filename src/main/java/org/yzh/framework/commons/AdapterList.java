@@ -2,9 +2,10 @@ package org.yzh.framework.commons;
 
 import java.util.AbstractList;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.function.Function;
 
-public final class AdapterList<S, T> extends AbstractList<T> {
+public final class AdapterList<S, T> extends AbstractList<T> implements RandomAccess {
 
     private final List<S> src;
     private final Function<S, T> function;
