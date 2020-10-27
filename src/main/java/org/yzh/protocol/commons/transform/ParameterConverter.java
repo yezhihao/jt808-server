@@ -16,6 +16,8 @@ public class ParameterConverter extends MapConverter<Integer, Object> {
 
     @Override
     public Object convert(Integer key, ByteBuf input) {
+        if (!input.isReadable())
+            return null;
         Schema schema = INSTANCE.getSchema(key);
         if (schema != null)
             return INSTANCE.readFrom(key, input);

@@ -83,10 +83,10 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0059, DataType.DWORD)//"最小休息时间，单位为秒(s)"
                 .addSchema(0x005A, DataType.DWORD)//"最长停车时间，单位为秒(s)"
 
-                .addSchema(0x005B, DataType.DWORD)//"超速预警差值"
-                .addSchema(0x005C, DataType.DWORD)//"疲劳驾驶预警插值"
-                .addSchema(0x005D, DataType.DWORD)//"碰撞报警参数"
-                .addSchema(0x005E, DataType.DWORD)//"侧翻报警参数"
+                .addSchema(0x005B, DataType.WORD)//"超速预警差值"
+                .addSchema(0x005C, DataType.WORD)//"疲劳驾驶预警插值"
+                .addSchema(0x005D, DataType.WORD)//"碰撞报警参数"
+                .addSchema(0x005E, DataType.WORD)//"侧翻报警参数"
 
                 .addSchema(0x0064, DataType.DWORD)//"定时拍照参数"
                 .addSchema(0x0065, DataType.DWORD)//"定距拍照参数"

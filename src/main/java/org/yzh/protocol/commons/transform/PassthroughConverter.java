@@ -17,6 +17,8 @@ public class PassthroughConverter implements Converter<KeyValuePair<Integer, Obj
 
     @Override
     public KeyValuePair<Integer, Object> convert(ByteBuf input) {
+        if (!input.isReadable())
+            return null;
         int key = input.readUnsignedByte();
         Schema schema = INSTANCE.getSchema(key);
         if (schema != null)
