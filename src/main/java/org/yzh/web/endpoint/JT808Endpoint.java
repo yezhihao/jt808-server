@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yzh.framework.commons.AdapterList;
 import org.yzh.framework.mvc.annotation.AsyncBatch;
 import org.yzh.framework.mvc.annotation.Endpoint;
 import org.yzh.framework.mvc.annotation.Mapping;
@@ -20,7 +21,6 @@ import org.yzh.web.service.LocationService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -149,13 +149,11 @@ public class JT808Endpoint {
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
     public void 定位数据批量上传(T0704 message) {
         Header header = message.getHeader();
-        List<T0704.Item> items = message.getItems();
-        List<T0200> list = new ArrayList<>(items.size());
-        for (T0704.Item item : items) {
+        List<T0200> list = new AdapterList<>(message.getItems(), item -> {
             T0200 position = item.getPosition();
             position.setHeader(header);
-            list.add(position);
-        }
+            return position;
+        });
         locationService.batchInsert(list);
     }
 

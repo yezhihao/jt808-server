@@ -6,14 +6,19 @@ import org.yzh.framework.orm.model.DataType;
 import org.yzh.framework.orm.schema.StringSchema;
 import org.yzh.protocol.commons.transform.parameter.*;
 
+/**
+ * 终端参数注册
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class ParameterType extends PrepareLoadStrategy {
+
     public static final PrepareLoadStrategy INSTANCE = new ParameterType();
 
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
         Schema<String> stringSchema = StringSchema.Chars.getInstance((byte) 0, "gbk");
         schemaRegistry
-
                 .addSchema(0x0001, DataType.DWORD)//"终端心跳发送间隔，单位为秒(s)"
                 .addSchema(0x0002, DataType.DWORD)//"TCP消息应答超时时间，单位为秒(s)"
                 .addSchema(0x0003, DataType.DWORD)//"TCP消息重传次数"
@@ -43,10 +48,12 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0021, DataType.DWORD)//"位置汇报方案，0：根据ACC状态；1：根据登录状态和ACC状态，先判断登录状态，若登录再根据ACC状态"
                 .addSchema(0x0022, DataType.DWORD)//"驾驶员未登录汇报时间间隔，单位为秒(s),>0"
 
+                //JT808 2019
                 .addSchema(0x0023, stringSchema)//"从服务器APN。该值为空时，终端应使用主服务器相同配置"
                 .addSchema(0x0024, stringSchema)//"从服务器无线通信拨号用户名。该值为空时，终端应使用主服务器相同配置"
                 .addSchema(0x0025, stringSchema)//"从服务器无线通信拨号密码。该值为空时，终端应使用主服务器相同配置"
                 .addSchema(0x0026, stringSchema)//"从服务器备份地址、IP或域名。主服务器IP地址或域名，端口同主服务器"
+                //JT808 2019
 
                 .addSchema(0x0027, DataType.DWORD)//"休眠时汇报时间间隔，单位为秒(s),>0"
                 .addSchema(0x0028, DataType.DWORD)//"紧急报警时汇报时间间隔，单位为秒(s),>0"
@@ -58,6 +65,7 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x002F, DataType.DWORD)//"紧急报警时汇报距离间隔，单位为米(m),>0"
                 .addSchema(0x0030, DataType.DWORD)//"拐点补传角度，<180°"
                 .addSchema(0x0031, DataType.WORD)//"电子围栏半径，单位为米"
+                //JT808 2019
                 .addSchema(0x0032, TimeRange.Schema.INSTANCE)//"违规行驶时段范围，精确到分"
 
                 .addSchema(0x0040, stringSchema)//"监控平台电话号码"
@@ -97,6 +105,16 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0073, DataType.DWORD)//"饱和度，0-127"
                 .addSchema(0x0074, DataType.DWORD)//"色度，0-255"
 
+                //JT1078 start
+                .addSchema(ParamVideo.id, ParamVideo.Schema.INSTANCE)//"音视频参数设置，描述见表2"
+                .addSchema(ParamChannels.id, ParamChannels.Schema.INSTANCE)//"音视频通道列表设置，描述见表3"
+                .addSchema(ParamVideoSingle.id, ParamVideoSingle.Schema.INSTANCE)//"单独视频通道参数设置,描述见表5"
+                .addSchema(ParamVideoSpecialAlarm.id, ParamVideoSpecialAlarm.Schema.INSTANCE)//"特殊报警录像参数设置,描述见表7"
+                .addSchema(0x007A, DataType.DWORD)//"视频相关报警屏蔽字,和表13的视频报警标志位定义相对应,相应位为1则相应类型的报警被屏蔽"
+                .addSchema(ParamImageIdentifyAlarm.id, ParamImageIdentifyAlarm.Schema.INSTANCE)//" 图像分析报警参数设置描述见表8"
+                .addSchema(ParamSleepWake.id, ParamSleepWake.Schema.INSTANCE)//"终端休眠唤醒模式设置，描述见表9"
+                //JT1078 end
+
                 .addSchema(0x0080, DataType.DWORD)//"车辆里程表读数，1/10km"
                 .addSchema(0x0081, DataType.WORD)//"车辆所在的省域ID"
                 .addSchema(0x0082, DataType.WORD)//"车辆所在的市域ID"
@@ -114,16 +132,6 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0102, DataType.DWORD)//"总线通道2 采集时间间隔(ms)，0 表示不采集"
                 .addSchema(0x0103, DataType.WORD)//"总线通道2 上传时间间隔(s)，0 表示不上传"
                 .addSchema(0x0110, DataType.BYTES)//"总线ID 单独采集设置"
-
-                //JT1078 start
-                .addSchema(ParamVideo.id, ParamVideo.Schema.INSTANCE)//"音视频参数设置，描述见表2"
-                .addSchema(ParamChannels.id, ParamChannels.Schema.INSTANCE)//"音视频通道列表设置，描述见表3"
-                .addSchema(ParamVideoSingle.id, ParamVideoSingle.Schema.INSTANCE)//"单独视频通道参数设置,描述见表5"
-                .addSchema(ParamVideoSpecialAlarm.id, ParamVideoSpecialAlarm.Schema.INSTANCE)//"特殊报警录像参数设置,描述见表7"
-                .addSchema(0x007A, DataType.DWORD)//"视频相关报警屏蔽字,和表13的视频报警标志位定义相对应,相应位为1则相应类型的报警被屏蔽"
-                .addSchema(ParamImageIdentifyAlarm.id, ParamImageIdentifyAlarm.Schema.INSTANCE)//" 图像分析报警参数设置描述见表8"
-                .addSchema(ParamSleepWake.id, ParamSleepWake.Schema.INSTANCE)//"终端休眠唤醒模式设置，描述见表9"
-                //JT1078 end
 
                 //JSATL12 start
                 .addSchema(ParamADAS.id, ParamADAS.Schema.INSTANCE)//"高级驾驶辅助系统参数，见表4-1010"
