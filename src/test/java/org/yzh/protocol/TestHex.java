@@ -32,11 +32,12 @@ public class TestHex {
     @Test
     public void testSubpackage() throws Exception {
         FileUtils.foreach(new File("target/test-classes/test_data/JT1078.txt"), hex -> {
-            if (StringUtils.isBlank(hex))
-                return false;
-            hex = hex.substring(2, hex.length() - 2);
-            JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
-            System.out.println(JsonUtils.toJson(message));
+            if (StringUtils.isNotBlank(hex)) {
+                hex = hex.substring(2, hex.length() - 2);
+                JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
+                if (message != null)
+                    System.out.println(JsonUtils.toJson(message));
+            }
             return true;
         });
     }
