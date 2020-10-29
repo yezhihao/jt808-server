@@ -39,7 +39,7 @@ public class MessageEncoderWrapper extends ChannelOutboundHandlerAdapter {
                 log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
 
             if (buf.isReadable()) {
-                ctx.write(buf.writeBytes(delimiter), promise);
+                ctx.write(Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(delimiter), buf.writeBytes(delimiter)), promise);
             } else {
                 buf.release();
                 ctx.write(Unpooled.EMPTY_BUFFER, promise);
