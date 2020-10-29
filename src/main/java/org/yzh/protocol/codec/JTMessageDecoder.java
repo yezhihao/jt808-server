@@ -4,12 +4,12 @@ import io.netty.buffer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.framework.commons.transform.Bin;
-import org.yzh.framework.commons.transform.ByteBufUtils;
 import org.yzh.framework.orm.MessageHelper;
 import org.yzh.framework.orm.Schema;
 import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.JTUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +61,7 @@ public class JTMessageDecoder {
 
         int headLen;
         boolean isSubpackage = Bin.get(properties, 13);
-        if (version > 0)
-            headLen = isSubpackage ? 21 : 17;
-        else
-            headLen = isSubpackage ? 16 : 12;
+        headLen = JTUtils.headerLength(version, isSubpackage);
 
         Schema<? extends Header> headerSchema = headerSchemaMap.get(version);
 
@@ -117,7 +114,7 @@ public class JTMessageDecoder {
     protected boolean verify(ByteBuf buf) {
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = ByteBufUtils.bcc(buf);
+        byte calculatedCheckCode = JTUtils.bcc(buf);
 
         return checkCode == calculatedCheckCode;
     }
