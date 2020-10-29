@@ -23,12 +23,12 @@ import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
-@ConditionalOnProperty(value = "tpc-server.alarm-file.enable", havingValue = "true")
+@ConditionalOnProperty(value = "tcp-server.alarm-file.enable", havingValue = "true")
 public class JSATLConfig implements InitializingBean, DisposableBean {
 
     public static byte[] DataFramePrefix = {0x30, 0x31, 0x63, 0x64};
 
-    @Value("${tpc-server.alarm-file.port}")
+    @Value("${tcp-server.alarm-file.port}")
     private int port;
 
     @Autowired

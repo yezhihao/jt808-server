@@ -410,9 +410,9 @@ public class TerminalController {
         return response;
     }
 
-    @Value("${tpc-server.jt808.alarm-file.host}")
+    @Value("${tcp-server.jt808.alarm-file.host}")
     private String host;
-    @Value("${tpc-server.jt808.alarm-file.port}")
+    @Value("${tcp-server.jt808.alarm-file.port}")
     private int port;
 
     @ApiOperation(value = "报警附件上传指令/测试使用", tags = "其他")

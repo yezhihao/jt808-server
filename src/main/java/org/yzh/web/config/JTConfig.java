@@ -23,10 +23,10 @@ import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
-@ConditionalOnProperty(value = "tpc-server.jt808.enable", havingValue = "true")
+@ConditionalOnProperty(value = "tcp-server.jt808.enable", havingValue = "true")
 public class JTConfig implements InitializingBean, DisposableBean {
 
-    @Value("${tpc-server.jt808.port}")
+    @Value("${tcp-server.jt808.port}")
     private int port;
 
     @Autowired

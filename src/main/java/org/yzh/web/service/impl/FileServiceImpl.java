@@ -16,7 +16,7 @@ public class FileServiceImpl implements FileService {
 
     private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class.getSimpleName());
 
-    @Value("${tpc-server.alarm-file.path}")
+    @Value("${tcp-server.alarm-file.path}")
     private String root;
 
     private File getDir(AlarmId alarmId) {

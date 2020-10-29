@@ -36,7 +36,7 @@ mybatis:
 server:
   port: 8000
 
-tpc-server:
+tcp-server:
   jt808:
     enable: true
     port: 7611
