@@ -52,13 +52,17 @@ public class TCPServer {
                     .option(NioChannelOption.SO_REUSEADDR, true)
                     .childOption(NioChannelOption.TCP_NODELAY, true)
                     .childHandler(new ChannelInitializer<NioSocketChannel>() {
+
+                        private MessageEncoderWrapper messageEncoderWrapper = new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1].getValue());
+                        private MessageDecoderWrapper messageDecoderWrapper = new MessageDecoderWrapper(config.decoder);
+
                         @Override
                         public void initChannel(NioSocketChannel channel) {
                             channel.pipeline()
                                     .addLast(new IdleStateHandler(4, 0, 0, TimeUnit.MINUTES))
                                     .addLast("frameDecoder", frameDecoder())
-                                    .addLast("decoder", new MessageDecoderWrapper(config.decoder))
-                                    .addLast("encoder", new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1].getValue()))
+                                    .addLast("decoder", messageDecoderWrapper)
+                                    .addLast("encoder", messageEncoderWrapper)
                                     .addLast("adapter", config.adapter);
                         }
                     });

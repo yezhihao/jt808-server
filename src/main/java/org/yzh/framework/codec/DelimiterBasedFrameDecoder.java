@@ -54,7 +54,7 @@ public class DelimiterBasedFrameDecoder extends ByteToMessageDecoder {
 
         if (minDelim != null) {
             int minDelimLength = minDelim.value.length;
-            ByteBuf frame;
+            ByteBuf frame = null;
 
             if (discardingTooLongFrame) {
                 // We've just finished discarding a very large frame.
@@ -78,7 +78,10 @@ public class DelimiterBasedFrameDecoder extends ByteToMessageDecoder {
             }
 
             if (minDelim.strip) {
-                frame = buffer.readRetainedSlice(minFrameLength);
+                //忽略长度等于0的报文
+                if (minFrameLength != 0) {
+                    frame = buffer.readRetainedSlice(minFrameLength);
+                }
                 buffer.skipBytes(minDelimLength);
             } else {
                 frame = buffer.readRetainedSlice(minFrameLength + minDelimLength);
