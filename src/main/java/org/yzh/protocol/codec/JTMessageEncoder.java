@@ -43,6 +43,7 @@ public class JTMessageEncoder {
         ByteBuf allBuf;
         if (bodySchema != null) {
             allBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headLength + bodySchema.length(), 2048);
+            allBuf.writerIndex(headLength);
             bodySchema.writeTo(allBuf, message);
             bodyLength = allBuf.writerIndex() - headLength;
         } else {
