@@ -53,7 +53,7 @@ public class TCPServer {
                     .childOption(NioChannelOption.TCP_NODELAY, true)
                     .childHandler(new ChannelInitializer<NioSocketChannel>() {
 
-                        private MessageEncoderWrapper messageEncoderWrapper = new MessageEncoderWrapper(config.encoder, config.delimiter[config.delimiter.length - 1].getValue());
+                        private MessageEncoderWrapper messageEncoderWrapper = new MessageEncoderWrapper(config.encoder);
                         private MessageDecoderWrapper messageDecoderWrapper = new MessageDecoderWrapper(config.decoder);
 
                         @Override

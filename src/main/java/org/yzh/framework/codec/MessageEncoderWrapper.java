@@ -23,11 +23,8 @@ public class MessageEncoderWrapper extends ChannelOutboundHandlerAdapter {
 
     private MessageEncoder encoder;
 
-    private byte[] delimiter;
-
-    public MessageEncoderWrapper(MessageEncoder encoder, byte[] delimiter) {
+    public MessageEncoderWrapper(MessageEncoder encoder) {
         this.encoder = encoder;
-        this.delimiter = delimiter;
     }
 
     @Override
@@ -39,7 +36,7 @@ public class MessageEncoderWrapper extends ChannelOutboundHandlerAdapter {
                 log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
 
             if (buf.isReadable()) {
-                ctx.write(Unpooled.wrappedBuffer(Unpooled.wrappedBuffer(delimiter), buf.writeBytes(delimiter)), promise);
+                ctx.write(buf, promise);
             } else {
                 buf.release();
                 ctx.write(Unpooled.EMPTY_BUFFER, promise);

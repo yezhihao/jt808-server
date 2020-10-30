@@ -111,7 +111,7 @@ public class JTMessageDecoder {
     }
 
     /** 校验 */
-    protected boolean verify(ByteBuf buf) {
+    public static boolean verify(ByteBuf buf) {
         byte checkCode = buf.getByte(buf.readableBytes() - 1);
         buf = buf.slice(0, buf.readableBytes() - 1);
         byte calculatedCheckCode = JTUtils.bcc(buf);
@@ -120,13 +120,23 @@ public class JTMessageDecoder {
     }
 
     /** 反转义 */
-    protected ByteBuf unescape(ByteBuf source) {
+    public static ByteBuf unescape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
+        int last = high - 1;
+
+        if (source.getByte(0) == 0x7e)
+            low = low + 1;
+
+        if (source.getByte(last) == 0x7e)
+            high = last;
 
         int mark = source.indexOf(low, high, (byte) 0x7d);
-        if (mark == -1)
+        if (mark == -1) {
+            if (low > 0 || high == last)
+                return source.slice(low, high - low);
             return source;
+        }
 
         List<ByteBuf> bufList = new ArrayList<>(3);
 
@@ -146,7 +156,7 @@ public class JTMessageDecoder {
     }
 
     /** 截取转义前报文，并还原转义位 */
-    protected ByteBuf slice(ByteBuf byteBuf, int index, int length) {
+    protected static ByteBuf slice(ByteBuf byteBuf, int index, int length) {
         byte second = byteBuf.getByte(index + length - 1);
         if (second == 0x02)
             byteBuf.setByte(index + length - 2, 0x7e);

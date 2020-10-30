@@ -1,8 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.buffer.Unpooled;
+import io.netty.buffer.*;
 import io.netty.handler.codec.EncoderException;
 import io.netty.util.ByteProcessor;
 import org.slf4j.Logger;
@@ -13,8 +11,7 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JTUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -25,6 +22,8 @@ import java.util.Map;
 public class JTMessageEncoder {
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
+
+    private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
     private Map<Integer, Schema<Header>> headerSchemaMap;
 
@@ -42,12 +41,12 @@ public class JTMessageEncoder {
         Schema bodySchema = MessageHelper.getSchema(message.getClass(), version);
         ByteBuf allBuf;
         if (bodySchema != null) {
-            allBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headLength + bodySchema.length(), 2048);
+            allBuf = ALLOC.buffer(headLength + bodySchema.length(), 2048);
             allBuf.writerIndex(headLength);
             bodySchema.writeTo(allBuf, message);
             bodyLength = allBuf.writerIndex() - headLength;
         } else {
-            allBuf = PooledByteBufAllocator.DEFAULT.heapBuffer(headLength, 128);
+            allBuf = ALLOC.buffer(headLength, 21);
             log.debug("未找到对应的Schema[{}]", message.getClass());
         }
 
@@ -84,30 +83,30 @@ public class JTMessageEncoder {
         int low = source.readerIndex();
         int high = source.writerIndex();
 
-        int mark = source.forEachByte(low, high, searcher);
-
-        if (mark == -1)
-            return source;
-
-        List<ByteBuf> bufList = new ArrayList<>(5);
-
-        int len;
-        do {
+        LinkedList<ByteBuf> bufList = new LinkedList();
+        int mark, len;
+        while ((mark = source.forEachByte(low, high - low, searcher)) > 0) {
 
             len = mark + 1 - low;
             ByteBuf[] slice = slice(source, low, len);
             bufList.add(slice[0]);
             bufList.add(slice[1]);
             low += len;
+        }
 
-            mark = source.forEachByte(low, high - low, searcher);
-        } while (mark > 0);
+        if (bufList.size() > 0) {
+            bufList.add(source.slice(low, high - low));
+        } else {
+            bufList.add(source);
+        }
 
-        bufList.add(source.slice(low, high - low));
+        ByteBuf delimiter = Unpooled.buffer(1, 1).writeByte(0x7e).retain();
+        bufList.addFirst(delimiter);
+        bufList.addLast(delimiter);
 
-        ByteBuf[] bufs = bufList.toArray(new ByteBuf[bufList.size()]);
-
-        return Unpooled.wrappedBuffer(bufs);
+        CompositeByteBuf byteBufs = Unpooled.compositeBuffer(bufList.size());
+        byteBufs.addComponents(true, bufList);
+        return byteBufs;
     }
 
     /** 截断转义前报文，并转义 */
@@ -115,14 +114,13 @@ public class JTMessageEncoder {
         byte first = byteBuf.getByte(index + length - 1);
 
         ByteBuf[] bufs = new ByteBuf[2];
-        bufs[0] = byteBuf.slice(index, length);
+        bufs[0] = byteBuf.retainedSlice(index, length);
 
         if (first == 0x7d)
-            // 0x01 不做处理 p47
-            bufs[1] = Unpooled.wrappedBuffer(new byte[]{0x01});
+            bufs[1] = Unpooled.buffer(1, 1).writeByte(0x01);
         else {
             byteBuf.setByte(index + length - 1, 0x7d);
-            bufs[1] = Unpooled.wrappedBuffer(new byte[]{0x02});
+            bufs[1] = Unpooled.buffer(1, 1).writeByte(0x02);
         }
 
         return bufs;

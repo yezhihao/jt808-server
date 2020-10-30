@@ -21,8 +21,6 @@ public class TestHex {
     public void testHex() throws Exception {
         FileUtils.foreach(new File("target/test-classes/test_data/JT808.txt"), hex -> {
             if (StringUtils.isNotBlank(hex)) {
-                if (hex.startsWith("7e"))
-                    hex = hex.substring(2, hex.length() - 2);
                 BeanTest.selfCheck(hex);
             }
             return true;
@@ -33,7 +31,6 @@ public class TestHex {
     public void testSubpackage() throws Exception {
         FileUtils.foreach(new File("target/test-classes/test_data/JT1078.txt"), hex -> {
             if (StringUtils.isNotBlank(hex)) {
-                hex = hex.substring(2, hex.length() - 2);
                 JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
                 if (message != null)
                     System.out.println(JsonUtils.toJson(message));

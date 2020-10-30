@@ -90,7 +90,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         Session session = ctx.channel().attr(Session.KEY).get();
-        log.info("<<<<<发生异常" + session, e);
+        log.info("<<<<<终端异常断开连接" + session);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class TCPServerHandler extends ChannelInboundHandlerAdapter {
             IdleState state = event.state();
             if (state == IdleState.READER_IDLE || state == IdleState.WRITER_IDLE) {
                 Session session = ctx.channel().attr(Session.KEY).get();
-                log.warn("<<<<<主动断开连接{}", session);
+                log.warn("<<<<<终端主动断开连接{}", session);
                 ctx.close();
             }
         }
