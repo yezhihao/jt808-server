@@ -31,7 +31,7 @@ public class CarriageTemperature extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<CarriageTemperature> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<CarriageTemperature> {
 
         public static final Schema INSTANCE = new Schema();
 

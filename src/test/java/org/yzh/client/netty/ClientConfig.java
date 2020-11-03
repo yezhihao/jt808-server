@@ -1,8 +1,8 @@
 package org.yzh.client.netty;
 
+import io.github.yezhihao.netmc.codec.MessageDecoder;
+import io.github.yezhihao.netmc.codec.MessageEncoder;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.codec.MessageEncoder;
 
 public class ClientConfig {
 

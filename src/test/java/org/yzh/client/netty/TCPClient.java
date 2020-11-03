@@ -1,5 +1,6 @@
 package org.yzh.client.netty;
 
+import io.github.yezhihao.netmc.core.model.Message;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -13,7 +14,6 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.model.Message;
 
 import java.util.List;
 

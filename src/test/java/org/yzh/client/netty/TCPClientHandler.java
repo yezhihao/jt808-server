@@ -1,12 +1,12 @@
 package org.yzh.client.netty;
 
+import io.github.yezhihao.netmc.core.model.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.model.Message;
 
 /**
  * @author yezhihao

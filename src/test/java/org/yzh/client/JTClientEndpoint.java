@@ -1,9 +1,9 @@
 package org.yzh.client;
 
+import io.github.yezhihao.netmc.core.annotation.Endpoint;
+import io.github.yezhihao.netmc.core.annotation.Mapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.annotation.Endpoint;
-import org.yzh.framework.mvc.annotation.Mapping;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.endpoint.JT808Endpoint;

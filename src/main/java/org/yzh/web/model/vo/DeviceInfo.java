@@ -1,7 +1,7 @@
 package org.yzh.web.model.vo;
 
+import io.github.yezhihao.protostar.util.Bcd;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.yzh.framework.commons.transform.Bcd;
 import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;

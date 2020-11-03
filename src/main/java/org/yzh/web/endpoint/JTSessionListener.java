@@ -1,8 +1,8 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.session.Session;
+import io.github.yezhihao.netmc.session.SessionListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.yzh.framework.session.Session;
-import org.yzh.framework.session.SessionListener;
 import org.yzh.web.mapper.DeviceMapper;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.vo.DeviceInfo;

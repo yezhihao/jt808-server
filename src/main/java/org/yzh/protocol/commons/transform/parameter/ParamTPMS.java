@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.util.ByteBufUtils;
 
 import java.nio.charset.StandardCharsets;
 
@@ -122,7 +122,7 @@ public class ParamTPMS {
         this.reserved = reserved;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamTPMS> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamTPMS> {
 
         public static final Schema INSTANCE = new Schema();
 

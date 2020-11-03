@@ -1,9 +1,9 @@
 package org.yzh.protocol.commons.transform;
 
-import org.yzh.framework.orm.PrepareLoadStrategy;
-import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.model.DataType;
-import org.yzh.framework.orm.schema.StringSchema;
+import io.github.yezhihao.protostar.DataType;
+import io.github.yezhihao.protostar.PrepareLoadStrategy;
+import io.github.yezhihao.protostar.Schema;
+import io.github.yezhihao.protostar.schema.StringSchema;
 import org.yzh.protocol.commons.transform.parameter.*;
 
 /**

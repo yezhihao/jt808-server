@@ -129,7 +129,7 @@ public class ParamVideo {
         this.audioEnable = audioEnable;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamVideo> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideo> {
 
         public static final Schema INSTANCE = new Schema();
 
@@ -175,7 +175,7 @@ public class ParamVideo {
         }
     }
 
-    public static class Schema2 implements org.yzh.framework.orm.Schema<ParamVideo> {
+    public static class Schema2 implements io.github.yezhihao.protostar.Schema<ParamVideo> {
 
         public static final Schema2 INSTANCE = new Schema2();
 

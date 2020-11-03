@@ -2,9 +2,9 @@ package org.yzh.web.config;
 
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.google.common.base.Optional;
+import io.github.yezhihao.protostar.annotation.Field;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.yzh.framework.orm.annotation.Field;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ModelPropertyBuilder;
 import springfox.documentation.builders.PathSelectors;

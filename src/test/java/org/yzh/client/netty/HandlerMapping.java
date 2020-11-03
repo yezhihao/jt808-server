@@ -1,8 +1,8 @@
 package org.yzh.client.netty;
 
-import org.yzh.framework.commons.ClassUtils;
-import org.yzh.framework.mvc.annotation.Endpoint;
-import org.yzh.framework.mvc.annotation.Mapping;
+import io.github.yezhihao.netmc.core.annotation.Endpoint;
+import io.github.yezhihao.netmc.core.annotation.Mapping;
+import io.github.yezhihao.netmc.util.ClassUtils;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

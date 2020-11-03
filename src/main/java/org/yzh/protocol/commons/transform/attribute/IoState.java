@@ -31,7 +31,7 @@ public class IoState extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<IoState> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<IoState> {
 
         public static final Schema INSTANCE = new Schema();
 

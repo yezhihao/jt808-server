@@ -1,12 +1,12 @@
 package org.yzh.protocol.codec;
 
+import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.*;
 import io.netty.handler.codec.EncoderException;
 import io.netty.util.ByteProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.Schema;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JTUtils;
@@ -28,8 +28,8 @@ public class JTMessageEncoder {
     private Map<Integer, Schema<Header>> headerSchemaMap;
 
     public JTMessageEncoder(String basePackage) {
-        MessageHelper.initial(basePackage);
-        this.headerSchemaMap = MessageHelper.getSchema(Header.class);
+        ProtostarUtil.initial(basePackage);
+        this.headerSchemaMap = ProtostarUtil.getSchema(Header.class);
     }
 
     public ByteBuf encode(JTMessage message) {
@@ -38,7 +38,7 @@ public class JTMessageEncoder {
         int headLength = JTUtils.headerLength(version, false);
         int bodyLength = 0;
 
-        Schema bodySchema = MessageHelper.getSchema(message.getClass(), version);
+        Schema bodySchema = ProtostarUtil.getSchema(message.getClass(), version);
         ByteBuf allBuf;
         if (bodySchema != null) {
             allBuf = ALLOC.buffer(headLength + bodySchema.length(), 2048);

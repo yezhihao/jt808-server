@@ -22,7 +22,7 @@ public class ParamBSD {
     }
 
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamBSD> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamBSD> {
 
         public static final Schema INSTANCE = new Schema();
 

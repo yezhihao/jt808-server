@@ -54,7 +54,7 @@ public class RouteDriveTimeAlarm extends Attribute {
         this.result = result;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<RouteDriveTimeAlarm> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<RouteDriveTimeAlarm> {
 
         public static final Schema INSTANCE = new Schema();
 

@@ -1,9 +1,9 @@
 package org.yzh;
 
-import org.yzh.framework.mvc.DefaultHandlerMapping;
-import org.yzh.framework.netty.NettyConfig;
-import org.yzh.framework.netty.TCPServer;
-import org.yzh.framework.session.SessionManager;
+import io.github.yezhihao.netmc.NettyConfig;
+import io.github.yezhihao.netmc.TCPServer;
+import io.github.yezhihao.netmc.core.DefaultHandlerMapping;
+import io.github.yezhihao.netmc.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.component.adapter.JTMessageAdapter;

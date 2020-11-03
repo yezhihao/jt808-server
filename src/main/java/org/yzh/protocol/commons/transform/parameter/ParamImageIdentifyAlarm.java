@@ -39,7 +39,7 @@ public class ParamImageIdentifyAlarm {
         this.fatigueThreshold = fatigueThreshold;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamImageIdentifyAlarm> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamImageIdentifyAlarm> {
 
         public static final Schema INSTANCE = new Schema();
 

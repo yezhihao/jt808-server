@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.passthrough;
 
+import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.util.ByteBufUtils;
 import org.yzh.protocol.commons.Charsets;
 
 import java.util.ArrayList;
@@ -137,7 +137,7 @@ public class PeripheralSystem {
         }
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<PeripheralSystem> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<PeripheralSystem> {
 
         public static final Schema INSTANCE = new Schema();
 

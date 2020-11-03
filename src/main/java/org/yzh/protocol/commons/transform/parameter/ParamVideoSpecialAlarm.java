@@ -43,7 +43,7 @@ public class ParamVideoSpecialAlarm {
         this.startTime = startTime;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamVideoSpecialAlarm> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideoSpecialAlarm> {
 
         public static final Schema INSTANCE = new Schema();
 

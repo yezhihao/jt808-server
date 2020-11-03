@@ -90,7 +90,7 @@ public class PeripheralStatus {
         }
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<PeripheralStatus> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<PeripheralStatus> {
 
         public static final Schema INSTANCE = new Schema();
 

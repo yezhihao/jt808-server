@@ -35,7 +35,7 @@ public class ParamVideoSingle {
         this.paramVideos = paramVideos;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamVideoSingle> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideoSingle> {
 
         public static final Schema INSTANCE = new Schema();
 

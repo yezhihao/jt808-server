@@ -104,7 +104,7 @@ public class ParamChannels {
         }
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamChannels> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamChannels> {
 
         public static final Schema INSTANCE = new Schema();
 

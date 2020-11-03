@@ -1,14 +1,14 @@
 package org.yzh.protocol.codec;
 
+import io.github.yezhihao.netmc.session.Session;
+import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.commons.transform.Bin;
-import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.Schema;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.Bin;
 import org.yzh.protocol.commons.JTUtils;
 
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class JTMessageDecoder {
     private Map<Integer, Schema<Header>> headerSchemaMap;
 
     public JTMessageDecoder(String basePackage) {
-        MessageHelper.initial(basePackage);
-        this.headerSchemaMap = MessageHelper.getSchema(Header.class);
+        ProtostarUtil.initial(basePackage);
+        this.headerSchemaMap = ProtostarUtil.getSchema(Header.class);
     }
 
     public JTMessage decode(ByteBuf buf) {
@@ -78,7 +78,7 @@ public class JTMessageDecoder {
 
 
         JTMessage message;
-        Schema<? extends JTMessage> bodySchema = MessageHelper.getSchema(header.getMessageId(), version);
+        Schema<? extends JTMessage> bodySchema = ProtostarUtil.getSchema(header.getMessageId(), version);
         if (bodySchema != null) {
             int bodyLen = header.getBodyLength();
 

@@ -31,7 +31,7 @@ public class Speed extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<Speed> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<Speed> {
 
         public static final Schema INSTANCE = new Schema();
 

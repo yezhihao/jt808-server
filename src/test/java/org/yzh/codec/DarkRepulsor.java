@@ -1,8 +1,8 @@
 package org.yzh.codec;
 
+import io.github.yezhihao.protostar.FieldFactory;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import org.yzh.framework.orm.FieldFactory;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageEncoder;
 

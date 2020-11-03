@@ -1,10 +1,10 @@
 package org.yzh.protocol.codec;
 
+import io.github.yezhihao.netmc.session.Session;
+import io.github.yezhihao.netmc.util.ByteBufUtils;
+import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.commons.transform.ByteBufUtils;
-import org.yzh.framework.orm.MessageHelper;
-import org.yzh.framework.orm.Schema;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.jsatl12.DataPacket;
 
@@ -21,7 +21,7 @@ public class DataFrameMessageDecoder extends JTMessageDecoder {
     public DataFrameMessageDecoder(String basePackage, byte[] dataFramePrefix) {
         super(basePackage);
         this.dataFramePrefix = dataFramePrefix;
-        this.dataFrameSchema = MessageHelper.getSchema(DataPacket.class, 0);
+        this.dataFrameSchema = ProtostarUtil.getSchema(DataPacket.class, 0);
     }
 
     @Override

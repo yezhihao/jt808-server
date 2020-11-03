@@ -1,12 +1,12 @@
 package org.yzh.protocol.commons.transform;
 
+import io.github.yezhihao.protostar.IdStrategy;
+import io.github.yezhihao.protostar.Schema;
+import io.github.yezhihao.protostar.converter.MapConverter;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.orm.IdStrategy;
-import org.yzh.framework.orm.Schema;
-import org.yzh.framework.orm.converter.MapConverter;
 
 /**
  * 位置附加信息转换器

@@ -1,9 +1,9 @@
 package org.yzh.web.component.adapter;
 
+import io.github.yezhihao.netmc.codec.MessageDecoder;
+import io.github.yezhihao.netmc.codec.MessageEncoder;
+import io.github.yezhihao.netmc.session.Session;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.codec.MessageDecoder;
-import org.yzh.framework.codec.MessageEncoder;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;

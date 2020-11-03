@@ -1,8 +1,8 @@
 package org.yzh.protocol;
 
-import org.yzh.framework.orm.annotation.Message;
-import org.yzh.protocol.basics.JTMessage;
+import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t1078.*;
 import org.yzh.web.commons.DateUtils;
 

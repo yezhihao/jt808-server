@@ -1,10 +1,10 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.session.MessageManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.codec.MultiPacket;
 import org.yzh.protocol.codec.MultiPacketListener;
-import org.yzh.framework.session.MessageManager;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T8003;
 

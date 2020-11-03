@@ -1,15 +1,15 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.core.annotation.AsyncBatch;
+import io.github.yezhihao.netmc.core.annotation.Endpoint;
+import io.github.yezhihao.netmc.core.annotation.Mapping;
+import io.github.yezhihao.netmc.session.MessageManager;
+import io.github.yezhihao.netmc.session.Session;
+import io.github.yezhihao.netmc.util.AdapterList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.framework.commons.AdapterList;
-import org.yzh.framework.mvc.annotation.AsyncBatch;
-import org.yzh.framework.mvc.annotation.Endpoint;
-import org.yzh.framework.mvc.annotation.Mapping;
-import org.yzh.framework.session.MessageManager;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t808.*;

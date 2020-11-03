@@ -52,7 +52,7 @@ public class ParamDSM {
     public byte 驾驶员身份识别触发;
     public short 保留字段;
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamDSM> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamDSM> {
 
         public static final Schema INSTANCE = new Schema();
 

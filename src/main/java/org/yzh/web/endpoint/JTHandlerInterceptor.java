@@ -1,9 +1,9 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.core.HandlerInterceptor;
+import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.framework.mvc.HandlerInterceptor;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;

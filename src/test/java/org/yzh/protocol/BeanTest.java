@@ -1,10 +1,10 @@
 package org.yzh.protocol;
 
 import com.google.gson.*;
+import io.github.yezhihao.netmc.util.ClassUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import org.yzh.framework.commons.ClassUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;

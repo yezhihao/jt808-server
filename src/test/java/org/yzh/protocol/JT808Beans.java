@@ -1,11 +1,11 @@
 package org.yzh.protocol;
 
-import org.yzh.framework.commons.transform.Bin;
-import org.yzh.framework.orm.annotation.Message;
+import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
+import org.yzh.protocol.commons.Bin;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.commons.transform.attribute.*;

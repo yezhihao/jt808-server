@@ -54,7 +54,7 @@ public class InOutAreaAlarm extends Attribute {
         this.direction = direction;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<InOutAreaAlarm> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<InOutAreaAlarm> {
 
         public static final Schema INSTANCE = new Schema();
 

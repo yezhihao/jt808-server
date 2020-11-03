@@ -1,9 +1,9 @@
 package org.yzh.protocol.basics;
 
+import io.github.yezhihao.netmc.core.model.Message;
+import io.github.yezhihao.netmc.session.Session;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.yzh.framework.mvc.model.Message;
-import org.yzh.framework.session.Session;
 
 import java.beans.Transient;
 

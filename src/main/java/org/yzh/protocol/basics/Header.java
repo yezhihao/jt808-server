@@ -1,15 +1,15 @@
 package org.yzh.protocol.basics;
 
-import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.annotation.Fs;
-import org.yzh.framework.orm.model.DataType;
+import io.github.yezhihao.protostar.DataType;
+import io.github.yezhihao.protostar.annotation.Field;
+import io.github.yezhihao.protostar.annotation.Fs;
 import org.yzh.protocol.commons.MessageId;
 
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Header implements org.yzh.framework.mvc.model.Header<String> {
+public class Header implements io.github.yezhihao.netmc.core.model.Header<String> {
 
     /** 消息类型 */
     protected int messageId;

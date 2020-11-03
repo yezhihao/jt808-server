@@ -1,5 +1,6 @@
 package org.yzh.web.controller;
 
+import io.github.yezhihao.netmc.session.MessageManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.yzh.framework.session.MessageManager;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.commons.JT1078;
 import org.yzh.protocol.t1078.*;

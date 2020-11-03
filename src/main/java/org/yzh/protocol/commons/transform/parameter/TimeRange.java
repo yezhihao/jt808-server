@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.util.Bcd;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.commons.transform.Bcd;
 
 import java.time.LocalTime;
 
@@ -48,7 +48,7 @@ public class TimeRange {
         return sb.toString();
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<TimeRange> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<TimeRange> {
 
         public static final Schema INSTANCE = new Schema();
 

@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.attribute;
 
+import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.orm.util.ByteBufUtils;
 import org.yzh.protocol.commons.transform.Attribute;
 
 /**
@@ -32,7 +32,7 @@ public class TirePressure extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<TirePressure> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<TirePressure> {
 
         public static final Schema INSTANCE = new Schema();
 

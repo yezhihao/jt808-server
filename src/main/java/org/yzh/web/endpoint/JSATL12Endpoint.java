@@ -1,10 +1,10 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.core.annotation.Endpoint;
+import io.github.yezhihao.netmc.core.annotation.Mapping;
+import io.github.yezhihao.netmc.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.framework.mvc.annotation.Endpoint;
-import org.yzh.framework.mvc.annotation.Mapping;
-import org.yzh.framework.session.Session;
 import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.jsatl12.*;
 import org.yzh.web.service.FileService;

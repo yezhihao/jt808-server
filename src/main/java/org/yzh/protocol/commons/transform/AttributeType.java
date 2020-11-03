@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform;
 
-import org.yzh.framework.orm.IdStrategy;
-import org.yzh.framework.orm.PrepareLoadStrategy;
+import io.github.yezhihao.protostar.IdStrategy;
+import io.github.yezhihao.protostar.PrepareLoadStrategy;
 import org.yzh.protocol.commons.transform.attribute.*;
 
 /**

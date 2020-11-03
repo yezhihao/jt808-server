@@ -1,7 +1,7 @@
 package org.yzh.protocol.jsatl12;
 
-import org.yzh.framework.orm.annotation.Field;
-import org.yzh.framework.orm.model.DataType;
+import io.github.yezhihao.protostar.DataType;
+import io.github.yezhihao.protostar.annotation.Field;
 
 /**
  * 报警标识号

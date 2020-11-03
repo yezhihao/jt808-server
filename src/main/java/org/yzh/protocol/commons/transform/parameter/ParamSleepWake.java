@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.util.Bcd;
 import io.netty.buffer.ByteBuf;
-import org.yzh.framework.commons.transform.Bcd;
 
 import java.time.LocalTime;
 
@@ -134,7 +134,7 @@ public class ParamSleepWake {
         this.sleepTime4 = sleepTime4;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamSleepWake> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamSleepWake> {
 
         public static final Schema INSTANCE = new Schema();
 

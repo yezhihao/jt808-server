@@ -64,7 +64,7 @@ public class ParamADAS {
     public ParamADAS() {
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<ParamADAS> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamADAS> {
 
         public static final Schema INSTANCE = new Schema();
 

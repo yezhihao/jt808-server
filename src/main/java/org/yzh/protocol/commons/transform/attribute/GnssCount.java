@@ -31,7 +31,7 @@ public class GnssCount extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<GnssCount> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<GnssCount> {
 
         public static final Schema INSTANCE = new Schema();
 

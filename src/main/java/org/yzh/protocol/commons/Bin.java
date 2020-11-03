@@ -1,4 +1,4 @@
-package org.yzh.framework.commons.transform;
+package org.yzh.protocol.commons;
 
 /**
  * 32位整型的二进制读写

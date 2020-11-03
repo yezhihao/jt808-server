@@ -32,7 +32,7 @@ public class Mileage extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<Mileage> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<Mileage> {
 
         public static final Schema INSTANCE = new Schema();
 

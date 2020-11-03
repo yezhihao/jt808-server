@@ -32,7 +32,7 @@ public class AlarmEventId extends Attribute {
         this.value = value;
     }
 
-    public static class Schema implements org.yzh.framework.orm.Schema<AlarmEventId> {
+    public static class Schema implements io.github.yezhihao.protostar.Schema<AlarmEventId> {
 
         public static final Schema INSTANCE = new Schema();
 
