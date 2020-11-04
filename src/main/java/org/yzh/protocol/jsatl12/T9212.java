@@ -26,7 +26,7 @@ public class T9212 extends JTMessage {
     }
 
     public T9212(int serialNo, String mobileNo) {
-        super(new Header(JSATL12.文件上传完成消息, serialNo, mobileNo));
+        super(new Header(JSATL12.文件上传完成消息应答, serialNo, mobileNo));
     }
 
     @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")

@@ -149,9 +149,11 @@ public class JT808Endpoint {
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
     public void 定位数据批量上传(T0704 message) {
         Header header = message.getHeader();
+        Session session = message.getSession();
         List<T0200> list = new AdapterList<>(message.getItems(), item -> {
             T0200 position = item.getPosition();
             position.setHeader(header);
+            position.setSession(session);
             return position;
         });
         locationService.batchInsert(list);
