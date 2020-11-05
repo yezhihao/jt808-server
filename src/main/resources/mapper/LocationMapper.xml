@@ -27,7 +27,7 @@
             (#{item.deviceId,jdbcType=VARCHAR}, #{item.mobileNo,jdbcType=VARCHAR}, #{item.plateNo,jdbcType=CHAR},
             #{item.warningMark,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER},
             #{item.latitude,jdbcType=INTEGER}, #{item.longitude,jdbcType=INTEGER}, #{item.altitude,jdbcType=SMALLINT},
-            #{item.speed,jdbcType=TINYINT}, #{item.direction,jdbcType=SMALLINT}, #{item.deviceTime,jdbcType=TIMESTAMP},
+            #{item.speed,jdbcType=SMALLINT}, #{item.direction,jdbcType=SMALLINT}, #{item.deviceTime,jdbcType=TIMESTAMP},
             #{item.mapFenceId,jdbcType=SMALLINT}, #{item.createTime,jdbcType=TIMESTAMP})
         </foreach>
     </insert>
