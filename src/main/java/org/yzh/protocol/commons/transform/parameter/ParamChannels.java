@@ -64,6 +64,9 @@ public class ParamChannels {
         private byte channelType;
         private boolean hasPanTilt;
 
+        public ChannelInfo() {
+        }
+
         public ChannelInfo(byte channelId, byte channelNo, byte channelType, boolean hasPanTilt) {
             this.channelId = channelId;
             this.channelNo = channelNo;

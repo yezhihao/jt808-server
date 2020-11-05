@@ -18,6 +18,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.schema.ApiModelPropertyPropertyBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 
 /**
@@ -35,7 +40,12 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.yzh.web.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .directModelSubstitute(byte.class, int.class)
+                .directModelSubstitute(byte[].class, int[].class)
+                .directModelSubstitute(LocalDate.class, String.class)
+                .directModelSubstitute(LocalTime.class, String.class)
+                .directModelSubstitute(LocalDateTime.class, Date.class);
     }
 
     ApiInfo apiInfo() {

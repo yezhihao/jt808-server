@@ -59,20 +59,10 @@ public class TerminalController {
         return "fail";
     }
 
-//    @ApiOperation(value = "终端参数可选项", tags = "终端管理类协议")
-//    @GetMapping("settings/option")
-//    public ParameterType[] settingsOption() {
-//        return ParameterType.values();
-//    }
-
     @ApiOperation(value = "设置终端参数", tags = "终端管理类协议")
     @PutMapping("settings")
-    public T0001 putSettings(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody Parameter... parameters) {
-        Map<Integer, Object> map = new TreeMap();
-        for (Parameter parameter : parameters) {
-            int id = parameter.getId();
-            map.put(id, Integer.valueOf(parameter.getValue()));
-        }
+    public T0001 putSettings(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody Parameter parameters) {
+        Map<Integer, Object> map = parameters.toMap();
         T8103 request = new T8103(clientId);
         request.setParameters(map);
         T0001 response = messageManager.request(request, T0001.class);
