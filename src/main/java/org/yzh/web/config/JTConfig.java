@@ -3,6 +3,7 @@ package org.yzh.web.config;
 import io.github.yezhihao.netmc.NettyConfig;
 import io.github.yezhihao.netmc.TCPServer;
 import io.github.yezhihao.netmc.codec.Delimiter;
+import io.github.yezhihao.netmc.core.HandlerInterceptor;
 import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
 import io.github.yezhihao.netmc.session.MessageManager;
@@ -10,11 +11,12 @@ import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.component.adapter.JTMessageAdapter;
@@ -24,27 +26,41 @@ import org.yzh.web.endpoint.JTSessionListener;
 
 @Configuration
 @ConditionalOnProperty(value = "tcp-server.jt808.enable", havingValue = "true")
-public class JTConfig implements InitializingBean, DisposableBean {
+public class JTConfig {
 
-    @Value("${tcp-server.jt808.port}")
-    private int port;
+    @Order(Integer.MIN_VALUE)
+    @Component
+    public class Starter implements InitializingBean, DisposableBean {
 
-    @Autowired
-    private TCPServer jt808Server;
+        private TCPServer jt808Server;
 
-    @Bean
-    public TCPServer jt808Server() {
-        NettyConfig jtConfig = NettyConfig.custom()
-                .setPort(port)
-                .setMaxFrameLength(2 + 21 + 1023 + 2)
-                .setDelimiters(new Delimiter(new byte[]{0x7e}))
-                .setDecoder(messageAdapter())
-                .setEncoder(messageAdapter())
-                .setSessionManager(sessionManager())
-                .setHandlerMapping(handlerMapping())
-                .setHandlerInterceptor(handlerInterceptor())
-                .build();
-        return new TCPServer("808服务", jtConfig);
+        public Starter(@Value("${tcp-server.jt808.port}") int port,
+                       JTMessageAdapter messageAdapter,
+                       SessionManager sessionManager,
+                       HandlerMapping handlerMapping,
+                       HandlerInterceptor handlerInterceptor) {
+            NettyConfig jtConfig = NettyConfig.custom()
+                    .setPort(port)
+                    .setMaxFrameLength(2 + 21 + 1023 + 2)
+                    .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                    .setDecoder(messageAdapter)
+                    .setEncoder(messageAdapter)
+                    .setSessionManager(sessionManager)
+                    .setHandlerMapping(handlerMapping)
+                    .setHandlerInterceptor(handlerInterceptor)
+                    .build();
+            this.jt808Server = new TCPServer("808服务", jtConfig);
+        }
+
+        @Override
+        public void afterPropertiesSet() {
+            jt808Server.start();
+        }
+
+        @Override
+        public void destroy() {
+            jt808Server.stop();
+        }
     }
 
     @Bean
@@ -83,15 +99,5 @@ public class JTConfig implements InitializingBean, DisposableBean {
     @Bean
     public JTHandlerInterceptor handlerInterceptor() {
         return new JTHandlerInterceptor();
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        jt808Server.start();
-    }
-
-    @Override
-    public void destroy() {
-        jt808Server.stop();
     }
 }
