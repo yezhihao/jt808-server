@@ -2,6 +2,7 @@ package org.yzh.web.endpoint;
 
 import io.github.yezhihao.netmc.session.MessageManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.codec.MultiPacket;
 import org.yzh.protocol.codec.MultiPacketListener;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class JTMultiPacketListener extends MultiPacketListener {
 
+    @Lazy
     @Autowired
     private MessageManager messageManager;
 
