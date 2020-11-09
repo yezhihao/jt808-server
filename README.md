@@ -30,22 +30,21 @@
 
 ## 项目分为四部分：
 
-## 1.framework，核心模块，不推荐修改，有BUG或扩展的需求，建议提交issues或联系作者
+## 1.核心模块（Maven依赖）
 ```sh
-└── framework
+└── io.github.yezhihao.netmc
     ├── codec 编码解码
-    ├── mvc 消息分发、处理
-    ├── netty 网络通信
-    ├── orm 序列化相关
+    ├── core 消息分发、处理
     └── session 消息发送和会话管理
  ```
 注解：
-
 * @Endpoint，服务接入点，等价SpringMVC的 @Controller；
 * @Mapping，定义消息ID，等价SpringMVC中 @RequestMapping；
 * @AsyncBatch, 异步批量消息，对于并发较高的消息，如0x0200(位置信息汇报)，使用该注解，显著提升Netty和MySQL入库性能。
-
-
+```sh
+└── io.github.yezhihao.protostar 序列化
+ ``` 
+注解：
 * @Message，协议类型，等价Hibernate的 @Table；
 * @Field，属性定义，等价Hibernate的 @Column；
 * @Fs，多版本协议支持
