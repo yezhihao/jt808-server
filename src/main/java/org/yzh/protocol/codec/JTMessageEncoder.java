@@ -3,7 +3,6 @@ package org.yzh.protocol.codec;
 import io.github.yezhihao.protostar.ProtostarUtil;
 import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.*;
-import io.netty.handler.codec.EncoderException;
 import io.netty.util.ByteProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,7 @@ public class JTMessageEncoder {
         Schema bodySchema = ProtostarUtil.getSchema(message.getClass(), version);
         ByteBuf allBuf;
         if (bodySchema != null) {
-            allBuf = ALLOC.buffer(headLength + bodySchema.length(), 2048);
+            allBuf = ALLOC.buffer(headLength + bodySchema.length());
             allBuf.writerIndex(headLength);
             bodySchema.writeTo(allBuf, message);
             bodyLength = allBuf.writerIndex() - headLength;
@@ -50,23 +49,67 @@ public class JTMessageEncoder {
             log.debug("未找到对应的Schema[{}]", message.getClass());
         }
 
-        if (bodyLength > 1023)
-            throw new EncoderException("消息体不能大于1023kb," + bodyLength + "kb");
-        header.setBodyLength(bodyLength);
-
         Schema headerSchema = headerSchemaMap.get(version);
-        int writerIndex = allBuf.writerIndex();
-        if (writerIndex > 0) {
-            allBuf.writerIndex(0);
-            headerSchema.writeTo(allBuf, header);
-            allBuf.writerIndex(writerIndex);
-        } else {
-            headerSchema.writeTo(allBuf, header);
-        }
 
-        allBuf = sign(allBuf);
-        allBuf = escape(allBuf);
+        if (bodyLength <= 1023) {
+            header.setBodyLength(bodyLength);
+
+            int writerIndex = allBuf.writerIndex();
+            if (writerIndex > 0) {
+                allBuf.writerIndex(0);
+                headerSchema.writeTo(allBuf, header);
+                allBuf.writerIndex(writerIndex);
+            } else {
+                headerSchema.writeTo(allBuf, header);
+            }
+
+            allBuf = sign(allBuf);
+            allBuf = escape(allBuf);
+
+        } else {
+
+            headLength = JTUtils.headerLength(version, true);
+
+            ByteBuf[] slices = slices(allBuf, headLength, 1023);
+            int total = slices.length;
+
+            CompositeByteBuf _allBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, total);
+            allBuf = _allBuf;
+
+            header.setSubpackage(true);
+            header.setPackageTotal(total);
+
+            for (int i = 0; i < total; i++) {
+                ByteBuf slice = slices[i];
+
+                header.setPackageNo(i + 1);
+                header.setBodyLength(slice.readableBytes());
+
+                ByteBuf headBuf = ALLOC.buffer(headLength, headLength);
+                headerSchema.writeTo(headBuf, header);
+                ByteBuf msgBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, 2)
+                        .addComponent(true, 0, headBuf)
+                        .addComponent(true, 1, slice);
+                msgBuf = sign(msgBuf);
+                msgBuf = escape(msgBuf);
+                _allBuf.addComponent(true, i, msgBuf);
+            }
+        }
         return allBuf;
+    }
+
+    public static ByteBuf[] slices(ByteBuf output, int start, int unitSize) {
+        int totalSize = output.writerIndex() - start;
+        int sliceTotal = (totalSize - 1) / unitSize + 1;
+
+        ByteBuf[] slices = new ByteBuf[sliceTotal];
+        output.skipBytes(start);
+        for (int i = 0; i < slices.length; i++) {
+            if (!output.isReadable(unitSize))
+                unitSize = output.readableBytes();
+            slices[i] = output.readRetainedSlice(unitSize);
+        }
+        return slices;
     }
 
     /** 签名 */
