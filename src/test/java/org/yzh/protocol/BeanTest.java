@@ -1,7 +1,6 @@
 package org.yzh.protocol;
 
 import com.google.gson.*;
-import io.github.yezhihao.netmc.util.ClassUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
@@ -9,19 +8,10 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
-import org.yzh.web.commons.DateUtils;
-import org.yzh.web.commons.RandomUtils;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,8 +34,8 @@ public class BeanTest {
     }
 
     public static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, type, context) -> new JsonPrimitive(src.format(DateUtils.DATE_TIME_FORMATTER)))
-            .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateUtils.DATE_TIME_FORMATTER))
+            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+            .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
             .create();
@@ -98,54 +88,5 @@ public class BeanTest {
         ByteBuf buf = encoder.encode(bean);
         String hex = ByteBufUtil.hexDump(buf);
         return hex;
-    }
-
-    public static void main(String[] args) throws Exception {
-        List<Class<?>> classList = ClassUtils.getClassList("org.yzh.protocol.t1078");
-        for (Class<?> aClass : classList) {
-            String simpleName = aClass.getSimpleName();
-            BeanInfo beanInfo = Introspector.getBeanInfo(aClass);
-            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            String ps = "";
-            for (PropertyDescriptor p : propertyDescriptors) {
-                Method writeMethod = p.getWriteMethod();
-                if (writeMethod == null)
-                    continue;
-                Object val = genBaseData(p.getPropertyType());
-                String name = writeMethod.getName();
-                ps += "\t\tbean." + name + "(" + val + ");\n";
-            }
-            System.out.println("    //xxxx\n" +
-                    "    public static " + simpleName + " " + simpleName + "() {\n" +
-                    "        " + simpleName + " bean = new " + simpleName + "();\n" +
-                    ps +
-                    "        return bean;\n" +
-                    "    }");
-        }
-    }
-
-    private static <T> Object genBaseData(Class<T> clazz) {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        if (clazz.isAssignableFrom(Boolean.class) || clazz.isAssignableFrom(Boolean.TYPE))
-            return random.nextBoolean();
-        if (clazz.isAssignableFrom(Byte.class) || clazz.isAssignableFrom(Byte.TYPE))
-            return (byte) random.nextInt(0, 127);
-        if (clazz.isAssignableFrom(Short.class) || clazz.isAssignableFrom(Short.TYPE))
-            return (short) random.nextInt(0, 127);
-        if (clazz.isAssignableFrom(Integer.class) || clazz.isAssignableFrom(Integer.TYPE))
-            return random.nextInt(0, 127);
-        if (clazz.isAssignableFrom(Long.class) || clazz.isAssignableFrom(Long.TYPE))
-            return random.nextLong(0, 127);
-        if (clazz.isAssignableFrom(Float.class) || clazz.isAssignableFrom(Float.TYPE))
-            return random.nextFloat();
-        if (clazz.isAssignableFrom(Double.class) || clazz.isAssignableFrom(Double.TYPE))
-            return random.nextDouble();
-        if (clazz.isAssignableFrom(Character.class) || clazz.isAssignableFrom(Character.TYPE))
-            return RandomUtils.nextString(1).charAt(0);
-        if (clazz.isAssignableFrom(String.class))
-            return "\"" + RandomUtils.nextString(9) + "\"";
-        if (clazz.isAssignableFrom(Date.class))
-            return new Date();
-        return null;
     }
 }

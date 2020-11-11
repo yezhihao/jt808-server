@@ -4,7 +4,6 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t1078.*;
-import org.yzh.web.commons.DateUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,8 +16,8 @@ import java.util.List;
  */
 public class JT1078Beans {
 
-    private static final LocalDateTime startTime = LocalDateTime.parse("2020-01-01 00:00:00", DateUtils.DATE_TIME_FORMATTER);
-    private static final LocalDateTime endTime = LocalDateTime.parse("2020-12-31 23:59:59", DateUtils.DATE_TIME_FORMATTER);
+    private static final LocalDateTime startTime = LocalDateTime.of(2020, 01, 01, 00, 00, 00);
+    private static final LocalDateTime endTime = LocalDateTime.of(2020, 12, 31, 23, 59, 59);
 
     /** 2013版消息头 */
     public static JTMessage H2013(JTMessage message) {
