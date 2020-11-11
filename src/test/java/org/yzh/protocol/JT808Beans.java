@@ -401,7 +401,7 @@ public class JT808Beans {
         T0805 bean = new T0805();
         bean.setSerialNo(62656);
         bean.setResult(0);
-        bean.setItems(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        bean.setItems(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
 

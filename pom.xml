@@ -156,7 +156,7 @@
         <dependency>
             <groupId>io.github.yezhihao</groupId>
             <artifactId>protostar</artifactId>
-            <version>1.0.0.RELEASE</version>
+            <version>1.0.1.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>io.github.yezhihao</groupId>

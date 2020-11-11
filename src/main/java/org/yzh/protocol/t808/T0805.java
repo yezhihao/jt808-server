@@ -17,7 +17,7 @@ public class T0805 extends JTMessage implements Response {
     private int serialNo;
     private int result;
     private int total;
-    private byte[] items;
+    private int[] items;
 
     public T0805() {
     }
@@ -49,12 +49,12 @@ public class T0805 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 4, type = DataType.BYTES, desc = "多媒体ID列表")
-    public byte[] getItems() {
+    @Field(index = 4, type = DataType.DWORD, desc = "多媒体ID列表")
+    public int[] getItems() {
         return items;
     }
 
-    public void setItems(byte[] items) {
+    public void setItems(int[] items) {
         this.items = items;
         this.total = items.length;
     }
