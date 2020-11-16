@@ -32,7 +32,7 @@ public class ClientTest {
                 .setDelimiters(new byte[]{0x7e})
                 .setDecoder(messageAdapter)
                 .setEncoder(messageAdapter)
-                .setHandlerMapping(new HandlerMapping("org.yzh.netty"))
+                .setHandlerMapping(new HandlerMapping("org.yzh.client"))
                 .build();
 
         tcpClient = new TCPClient(jtConfig).start();
