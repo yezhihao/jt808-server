@@ -5,24 +5,33 @@ spring:
     password: 123@abc
     driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    schema: classpath:sql/schema_h2.sql # 数据库文件C:\Users\xxx\.h2
-    #    data: classpath:sql/initial.sql
+    schema: classpath:sql/schema_h2.sql # 数据库文件C:\Users\{xxx}\.h2
+#    data: classpath:sql/initial.sql
     hikari:
-      minimum-idle: 1
-      maximum-pool-size: 5
-      idle-timeout: 60000
+      minimum-idle: 8
+      maximum-pool-size: 8
+      transaction-isolation: TRANSACTION_READ_UNCOMMITTED #降低事务隔离级别，提高写入速度
       data-source-properties:
-        cachePrepStmts: true
-        prepStmtCacheSize: 250
-        prepStmtCacheSqlLimit: 2048
-        useServerPrepStmts: true
-        useLocalSessionState: true
-        useLocalTransactionState: true
-        rewriteBatchedStatements: true
-        cacheResultSetMetadata: true
-        cacheServerConfiguration: true
-        elideSetAutoCommits: true
-        maintainTimeStats: false
+        useSSL: false
+        sslMode: disabled
+        serverTimezone: GMT+8
+        characterEncoding: UTF-8
+        allowPublicKeyRetrieval: true #MySQL8.0 允许特殊的握手往返，直接从服务器获取RSA公钥。
+        cachePrepStmts: true #是否缓存客户端的预编译语句(PreparedStatement)，检查预编译语句的可准备性？
+        cacheResultSetMetadata: true #是否应该缓存预编译语句的元数据(ResultSetMetaData)？
+        cacheServerConfiguration: true #是否应该缓存基于每个URL“SHOW VARIABLES”和“SHOW COLLATION”的结果？
+        prepStmtCacheSize: 64 #如果启用了预编译语句缓存，应缓存多少个？
+        prepStmtCacheSqlLimit: 2048 #如果启用了预编译语句缓存，将缓存解析的最大SQL长度是多少字节？
+        useServerPrepStmts: true #如果服务器支持的话，使用服务器端的预编译语句吗？
+        useLocalTransactionState: true #是否使用MySQL协议提供的事务状态来决定将commit()或rollback()发送到数据库？
+        useLocalSessionState: true #是否参考由Connection.setAutoCommit()和Connection.setTransactionIsolation()设置的自动提交和事务隔离等级以及协议维护的事务状态，而不是查询数据库或盲目地向数据库发送commit()或rollback()命令？
+        alwaysSendSetIsolation: false #当调用Connection.setTransactionIsolation()时，驱动程序是否应该始终与数据库通信？如果设置为false，则只有当请求的事务隔离等级与较新的、通过setTransactionIsolation()设置的最后一个值或在建立连接时从服务器读取的值不同时，驱动程序才会与数据库通信。注意，无论alwaysSendSetIsolation是如何设置的，useLocalSessionState=true都将强制执行与alwaysSendSetIsolation=false相同的行为。
+        elideSetAutoCommits: true #是否应该仅在服务器状态与Connection.setAutoCommit（boolean）所请求的状态不匹配时才发出“set autocommit = n”查询？
+        allowMultiQueries: true #是否允许使用“;”在一条语句中分隔多个语句。它不影响addBatch()和executeBatch()方法，它们依赖于rewriteBatchStatements。
+        rewriteBatchedStatements: true #当executeBatch()被调用时，驱动程序是否应该重写预编译语句以多值方式批量插入?
+#        useCompression: true #与服务器通信时使用zlib压缩
+        enableQueryTimeouts: false #启用后，通过Statement.setQueryTimeout()设置的timeout将使用共享的java.util.Timer实例进行调度。即便查询没有超时，TimerTask也会在指定的timeout时间内使用内存，如果没有被驱动程序取消，这些内存直到timeout到期时才会被回收。高负载环境可能需要考虑禁用此功能。
+        maintainTimeStats: false #与服务器连接失败时，驱动程序是否应该维护各种内部计时器以启用空闲时间计算以及更多详细的错误消息？设为false会取消每个查询至少两次调用System.getCurrentTimeMillis()。
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   mvc:
