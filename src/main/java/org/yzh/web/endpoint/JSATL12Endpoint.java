@@ -15,20 +15,21 @@ import java.util.List;
 @Component
 public class JSATL12Endpoint {
 
-    private static final String AlarmId = "AlarmId";
-
     @Autowired
     private FileService fileService;
 
     @Mapping(types = JSATL12.报警附件信息消息, desc = "报警附件信息消息")
     public void 报警附件信息消息(T1210 request, Session session) {
-        session.setAttribute(AlarmId, request.getAlarmId());
+        List<T1210.Item> items = request.getItems();
+        AlarmId alarmId = request.getAlarmId();
+        for (T1210.Item item : items)
+            session.setAttribute(item.getName(), alarmId);
         fileService.createDir(request);
     }
 
     @Mapping(types = JSATL12.文件信息上传, desc = "文件信息上传")
     public void 文件信息上传(T1211 request, Session session) {
-        AlarmId alarmId = (AlarmId) session.getAttribute(AlarmId);
+        AlarmId alarmId = (AlarmId) session.getAttribute(request.getName());
         if (alarmId != null) {
             fileService.createFile(alarmId, request);
         } else {
@@ -37,23 +38,23 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
-    public Object 文件数据上传(DataPacket message, Session session) {
-        AlarmId alarmId = (AlarmId) session.getAttribute(AlarmId);
+    public Object 文件数据上传(DataPacket request, Session session) {
+        AlarmId alarmId = (AlarmId) session.getAttribute(request.getName());
         if (alarmId != null)
-            fileService.writeFile(alarmId, message);
+            fileService.writeFile(alarmId, request);
         return null;
     }
 
     @Mapping(types = JSATL12.文件上传完成消息, desc = "文件上传完成消息")
-    public T9212 文件上传完成消息(T1211 message, Session session) {
-        AlarmId alarmId = (AlarmId) session.getAttribute(AlarmId);
-        T9212 result = new T9212(session.nextSerialNo(), message.getHeader().getMobileNo());
-        result.setName(message.getName());
-        result.setType(message.getType());
+    public T9212 文件上传完成消息(T1211 request, Session session) {
+        AlarmId alarmId = (AlarmId) session.getAttribute(request.getName());
+        T9212 result = new T9212(session.nextSerialNo(), request.getHeader().getMobileNo());
+        result.setName(request.getName());
+        result.setType(request.getType());
 
-        List<DataInfo> items = fileService.checkFile(alarmId, message);
+        List<DataInfo> items = fileService.checkFile(alarmId, request);
         if (items.isEmpty()) {
-            session.removeAttribute(AlarmId);
+            session.removeAttribute(request.getName());
             result.setResult(0);
         } else {
             result.setResult(1);
