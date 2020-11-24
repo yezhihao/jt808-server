@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0200;
+import org.yzh.web.commons.DateUtils;
 import org.yzh.web.mapper.LocationMapper;
-import org.yzh.web.model.entity.LocationDO;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
@@ -17,8 +17,8 @@ import org.yzh.web.service.LocationService;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,14 +41,15 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void batchInsert(List<T0200> list) {
-        jdbcBatchInsert(list);
-//        mybatisBatchInsert(list);
+        //MySQL预编译语句不支持批量写入，改用SQL拼接方式
+//        jdbcBatchInsert(list);
+        jdbcSQLInsert(list);
     }
 
-    private static final String sql = "insert ignore into location(device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time)values" +
-            "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_HEAD = "insert into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time) values ";
+    private static final String SQL = SQL_HEAD + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    private void jdbcBatchInsert(List<T0200> list) {
+    public void jdbcBatchInsert(List<T0200> list) {
         LocalDateTime now = LocalDateTime.now();
         Session session;
         String mobileNo, deviceId, plateNo;
@@ -56,10 +57,7 @@ public class LocationServiceImpl implements LocationService {
         T0200 request;
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            //降低事务隔离级别，提高写入速度
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-
+             PreparedStatement statement = connection.prepareStatement(SQL)) {
             for (int i = 0; i < size; i++) {
                 request = list.get(i);
                 int j = 1;
@@ -96,13 +94,18 @@ public class LocationServiceImpl implements LocationService {
         }
     }
 
-    private void mybatisBatchInsert(List<T0200> list) {
+    public void jdbcSQLInsert(List<T0200> list) {
         LocalDateTime now = LocalDateTime.now();
         Session session;
         String mobileNo, deviceId, plateNo;
         int size = list.size();
-        List<LocationDO> locations = new ArrayList<>(size);
-        for (T0200 request : list) {
+        T0200 request;
+
+        StringBuilder sql = new StringBuilder(list.size() * 132 + 167);
+        sql.append(SQL_HEAD);
+
+        for (int i = 0; i < size; i++) {
+            request = list.get(i);
 
             session = request.getSession();
             mobileNo = request.getHeader().getMobileNo();
@@ -114,26 +117,30 @@ public class LocationServiceImpl implements LocationService {
                 plateNo = device.getPlateNo();
             }
 
-            LocationDO location = new LocationDO();
-            locations.add(location);
-
-            location.setDeviceTime(request.getDateTime());
-            location.setDeviceId(deviceId);
-            location.setMobileNo(mobileNo);
-            location.setPlateNo(plateNo);
-            location.setWarningMark(request.getWarningMark());
-            location.setStatus(request.getStatus());
-            location.setLatitude(request.getLatitude());
-            location.setLongitude(request.getLongitude());
-            location.setAltitude(request.getAltitude());
-            location.setSpeed(request.getSpeed());
-            location.setDirection(request.getDirection());
-            location.setMapFenceId(0);
-            location.setCreateTime(now);
+            sql.append('(');
+            sql.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDateTime())).append('\'').append(',');
+            sql.append('\'').append(deviceId).append('\'').append(',');
+            sql.append('\'').append(mobileNo).append('\'').append(',');
+            sql.append('\'').append(plateNo).append('\'').append(',');
+            sql.append(request.getWarningMark()).append(',');
+            sql.append(request.getStatus()).append(',');
+            sql.append(request.getLatitude()).append(',');
+            sql.append(request.getLongitude()).append(',');
+            sql.append(request.getAltitude()).append(',');
+            sql.append(request.getSpeed()).append(',');
+            sql.append(request.getDirection()).append(',');
+            sql.append(0).append(',');
+            sql.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(now)).append('\'');
+            sql.append(')');
+            sql.append(',');
         }
+        sql.setCharAt(sql.length() - 1, ' ');
 
-        int row = locationMapper.batchInsert(locations);
-        if (row <= 0)
-            log.warn("主键重复,写入数据库失败{}", locations);
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql.toString());
+        } catch (Exception e) {
+            log.warn("批量写入失败", e);
+        }
     }
 }
