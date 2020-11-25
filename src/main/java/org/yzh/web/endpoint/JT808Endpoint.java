@@ -139,8 +139,13 @@ public class JT808Endpoint {
         Header header = message.getHeader();
     }
 
-    //异步批量处理默认 4线程 最大累积100条记录处理一次 最大等待时间1秒
-    @AsyncBatch
+    /**
+     * 异步批量处理
+     * poolSize：参考数据库CPU核心数量
+     * maxElements：最大累积4000条记录处理一次
+     * maxWait：最大等待时间1秒
+     */
+    @AsyncBatch(poolSize = 2, maxElements = 4000, maxWait = 1000)
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
     public void 位置信息汇报(List<T0200> list) {
         locationService.batchInsert(list);
