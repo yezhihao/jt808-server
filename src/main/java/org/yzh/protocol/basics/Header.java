@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.MessageId;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Header implements io.github.yezhihao.netmc.core.model.Header<String> {
+public class Header implements io.github.yezhihao.netmc.core.model.Header<String, Integer> {
 
     /** 消息类型 */
     protected int messageId;
@@ -200,6 +200,11 @@ public class Header implements io.github.yezhihao.netmc.core.model.Header<String
     @Override
     public String getClientId() {
         return mobileNo;
+    }
+
+    @Override
+    public Integer getType() {
+        return messageId;
     }
 
     @Override
