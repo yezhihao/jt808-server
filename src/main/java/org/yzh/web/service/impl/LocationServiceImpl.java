@@ -129,7 +129,7 @@ public class LocationServiceImpl implements LocationService {
             sql.append(request.getAltitude()).append(',');
             sql.append(request.getSpeed()).append(',');
             sql.append(request.getDirection()).append(',');
-            sql.append(0).append(',');
+            sql.append('0').append(',');
             sql.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(now)).append('\'');
             sql.append(')');
             sql.append(',');
