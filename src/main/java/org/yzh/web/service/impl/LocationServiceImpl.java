@@ -46,7 +46,7 @@ public class LocationServiceImpl implements LocationService {
         jdbcSQLInsert(list);
     }
 
-    private static final String SQL_HEAD = "insert into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time) values ";
+    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time) values ";
     private static final String SQL = SQL_HEAD + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public void jdbcBatchInsert(List<T0200> list) {
@@ -90,7 +90,7 @@ public class LocationServiceImpl implements LocationService {
             }
             statement.executeLargeBatch();
         } catch (Exception e) {
-            log.warn("批量写入失败", e);
+            log.error("批量写入失败", e);
         }
     }
 
@@ -101,8 +101,8 @@ public class LocationServiceImpl implements LocationService {
         int size = list.size();
         T0200 request;
 
-        StringBuilder sql = new StringBuilder(list.size() * 132 + 167);
-        sql.append(SQL_HEAD);
+        StringBuilder builder = new StringBuilder(size * 132 + 174);
+        builder.append(SQL_HEAD);
 
         for (int i = 0; i < size; i++) {
             request = list.get(i);
@@ -117,30 +117,33 @@ public class LocationServiceImpl implements LocationService {
                 plateNo = device.getPlateNo();
             }
 
-            sql.append('(');
-            sql.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDateTime())).append('\'').append(',');
-            sql.append('\'').append(deviceId).append('\'').append(',');
-            sql.append('\'').append(mobileNo).append('\'').append(',');
-            sql.append('\'').append(plateNo).append('\'').append(',');
-            sql.append(request.getWarningMark()).append(',');
-            sql.append(request.getStatus()).append(',');
-            sql.append(request.getLatitude()).append(',');
-            sql.append(request.getLongitude()).append(',');
-            sql.append(request.getAltitude()).append(',');
-            sql.append(request.getSpeed()).append(',');
-            sql.append(request.getDirection()).append(',');
-            sql.append('0').append(',');
-            sql.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(now)).append('\'');
-            sql.append(')');
-            sql.append(',');
+            builder.append('(');
+            builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDateTime())).append('\'').append(',');
+            builder.append('\'').append(deviceId).append('\'').append(',');
+            builder.append('\'').append(mobileNo).append('\'').append(',');
+            builder.append('\'').append(plateNo).append('\'').append(',');
+            builder.append(request.getWarningMark()).append(',');
+            builder.append(request.getStatus()).append(',');
+            builder.append(request.getLatitude()).append(',');
+            builder.append(request.getLongitude()).append(',');
+            builder.append(request.getAltitude()).append(',');
+            builder.append(request.getSpeed()).append(',');
+            builder.append(request.getDirection()).append(',');
+            builder.append('0').append(',');
+            builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(now)).append('\'');
+            builder.append(')');
+            builder.append(',');
         }
-        sql.setCharAt(sql.length() - 1, ' ');
+        String sql = builder.substring(0, builder.length() - 1);
 
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql.toString());
+            int row = statement.executeUpdate(sql);
+            if (row < size)
+                log.warn("批量写入存在重复的主键或唯一键,新增:{},忽略:{}", row, size - row);
         } catch (Exception e) {
-            log.warn("批量写入失败", e);
+            log.error(sql);
+            log.error("批量写入失败", e);
         }
     }
 }
