@@ -94,7 +94,7 @@ public class DeviceServiceImpl implements DeviceService {
             }
             return device;
         } catch (Exception e) {
-            log.warn("鉴权失败：错误的token，{}", e.getMessage());
+            log.warn("鉴权失败：错误的token[{}]，{}", token, e.getMessage());
             //TODO 鉴权失败，使用测试车辆，仅供测试！
             DeviceInfo deviceInfo = new DeviceInfo();
             deviceInfo.setDeviceId("12345678901");

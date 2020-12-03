@@ -95,7 +95,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     public void jdbcSQLInsert(List<T0200> list) {
-        LocalDateTime now = LocalDateTime.now();
+        String now = DateUtils.DATE_TIME_FORMATTER.format(LocalDateTime.now());
         Session session;
         String mobileNo, deviceId, plateNo;
         int size = list.size();
@@ -130,7 +130,7 @@ public class LocationServiceImpl implements LocationService {
             builder.append(request.getSpeed()).append(',');
             builder.append(request.getDirection()).append(',');
             builder.append('0').append(',');
-            builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(now)).append('\'');
+            builder.append('\'').append(now).append('\'');
             builder.append(')');
             builder.append(',');
         }
