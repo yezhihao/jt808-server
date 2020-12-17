@@ -33,7 +33,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
     @Override
     protected byte[][] addAndGet(Header header, byte[] packetData) {
-        String clientId = header.getClientId();
+        String clientId = header.getMobileNo();
         int messageId = header.getMessageId();
         int packageTotal = header.getPackageTotal();
         int packetNo = header.getPackageNo();
