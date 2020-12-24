@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import io.github.yezhihao.protostar.annotation.Fs;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
@@ -61,8 +60,8 @@ public class T8300 extends JTMessage {
         this.type = type;
     }
 
-    @Fs({@Field(index = 1, type = DataType.STRING, desc = "文本信息", version = 0),
-            @Field(index = 2, type = DataType.STRING, desc = "文本信息", version = 1)})
+    @Field(index = 1, type = DataType.STRING, desc = "文本信息", version = 0)
+    @Field(index = 2, type = DataType.STRING, desc = "文本信息", version = 1)
     public String getContent() {
         return content;
     }

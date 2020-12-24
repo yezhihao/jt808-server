@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import io.github.yezhihao.protostar.annotation.Fs;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
@@ -43,8 +42,8 @@ public class T0107 extends JTMessage {
     }
 
     /** 由制造商自行定义,位数不足时，后补"0x00" */
-    @Fs({@Field(index = 7, type = DataType.STRING, length = 20, desc = "终端型号", version = 0),
-            @Field(index = 7, type = DataType.STRING, length = 30, desc = "终端型号", version = 1)})
+    @Field(index = 7, type = DataType.STRING, length = 20, desc = "终端型号", version = 0)
+    @Field(index = 7, type = DataType.STRING, length = 30, desc = "终端型号", version = 1)
     public String getDeviceModel() {
         return deviceModel;
     }
@@ -54,8 +53,8 @@ public class T0107 extends JTMessage {
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义,位数不足时，后补"0x00" */
-    @Fs({@Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID", version = 0),
-            @Field(index = 37, type = DataType.STRING, length = 30, desc = "终端ID", version = 1)})
+    @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID", version = 0)
+    @Field(index = 37, type = DataType.STRING, length = 30, desc = "终端ID", version = 1)
     public String getDeviceId() {
         return deviceId;
     }
@@ -64,8 +63,8 @@ public class T0107 extends JTMessage {
         this.deviceId = deviceId;
     }
 
-    @Fs({@Field(index = 42, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 0),
-            @Field(index = 67, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 1)})
+    @Field(index = 42, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 0)
+    @Field(index = 67, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 1)
     public String getSimNo() {
         return simNo;
     }
@@ -74,8 +73,8 @@ public class T0107 extends JTMessage {
         this.simNo = simNo;
     }
 
-    @Fs({@Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0),
-            @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)})
+    @Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0)
+    @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)
     public String getHardwareVersion() {
         return hardwareVersion;
     }
@@ -84,8 +83,8 @@ public class T0107 extends JTMessage {
         this.hardwareVersion = hardwareVersion;
     }
 
-    @Fs({@Field(index = 54, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0),
-            @Field(index = 79, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)})
+    @Field(index = 54, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0)
+    @Field(index = 79, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)
     public String getFirmwareVersion() {
         return firmwareVersion;
     }
@@ -94,8 +93,8 @@ public class T0107 extends JTMessage {
         this.firmwareVersion = firmwareVersion;
     }
 
-    @Fs({@Field(index = 54, type = DataType.BYTE, desc = "GNSS模块属性", version = 0),
-            @Field(index = 79, type = DataType.BYTE, desc = "GNSS模块属性", version = 1)})
+    @Field(index = 54, type = DataType.BYTE, desc = "GNSS模块属性", version = 0)
+    @Field(index = 79, type = DataType.BYTE, desc = "GNSS模块属性", version = 1)
     public int getGnssAttribute() {
         return gnssAttribute;
     }
@@ -104,8 +103,8 @@ public class T0107 extends JTMessage {
         this.gnssAttribute = gnssAttribute;
     }
 
-    @Fs({@Field(index = 55, type = DataType.BYTE, desc = "通信模块属性", version = 0),
-            @Field(index = 80, type = DataType.BYTE, desc = "通信模块属性", version = 1)})
+    @Field(index = 55, type = DataType.BYTE, desc = "通信模块属性", version = 0)
+    @Field(index = 80, type = DataType.BYTE, desc = "通信模块属性", version = 1)
     public int getNetworkAttribute() {
         return networkAttribute;
     }

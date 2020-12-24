@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import io.github.yezhihao.protostar.annotation.Fs;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
@@ -19,8 +18,8 @@ public class T0102 extends JTMessage {
     private String imei;
     private String version;
 
-    @Fs({@Field(index = 0, type = DataType.STRING, desc = "鉴权码", version = 0),
-            @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "鉴权码", version = 1)})
+    @Field(index = 0, type = DataType.STRING, desc = "鉴权码", version = 0)
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "鉴权码", version = 1)
     public String getToken() {
         return token;
     }

@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import io.github.yezhihao.protostar.annotation.Fs;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
@@ -43,9 +42,9 @@ public class T0100 extends JTMessage {
     }
 
     /** 终端制造商编码 */
-    @Fs({@Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = -1),
-            @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = 0),
-            @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)})
+    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = -1)
+    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = 0)
+    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)
     public String getMakerId() {
         return makerId;
     }
@@ -55,9 +54,9 @@ public class T0100 extends JTMessage {
     }
 
     /** 由制造商自行定义,,位数不足时，后补"0x00" */
-    @Fs({@Field(index = 9, type = DataType.BYTES, length = 8, desc = "终端型号", version = -1),
-            @Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0),
-            @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)})
+    @Field(index = 9, type = DataType.BYTES, length = 8, desc = "终端型号", version = -1)
+    @Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0)
+    @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)
     public String getDeviceModel() {
         return deviceModel;
     }
@@ -67,9 +66,9 @@ public class T0100 extends JTMessage {
     }
 
     /** 由大写字母和数字组成,此终端ID由制造商自行定义 */
-    @Fs({@Field(index = 17, type = DataType.BYTES, length = 7, desc = "终端ID", version = -1),
-            @Field(index = 29, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0),
-            @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID", version = 1)})
+    @Field(index = 17, type = DataType.BYTES, length = 7, desc = "终端ID", version = -1)
+    @Field(index = 29, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0)
+    @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID", version = 1)
     public String getDeviceId() {
         return deviceId;
     }
@@ -79,9 +78,9 @@ public class T0100 extends JTMessage {
     }
 
     /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
-    @Fs({@Field(index = 21, type = DataType.BYTE, desc = "车牌颜色", version = -1),
-            @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0),
-            @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)})
+    @Field(index = 21, type = DataType.BYTE, desc = "车牌颜色", version = -1)
+    @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0)
+    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)
     public int getPlateColor() {
         return plateColor;
     }
@@ -91,9 +90,9 @@ public class T0100 extends JTMessage {
     }
 
     /** 车牌颜色为0时,表示车辆VIN；否则,表示公安交通管理部门颁发的机动车号牌 */
-    @Fs({@Field(index = 25, type = DataType.STRING, desc = "车辆标识", version = -1),
-            @Field(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0),
-            @Field(index = 76, type = DataType.STRING, desc = "车辆标识", version = 1)})
+    @Field(index = 25, type = DataType.STRING, desc = "车辆标识", version = -1)
+    @Field(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0)
+    @Field(index = 76, type = DataType.STRING, desc = "车辆标识", version = 1)
     public String getPlateNo() {
         return plateNo;
     }
