@@ -38,6 +38,7 @@ public class BeanTest {
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
+            .setPrettyPrinting()
             .create();
 
     public static void selfCheck(String hex1) {
@@ -87,6 +88,7 @@ public class BeanTest {
     public static String transform(JTMessage bean) {
         ByteBuf buf = encoder.encode(bean);
         String hex = ByteBufUtil.hexDump(buf);
+        buf.release();
         return hex;
     }
 }

@@ -41,8 +41,10 @@ public class PassthroughConverter implements Converter<KeyValuePair<Integer, Obj
             if (value instanceof byte[]) {
                 output.writeByte(key);
                 output.writeBytes((byte[]) value);
+                log.warn("未注册的透传消息：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump((byte[]) value));
+            } else {
+                log.warn("未注册的透传消息：ID[{}], Value[{}]", key, value);
             }
-            log.warn("未注册的透传消息：ID[{}], Value[{}]", key, keyValuePair);
         }
     }
 }

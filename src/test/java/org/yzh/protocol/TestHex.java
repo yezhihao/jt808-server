@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.web.commons.FileUtils;
-import org.yzh.web.commons.JsonUtils;
 
 import java.io.File;
 
@@ -33,7 +32,7 @@ public class TestHex {
             if (StringUtils.isNotBlank(hex)) {
                 JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
                 if (message != null)
-                    System.out.println(JsonUtils.toJson(message));
+                    System.out.println(BeanTest.gson.toJson(message));
             }
             return true;
         });

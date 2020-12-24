@@ -158,12 +158,9 @@ public class JTMessageDecoder {
     /** 截取转义前报文，并还原转义位 */
     protected static ByteBuf slice(ByteBuf byteBuf, int index, int length) {
         byte second = byteBuf.getByte(index + length - 1);
-        if (second == 0x02)
+        if (second == 0x02) {
             byteBuf.setByte(index + length - 2, 0x7e);
-
-        // 0x01 不做处理 p47
-        // if (second == 0x01) {
-        // }
+        }
         return byteBuf.slice(index, length - 1);
     }
 }

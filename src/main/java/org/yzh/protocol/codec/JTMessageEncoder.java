@@ -159,13 +159,12 @@ public class JTMessageEncoder {
         ByteBuf[] bufs = new ByteBuf[2];
         bufs[0] = byteBuf.retainedSlice(index, length);
 
-        if (first == 0x7d)
+        if (first == 0x7d) {
             bufs[1] = Unpooled.buffer(1, 1).writeByte(0x01);
-        else {
+        } else {
             byteBuf.setByte(index + length - 1, 0x7d);
             bufs[1] = Unpooled.buffer(1, 1).writeByte(0x02);
         }
-
         return bufs;
     }
 }
