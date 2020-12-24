@@ -73,8 +73,7 @@ public class Header implements io.github.yezhihao.netmc.core.model.Header<String
         this.versionNo = versionNo;
     }
 
-    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = -1)
-    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = 0)
+    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
     @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
     public String getMobileNo() {
         return mobileNo;
@@ -84,8 +83,7 @@ public class Header implements io.github.yezhihao.netmc.core.model.Header<String
         this.mobileNo = mobileNo;
     }
 
-    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = -1)
-    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = 0)
+    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = {-1, 0})
     @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)
     public int getSerialNo() {
         return serialNo;

@@ -42,8 +42,7 @@ public class T0100 extends JTMessage {
     }
 
     /** 终端制造商编码 */
-    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = -1)
-    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = 0)
+    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = {-1, 0})
     @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)
     public String getMakerId() {
         return makerId;
