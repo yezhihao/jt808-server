@@ -20,7 +20,7 @@ public class JT1078Controller {
     @Autowired
     private MessageManager messageManager;
 
-    @Operation(summary = "实时音视频传输请求")
+    @Operation(summary = "9101 实时音视频传输请求")
     @GetMapping("realtime/play")
     public T0001 play(@Parameter(description = "终端手机号") @RequestParam String clientId, T9101 request) {
         request.setHeader(new Header(clientId, JT1078.实时音视频传输请求));
@@ -28,7 +28,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "音视频实时传输控制")
+    @Operation(summary = "9102 音视频实时传输控制")
     @GetMapping("realtime/control")
     public T0001 control(@Parameter(description = "终端手机号") @RequestParam String clientId, T9102 request) {
         request.setHeader(new Header(clientId, JT1078.音视频实时传输控制));
@@ -36,7 +36,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "查询资源列表")
+    @Operation(summary = "9205 查询资源列表")
     @GetMapping("file/search")
     public T1205 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9205 request) {
         request.setHeader(new Header(clientId, JT1078.查询资源列表));
@@ -44,7 +44,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "文件上传指令")
+    @Operation(summary = "9206 文件上传指令")
     @GetMapping("file/upload")
     public T0001 upload(@Parameter(description = "终端手机号") @RequestParam String clientId, T9206 request) {
         request.setHeader(new Header(clientId, JT1078.文件上传指令));
@@ -52,7 +52,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "平台下发远程录像回放请求")
+    @Operation(summary = "9201 平台下发远程录像回放请求")
     @GetMapping("history/search")
     public T1205 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
         request.setHeader(new Header(clientId, JT1078.平台下发远程录像回放请求));
@@ -60,7 +60,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "平台下发远程录像回放请求")
+    @Operation(summary = "9202 平台下发远程录像回放请求")
     @GetMapping("history/control")
     public T0001 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
         request.setHeader(new Header(clientId, JT1078.平台下发远程录像回放控制));
@@ -69,7 +69,7 @@ public class JT1078Controller {
     }
 
 
-    @Operation(summary = "云台旋转")
+    @Operation(summary = "9301 云台旋转")
     @GetMapping(" pan_tilt/revolve")
     public T0001 panTiltRevolve(@Parameter(description = "终端手机号") @RequestParam String clientId, T9301 request) {
         request.setHeader(new Header(clientId, JT1078.云台旋转));
