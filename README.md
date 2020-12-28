@@ -101,14 +101,13 @@ public class JT808Endpoint {
     @Autowired
     private DeviceService deviceService;
 
-    //异步批量处理 队列大小20000 最大累积200处理一次 最大等待时间5秒
-    @AsyncBatch(capacity = 20000, maxElements = 200, maxWait = 5000)
+    //线程数量2 最大累积4000处理一次 最大等待时间1秒
+    @AsyncBatch(poolSize = 2, maxElements = 4000, maxWait = 1000)
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
     public void 位置信息汇报(List<T0200> list) {
         locationService.batchInsert(list);
     }
 
-    @Async
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
@@ -133,17 +132,19 @@ public class JT808Endpoint {
 
 ##### 消息下发：
 ```java
-@Controller
+@RestController
 @RestController("terminal")
 public class TerminalController {
 
-    private MessageManager messageManager = MessageManager.getInstance();
+    @Autowired
+    private MessageManager messageManager;
 
-    @ApiOperation("设置终端参数")
-    @PostMapping("{terminalId}/parameters")
-    public T0001 updateParameters(@PathVariable("terminalId") String terminalId, @RequestBody List<TerminalParameter> parameters) {
-        T8103 request = new T8103(terminalId);
-        request.setItems(parameters);
+    @Operation(summary = "设置终端参数", tags = "终端管理类协议")
+    @PutMapping("settings")
+    public T0001 putSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody Parameters parameters) {
+        Map<Integer, Object> map = parameters.toMap();
+        T8103 request = new T8103(clientId);
+        request.setParameters(map);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
@@ -151,7 +152,7 @@ public class TerminalController {
 ```
 ##### 已集成Swagger文档，启动后可访问如下地址 
  
-* Swagger UI：[http://127.0.0.1:8000/swagger-ui.html](http://127.0.0.1:8000/swagger-ui.html)
+* Swagger UI：[http://127.0.0.1:8000/swagger-ui/](http://127.0.0.1:8000/swagger-ui/)
 * Bootstrap UI：[http://127.0.0.1:8000/doc.html](http://127.0.0.1:8000/doc.html)
 ![Bootstrap UI](https://images.gitee.com/uploads/images/2020/0731/135035_43dfca8e_670717.png "doc2.png")
 

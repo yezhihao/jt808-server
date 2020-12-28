@@ -6,9 +6,8 @@ import io.github.yezhihao.netmc.session.SessionManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
-import org.yzh.protocol.commons.transform.Parameter;
+import org.yzh.protocol.commons.transform.Parameters;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
@@ -29,7 +28,6 @@ import org.yzh.web.model.enums.DefaultCodes;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Api(description = "JT/T 808 API")
 @RestController
 @RequestMapping("terminal")
 public class TerminalController {
@@ -40,16 +38,16 @@ public class TerminalController {
     @Autowired
     private SessionManager sessionManager;
 
-    @ApiOperation(value = "获得当前所有在线设备信息")
+    @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("all")
     public Collection<Session> all() {
         return sessionManager.all();
     }
 
-    @ApiOperation(value = "原始消息发送")
+    @Operation(summary = "原始消息发送")
     @PostMapping("raw")
-    public String postRaw(@ApiParam("终端手机号") @RequestParam String clientId,
-                          @ApiParam("16进制报文") @RequestParam String message) {
+    public String postRaw(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                          @Parameter(description = "16进制报文") @RequestParam String message) {
         Session session = sessionManager.get(clientId);
         if (session != null) {
             ByteBuf byteBuf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(message));
@@ -59,9 +57,9 @@ public class TerminalController {
         return "fail";
     }
 
-    @ApiOperation(value = "设置终端参数", tags = "终端管理类协议")
+    @Operation(summary = "设置终端参数")
     @PutMapping("settings")
-    public T0001 putSettings(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody Parameter parameters) {
+    public T0001 putSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody Parameters parameters) {
         Map<Integer, Object> map = parameters.toMap();
         T8103 request = new T8103(clientId);
         request.setParameters(map);
@@ -69,9 +67,9 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "查询终端参数", tags = "终端管理类协议")
+    @Operation(summary = "查询终端参数")
     @GetMapping("settings")
-    public T0104 getSettings(@ApiParam("终端手机号") @RequestParam String clientId, @ApiParam("参数ID列表，为空查询全部，多个以逗号[,]分隔") @RequestParam(required = false) String id) {
+    public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "参数ID列表，为空查询全部，多个以逗号[,]分隔") @RequestParam(required = false) String id) {
         JTMessage request;
         if (id != null) {
             request = new T8106(clientId, StrUtils.toBytes(id, ","));
@@ -82,52 +80,52 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "终端控制", tags = "终端管理类协议")
+    @Operation(summary = "终端控制")
     @PostMapping("control")
-    public T0001 terminalControl(@ApiParam("终端手机号") @RequestParam String clientId,
-                                 @ApiParam("命令字") @RequestParam int command, @ApiParam("命令参数") @RequestParam String parameter) {
+    public T0001 terminalControl(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                 @Parameter(description = "命令字") @RequestParam int command, @Parameter(description = "命令参数") @RequestParam String parameter) {
         T8105 request = new T8105(clientId, command, parameter);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "查询终端属性", tags = "终端管理类协议")
+    @Operation(summary = "查询终端属性")
     @GetMapping("attributes")
-    public T0107 findAttributes(@ApiParam("终端手机号") @RequestParam String clientId) {
+    public T0107 findAttributes(@Parameter(description = "终端手机号") @RequestParam String clientId) {
         T0107 response = messageManager.request(new JTMessage(new Header(clientId, JT808.查询终端属性)), T0107.class);
         return response;
     }
 
-    @ApiOperation(value = "位置信息查询", tags = "位置报警类协议")
+    @Operation(summary = "位置信息查询")
     @GetMapping("location")
-    public T0201_0500 location(@ApiParam("终端手机号") @RequestParam String clientId) {
+    public T0201_0500 location(@Parameter(description = "终端手机号") @RequestParam String clientId) {
         T0201_0500 response = messageManager.request(new JTMessage(new Header(clientId, JT808.位置信息查询)), T0201_0500.class);
         return response;
     }
 
-    @ApiOperation(value = "临时位置跟踪控制", tags = "位置报警类协议")
+    @Operation(summary = "临时位置跟踪控制")
     @PostMapping("track")
-    public T0001 track(@ApiParam("终端手机号") @RequestParam String clientId,
-                       @ApiParam("时间间隔（秒）") @RequestParam int interval,
-                       @ApiParam("有效期（秒）") @RequestParam int validityPeriod) {
+    public T0001 track(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                       @Parameter(description = "时间间隔（秒）") @RequestParam int interval,
+                       @Parameter(description = "有效期（秒）") @RequestParam int validityPeriod) {
         T8202 request = new T8202(new Header(clientId, JT808.临时位置跟踪控制), interval, validityPeriod);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "人工确认报警消息", tags = "位置报警类协议")
+    @Operation(summary = "人工确认报警消息")
     @PostMapping("alarm_ack")
-    public T0001 alarmAck(@ApiParam("终端手机号") @RequestParam String clientId,
-                          @ApiParam("消息流水号") @RequestParam int serialNo, @ApiParam("报警类型") @RequestParam int type) {
+    public T0001 alarmAck(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                          @Parameter(description = "消息流水号") @RequestParam int serialNo, @Parameter(description = "报警类型") @RequestParam int type) {
         T8203 request = new T8203(clientId, serialNo, type);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "文本信息下发", tags = "信息类协议")
+    @Operation(summary = "文本信息下发")
     @PostMapping("text")
-    public T0001 sendText(@ApiParam("终端手机号") @RequestParam String clientId,
-                          @ApiParam("标志") @RequestParam int[] sign, @ApiParam("文本信息") @RequestParam String content) {
+    public T0001 sendText(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                          @Parameter(description = "标志") @RequestParam int[] sign, @Parameter(description = "文本信息") @RequestParam String content) {
         T8300 request = new T8300(clientId);
         request.setSign(sign);
         request.setContent(content);
@@ -135,34 +133,34 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "事件设置", tags = "信息类协议")
+    @Operation(summary = "事件设置")
     @PutMapping("events")
-    public T0001 eventSetting(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8301 message) {
+    public T0001 eventSetting(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8301 message) {
         message.setHeader(new Header(clientId, JT808.事件设置));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "提问下发", tags = "信息类协议")
+    @Operation(summary = "提问下发")
     @PostMapping("question")
-    public T0001 sendQuestion(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8302 message) {
+    public T0001 sendQuestion(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8302 message) {
         message.setHeader(new Header(clientId, JT808.提问下发));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "信息点播菜单设置", tags = "信息类协议")
+    @Operation(summary = "信息点播菜单设置")
     @PutMapping("news")
-    public T0001 setNews(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8303 message) {
+    public T0001 setNews(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8303 message) {
         message.setHeader(new Header(clientId, JT808.信息点播菜单设置));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "信息服务", tags = "信息类协议")
+    @Operation(summary = "信息服务")
     @PostMapping("news")
-    public T0001 postNews(@ApiParam("终端手机号") @RequestParam String clientId,
-                          @ApiParam("类型") @RequestParam int type, @ApiParam("内容") @RequestParam String content) {
+    public T0001 postNews(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                          @Parameter(description = "类型") @RequestParam int type, @Parameter(description = "内容") @RequestParam String content) {
         T8304 request = new T8304(clientId);
         request.setType(type);
         request.setContent(content);
@@ -170,37 +168,37 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "电话回拨", tags = "电话类协议")
+    @Operation(summary = "电话回拨")
     @PostMapping("call_phone")
-    public T0001 callPhone(@ApiParam("终端手机号") @RequestParam String clientId,
-                           @ApiParam("类型（0.通话 1.监听）") @RequestParam int type, @ApiParam("电话号码") @RequestParam String mobileNo) {
+    public T0001 callPhone(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                           @Parameter(description = "类型（0.通话 1.监听）") @RequestParam int type, @Parameter(description = "电话号码") @RequestParam String mobileNo) {
         T8400 request = new T8400(clientId, type, mobileNo);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "设置电话本", tags = "电话类协议")
+    @Operation(summary = "设置电话本")
     @PutMapping("phone_book")
-    public T0001 phoneBook(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8401 message) {
+    public T0001 phoneBook(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8401 message) {
         message.setHeader(new Header(clientId, JT808.设置电话本));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "车辆控制", tags = "终端管理类协议")
+    @Operation(summary = "车辆控制")
     @PostMapping("control/vehicle")
-    public T0201_0500 vehicleControl(@ApiParam("终端手机号") @RequestParam String clientId, @ApiParam("控制标志") @RequestParam int... sign) {
+    public T0201_0500 vehicleControl(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "控制标志") @RequestParam int... sign) {
         T8500 request = new T8500(clientId);
         request.setSign(sign);
         T0201_0500 response = messageManager.request(request, T0201_0500.class);
         return response;
     }
 
-    @ApiOperation(value = "删除区域", tags = "车辆管理类协议")
+    @Operation(summary = "删除区域")
     @DeleteMapping("map_fence")
-    public T0001 removeMapFence(@ApiParam("终端手机号") @RequestParam String clientId,
-                                @ApiParam("区域类型:1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
-                                @ApiParam("区域ID列表(多个以逗号[,]分割)") @RequestParam String id) {
+    public T0001 removeMapFence(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                @Parameter(description = "区域类型:1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
+                                @Parameter(description = "区域ID列表(多个以逗号[,]分割)") @RequestParam String id) {
         int messageId = 0;
         if (type == Shape.Round) {
             messageId = JT808.删除圆形区域;
@@ -219,41 +217,41 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "设置圆形区域", tags = "车辆管理类协议")
+    @Operation(summary = "设置圆形区域")
     @PutMapping("map_fence/round")
-    public T0001 addMapFenceRound(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8600 message) {
+    public T0001 addMapFenceRound(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8600 message) {
         message.setHeader(new Header(clientId, JT808.设置圆形区域));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "设置矩形区域", tags = "车辆管理类协议")
+    @Operation(summary = "设置矩形区域")
     @PutMapping("map_fence/rectangle")
-    public T0001 addMapFenceRectangle(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8602 message) {
+    public T0001 addMapFenceRectangle(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8602 message) {
         message.setHeader(new Header(clientId, JT808.设置矩形区域));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "设置多边形区域", tags = "车辆管理类协议")
+    @Operation(summary = "设置多边形区域")
     @PutMapping("map_fence/polygon")
-    public T0001 addMapFencePolygon(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8604 message) {
+    public T0001 addMapFencePolygon(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8604 message) {
         message.setHeader(new Header(clientId, JT808.设置多边形区域));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "设置路线", tags = "车辆管理类协议")
+    @Operation(summary = "设置路线")
     @PutMapping("map_fence/route")
-    public T0001 addRoute(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8606 message) {
+    public T0001 addRoute(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8606 message) {
         message.setHeader(new Header(clientId, JT808.设置路线));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "查询区域或线路数据", tags = "位置报警类协议")
+    @Operation(summary = "查询区域或线路数据")
     @GetMapping("location/map_fence")
-    public T0608 locationRoute(@ApiParam("终端手机号") @RequestParam String clientId, @ApiParam("区域ID列表(多个以逗号,分割)") @RequestParam String id) {
+    public T0608 locationRoute(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "区域ID列表(多个以逗号,分割)") @RequestParam String id) {
         T8608 request = new T8608(clientId);
         int[] ids = StrUtils.toInts(id, ",");
         for (int i : ids)
@@ -262,7 +260,7 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "行驶记录仪数据采集命令", tags = "信息采集类协议")
+    @Operation(summary = "行驶记录仪数据采集命令")
     @GetMapping("drive_recorder/report")
     public T0001 getDataRecord(@PathVariable("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.行驶记录仪数据采集命令));
@@ -270,15 +268,15 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "行驶记录仪参数下传命令", tags = "信息采集类协议")
+    @Operation(summary = "行驶记录仪参数下传命令")
     @PutMapping("drive_recorder/settings")
-    public T0001 recorder(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8701 request) {
+    public T0001 recorder(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8701 request) {
         request.setHeader(new Header(clientId, JT808.行驶记录仪参数下传命令));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "上报驾驶员身份信息请求", tags = "信息采集类协议")
+    @Operation(summary = "上报驾驶员身份信息请求")
     @GetMapping("driver_identity/report")
     public T0702 findDriverIdentityInfo(@PathVariable("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.上报驾驶员身份信息请求));
@@ -286,22 +284,22 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "摄像头立即拍摄命令", tags = "多媒体类协议")
+    @Operation(summary = "摄像头立即拍摄命令")
     @PostMapping("camera/snapshot")
-    public T0805 cameraShot(@ApiParam("终端手机号") @RequestParam String clientId, T8801 request) {
+    public T0805 cameraShot(@Parameter(description = "终端手机号") @RequestParam String clientId, T8801 request) {
         request.setHeader(new Header(clientId, JT808.摄像头立即拍摄命令));
         T0805 response = messageManager.request(request, T0805.class);
         return response;
     }
 
-    @ApiOperation(value = "存储多媒体数据检索", tags = "多媒体类协议")
+    @Operation(summary = "存储多媒体数据检索")
     @GetMapping("media_data/search")
-    public T0802 mediaDataQuery(@ApiParam("终端手机号") @RequestParam String clientId,
-                                @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
-                                @ApiParam("通道ID") @RequestParam Integer channelId,
-                                @ApiParam("事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                @ApiParam("开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
-                                @ApiParam("结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime) {
+    public T0802 mediaDataQuery(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                @Parameter(description = "多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
+                                @Parameter(description = "通道ID") @RequestParam Integer channelId,
+                                @Parameter(description = "事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
+                                @Parameter(description = "开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
+                                @Parameter(description = "结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime) {
         T8802 request = new T8802(clientId);
         request.setType(type);
         request.setChannelId(channelId);
@@ -312,15 +310,15 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "存储多媒体数据上传", tags = "多媒体类协议")
+    @Operation(summary = "存储多媒体数据上传")
     @GetMapping("media_data/report")
-    public T0001 mediaDataReportRequest(@ApiParam("终端手机号") @RequestParam String clientId,
-                                        @ApiParam("多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
-                                        @ApiParam("通道ID") @RequestParam Integer channelId,
-                                        @ApiParam("事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                        @ApiParam("开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
-                                        @ApiParam("结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime,
-                                        @ApiParam("删除标志:0.保留；1.删除；") @RequestParam int delete) {
+    public T0001 mediaDataReportRequest(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                        @Parameter(description = "多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
+                                        @Parameter(description = "通道ID") @RequestParam Integer channelId,
+                                        @Parameter(description = "事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
+                                        @Parameter(description = "开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
+                                        @Parameter(description = "结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime,
+                                        @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
         T8803 request = new T8803(clientId);
         request.setType(type);
         request.setChannelId(channelId);
@@ -332,13 +330,13 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "录音开始命令", tags = "多媒体类协议")
+    @Operation(summary = "录音开始命令")
     @PostMapping("sound_record")
-    public T0001 soundRecord(@ApiParam("终端手机号") @RequestParam String clientId,
-                             @ApiParam("0：停止录音；1：开始录音") @RequestParam Integer command,
-                             @ApiParam("单位为秒（s），0 表示一直录音") @RequestParam Integer time,
-                             @ApiParam("0：实时上传；1：保存") @RequestParam Integer saveSign,
-                             @ApiParam("0：8K；1：11K；2：23K；3：32K；") @RequestParam Integer audioSamplingRate) {
+    public T0001 soundRecord(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                             @Parameter(description = "0：停止录音；1：开始录音") @RequestParam Integer command,
+                             @Parameter(description = "单位为秒（s），0 表示一直录音") @RequestParam Integer time,
+                             @Parameter(description = "0：实时上传；1：保存") @RequestParam Integer saveSign,
+                             @Parameter(description = "0：8K；1：11K；2：23K；3：32K；") @RequestParam Integer audioSamplingRate) {
         T8804 request = new T8804(clientId);
         request.setCommand(command);
         request.setTime(time);
@@ -348,16 +346,16 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "单条存储多媒体数据检索上传命令", tags = "多媒体类协议")
+    @Operation(summary = "单条存储多媒体数据检索上传命令")
     @PostMapping("media_data/command")
-    public T0001 mediaDataCommand(@ApiParam("终端手机号") @RequestParam String clientId,
-                                  @ApiParam("多媒体ID") @RequestParam Integer id, @ApiParam("删除标志:0.保留；1.删除；") @RequestParam int delete) {
+    public T0001 mediaDataCommand(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                  @Parameter(description = "多媒体ID") @RequestParam Integer id, @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
         T8805 request = new T8805(clientId, id, delete);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "服务器向终端发起链路检测请求", tags = "其他")
+    @Operation(summary = "服务器向终端发起链路检测请求")
     @PostMapping("check_link")
     public T0001 checkLink(@PathVariable("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.服务器向终端发起链路检测请求));
@@ -365,26 +363,26 @@ public class TerminalController {
         return response;
     }
 
-    @ApiOperation(value = "下发终端升级包", tags = "其他")
+    @Operation(summary = "下发终端升级包")
     @PostMapping("upgrade")
-    public T0001 upgrade(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T8108 message) {
+    public T0001 upgrade(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8108 message) {
         message.setHeader(new Header(clientId, JT808.下发终端升级包));
         T0001 response = messageManager.request(message, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "数据下行透传", tags = "其他")
+    @Operation(summary = "数据下行透传")
     @PostMapping("passthrough")
-    public T0001 passthrough(@ApiParam("终端手机号") @RequestParam String clientId, @RequestBody T0900 request) {
+    public T0001 passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T0900 request) {
         request.setHeader(new Header(clientId, JT808.数据下行透传));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
-    @ApiOperation(value = "平台RSA公钥", tags = "其他")
+    @Operation(summary = "平台RSA公钥")
     @PostMapping("rsa_swap")
-    public T0A00_8A00 rsaSwap(@ApiParam("终端手机号") @RequestParam String clientId,
-                              @ApiParam("e") @RequestParam int e, @ApiParam("n（BASE64编码）") @RequestParam String n) {
+    public T0A00_8A00 rsaSwap(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                              @Parameter(description = "e") @RequestParam int e, @Parameter(description = "n（BASE64编码）") @RequestParam String n) {
         byte[] src = Base64.getDecoder().decode(n);
         if (src.length == 129) {
             byte[] dest = new byte[128];
@@ -405,9 +403,9 @@ public class TerminalController {
     @Value("${tcp-server.jt808.alarm-file.port}")
     private int port;
 
-    @ApiOperation(value = "报警附件上传指令/测试使用", tags = "其他")
+    @Operation(summary = "报警附件上传指令/测试使用")
     @GetMapping("alarm_file/report")
-    public T0001 alarmFileReport(@ApiParam("终端手机号") @RequestParam String clientId) {
+    public T0001 alarmFileReport(@Parameter(description = "终端手机号") @RequestParam String clientId) {
         T9208 request = new T9208();
         request.setHeader(new Header(clientId, JSATL12.报警附件上传指令));
         request.setIp(host);

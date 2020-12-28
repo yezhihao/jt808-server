@@ -1,7 +1,7 @@
 package org.yzh.web.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -18,9 +18,7 @@ import org.yzh.web.component.mybatis.Pagination;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
-import springfox.documentation.annotations.ApiIgnore;
 
-@Api(description = "位置信息")
 @Controller
 @RequestMapping
 public class LocationController {
@@ -28,13 +26,14 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    @ApiIgnore
+    @Hidden
+    @Operation(hidden = true)
     @GetMapping
     public String doc() {
         return "redirect:doc.html";
     }
 
-    @ApiOperation(value = "位置信息查询")
+    @Operation(summary = "位置信息查询")
     @GetMapping("location")
     @ResponseBody
     public Pagination<Location> find(LocationQuery query, PageInfo pageInfo) {
@@ -43,7 +42,7 @@ public class LocationController {
     }
 
 
-    @ApiOperation(value = "修改日志级别")
+    @Operation(summary = "修改日志级别")
     @GetMapping("logger")
     @ResponseBody
     public String logger(@RequestParam(value = "value") Level level) {

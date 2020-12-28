@@ -134,10 +134,10 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0110, DataType.BYTES)//"总线ID 单独采集设置"
 
                 //JSATL12 start
-                .addSchema(ParamADAS.id, ParamADAS.Schema.INSTANCE)//"高级驾驶辅助系统参数，见表4-1010"
-                .addSchema(ParamDSM.id, ParamDSM.Schema.INSTANCE)//"驾驶员状态监测系统参数，见表4-1111"
+                .addSchema(ParamADAS.id, ParamADAS.S.INSTANCE)//"高级驾驶辅助系统参数，见表4-1010"
+                .addSchema(ParamDSM.id, ParamDSM.S.INSTANCE)//"驾驶员状态监测系统参数，见表4-1111"
                 .addSchema(ParamTPMS.id, ParamTPMS.Schema.INSTANCE)//"胎压监测系统参数，见表4-1212"
-                .addSchema(ParamBSD.id, ParamBSD.Schema.INSTANCE)//"盲区监测系统参数，见表4-1313"
+                .addSchema(ParamBSD.id, ParamBSD.S.INSTANCE)//"盲区监测系统参数，见表4-1313"
         ;
     }
 }

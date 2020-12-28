@@ -1,36 +1,36 @@
 package org.yzh.protocol.commons.transform;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.yzh.protocol.commons.transform.parameter.*;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Parameter {
+public class Parameters {
 
-    @ApiModelProperty(value = "数值型参数列表", position = 1)
+    @Schema(description = "数值型参数列表")
     private Map<Integer, Integer> parametersInt;
-    @ApiModelProperty(value = "字符型参数列表", position = 2)
+    @Schema(description = "字符型参数列表")
     private Map<Integer, String> parametersStr;
-    @ApiModelProperty(value = "图像分析报警参数设置", position = 3)
+    @Schema(description = "图像分析报警参数设置")
     private ParamImageIdentifyAlarm paramImageIdentifyAlarm;
-    @ApiModelProperty(value = "特殊报警录像参数设置", position = 4)
+    @Schema(description = "特殊报警录像参数设置")
     private ParamVideoSpecialAlarm paramVideoSpecialAlarm;
-    @ApiModelProperty(value = "音视频通道列表设置", position = 5)
+    @Schema(description = "音视频通道列表设置")
     private ParamChannels paramChannels;
-    @ApiModelProperty(value = "终端休眠唤醒模式设置数据格式", position = 6)
+    @Schema(description = "终端休眠唤醒模式设置数据格式")
     private ParamSleepWake paramSleepWake;
-    @ApiModelProperty(value = "音视频参数设置", position = 7)
+    @Schema(description = "音视频参数设置")
     private ParamVideo paramVideo;
-    @ApiModelProperty(value = "单独视频通道参数设置", position = 8)
+    @Schema(description = "单独视频通道参数设置")
     private ParamVideoSingle paramVideoSingle;
-    @ApiModelProperty(value = "盲区监测系统参数", position = 9)
+    @Schema(description = "盲区监测系统参数")
     private ParamBSD paramBSD;
-    @ApiModelProperty(value = "胎压监测系统参数", position = 10)
+    @Schema(description = "胎压监测系统参数")
     private ParamTPMS paramTPMS;
-    @ApiModelProperty(value = "驾驶员状态监测系统参数", position = 11)
+    @Schema(description = "驾驶员状态监测系统参数")
     private ParamDSM paramDSM;
-    @ApiModelProperty(value = "高级驾驶辅助系统参数", position = 12)
+    @Schema(description = "高级驾驶辅助系统参数")
     private ParamADAS paramADAS;
 
     public Map<Integer, Integer> getParametersInt() {

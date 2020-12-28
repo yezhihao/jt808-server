@@ -1,7 +1,7 @@
 package org.yzh.web.component.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.yzh.web.model.APIResult;
 
 import java.io.Serializable;
@@ -17,19 +17,19 @@ public class Pagination<E> extends APIResult<List<E>> implements Serializable {
     }
 
     @JsonView(All.class)
-    @ApiModelProperty("当前页码")
+    @Schema(description = "当前页码")
     private Integer page;
 
     @JsonView(All.class)
-    @ApiModelProperty("总页数")
+    @Schema(description = "总页数")
     private Integer pages;
 
     @JsonView(All.class)
-    @ApiModelProperty("总行数")
+    @Schema(description = "总行数")
     private Integer count;
 
     @JsonView(All.class)
-    @ApiModelProperty("是否有下一页")
+    @Schema(description = "是否有下一页")
     private Boolean hasNext;
 
     public Pagination() {

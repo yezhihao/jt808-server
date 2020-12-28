@@ -2,7 +2,7 @@ package org.yzh.web.component.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * @author yezhihao
@@ -11,13 +11,13 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonIgnoreType
 public class PageInfo {
 
-    @ApiModelProperty("当前页码")
+    @Schema(description = "当前页码")
     private int page = 1;
 
-    @ApiModelProperty("每页显示行数")
+    @Schema(description = "每页显示行数")
     private int limit = 5;
 
-    @ApiModelProperty("是否显示总页数")
+    @Schema(description = "是否显示总页数")
     private boolean showPages = true;
 
     //是否有下一页

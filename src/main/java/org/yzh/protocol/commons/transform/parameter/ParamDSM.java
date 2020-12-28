@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 驾驶员状态监测系统参数
@@ -16,77 +16,77 @@ public class ParamDSM {
         return id;
     }
 
-    @ApiModelProperty("报警判断速度阈值 BYTE")
+    @Schema(description = "报警判断速度阈值 BYTE")
     private byte p00;
-    @ApiModelProperty("报警音量 BYTE")
+    @Schema(description = "报警音量 BYTE")
     private byte p01;
-    @ApiModelProperty("主动拍照策略 BYTE")
+    @Schema(description = "主动拍照策略 BYTE")
     private byte p02;
-    @ApiModelProperty("主动定时拍照时间间隔 WORD")
+    @Schema(description = "主动定时拍照时间间隔 WORD")
     private short p03;
-    @ApiModelProperty("主动定距拍照距离间隔 WORD")
+    @Schema(description = "主动定距拍照距离间隔 WORD")
     private short p05;
-    @ApiModelProperty("单次主动拍照张数 BYTE")
+    @Schema(description = "单次主动拍照张数 BYTE")
     private byte p07;
-    @ApiModelProperty("单次主动拍照时间间隔 BYTE")
+    @Schema(description = "单次主动拍照时间间隔 BYTE")
     private byte p08;
-    @ApiModelProperty("拍照分辨率 BYTE")
+    @Schema(description = "拍照分辨率 BYTE")
     private byte p09;
-    @ApiModelProperty("视频录制分辨率 BYTE")
+    @Schema(description = "视频录制分辨率 BYTE")
     private byte p10;
-    @ApiModelProperty("报警使能 DWORD")
+    @Schema(description = "报警使能 DWORD")
     private int p11;
-    @ApiModelProperty("事件使能 DWORD")
+    @Schema(description = "事件使能 DWORD")
     private int p15;
-    @ApiModelProperty("吸烟报警判断时间间隔 WORD")
+    @Schema(description = "吸烟报警判断时间间隔 WORD")
     private short p19;
-    @ApiModelProperty("接打电话报警判断时间间隔 WORD")
+    @Schema(description = "接打电话报警判断时间间隔 WORD")
     private short p21;
-    @ApiModelProperty("预留字段 BYTE[3]")
+    @Schema(description = "预留字段 BYTE[3]")
     private byte[] p23 = new byte[3];
-    @ApiModelProperty("疲劳驾驶报警分级速度阈值 BYTE")
+    @Schema(description = "疲劳驾驶报警分级速度阈值 BYTE")
     private byte p26;
-    @ApiModelProperty("疲劳驾驶报警前后视频录制时间 BYTE")
+    @Schema(description = "疲劳驾驶报警前后视频录制时间 BYTE")
     private byte p27;
-    @ApiModelProperty("疲劳驾驶报警拍照张数 BYTE")
+    @Schema(description = "疲劳驾驶报警拍照张数 BYTE")
     private byte p28;
-    @ApiModelProperty("疲劳驾驶报警拍照间隔时间 BYTE")
+    @Schema(description = "疲劳驾驶报警拍照间隔时间 BYTE")
     private byte p29;
-    @ApiModelProperty("接打电话报警分级速度阈值 BYTE")
+    @Schema(description = "接打电话报警分级速度阈值 BYTE")
     private byte p30;
-    @ApiModelProperty("接打电话报警前后视频录制时间 BYTE")
+    @Schema(description = "接打电话报警前后视频录制时间 BYTE")
     private byte p31;
-    @ApiModelProperty("接打电话报警拍驾驶员面部特征照片张数 BYTE")
+    @Schema(description = "接打电话报警拍驾驶员面部特征照片张数 BYTE")
     private byte p32;
-    @ApiModelProperty("接打电话报警拍驾驶员面部特征照片间隔时间 BYTE")
+    @Schema(description = "接打电话报警拍驾驶员面部特征照片间隔时间 BYTE")
     private byte p33;
-    @ApiModelProperty("抽烟报警分级车速阈值 BYTE")
+    @Schema(description = "抽烟报警分级车速阈值 BYTE")
     private byte p34;
-    @ApiModelProperty("抽烟报警前后视频录制时间 BYTE")
+    @Schema(description = "抽烟报警前后视频录制时间 BYTE")
     private byte p35;
-    @ApiModelProperty("抽烟报警拍驾驶员面部特征照片张数 BYTE")
+    @Schema(description = "抽烟报警拍驾驶员面部特征照片张数 BYTE")
     private byte p36;
-    @ApiModelProperty("抽烟报警拍驾驶员面部特征照片间隔时间 BYTE")
+    @Schema(description = "抽烟报警拍驾驶员面部特征照片间隔时间 BYTE")
     private byte p37;
-    @ApiModelProperty("分神驾驶报警分级车速阈值 BYTE")
+    @Schema(description = "分神驾驶报警分级车速阈值 BYTE")
     private byte p38;
-    @ApiModelProperty("分神驾驶报警前后视频录制时间 BYTE")
+    @Schema(description = "分神驾驶报警前后视频录制时间 BYTE")
     private byte p39;
-    @ApiModelProperty("分神驾驶报警拍照张数 BYTE")
+    @Schema(description = "分神驾驶报警拍照张数 BYTE")
     private byte p40;
-    @ApiModelProperty("分神驾驶报警拍照间隔时间 BYTE")
+    @Schema(description = "分神驾驶报警拍照间隔时间 BYTE")
     private byte p41;
-    @ApiModelProperty("驾驶行为异常分级速度阈值 BYTE")
+    @Schema(description = "驾驶行为异常分级速度阈值 BYTE")
     private byte p42;
-    @ApiModelProperty("驾驶行为异常视频录制时间 BYTE")
+    @Schema(description = "驾驶行为异常视频录制时间 BYTE")
     private byte p43;
-    @ApiModelProperty("驾驶行为异常抓拍照片张数 BYTE")
+    @Schema(description = "驾驶行为异常抓拍照片张数 BYTE")
     private byte p44;
-    @ApiModelProperty("驾驶行为异常拍照间隔 BYTE")
+    @Schema(description = "驾驶行为异常拍照间隔 BYTE")
     private byte p45;
-    @ApiModelProperty("驾驶员身份识别触发 BYTE")
+    @Schema(description = "驾驶员身份识别触发 BYTE")
     private byte p46;
-    @ApiModelProperty("保留字段 BYTE[2]")
+    @Schema(description = "保留字段 BYTE[2]")
     private short p47;
 
     public ParamDSM() {
@@ -380,11 +380,11 @@ public class ParamDSM {
         this.p47 = p47;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamDSM> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamDSM> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

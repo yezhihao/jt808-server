@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 盲区监测系统参数
@@ -16,9 +16,9 @@ public class ParamBSD {
         return id;
     }
 
-    @ApiModelProperty("后方接近报警时间阈值")
+    @Schema(description = "后方接近报警时间阈值")
     private byte p0;
-    @ApiModelProperty("侧后方接近报警时间阈值")
+    @Schema(description = "侧后方接近报警时间阈值")
     private byte p1;
 
     public ParamBSD() {
@@ -40,11 +40,11 @@ public class ParamBSD {
         this.p1 = p1;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamBSD> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamBSD> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

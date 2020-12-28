@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 高级驾驶辅助系统参数
@@ -16,95 +16,95 @@ public class ParamADAS {
         return id;
     }
 
-    @ApiModelProperty("报警判断速度阈值 BYTE")
+    @Schema(description = "报警判断速度阈值 BYTE")
     private byte p00;
-    @ApiModelProperty("报警提示音量 BYTE")
+    @Schema(description = "报警提示音量 BYTE")
     private byte p01;
-    @ApiModelProperty("主动拍照策略 BYTE")
+    @Schema(description = "主动拍照策略 BYTE")
     private byte p02;
-    @ApiModelProperty("主动定时拍照时间间隔 WORD")
+    @Schema(description = "主动定时拍照时间间隔 WORD")
     private short p03;
-    @ApiModelProperty("主动定距拍照距离间隔 WORD")
+    @Schema(description = "主动定距拍照距离间隔 WORD")
     private short p05;
-    @ApiModelProperty("单次主动拍照张数 BYTE")
+    @Schema(description = "单次主动拍照张数 BYTE")
     private byte p07;
-    @ApiModelProperty("单次主动拍照时间间隔 BYTE")
+    @Schema(description = "单次主动拍照时间间隔 BYTE")
     private byte p08;
-    @ApiModelProperty("拍照分辨率 BYTE")
+    @Schema(description = "拍照分辨率 BYTE")
     private byte p09;
-    @ApiModelProperty("视频录制分辨率 BYTE")
+    @Schema(description = "视频录制分辨率 BYTE")
     private byte p10;
-    @ApiModelProperty("报警使能 DWORD")
+    @Schema(description = "报警使能 DWORD")
     private int p11;
-    @ApiModelProperty("事件使能 DWORD")
+    @Schema(description = "事件使能 DWORD")
     private int p15;
-    @ApiModelProperty("预留字段 BYTE")
+    @Schema(description = "预留字段 BYTE")
     private byte p19;
-    @ApiModelProperty("障碍物报警距离阈值 BYTE")
+    @Schema(description = "障碍物报警距离阈值 BYTE")
     private byte p20;
-    @ApiModelProperty("障碍物报警分级速度阈值 BYTE")
+    @Schema(description = "障碍物报警分级速度阈值 BYTE")
     private byte p21;
-    @ApiModelProperty("障碍物报警前后视频录制时间 BYTE")
+    @Schema(description = "障碍物报警前后视频录制时间 BYTE")
     private byte p22;
-    @ApiModelProperty("障碍物报警拍照张数 BYTE")
+    @Schema(description = "障碍物报警拍照张数 BYTE")
     private byte p23;
-    @ApiModelProperty("障碍物报警拍照间隔 BYTE")
+    @Schema(description = "障碍物报警拍照间隔 BYTE")
     private byte p24;
-    @ApiModelProperty("频繁变道报警判断时间段 BYTE")
+    @Schema(description = "频繁变道报警判断时间段 BYTE")
     private byte p25;
-    @ApiModelProperty("频繁变道报警判断次数 BYTE")
+    @Schema(description = "频繁变道报警判断次数 BYTE")
     private byte p26;
-    @ApiModelProperty("频繁变道报警分级速度阈值 BYTE")
+    @Schema(description = "频繁变道报警分级速度阈值 BYTE")
     private byte p27;
-    @ApiModelProperty("频繁变道报警前后视频录制时间 BYTE")
+    @Schema(description = "频繁变道报警前后视频录制时间 BYTE")
     private byte p28;
-    @ApiModelProperty("频繁变道报警拍照张数 BYTE")
+    @Schema(description = "频繁变道报警拍照张数 BYTE")
     private byte p29;
-    @ApiModelProperty("频繁变道报警拍照间隔 BYTE")
+    @Schema(description = "频繁变道报警拍照间隔 BYTE")
     private byte p30;
-    @ApiModelProperty("车道偏离报警分级速度阈值 BYTE")
+    @Schema(description = "车道偏离报警分级速度阈值 BYTE")
     private byte p31;
-    @ApiModelProperty("车道偏离报警前后视频录制时间 BYTE")
+    @Schema(description = "车道偏离报警前后视频录制时间 BYTE")
     private byte p32;
-    @ApiModelProperty("车道偏离报警拍照张数 BYTE")
+    @Schema(description = "车道偏离报警拍照张数 BYTE")
     private byte p33;
-    @ApiModelProperty("车道偏离报警拍照间隔 BYTE")
+    @Schema(description = "车道偏离报警拍照间隔 BYTE")
     private byte p34;
-    @ApiModelProperty("前向碰撞报警时间阈值 BYTE")
+    @Schema(description = "前向碰撞报警时间阈值 BYTE")
     private byte p35;
-    @ApiModelProperty("前向碰撞报警分级速度阈值 BYTE")
+    @Schema(description = "前向碰撞报警分级速度阈值 BYTE")
     private byte p36;
-    @ApiModelProperty("前向碰撞报警前后视频录制时间 BYTE")
+    @Schema(description = "前向碰撞报警前后视频录制时间 BYTE")
     private byte p37;
-    @ApiModelProperty("前向碰撞报警拍照张数 BYTE")
+    @Schema(description = "前向碰撞报警拍照张数 BYTE")
     private byte p38;
-    @ApiModelProperty("前向碰撞报警拍照间隔 BYTE")
+    @Schema(description = "前向碰撞报警拍照间隔 BYTE")
     private byte p39;
-    @ApiModelProperty("行人碰撞报警时间阈值 BYTE")
+    @Schema(description = "行人碰撞报警时间阈值 BYTE")
     private byte p40;
-    @ApiModelProperty("行人碰撞报警使能速度阈值 BYTE")
+    @Schema(description = "行人碰撞报警使能速度阈值 BYTE")
     private byte p41;
-    @ApiModelProperty("行人碰撞报警前后视频录制时间 BYTE")
+    @Schema(description = "行人碰撞报警前后视频录制时间 BYTE")
     private byte p42;
-    @ApiModelProperty("行人碰撞报警拍照张数 BYTE")
+    @Schema(description = "行人碰撞报警拍照张数 BYTE")
     private byte p43;
-    @ApiModelProperty("行人碰撞报警拍照间隔 BYTE")
+    @Schema(description = "行人碰撞报警拍照间隔 BYTE")
     private byte p44;
-    @ApiModelProperty("车距监控报警距离阈值 BYTE")
+    @Schema(description = "车距监控报警距离阈值 BYTE")
     private byte p45;
-    @ApiModelProperty("车距监控报警分级速度阈值 BYTE")
+    @Schema(description = "车距监控报警分级速度阈值 BYTE")
     private byte p46;
-    @ApiModelProperty("车距过近报警前后视频录制时间 BYTE")
+    @Schema(description = "车距过近报警前后视频录制时间 BYTE")
     private byte p47;
-    @ApiModelProperty("车距过近报警拍照张数 BYTE")
+    @Schema(description = "车距过近报警拍照张数 BYTE")
     private byte p48;
-    @ApiModelProperty("车距过近报警拍照间隔 BYTE")
+    @Schema(description = "车距过近报警拍照间隔 BYTE")
     private byte p49;
-    @ApiModelProperty("道路标志识别拍照张数 BYTE")
+    @Schema(description = "道路标志识别拍照张数 BYTE")
     private byte p50;
-    @ApiModelProperty("道路标志识别拍照间隔 BYTE")
+    @Schema(description = "道路标志识别拍照间隔 BYTE")
     private byte p51;
-    @ApiModelProperty("保留字段 BYTE[4]")
+    @Schema(description = "保留字段 BYTE[4]")
     private int p52;
 
     public ParamADAS() {
@@ -470,11 +470,11 @@ public class ParamADAS {
         this.p52 = p52;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamADAS> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamADAS> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

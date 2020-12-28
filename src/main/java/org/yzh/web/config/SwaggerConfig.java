@@ -1,14 +1,14 @@
 package org.yzh.web.config;
 
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
-import com.google.common.base.Optional;
 import io.github.yezhihao.protostar.annotation.Field;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ModelPropertyBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.PropertySpecificationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.property.ModelSpecificationFactory;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Optional;
 
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 
@@ -51,8 +52,8 @@ public class SwaggerConfig {
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("部标JT/T 808协议快接入平台")
-                .contact(new Contact("问题交流群: 906230542", "https://gitee.com/yezhihao/jt808-server", ""))
-                .termsOfServiceUrl("https://gitee.com/yezhihao/jt808-server")
+                .contact(new Contact("问题交流群: 906230542", "https://gitee.com/yezhihao", ""))
+                .termsOfServiceUrl("https://gitee.com/yezhihao")
                 .license("")
                 .licenseUrl("")
                 .version("1.0.0")
@@ -60,8 +61,8 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public ApiModelPropertyPropertyBuilder customApiModelPropertyPropertyBuilder(DescriptionResolver descriptions) {
-        return new ApiModelPropertyPropertyBuilder(descriptions) {
+    public ApiModelPropertyPropertyBuilder customApiModelPropertyPropertyBuilder(DescriptionResolver descriptions, ModelSpecificationFactory modelSpecifications) {
+        return new ApiModelPropertyPropertyBuilder(descriptions, modelSpecifications) {
             @Override
             public void apply(ModelPropertyContext context) {
                 Optional<Field> annotation;
@@ -69,7 +70,7 @@ public class SwaggerConfig {
                     BeanPropertyDefinition beanPropertyDefinition = context.getBeanPropertyDefinition().get();
                     annotation = findPropertyAnnotation(beanPropertyDefinition, Field.class);
 
-                    ModelPropertyBuilder builder = context.getBuilder();
+                    PropertySpecificationBuilder builder = context.getSpecificationBuilder();
                     String name = beanPropertyDefinition.getName();
                     if (name.equals("header")) {
                         builder.isHidden(true);
