@@ -1,6 +1,6 @@
 package org.yzh.protocol;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.yzh.protocol.BeanTest.selfCheck;
 import static org.yzh.protocol.JT808Beans.*;
