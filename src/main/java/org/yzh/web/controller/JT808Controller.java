@@ -1,11 +1,6 @@
 package org.yzh.web.controller;
 
 import io.github.yezhihao.netmc.session.MessageManager;
-import io.github.yezhihao.netmc.session.Session;
-import io.github.yezhihao.netmc.session.SessionManager;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-import io.netty.buffer.Unpooled;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,36 +21,17 @@ import org.yzh.web.model.APIException;
 import org.yzh.web.model.enums.DefaultCodes;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Base64;
+import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("terminal")
-public class TerminalController {
+public class JT808Controller {
 
     @Autowired
     private MessageManager messageManager;
-
-    @Autowired
-    private SessionManager sessionManager;
-
-    @Operation(summary = "获得当前所有在线设备信息")
-    @GetMapping("all")
-    public Collection<Session> all() {
-        return sessionManager.all();
-    }
-
-    @Operation(summary = "原始消息发送")
-    @PostMapping("raw")
-    public String postRaw(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                          @Parameter(description = "16进制报文") @RequestParam String message) {
-        Session session = sessionManager.get(clientId);
-        if (session != null) {
-            ByteBuf byteBuf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(message));
-            session.writeObject(byteBuf);
-            return "success";
-        }
-        return "fail";
-    }
 
     @Operation(summary = "8103 设置终端参数")
     @PutMapping("settings")

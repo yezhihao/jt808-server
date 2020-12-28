@@ -77,7 +77,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "云台控制")
+    @Operation(summary = "9302 9303 9304 9305 9306 云台控制")
     @GetMapping(" pan_tilt/control")
     public T0001 panTiltControl(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestParam int messageId, T9301 request) {
         request.setHeader(new Header(clientId, messageId));
