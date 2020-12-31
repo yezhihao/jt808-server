@@ -51,7 +51,7 @@ public class SwaggerConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("部标JT/T 808协议快接入平台")
+                .title("部标JT/T808协议接入平台")
                 .contact(new Contact("问题交流群: 906230542", "https://gitee.com/yezhihao", ""))
                 .termsOfServiceUrl("https://gitee.com/yezhihao")
                 .license("")

@@ -70,7 +70,7 @@ public class JT1078Controller {
 
 
     @Operation(summary = "9301 云台旋转")
-    @GetMapping(" pan_tilt/revolve")
+    @GetMapping("pan_tilt/revolve")
     public T0001 panTiltRevolve(@Parameter(description = "终端手机号") @RequestParam String clientId, T9301 request) {
         request.setHeader(new Header(clientId, JT1078.云台旋转));
         T0001 response = messageManager.request(request, T0001.class);
@@ -78,7 +78,7 @@ public class JT1078Controller {
     }
 
     @Operation(summary = "9302 9303 9304 9305 9306 云台控制")
-    @GetMapping(" pan_tilt/control")
+    @GetMapping("pan_tilt/control")
     public T0001 panTiltControl(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestParam int messageId, T9301 request) {
         request.setHeader(new Header(clientId, messageId));
         T0001 response = messageManager.request(request, T0001.class);
