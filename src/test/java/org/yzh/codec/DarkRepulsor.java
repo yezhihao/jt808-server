@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.t808.T0100;
 
 /**
  * 编码分析
@@ -13,15 +14,18 @@ import org.yzh.protocol.codec.JTMessageEncoder;
  */
 public class DarkRepulsor {
 
-    private static JTMessageEncoder darkRepulsor;
+    private static JTMessageEncoder encoder;
 
     static {
         FieldFactory.EXPLAIN = true;
-        darkRepulsor = new JTMessageEncoder("org.yzh.protocol");
+        encoder = new JTMessageEncoder("org.yzh.protocol");
     }
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = darkRepulsor.encode(JT808Beans.H2013(JT808Beans.T0200JSATL12()));
+        T0100 message = JT808Beans.T0100();
+        JT808Beans.H2013(message);
+
+        ByteBuf byteBuf = encoder.encode(message);
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
     }
