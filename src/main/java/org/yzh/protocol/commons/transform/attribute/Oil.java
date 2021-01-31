@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
- * 里程
- * length 2 油量，WORD，1/10L，对应车上油量表读数
+ * 油量，WORD，1/10L，对应车上油量表读数
+ * length 2
  */
-public class Oil extends Attribute {
+public class Oil {
 
-    public static final int attributeId = 0x02;
+    public static final int id = 0x02;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public Oil() {
@@ -17,10 +21,6 @@ public class Oil extends Attribute {
 
     public Oil(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

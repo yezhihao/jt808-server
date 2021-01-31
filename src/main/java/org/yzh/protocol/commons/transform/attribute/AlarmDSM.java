@@ -2,7 +2,6 @@ package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.jsatl12.AlarmId;
 
 import java.time.LocalDateTime;
@@ -10,9 +9,13 @@ import java.time.LocalDateTime;
 /**
  * 驾驶员状态监测
  */
-public class AlarmDSM extends Attribute {
+public class AlarmDSM {
 
-    public static final int attributeId = 0x65;
+    public static final int id = 0x65;
+
+    public static int id() {
+        return id;
+    }
 
     private long serialNo;
     private int state;
@@ -27,11 +30,6 @@ public class AlarmDSM extends Attribute {
     private LocalDateTime dateTime;
     private int status;
     private AlarmId alarmId;
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
-    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {

@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * GNSS 定位卫星数
  * length 1 BYTE
  */
-public class GnssCount extends Attribute {
+public class GnssCount {
 
-    public static final int attributeId = 0x31;
+    public static final int id = 0x31;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public GnssCount() {
@@ -17,10 +21,6 @@ public class GnssCount extends Attribute {
 
     public GnssCount(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

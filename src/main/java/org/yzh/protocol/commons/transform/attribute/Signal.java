@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 扩展车辆信号状态位，定义见表 31
  * length 4
  */
-public class Signal extends Attribute {
+public class Signal {
 
-    public static final int attributeId = 0x25;
+    public static final int id = 0x25;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public Signal() {
@@ -17,11 +21,6 @@ public class Signal extends Attribute {
 
     public Signal(int value) {
         this.value = value;
-    }
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

@@ -1,23 +1,23 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 超速报警附加信息见表 28
  * length 1 或 5
  */
-public class OverSpeedAlarm extends Attribute {
+public class OverSpeedAlarm {
 
-    public static final int attributeId = 0x11;
+    public static final int id = 0x11;
+
+    public static int id() {
+        return id;
+    }
+
     /** 位置类型 */
     private byte positionType;
     /** 区域或路段ID */
     private Integer areaId;
-
-    public int getAttributeId() {
-        return attributeId;
-    }
 
     public OverSpeedAlarm() {
     }

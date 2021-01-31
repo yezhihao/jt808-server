@@ -2,7 +2,6 @@ package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
-import org.yzh.protocol.commons.transform.Attribute;
 import org.yzh.protocol.jsatl12.AlarmId;
 
 import java.time.LocalDateTime;
@@ -11,9 +10,13 @@ import java.util.List;
 /**
  * 轮胎气压监测系统
  */
-public class AlarmTPMS extends Attribute {
+public class AlarmTPMS {
 
-    public static final int attributeId = 0x66;
+    public static final int id = 0x66;
+
+    public static int id() {
+        return id;
+    }
 
     private long serialNo;
     private int state;
@@ -26,11 +29,6 @@ public class AlarmTPMS extends Attribute {
     private AlarmId alarmId;
     private int total;
     private List<Item> items;
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
-    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {

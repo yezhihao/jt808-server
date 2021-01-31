@@ -2,15 +2,19 @@ package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 胎压
  * length 30
  */
-public class TirePressure extends Attribute {
+public class TirePressure {
 
-    public static final int attributeId = 0x05;
+    public static final int id = 0x05;
+
+    public static int id() {
+        return id;
+    }
+
     private byte[] value;
 
     public TirePressure() {
@@ -18,10 +22,6 @@ public class TirePressure extends Attribute {
 
     public TirePressure(byte[] value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public byte[] getValue() {

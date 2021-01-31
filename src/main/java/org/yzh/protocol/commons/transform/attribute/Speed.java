@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 行驶记录功能获取的速度，WORD，1/10km/h
  * length 2
  */
-public class Speed extends Attribute {
+public class Speed {
 
-    public static final int attributeId = 0x03;
+    public static final int id = 0x03;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public Speed() {
@@ -17,10 +21,6 @@ public class Speed extends Attribute {
 
     public Speed(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

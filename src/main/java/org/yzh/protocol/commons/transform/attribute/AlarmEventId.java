@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 需要人工确认报警事件的 ID，WORD，从 1 开始计数
  * length 2
  */
-public class AlarmEventId extends Attribute {
+public class AlarmEventId {
 
-    public static final int attributeId = 0x04;
+    public static final int id = 0x04;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public AlarmEventId() {
@@ -17,11 +21,6 @@ public class AlarmEventId extends Attribute {
 
     public AlarmEventId(int value) {
         this.value = value;
-    }
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

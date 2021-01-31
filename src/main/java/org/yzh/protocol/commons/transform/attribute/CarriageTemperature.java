@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 车厢温度, 单位摄氏度
  * length 2
  */
-public class CarriageTemperature extends Attribute {
+public class CarriageTemperature {
 
-    public static final int attributeId = 0x06;
+    public static final int id = 0x06;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public CarriageTemperature() {
@@ -17,10 +21,6 @@ public class CarriageTemperature extends Attribute {
 
     public CarriageTemperature(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

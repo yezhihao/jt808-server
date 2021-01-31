@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 模拟量，bit0-15，AD0；bit16-31，AD1。
  * length 4
  */
-public class AnalogQuantity extends Attribute {
+public class AnalogQuantity {
 
-    public static final int attributeId = 0x2b;
+    public static final int id = 0x2b;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public AnalogQuantity() {
@@ -17,11 +21,6 @@ public class AnalogQuantity extends Attribute {
 
     public AnalogQuantity(int value) {
         this.value = value;
-    }
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

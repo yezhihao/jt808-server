@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 路段行驶时间不足/过长报警附加信息见表 30
  * length 7
  */
-public class RouteDriveTimeAlarm extends Attribute {
+public class RouteDriveTimeAlarm {
 
-    public static final int attributeId = 0x13;
+    public static final int id = 0x13;
+
+    public static int id() {
+        return id;
+    }
+
     /** 路段ID */
     private int routeId;
     /** 行驶时间,单位为秒(s) */
@@ -24,10 +28,6 @@ public class RouteDriveTimeAlarm extends Attribute {
         this.routeId = routeId;
         this.driveTime = driveTime;
         this.result = result;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getRouteId() {

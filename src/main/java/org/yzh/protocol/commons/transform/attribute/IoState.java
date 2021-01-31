@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * IO 状态位，定义见表 32
  * length 2
  */
-public class IoState extends Attribute {
+public class IoState {
 
-    public static final int attributeId = 0x2a;
+    public static final int id = 0x2a;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public IoState() {
@@ -17,10 +21,6 @@ public class IoState extends Attribute {
 
     public IoState(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

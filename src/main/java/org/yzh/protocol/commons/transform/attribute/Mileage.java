@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 里程，DWORD，1/10km，对应车上里程表读数
  * length 4
  */
-public class Mileage extends Attribute {
+public class Mileage {
 
-    public static final int attributeId = 0x01;
+    public static final int id = 0x01;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public Mileage() {
@@ -17,11 +21,6 @@ public class Mileage extends Attribute {
 
     public Mileage(int value) {
         this.value = value;
-    }
-
-    @Override
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

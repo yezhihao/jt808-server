@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 无线通信网络信号强度
  * length 1 BYTE
  */
-public class SignalStrength extends Attribute {
+public class SignalStrength {
 
-    public static final int attributeId = 0x30;
+    public static final int id = 0x30;
+
+    public static int id() {
+        return id;
+    }
+
     private int value;
 
     public SignalStrength() {
@@ -17,10 +21,6 @@ public class SignalStrength extends Attribute {
 
     public SignalStrength(int value) {
         this.value = value;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public int getValue() {

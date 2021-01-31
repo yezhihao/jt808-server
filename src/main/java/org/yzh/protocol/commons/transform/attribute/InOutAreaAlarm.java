@@ -1,15 +1,19 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.netty.buffer.ByteBuf;
-import org.yzh.protocol.commons.transform.Attribute;
 
 /**
  * 进出区域/路线报警附加信息见表 29
  * length 6
  */
-public class InOutAreaAlarm extends Attribute {
+public class InOutAreaAlarm {
 
-    public static final int attributeId = 0x12;
+    public static final int id = 0x12;
+
+    public static int id() {
+        return id;
+    }
+
     /** 位置类型 */
     private byte positionType;
     /** 区域或路段ID */
@@ -24,10 +28,6 @@ public class InOutAreaAlarm extends Attribute {
         this.positionType = positionType;
         this.areaId = areaId;
         this.direction = direction;
-    }
-
-    public int getAttributeId() {
-        return attributeId;
     }
 
     public byte getPositionType() {
