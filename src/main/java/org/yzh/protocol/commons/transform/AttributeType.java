@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform;
 
+import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.IdStrategy;
 import io.github.yezhihao.protostar.PrepareLoadStrategy;
 import org.yzh.protocol.commons.transform.attribute.*;
@@ -16,23 +17,27 @@ public class AttributeType extends PrepareLoadStrategy {
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
         schemaRegistry
-                .addSchema(AttributeId.Mileage, Mileage.Schema.INSTANCE)
-                .addSchema(AttributeId.Oil, Oil.Schema.INSTANCE)
-                .addSchema(AttributeId.Speed, Speed.Schema.INSTANCE)
-                .addSchema(AttributeId.AlarmEventId, AlarmEventId.Schema.INSTANCE)
+                .addSchema(AttributeId.Mileage, DataType.DWORD)
+                .addSchema(AttributeId.Gas, DataType.WORD)
+                .addSchema(AttributeId.Speed, DataType.WORD)
+                .addSchema(AttributeId.AlarmEventId, DataType.WORD)
                 .addSchema(AttributeId.TirePressure, TirePressure.Schema.INSTANCE)
-                .addSchema(AttributeId.CarriageTemperature, CarriageTemperature.Schema.INSTANCE)
+                .addSchema(AttributeId.CarriageTemperature, DataType.WORD)
+
                 .addSchema(AttributeId.OverSpeedAlarm, OverSpeedAlarm.Schema.INSTANCE)
                 .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.Schema.INSTANCE)
                 .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.Schema.INSTANCE)
-                .addSchema(AttributeId.Signal, Signal.Schema.INSTANCE)
-                .addSchema(AttributeId.IoState, IoState.Schema.INSTANCE)
-                .addSchema(AttributeId.AnalogQuantity, AnalogQuantity.Schema.INSTANCE)
-                .addSchema(AttributeId.SignalStrength, SignalStrength.Schema.INSTANCE)
-                .addSchema(AttributeId.GnssCount, GnssCount.Schema.INSTANCE)
+
+                .addSchema(AttributeId.Signal, DataType.DWORD)
+                .addSchema(AttributeId.IoState, DataType.WORD)
+                .addSchema(AttributeId.AnalogQuantity, DataType.DWORD)
+                .addSchema(AttributeId.SignalStrength, DataType.BYTE)
+                .addSchema(AttributeId.GnssCount, DataType.BYTE)
+
                 .addSchema(AttributeId.AlarmADAS, AlarmADAS.class)
                 .addSchema(AttributeId.AlarmBSD, AlarmBSD.class)
                 .addSchema(AttributeId.AlarmDSM, AlarmDSM.class)
-                .addSchema(AttributeId.AlarmTPMS, AlarmTPMS.class);
+                .addSchema(AttributeId.AlarmTPMS, AlarmTPMS.class)
+        ;
     }
 }
