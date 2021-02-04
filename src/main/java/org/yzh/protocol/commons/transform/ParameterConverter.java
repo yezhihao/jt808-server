@@ -8,6 +8,11 @@ import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 终端参数项转换器
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class ParameterConverter extends MapConverter<Integer, Object> {
 
     private static final Logger log = LoggerFactory.getLogger(ParameterConverter.class);
@@ -23,7 +28,7 @@ public class ParameterConverter extends MapConverter<Integer, Object> {
             return INSTANCE.readFrom(key, input);
         byte[] bytes = new byte[input.readableBytes()];
         input.readBytes(bytes);
-        log.warn("未识别的终端参数项：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump(bytes));
+        log.warn("未识别的终端参数项:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
         return bytes;
     }
 
@@ -33,7 +38,7 @@ public class ParameterConverter extends MapConverter<Integer, Object> {
         if (schema != null) {
             schema.writeTo(output, value);
         } else {
-            log.warn("未注册的终端参数项：ID[{}], Value[{}]", key, value);
+            log.warn("未注册的终端参数项:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), value);
         }
     }
 

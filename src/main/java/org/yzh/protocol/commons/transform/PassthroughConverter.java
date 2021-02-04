@@ -9,6 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.KeyValuePair;
 
+/**
+ * 透传消息转换器
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class PassthroughConverter implements Converter<KeyValuePair<Integer, Object>> {
 
     private static final Logger log = LoggerFactory.getLogger(PassthroughConverter.class);
@@ -25,7 +30,7 @@ public class PassthroughConverter implements Converter<KeyValuePair<Integer, Obj
             return KeyValuePair.of(key, INSTANCE.readFrom(key, input));
         byte[] bytes = new byte[input.readableBytes()];
         input.readBytes(bytes);
-        log.warn("未识别的透传消息：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump(bytes));
+        log.warn("未识别的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
         return KeyValuePair.of(key, bytes);
     }
 
@@ -41,9 +46,9 @@ public class PassthroughConverter implements Converter<KeyValuePair<Integer, Obj
             if (value instanceof byte[]) {
                 output.writeByte(key);
                 output.writeBytes((byte[]) value);
-                log.warn("未注册的透传消息：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump((byte[]) value));
+                log.warn("未注册的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump((byte[]) value));
             } else {
-                log.warn("未注册的透传消息：ID[{}], Value[{}]", key, value);
+                log.warn("未注册的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), value);
             }
         }
     }

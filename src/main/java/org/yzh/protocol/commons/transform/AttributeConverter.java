@@ -28,7 +28,7 @@ public class AttributeConverter extends MapConverter<Integer, Object> {
             return INSTANCE.readFrom(key, input);
         byte[] bytes = new byte[input.readableBytes()];
         input.readBytes(bytes);
-        log.warn("未识别的附加信息：ID[{}], HEX[{}]", key, ByteBufUtil.hexDump(bytes));
+        log.warn("未识别的附加信息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
         return bytes;
     }
 
@@ -38,7 +38,7 @@ public class AttributeConverter extends MapConverter<Integer, Object> {
         if (schema != null) {
             schema.writeTo(output, value);
         } else {
-            log.warn("未注册的附加信息：ID[{}], Value[{}]", key, value);
+            log.warn("未注册的附加信息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), value);
         }
     }
 
