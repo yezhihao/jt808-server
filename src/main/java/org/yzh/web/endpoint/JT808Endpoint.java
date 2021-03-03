@@ -49,8 +49,7 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
-    public Object heartBeat(Header header, Session session) {
-        return null;
+    public void heartBeat(Header header, Session session) {
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
