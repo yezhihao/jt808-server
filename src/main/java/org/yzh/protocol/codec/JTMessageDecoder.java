@@ -26,6 +26,8 @@ public class JTMessageDecoder {
 
     private Map<Integer, Schema<Header>> headerSchemaMap;
 
+    private static final boolean payload = false;
+
     public JTMessageDecoder(String basePackage) {
         ProtostarUtil.initial(basePackage);
         this.headerSchemaMap = ProtostarUtil.getSchema(Header.class);
@@ -103,6 +105,11 @@ public class JTMessageDecoder {
         }
 
         message.setHeader(header);
+        if (payload) {
+            byte[] bytes = new byte[buf.readableBytes()];
+            buf.readBytes(bytes);
+            message.setPayload(bytes);
+        }
         return message;
     }
 

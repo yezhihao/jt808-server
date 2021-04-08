@@ -18,7 +18,7 @@ public class T0102 extends JTMessage {
     private String imei;
     private String version;
 
-    @Field(index = 0, type = DataType.STRING, desc = "鉴权码", version = 0)
+    @Field(index = 0, type = DataType.STRING, desc = "鉴权码", version = {-1, 0})
     @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "鉴权码", version = 1)
     public String getToken() {
         return token;

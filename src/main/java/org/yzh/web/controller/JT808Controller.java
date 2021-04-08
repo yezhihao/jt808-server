@@ -238,7 +238,7 @@ public class JT808Controller {
 
     @Operation(summary = "8700 行驶记录仪数据采集命令")
     @GetMapping("drive_recorder/report")
-    public T0001 getDataRecord(@PathVariable("clientId") String clientId) {
+    public T0001 getDataRecord(@RequestParam("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.行驶记录仪数据采集命令));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
@@ -254,7 +254,7 @@ public class JT808Controller {
 
     @Operation(summary = "8702 上报驾驶员身份信息请求")
     @GetMapping("driver_identity/report")
-    public T0702 findDriverIdentityInfo(@PathVariable("clientId") String clientId) {
+    public T0702 findDriverIdentityInfo(@RequestParam("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.上报驾驶员身份信息请求));
         T0702 response = messageManager.request(request, T0702.class);
         return response;
@@ -333,7 +333,7 @@ public class JT808Controller {
 
     @Operation(summary = "8204 服务器向终端发起链路检测请求")
     @PostMapping("check_link")
-    public T0001 checkLink(@PathVariable("clientId") String clientId) {
+    public T0001 checkLink(@RequestParam("clientId") String clientId) {
         JTMessage request = new JTMessage(new Header(clientId, JT808.服务器向终端发起链路检测请求));
         T0001 response = messageManager.request(request, T0001.class);
         return response;

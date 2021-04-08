@@ -15,6 +15,8 @@ public class JTMessage implements Message<Header> {
 
     private transient Session session;
 
+    private transient byte[] payload;
+
     protected Header header;
 
     public JTMessage() {
@@ -46,6 +48,14 @@ public class JTMessage implements Message<Header> {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public byte[] getPayload() {
+        return payload;
+    }
+
+    public void setPayload(byte[] payload) {
+        this.payload = payload;
     }
 
     @Override
