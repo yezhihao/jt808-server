@@ -23,6 +23,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.NotSupport);
+        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
+        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<未识别的消息{},{}", session, response);
         return response;
@@ -39,6 +41,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.Success);
+        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
+        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<通用应答消息{},{}", session, response);
         return response;
@@ -54,6 +58,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setSerialNo(header.getSerialNo());
         response.setReplyId(header.getMessageId());
         response.setResultCode(T0001.Failure);
+        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
+        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<异常处理应答{},{}", session, response);
         return response;
@@ -81,6 +87,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     /** 调用之后 */
     @Override
     public void afterHandle(JTMessage request, JTMessage response, Session session) {
+        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
+        response.getHeader().setVersion(request.getHeader().isVersion());
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
         log.info("<<<<<<<<<<应答消息{},{}", session, response);
     }
