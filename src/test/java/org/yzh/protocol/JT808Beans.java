@@ -195,7 +195,7 @@ public class JT808Beans {
     public static T0200 T0200Attributes() {
         T0200 bean = T0200();
         Map<Integer, Object> attributes = new TreeMap();
-        attributes.put(AttributeId.Mileage, 11);
+        attributes.put(AttributeId.Mileage, 11L);
         attributes.put(AttributeId.Gas, 22);
         attributes.put(AttributeId.Speed, 33);
         attributes.put(AttributeId.AlarmEventId, 44);
@@ -206,9 +206,9 @@ public class JT808Beans {
         attributes.put(AttributeId.InOutAreaAlarm, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
         attributes.put(AttributeId.RouteDriveTimeAlarm, new RouteDriveTimeAlarm(88, 88, (byte) 88));
 
-        attributes.put(AttributeId.Signal, 99);
+        attributes.put(AttributeId.Signal, 99L);
         attributes.put(AttributeId.IoState, 10);
-        attributes.put(AttributeId.AnalogQuantity, 20);
+        attributes.put(AttributeId.AnalogQuantity, 20L);
         attributes.put(AttributeId.SignalStrength, 30);
         attributes.put(AttributeId.GnssCount, 40);
         bean.setAttributes(attributes);

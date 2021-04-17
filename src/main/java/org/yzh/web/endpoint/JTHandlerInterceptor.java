@@ -87,8 +87,10 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     /** 调用之后 */
     @Override
     public void afterHandle(JTMessage request, JTMessage response, Session session) {
-        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
-        response.getHeader().setVersion(request.getHeader().isVersion());
+        if (response != null) {
+            response.getHeader().setVersionNo(request.getHeader().getVersionNo());
+            response.getHeader().setVersion(request.getHeader().isVersion());
+        }
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
         log.info("<<<<<<<<<<应答消息{},{}", session, response);
     }
