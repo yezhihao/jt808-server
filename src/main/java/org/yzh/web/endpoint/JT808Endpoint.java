@@ -224,8 +224,8 @@ public class JT808Endpoint {
         fos.write(packet);
         fos.close();
         T8800 result = new T8800();
-        result.setHeader(new Header(平台通用应答, session.nextSerialNo(), header.getMobileNo()));
-        result.setMediaId(1);
+        result.setHeader(new Header(多媒体数据上传应答, session.nextSerialNo(), header.getMobileNo()));
+        result.setMediaId(0);
         return result;
     }
 

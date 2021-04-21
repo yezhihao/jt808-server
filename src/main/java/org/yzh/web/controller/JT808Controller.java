@@ -325,8 +325,8 @@ public class JT808Controller {
     @Operation(summary = "8805 单条存储多媒体数据检索上传命令")
     @PostMapping("media_data/command")
     public T0001 mediaDataCommand(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                  @Parameter(description = "多媒体ID") @RequestParam Integer id, @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
-        T8805 request = new T8805(clientId, id, delete);
+                                  @Parameter(description = "多媒体ID") @RequestParam long id, @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
+        T8805 request = new T8805(clientId, (int) id, delete);
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
