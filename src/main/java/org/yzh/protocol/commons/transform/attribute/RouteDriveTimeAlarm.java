@@ -54,6 +54,16 @@ public class RouteDriveTimeAlarm {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RouteDriveTimeAlarm{");
+        sb.append("routeId=").append(routeId);
+        sb.append(", driveTime=").append(driveTime);
+        sb.append(", result=").append(result);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public static class Schema implements io.github.yezhihao.protostar.Schema<RouteDriveTimeAlarm> {
 
         public static final Schema INSTANCE = new Schema();

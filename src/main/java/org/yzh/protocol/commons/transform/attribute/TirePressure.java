@@ -3,6 +3,8 @@ package org.yzh.protocol.commons.transform.attribute;
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 
+import java.util.Arrays;
+
 /**
  * 胎压
  * length 30
@@ -30,6 +32,14 @@ public class TirePressure {
 
     public void setValue(byte[] value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TirePressure{");
+        sb.append("value=").append(Arrays.toString(value));
+        sb.append('}');
+        return sb.toString();
     }
 
     public static class Schema implements io.github.yezhihao.protostar.Schema<TirePressure> {

@@ -43,6 +43,15 @@ public class OverSpeedAlarm {
         this.areaId = areaId;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("OverSpeedAlarm{");
+        sb.append("positionType=").append(positionType);
+        sb.append(", areaId=").append(areaId);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public static class Schema implements io.github.yezhihao.protostar.Schema<OverSpeedAlarm> {
 
         public static final Schema INSTANCE = new Schema();

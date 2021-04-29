@@ -43,6 +43,14 @@ public class AlarmADAS {
         this.serialNo = serialNo;
     }
 
+    /**
+     * 0x00:不可用
+     * 0x01:开始标志
+     * 0x02:结束标志
+     * 该字段仅适用于有开始和结束标志类型的报警或事件,
+     * 报警类型或事件类型无开始和结束标志，则该位不可
+     * 用，填入0x00即可。
+     */
     @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
     public int getState() {
         return state;
@@ -52,6 +60,19 @@ public class AlarmADAS {
         this.state = state;
     }
 
+    /**
+     * 0x01:前向碰撞报警
+     * 0x02:车道偏离报警
+     * 0x03:车距过近报警
+     * 0x04:行人碰撞报警
+     * 0x05:频繁变道报警
+     * 0x06:道路标识超限报警
+     * 0x07:障碍物报警
+     * 0x08^0x0F:用户自定义
+     * 0x10:道路标志识别事件
+     * 0x11:主动抓拍事件
+     * 0x12~0x1F:用户自定义
+     */
     @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型")
     public int getType() {
         return type;
@@ -70,7 +91,7 @@ public class AlarmADAS {
         this.level = level;
     }
 
-    @Field(index = 7, type = DataType.BYTE, desc = "前车车速")
+    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250，仅报警类型为1和2时有效。")
     public int getFrontSpeed() {
         return frontSpeed;
     }
@@ -79,7 +100,7 @@ public class AlarmADAS {
         this.frontSpeed = frontSpeed;
     }
 
-    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离")
+    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms)，范围0^100，仅报警类型为1、2和4时有效。")
     public int getFrontDistance() {
         return frontDistance;
     }
@@ -88,7 +109,7 @@ public class AlarmADAS {
         this.frontDistance = frontDistance;
     }
 
-    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型")
+    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型:1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
     public int getDeviateType() {
         return deviateType;
     }
@@ -97,7 +118,7 @@ public class AlarmADAS {
         this.deviateType = deviateType;
     }
 
-    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型")
+    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型:1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
     public int getRoadSign() {
         return roadSign;
     }
@@ -176,5 +197,28 @@ public class AlarmADAS {
 
     public void setAlarmId(AlarmId alarmId) {
         this.alarmId = alarmId;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AlarmADAS{");
+        sb.append("serialNo=").append(serialNo);
+        sb.append(", state=").append(state);
+        sb.append(", type=").append(type);
+        sb.append(", level=").append(level);
+        sb.append(", frontSpeed=").append(frontSpeed);
+        sb.append(", frontDistance=").append(frontDistance);
+        sb.append(", deviateType=").append(deviateType);
+        sb.append(", roadSign=").append(roadSign);
+        sb.append(", roadSignValue=").append(roadSignValue);
+        sb.append(", speed=").append(speed);
+        sb.append(", altitude=").append(altitude);
+        sb.append(", latitude=").append(latitude);
+        sb.append(", longitude=").append(longitude);
+        sb.append(", dateTime=").append(dateTime);
+        sb.append(", status=").append(status);
+        sb.append(", alarmId=").append(alarmId);
+        sb.append('}');
+        return sb.toString();
     }
 }

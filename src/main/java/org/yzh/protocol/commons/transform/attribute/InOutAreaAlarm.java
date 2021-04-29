@@ -54,6 +54,16 @@ public class InOutAreaAlarm {
         this.direction = direction;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("InOutAreaAlarm{");
+        sb.append("positionType=").append(positionType);
+        sb.append(", areaId=").append(areaId);
+        sb.append(", direction=").append(direction);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public static class Schema implements io.github.yezhihao.protostar.Schema<InOutAreaAlarm> {
 
         public static final Schema INSTANCE = new Schema();

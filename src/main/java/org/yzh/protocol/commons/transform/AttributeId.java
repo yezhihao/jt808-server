@@ -21,7 +21,7 @@ public interface AttributeId {
     int SignalStrength = 48;         // 0x30 数据类型为BYTE,无线通信网络信号强度
     int GnssCount = 49;              // 0x31 数据类型为BYTE,Gnss定位卫星数
     int AlarmADAS = 100;             // 0x64 高级驾驶辅助系统报警
-    int AlarmBSD = 103;              // 0x67 盲点监测
     int AlarmDSM = 101;              // 0x65 驾驶员状态监测
     int AlarmTPMS = 102;             // 0x66 轮胎气压监测系统
+    int AlarmBSD = 103;              // 0x67 盲点监测
 }
