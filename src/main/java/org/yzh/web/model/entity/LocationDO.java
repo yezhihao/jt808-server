@@ -12,14 +12,14 @@ public class LocationDO {
     private String plateNo;
     private Integer warningMark;
     private Integer status;
-    private Integer latitude;
     private Integer longitude;
+    private Integer latitude;
     private Integer altitude;
     private Integer speed;
     private Integer direction;
-    private LocalDateTime deviceTime;
+    private Integer alarmType;
     private LocalDate deviceDate;
-    private Integer mapFenceId;
+    private LocalDateTime deviceTime;
     private LocalDateTime createTime;
 
     public String getDeviceId() {
@@ -62,20 +62,20 @@ public class LocationDO {
         this.status = status;
     }
 
-    public Integer getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Integer latitude) {
-        this.latitude = latitude;
-    }
-
     public Integer getLongitude() {
         return longitude;
     }
 
     public void setLongitude(Integer longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Integer latitude) {
+        this.latitude = latitude;
     }
 
     public Integer getAltitude() {
@@ -102,12 +102,12 @@ public class LocationDO {
         this.direction = direction;
     }
 
-    public LocalDateTime getDeviceTime() {
-        return deviceTime;
+    public Integer getAlarmType() {
+        return alarmType;
     }
 
-    public void setDeviceTime(LocalDateTime deviceTime) {
-        this.deviceTime = deviceTime;
+    public void setAlarmType(Integer alarmType) {
+        this.alarmType = alarmType;
     }
 
     public LocalDate getDeviceDate() {
@@ -118,12 +118,12 @@ public class LocationDO {
         this.deviceDate = deviceDate;
     }
 
-    public Integer getMapFenceId() {
-        return mapFenceId;
+    public LocalDateTime getDeviceTime() {
+        return deviceTime;
     }
 
-    public void setMapFenceId(Integer mapFenceId) {
-        this.mapFenceId = mapFenceId;
+    public void setDeviceTime(LocalDateTime deviceTime) {
+        this.deviceTime = deviceTime;
     }
 
     public LocalDateTime getCreateTime() {

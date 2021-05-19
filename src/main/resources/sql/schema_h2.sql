@@ -5,12 +5,12 @@ CREATE TABLE IF NOT EXISTS `location` (
   `plate_no`      CHAR(8) NOT NULL DEFAULT '' COMMENT '车牌号',
   `warning_mark`  INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '报警标志',
   `status`        INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
-  `latitude`      INT NOT NULL COMMENT 'GPS地图纬度',
   `longitude`     INT NOT NULL COMMENT 'GPS地图经度',
+  `latitude`      INT NOT NULL COMMENT 'GPS地图纬度',
   `altitude`      SMALLINT NOT NULL COMMENT '海拔(单位米)',
   `speed`         SMALLINT UNSIGNED NOT NULL COMMENT '速度(百米每小时)',
   `direction`     SMALLINT NOT NULL COMMENT '方向',
-  `map_fence_id`  SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '围栏ID',
+  `alarm_type`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '报警类型',
   `create_time`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   INDEX idx_plateno_time(`plate_no`, `device_time`),
   INDEX idx_time_deviceid(`device_id`, `device_time`)
@@ -40,4 +40,4 @@ CREATE TABLE IF NOT EXISTS `device` (
   `create_time`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UNIQUE idx_mobileno(`mobile_no`),
   PRIMARY KEY (`device_id`)
-) ENGINE=InnoDB COMMENT = '设备表';
+) ENGINE=InnoDB COMMENT '设备表';

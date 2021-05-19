@@ -46,7 +46,7 @@ public class LocationServiceImpl implements LocationService {
         jdbcSQLInsert(list);
     }
 
-    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,latitude,longitude,altitude,speed,direction,map_fence_id,create_time) values ";
+    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,longitude,latitude,altitude,speed,direction,alarm_type,create_time) values ";
     private static final String SQL = SQL_HEAD + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public void jdbcBatchInsert(List<T0200> list) {
@@ -78,8 +78,8 @@ public class LocationServiceImpl implements LocationService {
                 statement.setString(j++, plateNo);
                 statement.setInt(j++, request.getWarningMark());
                 statement.setInt(j++, request.getStatus());
-                statement.setInt(j++, request.getLatitude());
                 statement.setInt(j++, request.getLongitude());
+                statement.setInt(j++, request.getLatitude());
                 statement.setInt(j++, request.getAltitude());
                 statement.setInt(j++, request.getSpeed());
                 statement.setInt(j++, request.getDirection());
@@ -124,8 +124,8 @@ public class LocationServiceImpl implements LocationService {
             builder.append('\'').append(plateNo).append('\'').append(',');
             builder.append(request.getWarningMark()).append(',');
             builder.append(request.getStatus()).append(',');
-            builder.append(request.getLatitude()).append(',');
             builder.append(request.getLongitude()).append(',');
+            builder.append(request.getLatitude()).append(',');
             builder.append(request.getAltitude()).append(',');
             builder.append(request.getSpeed()).append(',');
             builder.append(request.getDirection()).append(',');
