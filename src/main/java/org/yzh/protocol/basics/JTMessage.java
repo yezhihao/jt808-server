@@ -41,6 +41,12 @@ public class JTMessage implements Message<Header> {
         return header.getMessageId();
     }
 
+    public String getMobileNo() {
+        if (header == null)
+            return null;
+        return header.getMobileNo();
+    }
+
     @Transient
     public Session getSession() {
         return session;

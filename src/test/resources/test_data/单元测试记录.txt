@@ -14338,7 +14338,7 @@ json2 {
 }
 
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[28]未识别的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -14368,9 +14368,9 @@ json2 {
     "verified": true
   }
 }
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[44]未注册的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[28]未识别的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -14402,7 +14402,7 @@ json2 {
 }
 
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[28]未识别的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -14432,9 +14432,9 @@ json2 {
     "verified": true
   }
 }
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[44]未注册的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[28]未识别的透传消息：ID[0], HEX[6173647a78637177653132333335]
+[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -17921,8 +17921,8 @@ json2 {
 }
 [main] INFO MultiPacketDecoder   [51]>>>>>>>>>>分包信息[clientId=13224005528, messageId=104, total=2, count=1, retryCount=0, time=0, packets={1, }]
 [main] INFO MultiPacketDecoder   [51]>>>>>>>>>>分包信息[clientId=13224005528, messageId=104, total=2, count=2, retryCount=0, time=0, packets={1,2}]
-[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[26]未识别的终端参数项：ID[2063597568], HEX[0000]
-[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[26]未识别的终端参数项：ID[2080374784], HEX[0000000000000000000000000000000000000000]
+[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[31]未识别的终端参数项:ID[dec:2063597568,hex:7b000000], VALUE[0000]
+[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[31]未识别的终端参数项:ID[dec:2080374784,hex:7c000000], VALUE[0000000000000000000000000000000000000000]
 {
   "serialNo": 420,
   "total": 88,
