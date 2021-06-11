@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 盲点监测
  */
-public class AlarmBSD {
+public class AlarmBSD implements Alarm {
 
     public static final int id = 0x67;
 
@@ -27,6 +27,11 @@ public class AlarmBSD {
     private LocalDateTime dateTime;
     private int status;
     private AlarmId alarmId;
+
+    @Override
+    public int getLevel() {
+        return 0;
+    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {

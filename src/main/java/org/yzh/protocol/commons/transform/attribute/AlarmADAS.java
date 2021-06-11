@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 高级驾驶辅助系统报警
  */
-public class AlarmADAS {
+public class AlarmADAS implements Alarm {
 
     public static final int id = 0x64;
 

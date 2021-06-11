@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 驾驶员状态监测
  */
-public class AlarmDSM {
+public class AlarmDSM implements Alarm {
 
     public static final int id = 0x65;
 

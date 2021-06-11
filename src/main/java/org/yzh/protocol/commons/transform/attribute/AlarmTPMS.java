@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 轮胎气压监测系统
  */
-public class AlarmTPMS {
+public class AlarmTPMS implements Alarm {
 
     public static final int id = 0x66;
 
@@ -29,6 +29,17 @@ public class AlarmTPMS {
     private AlarmId alarmId;
     private int total;
     private List<Item> items;
+
+
+    @Override
+    public int getType() {
+        return id;
+    }
+
+    @Override
+    public int getLevel() {
+        return 0;
+    }
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {
