@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.commons.Bin;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class JTMessageDecoder {
         boolean confirmedVersion = version != null;
         if (!confirmedVersion) {
             //识别2019及后续版本
-            if (Bin.get(properties, 14)) {
+            if (Bit.get(properties, 14)) {
                 version = (int) buf.getUnsignedByte(4);
                 confirmedVersion = true;
                 if (session != null)
@@ -62,7 +62,7 @@ public class JTMessageDecoder {
         }
 
         int headLen;
-        boolean isSubpackage = Bin.get(properties, 13);
+        boolean isSubpackage = Bit.get(properties, 13);
         headLen = JTUtils.headerLength(version, isSubpackage);
 
         Schema<? extends Header> headerSchema = headerSchemaMap.get(version);

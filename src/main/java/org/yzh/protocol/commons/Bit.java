@@ -5,7 +5,7 @@ package org.yzh.protocol.commons;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Bin {
+public class Bit {
 
     private static final int[] bits = new int[32];
 

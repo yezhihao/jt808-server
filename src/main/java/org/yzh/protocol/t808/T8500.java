@@ -4,7 +4,7 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.commons.Bin;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
 
 /**
@@ -24,7 +24,7 @@ public class T8500 extends JTMessage {
     }
 
     public T8500(int... sign) {
-        this.sign = Bin.writeInt(sign);
+        this.sign = Bit.writeInt(sign);
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "控制标志")

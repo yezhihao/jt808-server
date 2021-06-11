@@ -18,8 +18,8 @@ import java.util.Map;
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
-    private int warningMark;
-    private int status;
+    private int warnBit;
+    private int statusBit;
     private int latitude;
     private int longitude;
     private int altitude;
@@ -29,21 +29,21 @@ public class T0200 extends JTMessage {
     private Map<Integer, Object> attributes;
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
-    public int getWarningMark() {
-        return warningMark;
+    public int getWarnBit() {
+        return warnBit;
     }
 
-    public void setWarningMark(int warningMark) {
-        this.warningMark = warningMark;
+    public void setWarnBit(int warnBit) {
+        this.warnBit = warnBit;
     }
 
     @Field(index = 4, type = DataType.DWORD, desc = "状态")
-    public int getStatus() {
-        return status;
+    public int getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatusBit(int statusBit) {
+        this.statusBit = statusBit;
     }
 
     @Field(index = 8, type = DataType.DWORD, desc = "纬度")
@@ -73,7 +73,7 @@ public class T0200 extends JTMessage {
         this.altitude = altitude;
     }
 
-    @Field(index = 18, type = DataType.WORD, desc = "速度")
+    @Field(index = 18, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     public int getSpeed() {
         return speed;
     }

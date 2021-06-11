@@ -71,7 +71,7 @@ public class JT1078Beans {
 
     //终端上传音视频资源列表
     public static T1205 T1205() {
-        byte[] bytes = new byte[8];
+        int[] bytes = new int[2];
         List<T1205.Item> items = new ArrayList<>();
         items.add(new T1205.Item(1, startTime, endTime, bytes, 1, 1, 1, 1024));
         items.add(new T1205.Item(2, startTime, endTime, bytes, 2, 2, 2, 2048));
@@ -155,7 +155,7 @@ public class JT1078Beans {
         bean.setMediaType(20635);
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
-        bean.setWarningMark(new byte[8]);
+        bean.setWarnBit(new int[2]);
         bean.setMemoryType(42752);
         bean.setStreamType(40558);
         return bean;
@@ -172,7 +172,7 @@ public class JT1078Beans {
         bean.setChannelNo(1);
         bean.setStartTime("200707192359");
         bean.setEndTime("200707192359");
-        bean.setWarningMark(new byte[8]);
+        bean.setWarnBit(new int[2]);
         bean.setMediaType(0);
         bean.setMemoryType(1);
         bean.setStreamType(1);

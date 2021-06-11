@@ -30,7 +30,7 @@ public class T9212 extends JTMessage {
         this.name = name;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "文件类型")
+    @Field(index = 1, type = DataType.BYTE, desc = "文件类型 0.图片 1.音频 2.视频 3.文本 4.其它")
     public int getType() {
         return type;
     }

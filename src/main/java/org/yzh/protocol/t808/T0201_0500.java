@@ -20,8 +20,8 @@ import java.util.Map;
 public class T0201_0500 extends JTMessage implements Response {
 
     private int responseSerialNo;
-    private int warningMark;
-    private int status;
+    private int warnBit;
+    private int statusBit;
     private int latitude;
     private int longitude;
     private int altitude;
@@ -40,21 +40,21 @@ public class T0201_0500 extends JTMessage implements Response {
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
-    public int getWarningMark() {
-        return warningMark;
+    public int getWarnBit() {
+        return warnBit;
     }
 
-    public void setWarningMark(int warningMark) {
-        this.warningMark = warningMark;
+    public void setWarnBit(int warnBit) {
+        this.warnBit = warnBit;
     }
 
     @Field(index = 6, type = DataType.DWORD, desc = "状态")
-    public int getStatus() {
-        return status;
+    public int getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatusBit(int statusBit) {
+        this.statusBit = statusBit;
     }
 
     @Field(index = 10, type = DataType.DWORD, desc = "纬度")

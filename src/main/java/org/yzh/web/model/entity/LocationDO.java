@@ -10,8 +10,8 @@ public class LocationDO {
     private String deviceId;
     private String mobileNo;
     private String plateNo;
-    private Integer warningMark;
-    private Integer status;
+    private Integer warnBit;
+    private Integer statusBit;
     private Integer longitude;
     private Integer latitude;
     private Integer altitude;
@@ -46,20 +46,20 @@ public class LocationDO {
         this.plateNo = plateNo;
     }
 
-    public Integer getWarningMark() {
-        return warningMark;
+    public Integer getWarnBit() {
+        return warnBit;
     }
 
-    public void setWarningMark(Integer warningMark) {
-        this.warningMark = warningMark;
+    public void setWarnBit(Integer warnBit) {
+        this.warnBit = warnBit;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatusBit(Integer statusBit) {
+        this.statusBit = statusBit;
     }
 
     public Integer getLongitude() {

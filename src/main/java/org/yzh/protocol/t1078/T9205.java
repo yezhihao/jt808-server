@@ -16,7 +16,7 @@ public class T9205 extends JTMessage {
     private int channelNo;
     private String startTime;
     private String endTime;
-    private byte[] warningMark;
+    private int[] warnBit;
     private int mediaType;
     private int streamType;
     private int memoryType;
@@ -48,13 +48,13 @@ public class T9205 extends JTMessage {
         this.endTime = endTime;
     }
 
-    @Field(index = 13, type = DataType.BYTES, length = 8, desc = "报警标志")
-    public byte[] getWarningMark() {
-        return warningMark;
+    @Field(index = 13, type = DataType.DWORD, length = 8, desc = "报警标志")
+    public int[] getWarnBit() {
+        return warnBit;
     }
 
-    public void setWarningMark(byte[] warningMark) {
-        this.warningMark = warningMark;
+    public void setWarnBit(int[] warnBit) {
+        this.warnBit = warnBit;
     }
 
     @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型（0:音视频,1:音频,2:视频,3:视频或音视频）")

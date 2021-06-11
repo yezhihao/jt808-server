@@ -154,8 +154,8 @@ public class JT808Beans {
     //位置信息汇报
     public static T0200 T0200() {
         T0200 bean = new T0200();
-        bean.setWarningMark(1024);
-        bean.setStatus(2048);
+        bean.setWarnBit(1024);
+        bean.setStatusBit(2048);
         bean.setLatitude(116307629);
         bean.setLongitude(40058359);
         bean.setAltitude(312);
@@ -168,8 +168,8 @@ public class JT808Beans {
     //位置信息汇报
     public static T0200 T0200_() {
         T0200 bean = new T0200();
-        bean.setWarningMark(1024 * 2);
-        bean.setStatus(2048 * 2);
+        bean.setWarnBit(1024 * 2);
+        bean.setStatusBit(2048 * 2);
         bean.setLatitude(116307629 * 2);
         bean.setLongitude(40058359 * 2);
         bean.setAltitude(312 * 2);
@@ -277,8 +277,8 @@ public class JT808Beans {
     public static T0201_0500 T0201_0500() {
         T0201_0500 bean = new T0201_0500();
         bean.setResponseSerialNo(26722);
-        bean.setWarningMark(10842);
-        bean.setStatus(29736);
+        bean.setWarnBit(10842);
+        bean.setStatusBit(29736);
         bean.setLatitude(41957);
         bean.setLongitude(56143);
         bean.setAltitude(48243);

@@ -47,7 +47,7 @@ public class LocationServiceImpl implements LocationService {
         jdbcSQLInsert(list);
     }
 
-    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warning_mark,status,longitude,latitude,altitude,speed,direction,alarm_type,create_time) values ";
+    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warn_bit,status_bit,longitude,latitude,altitude,speed,direction,alarm_type,create_time) values ";
     private static final String SQL = SQL_HEAD + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public void jdbcBatchInsert(List<T0200> list) {
@@ -77,8 +77,8 @@ public class LocationServiceImpl implements LocationService {
                 statement.setString(j++, deviceId);
                 statement.setString(j++, mobileNo);
                 statement.setString(j++, plateNo);
-                statement.setInt(j++, request.getWarningMark());
-                statement.setInt(j++, request.getStatus());
+                statement.setInt(j++, request.getWarnBit());
+                statement.setInt(j++, request.getStatusBit());
                 statement.setInt(j++, request.getLongitude());
                 statement.setInt(j++, request.getLatitude());
                 statement.setInt(j++, request.getAltitude());
@@ -123,8 +123,8 @@ public class LocationServiceImpl implements LocationService {
             builder.append('\'').append(deviceId).append('\'').append(',');
             builder.append('\'').append(mobileNo).append('\'').append(',');
             builder.append('\'').append(plateNo).append('\'').append(',');
-            builder.append(request.getWarningMark()).append(',');
-            builder.append(request.getStatus()).append(',');
+            builder.append(request.getWarnBit()).append(',');
+            builder.append(request.getStatusBit()).append(',');
             builder.append(request.getLongitude()).append(',');
             builder.append(request.getLatitude()).append(',');
             builder.append(request.getAltitude()).append(',');
