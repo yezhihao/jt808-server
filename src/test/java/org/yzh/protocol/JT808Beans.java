@@ -1,11 +1,9 @@
 package org.yzh.protocol;
 
-import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
-import org.yzh.protocol.commons.Bin;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
 import org.yzh.protocol.commons.transform.attribute.*;
@@ -32,9 +30,7 @@ public class JT808Beans {
     /** 2013版消息头 */
     public static JTMessage H2013(JTMessage message) {
         Header header = new Header();
-        Message type = message.getClass().getAnnotation(Message.class);
-        if (type != null)
-            header.setMessageId(type.value()[0]);
+        header.setMessageId(message.reflectMessageId());
         header.setMobileNo("12345678901");
         header.setSerialNo((int) Short.MAX_VALUE);
         header.setEncryption(0);
@@ -46,9 +42,7 @@ public class JT808Beans {
     /** 2019版消息头 */
     public static JTMessage H2019(JTMessage message) {
         Header header = new Header();
-        Message type = message.getClass().getAnnotation(Message.class);
-        if (type != null)
-            header.setMessageId(type.value()[0]);
+        header.setMessageId(message.reflectMessageId());
         header.setVersionNo(1);
         header.setMobileNo("17299841738");
         header.setSerialNo(65535);
@@ -70,15 +64,9 @@ public class JT808Beans {
     //终端通用应答|平台通用应答
     public static T0001 T0001() {
         T0001 bean = new T0001();
-        bean.setSerialNo(123);
-        bean.setReplyId(456);
+        bean.setResponseSerialNo(123);
+        bean.setResponseMessageId(456);
         bean.setResultCode(3);
-        return bean;
-    }
-
-    //终端心跳
-    public static JTMessage T0002() {
-        JTMessage bean = new JTMessage();
         return bean;
     }
 
@@ -113,7 +101,7 @@ public class JT808Beans {
     //查询终端参数应答
     public static T0104 T0104() {
         T0104 bean = new T0104();
-        bean.setSerialNo(104);
+        bean.setResponseSerialNo(104);
         bean.setParameters(parameters());
         return bean;
     }
@@ -288,7 +276,7 @@ public class JT808Beans {
     //位置信息查询应答|车辆控制应答
     public static T0201_0500 T0201_0500() {
         T0201_0500 bean = new T0201_0500();
-        bean.setSerialNo(26722);
+        bean.setResponseSerialNo(26722);
         bean.setWarningMark(10842);
         bean.setStatus(29736);
         bean.setLatitude(41957);
@@ -310,7 +298,7 @@ public class JT808Beans {
     //提问应答
     public static T0302 T0302() {
         T0302 bean = new T0302();
-        bean.setSerialNo(61252);
+        bean.setResponseSerialNo(61252);
         bean.setAnswerId(127);
         return bean;
     }
@@ -388,7 +376,7 @@ public class JT808Beans {
     //存储多媒体数据检索应答
     public static T0802 T0802() {
         T0802 bean = new T0802();
-        bean.setSerialNo(123);
+        bean.setResponseSerialNo(123);
         List<T0802.Item> items = new ArrayList<>();
         items.add(new T0802.Item(1, 1, 1, 1, T0200()));
         items.add(new T0802.Item(2, 1, 1, 1, T0200_()));
@@ -401,7 +389,7 @@ public class JT808Beans {
     //摄像头立即拍摄命令应答
     public static T0805 T0805() {
         T0805 bean = new T0805();
-        bean.setSerialNo(62656);
+        bean.setResponseSerialNo(62656);
         bean.setResult(0);
         bean.setItems(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
@@ -417,7 +405,7 @@ public class JT808Beans {
     //补传分包请求
     public static T8003 T8003() {
         T8003 bean = new T8003();
-        bean.setSerialNo(4249);
+        bean.setResponseSerialNo(4249);
         bean.setItems(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
@@ -425,7 +413,7 @@ public class JT808Beans {
     //终端注册应答
     public static T8100 T8100() {
         T8100 bean = new T8100();
-        bean.setSerialNo(38668);
+        bean.setResponseSerialNo(38668);
         bean.setResultCode(T8100.Success);
         bean.setToken("chwD0SE1fchwD0SE1fchwD0SE1f");
         return bean;
@@ -474,7 +462,7 @@ public class JT808Beans {
     //人工确认报警消息
     public static T8203 T8203() {
         T8203 bean = new T8203();
-        bean.setSerialNo(123);
+        bean.setResponseSerialNo(123);
         bean.setType(40286);
         return bean;
     }
@@ -720,17 +708,12 @@ public class JT808Beans {
 
     //文本信息下发
     public static T8300 T8300_2013() {
-        T8300 bean = new T8300();
-        bean.setSign(Bin.writeInt(1, 1, 1, 1, 1, 1));
-        bean.setContent("测试123@456#abc!...结束");
+        T8300 bean = new T8300("测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
         return bean;
     }
 
     public static T8300 T8300_2019() {
-        T8300 bean = new T8300();
-        bean.setSign(Bin.writeInt(1, 1, 1, 1, 1, 1));
-        bean.setType(1);
-        bean.setContent("测试123@456#abc!...结束");
+        T8300 bean = new T8300(1, "测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
         return bean;
     }
 }

@@ -33,7 +33,7 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
         Channel channel = ctx.channel();
 
         try {
-            Handler handler = handlerMapping.getHandler(request.getMessageType());
+            Handler handler = handlerMapping.getHandler(request.getMessageId());
 
             Message messageResponse = handler.invoke(request);
 

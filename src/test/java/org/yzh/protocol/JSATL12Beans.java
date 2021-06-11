@@ -1,6 +1,5 @@
 package org.yzh.protocol;
 
-import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.jsatl12.*;
@@ -17,9 +16,7 @@ public class JSATL12Beans {
     /** 2013版消息头 */
     public static JTMessage H2013(JTMessage message) {
         Header header = new Header();
-        Message type = message.getClass().getAnnotation(Message.class);
-        if (type != null)
-            header.setMessageId(type.value()[0]);
+        header.setMessageId(message.reflectMessageId());
         header.setMobileNo("12345678901");
         header.setSerialNo((int) Short.MAX_VALUE);
         header.setEncryption(0);
@@ -31,9 +28,7 @@ public class JSATL12Beans {
     /** 2019版消息头 */
     public static JTMessage H2019(JTMessage message) {
         Header header = new Header();
-        Message type = message.getClass().getAnnotation(Message.class);
-        if (type != null)
-            header.setMessageId(type.value()[0]);
+        header.setMessageId(message.reflectMessageId());
         header.setVersionNo(1);
         header.setMobileNo("17299841738");
         header.setSerialNo(65535);

@@ -1,6 +1,7 @@
 package org.yzh.protocol;
 
 import org.junit.jupiter.api.Test;
+import org.yzh.protocol.basics.JTMessage;
 
 import static org.yzh.protocol.BeanTest.selfCheck;
 import static org.yzh.protocol.JT808Beans.*;
@@ -50,8 +51,9 @@ public class JT808BeansTest {
 
     @Test
     public void testT0002() {
-        selfCheck(H2013(T0002()));
-        selfCheck(H2019(T0002()));
+        JTMessage message = new JTMessage();
+        selfCheck(H2013(message));
+        selfCheck(H2019(message));
     }
 
     @Test
