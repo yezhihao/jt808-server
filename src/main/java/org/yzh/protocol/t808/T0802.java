@@ -16,17 +16,17 @@ import java.util.List;
 @Message(JT808.存储多媒体数据检索应答)
 public class T0802 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int total;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")

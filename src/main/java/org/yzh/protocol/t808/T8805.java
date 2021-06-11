@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -20,8 +19,7 @@ public class T8805 extends JTMessage {
     public T8805() {
     }
 
-    public T8805(String clientId, int id, int delete) {
-        super(new Header(clientId, JT808.单条存储多媒体数据检索上传命令));
+    public T8805(int id, int delete) {
         this.id = id;
         this.delete = delete;
     }

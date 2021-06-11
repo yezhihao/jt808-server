@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -19,13 +18,6 @@ public class T8601 extends JTMessage {
 
     private int total;
     private List<Item> items;
-
-    public T8601() {
-    }
-
-    public T8601(Header header) {
-        super(header);
-    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "区域总数")
     public int getTotal() {

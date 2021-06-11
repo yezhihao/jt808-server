@@ -19,7 +19,7 @@ import java.util.Map;
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
 public class T0201_0500 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int warningMark;
     private int status;
     private int latitude;
@@ -31,12 +31,12 @@ public class T0201_0500 extends JTMessage implements Response {
     private Map<Integer, Object> attributes;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "报警标志")

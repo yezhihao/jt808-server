@@ -14,7 +14,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.摄像头立即拍摄命令应答)
 public class T0805 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int result;
     private int total;
     private int[] items;
@@ -23,12 +23,12 @@ public class T0805 extends JTMessage implements Response {
     }
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "结果")

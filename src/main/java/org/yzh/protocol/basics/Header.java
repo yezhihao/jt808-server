@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.MessageId;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class Header implements io.github.yezhihao.netmc.core.model.Header<String, Integer> {
+public class Header {
 
     /** 消息类型 */
     protected int messageId;
@@ -30,20 +30,24 @@ public class Header implements io.github.yezhihao.netmc.core.model.Header<String
     public Header() {
     }
 
-    public Header(int messageId, String mobileNo) {
-        this.messageId = messageId;
+    public Header(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
-    public Header(int messageId, int serialNo, String mobileNo) {
+    public Header(int messageId) {
         this.messageId = messageId;
-        this.serialNo = serialNo;
-        this.mobileNo = mobileNo;
     }
 
     public Header(String mobileNo, int messageId) {
-        this.messageId = messageId;
         this.mobileNo = mobileNo;
+        this.messageId = messageId;
+    }
+
+    public Header copyBy(Header that) {
+        this.setMobileNo(that.getMobileNo());
+        this.setVersionNo(that.getVersionNo());
+        this.setVersion(that.isVersion());
+        return this;
     }
 
     @Field(index = 0, type = DataType.WORD, desc = "消息ID")
@@ -192,16 +196,6 @@ public class Header implements io.github.yezhihao.netmc.core.model.Header<String
 
     public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-
-    @Override
-    public String getClientId() {
-        return mobileNo;
-    }
-
-    @Override
-    public Integer getType() {
-        return messageId;
     }
 
     @Override

@@ -4,7 +4,6 @@ import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -15,43 +14,38 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.人工确认报警消息)
 public class T8203 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int type;
-
 
     public T8203() {
     }
 
-    public T8203(String mobileNo, int serialNo, int type) {
-        super(new Header(mobileNo, JT808.人工确认报警消息));
-        this.serialNo = serialNo;
+    public T8203(int responseSerialNo, int type) {
+        this.responseSerialNo = responseSerialNo;
         this.type = type;
     }
 
-
     @Field(index = 0, type = DataType.WORD, desc = "消息流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
-    /**
-     * [ 0 ]   1：确认紧急报警；
-     * [1-2]   保留
-     * [ 3 ]   1：确认危险预警；
-     * [4-19]  保留
-     * [ 20 ]  1：确认进出区域报警；
-     * [ 21 ]  1：确认进出路线报警；
-     * [ 22 ]  1：确认路段行驶时间不足/过长报警；
-     * [23-26] 保留
-     * [ 27 ]  1：确认车辆非法点火报警；
-     * [ 28 ]  1：确认车辆非法位移报警；
-     * [29-31] 保留
-     */
-    @Field(index = 2, type = DataType.DWORD, desc = "报警类型")
+    @Field(index = 2, type = DataType.DWORD, desc = "报警类型:\n" +
+            "0_确认紧急报警\n" +
+            "1-2_保留\n" +
+            "3_确认危险预警\n" +
+            "4-19_保留\n" +
+            "20_确认进出区域报警\n" +
+            "21_确认进出路线报警\n" +
+            "22_确认路段行驶时间不足/过长报警\n" +
+            "23-26_保留\n" +
+            "27_确认车辆非法点火报警\n" +
+            "28_确认车辆非法位移报警\n" +
+            "29-31_保留")
     public int getType() {
         return type;
     }

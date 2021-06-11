@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -22,13 +21,6 @@ public class T8803 extends JTMessage {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int delete;
-
-    public T8803() {
-    }
-
-    public T8803(String mobileNo) {
-        super(new Header(mobileNo, JT808.存储多媒体数据上传));
-    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "多媒体类型:0.图像；1.音频；2.视频；")
     public int getType() {

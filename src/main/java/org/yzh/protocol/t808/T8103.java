@@ -4,7 +4,6 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Convert;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.ParameterConverter;
@@ -25,8 +24,8 @@ public class T8103 extends JTMessage {
     public T8103() {
     }
 
-    public T8103(String mobileNo) {
-        super(new Header(mobileNo, JT808.设置终端参数));
+    public T8103(Map<Integer, Object> parameters) {
+        this.parameters = parameters;
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")

@@ -4,7 +4,6 @@ import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -15,24 +14,17 @@ import org.yzh.protocol.commons.JT808;
 @Message({JT808.终端补传分包请求, JT808.服务器补传分包请求})
 public class T8003 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int total;
     private byte[] items;
 
-    public T8003() {
-    }
-
-    public T8003(Header header) {
-        super(header);
-    }
-
     @Field(index = 0, type = DataType.WORD, desc = "原始消息流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 4, type = DataType.BYTE, desc = "重传包总数")

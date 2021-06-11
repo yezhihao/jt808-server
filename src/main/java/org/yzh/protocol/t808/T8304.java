@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -21,8 +20,9 @@ public class T8304 extends JTMessage {
     public T8304() {
     }
 
-    public T8304(String mobileNo) {
-        super(new Header(mobileNo, JT808.信息服务));
+    public T8304(int type, String content) {
+        this.type = type;
+        this.content = content;
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "信息类型")

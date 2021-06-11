@@ -11,7 +11,7 @@ import java.beans.Transient;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class JTMessage implements Message<Header> {
+public class JTMessage implements Message {
 
     private transient Session session;
 
@@ -22,8 +22,8 @@ public class JTMessage implements Message<Header> {
     public JTMessage() {
     }
 
-    public JTMessage(Header header) {
-        this.header = header;
+    public JTMessage(String mobileNo, int messageId) {
+        this.header = new Header(mobileNo, messageId);
     }
 
     public void setHeader(Header header) {
@@ -35,16 +35,18 @@ public class JTMessage implements Message<Header> {
     }
 
     @Override
-    public Object getMessageType() {
-        if (header == null)
-            return null;
+    public String getClientId() {
+        return header.getMobileNo();
+    }
+
+    @Override
+    public Integer getMessageId() {
         return header.getMessageId();
     }
 
-    public String getMobileNo() {
-        if (header == null)
-            return null;
-        return header.getMobileNo();
+    @Override
+    public int getSerialNo() {
+        return header.getSerialNo();
     }
 
     @Transient
@@ -62,6 +64,18 @@ public class JTMessage implements Message<Header> {
 
     public void setPayload(byte[] payload) {
         this.payload = payload;
+    }
+
+    private int reflectMessageId = -1;
+
+    public int reflectMessageId() {
+        if (reflectMessageId == -1) {
+            io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
+            if (messageType == null || messageType.value().length <= 0)
+                throw new RuntimeException(this.getClass() + "需要手动指定消息ID");
+            reflectMessageId = messageType.value()[0];
+        }
+        return reflectMessageId;
     }
 
     @Override

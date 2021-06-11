@@ -19,17 +19,17 @@ import java.util.TreeMap;
 @Message(JT808.查询终端参数应答)
 public class T0104 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int total;
     private Map<Integer, Object> parameters;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")

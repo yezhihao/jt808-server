@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -20,8 +19,7 @@ public class T8105 extends JTMessage {
     public T8105() {
     }
 
-    public T8105(String mobileNo, int command, String parameter) {
-        super(new Header(mobileNo, JT808.终端控制));
+    public T8105(int command, String parameter) {
         this.command = command;
         this.parameter = parameter;
     }

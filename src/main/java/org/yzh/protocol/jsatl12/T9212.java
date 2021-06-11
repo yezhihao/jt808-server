@@ -3,7 +3,6 @@ package org.yzh.protocol.jsatl12;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
@@ -21,13 +20,6 @@ public class T9212 extends JTMessage {
     private int result;
     private int total;
     private List<DataInfo> items;
-
-    public T9212() {
-    }
-
-    public T9212(int serialNo, String mobileNo) {
-        super(new Header(JSATL12.文件上传完成消息应答, serialNo, mobileNo));
-    }
 
     @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
     public String getName() {

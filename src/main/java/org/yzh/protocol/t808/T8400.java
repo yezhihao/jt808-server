@@ -3,7 +3,6 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -25,8 +24,7 @@ public class T8400 extends JTMessage {
     public T8400() {
     }
 
-    public T8400(String clientId, int type, String mobileNo) {
-        super(new Header(clientId, JT808.电话回拨));
+    public T8400(int type, String mobileNo) {
         this.type = type;
         this.mobileNo = mobileNo;
     }

@@ -14,17 +14,17 @@ import java.util.List;
 @Message(JT1078.终端上传音视频资源列表)
 public class T1205 extends JTMessage implements Response {
 
-    private int serialNo;
+    private int responseSerialNo;
     private int count;
     private List<Item> items;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
-    public int getSerialNo() {
-        return serialNo;
+    public int getResponseSerialNo() {
+        return responseSerialNo;
     }
 
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
     }
 
     @Field(index = 2, type = DataType.DWORD, desc = "音视频资源总数")
