@@ -1,6 +1,5 @@
 package org.yzh.web.endpoint;
 
-import io.github.yezhihao.netmc.session.MessageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.codec.MultiPacket;
@@ -25,8 +24,9 @@ public class JTMultiPacketListener extends MultiPacketListener {
         if (retryCount > 5)
             return false;
 
-        T8003 request = new T8003(new Header(JT808.服务器补传分包请求, multiPacket.getClientId()));
-        request.setSerialNo(multiPacket.getSerialNo());
+        T8003 request = new T8003();
+        request.setHeader(new Header(JT808.服务器补传分包请求).copyBy(multiPacket.getHeader()));
+        request.setResponseSerialNo(multiPacket.getSerialNo());
         List<Integer> notArrived = multiPacket.getNotArrived();
         byte[] items = new byte[notArrived.size()];
         for (int i = 0; i < items.length; i++) {

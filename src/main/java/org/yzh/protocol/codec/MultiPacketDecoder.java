@@ -42,7 +42,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
         MultiPacket multiPacket = multiPacketsMap.get(key);
         if (multiPacket == null)
-            multiPacketsMap.put(key, multiPacket = new MultiPacket(messageId, clientId, packageTotal));
+            multiPacketsMap.put(key, multiPacket = new MultiPacket(header));
         if (packetNo == 1)
             multiPacket.setSerialNo(header.getSerialNo());
 
