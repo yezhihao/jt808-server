@@ -20,8 +20,7 @@ public class T8800 extends JTMessage {
     public T8800() {
     }
 
-    /** >0，如收到全部数据包则没有后续字段 */
-    @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID")
+    @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID(大于0) 如收到全部数据包则没有后续字段")
     public int getMediaId() {
         return mediaId;
     }

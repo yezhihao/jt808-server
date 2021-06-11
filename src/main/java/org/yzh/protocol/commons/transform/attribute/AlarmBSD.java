@@ -42,15 +42,8 @@ public class AlarmBSD implements Alarm {
         this.serialNo = serialNo;
     }
 
-    /**
-     * 0x00:不可用
-     * 0x01:开始标志
-     * 0x02:结束标志
-     * 该字段仅适用于有开始和结束标志类型的报警或事件,
-     * 报警类型或事件类型无开始和结束标志，则该位不可
-     * 用，填入0x00即可。
-     */
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
+    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
+    @Field(index = 4, type = DataType.BYTE, desc = "标志状态: 0.不可用 1.开始标志 2.结束标志")
     public int getState() {
         return state;
     }
@@ -59,12 +52,10 @@ public class AlarmBSD implements Alarm {
         this.state = state;
     }
 
-    /**
-     * 0x01:后方接近报警
-     * 0x02:左侧后方接近报警
-     * 0x03:右侧后方接近报警
-     */
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型")
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
+            "0x01:后方接近报警\n" +
+            "0x02:左侧后方接近报警\n" +
+            "0x03:右侧后方接近报警")
     public int getType() {
         return type;
     }

@@ -40,15 +40,8 @@ public class AlarmDSM implements Alarm {
         this.serialNo = serialNo;
     }
 
-    /**
-     * 0x00:不可用
-     * 0x01:开始标志
-     * 0x02:结束标志
-     * 该字段仅适用于有开始和结束标志类型的报警或事件,
-     * 报警类型或事件类型无开始和结束标志，则该位不可
-     * 用，填入0x00即可。
-     */
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
+    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
+    @Field(index = 4, type = DataType.BYTE, desc = "标志状态: 0.不可用 1.开始标志 2.结束标志")
     public int getState() {
         return state;
     }
@@ -57,18 +50,16 @@ public class AlarmDSM implements Alarm {
         this.state = state;
     }
 
-    /**
-     * 0x01:疲劳驾驶报警
-     * 0x02:接打电话报警
-     * 0x03:抽烟报警
-     * 0x04:分神驾驶报警
-     * 0x05:驾驶员异常报警
-     * 0x06~0xOF:用户自定义
-     * 0x10:自动抓拍事件
-     * 0x11:驾驶员变更事件
-     * 0x12~0x1F:用户自定义
-     */
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型")
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
+            "0x01:疲劳驾驶报警\n" +
+            "0x02:接打电话报警\n" +
+            "0x03:抽烟报警\n" +
+            "0x04:分神驾驶报警\n" +
+            "0x05:驾驶员异常报警\n" +
+            "0x06~0x0F:用户自定义\n" +
+            "0x10:自动抓拍事件\n" +
+            "0x11:驾驶员变更事件\n" +
+            "0x12~0x1F:用户自定义")
     public int getType() {
         return type;
     }

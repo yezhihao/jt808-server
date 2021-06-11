@@ -136,7 +136,7 @@ public class T8600 extends JTMessage {
             this.radius = radius;
         }
 
-        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间（yyMMddHHmmss）")
+        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
         public String getStartTime() {
             return startTime;
         }
@@ -145,7 +145,7 @@ public class T8600 extends JTMessage {
             this.startTime = startTime;
         }
 
-        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间（yyMMddHHmmss）")
+        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
         public String getEndTime() {
             return endTime;
         }

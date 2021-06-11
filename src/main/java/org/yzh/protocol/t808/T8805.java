@@ -33,7 +33,7 @@ public class T8805 extends JTMessage {
         this.id = id;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "删除标志:0.保留；1.删除；")
+    @Field(index = 4, type = DataType.BYTE, desc = "删除标志: 0.保留 1.删除 ")
     public int getDelete() {
         return delete;
     }

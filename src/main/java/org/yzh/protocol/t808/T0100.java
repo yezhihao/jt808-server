@@ -52,7 +52,7 @@ public class T0100 extends JTMessage {
         this.makerId = makerId;
     }
 
-    /** 由制造商自行定义,,位数不足时，后补"0x00" */
+    /** 由制造商自行定义,位数不足时,后补"0x00" */
     @Field(index = 9, type = DataType.BYTES, length = 8, desc = "终端型号", version = -1)
     @Field(index = 9, type = DataType.BYTES, length = 20, desc = "终端型号", version = 0)
     @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号", version = 1)
@@ -76,10 +76,10 @@ public class T0100 extends JTMessage {
         this.deviceId = deviceId;
     }
 
-    /** 按照JT/T415-2006的5.4.12（0:未上车牌,1:蓝色,2:黄色,3:黑色,4:白色,9:其他） */
-    @Field(index = 21, type = DataType.BYTE, desc = "车牌颜色", version = -1)
-    @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色", version = 0)
-    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色", version = 1)
+    /** 按照JT/T415-2006的5.4.12 */
+    @Field(index = 21, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = -1)
+    @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 0)
+    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 1)
     public int getPlateColor() {
         return plateColor;
     }
@@ -88,7 +88,7 @@ public class T0100 extends JTMessage {
         this.plateColor = licensePlate;
     }
 
-    /** 车牌颜色为0时,表示车辆VIN；否则,表示公安交通管理部门颁发的机动车号牌 */
+    /** 车牌颜色为0时,表示车辆VIN 否则,表示公安交通管理部门颁发的机动车号牌 */
     @Field(index = 25, type = DataType.STRING, desc = "车辆标识", version = -1)
     @Field(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0)
     @Field(index = 76, type = DataType.STRING, desc = "车辆标识", version = 1)

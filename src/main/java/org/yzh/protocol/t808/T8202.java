@@ -24,7 +24,7 @@ public class T8202 extends JTMessage {
         this.validityPeriod = validityPeriod;
     }
 
-    @Field(index = 0, type = DataType.WORD, desc = "时间间隔（秒）")
+    @Field(index = 0, type = DataType.WORD, desc = "时间间隔(秒)")
     public int getInterval() {
         return interval;
     }
@@ -33,7 +33,7 @@ public class T8202 extends JTMessage {
         this.interval = interval;
     }
 
-    @Field(index = 2, type = DataType.DWORD, desc = "有效期（秒）")
+    @Field(index = 2, type = DataType.DWORD, desc = "有效期(秒)")
     public int getValidityPeriod() {
         return validityPeriod;
     }

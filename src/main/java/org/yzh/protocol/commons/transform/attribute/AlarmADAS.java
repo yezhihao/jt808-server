@@ -43,15 +43,8 @@ public class AlarmADAS implements Alarm {
         this.serialNo = serialNo;
     }
 
-    /**
-     * 0x00:不可用
-     * 0x01:开始标志
-     * 0x02:结束标志
-     * 该字段仅适用于有开始和结束标志类型的报警或事件,
-     * 报警类型或事件类型无开始和结束标志，则该位不可
-     * 用，填入0x00即可。
-     */
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
+    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
+    @Field(index = 4, type = DataType.BYTE, desc = "标志状态: 0.不可用 1.开始标志 2.结束标志")
     public int getState() {
         return state;
     }
@@ -60,20 +53,18 @@ public class AlarmADAS implements Alarm {
         this.state = state;
     }
 
-    /**
-     * 0x01:前向碰撞报警
-     * 0x02:车道偏离报警
-     * 0x03:车距过近报警
-     * 0x04:行人碰撞报警
-     * 0x05:频繁变道报警
-     * 0x06:道路标识超限报警
-     * 0x07:障碍物报警
-     * 0x08^0x0F:用户自定义
-     * 0x10:道路标志识别事件
-     * 0x11:主动抓拍事件
-     * 0x12~0x1F:用户自定义
-     */
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型")
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
+            "0x01:前向碰撞报警\n" +
+            "0x02:车道偏离报警\n" +
+            "0x03:车距过近报警\n" +
+            "0x04:行人碰撞报警\n" +
+            "0x05:频繁变道报警\n" +
+            "0x06:道路标识超限报警\n" +
+            "0x07:障碍物报警\n" +
+            "0x08^0x0F:用户自定义\n" +
+            "0x10:道路标志识别事件\n" +
+            "0x11:主动抓拍事件\n" +
+            "0x12~0x1F:用户自定义")
     public int getType() {
         return type;
     }
@@ -91,7 +82,7 @@ public class AlarmADAS implements Alarm {
         this.level = level;
     }
 
-    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250，仅报警类型为1和2时有效。")
+    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250,仅报警类型为1和2时有效")
     public int getFrontSpeed() {
         return frontSpeed;
     }
@@ -100,7 +91,7 @@ public class AlarmADAS implements Alarm {
         this.frontSpeed = frontSpeed;
     }
 
-    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms)，范围0^100，仅报警类型为1、2和4时有效。")
+    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms),范围0^100,仅报警类型为1、2和4时有效")
     public int getFrontDistance() {
         return frontDistance;
     }
@@ -109,7 +100,7 @@ public class AlarmADAS implements Alarm {
         this.frontDistance = frontDistance;
     }
 
-    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型:1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
+    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型: 1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
     public int getDeviateType() {
         return deviateType;
     }
@@ -118,7 +109,7 @@ public class AlarmADAS implements Alarm {
         this.deviateType = deviateType;
     }
 
-    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型:1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
+    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型: 1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
     public int getRoadSign() {
         return roadSign;
     }

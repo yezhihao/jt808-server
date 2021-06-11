@@ -28,7 +28,7 @@ public class T0704 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "位置数据类型 0：正常位置批量汇报，1：盲区补报")
+    @Field(index = 2, type = DataType.BYTE, desc = "位置数据类型: 0.正常位置批量汇报 1.盲区补报")
     public int getType() {
         return type;
     }

@@ -41,7 +41,7 @@ public class T1003 extends JTMessage {
         this.audioChannels = audioChannels;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "输人音频采样率（0: 8kHz; 1: 22.05kHz; 2: 44.1kHz; 3: 48kHz）")
+    @Field(index = 2, type = DataType.BYTE, desc = "输人音频采样率: 0: 8kHz 1: 22.05kHz 2: 44.1kHz 3: 48kHz")
     public int getAudioSamplingRate() {
         return audioSamplingRate;
     }
@@ -50,7 +50,7 @@ public class T1003 extends JTMessage {
         this.audioSamplingRate = audioSamplingRate;
     }
 
-    @Field(index = 3, type = DataType.BYTE, desc = "输人音频采样位数（0: 8位; 1: 16位; 2: 32位）")
+    @Field(index = 3, type = DataType.BYTE, desc = "输人音频采样位数: 0: 8位 1: 16位 2: 32位")
     public int getAudioBitDepth() {
         return audioBitDepth;
     }

@@ -23,7 +23,7 @@ public class FileServiceImpl implements FileService {
         StringBuilder sb = new StringBuilder(32);
         sb.append(root);
         sb.append(alarmId.getDeviceId()).append("/");
-        sb.append(alarmId.getDateTime()).append("_").append(alarmId.getOrder()).append("/");
+        sb.append(alarmId.getDateTime()).append("_").append(alarmId.getSerialNo()).append("/");
         File result = new File(sb.toString());
         return result;
     }

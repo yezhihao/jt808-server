@@ -45,7 +45,7 @@ public class JT808Controller {
 
     @Operation(summary = "8104 8106 查询终端参数")
     @GetMapping("settings")
-    public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "参数ID列表，为空查询全部，多个以逗号[,]分隔") @RequestParam(required = false) String id) {
+    public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "参数ID列表,为空查询全部,多个以逗号[,]分隔") @RequestParam(required = false) String id) {
         JTMessage request;
         if (id != null) {
             request = new T8106(StrUtils.toBytes(id, ","));
@@ -84,8 +84,8 @@ public class JT808Controller {
     @Operation(summary = "8202 临时位置跟踪控制")
     @PostMapping("track")
     public T0001 track(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                       @Parameter(description = "时间间隔（秒）") @RequestParam int interval,
-                       @Parameter(description = "有效期（秒）") @RequestParam int validityPeriod) {
+                       @Parameter(description = "时间间隔(秒)") @RequestParam int interval,
+                       @Parameter(description = "有效期(秒)") @RequestParam int validityPeriod) {
         T8202 request = new T8202(interval, validityPeriod);
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
@@ -106,7 +106,7 @@ public class JT808Controller {
     @PostMapping("text")
     public T0001 sendText(@Parameter(description = "终端手机号") @RequestParam String clientId,
                           @Parameter(description = "标志") @RequestParam int[] sign,
-                          @Parameter(description = "类型 1.通知 2.服务") @RequestParam int type,
+                          @Parameter(description = "类型: 1.通知 2.服务") @RequestParam int type,
                           @Parameter(description = "文本信息") @RequestParam String content) {
         T8300 request = new T8300(type, content, sign);
         request.setHeader(new Header(clientId));
@@ -151,7 +151,7 @@ public class JT808Controller {
     @Operation(summary = "8400 电话回拨")
     @PostMapping("call_phone")
     public T0001 callPhone(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                           @Parameter(description = "类型（0.通话 1.监听）") @RequestParam int type, @Parameter(description = "电话号码") @RequestParam String mobileNo) {
+                           @Parameter(description = "类型: 0.通话 1.监听") @RequestParam int type, @Parameter(description = "电话号码") @RequestParam String mobileNo) {
         T8400 request = new T8400(type, mobileNo);
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
@@ -278,11 +278,11 @@ public class JT808Controller {
     @Operation(summary = "8802 存储多媒体数据检索")
     @GetMapping("media_data/search")
     public T0802 mediaDataQuery(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                @Parameter(description = "多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
+                                @Parameter(description = "多媒体类型: 0.图像 1.音频 2.视频 ") @RequestParam Integer type,
                                 @Parameter(description = "通道ID") @RequestParam Integer channelId,
-                                @Parameter(description = "事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                @Parameter(description = "开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
-                                @Parameter(description = "结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime) {
+                                @Parameter(description = "事件项编码: 0.平台下发指令 1.定时动作 2.抢劫报警触发 3.碰撞侧翻报警触发 其他保留") @RequestParam Integer event,
+                                @Parameter(description = "开始时间") @RequestParam LocalDateTime startTime,
+                                @Parameter(description = "结束时间") @RequestParam LocalDateTime endTime) {
         T8802 request = new T8802();
         request.setHeader(new Header(clientId));
         request.setType(type);
@@ -297,12 +297,12 @@ public class JT808Controller {
     @Operation(summary = "8803 存储多媒体数据上传")
     @GetMapping("media_data/report")
     public T0001 mediaDataReportRequest(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                        @Parameter(description = "多媒体类型:0.图像；1.音频；2.视频；") @RequestParam Integer type,
+                                        @Parameter(description = "多媒体类型: 0.图像 1.音频 2.视频 ") @RequestParam Integer type,
                                         @Parameter(description = "通道ID") @RequestParam Integer channelId,
-                                        @Parameter(description = "事件项编码:0.平台下发指令；1.定时动作；2.抢劫报警触发；3.碰撞侧翻报警触发；其他保留") @RequestParam Integer event,
-                                        @Parameter(description = "开始时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime startTime,
-                                        @Parameter(description = "结束时间（yyyy-MM-dd HH:mm:ss）") @RequestParam LocalDateTime endTime,
-                                        @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
+                                        @Parameter(description = "事件项编码: 0.平台下发指令 1.定时动作 2.抢劫报警触发 3.碰撞侧翻报警触发 其他保留") @RequestParam Integer event,
+                                        @Parameter(description = "开始时间") @RequestParam LocalDateTime startTime,
+                                        @Parameter(description = "结束时间") @RequestParam LocalDateTime endTime,
+                                        @Parameter(description = "删除标志: 0.保留 1.删除 ") @RequestParam int delete) {
         T8803 request = new T8803();
         request.setHeader(new Header(clientId));
         request.setType(type);
@@ -318,10 +318,10 @@ public class JT808Controller {
     @Operation(summary = "8804 录音开始命令")
     @PostMapping("sound_record")
     public T0001 soundRecord(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                             @Parameter(description = "0：停止录音；1：开始录音") @RequestParam Integer command,
-                             @Parameter(description = "单位为秒（s），0 表示一直录音") @RequestParam Integer time,
-                             @Parameter(description = "0：实时上传；1：保存") @RequestParam Integer saveSign,
-                             @Parameter(description = "0：8K；1：11K；2：23K；3：32K；") @RequestParam Integer audioSamplingRate) {
+                             @Parameter(description = "录音命令: 0.停止录音 1.开始录音") @RequestParam Integer command,
+                             @Parameter(description = "录音时间(秒) 0.表示一直录音") @RequestParam Integer time,
+                             @Parameter(description = "保存标志: 0.实时上传 1.保存") @RequestParam Integer saveSign,
+                             @Parameter(description = "音频采样率: 0: 8K 1: 11K 2: 23K 3: 32K 其他保留") @RequestParam Integer audioSamplingRate) {
         T8804 request = new T8804();
         request.setHeader(new Header(clientId));
         request.setCommand(command);
@@ -335,7 +335,8 @@ public class JT808Controller {
     @Operation(summary = "8805 单条存储多媒体数据检索上传命令")
     @PostMapping("media_data/command")
     public T0001 mediaDataCommand(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                  @Parameter(description = "多媒体ID") @RequestParam long id, @Parameter(description = "删除标志:0.保留；1.删除；") @RequestParam int delete) {
+                                  @Parameter(description = "多媒体ID") @RequestParam long id,
+                                  @Parameter(description = "删除标志: 0.保留 1.删除") @RequestParam int delete) {
         T8805 request = new T8805((int) id, delete);
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
@@ -359,7 +360,7 @@ public class JT808Controller {
 
     @Operation(summary = "8900 数据下行透传")
     @PostMapping("passthrough")
-    public T0001 passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T0900 request) {
+    public T0001 passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8900 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
@@ -368,7 +369,8 @@ public class JT808Controller {
     @Operation(summary = "8A00 平台RSA公钥")
     @PostMapping("rsa_swap")
     public T0A00_8A00 rsaSwap(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                              @Parameter(description = "e") @RequestParam int e, @Parameter(description = "n（BASE64编码）") @RequestParam String n) {
+                              @Parameter(description = "e") @RequestParam int e,
+                              @Parameter(description = "n(BASE64编码)") @RequestParam String n) {
         byte[] src = Base64.getDecoder().decode(n);
         if (src.length == 129) {
             byte[] dest = new byte[128];

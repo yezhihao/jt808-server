@@ -41,7 +41,7 @@ public class T0107 extends JTMessage {
         this.makerId = makerId;
     }
 
-    /** 由制造商自行定义,位数不足时，后补"0x00" */
+    /** 由制造商自行定义,位数不足时,后补"0x00" */
     @Field(index = 7, type = DataType.STRING, length = 20, desc = "终端型号", version = 0)
     @Field(index = 7, type = DataType.STRING, length = 30, desc = "终端型号", version = 1)
     public String getDeviceModel() {
@@ -52,7 +52,7 @@ public class T0107 extends JTMessage {
         this.deviceModel = deviceModel;
     }
 
-    /** 由大写字母和数字组成,此终端ID由制造商自行定义,位数不足时，后补"0x00" */
+    /** 由大写字母和数字组成,此终端ID由制造商自行定义,位数不足时,后补"0x00" */
     @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID", version = 0)
     @Field(index = 37, type = DataType.STRING, length = 30, desc = "终端ID", version = 1)
     public String getDeviceId() {

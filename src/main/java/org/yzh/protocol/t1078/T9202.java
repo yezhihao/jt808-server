@@ -27,7 +27,14 @@ public class T9202 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "回放控制（0:开始回放;\n1:暂停回放;\2:结束回放;\n3:快进回放;\4:关键帧快退回放;\n5:拖动回放;\n6:关键帧播放）")
+    @Field(index = 1, type = DataType.BYTE, desc = "回放控制:\n" +
+            "0.开始回放\n" +
+            "1.暂停回放\n" +
+            "2.结束回放\n" +
+            "3.快进回放\n" +
+            "4.关键帧快退回放\n" +
+            "5.拖动回放\n" +
+            "6.关键帧播放")
     public int getPlaybackMode() {
         return playbackMode;
     }
@@ -36,7 +43,14 @@ public class T9202 extends JTMessage {
         this.playbackMode = playbackMode;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "快进或快退倍数（回放控制为3和4时，此字段内容有效，否则置0。\n0:无效;\n1:1倍;\n2:2倍;\n3:4倍;\n4:8倍;\n5:16倍）")
+    @Field(index = 2, type = DataType.BYTE, desc = "快进或快退倍数:\n" +
+            "0.无效\n" +
+            "1.1倍\n" +
+            "2.2倍\n" +
+            "3.4倍\n" +
+            "4.8倍\n" +
+            "5.16倍\n" +
+            "(回放控制为3和4时,此字段内容有效,否则置0)")
     public int getPlaybackSpeed() {
         return playbackSpeed;
     }
@@ -45,7 +59,7 @@ public class T9202 extends JTMessage {
         this.playbackSpeed = playbackSpeed;
     }
 
-    @Field(index = 3, type = DataType.BCD8421, length = 6, desc = "拖动回放位置（yyMMddHHmmss,回放控制为5时，此字段有效）")
+    @Field(index = 3, type = DataType.BCD8421, length = 6, desc = "拖动回放位置(YYMMDDHHMMSS,回放控制为5时,此字段有效)")
     public String getPlaybackTime() {
         return playbackTime;
     }

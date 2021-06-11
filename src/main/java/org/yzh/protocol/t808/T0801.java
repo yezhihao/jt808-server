@@ -30,7 +30,7 @@ public class T0801 extends JTMessage {
         this.id = id;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型 0：图像；1：音频；2：视频；")
+    @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型: 0.图像 1.音频 2.视频 ")
     public int getType() {
         return type;
     }
@@ -39,7 +39,7 @@ public class T0801 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "多媒体格式编码 0：JPEG；1：TIF；2：MP3；3：WAV；4：WMV；")
+    @Field(index = 5, type = DataType.BYTE, desc = "多媒体格式编码: 0.JPEG 1.TIF 2.MP3 3.WAV 4.WMV ")
     public int getFormat() {
         return format;
     }

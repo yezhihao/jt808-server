@@ -14,15 +14,15 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.终端注册应答)
 public class T8100 extends JTMessage implements Response {
 
-    /** 0：成功 */
+    /** 0.成功 */
     public static final int Success = 0;
-    /** 1：车辆已被注册 */
+    /** 1.车辆已被注册 */
     public static final int AlreadyRegisteredVehicle = 1;
-    /** 2：数据库中无该车辆 */
+    /** 2.数据库中无该车辆 */
     public static final int NotFoundVehicle = 2;
-    /** 3：终端已被注册 */
+    /** 3.终端已被注册 */
     public static final int AlreadyRegisteredTerminal = 3;
-    /** 4：数据库中无该终端 */
+    /** 4.数据库中无该终端 */
     public static final int NotFoundTerminal = 4;
 
     private int responseSerialNo;
@@ -39,8 +39,7 @@ public class T8100 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    /** 0-4 */
-    @Field(index = 2, type = DataType.BYTE, desc = "结果")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
     public int getResultCode() {
         return resultCode;
     }

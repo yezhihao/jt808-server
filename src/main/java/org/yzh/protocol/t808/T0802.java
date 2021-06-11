@@ -76,7 +76,7 @@ public class T0802 extends JTMessage implements Response {
             this.id = id;
         }
 
-        @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型 0：图像；1：音频；2：视频")
+        @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型: 0.图像 1.音频 2.视频")
         public int getType() {
             return type;
         }

@@ -45,12 +45,7 @@ public class T8804 extends JTMessage {
         this.save = save;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "音频采样率:\n" +
-            "0: 8K\n" +
-            "1: 11K\n" +
-            "2: 23K\n" +
-            "3: 32K\n" +
-            "其他保留")
+    @Field(index = 4, type = DataType.BYTE, desc = "音频采样率: 0: 8K 1: 11K 2: 23K 3: 32K 其他保留")
     public int getAudioSamplingRate() {
         return audioSamplingRate;
     }

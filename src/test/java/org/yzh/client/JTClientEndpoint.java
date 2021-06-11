@@ -251,8 +251,8 @@ public class JTClientEndpoint {
         return result;
     }
 
-    @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public T0001 数据下行透传(T0900 message) {
+    @Mapping(types = 数据下行透传, desc = "数据下行透传")
+    public T0001 数据下行透传(T8900 message) {
         T0001 result = buildResult(message.getHeader(), T0001.Success);
         return result;
     }

@@ -30,7 +30,7 @@ public class T9205 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间（yyMMddHHmmss,全0表示无起始时间）")
+    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间(YYMMDDHHMMSS,全0表示无起始时间)")
     public String getStartTime() {
         return startTime;
     }
@@ -39,7 +39,7 @@ public class T9205 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间（yyMMddHHmmss,全0表示无终止时间）")
+    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS,全0表示无终止时间)")
     public String getEndTime() {
         return endTime;
     }
@@ -57,7 +57,7 @@ public class T9205 extends JTMessage {
         this.warnBit = warnBit;
     }
 
-    @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型（0:音视频,1:音频,2:视频,3:视频或音视频）")
+    @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型: 0.音视频 1.音频 2.视频 3.视频或音视频")
     public int getMediaType() {
         return mediaType;
     }
@@ -66,7 +66,7 @@ public class T9205 extends JTMessage {
         this.mediaType = mediaType;
     }
 
-    @Field(index = 22, type = DataType.BYTE, desc = "码流类型（0:所有码流,1:主码流,2:子码流）")
+    @Field(index = 22, type = DataType.BYTE, desc = "码流类型: 0.所有码流 1.主码流 2.子码流")
     public int getStreamType() {
         return streamType;
     }
@@ -75,7 +75,7 @@ public class T9205 extends JTMessage {
         this.streamType = streamType;
     }
 
-    @Field(index = 23, type = DataType.BYTE, desc = "存储器类型（0:所有存储器,1:主存储器,2:灾备存储器）")
+    @Field(index = 23, type = DataType.BYTE, desc = "存储器类型: 0.所有存储器 1.主存储器 2.灾备存储器")
     public int getMemoryType() {
         return memoryType;
     }

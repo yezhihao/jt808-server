@@ -5,8 +5,8 @@ json1 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 3,
+    "serialNo": 1,
+    "fileTotal": 3,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -27,8 +27,8 @@ json2 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 3,
+    "serialNo": 1,
+    "fileTotal": 3,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -49,8 +49,8 @@ json1 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 3,
+    "serialNo": 1,
+    "fileTotal": 3,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -71,8 +71,8 @@ json2 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 3,
+    "serialNo": 1,
+    "fileTotal": 3,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -151,8 +151,8 @@ json1 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 1,
+    "serialNo": 1,
+    "fileTotal": 1,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -191,8 +191,8 @@ json2 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 1,
+    "serialNo": 1,
+    "fileTotal": 1,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -231,8 +231,8 @@ json1 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 1,
+    "serialNo": 1,
+    "fileTotal": 1,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -271,8 +271,8 @@ json2 {
   "alarmId": {
     "deviceId": "qwe123",
     "dateTime": "200827111111",
-    "order": 1,
-    "total": 1,
+    "serialNo": 1,
+    "fileTotal": 1,
     "reserved": 1
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
@@ -7561,7 +7561,7 @@ json2 {
     "verified": true
   }
 }
-hex1 7e890000ad0123456789017ffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33fb7e
+hex1 7e090000ad0123456789017ffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f337b7e
 json1 {
   "message": {
     "id": 248,
@@ -7598,7 +7598,7 @@ json1 {
     }
   },
   "header": {
-    "messageId": 35072,
+    "messageId": 2304,
     "properties": 173,
     "versionNo": 0,
     "mobileNo": "12345678901",
@@ -7606,7 +7606,7 @@ json1 {
     "verified": true
   }
 }
-hex2 7e890000ad0123456789017ffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33fb7e
+hex2 7e090000ad0123456789017ffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f337b7e
 json2 {
   "message": {
     "id": 248,
@@ -7643,7 +7643,7 @@ json2 {
     }
   },
   "header": {
-    "messageId": 35072,
+    "messageId": 2304,
     "properties": 173,
     "versionNo": 0,
     "mobileNo": "12345678901",
@@ -7651,7 +7651,7 @@ json2 {
     "verified": true
   }
 }
-hex1 7e890040ad0100000000017299841738fffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33f37e
+hex1 7e090040ad0100000000017299841738fffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33737e
 json1 {
   "message": {
     "id": 248,
@@ -7688,7 +7688,7 @@ json1 {
     }
   },
   "header": {
-    "messageId": 35072,
+    "messageId": 2304,
     "properties": 16557,
     "versionNo": 1,
     "mobileNo": "17299841738",
@@ -7696,7 +7696,7 @@ json1 {
     "verified": true
   }
 }
-hex2 7e890040ad0100000000017299841738fffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33f37e
+hex2 7e090040ad0100000000017299841738fffff803013709b2e2cad4b9abcbbe3108544553542d30303105312e312e3005312e312e310b6465766963655f69645f310b757365725f636f64655f31023709b2e2cad4b9abcbbe3208544553542d30303205312e322e3005312e312e320b6465766963655f69645f320b757365725f636f64655f32033709b2e2cad4b9abcbbe3308544553542d30303305312e332e3005312e312e330b6465766963655f69645f330b757365725f636f64655f33737e
 json2 {
   "message": {
     "id": 248,
@@ -7733,7 +7733,7 @@ json2 {
     }
   },
   "header": {
-    "messageId": 35072,
+    "messageId": 2304,
     "properties": 16557,
     "versionNo": 1,
     "mobileNo": "17299841738",
@@ -7771,8 +7771,8 @@ json1 {
       "alarmId": {
         "deviceId": "adas",
         "dateTime": "200827111111",
-        "order": 1,
-        "total": 1,
+        "serialNo": 1,
+        "fileTotal": 1,
         "reserved": 1
       }
     },
@@ -7792,8 +7792,8 @@ json1 {
       "alarmId": {
         "deviceId": "dsm",
         "dateTime": "200827111111",
-        "order": 2,
-        "total": 2,
+        "serialNo": 2,
+        "fileTotal": 2,
         "reserved": 2
       }
     },
@@ -7809,8 +7809,8 @@ json1 {
       "alarmId": {
         "deviceId": "tpms",
         "dateTime": "200827111111",
-        "order": 3,
-        "total": 3,
+        "serialNo": 3,
+        "fileTotal": 3,
         "reserved": 3
       },
       "total": 0
@@ -7828,8 +7828,8 @@ json1 {
       "alarmId": {
         "deviceId": "bsd",
         "dateTime": "200827111111",
-        "order": 4,
-        "total": 4,
+        "serialNo": 4,
+        "fileTotal": 4,
         "reserved": 4
       }
     }
@@ -7873,8 +7873,8 @@ json2 {
       "alarmId": {
         "deviceId": "adas",
         "dateTime": "200827111111",
-        "order": 1,
-        "total": 1,
+        "serialNo": 1,
+        "fileTotal": 1,
         "reserved": 1
       }
     },
@@ -7894,8 +7894,8 @@ json2 {
       "alarmId": {
         "deviceId": "dsm",
         "dateTime": "200827111111",
-        "order": 2,
-        "total": 2,
+        "serialNo": 2,
+        "fileTotal": 2,
         "reserved": 2
       }
     },
@@ -7911,8 +7911,8 @@ json2 {
       "alarmId": {
         "deviceId": "tpms",
         "dateTime": "200827111111",
-        "order": 3,
-        "total": 3,
+        "serialNo": 3,
+        "fileTotal": 3,
         "reserved": 3
       },
       "total": 0
@@ -7930,8 +7930,8 @@ json2 {
       "alarmId": {
         "deviceId": "bsd",
         "dateTime": "200827111111",
-        "order": 4,
-        "total": 4,
+        "serialNo": 4,
+        "fileTotal": 4,
         "reserved": 4
       }
     }
@@ -7975,8 +7975,8 @@ json1 {
       "alarmId": {
         "deviceId": "adas",
         "dateTime": "200827111111",
-        "order": 1,
-        "total": 1,
+        "serialNo": 1,
+        "fileTotal": 1,
         "reserved": 1
       }
     },
@@ -7996,8 +7996,8 @@ json1 {
       "alarmId": {
         "deviceId": "dsm",
         "dateTime": "200827111111",
-        "order": 2,
-        "total": 2,
+        "serialNo": 2,
+        "fileTotal": 2,
         "reserved": 2
       }
     },
@@ -8013,8 +8013,8 @@ json1 {
       "alarmId": {
         "deviceId": "tpms",
         "dateTime": "200827111111",
-        "order": 3,
-        "total": 3,
+        "serialNo": 3,
+        "fileTotal": 3,
         "reserved": 3
       },
       "total": 0
@@ -8032,8 +8032,8 @@ json1 {
       "alarmId": {
         "deviceId": "bsd",
         "dateTime": "200827111111",
-        "order": 4,
-        "total": 4,
+        "serialNo": 4,
+        "fileTotal": 4,
         "reserved": 4
       }
     }
@@ -8077,8 +8077,8 @@ json2 {
       "alarmId": {
         "deviceId": "adas",
         "dateTime": "200827111111",
-        "order": 1,
-        "total": 1,
+        "serialNo": 1,
+        "fileTotal": 1,
         "reserved": 1
       }
     },
@@ -8098,8 +8098,8 @@ json2 {
       "alarmId": {
         "deviceId": "dsm",
         "dateTime": "200827111111",
-        "order": 2,
-        "total": 2,
+        "serialNo": 2,
+        "fileTotal": 2,
         "reserved": 2
       }
     },
@@ -8115,8 +8115,8 @@ json2 {
       "alarmId": {
         "deviceId": "tpms",
         "dateTime": "200827111111",
-        "order": 3,
-        "total": 3,
+        "serialNo": 3,
+        "fileTotal": 3,
         "reserved": 3
       },
       "total": 0
@@ -8134,8 +8134,8 @@ json2 {
       "alarmId": {
         "deviceId": "bsd",
         "dateTime": "200827111111",
-        "order": 4,
-        "total": 4,
+        "serialNo": 4,
+        "fileTotal": 4,
         "reserved": 4
       }
     }

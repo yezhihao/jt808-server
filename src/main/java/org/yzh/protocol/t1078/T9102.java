@@ -27,7 +27,12 @@ public class T9102 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "控制指令（0:关闭音视频传输指令;\n1:切换码流(增加暂停和继续);\n2:暂停该通道所有流的发送;\n3:恢复暂停前流的发送,与暂停前的流类型一致;\n4:关闭双向对讲）")
+    @Field(index = 1, type = DataType.BYTE, desc = "控制指令:\n" +
+            "0.关闭音视频传输指令\n" +
+            "1.切换码流(增加暂停和继续)\n" +
+            "2.暂停该通道所有流的发送\n" +
+            "3.恢复暂停前流的发送,与暂停前的流类型一致\n" +
+            "4.关闭双向对讲")
     public int getCommand() {
         return command;
     }
@@ -36,7 +41,10 @@ public class T9102 extends JTMessage {
         this.command = command;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型（0:关闭该通道有关的音视频数据;\n1:只关闭该通道有关的音频,保留该通道有关的视频;\n2:只关闭该通道有关的视频,保留该通道有关的音频）")
+    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型:\n" +
+            "0.关闭该通道有关的音视频数据\n" +
+            "1.只关闭该通道有关的音频,保留该通道有关的视频\n" +
+            "2.只关闭该通道有关的视频,保留该通道有关的音频")
     public int getCloseType() {
         return closeType;
     }
@@ -45,7 +53,7 @@ public class T9102 extends JTMessage {
         this.closeType = closeType;
     }
 
-    @Field(index = 3, type = DataType.BYTE, desc = "切换码流类型（0:主码流;1:子码流）")
+    @Field(index = 3, type = DataType.BYTE, desc = "切换码流类型: 0.主码流 1.子码流")
     public int getStreamType() {
         return streamType;
     }

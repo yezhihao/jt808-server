@@ -8,7 +8,7 @@ public interface Action {
 
     /** 清空 */
     int Clear = 0;
-    /** 更新（先清空，后追加） */
+    /** 更新(先清空,后追加) */
     int Update = 1;
     /** 追加 */
     int Append = 2;

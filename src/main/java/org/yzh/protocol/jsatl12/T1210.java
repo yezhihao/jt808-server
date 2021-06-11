@@ -49,11 +49,7 @@ public class T1210 extends JTMessage {
         this.alarmNo = alarmNo;
     }
 
-    /**
-     * 0x00：正常报警文件信息
-     * 0x01：补传报警文件信息
-     */
-    @Field(index = 55, type = DataType.BYTE, desc = "信息类型")
+    @Field(index = 55, type = DataType.BYTE, desc = "信息类型: 0.正常报警文件信息 1.补传报警文件信息")
     public int getType() {
         return type;
     }

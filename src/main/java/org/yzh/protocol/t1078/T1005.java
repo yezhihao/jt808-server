@@ -18,7 +18,7 @@ public class T1005 extends JTMessage {
     private int getOnCount;
     private int getOffCount;
 
-    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "起始时间（yyMMddHHmmss）")
+    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
     public String getStartTime() {
         return startTime;
     }
@@ -27,7 +27,7 @@ public class T1005 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "结束时间（yyMMddHHmmss）")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     public String getEndTime() {
         return endTime;
     }
