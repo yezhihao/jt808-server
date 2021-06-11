@@ -55,7 +55,7 @@ public class OtherController {
         Session session = sessionManager.get(clientId);
         if (session != null) {
             ByteBuf byteBuf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(message));
-            session.writeObject(byteBuf);
+            session.notify(byteBuf);
             return "success";
         }
         return "fail";

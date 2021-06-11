@@ -6,7 +6,6 @@ import io.github.yezhihao.netmc.codec.Delimiter;
 import io.github.yezhihao.netmc.core.HandlerInterceptor;
 import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
-import io.github.yezhihao.netmc.session.MessageManager;
 import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.DisposableBean;
@@ -23,6 +22,7 @@ import org.yzh.web.component.adapter.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
+import org.yzh.web.model.enums.SessionKey;
 
 @Configuration
 @ConditionalOnProperty(value = "tcp-server.jt808.enable", havingValue = "true")
@@ -77,13 +77,8 @@ public class JTConfig {
     }
 
     @Bean
-    public MessageManager messageManager() {
-        return new MessageManager(sessionManager());
-    }
-
-    @Bean
     public SessionManager sessionManager() {
-        return new SessionManager(sessionListener());
+        return new SessionManager(SessionKey.class);
     }
 
     @Bean

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.mapper.LocationMapper;
+import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
@@ -66,7 +67,7 @@ public class LocationServiceImpl implements LocationService {
                 mobileNo = request.getHeader().getMobileNo();
                 deviceId = mobileNo;
                 plateNo = "";
-                DeviceInfo device = (DeviceInfo) session.getSubject();
+                DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
                 if (device != null) {
                     deviceId = device.getDeviceId();
                     plateNo = device.getPlateNo();
@@ -111,7 +112,7 @@ public class LocationServiceImpl implements LocationService {
             mobileNo = request.getHeader().getMobileNo();
             deviceId = mobileNo;
             plateNo = "";
-            DeviceInfo device = (DeviceInfo) session.getSubject();
+            DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
             if (device != null) {
                 deviceId = device.getDeviceId();
                 plateNo = device.getPlateNo();

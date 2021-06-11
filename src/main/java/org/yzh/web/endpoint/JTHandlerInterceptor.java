@@ -8,6 +8,7 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
+import org.yzh.web.model.enums.SessionKey;
 
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
@@ -18,13 +19,15 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     public JTMessage notSupported(JTMessage request, Session session) {
         log.warn(">>>>>>>>>>未识别的消息{},{}", session, request);
 
-        Header header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
-        response.setSerialNo(header.getSerialNo());
-        response.setReplyId(header.getMessageId());
+        Header header = new Header(JT808.平台通用应答);
+        header.setSerialNo(session.nextSerialNo());
+        header.copyBy(request.getHeader());
+
+        T0001 response = new T0001();
+        response.setHeader(header);
+        response.setResponseSerialNo(request.getSerialNo());
+        response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.NotSupport);
-        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
-        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<未识别的消息{},{}", session, response);
         return response;
@@ -36,13 +39,15 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     public JTMessage successful(JTMessage request, Session session) {
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
 
-        Header header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
-        response.setSerialNo(header.getSerialNo());
-        response.setReplyId(header.getMessageId());
+        Header header = new Header(JT808.平台通用应答);
+        header.setSerialNo(session.nextSerialNo());
+        header.copyBy(request.getHeader());
+
+        T0001 response = new T0001();
+        response.setHeader(header);
+        response.setResponseSerialNo(request.getSerialNo());
+        response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Success);
-        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
-        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<通用应答消息{},{}", session, response);
         return response;
@@ -53,13 +58,15 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     public JTMessage exceptional(JTMessage request, Session session, Exception ex) {
         log.warn(">>>>>>>>>>消息处理异常{},{}", session, request);
 
-        Header header = request.getHeader();
-        T0001 response = new T0001(session.nextSerialNo(), header.getClientId());
-        response.setSerialNo(header.getSerialNo());
-        response.setReplyId(header.getMessageId());
+        Header header = new Header(JT808.平台通用应答);
+        header.setSerialNo(session.nextSerialNo());
+        header.copyBy(request.getHeader());
+
+        T0001 response = new T0001();
+        response.setHeader(header);
+        response.setResponseSerialNo(request.getSerialNo());
+        response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Failure);
-        response.getHeader().setVersionNo(request.getHeader().getVersionNo());
-        response.getHeader().setVersion(request.getHeader().isVersion());
 
         log.info("<<<<<<<<<<异常处理应答{},{}", session, response);
         return response;
@@ -75,7 +82,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
             if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
                 return true;
             if (messageId == JT808.位置信息汇报)
-                session.setSnapshot(request);
+                session.setAttribute(SessionKey.Snapshot, request);
         }
         if (!session.isRegistered()) {
             log.warn(">>>>>>>>>>未注册的设备{},{}", session, request);
@@ -88,8 +95,16 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     @Override
     public void afterHandle(JTMessage request, JTMessage response, Session session) {
         if (response != null) {
-            response.getHeader().setVersionNo(request.getHeader().getVersionNo());
-            response.getHeader().setVersion(request.getHeader().isVersion());
+            Header header = response.getHeader();
+            if (header == null) {
+                header = new Header().copyBy(request.getHeader());
+                header.setSerialNo(session.nextSerialNo());
+                response.setHeader(header);
+            }
+
+            if (header.getMessageId() == 0) {
+                header.setMessageId(response.reflectMessageId());
+            }
         }
         log.info(">>>>>>>>>>消息请求成功{},{}", session, request);
         log.info("<<<<<<<<<<应答消息{},{}", session, response);

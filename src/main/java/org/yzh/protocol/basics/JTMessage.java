@@ -4,6 +4,7 @@ import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.yzh.protocol.commons.MessageId;
 
 import java.beans.Transient;
 
@@ -45,6 +46,11 @@ public class JTMessage implements Message {
     }
 
     @Override
+    public String getMessageName() {
+        return MessageId.get(header.getMessageId());
+    }
+
+    @Override
     public int getSerialNo() {
         return header.getSerialNo();
     }
@@ -66,14 +72,16 @@ public class JTMessage implements Message {
         this.payload = payload;
     }
 
-    private int reflectMessageId = -1;
+    private transient int reflectMessageId = -1;
 
     public int reflectMessageId() {
         if (reflectMessageId == -1) {
             io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
-            if (messageType == null || messageType.value().length <= 0)
-                throw new RuntimeException(this.getClass() + "需要手动指定消息ID");
-            reflectMessageId = messageType.value()[0];
+            if (messageType == null || messageType.value().length <= 0) {
+                reflectMessageId = 0;
+            } else {
+                reflectMessageId = messageType.value()[0];
+            }
         }
         return reflectMessageId;
     }

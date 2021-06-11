@@ -6,7 +6,6 @@ import io.github.yezhihao.netmc.codec.Delimiter;
 import io.github.yezhihao.netmc.codec.LengthField;
 import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
-import io.github.yezhihao.netmc.session.MessageManager;
 import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.DisposableBean;
@@ -72,11 +71,6 @@ public class JSATLConfig {
                 new JTMessageEncoder("org.yzh.protocol"),
                 new DataFrameMessageDecoder("org.yzh.protocol", DataFramePrefix)
         );
-    }
-
-    @Bean
-    public MessageManager alarmFileMessageManager() {
-        return new MessageManager(alarmFileSessionManager());
     }
 
     @Bean

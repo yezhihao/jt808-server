@@ -3,7 +3,6 @@ package org.yzh.web.endpoint;
 import io.github.yezhihao.netmc.core.annotation.AsyncBatch;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
-import io.github.yezhihao.netmc.session.MessageManager;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.util.AdapterList;
 import org.slf4j.Logger;
@@ -34,22 +33,19 @@ public class JT808Endpoint {
     private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
 
     @Autowired
-    private MessageManager messageManager;
-
-    @Autowired
     private LocationService locationService;
 
     @Autowired
     private DeviceService deviceService;
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public Object 终端通用应答(T0001 message) {
-        messageManager.response(message);
+    public Object 终端通用应答(T0001 message, Session session) {
+        session.response(message);
         return null;
     }
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
-    public void heartBeat(Header header, Session session) {
+    public void heartBeat(JTMessage message, Session session) {
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
@@ -58,34 +54,32 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
-    public T8004 查询服务器时间(Header header, Session session) {
+    public T8004 查询服务器时间(JTMessage message, Session session) {
         T8004 result = new T8004(DateUtils.yyMMddHHmmss.format(new Date(System.currentTimeMillis() + 50)));
-        result.setHeader(new Header(查询服务器时间应答, session.nextSerialNo(), header.getClientId()));
         return result;
     }
 
     @Mapping(types = 终端补传分包请求, desc = "终端补传分包请求")
     public void 终端补传分包请求(T8003 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
         if (message.getPlateNo() == null) {
-            session.recordProtocolVersion(header.getClientId(), -1);
+            session.recordProtocolVersion(message.getClientId(), -1);
             log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         } else {
             session.setProtocolVersion(header.getVersionNo());
         }
 
-        T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
-        result.setSerialNo(header.getSerialNo());
+        T8100 result = new T8100();
+        result.setResponseSerialNo(header.getSerialNo());
 
         DeviceInfo device = deviceService.register(message);
         if (device != null) {
-            session.register(header, device);
+            session.register(message.getClientId());
 
             byte[] bytes = DeviceInfo.toBytes(device);
             bytes = EncryptUtils.encrypt(bytes);
@@ -103,13 +97,13 @@ public class JT808Endpoint {
     public T0001 authentication(T0102 request, Session session) {
         Header header = request.getHeader();
 
-        T0001 result = new T0001(session.nextSerialNo(), header.getMobileNo());
-        result.setSerialNo(header.getSerialNo());
-        result.setReplyId(header.getMessageId());
+        T0001 result = new T0001();
+        result.setResponseSerialNo(header.getSerialNo());
+        result.setResponseMessageId(header.getMessageId());
 
         DeviceInfo device = deviceService.authentication(request);
         if (device != null) {
-            session.register(header, device);
+            session.register(request.getClientId());
             result.setResultCode(T0001.Success);
             return result;
         }
@@ -119,23 +113,17 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
-    public void 查询终端参数应答(T0104 message) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        Integer replyId = header.getSerialNo();
-        messageManager.response(message);
+    public void 查询终端参数应答(T0104 message, Session session) {
+        session.response(message);
     }
 
     @Mapping(types = 查询终端属性应答, desc = "查询终端属性应答")
-    public void 查询终端属性应答(T0107 message) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        messageManager.response(message);
+    public void 查询终端属性应答(T0107 message, Session session) {
+        session.response(message);
     }
 
     @Mapping(types = 终端升级结果通知, desc = "终端升级结果通知")
     public void 终端升级结果通知(T0108 message, Session session) {
-        Header header = message.getHeader();
     }
 
     /**
@@ -164,101 +152,77 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")
-    public void 位置信息查询应答(T0201_0500 message) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        Integer replyId = header.getSerialNo();
-        messageManager.response(message);
+    public void 位置信息查询应答(T0201_0500 message, Session session) {
+        session.response(message);
     }
 
     @Mapping(types = 事件报告, desc = "事件报告")
     public void 事件报告(T0301 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 提问应答, desc = "提问应答")
     public void 提问应答(T0302 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
     public void 信息点播取消(T0303 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 查询区域或线路数据应答, desc = "查询区域或线路数据应答")
     public void 查询区域或线路数据应答(JTMessage message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 行驶记录数据上传, desc = "行驶记录仪数据上传")
     public void 行驶记录仪数据上传(T0700 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
     public void 电子运单上报(JTMessage message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
     public void 驾驶员身份信息采集上报(T0702 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = CAN总线数据上传, desc = "CAN总线数据上传")
     public void CAN总线数据上传(T0705 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 多媒体事件信息上传, desc = "多媒体事件信息上传")
     public void 多媒体事件信息上传(T0800 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
     public T8800 多媒体数据上传(T0801 message, Session session) throws IOException {
-        Header header = message.getHeader();
         byte[] packet = message.getPacket();
         FileOutputStream fos = new FileOutputStream("D://test.jpg");
         fos.write(packet);
         fos.close();
         T8800 result = new T8800();
-        result.setHeader(new Header(多媒体数据上传应答, session.nextSerialNo(), header.getMobileNo()));
         result.setMediaId(0);
         return result;
     }
 
     @Mapping(types = 存储多媒体数据检索应答, desc = "存储多媒体数据检索应答")
     public void 存储多媒体数据检索应答(T0802 message, Session session) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        Integer replyId = header.getSerialNo();
-        messageManager.response(message);
+        session.response(message);
     }
 
     @Mapping(types = 摄像头立即拍摄命令应答, desc = "摄像头立即拍摄命令应答")
-    public void 摄像头立即拍摄命令应答(T0805 message) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        Integer replyId = header.getSerialNo();
-        messageManager.response(message);
+    public void 摄像头立即拍摄命令应答(T0805 message, Session session) {
+        session.response(message);
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
     public void passthrough(T0900 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 数据压缩上报, desc = "数据压缩上报")
     public void gzipPack(T0901 message, Session session) {
-        Header header = message.getHeader();
     }
 
     @Mapping(types = 终端RSA公钥, desc = "终端RSA公钥")
-    public void 终端RSA公钥(T0A00_8A00 message) {
-        Header header = message.getHeader();
-        String mobileNo = header.getMobileNo();
-        messageManager.response(message);
+    public void 终端RSA公钥(T0A00_8A00 message, Session session) {
+        session.response(message);
     }
 }

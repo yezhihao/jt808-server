@@ -48,7 +48,7 @@ public class JSATL12Endpoint {
     @Mapping(types = JSATL12.文件上传完成消息, desc = "文件上传完成消息")
     public T9212 文件上传完成消息(T1211 request, Session session) {
         AlarmId alarmId = (AlarmId) session.getAttribute(request.getName());
-        T9212 result = new T9212(session.nextSerialNo(), request.getHeader().getMobileNo());
+        T9212 result = new T9212();
         result.setName(request.getName());
         result.setType(request.getType());
 
