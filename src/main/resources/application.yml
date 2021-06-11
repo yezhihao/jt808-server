@@ -1,10 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~/.h2/jt;Auto_Server=True;IgnoreCase=True;Mode=MySql
+    url: jdbc:h2:file:~/.h2/jt;auto_server=true;ignorecase=true;mode=mysql
     username: root
     password: 123@abc
     driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
+    initialization-mode: always
     schema: classpath:sql/schema_h2.sql # 数据库文件C:\Users\{xxx}\.h2
 #    data: classpath:sql/initial.sql
     hikari:
@@ -35,7 +36,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   mvc:
-    date-format: yyyy-MM-dd HH:mm:ss
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      time: HH:mm:ss
 
 mybatis:
   config-location: classpath:mybatis-config.xml
