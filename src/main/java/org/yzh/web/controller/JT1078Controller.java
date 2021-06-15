@@ -39,6 +39,7 @@ public class JT1078Controller {
     @GetMapping("file/search")
     public T1205 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9205 request) {
         request.setHeader(new Header(clientId));
+        request.setWarnBit(new int[2]);
         T1205 response = messageManager.request(request, T1205.class);
         return response;
     }

@@ -14,6 +14,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.EncryptUtils;
+import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.LocationService;
@@ -80,6 +81,7 @@ public class JT808Endpoint {
         DeviceInfo device = deviceService.register(message);
         if (device != null) {
             session.register(message.getClientId());
+            session.setAttribute(SessionKey.DeviceInfo, device);
 
             byte[] bytes = DeviceInfo.toBytes(device);
             bytes = EncryptUtils.encrypt(bytes);
@@ -104,6 +106,7 @@ public class JT808Endpoint {
         DeviceInfo device = deviceService.authentication(request);
         if (device != null) {
             session.register(request.getClientId());
+            session.setAttribute(SessionKey.DeviceInfo, device);
             result.setResultCode(T0001.Success);
             return result;
         }
