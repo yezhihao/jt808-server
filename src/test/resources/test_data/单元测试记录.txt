@@ -4335,7 +4335,7 @@ json2 {
     "verified": true
   }
 }
-hex1 7e810600070123456789017fff0601030507097ff87e
+hex1 7e810600190123456789017fff0600000001000000030000000500000007000000090000007fe67e
 json1 {
   "total": 6,
   "id": [
@@ -4348,14 +4348,14 @@ json1 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 7,
+    "properties": 25,
     "versionNo": 0,
     "mobileNo": "12345678901",
     "serialNo": 32767,
     "verified": true
   }
 }
-hex2 7e810600070123456789017fff0601030507097ff87e
+hex2 7e810600190123456789017fff0600000001000000030000000500000007000000090000007fe67e
 json2 {
   "total": 6,
   "id": [
@@ -4368,14 +4368,14 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 7,
+    "properties": 25,
     "versionNo": 0,
     "mobileNo": "12345678901",
     "serialNo": 32767,
     "verified": true
   }
 }
-hex1 7e810640070100000000017299841738ffff0601030507097ff07e
+hex1 7e810640190100000000017299841738ffff0600000001000000030000000500000007000000090000007fee7e
 json1 {
   "total": 6,
   "id": [
@@ -4388,14 +4388,14 @@ json1 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 16391,
+    "properties": 16409,
     "versionNo": 1,
     "mobileNo": "17299841738",
     "serialNo": 65535,
     "verified": true
   }
 }
-hex2 7e810640070100000000017299841738ffff0601030507097ff07e
+hex2 7e810640190100000000017299841738ffff0600000001000000030000000500000007000000090000007fee7e
 json2 {
   "total": 6,
   "id": [
@@ -4408,7 +4408,7 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 16391,
+    "properties": 16409,
     "versionNo": 1,
     "mobileNo": "17299841738",
     "serialNo": 65535,
@@ -10953,7 +10953,7 @@ json2 {
   }
 }
 
-7e810600070123456789017fff0601030507097ff87e
+7e810600190123456789017fff0600000001000000030000000500000007000000090000007fe67e
 {
   "total": 6,
   "id": [
@@ -10966,14 +10966,14 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 7,
+    "properties": 25,
     "versionNo": 0,
     "mobileNo": "12345678901",
     "serialNo": 32767,
     "verified": true
   }
 }
-7e810600070123456789017fff0601030507097ff87e
+7e810600190123456789017fff0600000001000000030000000500000007000000090000007fe67e
 {
   "total": 6,
   "id": [
@@ -10986,7 +10986,7 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 7,
+    "properties": 25,
     "versionNo": 0,
     "mobileNo": "12345678901",
     "serialNo": 32767,
@@ -10994,7 +10994,7 @@ json2 {
   }
 }
 
-7e810640070100000000017299841738ffff0601030507097ff07e
+7e810640190100000000017299841738ffff0600000001000000030000000500000007000000090000007fee7e
 {
   "total": 6,
   "id": [
@@ -11007,14 +11007,14 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 16391,
+    "properties": 16409,
     "versionNo": 1,
     "mobileNo": "17299841738",
     "serialNo": 65535,
     "verified": true
   }
 }
-7e810640070100000000017299841738ffff0601030507097ff07e
+7e810640190100000000017299841738ffff0600000001000000030000000500000007000000090000007fee7e
 {
   "total": 6,
   "id": [
@@ -11027,7 +11027,7 @@ json2 {
   ],
   "header": {
     "messageId": 33030,
-    "properties": 16391,
+    "properties": 16409,
     "versionNo": 1,
     "mobileNo": "17299841738",
     "serialNo": 65535,

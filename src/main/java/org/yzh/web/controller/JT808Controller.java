@@ -48,7 +48,7 @@ public class JT808Controller {
     public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "参数ID列表,为空查询全部,多个以逗号[,]分隔") @RequestParam(required = false) String id) {
         JTMessage request;
         if (id != null) {
-            request = new T8106(StrUtils.toBytes(id, ","));
+            request = new T8106(StrUtils.toInts(id, ","));
             request.setHeader(new Header(clientId));
         } else {
             request = new JTMessage(clientId, JT808.查询终端参数);

@@ -14,12 +14,12 @@ import org.yzh.protocol.commons.JT808;
 public class T8106 extends JTMessage {
 
     private int total;
-    private byte[] id;
+    private int[] id;
 
     public T8106() {
     }
 
-    public T8106(byte... id) {
+    public T8106(int... id) {
         this.id = id;
         this.total = id.length;
     }
@@ -33,12 +33,12 @@ public class T8106 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 1, type = DataType.BYTES, desc = "参数ID列表")
-    public byte[] getId() {
+    @Field(index = 1, type = DataType.DWORD, desc = "参数ID列表")
+    public int[] getId() {
         return id;
     }
 
-    public void setId(byte[] id) {
+    public void setId(int[] id) {
         this.id = id;
         this.total = id.length;
     }

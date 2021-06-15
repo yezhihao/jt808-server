@@ -436,8 +436,7 @@ public class JT808Beans {
 
     //查询指定终端参数
     public static T8106 T8106() {
-        T8106 bean = new T8106();
-        bean.setId(new byte[]{1, 3, 5, 7, 9, 127});
+        T8106 bean = new T8106(1, 3, 5, 7, 9, 127);
         return bean;
     }
 
