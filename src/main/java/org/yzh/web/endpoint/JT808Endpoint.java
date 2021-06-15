@@ -172,7 +172,8 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 查询区域或线路数据应答, desc = "查询区域或线路数据应答")
-    public void 查询区域或线路数据应答(JTMessage message, Session session) {
+    public void 查询区域或线路数据应答(T0608 message, Session session) {
+        session.response(message);
     }
 
     @Mapping(types = 行驶记录数据上传, desc = "行驶记录仪数据上传")

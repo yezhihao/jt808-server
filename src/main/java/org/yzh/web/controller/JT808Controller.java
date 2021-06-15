@@ -2,6 +2,7 @@ package org.yzh.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -45,13 +46,14 @@ public class JT808Controller {
 
     @Operation(summary = "8104 8106 查询终端参数")
     @GetMapping("settings")
-    public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "参数ID列表,为空查询全部,多个以逗号[,]分隔") @RequestParam(required = false) String id) {
+    public T0104 getSettings(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                             @Parameter(description = "参数ID列表(为空查询全部,多个以逗号','分隔)") @RequestParam(required = false) String id) {
         JTMessage request;
-        if (id != null) {
+        if (StringUtils.isBlank(id)) {
+            request = new JTMessage(clientId, JT808.查询终端参数);
+        } else {
             request = new T8106(StrUtils.toInts(id, ","));
             request.setHeader(new Header(clientId));
-        } else {
-            request = new JTMessage(clientId, JT808.查询终端参数);
         }
         T0104 response = messageManager.request(request, T0104.class);
         return response;
@@ -176,57 +178,42 @@ public class JT808Controller {
     }
 
     @Operation(summary = "8601 8603 8605 8607 删除区域")
-    @DeleteMapping("map_fence")
-    public T0001 removeMapFence(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                @Parameter(description = "区域类型:1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
-                                @Parameter(description = "区域ID列表(多个以逗号[,]分割)") @RequestParam String id) {
-        int messageId;
-        if (type == Shape.Round) {
-            messageId = JT808.删除圆形区域;
-        } else if (type == Shape.Rectangle) {
-            messageId = JT808.删除矩形区域;
-        } else if (type == Shape.Polygon) {
-            messageId = JT808.删除多边形区域;
-        } else if (type == Shape.Route) {
-            messageId = JT808.删除路线;
-        } else {
-            throw new APIException(DefaultCodes.InvalidParameter);
-        }
-        T8601 request = new T8601();
-        request.setHeader(new Header(clientId, messageId));
-        int[] ids = StrUtils.toInts(id, ",");
-        for (int i : ids)
-            request.addItem(i);
+    @DeleteMapping("area")
+    public T0001 removeArea(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                            @Parameter(description = "区域类型:1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
+                            @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
+        T8601 request = new T8601(StrUtils.toInts(id, ","));
+        request.setHeader(new Header(clientId, Shape.toMessageId(type)));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8600 设置圆形区域")
-    @PutMapping("map_fence/round")
-    public T0001 addMapFenceRound(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8600 request) {
+    @PutMapping("area/round")
+    public T0001 addAreaRound(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8600 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8602 设置矩形区域")
-    @PutMapping("map_fence/rectangle")
-    public T0001 addMapFenceRectangle(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8602 request) {
+    @PutMapping("area/rectangle")
+    public T0001 addAreaRectangle(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8602 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8604 设置多边形区域")
-    @PutMapping("map_fence/polygon")
-    public T0001 addMapFencePolygon(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8604 request) {
+    @PutMapping("area/polygon")
+    public T0001 addAreaPolygon(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8604 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8606 设置路线")
-    @PutMapping("map_fence/route")
+    @PutMapping("area/route")
     public T0001 addRoute(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8606 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
@@ -234,13 +221,11 @@ public class JT808Controller {
     }
 
     @Operation(summary = "8608 查询区域或线路数据")
-    @GetMapping("location/map_fence")
-    public T0608 locationRoute(@Parameter(description = "终端手机号") @RequestParam String clientId, @Parameter(description = "区域ID列表(多个以逗号,分割)") @RequestParam String id) {
-        T8608 request = new T8608();
+    @GetMapping("location/area")
+    public T0608 locationRoute(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                               @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
+        T8608 request = new T8608(StrUtils.toInts(id, ","));
         request.setHeader(new Header(clientId));
-        int[] ids = StrUtils.toInts(id, ",");
-        for (int i : ids)
-            request.addItem(i);
         T0608 response = messageManager.request(request, T0608.class);
         return response;
     }

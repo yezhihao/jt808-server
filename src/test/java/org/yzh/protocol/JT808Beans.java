@@ -4,6 +4,7 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
+import org.yzh.protocol.commons.Shape;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
 import org.yzh.protocol.commons.transform.attribute.*;
@@ -555,13 +556,9 @@ public class JT808Beans {
         return bean;
     }
 
-    //删除圆形区域|删除矩形区域|删除多边形区域
+    //删除圆形区域|删除矩形区域|删除多边形区域|删除路线
     public static T8601 T8601() {
-        T8601 bean = new T8601();
-        bean.addItem(1);
-        bean.addItem(2);
-        bean.addItem(3);
-        bean.addItem(65535);
+        T8601 bean = new T8601(1, 2, 3, 65535);
         return bean;
     }
 
@@ -611,6 +608,14 @@ public class JT808Beans {
         item.add(new T8606.Point(3, 1, 123, 123, 1, 2, 3, 4, 5, 6));
         item.add(new T8606.Point(4, 1, 123, 123, 1, 2, 3, 4, 5, 6));
         bean.setItem(item);
+        return bean;
+    }
+
+    //查询区域或线路数据
+    public static T8608 T8608() {
+        T8608 bean = new T8608();
+        bean.setTotal(Shape.Route);
+        bean.setId(new int[]{2, 4, 6, 8, 999999999});
         return bean;
     }
 

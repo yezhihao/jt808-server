@@ -6,9 +6,6 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
@@ -17,7 +14,15 @@ import java.util.List;
 public class T8601 extends JTMessage {
 
     private int total;
-    private List<Item> items;
+    private int[] id;
+
+    public T8601() {
+    }
+
+    public T8601(int... id) {
+        this.id = id;
+        this.total = id.length;
+    }
 
     @Field(index = 0, type = DataType.BYTE, desc = "区域总数")
     public int getTotal() {
@@ -28,40 +33,13 @@ public class T8601 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 1, type = DataType.LIST, desc = "区域列表")
-    public List<Item> getItems() {
-        return items;
+    @Field(index = 1, type = DataType.DWORD, desc = "区域列表")
+    public int[] getId() {
+        return id;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-        this.total = items.size();
-    }
-
-    public void addItem(int id) {
-        if (items == null)
-            items = new ArrayList();
-        items.add(new Item(id));
-        total = items.size();
-    }
-
-    public static class Item {
-        private int id;
-
-        public Item() {
-        }
-
-        public Item(int id) {
-            this.id = id;
-        }
-
-        @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
+    public void setId(int[] id) {
+        this.id = id;
+        this.total = id.length;
     }
 }
