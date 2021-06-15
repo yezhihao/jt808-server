@@ -392,7 +392,7 @@ public class JT808Beans {
         T0805 bean = new T0805();
         bean.setResponseSerialNo(62656);
         bean.setResult(0);
-        bean.setItems(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        bean.setId(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
 
@@ -407,7 +407,7 @@ public class JT808Beans {
     public static T8003 T8003() {
         T8003 bean = new T8003();
         bean.setResponseSerialNo(4249);
-        bean.setItems(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        bean.setId(new short[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
 
@@ -623,7 +623,7 @@ public class JT808Beans {
     public static T8800 T8800() {
         T8800 bean = new T8800();
         bean.setMediaId(49503);
-        bean.setItems(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        bean.setId(new short[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
 

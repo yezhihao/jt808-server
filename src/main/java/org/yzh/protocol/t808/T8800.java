@@ -15,10 +15,7 @@ public class T8800 extends JTMessage {
 
     private int mediaId;
     private int total;
-    private byte[] items;
-
-    public T8800() {
-    }
+    private short[] id;
 
     @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID(大于0) 如收到全部数据包则没有后续字段")
     public int getMediaId() {
@@ -38,13 +35,13 @@ public class T8800 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 5, type = DataType.BYTES, desc = "重传包ID列表")
-    public byte[] getItems() {
-        return items;
+    @Field(index = 5, type = DataType.WORD, desc = "重传包ID列表")
+    public short[] getId() {
+        return id;
     }
 
-    public void setItems(byte[] items) {
-        this.items = items;
-        this.total = items.length;
+    public void setId(short[] id) {
+        this.id = id;
+        this.total = id.length;
     }
 }

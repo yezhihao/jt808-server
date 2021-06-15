@@ -28,11 +28,11 @@ public class JTMultiPacketListener extends MultiPacketListener {
         request.setHeader(new Header(JT808.服务器补传分包请求).copyBy(multiPacket.getHeader()));
         request.setResponseSerialNo(multiPacket.getSerialNo());
         List<Integer> notArrived = multiPacket.getNotArrived();
-        byte[] items = new byte[notArrived.size()];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = notArrived.get(i).byteValue();
+        short[] idList = new short[notArrived.size()];
+        for (int i = 0; i < idList.length; i++) {
+            idList[i] = notArrived.get(i).shortValue();
         }
-        request.setItems(items);
+        request.setId(idList);
         if (messageManager.notify(request)) {
             multiPacket.addRetryCount(1);
             return true;

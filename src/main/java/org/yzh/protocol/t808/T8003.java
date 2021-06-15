@@ -11,12 +11,12 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@Message({JT808.终端补传分包请求, JT808.服务器补传分包请求})
+@Message({JT808.服务器补传分包请求, JT808.终端补传分包请求})
 public class T8003 extends JTMessage implements Response {
 
     private int responseSerialNo;
     private int total;
-    private byte[] items;
+    private short[] id;
 
     @Field(index = 0, type = DataType.WORD, desc = "原始消息流水号")
     public int getResponseSerialNo() {
@@ -27,7 +27,8 @@ public class T8003 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "重传包总数")
+    @Field(index = 2, type = DataType.BYTE, desc = "重传包总数", version = {-1, 0})
+    @Field(index = 2, type = DataType.WORD, desc = "重传包总数", version = 1)
     public int getTotal() {
         return total;
     }
@@ -36,13 +37,13 @@ public class T8003 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 5, type = DataType.BYTES, desc = "重传包ID列表")
-    public byte[] getItems() {
-        return items;
+    @Field(index = 4, type = DataType.WORD, desc = "重传包ID列表")
+    public short[] getId() {
+        return id;
     }
 
-    public void setItems(byte[] items) {
-        this.items = items;
-        this.total = items.length;
+    public void setId(short[] id) {
+        this.id = id;
+        this.total = id.length;
     }
 }

@@ -17,10 +17,7 @@ public class T0805 extends JTMessage implements Response {
     private int responseSerialNo;
     private int result;
     private int total;
-    private int[] items;
-
-    public T0805() {
-    }
+    private int[] id;
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
@@ -50,12 +47,12 @@ public class T0805 extends JTMessage implements Response {
     }
 
     @Field(index = 4, type = DataType.DWORD, desc = "多媒体ID列表")
-    public int[] getItems() {
-        return items;
+    public int[] getId() {
+        return id;
     }
 
-    public void setItems(int[] items) {
-        this.items = items;
-        this.total = items.length;
+    public void setId(int[] id) {
+        this.id = id;
+        this.total = id.length;
     }
 }
