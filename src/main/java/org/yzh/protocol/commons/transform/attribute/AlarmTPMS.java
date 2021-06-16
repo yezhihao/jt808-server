@@ -30,17 +30,6 @@ public class AlarmTPMS implements Alarm {
     private int total;
     private List<Item> items;
 
-
-    @Override
-    public int getType() {
-        return id;
-    }
-
-    @Override
-    public int getLevel() {
-        return 0;
-    }
-
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {
         return serialNo;

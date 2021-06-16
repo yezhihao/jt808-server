@@ -203,16 +203,14 @@ public class Header {
         final StringBuilder sb = new StringBuilder(102);
         sb.append(MessageId.get(messageId));
         sb.append('[');
-        sb.append("messageId=").append(messageId);
-        sb.append(", properties=").append(properties);
-        sb.append(", isVersion=").append(isVersion());
-        sb.append(", versionNo=").append(getVersionNo());
-        sb.append(", isSubpackage=").append(isSubpackage());
-        sb.append(", mobileNo=").append(mobileNo);
-        sb.append(", serialNo=").append(serialNo);
+        sb.append("mobi=").append(mobileNo);
+        sb.append(",msg=").append(messageId);
+        sb.append(",ver=").append(versionNo);
+        sb.append(",ser=").append(serialNo);
+        sb.append(",prop=").append(properties);
         if (isSubpackage()) {
-            sb.append(", packageTotal=").append(packageTotal);
-            sb.append(", packageNo=").append(packageNo);
+            sb.append(",pt=").append(packageTotal);
+            sb.append(",pn=").append(packageNo);
         }
         sb.append(']');
         return sb.toString();

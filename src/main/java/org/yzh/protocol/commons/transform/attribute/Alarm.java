@@ -10,9 +10,13 @@ public interface Alarm {
 
     int getState();
 
-    int getType();
+    default int getType() {
+        return 0;
+    }
 
-    int getLevel();
+    default int getLevel() {
+        return 0;
+    }
 
     int getSpeed();
 

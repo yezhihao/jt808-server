@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -19,6 +20,8 @@ public class DateUtils {
     public static final FastDateFormat yyMMddHHmmss = FastDateFormat.getInstance("yyMMddHHmmss");
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public static final ZoneOffset GMT8 = ZoneOffset.ofHours(8);
 
     public static Date parse(String str) {
         try {

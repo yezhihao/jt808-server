@@ -28,11 +28,6 @@ public class AlarmBSD implements Alarm {
     private int status;
     private AlarmId alarmId;
 
-    @Override
-    public int getLevel() {
-        return 0;
-    }
-
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {
         return serialNo;

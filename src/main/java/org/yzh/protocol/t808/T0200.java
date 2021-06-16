@@ -109,4 +109,47 @@ public class T0200 extends JTMessage {
     public void setAttributes(Map<Integer, Object> attributes) {
         this.attributes = attributes;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(512);
+        sb.append(header).append(',');
+        sb.append("T0200[");
+        sb.append("dateTime=").append(dateTime);
+        sb.append(", latitude=").append(latitude);
+        sb.append(", longitude=").append(longitude);
+        sb.append(", altitude=").append(altitude);
+        sb.append(", speed=").append(speed);
+        sb.append(", direction=").append(direction);
+        sb.append(", warnBit=").append(warnBit);
+        sb.append(", statusBit=").append(statusBit);
+        sb.append(", attributes=").append(attributes);
+        sb.append(']');
+        return sb.toString();
+    }
+
+    //==================================
+
+    @Override
+    public void transform() {
+        lng = longitude / 1000000d;
+        lat = latitude / 1000000d;
+        speedKph = speed / 10f;
+    }
+
+    private double lng;
+    private double lat;
+    private float speedKph;
+
+    public double getLng() {
+        return lng;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public float getSpeedKph() {
+        return speedKph;
+    }
 }

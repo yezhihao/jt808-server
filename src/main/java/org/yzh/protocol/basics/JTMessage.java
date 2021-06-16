@@ -72,7 +72,7 @@ public class JTMessage implements Message {
         this.payload = payload;
     }
 
-    private transient int reflectMessageId = -1;
+    private static int reflectMessageId = -1;
 
     public int reflectMessageId() {
         if (reflectMessageId == -1) {
@@ -86,11 +86,14 @@ public class JTMessage implements Message {
         return reflectMessageId;
     }
 
+    public void transform() {
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(512);
-        sb.append(header).append(",");
-        sb.append(new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE, new StringBuffer(256), null, true, false, true).setExcludeFieldNames("header"));
+        final StringBuffer sb = new StringBuffer(768);
+        sb.append(header).append(',');
+        sb.append(new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE, sb, null, false, false, true).setExcludeFieldNames("header"));
         return sb.toString();
     }
 }
