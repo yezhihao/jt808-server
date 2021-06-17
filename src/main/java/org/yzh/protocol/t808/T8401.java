@@ -32,6 +32,8 @@ public class T8401 extends JTMessage {
 
     @Field(index = 1, type = DataType.BYTE, desc = "总数")
     public int getTotal() {
+        if (items != null)
+            return items.size();
         return total;
     }
 

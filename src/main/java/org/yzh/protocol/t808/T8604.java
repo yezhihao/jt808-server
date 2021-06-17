@@ -23,7 +23,7 @@ public class T8604 extends JTMessage {
     private int maxSpeed;
     private int duration;
     private int total;
-    private List<Coordinate> items;
+    private List<Point> points;
 
     @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
     public int getId() {
@@ -81,6 +81,8 @@ public class T8604 extends JTMessage {
 
     @Field(index = 21, type = DataType.WORD, desc = "顶点数")
     public int getTotal() {
+        if (points != null)
+            return points.size();
         return total;
     }
 
@@ -89,30 +91,30 @@ public class T8604 extends JTMessage {
     }
 
     @Field(index = 23, type = DataType.LIST, desc = "顶点列表")
-    public List<Coordinate> getItems() {
-        return items;
+    public List<Point> getPoints() {
+        return points;
     }
 
-    public void setItems(List<Coordinate> items) {
-        this.items = items;
-        this.total = items.size();
+    public void setPoints(List<Point> points) {
+        this.points = points;
+        this.total = points.size();
     }
 
-    public void addVertex(int latitude, int longitude) {
-        if (items == null)
-            items = new ArrayList();
-        items.add(new Coordinate(latitude, longitude));
-        total = items.size();
+    public void addPoint(int longitude, int latitude) {
+        if (points == null)
+            points = new ArrayList();
+        points.add(new Point(latitude, longitude));
+        total = points.size();
     }
 
-    public static class Coordinate {
+    public static class Point {
         private int latitude;
         private int longitude;
 
-        public Coordinate() {
+        public Point() {
         }
 
-        public Coordinate(int latitude, int longitude) {
+        public Point(int latitude, int longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
         }

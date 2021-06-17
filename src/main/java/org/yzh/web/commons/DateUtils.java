@@ -17,6 +17,8 @@ public class DateUtils {
 
     private static final Logger log = LoggerFactory.getLogger(DateUtils.class.getSimpleName());
 
+    public static final FastDateFormat yyyyMMddHHmmss = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+
     public static final FastDateFormat yyMMddHHmmss = FastDateFormat.getInstance("yyMMddHHmmss");
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

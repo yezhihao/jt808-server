@@ -7,8 +7,9 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.AttributeConverter;
+import org.yzh.web.commons.DateUtils;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public class T0200 extends JTMessage {
     private int altitude;
     private int speed;
     private int direction;
-    private LocalDateTime dateTime;
+    private String dateTime;
     private Map<Integer, Object> attributes;
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
@@ -92,11 +93,11 @@ public class T0200 extends JTMessage {
     }
 
     @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间")
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -135,11 +136,13 @@ public class T0200 extends JTMessage {
         lng = longitude / 1000000d;
         lat = latitude / 1000000d;
         speedKph = speed / 10f;
+        deviceTime = DateUtils.parse(dateTime);
     }
 
     private transient double lng;
     private transient double lat;
     private transient float speedKph;
+    private transient Date deviceTime;
 
     public double getLng() {
         return lng;
@@ -151,5 +154,9 @@ public class T0200 extends JTMessage {
 
     public float getSpeedKph() {
         return speedKph;
+    }
+
+    public Date getDeviceTime() {
+        return deviceTime;
     }
 }

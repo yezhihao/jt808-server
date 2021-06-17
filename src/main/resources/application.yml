@@ -53,6 +53,8 @@ tcp-server:
   jt808:
     enable: true
     port: 7611
+    media-file:
+      path: D:/jt_data/media_file
     alarm-file:
       host: 127.0.0.1
       port: 7612
@@ -60,4 +62,4 @@ tcp-server:
   alarm-file:
     enable: true
     port: 7612
-    path: D:/alarm_file/
+    path: D:/jt_data/alarm_file/

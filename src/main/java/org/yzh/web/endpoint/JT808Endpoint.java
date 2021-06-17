@@ -17,9 +17,9 @@ import org.yzh.web.commons.EncryptUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
+import org.yzh.web.service.FileService;
 import org.yzh.web.service.LocationService;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
@@ -38,6 +38,9 @@ public class JT808Endpoint {
 
     @Autowired
     private DeviceService deviceService;
+
+    @Autowired
+    private FileService fileService;
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
     public Object 终端通用应答(T0001 message, Session session) {
@@ -198,10 +201,7 @@ public class JT808Endpoint {
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
     public T8800 多媒体数据上传(T0801 message, Session session) throws IOException {
-        byte[] packet = message.getPacket();
-        FileOutputStream fos = new FileOutputStream("D://test.jpg");
-        fos.write(packet);
-        fos.close();
+        fileService.saveMediaFile(message);
         T8800 result = new T8800();
         result.setMediaId(0);
         return result;

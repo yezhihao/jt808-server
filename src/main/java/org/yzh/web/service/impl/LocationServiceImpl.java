@@ -73,7 +73,7 @@ public class LocationServiceImpl implements LocationService {
                     plateNo = device.getPlateNo();
                 }
 
-                statement.setObject(j++, request.getDateTime());
+                statement.setObject(j++, request.getDeviceTime());
                 statement.setString(j++, deviceId);
                 statement.setString(j++, mobileNo);
                 statement.setString(j++, plateNo);
@@ -119,7 +119,7 @@ public class LocationServiceImpl implements LocationService {
             }
 
             builder.append('(');
-            builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDateTime())).append('\'').append(',');
+            builder.append('\'').append(DateUtils.yyyyMMddHHmmss.format(request.getDeviceTime())).append('\'').append(',');
             builder.append('\'').append(deviceId).append('\'').append(',');
             builder.append('\'').append(mobileNo).append('\'').append(',');
             builder.append('\'').append(plateNo).append('\'').append(',');

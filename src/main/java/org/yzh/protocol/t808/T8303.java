@@ -33,6 +33,8 @@ public class T8303 extends JTMessage {
 
     @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     public int getTotal() {
+        if (items != null)
+            return items.size();
         return total;
     }
 
@@ -47,13 +49,14 @@ public class T8303 extends JTMessage {
 
     public void setItems(List<Item> items) {
         this.items = items;
+        this.total = items.size();
     }
 
     public void addItem(int id, String content) {
-        if (this.items == null)
-            this.items = new ArrayList();
-        this.items.add(new Item(id, content));
-        this.total = items.size();
+        if (items == null)
+            items = new ArrayList();
+        items.add(new Item(id, content));
+        total = items.size();
     }
 
     public static class Item {

@@ -13,7 +13,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.电话回拨)
 public class T8400 extends JTMessage {
 
-    /** 普通通话 */
+    /** 通话 */
     public static final int Normal = 0;
     /** 监听 */
     public static final int Listen = 1;
@@ -29,7 +29,7 @@ public class T8400 extends JTMessage {
         this.mobileNo = mobileNo;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志")
+    @Field(index = 0, type = DataType.BYTE, desc = "类型: 0.通话 1.监听")
     public int getType() {
         return type;
     }

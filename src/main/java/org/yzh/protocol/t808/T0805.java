@@ -28,7 +28,7 @@ public class T0805 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "结果")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.通道不支持")
     public int getResult() {
         return result;
     }

@@ -20,9 +20,9 @@ public class T8301 extends JTMessage {
     /** @see org.yzh.protocol.commons.Action */
     private int type;
     private int total;
-    private List<Event> items;
+    private List<Event> events;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
+    @Field(index = 0, type = DataType.BYTE, desc = "设置类型: 0.清空 1.更新(先清空,后追加) 2.追加 3.修改 4.指定删除")
     public int getType() {
         return type;
     }
@@ -33,6 +33,8 @@ public class T8301 extends JTMessage {
 
     @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     public int getTotal() {
+        if (events != null)
+            return events.size();
         return total;
     }
 
@@ -41,19 +43,20 @@ public class T8301 extends JTMessage {
     }
 
     @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
-    public List<Event> getItems() {
-        return items;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setItems(List<Event> items) {
-        this.items = items;
+    public void setEvents(List<Event> events) {
+        this.events = events;
+        this.total = events.size();
     }
 
     public void addEvent(int id, String content) {
-        if (this.items == null)
-            this.items = new ArrayList();
-        this.items.add(new Event(id, content));
-        this.total = items.size();
+        if (events == null)
+            events = new ArrayList();
+        events.add(new Event(id, content));
+        total = events.size();
     }
 
     public static class Event {

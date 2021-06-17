@@ -4,6 +4,7 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
 
 import java.util.List;
@@ -23,12 +24,9 @@ public class T8302 extends JTMessage {
     public T8302() {
     }
 
-    public T8302(String content, int... signs) {
+    public T8302(String content, int... sign) {
         this.content = content;
-        int sign = 0;
-        for (int b : signs)
-            sign |= 1 << b;
-        this.sign = sign;
+        this.sign = Bit.writeInt(sign);
     }
 
     @Field(index = 0, type = DataType.BYTE, desc = "标志: " +

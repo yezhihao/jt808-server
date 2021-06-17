@@ -24,7 +24,14 @@ public class T8105 extends JTMessage {
         this.parameter = parameter;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "命令字")
+    @Field(index = 0, type = DataType.BYTE, desc = "命令字: " +
+            "1.无线升级 " +
+            "2.控制终端连接指定服务器 " +
+            "3.终端关机 " +
+            "4.终端复位. " +
+            "5.终端恢复出厂设置 " +
+            "6.关闭数据通信 " +
+            "7.关闭所有无线通信")
     public int getCommand() {
         return command;
     }

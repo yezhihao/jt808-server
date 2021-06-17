@@ -6,7 +6,6 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public class T8606 extends JTMessage {
     private String startTime;
     private String endTime;
     private int total;
-    private List<Point> item;
+    private List<Point> items;
 
     @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
     public int getId() {
@@ -69,27 +68,13 @@ public class T8606 extends JTMessage {
     }
 
     @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
-    public List<Point> getItem() {
-        return item;
+    public List<Point> getItems() {
+        return items;
     }
 
-    public void setItem(List<Point> item) {
-        this.item = item;
-        this.total = item.size();
-    }
-
-    public void addPoint(Point point) {
-        if (item == null)
-            item = new ArrayList();
-        item.add(point);
-        total = item.size();
-    }
-
-    public void addPoint(int id) {
-        if (item == null)
-            item = new ArrayList();
-        item.add(new Point(id));
-        total = item.size();
+    public void setItems(List<Point> items) {
+        this.items = items;
+        this.total = items.size();
     }
 
     public static class Point {

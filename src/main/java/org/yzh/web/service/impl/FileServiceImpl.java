@@ -5,7 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.jsatl12.*;
+import org.yzh.protocol.t808.T0200;
+import org.yzh.protocol.t808.T0801;
 import org.yzh.web.commons.FileUtils;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.FileService;
 
 import java.io.*;
@@ -17,13 +21,16 @@ public class FileServiceImpl implements FileService {
     private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class.getSimpleName());
 
     @Value("${tcp-server.alarm-file.path}")
-    private String root;
+    private String alarmFileRoot;
+
+    @Value("${tcp-server.jt808.media-file.path}")
+    private String mediaFileRoot;
 
     private File getDir(AlarmId alarmId) {
         StringBuilder sb = new StringBuilder(32);
-        sb.append(root);
-        sb.append(alarmId.getDeviceId()).append("/");
-        sb.append(alarmId.getDateTime()).append("_").append(alarmId.getSerialNo()).append("/");
+        sb.append(alarmFileRoot);
+        sb.append(alarmId.getDeviceId()).append('/');
+        sb.append(alarmId.getDateTime()).append('_').append(alarmId.getSerialNo()).append('/');
         File result = new File(sb.toString());
         return result;
     }
@@ -39,7 +46,7 @@ public class FileServiceImpl implements FileService {
         StringBuilder fileList = new StringBuilder(items.size() * 50);
 
         for (T1210.Item item : items)
-            fileList.append(item.getName()).append("\t").append(item.getSize()).append(FileUtils.Separator);
+            fileList.append(item.getName()).append('\t').append(item.getSize()).append(FileUtils.Separator);
 
         FileUtils.write(new File(dir, "fs.txt"), fileList.toString());
     }
@@ -133,5 +140,46 @@ public class FileServiceImpl implements FileService {
         }
 
         return result;
+    }
+
+    /** 多媒体数据上传 */
+    @Override
+    public boolean saveMediaFile(T0801 message) {
+        DeviceInfo deviceInfo = (DeviceInfo) message.getSession().getAttribute(SessionKey.DeviceInfo);
+        T0200 position = message.getPosition();
+
+        StringBuilder filename = new StringBuilder(32);
+        filename.append(position.getDateTime()).append('_');
+        filename.append(message.getChannelId()).append('_');
+        filename.append(message.getEvent());
+        filename.append(suffix(message.getType()));
+
+        File dir = new File(mediaFileRoot, deviceInfo.getDeviceId());
+        dir.mkdirs();
+
+        try (FileOutputStream fos = new FileOutputStream(new File(dir, filename.toString()))) {
+            fos.write(message.getPacket());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static String suffix(int type) {
+        switch (type) {
+            case 0:
+                return ".jpg";
+            case 1:
+                return ".tif";
+            case 2:
+                return ".mp3";
+            case 3:
+                return ".wav";
+            case 4:
+                return ".wmv";
+            default:
+                return ".bin";
+        }
     }
 }
