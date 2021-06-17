@@ -53,17 +53,17 @@ public class AlarmADAS implements Alarm {
         this.state = state;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
-            "0x01:前向碰撞报警\n" +
-            "0x02:车道偏离报警\n" +
-            "0x03:车距过近报警\n" +
-            "0x04:行人碰撞报警\n" +
-            "0x05:频繁变道报警\n" +
-            "0x06:道路标识超限报警\n" +
-            "0x07:障碍物报警\n" +
-            "0x08^0x0F:用户自定义\n" +
-            "0x10:道路标志识别事件\n" +
-            "0x11:主动抓拍事件\n" +
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型: " +
+            "0x01:前向碰撞报警 " +
+            "0x02:车道偏离报警 " +
+            "0x03:车距过近报警 " +
+            "0x04:行人碰撞报警 " +
+            "0x05:频繁变道报警 " +
+            "0x06:道路标识超限报警 " +
+            "0x07:障碍物报警 " +
+            "0x08^0x0F:用户自定义 " +
+            "0x10:道路标志识别事件 " +
+            "0x11:主动抓拍事件 " +
             "0x12~0x1F:用户自定义")
     public int getType() {
         return type;

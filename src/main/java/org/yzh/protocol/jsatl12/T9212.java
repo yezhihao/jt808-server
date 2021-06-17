@@ -21,7 +21,7 @@ public class T9212 extends JTMessage {
     private int total;
     private List<DataInfo> items;
 
-    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
     public String getName() {
         return name;
     }

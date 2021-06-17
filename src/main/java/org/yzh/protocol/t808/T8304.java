@@ -34,7 +34,7 @@ public class T8304 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 3, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
     public String getContent() {
         return content;
     }

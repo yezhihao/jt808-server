@@ -21,13 +21,14 @@ public class T9206 extends JTMessage {
     private int channelNo;
     private String startTime;
     private String endTime;
-    private int[] warnBit;
+    private int warnBit1;
+    private int warnBit2;
     private int mediaType;
     private int streamType;
     private int memoryType;
     private int condition;
 
-    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
     public String getIp() {
         return ip;
     }
@@ -45,7 +46,7 @@ public class T9206 extends JTMessage {
         this.port = port;
     }
 
-    @Field(index = 4, type = DataType.STRING, lengthSize = 1, desc = "用户名")
+    @Field(index = 3, type = DataType.STRING, lengthSize = 1, desc = "用户名")
     public String getUsername() {
         return username;
     }
@@ -54,7 +55,7 @@ public class T9206 extends JTMessage {
         this.username = username;
     }
 
-    @Field(index = 5, type = DataType.STRING, lengthSize = 1, desc = "密码")
+    @Field(index = 4, type = DataType.STRING, lengthSize = 1, desc = "密码")
     public String getPassword() {
         return password;
     }
@@ -63,7 +64,7 @@ public class T9206 extends JTMessage {
         this.password = password;
     }
 
-    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "文件上传路径")
+    @Field(index = 5, type = DataType.STRING, lengthSize = 1, desc = "文件上传路径")
     public String getPath() {
         return path;
     }
@@ -99,13 +100,22 @@ public class T9206 extends JTMessage {
         this.endTime = endTime;
     }
 
-    @Field(index = 19, type = DataType.DWORD, length = 8, desc = "报警标志")
-    public int[] getWarnBit() {
-        return warnBit;
+    @Field(index = 19, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
+    public int getWarnBit1() {
+        return warnBit1;
     }
 
-    public void setWarnBit(int[] warnBit) {
-        this.warnBit = warnBit;
+    public void setWarnBit1(int warnBit1) {
+        this.warnBit1 = warnBit1;
+    }
+
+    @Field(index = 23, type = DataType.DWORD, desc = "报警标志32-63")
+    public int getWarnBit2() {
+        return warnBit2;
+    }
+
+    public void setWarnBit2(int warnBit2) {
+        this.warnBit2 = warnBit2;
     }
 
     @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型")

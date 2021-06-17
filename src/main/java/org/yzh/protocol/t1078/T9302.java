@@ -25,7 +25,7 @@ public class T9302 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "参数1")
+    @Field(index = 1, type = DataType.BYTE, desc = "参数(0.调大 1.调小)|(0.停止 1.启动)")
     public int getParam() {
         return param;
     }

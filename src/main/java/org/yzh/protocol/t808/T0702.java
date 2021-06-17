@@ -49,7 +49,7 @@ public class T0702 extends JTMessage {
         this.cardStatus = cardStatus;
     }
 
-    @Field(index = 9, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
+    @Field(index = 8, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
     public String getName() {
         return name;
     }
@@ -67,7 +67,7 @@ public class T0702 extends JTMessage {
         this.licenseNo = licenseNo;
     }
 
-    @Field(index = 30, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
+    @Field(index = 29, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
     public String getInstitution() {
         return institution;
     }

@@ -121,8 +121,8 @@ public class T0200 extends JTMessage {
         sb.append(", altitude=").append(altitude);
         sb.append(", speed=").append(speed);
         sb.append(", direction=").append(direction);
-        sb.append(", warnBit=").append(warnBit);
-        sb.append(", statusBit=").append(statusBit);
+        sb.append(", warnBit=").append(Integer.toBinaryString(warnBit));
+        sb.append(", statusBit=").append(Integer.toBinaryString(statusBit));
         sb.append(", attributes=").append(attributes);
         sb.append(']');
         return sb.toString();
@@ -137,9 +137,9 @@ public class T0200 extends JTMessage {
         speedKph = speed / 10f;
     }
 
-    private double lng;
-    private double lat;
-    private float speedKph;
+    private transient double lng;
+    private transient double lat;
+    private transient float speedKph;
 
     public double getLng() {
         return lng;

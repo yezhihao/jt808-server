@@ -512,10 +512,8 @@ json1 {
       "channelNo": 1,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 1,
       "streamType": 1,
       "memoryType": 1,
@@ -525,10 +523,8 @@ json1 {
       "channelNo": 2,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 2,
       "streamType": 2,
       "memoryType": 2,
@@ -553,10 +549,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 1,
       "streamType": 1,
       "memoryType": 1,
@@ -566,10 +560,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 2,
       "streamType": 2,
       "memoryType": 2,
@@ -594,10 +586,8 @@ json1 {
       "channelNo": 1,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 1,
       "streamType": 1,
       "memoryType": 1,
@@ -607,10 +597,8 @@ json1 {
       "channelNo": 2,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 2,
       "streamType": 2,
       "memoryType": 2,
@@ -635,10 +623,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 1,
       "streamType": 1,
       "memoryType": 1,
@@ -648,10 +634,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-01-01T00:00:00",
       "endTime": "2020-12-31T23:59:59",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 2,
       "streamType": 2,
       "memoryType": 2,
@@ -1052,10 +1036,8 @@ json1 {
   "channelNo": 231,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 155,
   "streamType": 110,
   "memoryType": 0,
@@ -1073,10 +1055,8 @@ json2 {
   "channelNo": 231,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 155,
   "streamType": 110,
   "memoryType": 0,
@@ -1094,10 +1074,8 @@ json1 {
   "channelNo": 231,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 155,
   "streamType": 110,
   "memoryType": 0,
@@ -1115,10 +1093,8 @@ json2 {
   "channelNo": 231,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 155,
   "streamType": 110,
   "memoryType": 0,
@@ -1141,10 +1117,8 @@ json1 {
   "channelNo": 1,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 0,
   "streamType": 1,
   "memoryType": 1,
@@ -1168,10 +1142,8 @@ json2 {
   "channelNo": 1,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 0,
   "streamType": 1,
   "memoryType": 1,
@@ -1195,10 +1167,8 @@ json1 {
   "channelNo": 1,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 0,
   "streamType": 1,
   "memoryType": 1,
@@ -1222,10 +1192,8 @@ json2 {
   "channelNo": 1,
   "startTime": "200707192359",
   "endTime": "200707192359",
-  "warnBit": [
-    0,
-    0
-  ],
+  "warnBit1": 0,
+  "warnBit2": 0,
   "mediaType": 0,
   "streamType": 1,
   "memoryType": 1,
@@ -14411,10 +14379,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T00:00:00",
       "endTime": "2020-07-17T00:00:35",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14424,10 +14390,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T00:00:00",
       "endTime": "2020-07-17T00:00:35",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14437,10 +14401,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T00:00:00",
       "endTime": "2020-07-17T00:00:35",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14450,10 +14412,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T00:00:00",
       "endTime": "2020-07-17T00:00:35",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14463,10 +14423,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T00:00:00",
       "endTime": "2020-07-17T00:00:35",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14476,10 +14434,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T00:00:35",
       "endTime": "2020-07-17T00:07:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14489,10 +14445,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T00:00:35",
       "endTime": "2020-07-17T00:07:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14502,10 +14456,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T00:00:35",
       "endTime": "2020-07-17T00:07:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14515,10 +14467,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T00:00:35",
       "endTime": "2020-07-17T00:07:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14528,10 +14478,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T00:00:35",
       "endTime": "2020-07-17T00:07:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14541,10 +14489,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T00:07:24",
       "endTime": "2020-07-17T00:26:23",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14554,10 +14500,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T00:07:24",
       "endTime": "2020-07-17T00:26:23",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14567,10 +14511,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T00:07:24",
       "endTime": "2020-07-17T00:26:23",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14580,10 +14522,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T00:07:24",
       "endTime": "2020-07-17T00:26:23",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14593,10 +14533,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T00:07:24",
       "endTime": "2020-07-17T00:26:23",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14606,10 +14544,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T00:26:23",
       "endTime": "2020-07-17T00:45:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14619,10 +14555,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T00:26:23",
       "endTime": "2020-07-17T00:45:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14632,10 +14566,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T00:26:23",
       "endTime": "2020-07-17T00:45:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14645,10 +14577,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T00:26:23",
       "endTime": "2020-07-17T00:45:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14658,10 +14588,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T00:26:23",
       "endTime": "2020-07-17T00:45:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14671,10 +14599,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T00:45:20",
       "endTime": "2020-07-17T01:04:17",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14684,10 +14610,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T00:45:20",
       "endTime": "2020-07-17T01:04:17",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14697,10 +14621,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T00:45:20",
       "endTime": "2020-07-17T01:04:17",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14710,10 +14632,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T00:45:20",
       "endTime": "2020-07-17T01:04:17",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14723,10 +14643,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T00:45:20",
       "endTime": "2020-07-17T01:04:17",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14736,10 +14654,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T01:04:17",
       "endTime": "2020-07-17T01:23:11",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14749,10 +14665,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T01:04:17",
       "endTime": "2020-07-17T01:23:11",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14762,10 +14676,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T01:04:17",
       "endTime": "2020-07-17T01:23:11",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14775,10 +14687,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T01:04:17",
       "endTime": "2020-07-17T01:23:11",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14788,10 +14698,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T01:04:17",
       "endTime": "2020-07-17T01:23:11",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14801,10 +14709,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T01:23:11",
       "endTime": "2020-07-17T01:30:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14814,10 +14720,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T01:23:11",
       "endTime": "2020-07-17T01:30:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14827,10 +14731,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T01:23:11",
       "endTime": "2020-07-17T01:30:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14840,10 +14742,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T01:23:11",
       "endTime": "2020-07-17T01:30:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14853,10 +14753,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T01:23:11",
       "endTime": "2020-07-17T01:30:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14866,10 +14764,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T01:30:24",
       "endTime": "2020-07-17T01:35:06",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14879,10 +14775,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T01:30:24",
       "endTime": "2020-07-17T01:35:06",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14892,10 +14786,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T01:30:24",
       "endTime": "2020-07-17T01:35:06",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14905,10 +14797,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T01:30:24",
       "endTime": "2020-07-17T01:35:06",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14918,10 +14808,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T01:30:24",
       "endTime": "2020-07-17T01:35:06",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14931,10 +14819,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T01:35:06",
       "endTime": "2020-07-17T01:35:19",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14944,10 +14830,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T01:35:06",
       "endTime": "2020-07-17T01:35:19",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14957,10 +14841,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T01:35:06",
       "endTime": "2020-07-17T01:35:19",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14970,10 +14852,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T01:35:06",
       "endTime": "2020-07-17T01:35:19",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14983,10 +14863,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T01:35:06",
       "endTime": "2020-07-17T01:35:19",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -14996,10 +14874,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T06:44:39",
       "endTime": "2020-07-17T06:44:46",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15009,10 +14885,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T06:44:39",
       "endTime": "2020-07-17T06:44:46",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15022,10 +14896,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T06:44:39",
       "endTime": "2020-07-17T06:44:46",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15035,10 +14907,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T06:44:39",
       "endTime": "2020-07-17T06:44:46",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15048,10 +14918,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T06:44:39",
       "endTime": "2020-07-17T06:44:46",
-      "warnBit": [
-        0,
-        0
-      ],
+      "warnBit1": 0,
+      "warnBit2": 0,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15061,10 +14929,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T06:44:46",
       "endTime": "2020-07-17T06:58:02",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15074,10 +14940,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T06:44:46",
       "endTime": "2020-07-17T06:58:02",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15087,10 +14951,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T06:44:46",
       "endTime": "2020-07-17T06:58:02",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15100,10 +14962,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T06:44:46",
       "endTime": "2020-07-17T06:58:02",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15113,10 +14973,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T06:44:46",
       "endTime": "2020-07-17T06:58:02",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15126,10 +14984,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T06:58:02",
       "endTime": "2020-07-17T07:16:52",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15139,10 +14995,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T06:58:02",
       "endTime": "2020-07-17T07:16:52",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15152,10 +15006,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T06:58:02",
       "endTime": "2020-07-17T07:16:52",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15165,10 +15017,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T06:58:02",
       "endTime": "2020-07-17T07:16:52",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15178,10 +15028,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T06:58:02",
       "endTime": "2020-07-17T07:16:52",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15191,10 +15039,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T07:16:52",
       "endTime": "2020-07-17T07:35:43",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15204,10 +15050,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T07:16:52",
       "endTime": "2020-07-17T07:35:43",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15217,10 +15061,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T07:16:52",
       "endTime": "2020-07-17T07:35:43",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15230,10 +15072,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T07:16:52",
       "endTime": "2020-07-17T07:35:43",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15243,10 +15083,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T07:16:52",
       "endTime": "2020-07-17T07:35:43",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15256,10 +15094,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T07:35:44",
       "endTime": "2020-07-17T07:54:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15269,10 +15105,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T07:35:44",
       "endTime": "2020-07-17T07:54:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15282,10 +15116,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T07:35:44",
       "endTime": "2020-07-17T07:54:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15295,10 +15127,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T07:35:44",
       "endTime": "2020-07-17T07:54:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15308,10 +15138,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T07:35:44",
       "endTime": "2020-07-17T07:54:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15321,10 +15149,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T07:54:35",
       "endTime": "2020-07-17T08:13:26",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15334,10 +15160,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T07:54:35",
       "endTime": "2020-07-17T08:13:26",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15347,10 +15171,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T07:54:35",
       "endTime": "2020-07-17T08:13:26",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15360,10 +15182,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T07:54:35",
       "endTime": "2020-07-17T08:13:26",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15373,10 +15193,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T07:54:35",
       "endTime": "2020-07-17T08:13:26",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15386,10 +15204,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T08:13:26",
       "endTime": "2020-07-17T08:32:16",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15399,10 +15215,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T08:13:26",
       "endTime": "2020-07-17T08:32:16",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15412,10 +15226,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T08:13:26",
       "endTime": "2020-07-17T08:32:16",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15425,10 +15237,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T08:13:26",
       "endTime": "2020-07-17T08:32:16",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15438,10 +15248,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T08:13:26",
       "endTime": "2020-07-17T08:32:16",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15451,10 +15259,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T08:32:16",
       "endTime": "2020-07-17T08:51:08",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15464,10 +15270,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T08:32:16",
       "endTime": "2020-07-17T08:51:07",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15477,10 +15281,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T08:32:16",
       "endTime": "2020-07-17T08:51:08",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15490,10 +15292,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T08:32:16",
       "endTime": "2020-07-17T08:51:08",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15503,10 +15303,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T08:32:16",
       "endTime": "2020-07-17T08:51:08",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15516,10 +15314,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T08:51:08",
       "endTime": "2020-07-17T09:09:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15529,10 +15325,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T08:51:08",
       "endTime": "2020-07-17T09:09:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15542,10 +15336,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T08:51:08",
       "endTime": "2020-07-17T09:09:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15555,10 +15347,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T08:51:08",
       "endTime": "2020-07-17T09:09:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15568,10 +15358,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T08:51:08",
       "endTime": "2020-07-17T09:09:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15581,10 +15369,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T09:09:57",
       "endTime": "2020-07-17T09:28:49",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15594,10 +15380,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T09:09:57",
       "endTime": "2020-07-17T09:28:49",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15607,10 +15391,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T09:09:57",
       "endTime": "2020-07-17T09:28:49",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15620,10 +15402,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T09:09:57",
       "endTime": "2020-07-17T09:28:49",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15633,10 +15413,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T09:09:57",
       "endTime": "2020-07-17T09:28:49",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15646,10 +15424,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T09:28:49",
       "endTime": "2020-07-17T09:47:39",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15659,10 +15435,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T09:28:49",
       "endTime": "2020-07-17T09:47:39",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15672,10 +15446,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T09:28:49",
       "endTime": "2020-07-17T09:47:39",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15685,10 +15457,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T09:28:49",
       "endTime": "2020-07-17T09:47:39",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15698,10 +15468,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T09:28:50",
       "endTime": "2020-07-17T09:47:39",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15711,10 +15479,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T09:47:39",
       "endTime": "2020-07-17T10:06:27",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15724,10 +15490,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T09:47:39",
       "endTime": "2020-07-17T10:06:27",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15737,10 +15501,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T09:47:39",
       "endTime": "2020-07-17T10:06:27",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15750,10 +15512,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T09:47:39",
       "endTime": "2020-07-17T10:06:27",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15763,10 +15523,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T09:47:39",
       "endTime": "2020-07-17T10:06:27",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15776,10 +15534,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T10:06:27",
       "endTime": "2020-07-17T10:25:18",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15789,10 +15545,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T10:06:27",
       "endTime": "2020-07-17T10:25:18",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15802,10 +15556,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T10:06:27",
       "endTime": "2020-07-17T10:25:18",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15815,10 +15567,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T10:06:27",
       "endTime": "2020-07-17T10:25:18",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15828,10 +15578,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T10:06:27",
       "endTime": "2020-07-17T10:25:18",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15841,10 +15589,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T10:25:18",
       "endTime": "2020-07-17T10:44:06",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15854,10 +15600,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T10:25:18",
       "endTime": "2020-07-17T10:44:06",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15867,10 +15611,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T10:25:18",
       "endTime": "2020-07-17T10:44:06",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15880,10 +15622,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T10:25:18",
       "endTime": "2020-07-17T10:44:06",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15893,10 +15633,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T10:25:18",
       "endTime": "2020-07-17T10:44:06",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15906,10 +15644,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T10:44:06",
       "endTime": "2020-07-17T11:02:51",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15919,10 +15655,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T10:44:06",
       "endTime": "2020-07-17T11:02:51",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15932,10 +15666,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T10:44:06",
       "endTime": "2020-07-17T11:02:51",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15945,10 +15677,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T10:44:06",
       "endTime": "2020-07-17T11:02:51",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15958,10 +15688,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T10:44:06",
       "endTime": "2020-07-17T11:02:51",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15971,10 +15699,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T11:02:51",
       "endTime": "2020-07-17T11:21:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15984,10 +15710,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T11:02:51",
       "endTime": "2020-07-17T11:21:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -15997,10 +15721,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T11:02:51",
       "endTime": "2020-07-17T11:21:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16010,10 +15732,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T11:02:51",
       "endTime": "2020-07-17T11:21:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16023,10 +15743,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T11:02:51",
       "endTime": "2020-07-17T11:21:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16036,10 +15754,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T11:21:46",
       "endTime": "2020-07-17T11:40:42",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16049,10 +15765,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T11:21:46",
       "endTime": "2020-07-17T11:40:42",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16062,10 +15776,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T11:21:46",
       "endTime": "2020-07-17T11:40:42",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16075,10 +15787,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T11:21:46",
       "endTime": "2020-07-17T11:40:42",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16088,10 +15798,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T11:21:46",
       "endTime": "2020-07-17T11:40:42",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16101,10 +15809,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T11:40:42",
       "endTime": "2020-07-17T11:59:32",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16114,10 +15820,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T11:40:42",
       "endTime": "2020-07-17T11:59:32",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16127,10 +15831,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T11:40:42",
       "endTime": "2020-07-17T11:59:32",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16140,10 +15842,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T11:40:42",
       "endTime": "2020-07-17T11:59:32",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16153,10 +15853,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T11:40:42",
       "endTime": "2020-07-17T11:59:32",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16166,10 +15864,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T11:59:32",
       "endTime": "2020-07-17T12:18:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16179,10 +15875,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T11:59:32",
       "endTime": "2020-07-17T12:18:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16192,10 +15886,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T11:59:32",
       "endTime": "2020-07-17T12:18:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16205,10 +15897,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T11:59:32",
       "endTime": "2020-07-17T12:18:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16218,10 +15908,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T11:59:32",
       "endTime": "2020-07-17T12:18:24",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16231,10 +15919,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T12:18:24",
       "endTime": "2020-07-17T12:37:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16244,10 +15930,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T12:18:24",
       "endTime": "2020-07-17T12:37:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16257,10 +15941,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T12:18:24",
       "endTime": "2020-07-17T12:37:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16270,10 +15952,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T12:18:24",
       "endTime": "2020-07-17T12:37:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16283,10 +15963,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T12:18:24",
       "endTime": "2020-07-17T12:37:20",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16296,10 +15974,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T12:37:20",
       "endTime": "2020-07-17T12:56:12",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16309,10 +15985,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T12:37:20",
       "endTime": "2020-07-17T12:56:12",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16322,10 +15996,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T12:37:20",
       "endTime": "2020-07-17T12:56:12",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16335,10 +16007,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T12:37:20",
       "endTime": "2020-07-17T12:56:12",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16348,10 +16018,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T12:37:20",
       "endTime": "2020-07-17T12:56:12",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16361,10 +16029,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T12:56:12",
       "endTime": "2020-07-17T13:15:01",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16374,10 +16040,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T12:56:12",
       "endTime": "2020-07-17T13:15:01",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16387,10 +16051,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T12:56:13",
       "endTime": "2020-07-17T13:15:01",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16400,10 +16062,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T12:56:12",
       "endTime": "2020-07-17T13:15:01",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16413,10 +16073,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T12:56:12",
       "endTime": "2020-07-17T13:15:01",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16426,10 +16084,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T13:15:01",
       "endTime": "2020-07-17T13:33:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16439,10 +16095,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T13:15:01",
       "endTime": "2020-07-17T13:33:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16452,10 +16106,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T13:15:01",
       "endTime": "2020-07-17T13:33:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16465,10 +16117,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T13:15:01",
       "endTime": "2020-07-17T13:33:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16478,10 +16128,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T13:15:01",
       "endTime": "2020-07-17T13:33:57",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16491,10 +16139,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T13:33:57",
       "endTime": "2020-07-17T13:52:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16504,10 +16150,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T13:33:57",
       "endTime": "2020-07-17T13:52:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16517,10 +16161,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T13:33:57",
       "endTime": "2020-07-17T13:52:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16530,10 +16172,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T13:33:57",
       "endTime": "2020-07-17T13:52:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16543,10 +16183,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T13:33:57",
       "endTime": "2020-07-17T13:52:46",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16556,10 +16194,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T13:52:46",
       "endTime": "2020-07-17T14:11:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16569,10 +16205,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T13:52:46",
       "endTime": "2020-07-17T14:11:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16582,10 +16216,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T13:52:46",
       "endTime": "2020-07-17T14:11:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16595,10 +16227,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T13:52:46",
       "endTime": "2020-07-17T14:11:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16608,10 +16238,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T13:52:46",
       "endTime": "2020-07-17T14:11:35",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16621,10 +16249,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T14:11:35",
       "endTime": "2020-07-17T14:30:25",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16634,10 +16260,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T14:11:35",
       "endTime": "2020-07-17T14:30:25",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16647,10 +16271,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T14:11:35",
       "endTime": "2020-07-17T14:30:25",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16660,10 +16282,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T14:11:35",
       "endTime": "2020-07-17T14:30:25",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16673,10 +16293,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T14:11:35",
       "endTime": "2020-07-17T14:30:25",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16686,10 +16304,8 @@ json2 {
       "channelNo": 1,
       "startTime": "2020-07-17T14:30:25",
       "endTime": "2020-07-17T14:49:15",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16699,10 +16315,8 @@ json2 {
       "channelNo": 2,
       "startTime": "2020-07-17T14:30:25",
       "endTime": "2020-07-17T14:49:15",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16712,10 +16326,8 @@ json2 {
       "channelNo": 3,
       "startTime": "2020-07-17T14:30:25",
       "endTime": "2020-07-17T14:49:15",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16725,10 +16337,8 @@ json2 {
       "channelNo": 4,
       "startTime": "2020-07-17T14:30:25",
       "endTime": "2020-07-17T14:49:15",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,
@@ -16738,10 +16348,8 @@ json2 {
       "channelNo": 5,
       "startTime": "2020-07-17T14:30:25",
       "endTime": "2020-07-17T14:49:15",
-      "warnBit": [
-        0,
-        1
-      ],
+      "warnBit1": 0,
+      "warnBit2": 1,
       "mediaType": 0,
       "streamType": 1,
       "memoryType": 1,

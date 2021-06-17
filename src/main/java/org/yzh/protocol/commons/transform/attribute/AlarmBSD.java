@@ -47,9 +47,9 @@ public class AlarmBSD implements Alarm {
         this.state = state;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
-            "0x01:后方接近报警\n" +
-            "0x02:左侧后方接近报警\n" +
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型: " +
+            "0x01:后方接近报警 " +
+            "0x02:左侧后方接近报警 " +
             "0x03:右侧后方接近报警")
     public int getType() {
         return type;

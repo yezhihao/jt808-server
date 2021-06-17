@@ -8,7 +8,6 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Message(JT1078.终端上传音视频资源列表)
@@ -50,7 +49,8 @@ public class T1205 extends JTMessage implements Response {
         private int channelNo;
         private LocalDateTime startTime;
         private LocalDateTime endTime;
-        private int[] warnBit;
+        private int warnBit1;
+        private int warnBit2;
         private int mediaType;
         private int streamType = 1;
         private int memoryType;
@@ -59,11 +59,12 @@ public class T1205 extends JTMessage implements Response {
         public Item() {
         }
 
-        public Item(int channelNo, LocalDateTime startTime, LocalDateTime endTime, int[] warnBit, int mediaType, int streamType, int memoryType, long size) {
+        public Item(int channelNo, LocalDateTime startTime, LocalDateTime endTime, int warnBit1, int warnBit2, int mediaType, int streamType, int memoryType, long size) {
             this.channelNo = channelNo;
             this.startTime = startTime;
             this.endTime = endTime;
-            this.warnBit = warnBit;
+            this.warnBit1 = warnBit1;
+            this.warnBit2 = warnBit2;
             this.mediaType = mediaType;
             this.streamType = streamType;
             this.memoryType = memoryType;
@@ -97,13 +98,22 @@ public class T1205 extends JTMessage implements Response {
             this.endTime = endTime;
         }
 
-        @Field(index = 13, length = 8, type = DataType.DWORD, desc = "报警标志")
-        public int[] getWarnBit() {
-            return warnBit;
+        @Field(index = 13, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
+        public int getWarnBit1() {
+            return warnBit1;
         }
 
-        public void setWarnBit(int[] warnBit) {
-            this.warnBit = warnBit;
+        public void setWarnBit1(int warnBit1) {
+            this.warnBit1 = warnBit1;
+        }
+
+        @Field(index = 17, type = DataType.DWORD, desc = "报警标志32-63")
+        public int getWarnBit2() {
+            return warnBit2;
+        }
+
+        public void setWarnBit2(int warnBit2) {
+            this.warnBit2 = warnBit2;
         }
 
         @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
@@ -149,7 +159,8 @@ public class T1205 extends JTMessage implements Response {
             sb.append("channelNo=").append(channelNo);
             sb.append(", startTime='").append(startTime).append('\'');
             sb.append(", endTime='").append(endTime).append('\'');
-            sb.append(", warnBit=").append(Arrays.toString(warnBit));
+            sb.append(", warnBit1=").append(Integer.toBinaryString(warnBit1));
+            sb.append(", warnBit2=").append(Integer.toBinaryString(warnBit2));
             sb.append(", mediaType=").append(mediaType);
             sb.append(", streamType=").append(streamType);
             sb.append(", memoryType=").append(memoryType);

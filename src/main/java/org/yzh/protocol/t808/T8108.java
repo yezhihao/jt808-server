@@ -40,7 +40,7 @@ public class T8108 extends JTMessage {
         this.makerId = makerId;
     }
 
-    @Field(index = 7, type = DataType.STRING, lengthSize = 1, desc = "版本号")
+    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "版本号")
     public String getVersion() {
         return version;
     }
@@ -49,7 +49,7 @@ public class T8108 extends JTMessage {
         this.version = version;
     }
 
-    @Field(index = 11, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
+    @Field(index = 7, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
     public byte[] getPacket() {
         return packet;
     }

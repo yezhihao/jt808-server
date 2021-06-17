@@ -73,8 +73,8 @@ public class T0107 extends JTMessage {
         this.simNo = simNo;
     }
 
-    @Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0)
-    @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)
+    @Field(index = 52, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0)
+    @Field(index = 77, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)
     public String getHardwareVersion() {
         return hardwareVersion;
     }
@@ -83,8 +83,8 @@ public class T0107 extends JTMessage {
         this.hardwareVersion = hardwareVersion;
     }
 
-    @Field(index = 54, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0)
-    @Field(index = 79, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)
+    @Field(index = 53, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 0)
+    @Field(index = 78, type = DataType.STRING, lengthSize = 1, desc = "固件版本号", version = 1)
     public String getFirmwareVersion() {
         return firmwareVersion;
     }

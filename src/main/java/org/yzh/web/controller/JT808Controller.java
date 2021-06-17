@@ -96,9 +96,7 @@ public class JT808Controller {
 
     @Operation(summary = "8203 人工确认报警消息")
     @PostMapping("alarm_ack")
-    public T0001 alarmAck(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                          @Parameter(description = "消息流水号") @RequestParam int serialNo, @Parameter(description = "报警类型") @RequestParam int type) {
-        T8203 request = new T8203(serialNo, type);
+    public T0001 alarmAck(@Parameter(description = "终端手机号") @RequestParam String clientId, T8203 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;
@@ -106,11 +104,7 @@ public class JT808Controller {
 
     @Operation(summary = "8300 文本信息下发")
     @PostMapping("text")
-    public T0001 sendText(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                          @Parameter(description = "标志") @RequestParam int[] sign,
-                          @Parameter(description = "类型: 1.通知 2.服务") @RequestParam int type,
-                          @Parameter(description = "文本信息") @RequestParam String content) {
-        T8300 request = new T8300(type, content, sign);
+    public T0001 sendText(@Parameter(description = "终端手机号") @RequestParam String clientId, T8300 request) {
         request.setHeader(new Header(clientId));
         T0001 response = messageManager.request(request, T0001.class);
         return response;

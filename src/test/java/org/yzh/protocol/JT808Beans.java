@@ -469,13 +469,11 @@ public class JT808Beans {
 
     //提问下发
     public static T8302 T8302() {
-        T8302 bean = new T8302();
         List<T8302.Option> options = new ArrayList();
-        bean.buildSign(new int[]{1});
-        bean.setContent("123");
-        bean.setOptions(options);
         options.add(new T8302.Option(1, "asd1"));
         options.add(new T8302.Option(2, "zxc2"));
+        T8302 bean = new T8302("123", 1);
+        bean.setOptions(options);
         return bean;
     }
 

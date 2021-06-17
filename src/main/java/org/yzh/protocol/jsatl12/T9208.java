@@ -20,7 +20,7 @@ public class T9208 extends JTMessage {
     private String alarmNo;
     private byte[] reserved;
 
-    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }

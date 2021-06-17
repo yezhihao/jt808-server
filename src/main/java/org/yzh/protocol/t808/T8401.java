@@ -78,7 +78,7 @@ public class T8401 extends JTMessage {
             this.sign = sign;
         }
 
-        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "电话号码")
+        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "电话号码")
         public String getPhone() {
             return phone;
         }
@@ -87,7 +87,7 @@ public class T8401 extends JTMessage {
             this.phone = phone;
         }
 
-        @Field(index = 3, type = DataType.STRING, lengthSize = 1, desc = "联系人")
+        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "联系人")
         public String getName() {
             return name;
         }

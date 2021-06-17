@@ -32,13 +32,13 @@ public class T8300 extends JTMessage {
         this.sign = Bit.writeInt(sign);
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志:\n" +
-            "[0]紧急\n" +
-            "[1]保留\n" +
-            "[2]终端显示器显示\n" +
-            "[3]终端 TTS 播读\n" +
-            "[4]广告屏显示\n" +
-            "[5]0.中心导航信息|1.CAN故障码信息\n" +
+    @Field(index = 0, type = DataType.BYTE, desc = "标志: " +
+            "[0]紧急 " +
+            "[1]保留 " +
+            "[2]终端显示器显示 " +
+            "[3]终端 TTS 播读 " +
+            "[4]广告屏显示 " +
+            "[5]0.中心导航信息|1.CAN故障码信息 " +
             "[6-7]保留")
     public int getSign() {
         return sign;

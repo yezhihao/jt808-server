@@ -77,7 +77,7 @@ public class T8301 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "内容")
+        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "内容")
         public String getContent() {
             return content;
         }

@@ -72,18 +72,11 @@ public class JTMessage implements Message {
         this.payload = payload;
     }
 
-    private static int reflectMessageId = -1;
-
     public int reflectMessageId() {
-        if (reflectMessageId == -1) {
-            io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
-            if (messageType == null || messageType.value().length <= 0) {
-                reflectMessageId = 0;
-            } else {
-                reflectMessageId = messageType.value()[0];
-            }
-        }
-        return reflectMessageId;
+        io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
+        if (messageType != null && messageType.value().length > 0)
+            return messageType.value()[0];
+        return 0;
     }
 
     public void transform() {

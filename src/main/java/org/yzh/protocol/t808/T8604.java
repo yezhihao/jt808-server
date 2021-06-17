@@ -43,7 +43,7 @@ public class T8604 extends JTMessage {
         this.attribute = attribute;
     }
 
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(yyMMddHHmmss)")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
     public String getStartTime() {
         return startTime;
     }
@@ -52,7 +52,7 @@ public class T8604 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(yyMMddHHmmss)")
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     public String getEndTime() {
         return endTime;
     }

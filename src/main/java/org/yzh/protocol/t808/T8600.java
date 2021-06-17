@@ -181,7 +181,7 @@ public class T8600 extends JTMessage {
             this.nightMaxSpeed = nightMaxSpeed;
         }
 
-        @Field(index = 37, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+        @Field(index = 35, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
         public String getName() {
             return name;
         }

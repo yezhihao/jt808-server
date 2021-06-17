@@ -2,19 +2,20 @@ package org.yzh.web.config;
 
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import io.github.yezhihao.protostar.annotation.Field;
+import io.github.yezhihao.protostar.annotation.Fs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.PropertySpecificationBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.*;
 import springfox.documentation.schema.property.ModelSpecificationFactory;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.schema.EnumTypeDeterminer;
 import springfox.documentation.spi.schema.contexts.ModelPropertyContext;
+import springfox.documentation.spi.service.contexts.ParameterExpansionContext;
 import springfox.documentation.spring.web.DescriptionResolver;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.readers.parameter.SwaggerExpandedParameterBuilder;
 import springfox.documentation.swagger.schema.ApiModelPropertyPropertyBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
+import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PLUGIN_ORDER;
 
 /**
  * @author yezhihao
@@ -36,7 +38,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket customImplementation() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.yzh.web.controller"))
@@ -72,7 +74,7 @@ public class SwaggerConfig {
 
                     PropertySpecificationBuilder builder = context.getSpecificationBuilder();
                     String name = beanPropertyDefinition.getName();
-                    if (name.equals("header")) {
+                    if ("header".equals(name) || "payload".equals(name) || "messageId".equals(name) || "messageName".equals(name)) {
                         builder.isHidden(true);
                         return;
                     }
@@ -88,5 +90,52 @@ public class SwaggerConfig {
                 }
             }
         };
+    }
+
+    @Bean
+    public SwaggerExpandedParameterBuilder customSwaggerExpandedParameterBuilder(DescriptionResolver descriptions, EnumTypeDeterminer enumTypeDeterminer) {
+        return new SwaggerExpandedParameterBuilder(descriptions, enumTypeDeterminer) {
+            @Override
+            public void apply(ParameterExpansionContext context) {
+
+                ParameterBuilder parameterBuilder = context.getParameterBuilder();
+                RequestParameterBuilder requestParameterBuilder = context.getRequestParameterBuilder();
+
+                String parentName = context.getParentName();
+                String name = context.getFieldName();
+                boolean hidden = "header".equals(parentName) || "session".equals(parentName) || "serialNo".equals(name) ||
+                        "payload".equals(name) || "messageId".equals(name) || "messageName".equals(name);
+
+                parameterBuilder.hidden(hidden);
+                requestParameterBuilder.hidden(hidden);
+
+                if (!hidden) {
+                    Field field = getField(context);
+
+                    if (field != null) {
+                        parameterBuilder
+                                .description(field.desc())
+                                .required(true)
+                                .order(OAS_PLUGIN_ORDER);
+
+                        requestParameterBuilder
+                                .description(field.desc())
+                                .required(true)
+                                .parameterIndex(field.index() + 10)
+                                .precedence(OAS_PLUGIN_ORDER);
+                    }
+                }
+            }
+        };
+    }
+
+    private Field getField(ParameterExpansionContext context) {
+        Optional<Field> optionalField = context.findAnnotation(Field.class);
+        if (optionalField.isPresent())
+            return optionalField.get();
+        Optional<Fs> optionalFs = context.findAnnotation(Fs.class);
+        if (optionalFs.isPresent())
+            return optionalFs.get().value()[0];
+        return null;
     }
 }

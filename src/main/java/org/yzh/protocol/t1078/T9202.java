@@ -27,13 +27,13 @@ public class T9202 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "回放控制:\n" +
-            "0.开始回放\n" +
-            "1.暂停回放\n" +
-            "2.结束回放\n" +
-            "3.快进回放\n" +
-            "4.关键帧快退回放\n" +
-            "5.拖动回放\n" +
+    @Field(index = 1, type = DataType.BYTE, desc = "回放控制: " +
+            "0.开始回放 " +
+            "1.暂停回放 " +
+            "2.结束回放 " +
+            "3.快进回放 " +
+            "4.关键帧快退回放 " +
+            "5.拖动回放 " +
             "6.关键帧播放")
     public int getPlaybackMode() {
         return playbackMode;
@@ -43,13 +43,13 @@ public class T9202 extends JTMessage {
         this.playbackMode = playbackMode;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "快进或快退倍数:\n" +
-            "0.无效\n" +
-            "1.1倍\n" +
-            "2.2倍\n" +
-            "3.4倍\n" +
-            "4.8倍\n" +
-            "5.16倍\n" +
+    @Field(index = 2, type = DataType.BYTE, desc = "快进或快退倍数: " +
+            "0.无效 " +
+            "1.1倍 " +
+            "2.2倍 " +
+            "3.4倍 " +
+            "4.8倍 " +
+            "5.16倍 " +
             "(回放控制为3和4时,此字段内容有效,否则置0)")
     public int getPlaybackSpeed() {
         return playbackSpeed;

@@ -26,7 +26,7 @@ public class T9301 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "参数1")
+    @Field(index = 1, type = DataType.BYTE, desc = "方向: 0.停止 1.上 2.下 3.左 4.右")
     public int getParam1() {
         return param1;
     }
@@ -35,7 +35,7 @@ public class T9301 extends JTMessage {
         this.param1 = param1;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "参数2")
+    @Field(index = 2, type = DataType.BYTE, desc = "速度(0-255)")
     public int getParam2() {
         return param2;
     }

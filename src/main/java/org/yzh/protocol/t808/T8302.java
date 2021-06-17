@@ -20,14 +20,25 @@ public class T8302 extends JTMessage {
     private String content;
     private List<Option> options;
 
-    public void buildSign(int[] signs) {
+    public T8302() {
+    }
+
+    public T8302(String content, int... signs) {
+        this.content = content;
         int sign = 0;
         for (int b : signs)
             sign |= 1 << b;
         this.sign = sign;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志")
+    @Field(index = 0, type = DataType.BYTE, desc = "标志: " +
+            "[0]紧急 " +
+            "[1]保留 " +
+            "[2]终端显示器显示 " +
+            "[3]终端 TTS 播读 " +
+            "[4]广告屏显示 " +
+            "[5]0.中心导航信息|1.CAN故障码信息 " +
+            "[6-7]保留")
     public int getSign() {
         return sign;
     }
@@ -36,7 +47,7 @@ public class T8302 extends JTMessage {
         this.sign = sign;
     }
 
-    @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "问题")
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "问题")
     public String getContent() {
         return content;
     }
@@ -76,7 +87,7 @@ public class T8302 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 3, type = DataType.STRING, lengthSize = 2, desc = "答案内容")
+        @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "答案内容")
         public String getContent() {
             return content;
         }

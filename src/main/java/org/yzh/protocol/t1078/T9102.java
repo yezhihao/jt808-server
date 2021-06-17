@@ -27,11 +27,11 @@ public class T9102 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "控制指令:\n" +
-            "0.关闭音视频传输指令\n" +
-            "1.切换码流(增加暂停和继续)\n" +
-            "2.暂停该通道所有流的发送\n" +
-            "3.恢复暂停前流的发送,与暂停前的流类型一致\n" +
+    @Field(index = 1, type = DataType.BYTE, desc = "控制指令: " +
+            "0.关闭音视频传输指令 " +
+            "1.切换码流(增加暂停和继续) " +
+            "2.暂停该通道所有流的发送 " +
+            "3.恢复暂停前流的发送,与暂停前的流类型一致 " +
             "4.关闭双向对讲")
     public int getCommand() {
         return command;
@@ -41,9 +41,9 @@ public class T9102 extends JTMessage {
         this.command = command;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型:\n" +
-            "0.关闭该通道有关的音视频数据\n" +
-            "1.只关闭该通道有关的音频,保留该通道有关的视频\n" +
+    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型: " +
+            "0.关闭该通道有关的音视频数据 " +
+            "1.只关闭该通道有关的音频,保留该通道有关的视频 " +
             "2.只关闭该通道有关的视频,保留该通道有关的音频")
     public int getCloseType() {
         return closeType;

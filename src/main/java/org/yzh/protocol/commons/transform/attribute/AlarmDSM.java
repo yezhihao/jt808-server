@@ -50,15 +50,15 @@ public class AlarmDSM implements Alarm {
         this.state = state;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型:\n" +
-            "0x01:疲劳驾驶报警\n" +
-            "0x02:接打电话报警\n" +
-            "0x03:抽烟报警\n" +
-            "0x04:分神驾驶报警\n" +
-            "0x05:驾驶员异常报警\n" +
-            "0x06~0x0F:用户自定义\n" +
-            "0x10:自动抓拍事件\n" +
-            "0x11:驾驶员变更事件\n" +
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型: " +
+            "0x01:疲劳驾驶报警 " +
+            "0x02:接打电话报警 " +
+            "0x03:抽烟报警 " +
+            "0x04:分神驾驶报警 " +
+            "0x05:驾驶员异常报警 " +
+            "0x06~0x0F:用户自定义 " +
+            "0x10:自动抓拍事件 " +
+            "0x11:驾驶员变更事件 " +
             "0x12~0x1F:用户自定义")
     public int getType() {
         return type;

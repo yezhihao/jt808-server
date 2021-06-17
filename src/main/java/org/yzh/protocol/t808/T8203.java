@@ -34,17 +34,17 @@ public class T8203 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.DWORD, desc = "报警类型:\n" +
-            "[0]确认紧急报警\n" +
-            "[1-2]保留\n" +
-            "[3]确认危险预警\n" +
-            "[4-19]保留\n" +
-            "[20]确认进出区域报警\n" +
-            "[21]确认进出路线报警\n" +
-            "[22]确认路段行驶时间不足/过长报警\n" +
-            "[23-26]保留\n" +
-            "[27]确认车辆非法点火报警\n" +
-            "[28]确认车辆非法位移报警\n" +
+    @Field(index = 2, type = DataType.DWORD, desc = "报警类型: " +
+            "[0]确认紧急报警 " +
+            "[1-2]保留 " +
+            "[3]确认危险预警 " +
+            "[4-19]保留 " +
+            "[20]确认进出区域报警 " +
+            "[21]确认进出路线报警 " +
+            "[22]确认路段行驶时间不足/过长报警 " +
+            "[23-26]保留 " +
+            "[27]确认车辆非法点火报警 " +
+            "[28]确认车辆非法位移报警 " +
             "[29-31]保留")
     public int getType() {
         return type;
