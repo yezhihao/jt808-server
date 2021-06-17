@@ -149,10 +149,10 @@ public class JT808Endpoint {
         Header header = message.getHeader();
         Session session = message.getSession();
         List<T0200> list = new AdapterList<>(message.getItems(), item -> {
-            T0200 position = item.getPosition();
-            position.setHeader(header);
-            position.setSession(session);
-            return position;
+            T0200 location = item.getLocation();
+            location.setHeader(header);
+            location.setSession(session);
+            return location;
         });
         locationService.batchInsert(list);
     }

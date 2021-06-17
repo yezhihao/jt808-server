@@ -18,7 +18,7 @@ public class T0801 extends JTMessage {
     private int format;
     private int event;
     private int channelId;
-    private T0200 position;
+    private T0200 location;
     private byte[] packet;
 
     @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
@@ -67,12 +67,12 @@ public class T0801 extends JTMessage {
     }
 
     @Field(index = 8, type = DataType.OBJ, length = 28, desc = "位置信息")
-    public T0200 getPosition() {
-        return position;
+    public T0200 getLocation() {
+        return location;
     }
 
-    public void setPosition(T0200 position) {
-        this.position = position;
+    public void setLocation(T0200 location) {
+        this.location = location;
     }
 
     @Field(index = 36, type = DataType.BYTES, desc = "多媒体数据包")

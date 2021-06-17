@@ -370,7 +370,7 @@ public class JT808Beans {
         bean.setFormat(2);
         bean.setEvent(1);
         bean.setChannelId(2);
-        bean.setPosition(T0200());
+        bean.setLocation(T0200());
         bean.setPacket(new byte[]{13, 123, 13, 123, 123});
         return bean;
     }

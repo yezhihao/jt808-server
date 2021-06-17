@@ -54,17 +54,17 @@ public class T0802 extends JTMessage implements Response {
         private int type;
         private int channelId;
         private int event;
-        private T0200 position;
+        private T0200 location;
 
         public Item() {
         }
 
-        public Item(int id, int type, int channelId, int event, T0200 position) {
+        public Item(int id, int type, int channelId, int event, T0200 location) {
             this.id = id;
             this.type = type;
             this.channelId = channelId;
             this.event = event;
-            this.position = position;
+            this.location = location;
         }
 
         @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
@@ -104,12 +104,12 @@ public class T0802 extends JTMessage implements Response {
         }
 
         @Field(index = 7, type = DataType.OBJ, length = 28, desc = "位置信息")
-        public T0200 getPosition() {
-            return position;
+        public T0200 getLocation() {
+            return location;
         }
 
-        public void setPosition(T0200 position) {
-            this.position = position;
+        public void setLocation(T0200 location) {
+            this.location = location;
         }
     }
 }

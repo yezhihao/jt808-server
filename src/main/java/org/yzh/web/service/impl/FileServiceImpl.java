@@ -146,10 +146,10 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean saveMediaFile(T0801 message) {
         DeviceInfo deviceInfo = (DeviceInfo) message.getSession().getAttribute(SessionKey.DeviceInfo);
-        T0200 position = message.getPosition();
+        T0200 location = message.getLocation();
 
         StringBuilder filename = new StringBuilder(32);
-        filename.append(position.getDateTime()).append('_');
+        filename.append(location.getDateTime()).append('_');
         filename.append(message.getChannelId()).append('_');
         filename.append(message.getEvent());
         filename.append(suffix(message.getType()));

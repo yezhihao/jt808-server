@@ -2573,7 +2573,7 @@ json1 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2585,7 +2585,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2597,7 +2597,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2609,7 +2609,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2636,7 +2636,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2648,7 +2648,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2660,7 +2660,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2672,7 +2672,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2699,7 +2699,7 @@ json1 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2711,7 +2711,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2723,7 +2723,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2735,7 +2735,7 @@ json1 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2762,7 +2762,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2774,7 +2774,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -2786,7 +2786,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -2798,7 +2798,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3166,7 +3166,7 @@ json1 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -3199,7 +3199,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -3232,7 +3232,7 @@ json1 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -3265,7 +3265,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -3301,7 +3301,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3317,7 +3317,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3333,7 +3333,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3349,7 +3349,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3380,7 +3380,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3396,7 +3396,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3412,7 +3412,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3428,7 +3428,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3459,7 +3459,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3475,7 +3475,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3491,7 +3491,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3507,7 +3507,7 @@ json1 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3538,7 +3538,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3554,7 +3554,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -3570,7 +3570,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -3586,7 +3586,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 2048,
         "statusBit": 4096,
         "latitude": 232615258,
@@ -9305,7 +9305,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9317,7 +9317,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9329,7 +9329,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9356,7 +9356,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9368,7 +9368,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9380,7 +9380,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9408,7 +9408,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9420,7 +9420,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9432,7 +9432,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9459,7 +9459,7 @@ json2 {
   "type": 1,
   "items": [
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9471,7 +9471,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9483,7 +9483,7 @@ json2 {
       }
     },
     {
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -9856,7 +9856,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -9889,7 +9889,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -9923,7 +9923,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -9956,7 +9956,7 @@ json2 {
   "format": 2,
   "event": 1,
   "channelId": 2,
-  "position": {
+  "location": {
     "warnBit": 1024,
     "statusBit": 2048,
     "latitude": 116307629,
@@ -9993,7 +9993,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10009,7 +10009,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10025,7 +10025,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10041,7 +10041,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10072,7 +10072,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10088,7 +10088,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10104,7 +10104,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10120,7 +10120,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10152,7 +10152,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10168,7 +10168,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10184,7 +10184,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10200,7 +10200,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10231,7 +10231,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10247,7 +10247,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10263,7 +10263,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,
@@ -10279,7 +10279,7 @@ json2 {
       "type": 1,
       "channelId": 1,
       "event": 1,
-      "position": {
+      "location": {
         "warnBit": 1024,
         "statusBit": 2048,
         "latitude": 116307629,

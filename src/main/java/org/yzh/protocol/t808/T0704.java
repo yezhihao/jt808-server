@@ -48,22 +48,22 @@ public class T0704 extends JTMessage {
     }
 
     public static class Item {
-        private T0200 position;
+        private T0200 location;
 
         public Item() {
         }
 
-        public Item(T0200 position) {
-            this.position = position;
+        public Item(T0200 location) {
+            this.location = location;
         }
 
         @Field(index = 2, type = DataType.OBJ, lengthSize = 2, desc = "位置汇报数据体")
-        public T0200 getPosition() {
-            return position;
+        public T0200 getLocation() {
+            return location;
         }
 
-        public void setPosition(T0200 position) {
-            this.position = position;
+        public void setLocation(T0200 location) {
+            this.location = location;
         }
     }
 }
