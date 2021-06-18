@@ -118,7 +118,7 @@ public class T9206 extends JTMessage {
         this.warnBit2 = warnBit2;
     }
 
-    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型")
+    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型: 0.音视频 1.音频 2.视频 3.视频或音视频")
     public int getMediaType() {
         return mediaType;
     }
@@ -127,7 +127,7 @@ public class T9206 extends JTMessage {
         this.mediaType = mediaType;
     }
 
-    @Field(index = 28, type = DataType.BYTE, desc = "码流类型")
+    @Field(index = 28, type = DataType.BYTE, desc = "码流类型: 0.所有码流 1.主码流 2.子码流")
     public int getStreamType() {
         return streamType;
     }
@@ -136,7 +136,7 @@ public class T9206 extends JTMessage {
         this.streamType = streamType;
     }
 
-    @Field(index = 29, type = DataType.BYTE, desc = "存储位置")
+    @Field(index = 29, type = DataType.BYTE, desc = "存储位置: 0.所有存储器 1.主存储器 2.灾备存储器")
     public int getMemoryType() {
         return memoryType;
     }
@@ -145,7 +145,7 @@ public class T9206 extends JTMessage {
         this.memoryType = memoryType;
     }
 
-    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件")
+    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [l]LAN连接时可下载 [2]3G/4G连接时可下载")
     public int getCondition() {
         return condition;
     }

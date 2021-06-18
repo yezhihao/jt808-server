@@ -152,6 +152,7 @@ public class JT808Endpoint {
             T0200 location = item.getLocation();
             location.setHeader(header);
             location.setSession(session);
+            location.transform();
             return location;
         });
         locationService.batchInsert(list);

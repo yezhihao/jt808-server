@@ -35,26 +35,6 @@ public class JTMessage implements Message {
         return header;
     }
 
-    @Override
-    public String getClientId() {
-        return header.getMobileNo();
-    }
-
-    @Override
-    public Integer getMessageId() {
-        return header.getMessageId();
-    }
-
-    @Override
-    public String getMessageName() {
-        return MessageId.get(header.getMessageId());
-    }
-
-    @Override
-    public int getSerialNo() {
-        return header.getSerialNo();
-    }
-
     @Transient
     public Session getSession() {
         return session;
@@ -64,12 +44,37 @@ public class JTMessage implements Message {
         this.session = session;
     }
 
+    @Transient
     public byte[] getPayload() {
         return payload;
     }
 
     public void setPayload(byte[] payload) {
         this.payload = payload;
+    }
+
+    @Transient
+    @Override
+    public String getClientId() {
+        return header.getMobileNo();
+    }
+
+    @Transient
+    @Override
+    public Integer getMessageId() {
+        return header.getMessageId();
+    }
+
+    @Transient
+    @Override
+    public String getMessageName() {
+        return MessageId.get(header.getMessageId());
+    }
+
+    @Transient
+    @Override
+    public int getSerialNo() {
+        return header.getSerialNo();
     }
 
     public int reflectMessageId() {

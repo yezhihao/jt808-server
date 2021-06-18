@@ -149,10 +149,12 @@ public class FileServiceImpl implements FileService {
         T0200 location = message.getLocation();
 
         StringBuilder filename = new StringBuilder(32);
+        filename.append(type(message.getType())).append('_');
         filename.append(location.getDateTime()).append('_');
         filename.append(message.getChannelId()).append('_');
-        filename.append(message.getEvent());
-        filename.append(suffix(message.getType()));
+        filename.append(message.getEvent()).append('_');
+        filename.append(message.getId()).append('.');
+        filename.append(suffix(message.getFormat()));
 
         File dir = new File(mediaFileRoot, deviceInfo.getDeviceId());
         dir.mkdirs();
@@ -161,25 +163,38 @@ public class FileServiceImpl implements FileService {
             fos.write(message.getPacket());
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("多媒体数据保存失败", e);
             return false;
         }
     }
 
-    private static String suffix(int type) {
+    private static String type(int type) {
         switch (type) {
             case 0:
-                return ".jpg";
+                return "image";
             case 1:
-                return ".tif";
+                return "audio";
             case 2:
-                return ".mp3";
-            case 3:
-                return ".wav";
-            case 4:
-                return ".wmv";
+                return "video";
             default:
-                return ".bin";
+                return "unknown";
+        }
+    }
+
+    private static String suffix(int format) {
+        switch (format) {
+            case 0:
+                return "jpg";
+            case 1:
+                return "tif";
+            case 2:
+                return "mp3";
+            case 3:
+                return "wav";
+            case 4:
+                return "wmv";
+            default:
+                return "bin";
         }
     }
 }
