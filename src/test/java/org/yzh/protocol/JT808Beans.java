@@ -1,7 +1,5 @@
 package org.yzh.protocol;
 
-import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.Shape;
@@ -15,7 +13,10 @@ import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.t808.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * JT/T 808协议单元测试数据
@@ -26,34 +27,6 @@ public class JT808Beans {
 
     private static final String STR_TIME = "200707192359";
     private static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
-    private static final String STR16 = "O8gYkVE6kfz8ec6Y";
-    private static final Random R = new Random(1);
-
-    /** 2013版消息头 */
-    public static JTMessage H2013(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setMobileNo("12345678901");
-        header.setSerialNo((int) Short.MAX_VALUE);
-        header.setEncryption(0);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
-
-    /** 2019版消息头 */
-    public static JTMessage H2019(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setVersionNo(1);
-        header.setMobileNo("17299841738");
-        header.setSerialNo(65535);
-        header.setEncryption(0);
-        header.setVersion(true);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
 
     //平台RSA公钥|终端RSA公钥
     public static T0A00_8A00 T0A00_8A00() {

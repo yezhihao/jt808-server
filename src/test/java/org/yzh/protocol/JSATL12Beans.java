@@ -1,7 +1,5 @@
 package org.yzh.protocol;
 
-import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.jsatl12.*;
 
 /**
@@ -13,31 +11,6 @@ public class JSATL12Beans {
 
     private static final String UUID = "ad72131579e54be0b0f737cfc72c5db8";
 
-    /** 2013版消息头 */
-    public static JTMessage H2013(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setMobileNo("12345678901");
-        header.setSerialNo((int) Short.MAX_VALUE);
-        header.setEncryption(0);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
-
-    /** 2019版消息头 */
-    public static JTMessage H2019(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setVersionNo(1);
-        header.setMobileNo("17299841738");
-        header.setSerialNo(65535);
-        header.setEncryption(0);
-        header.setVersion(true);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
 
     //报警附件信息消息
     public static T1210 T1210() {

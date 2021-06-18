@@ -3,9 +3,10 @@ package org.yzh.codec;
 import io.github.yezhihao.protostar.FieldFactory;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
+import org.yzh.protocol.BeanTest;
 import org.yzh.protocol.JT808Beans;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.protocol.t808.T0100;
 
 /**
  * 编码分析
@@ -22,11 +23,12 @@ public class DarkRepulsor {
     }
 
     public static void main(String[] args) {
-        T0100 message = JT808Beans.T0100();
-        JT808Beans.H2013(message);
+        JTMessage message = JT808Beans.T0100();
+        BeanTest.H2013(message);
 
         ByteBuf byteBuf = encoder.encode(message);
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
+        System.out.println(message);
     }
 }

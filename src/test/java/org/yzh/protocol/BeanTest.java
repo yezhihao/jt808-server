@@ -4,6 +4,7 @@ import com.google.gson.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
+import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
@@ -40,6 +41,33 @@ public class BeanTest {
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
             .setPrettyPrinting()
             .create();
+
+
+    /** 2013版消息头 */
+    public static JTMessage H2013(JTMessage message) {
+        Header header = new Header();
+        header.setMessageId(message.reflectMessageId());
+        header.setMobileNo("123456789012");
+        header.setSerialNo((int) Short.MAX_VALUE);
+        header.setEncryption(0);
+        header.setReserved(false);
+        message.setHeader(header);
+        return message;
+    }
+
+    /** 2019版消息头 */
+    public static JTMessage H2019(JTMessage message) {
+        Header header = new Header();
+        header.setMessageId(message.reflectMessageId());
+        header.setVersionNo(1);
+        header.setMobileNo("12345678901234567890");
+        header.setSerialNo(65535);
+        header.setEncryption(0);
+        header.setVersion(true);
+        header.setReserved(false);
+        message.setHeader(header);
+        return message;
+    }
 
     public static void selfCheck(String hex1) {
         println(hex1);

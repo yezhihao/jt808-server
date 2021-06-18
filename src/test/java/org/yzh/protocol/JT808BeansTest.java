@@ -3,7 +3,7 @@ package org.yzh.protocol;
 import org.junit.jupiter.api.Test;
 import org.yzh.protocol.basics.JTMessage;
 
-import static org.yzh.protocol.BeanTest.selfCheck;
+import static org.yzh.protocol.BeanTest.*;
 import static org.yzh.protocol.JT808Beans.*;
 
 /**

@@ -2,7 +2,7 @@ package org.yzh.protocol;
 
 import org.junit.jupiter.api.Test;
 
-import static org.yzh.protocol.BeanTest.selfCheck;
+import static org.yzh.protocol.BeanTest.*;
 import static org.yzh.protocol.JT1078Beans.*;
 
 /**

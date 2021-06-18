@@ -1,7 +1,5 @@
 package org.yzh.protocol;
 
-import org.yzh.protocol.basics.Header;
-import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t1078.*;
 
 import java.time.LocalDateTime;
@@ -18,31 +16,6 @@ public class JT1078Beans {
     private static final LocalDateTime startTime = LocalDateTime.of(2020, 01, 01, 00, 00, 00);
     private static final LocalDateTime endTime = LocalDateTime.of(2020, 12, 31, 23, 59, 59);
 
-    /** 2013版消息头 */
-    public static JTMessage H2013(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setMobileNo("12345678901");
-        header.setSerialNo((int) Short.MAX_VALUE);
-        header.setEncryption(0);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
-
-    /** 2019版消息头 */
-    public static JTMessage H2019(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setVersionNo(1);
-        header.setMobileNo("17299841738");
-        header.setSerialNo(65535);
-        header.setEncryption(0);
-        header.setVersion(true);
-        header.setReserved(false);
-        message.setHeader(header);
-        return message;
-    }
 
     //终端上传音视频属性
     public static T1003 T1003() {
