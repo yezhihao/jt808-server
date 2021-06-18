@@ -15,7 +15,7 @@ import java.util.List;
 @Message(JSATL12.报警附件信息消息)
 public class T1210 extends JTMessage {
 
-    private String terminalId;
+    private String deviceId;
     private AlarmId alarmId;
     private String alarmNo;
     private int type;
@@ -23,12 +23,12 @@ public class T1210 extends JTMessage {
     private List<Item> items;
 
     @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID")
-    public String getTerminalId() {
-        return terminalId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     @Field(index = 7, type = DataType.OBJ, length = 16, desc = "报警标识号")

@@ -15,7 +15,7 @@ public class JSATL12Beans {
     //报警附件信息消息
     public static T1210 T1210() {
         T1210 bean = new T1210();
-        bean.setTerminalId("1234567");
+        bean.setDeviceId("1234567");
         bean.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
         bean.setAlarmNo(UUID);
         bean.setType(0);

@@ -59,7 +59,7 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "9202 平台下发远程录像回放请求")
+    @Operation(summary = "9202 平台下发远程录像回放控制")
     @GetMapping("history/control")
     public T0001 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
         request.setHeader(new Header(clientId));

@@ -14,14 +14,12 @@ import org.yzh.protocol.commons.transform.Parameters;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
-import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.StrUtils;
 import org.yzh.web.endpoint.MessageManager;
 import org.yzh.web.model.APIException;
 import org.yzh.web.model.enums.DefaultCodes;
 
 import java.util.Base64;
-import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,6 +29,36 @@ public class JT808Controller {
 
     @Autowired
     private MessageManager messageManager;
+
+    @Value("${tcp-server.jt808.alarm-file.host}")
+    private String host;
+
+    @Value("${tcp-server.jt808.alarm-file.port}")
+    private int port;
+
+    @Operation(summary = "9208 报警附件上传指令")
+    @GetMapping("alarm_file/report")
+    public T0001 alarmFileReport(@Parameter(description = "终端手机号") @RequestParam String clientId,
+                                 @Parameter(description = "时间(YYMMDDHHMMSS)") @RequestParam String dateTime,
+                                 @Parameter(description = "报警序号") @RequestParam int serialNo,
+                                 @Parameter(description = "附件数量") @RequestParam int fileTotal,
+                                 @Parameter(description = "IP地址") @RequestParam(required = false) String host,
+                                 @Parameter(description = "端口号") @RequestParam(required = false) Integer port) {
+
+        host = StringUtils.isBlank(host) ? this.host : host;
+        port = port == null ? this.port : port;
+
+        T9208 request = new T9208();
+        request.setHeader(new Header(clientId));
+        request.setIp(host);
+        request.setTcpPort(port);
+        request.setUdpPort(0);
+        request.setAlarmId(new AlarmId("", dateTime, serialNo, fileTotal, 0));
+        request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
+
+        T0001 response = messageManager.request(request, T0001.class);
+        return response;
+    }
 
     @Operation(summary = "8103 设置终端参数")
     @PutMapping("settings")
@@ -316,26 +344,6 @@ public class JT808Controller {
         T0A00_8A00 request = new T0A00_8A00(e, src);
         request.setHeader(new Header(clientId));
         T0A00_8A00 response = messageManager.request(request, T0A00_8A00.class);
-        return response;
-    }
-
-    @Value("${tcp-server.jt808.alarm-file.host}")
-    private String host;
-    @Value("${tcp-server.jt808.alarm-file.port}")
-    private int port;
-
-    @Operation(summary = "9208 报警附件上传指令/测试使用")
-    @GetMapping("alarm_file/report")
-    public T0001 alarmFileReport(@Parameter(description = "终端手机号") @RequestParam String clientId) {
-        T9208 request = new T9208();
-        request.setHeader(new Header(clientId));
-        request.setIp(host);
-        request.setTcpPort(port);
-        request.setUdpPort(0);
-
-        request.setAlarmId(new AlarmId("test", DateUtils.yyMMddHHmmss.format(new Date()), 0, 1, 0));
-        request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
-        T0001 response = messageManager.request(request, T0001.class);
         return response;
     }
 }
