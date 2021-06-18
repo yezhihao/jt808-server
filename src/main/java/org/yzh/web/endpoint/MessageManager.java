@@ -31,6 +31,15 @@ public class MessageManager {
         return true;
     }
 
+    public <T> T request(String clientId, JTMessage request, Class<T> responseClass) {
+        Header header = request.getHeader();
+        if (header == null) {
+            request.setHeader(header = new Header());
+        }
+        header.setMobileNo(clientId);
+        return request(request, responseClass, 20000);
+    }
+
     public <T> T request(JTMessage request, Class<T> responseClass) {
         return request(request, responseClass, 20000);
     }

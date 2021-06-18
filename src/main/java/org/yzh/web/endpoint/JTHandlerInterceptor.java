@@ -51,7 +51,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
     /** 调用之后抛出异常的 */
     @Override
-    public JTMessage exceptional(JTMessage request, Session session, Exception ex) {
+    public JTMessage exceptional(JTMessage request, Session session, Exception e) {
         Header header = new Header(JT808.平台通用应答);
         header.setSerialNo(session.nextSerialNo());
         header.copyBy(request.getHeader());
@@ -62,7 +62,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Failure);
 
-        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+        log.warn(session + "\n<<<<-" + request + "\n>>>>-" + response + '\n', e);
         return response;
     }
 

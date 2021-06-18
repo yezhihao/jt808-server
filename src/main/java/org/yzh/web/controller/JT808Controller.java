@@ -49,14 +49,13 @@ public class JT808Controller {
         port = port == null ? this.port : port;
 
         T9208 request = new T9208();
-        request.setHeader(new Header(clientId));
         request.setIp(host);
         request.setTcpPort(port);
         request.setUdpPort(0);
         request.setAlarmId(new AlarmId("", dateTime, serialNo, fileTotal, 0));
         request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
 
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -65,9 +64,7 @@ public class JT808Controller {
     public T0001 putSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody Parameters parameters) {
         Map<Integer, Object> map = parameters.toMap();
         T8103 request = new T8103(map);
-        request.setHeader(new Header(clientId));
-
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -80,17 +77,15 @@ public class JT808Controller {
             request = new JTMessage(clientId, JT808.查询终端参数);
         } else {
             request = new T8106(StrUtils.toInts(id, ","));
-            request.setHeader(new Header(clientId));
         }
-        T0104 response = messageManager.request(request, T0104.class);
+        T0104 response = messageManager.request(clientId, request, T0104.class);
         return response;
     }
 
     @Operation(summary = "8105 终端控制")
     @PostMapping("control")
     public T0001 terminalControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T8105 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -111,112 +106,98 @@ public class JT808Controller {
     @Operation(summary = "8202 临时位置跟踪控制")
     @PostMapping("track")
     public T0001 track(@Parameter(description = "终端手机号") @RequestParam String clientId, T8202 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8203 人工确认报警消息")
     @PostMapping("alarm_ack")
     public T0001 alarmAck(@Parameter(description = "终端手机号") @RequestParam String clientId, T8203 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8300 文本信息下发")
     @PostMapping("text")
     public T0001 sendText(@Parameter(description = "终端手机号") @RequestParam String clientId, T8300 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8301 事件设置")
     @PutMapping("events")
     public T0001 eventSetting(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8301 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8302 提问下发")
     @PostMapping("question")
     public T0001 sendQuestion(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8302 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8303 信息点播菜单设置")
     @PutMapping("news")
     public T0001 setNews(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8303 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8304 信息服务")
     @PostMapping("news")
     public T0001 postNews(@Parameter(description = "终端手机号") @RequestParam String clientId, T8304 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8400 电话回拨")
     @PostMapping("call_phone")
     public T0001 callPhone(@Parameter(description = "终端手机号") @RequestParam String clientId, T8400 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8401 设置电话本")
     @PutMapping("phone_book")
     public T0001 phoneBook(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8401 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8500 车辆控制")
     @PostMapping("control/vehicle")
     public T0201_0500 vehicleControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T8500 request) {
-        request.setHeader(new Header(clientId));
-        T0201_0500 response = messageManager.request(request, T0201_0500.class);
+        T0201_0500 response = messageManager.request(clientId, request, T0201_0500.class);
         return response;
     }
 
     @Operation(summary = "8600 设置圆形区域")
     @PutMapping("area/round")
     public T0001 addAreaRound(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8600 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8602 设置矩形区域")
     @PutMapping("area/rectangle")
     public T0001 addAreaRectangle(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8602 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8604 设置多边形区域")
     @PutMapping("area/polygon")
     public T0001 addAreaPolygon(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8604 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8606 设置路线")
     @PutMapping("area/route")
     public T0001 addRoute(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8606 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -237,8 +218,7 @@ public class JT808Controller {
                                   @Parameter(description = "查询类型: 1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
                                   @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
         T8608 request = new T8608(type, StrUtils.toInts(id, ","));
-        request.setHeader(new Header(clientId));
-        T0608 response = messageManager.request(request, T0608.class);
+        T0608 response = messageManager.request(clientId, request, T0608.class);
         return response;
     }
 
@@ -252,8 +232,7 @@ public class JT808Controller {
     @Operation(summary = "8701 行驶记录仪参数下传命令")
     @PutMapping("drive_recorder/settings")
     public T0001 recorder(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8701 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -267,40 +246,35 @@ public class JT808Controller {
     @Operation(summary = "8801 摄像头立即拍摄命令")
     @PostMapping("camera/snapshot")
     public T0001 cameraShot(@Parameter(description = "终端手机号") @RequestParam String clientId, T8801 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8802 存储多媒体数据检索")
     @GetMapping("media_data/search")
     public T0802 mediaDataQuery(@Parameter(description = "终端手机号") @RequestParam String clientId, T8802 request) {
-        request.setHeader(new Header(clientId));
-        T0802 response = messageManager.request(request, T0802.class);
+        T0802 response = messageManager.request(clientId, request, T0802.class);
         return response;
     }
 
     @Operation(summary = "8803 存储多媒体数据上传")
     @GetMapping("media_data/report")
     public T0001 mediaDataReportRequest(@Parameter(description = "终端手机号") @RequestParam String clientId, T8803 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8804 录音开始命令")
     @PostMapping("sound_record")
     public T0001 soundRecord(@Parameter(description = "终端手机号") @RequestParam String clientId, T8804 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8805 单条存储多媒体数据检索上传命令")
     @PostMapping("media_data/command")
     public T0001 mediaDataCommand(@Parameter(description = "终端手机号") @RequestParam String clientId, T8805 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -314,16 +288,14 @@ public class JT808Controller {
     @Operation(summary = "8108 下发终端升级包")
     @PostMapping("upgrade")
     public T0001 upgrade(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8108 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "8900 数据下行透传")
     @PostMapping("passthrough")
     public T0001 passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody T8900 request) {
-        request.setHeader(new Header(clientId));
-        T0001 response = messageManager.request(request, T0001.class);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -342,8 +314,7 @@ public class JT808Controller {
             throw new APIException(DefaultCodes.InvalidParameter, "e length is not 128");
 
         T0A00_8A00 request = new T0A00_8A00(e, src);
-        request.setHeader(new Header(clientId));
-        T0A00_8A00 response = messageManager.request(request, T0A00_8A00.class);
+        T0A00_8A00 response = messageManager.request(clientId, request, T0A00_8A00.class);
         return response;
     }
 }
