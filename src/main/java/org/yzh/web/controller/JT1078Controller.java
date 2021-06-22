@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.JT1078;
 import org.yzh.protocol.t1078.*;
 import org.yzh.protocol.t808.T0001;
 import org.yzh.web.endpoint.MessageManager;
@@ -19,6 +21,13 @@ public class JT1078Controller {
     @Autowired
     private MessageManager messageManager;
 
+    @Operation(summary = "9003 查询终端音视频属性")
+    @GetMapping("attributes")
+    public T1003 getAttributes(@Parameter(description = "终端手机号") @RequestParam String clientId) {
+        T1003 response = messageManager.request(clientId, new JTMessage(clientId, JT1078.查询终端音视频属性), T1003.class);
+        return response;
+    }
+
     @Operation(summary = "9101 实时音视频传输请求")
     @GetMapping("realtime/play")
     public T0001 realtimePlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9101 request) {
@@ -29,6 +38,20 @@ public class JT1078Controller {
     @Operation(summary = "9102 音视频实时传输控制")
     @GetMapping("realtime/control")
     public T0001 realtimeControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9102 request) {
+        T0001 response = messageManager.request(clientId, request, T0001.class);
+        return response;
+    }
+
+    @Operation(summary = "9201 平台下发远程录像回放请求")
+    @GetMapping("history/play")
+    public T1205 historyPlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
+        T1205 response = messageManager.request(clientId, request, T1205.class);
+        return response;
+    }
+
+    @Operation(summary = "9202 平台下发远程录像回放控制")
+    @GetMapping("history/control")
+    public T0001 historyControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
@@ -47,16 +70,9 @@ public class JT1078Controller {
         return response;
     }
 
-    @Operation(summary = "9201 平台下发远程录像回放请求")
-    @GetMapping("history/play")
-    public T1205 historyPlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
-        T1205 response = messageManager.request(clientId, request, T1205.class);
-        return response;
-    }
-
-    @Operation(summary = "9202 平台下发远程录像回放控制")
-    @GetMapping("history/control")
-    public T0001 historyControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
+    @Operation(summary = "9207 文件上传控制")
+    @GetMapping("file/upload/control")
+    public T0001 fileUploadControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9207 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
