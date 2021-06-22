@@ -20,7 +20,7 @@ public class T9205 extends JTMessage {
     private int warnBit2;
     private int mediaType;
     private int streamType;
-    private int memoryType;
+    private int storageType;
 
     @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
@@ -86,11 +86,11 @@ public class T9205 extends JTMessage {
     }
 
     @Field(index = 23, type = DataType.BYTE, desc = "存储器类型: 0.所有存储器 1.主存储器 2.灾备存储器")
-    public int getMemoryType() {
-        return memoryType;
+    public int getStorageType() {
+        return storageType;
     }
 
-    public void setMemoryType(int memoryType) {
-        this.memoryType = memoryType;
+    public void setStorageType(int storageType) {
+        this.storageType = storageType;
     }
 }

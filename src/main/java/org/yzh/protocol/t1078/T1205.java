@@ -53,13 +53,13 @@ public class T1205 extends JTMessage implements Response {
         private int warnBit2;
         private int mediaType;
         private int streamType = 1;
-        private int memoryType;
+        private int storageType;
         private long size;
 
         public Item() {
         }
 
-        public Item(int channelNo, LocalDateTime startTime, LocalDateTime endTime, int warnBit1, int warnBit2, int mediaType, int streamType, int memoryType, long size) {
+        public Item(int channelNo, LocalDateTime startTime, LocalDateTime endTime, int warnBit1, int warnBit2, int mediaType, int streamType, int storageType, long size) {
             this.channelNo = channelNo;
             this.startTime = startTime;
             this.endTime = endTime;
@@ -67,7 +67,7 @@ public class T1205 extends JTMessage implements Response {
             this.warnBit2 = warnBit2;
             this.mediaType = mediaType;
             this.streamType = streamType;
-            this.memoryType = memoryType;
+            this.storageType = storageType;
             this.size = size;
         }
 
@@ -135,12 +135,12 @@ public class T1205 extends JTMessage implements Response {
         }
 
         @Field(index = 23, type = DataType.BYTE, desc = "存储器类型")
-        public int getMemoryType() {
-            return memoryType;
+        public int getStorageType() {
+            return storageType;
         }
 
-        public void setMemoryType(int memoryType) {
-            this.memoryType = memoryType;
+        public void setStorageType(int storageType) {
+            this.storageType = storageType;
         }
 
         @Field(index = 24, type = DataType.DWORD, desc = "文件大小")
@@ -163,7 +163,7 @@ public class T1205 extends JTMessage implements Response {
             sb.append(", warnBit2=").append(Integer.toBinaryString(warnBit2));
             sb.append(", mediaType=").append(mediaType);
             sb.append(", streamType=").append(streamType);
-            sb.append(", memoryType=").append(memoryType);
+            sb.append(", storageType=").append(storageType);
             sb.append(", size=").append(size);
             sb.append('}');
             return sb.toString();

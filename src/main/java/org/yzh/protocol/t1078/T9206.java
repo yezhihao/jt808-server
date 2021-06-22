@@ -25,7 +25,7 @@ public class T9206 extends JTMessage {
     private int warnBit2;
     private int mediaType;
     private int streamType;
-    private int memoryType;
+    private int storageType;
     private int condition;
 
     @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
@@ -137,15 +137,15 @@ public class T9206 extends JTMessage {
     }
 
     @Field(index = 29, type = DataType.BYTE, desc = "存储位置: 0.所有存储器 1.主存储器 2.灾备存储器")
-    public int getMemoryType() {
-        return memoryType;
+    public int getStorageType() {
+        return storageType;
     }
 
-    public void setMemoryType(int memoryType) {
-        this.memoryType = memoryType;
+    public void setStorageType(int storageType) {
+        this.storageType = storageType;
     }
 
-    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [l]LAN连接时可下载 [2]3G/4G连接时可下载")
+    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
     public int getCondition() {
         return condition;
     }

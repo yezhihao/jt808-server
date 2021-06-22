@@ -62,4 +62,4 @@ tcp-server:
   alarm-file:
     enable: true
     port: 7612
-    path: D:/jt_data/alarm_file/
+    path: D:/jt_data/alarm_file

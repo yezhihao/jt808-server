@@ -102,7 +102,7 @@ public class JT1078Beans {
         bean.setChannelNo(26674);
         bean.setMediaType(2);
         bean.setStreamType(0);
-        bean.setMemoryType(0);
+        bean.setStorageType(0);
         bean.setPlaybackMode(0);
         bean.setPlaybackSpeed(0);
         bean.setStartTime("200707192359");
@@ -129,7 +129,7 @@ public class JT1078Beans {
         bean.setEndTime("200707192359");
         bean.setWarnBit1(0);
         bean.setWarnBit2(0);
-        bean.setMemoryType(42752);
+        bean.setStorageType(42752);
         bean.setStreamType(40558);
         return bean;
     }
@@ -148,7 +148,7 @@ public class JT1078Beans {
         bean.setWarnBit1(0);
         bean.setWarnBit2(0);
         bean.setMediaType(0);
-        bean.setMemoryType(1);
+        bean.setStorageType(1);
         bean.setStreamType(1);
         bean.setCondition(1);
         return bean;

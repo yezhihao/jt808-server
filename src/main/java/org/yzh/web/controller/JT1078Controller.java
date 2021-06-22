@@ -21,42 +21,42 @@ public class JT1078Controller {
 
     @Operation(summary = "9101 实时音视频传输请求")
     @GetMapping("realtime/play")
-    public T0001 play(@Parameter(description = "终端手机号") @RequestParam String clientId, T9101 request) {
+    public T0001 realtimePlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9101 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9102 音视频实时传输控制")
     @GetMapping("realtime/control")
-    public T0001 control(@Parameter(description = "终端手机号") @RequestParam String clientId, T9102 request) {
+    public T0001 realtimeControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9102 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9205 查询资源列表")
     @GetMapping("file/search")
-    public T1205 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9205 request) {
+    public T1205 fileSearch(@Parameter(description = "终端手机号") @RequestParam String clientId, T9205 request) {
         T1205 response = messageManager.request(clientId, request, T1205.class);
         return response;
     }
 
     @Operation(summary = "9206 文件上传指令")
     @GetMapping("file/upload")
-    public T0001 upload(@Parameter(description = "终端手机号") @RequestParam String clientId, T9206 request) {
+    public T0001 fileUpload(@Parameter(description = "终端手机号") @RequestParam String clientId, T9206 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9201 平台下发远程录像回放请求")
-    @GetMapping("history/search")
-    public T1205 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
+    @GetMapping("history/play")
+    public T1205 historyPlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
         T1205 response = messageManager.request(clientId, request, T1205.class);
         return response;
     }
 
     @Operation(summary = "9202 平台下发远程录像回放控制")
     @GetMapping("history/control")
-    public T0001 search(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
+    public T0001 historyControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }

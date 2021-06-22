@@ -64,14 +64,14 @@ public class T8801 extends JTMessage {
     }
 
     @Field(index = 6, type = DataType.BYTE, desc = "分辨率: " +
-            "1: 320*240 " +
-            "2: 640*480 " +
-            "3: 800*600 " +
-            "4: 1024*768 " +
-            "5: 176*144 [QCIF] " +
-            "6: 352*288 [CIF] " +
-            "7: 704*288 [HALF D1] " +
-            "8: 704*576 [D1]")
+            "1.320*240 " +
+            "2.640*480 " +
+            "3.800*600 " +
+            "4.1024*768 " +
+            "5.176*144 [QCIF] " +
+            "6.352*288 [CIF] " +
+            "7.704*288 [HALF D1] " +
+            "8.704*576 [D1]")
     public int getResolution() {
         return resolution;
     }

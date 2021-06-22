@@ -19,7 +19,7 @@ public class T9201 extends JTMessage {
     private int channelNo;
     private int mediaType;
     private int streamType;
-    private int memoryType;
+    private int storageType;
     private int playbackMode;
     private int playbackSpeed;
     private String startTime;
@@ -80,12 +80,12 @@ public class T9201 extends JTMessage {
     }
 
     @Field(index = 8, type = DataType.BYTE, desc = "存储器类型: 0.所有存储器 1.主存储器 2.灾备存储器")
-    public int getMemoryType() {
-        return memoryType;
+    public int getStorageType() {
+        return storageType;
     }
 
-    public void setMemoryType(int memoryType) {
-        this.memoryType = memoryType;
+    public void setStorageType(int storageType) {
+        this.storageType = storageType;
     }
 
     @Field(index = 9, type = DataType.BYTE, desc = "回放方式: " +

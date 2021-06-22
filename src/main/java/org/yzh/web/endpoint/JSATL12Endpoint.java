@@ -32,42 +32,42 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.报警附件信息消息, desc = "报警附件信息消息")
-    public void 报警附件信息消息(T1210 request) {
-        List<T1210.Item> items = request.getItems();
-        AlarmId alarmId = request.getAlarmId();
-        Map<String, AlarmId> alarmIdMap = cache.get(request.getClientId(), s -> new TreeMap<>());
+    public void alarmFileInfoList(T1210 message) {
+        List<T1210.Item> items = message.getItems();
+        AlarmId alarmId = message.getAlarmId();
+        Map<String, AlarmId> alarmIdMap = cache.get(message.getClientId(), s -> new TreeMap<>());
         for (T1210.Item item : items)
             alarmIdMap.put(item.getName(), alarmId);
-        fileService.createDir(request);
+        fileService.createDir(message);
     }
 
     @Mapping(types = JSATL12.文件信息上传, desc = "文件信息上传")
-    public void 文件信息上传(T1211 request) {
-        AlarmId alarmId = getAlarmId(request.getClientId(), request.getName());
+    public void alarmFileInfo(T1211 message) {
+        AlarmId alarmId = getAlarmId(message.getClientId(), message.getName());
         if (alarmId == null)
             throw new RuntimeException("alarmId not found");
-        fileService.createFile(alarmId, request);
+        fileService.createFile(alarmId, message);
     }
 
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
-    public Object 文件数据上传(DataPacket request) {
-        AlarmId alarmId = getAlarmId(request.getClientId(), request.getName());
+    public Object alarmFile(DataPacket message) {
+        AlarmId alarmId = getAlarmId(message.getClientId(), message.getName());
         if (alarmId != null)
-            fileService.writeFile(alarmId, request);
+            fileService.writeFile(alarmId, message);
         return null;
     }
 
     @Mapping(types = JSATL12.文件上传完成消息, desc = "文件上传完成消息")
-    public T9212 文件上传完成消息(T1211 request) {
-        Map<String, AlarmId> alarmIdMap = cache.getIfPresent(request.getClientId());
-        AlarmId alarmId = alarmIdMap.get(request.getName());
+    public T9212 alarmFileComplete(T1211 message) {
+        Map<String, AlarmId> alarmIdMap = cache.getIfPresent(message.getClientId());
+        AlarmId alarmId = alarmIdMap.get(message.getName());
         T9212 result = new T9212();
-        result.setName(request.getName());
-        result.setType(request.getType());
+        result.setName(message.getName());
+        result.setType(message.getType());
 
-        List<DataInfo> items = fileService.checkFile(alarmId, request);
+        List<DataInfo> items = fileService.checkFile(alarmId, message);
         if (items.isEmpty()) {
-            alarmIdMap.remove(request.getName());
+            alarmIdMap.remove(message.getName());
             result.setResult(0);
         } else {
             result.setResult(1);

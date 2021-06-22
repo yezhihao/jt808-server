@@ -28,7 +28,7 @@ public class FileServiceImpl implements FileService {
 
     private File getDir(AlarmId alarmId) {
         StringBuilder sb = new StringBuilder(32);
-        sb.append(alarmFileRoot);
+        sb.append(alarmFileRoot).append('/');
         sb.append(alarmId.getDeviceId()).append('/');
         sb.append(alarmId.getDateTime()).append('_').append(alarmId.getSerialNo()).append('/');
         File result = new File(sb.toString());

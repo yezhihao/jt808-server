@@ -11,7 +11,7 @@ import org.yzh.web.model.enums.DefaultCodes;
 public final class Shape {
 
     /** 圆形 */
-    public static final int Round = 1;
+    public static final int Circle = 1;
     /** 矩形 */
     public static final int Rectangle = 2;
     /** 多边形 */
@@ -24,7 +24,7 @@ public final class Shape {
      */
     public static int toMessageId(int type) {
         switch (type) {
-            case Shape.Round:
+            case Shape.Circle:
                 return JT808.删除圆形区域;
             case Shape.Rectangle:
                 return JT808.删除矩形区域;
