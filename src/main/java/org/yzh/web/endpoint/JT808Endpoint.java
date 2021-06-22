@@ -20,7 +20,6 @@ import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.FileService;
 import org.yzh.web.service.LocationService;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -203,10 +202,10 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
-    public T8800 mediaUploadResponse(T0801 message, Session session) throws IOException {
+    public T8800 mediaUploadResponse(T0801 message, Session session) {
         fileService.saveMediaFile(message);
         T8800 result = new T8800();
-        result.setMediaId(0);
+        result.setMediaId(message.getId());
         return result;
     }
 
