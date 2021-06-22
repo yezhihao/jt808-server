@@ -245,8 +245,9 @@ public class JT808Controller {
 
     @Operation(summary = "8801 摄像头立即拍摄命令")
     @PostMapping("media/video/record")
-    public T0001 mediaVideoRecord(@Parameter(description = "终端手机号") @RequestParam String clientId, T8801 request) {
-        T0001 response = messageManager.request(clientId, request, T0001.class);
+    public T0805 mediaVideoRecord(@Parameter(description = "终端手机号") @RequestParam String clientId, T8801 request) {
+//        T0001 response = messageManager.request(clientId, request, T0001.class);//锐明
+        T0805 response = messageManager.request(clientId, request, T0805.class);//博实结
         return response;
     }
 
