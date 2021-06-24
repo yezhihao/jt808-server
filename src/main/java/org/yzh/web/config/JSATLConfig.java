@@ -6,7 +6,6 @@ import io.github.yezhihao.netmc.codec.Delimiter;
 import io.github.yezhihao.netmc.codec.LengthField;
 import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
-import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +33,6 @@ public class JSATLConfig {
 
         public Starter(@Value("${tcp-server.alarm-file.port}") int port,
                        JTMessageAdapter alarmFileMessageAdapter,
-                       SessionManager alarmFileSessionManager,
                        HandlerMapping alarmFileHandlerMapping,
                        JTHandlerInterceptor alarmFileHandlerInterceptor) {
 
@@ -45,7 +43,6 @@ public class JSATLConfig {
                     .setDelimiters(new Delimiter(new byte[]{0x7e}))
                     .setDecoder(alarmFileMessageAdapter)
                     .setEncoder(alarmFileMessageAdapter)
-                    .setSessionManager(alarmFileSessionManager)
                     .setHandlerMapping(alarmFileHandlerMapping)
                     .setHandlerInterceptor(alarmFileHandlerInterceptor)
                     .build();
@@ -69,11 +66,6 @@ public class JSATLConfig {
                 new JTMessageEncoder("org.yzh.protocol"),
                 new DataFrameMessageDecoder("org.yzh.protocol", DataFramePrefix)
         );
-    }
-
-    @Bean
-    public SessionManager alarmFileSessionManager() {
-        return new SessionManager();
     }
 
     @Bean

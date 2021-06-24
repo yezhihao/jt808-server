@@ -23,8 +23,8 @@ public class JTMessage implements Message {
     public JTMessage() {
     }
 
-    public JTMessage(String mobileNo, int messageId) {
-        this.header = new Header(mobileNo, messageId);
+    public JTMessage(int messageId) {
+        this.header = new Header(messageId);
     }
 
     public void setHeader(Header header) {
@@ -61,7 +61,7 @@ public class JTMessage implements Message {
 
     @Transient
     @Override
-    public Integer getMessageId() {
+    public int getMessageId() {
         return header.getMessageId();
     }
 

@@ -69,7 +69,6 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
     /** 调用之前 */
     @Override
     public boolean beforeHandle(JTMessage request, Session session) {
-        request.setSession(session);
         Header header = request.getHeader();
         if (header != null) {
             int messageId = header.getMessageId();

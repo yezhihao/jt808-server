@@ -24,7 +24,7 @@ public class JT1078Controller {
     @Operation(summary = "9003 查询终端音视频属性")
     @GetMapping("attributes")
     public T1003 getAttributes(@Parameter(description = "终端手机号") @RequestParam String clientId) {
-        T1003 response = messageManager.request(clientId, new JTMessage(clientId, JT1078.查询终端音视频属性), T1003.class);
+        T1003 response = messageManager.request(clientId, new JTMessage(JT1078.查询终端音视频属性), T1003.class);
         return response;
     }
 
@@ -88,8 +88,8 @@ public class JT1078Controller {
     @GetMapping("pan_tilt/control")
     public T0001 panTiltControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9302 request,
                                 @Parameter(description = "控制类型: 9302.云台调整焦距控制 9303.云台调整光圈控制 9304.云台雨刷控制 9305.红外补光控制 9306.云台变倍控制") @RequestParam String type) {
-        request.setHeader(new Header(clientId, Integer.parseInt(type, 16)));
-        T0001 response = messageManager.request(request, T0001.class);
+        request.setHeader(new Header(Integer.parseInt(type, 16)));
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 }

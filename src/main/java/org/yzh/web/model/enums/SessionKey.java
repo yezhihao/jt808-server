@@ -5,6 +5,8 @@ package org.yzh.web.model.enums;
  */
 public enum SessionKey {
 
-    DeviceInfo, Snapshot
+    DeviceInfo,
+    Snapshot,
+    ProtocolVersion
 
 }

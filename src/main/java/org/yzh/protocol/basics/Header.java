@@ -30,16 +30,7 @@ public class Header {
     public Header() {
     }
 
-    public Header(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
     public Header(int messageId) {
-        this.messageId = messageId;
-    }
-
-    public Header(String mobileNo, int messageId) {
-        this.mobileNo = mobileNo;
         this.messageId = messageId;
     }
 

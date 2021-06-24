@@ -1,6 +1,6 @@
 package org.yzh.web.endpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.yezhihao.netmc.session.Session;
 import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.codec.MultiPacket;
 import org.yzh.protocol.codec.MultiPacketListener;
@@ -10,9 +10,6 @@ import org.yzh.protocol.t808.T8003;
 import java.util.List;
 
 public class JTMultiPacketListener extends MultiPacketListener {
-
-    @Autowired
-    private MessageManager messageManager;
 
     public JTMultiPacketListener(int timeout) {
         super(timeout);
@@ -33,7 +30,9 @@ public class JTMultiPacketListener extends MultiPacketListener {
             idList[i] = notArrived.get(i).shortValue();
         }
         request.setId(idList);
-        if (messageManager.notify(request)) {
+        Session session = multiPacket.getSession();
+        if (session != null) {
+            session.notify(request);
             multiPacket.addRetryCount(1);
             return true;
         }

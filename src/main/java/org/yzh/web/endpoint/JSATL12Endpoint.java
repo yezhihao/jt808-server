@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
+import io.github.yezhihao.netmc.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yzh.protocol.commons.JSATL12;
@@ -32,7 +33,8 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.报警附件信息消息, desc = "报警附件信息消息")
-    public void alarmFileInfoList(T1210 message) {
+    public void alarmFileInfoList(T1210 message, Session session) {
+        session.register(message);
         List<T1210.Item> items = message.getItems();
         AlarmId alarmId = message.getAlarmId();
         Map<String, AlarmId> alarmIdMap = cache.get(message.getClientId(), s -> new TreeMap<>());
@@ -42,7 +44,8 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.文件信息上传, desc = "文件信息上传")
-    public void alarmFileInfo(T1211 message) {
+    public void alarmFileInfo(T1211 message, Session session) {
+        session.register(message);
         AlarmId alarmId = getAlarmId(message.getClientId(), message.getName());
         if (alarmId == null)
             throw new RuntimeException("alarmId not found");
@@ -50,8 +53,8 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
-    public Object alarmFile(DataPacket message) {
-        AlarmId alarmId = getAlarmId(message.getClientId(), message.getName());
+    public Object alarmFile(DataPacket message, Session session) {
+        AlarmId alarmId = getAlarmId(session.getId(), message.getName());
         if (alarmId != null)
             fileService.writeFile(alarmId, message);
         return null;

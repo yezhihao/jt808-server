@@ -70,11 +70,12 @@ public class JT808Endpoint {
     public T8100 register(T0100 message, Session session) {
         Header header = message.getHeader();
         if (message.getPlateNo() == null) {
-            session.recordProtocolVersion(message.getClientId(), -1);
+            session.setOfflineCache(message.getClientId(), -1);
+            session.setAttribute(SessionKey.ProtocolVersion, -1);
             log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         } else {
-            session.setProtocolVersion(header.getVersionNo());
+            session.setAttribute(SessionKey.ProtocolVersion, header.getVersionNo());
         }
 
         T8100 result = new T8100();
@@ -82,7 +83,7 @@ public class JT808Endpoint {
 
         DeviceInfo device = deviceService.register(message);
         if (device != null) {
-            session.register(message.getClientId());
+            session.register(message);
             session.setAttribute(SessionKey.DeviceInfo, device);
 
             byte[] bytes = DeviceInfo.toBytes(device);
@@ -107,7 +108,7 @@ public class JT808Endpoint {
 
         DeviceInfo device = deviceService.authentication(message);
         if (device != null) {
-            session.register(message.getClientId());
+            session.register(message);
             session.setAttribute(SessionKey.DeviceInfo, device);
             result.setResultCode(T0001.Success);
             return result;

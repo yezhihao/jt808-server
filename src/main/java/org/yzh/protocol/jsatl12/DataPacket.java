@@ -23,7 +23,7 @@ public class DataPacket extends JTMessage {
     private ByteBuffer data;
 
     @Override
-    public Integer getMessageId() {
+    public int getMessageId() {
         return flag;
     }
 

@@ -17,12 +17,15 @@ public class MessageManager {
     @Autowired
     private SessionManager sessionManager;
 
-    public boolean notify(JTMessage request) {
-        Session session = sessionManager.get(request.getClientId());
+    public boolean notify(String sessionId, JTMessage request) {
+        Session session = sessionManager.get(sessionId);
         if (session == null)
             return false;
 
         Header header = request.getHeader();
+        if (header == null)
+            request.setHeader(header = new Header());
+        header.setMobileNo(session.getClientId());
         header.setSerialNo(session.nextSerialNo());
         if (header.getMessageId() == 0) {
             header.setMessageId(request.reflectMessageId());
@@ -31,25 +34,19 @@ public class MessageManager {
         return true;
     }
 
-    public <T> T request(String clientId, JTMessage request, Class<T> responseClass) {
-        Header header = request.getHeader();
-        if (header == null) {
-            request.setHeader(header = new Header());
-        }
-        header.setMobileNo(clientId);
-        return request(request, responseClass, 20000);
+    public <T> T request(String sessionId, JTMessage request, Class<T> responseClass) {
+        return request(sessionId, request, responseClass, 20000);
     }
 
-    public <T> T request(JTMessage request, Class<T> responseClass) {
-        return request(request, responseClass, 20000);
-    }
-
-    public <T> T request(JTMessage request, Class<T> responseClass, long timeout) {
-        Session session = sessionManager.get(request.getClientId());
+    public <T> T request(String sessionId, JTMessage request, Class<T> responseClass, long timeout) {
+        Session session = sessionManager.get(sessionId);
         if (session == null)
             return null;
 
         Header header = request.getHeader();
+        if (header == null)
+            request.setHeader(header = new Header());
+        header.setMobileNo(session.getClientId());
         header.setSerialNo(session.nextSerialNo());
         if (header.getMessageId() == 0) {
             header.setMessageId(request.reflectMessageId());

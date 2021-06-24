@@ -1,5 +1,6 @@
 package org.yzh.protocol.codec;
 
+import io.github.yezhihao.netmc.session.Session;
 import org.yzh.protocol.basics.Header;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MultiPacket {
 
     private final Header header;
+    private final Session session;
     private int serialNo = -1;
 
     private int retryCount;
@@ -23,8 +25,9 @@ public class MultiPacket {
     private int count = 0;
     private final byte[][] packets;
 
-    public MultiPacket(Header header) {
+    public MultiPacket(Header header, Session session) {
         this.header = header;
+        this.session = session;
         this.createTime = (int) (System.currentTimeMillis() / 1000);
         this.activeTime = createTime;
 
@@ -82,6 +85,10 @@ public class MultiPacket {
 
     public Header getHeader() {
         return header;
+    }
+
+    public Session getSession() {
+        return session;
     }
 
     public int getSerialNo() {

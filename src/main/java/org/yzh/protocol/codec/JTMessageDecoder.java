@@ -10,6 +10,7 @@ import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
+import org.yzh.web.model.enums.SessionKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class JTMessageDecoder {
 
         int properties = buf.getUnsignedShort(2);
 
-        Integer version = session == null ? null : session.getProtocolVersion();
+        Integer version = session == null ? null : (Integer) session.getAttribute(SessionKey.ProtocolVersion);
         boolean confirmedVersion = version != null;
         if (!confirmedVersion) {
             //识别2019及后续版本
@@ -54,7 +55,7 @@ public class JTMessageDecoder {
                 version = (int) buf.getUnsignedByte(4);
                 confirmedVersion = true;
                 if (session != null)
-                    session.setProtocolVersion(version);
+                    session.setAttribute(SessionKey.ProtocolVersion, version);
             } else {
                 //缺省值为2013版本
                 version = 0;
@@ -72,10 +73,10 @@ public class JTMessageDecoder {
 
         if (!confirmedVersion && session != null) {
             //通过缓存记录2011版本
-            Integer cachedVersion = session.cachedProtocolVersion(header.getMobileNo());
+            Integer cachedVersion = (Integer) session.getOfflineCache(header.getMobileNo());
             if (cachedVersion != null)
                 version = cachedVersion;
-            session.setProtocolVersion(version);
+            session.setAttribute(SessionKey.ProtocolVersion, version);
         }
 
 
@@ -89,7 +90,7 @@ public class JTMessageDecoder {
                 byte[] bytes = new byte[bodyLen];
                 buf.getBytes(headLen, bytes);
 
-                byte[][] packages = addAndGet(header, bytes);
+                byte[][] packages = addAndGet(header, session, bytes);
                 if (packages == null)
                     return null;
 
@@ -104,6 +105,7 @@ public class JTMessageDecoder {
             log.debug("未找到对应的Schema[{}]", header);
         }
 
+        message.setSession(session);
         message.setHeader(header);
         if (payload) {
             byte[] bytes = new byte[buf.readableBytes()];
@@ -113,7 +115,7 @@ public class JTMessageDecoder {
         return message;
     }
 
-    protected byte[][] addAndGet(Header header, byte[] bytes) {
+    protected byte[][] addAndGet(Header header, Session session, byte[] bytes) {
         return null;
     }
 

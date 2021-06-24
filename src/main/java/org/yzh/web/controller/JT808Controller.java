@@ -74,7 +74,7 @@ public class JT808Controller {
                                @Parameter(description = "参数ID列表(为空查询全部,多个以逗号','分隔)") @RequestParam(required = false) String id) {
         JTMessage request;
         if (StringUtils.isBlank(id)) {
-            request = new JTMessage(clientId, JT808.查询终端参数);
+            request = new JTMessage(JT808.查询终端参数);
         } else {
             request = new T8106(StrUtils.toInts(id, ","));
         }
@@ -92,14 +92,14 @@ public class JT808Controller {
     @Operation(summary = "8107 查询终端属性")
     @GetMapping("attributes")
     public T0107 getAttributes(@Parameter(description = "终端手机号") @RequestParam String clientId) {
-        T0107 response = messageManager.request(new JTMessage(clientId, JT808.查询终端属性), T0107.class);
+        T0107 response = messageManager.request(clientId, new JTMessage(JT808.查询终端属性), T0107.class);
         return response;
     }
 
     @Operation(summary = "8201 位置信息查询")
     @GetMapping("location")
     public T0201_0500 location(@Parameter(description = "终端手机号") @RequestParam String clientId) {
-        T0201_0500 response = messageManager.request(new JTMessage(clientId, JT808.位置信息查询), T0201_0500.class);
+        T0201_0500 response = messageManager.request(clientId, new JTMessage(JT808.位置信息查询), T0201_0500.class);
         return response;
     }
 
@@ -207,8 +207,8 @@ public class JT808Controller {
                             @Parameter(description = "区域类型: 1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
                             @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
         T8601 request = new T8601(StrUtils.toInts(id, ","));
-        request.setHeader(new Header(clientId, Shape.toMessageId(type)));
-        T0001 response = messageManager.request(request, T0001.class);
+        request.setHeader(new Header(Shape.toMessageId(type)));
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 
@@ -225,7 +225,7 @@ public class JT808Controller {
     @Operation(summary = "8700 行驶记录仪数据采集命令")
     @GetMapping("drive_recorder/data")
     public T0001 getDriveRecorder(@RequestParam("clientId") String clientId) {
-        T0001 response = messageManager.request(new JTMessage(clientId, JT808.行驶记录仪数据采集命令), T0001.class);
+        T0001 response = messageManager.request(clientId, new JTMessage(JT808.行驶记录仪数据采集命令), T0001.class);
         return response;
     }
 
@@ -239,15 +239,14 @@ public class JT808Controller {
     @Operation(summary = "8702 上报驾驶员身份信息请求")
     @GetMapping("driver_info/upload")
     public T0702 driverInfoUpload(@RequestParam("clientId") String clientId) {
-        T0702 response = messageManager.request(new JTMessage(clientId, JT808.上报驾驶员身份信息请求), T0702.class);
+        T0702 response = messageManager.request(clientId, new JTMessage(JT808.上报驾驶员身份信息请求), T0702.class);
         return response;
     }
 
     @Operation(summary = "8801 摄像头立即拍摄命令")
     @PostMapping("media/video/record")
     public T0805 mediaVideoRecord(@Parameter(description = "终端手机号") @RequestParam String clientId, T8801 request) {
-//        T0001 response = messageManager.request(clientId, request, T0001.class);//锐明
-        T0805 response = messageManager.request(clientId, request, T0805.class);//博实结
+        T0805 response = messageManager.request(clientId, request, T0805.class);
         return response;
     }
 
@@ -282,7 +281,7 @@ public class JT808Controller {
     @Operation(summary = "8204 服务器向终端发起链路检测请求")
     @PostMapping("link_detection")
     public T0001 link_detection(@RequestParam("clientId") String clientId) {
-        T0001 response = messageManager.request(new JTMessage(clientId, JT808.服务器向终端发起链路检测请求), T0001.class);
+        T0001 response = messageManager.request(clientId, new JTMessage(JT808.服务器向终端发起链路检测请求), T0001.class);
         return response;
     }
 

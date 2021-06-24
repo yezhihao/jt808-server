@@ -36,18 +36,21 @@ public class JTConfig {
 
         public Starter(@Value("${tcp-server.jt808.port}") int port,
                        JTMessageAdapter messageAdapter,
-                       SessionManager sessionManager,
                        HandlerMapping handlerMapping,
-                       HandlerInterceptor handlerInterceptor) {
+                       HandlerInterceptor handlerInterceptor,
+                       SessionManager sessionManager,
+                       SessionListener sessionListener
+        ) {
             NettyConfig jtConfig = NettyConfig.custom()
                     .setPort(port)
                     .setMaxFrameLength(2 + 21 + 1023 + 2)
                     .setDelimiters(new Delimiter(new byte[]{0x7e}))
                     .setDecoder(messageAdapter)
                     .setEncoder(messageAdapter)
-                    .setSessionManager(sessionManager)
                     .setHandlerMapping(handlerMapping)
                     .setHandlerInterceptor(handlerInterceptor)
+                    .setSessionManager(sessionManager)
+                    .setSessionListener(sessionListener)
                     .build();
             this.jt808Server = new TCPServer("808服务", jtConfig);
         }

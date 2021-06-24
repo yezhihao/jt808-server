@@ -1,5 +1,6 @@
 package org.yzh.protocol.codec;
 
+import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.Header;
@@ -32,7 +33,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
     }
 
     @Override
-    protected byte[][] addAndGet(Header header, byte[] packetData) {
+    protected byte[][] addAndGet(Header header, Session session, byte[] packetData) {
         String clientId = header.getMobileNo();
         int messageId = header.getMessageId();
         int packageTotal = header.getPackageTotal();
@@ -42,13 +43,13 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
         MultiPacket multiPacket = multiPacketsMap.get(key);
         if (multiPacket == null)
-            multiPacketsMap.put(key, multiPacket = new MultiPacket(header));
+            multiPacketsMap.put(key, multiPacket = new MultiPacket(header, session));
         if (packetNo == 1)
             multiPacket.setSerialNo(header.getSerialNo());
 
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info(">>>>>>>>>>分包信息{}", multiPacket);
+        log.info("<<<<<<<<<分包信息{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
@@ -64,7 +65,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
                     if (packet.getWaitTime() >= multiPacketListener.timeout) {
                         boolean keepWaiting = multiPacketListener.receiveTimeout(packet);
                         if (!keepWaiting) {
-                            log.warn(">>>>>>>>>>分包接收超时{}", packet);
+                            log.warn("<<<<<<<<<分包接收超时{}", packet);
                             multiPacketsMap.remove(entry.getKey());
                         }
                     }
