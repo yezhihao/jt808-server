@@ -21,14 +21,14 @@ public class T8400 extends JTMessage {
     @Field(index = 0, type = DataType.BYTE, desc = "类型: 0.通话 1.监听")
     private int type;
     @Field(index = 1, type = DataType.STRING, length = 20, desc = "电话号码")
-    private String mobileNo;
+    private String phoneNumber;
 
     public T8400() {
     }
 
-    public T8400(int type, String mobileNo) {
+    public T8400(int type, String phoneNumber) {
         this.type = type;
-        this.mobileNo = mobileNo;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getType() {
@@ -39,11 +39,11 @@ public class T8400 extends JTMessage {
         this.type = type;
     }
 
-    public String getMobileNo() {
-        return mobileNo;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

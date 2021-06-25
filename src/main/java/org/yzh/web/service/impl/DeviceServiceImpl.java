@@ -36,7 +36,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         DeviceDO record = new DeviceDO();
         record.setDeviceId(deviceId);
-        record.setMobileNo(request.getHeader().getMobileNo());
+        record.setMobileNo(request.getMobileNo());
         record.setPlateNo(request.getPlateNo());
         record.setOnline(true);
         record.setBind(true);
@@ -51,7 +51,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         Integer protocolVersion = (Integer) request.getSession().getAttribute(SessionKey.ProtocolVersion);
         if (protocolVersion == null)
-            protocolVersion = request.getHeader().getVersionNo();
+            protocolVersion = request.getVersionNo();
         record.setProtocolVersion(protocolVersion);
 
         int row = deviceMapper.update(record);

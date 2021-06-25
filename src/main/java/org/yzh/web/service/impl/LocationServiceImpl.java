@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
                 int j = 1;
 
                 session = request.getSession();
-                mobileNo = request.getHeader().getMobileNo();
+                mobileNo = request.getMobileNo();
                 deviceId = mobileNo;
                 plateNo = "";
                 DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
@@ -109,7 +109,7 @@ public class LocationServiceImpl implements LocationService {
             request = list.get(i);
 
             session = request.getSession();
-            mobileNo = request.getHeader().getMobileNo();
+            mobileNo = request.getMobileNo();
             deviceId = mobileNo;
             plateNo = "";
             DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);

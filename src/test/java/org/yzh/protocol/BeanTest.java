@@ -4,7 +4,6 @@ import com.google.gson.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
@@ -45,27 +44,27 @@ public class BeanTest {
 
     /** 2013版消息头 */
     public static JTMessage H2013(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setMobileNo("123456789012");
-        header.setSerialNo((int) Short.MAX_VALUE);
-        header.setEncryption(0);
-        header.setReserved(false);
-        message.setHeader(header);
+        int messageId = message.reflectMessageId();
+        if (messageId != 0)
+            message.setMessageId(messageId);
+        message.setMobileNo("123456789012");
+        message.setSerialNo((int) Short.MAX_VALUE);
+        message.setEncryption(0);
+        message.setReserved(false);
         return message;
     }
 
     /** 2019版消息头 */
     public static JTMessage H2019(JTMessage message) {
-        Header header = new Header();
-        header.setMessageId(message.reflectMessageId());
-        header.setVersionNo(1);
-        header.setMobileNo("12345678901234567890");
-        header.setSerialNo(65535);
-        header.setEncryption(0);
-        header.setVersion(true);
-        header.setReserved(false);
-        message.setHeader(header);
+        int messageId = message.reflectMessageId();
+        if (messageId != 0)
+            message.setMessageId(messageId);
+        message.setVersionNo(1);
+        message.setMobileNo("12345678901234567890");
+        message.setSerialNo(65535);
+        message.setEncryption(0);
+        message.setVersion(true);
+        message.setReserved(false);
         return message;
     }
 

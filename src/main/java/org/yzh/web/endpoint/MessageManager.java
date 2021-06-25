@@ -4,7 +4,6 @@ import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 
 /**
@@ -22,13 +21,10 @@ public class MessageManager {
         if (session == null)
             return false;
 
-        Header header = request.getHeader();
-        if (header == null)
-            request.setHeader(header = new Header());
-        header.setMobileNo(session.getClientId());
-        header.setSerialNo(session.nextSerialNo());
-        if (header.getMessageId() == 0) {
-            header.setMessageId(request.reflectMessageId());
+        request.setMobileNo(session.getClientId());
+        request.setSerialNo(session.nextSerialNo());
+        if (request.getMessageId() == 0) {
+            request.setMessageId(request.reflectMessageId());
         }
         session.notify(request);
         return true;
@@ -43,13 +39,10 @@ public class MessageManager {
         if (session == null)
             return null;
 
-        Header header = request.getHeader();
-        if (header == null)
-            request.setHeader(header = new Header());
-        header.setMobileNo(session.getClientId());
-        header.setSerialNo(session.nextSerialNo());
-        if (header.getMessageId() == 0) {
-            header.setMessageId(request.reflectMessageId());
+        request.setMobileNo(session.getClientId());
+        request.setSerialNo(session.nextSerialNo());
+        if (request.getMessageId() == 0) {
+            request.setMessageId(request.reflectMessageId());
         }
         return session.request(request, responseClass, timeout);
     }

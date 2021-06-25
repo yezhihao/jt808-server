@@ -1,9 +1,8 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.protocol.basics.Header;
+import org.yzh.protocol.basics.JTMessage;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,19 +32,19 @@ public class MultiPacketDecoder extends JTMessageDecoder {
     }
 
     @Override
-    protected byte[][] addAndGet(Header header, Session session, byte[] packetData) {
-        String clientId = header.getMobileNo();
-        int messageId = header.getMessageId();
-        int packageTotal = header.getPackageTotal();
-        int packetNo = header.getPackageNo();
+    protected byte[][] addAndGet(JTMessage message, byte[] packetData) {
+        String clientId = message.getMobileNo();
+        int messageId = message.getMessageId();
+        int packageTotal = message.getPackageTotal();
+        int packetNo = message.getPackageNo();
 
         String key = new StringBuilder(21).append(clientId).append("/").append(messageId).append("/").append(packageTotal).toString();
 
         MultiPacket multiPacket = multiPacketsMap.get(key);
         if (multiPacket == null)
-            multiPacketsMap.put(key, multiPacket = new MultiPacket(header, session));
+            multiPacketsMap.put(key, multiPacket = new MultiPacket(message));
         if (packetNo == 1)
-            multiPacket.setSerialNo(header.getSerialNo());
+            multiPacket.setSerialNo(message.getSerialNo());
 
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);

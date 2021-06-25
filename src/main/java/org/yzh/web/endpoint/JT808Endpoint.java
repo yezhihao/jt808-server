@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
@@ -52,7 +51,7 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
-    public void unregister(JTMessage header, Session session) {
+    public void unregister(JTMessage message, Session session) {
         session.invalidate();
     }
 
@@ -68,18 +67,17 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
-        Header header = message.getHeader();
         if (message.getPlateNo() == null) {
             session.setOfflineCache(message.getClientId(), -1);
             session.setAttribute(SessionKey.ProtocolVersion, -1);
             log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
             return null;
         } else {
-            session.setAttribute(SessionKey.ProtocolVersion, header.getVersionNo());
+            session.setAttribute(SessionKey.ProtocolVersion, message.getVersionNo());
         }
 
         T8100 result = new T8100();
-        result.setResponseSerialNo(header.getSerialNo());
+        result.setResponseSerialNo(message.getSerialNo());
 
         DeviceInfo device = deviceService.register(message);
         if (device != null) {
@@ -100,11 +98,9 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
     public T0001 authentication(T0102 message, Session session) {
-        Header header = message.getHeader();
-
         T0001 result = new T0001();
-        result.setResponseSerialNo(header.getSerialNo());
-        result.setResponseMessageId(header.getMessageId());
+        result.setResponseSerialNo(message.getSerialNo());
+        result.setResponseMessageId(message.getMessageId());
 
         DeviceInfo device = deviceService.authentication(message);
         if (device != null) {
@@ -146,11 +142,10 @@ public class JT808Endpoint {
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
     public void locationBatchReport(T0704 message) {
-        Header header = message.getHeader();
         Session session = message.getSession();
         List<T0200> list = new AdapterList<>(message.getItems(), item -> {
             T0200 location = item.getLocation();
-            location.setHeader(header);
+            location.copyBy(message);
             location.setSession(session);
             location.transform();
             return location;

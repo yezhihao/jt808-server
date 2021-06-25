@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.yzh.protocol.basics.Header;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
@@ -207,7 +206,7 @@ public class JT808Controller {
                             @Parameter(description = "区域类型: 1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
                             @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
         T8601 request = new T8601(StrUtils.toInts(id, ","));
-        request.setHeader(new Header(Shape.toMessageId(type)));
+        request.setMessageId(Shape.toMessageId(type));
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
