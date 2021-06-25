@@ -42,7 +42,7 @@ public class DarkRepulsor {
     }
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = encoder.encode(/** 消息对象 **/);
+        ByteBuf byteBuf = encoder.encode(new T0200());
         System.out.println();
         System.out.println(ByteBufUtil.hexDump(byteBuf));
     }
@@ -100,15 +100,18 @@ package org.yzh.protocol.t808;
 @Message(JT808.终端注册)
 public class T0100 extends JTMessage {
 
+    @Field(index = 0, type = DataType.WORD, desc = "省域ID")
     private int provinceId;
+    @Field(index = 2, type = DataType.WORD, desc = "市县域ID")
     private int cityId;
+    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = {-1, 0})
+    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)
     private String makerId;
     private String deviceModel;
     private String deviceId;
     private int plateColor;
     private String plateNo;
 
-    @Field(index = 0, type = DataType.WORD, desc = "省域ID")
     public int getProvinceId() {
         return provinceId;
     }
@@ -117,7 +120,6 @@ public class T0100 extends JTMessage {
         this.provinceId = provinceId;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "市县域ID")
     public int getCityId() {
         return cityId;
     }
@@ -126,8 +128,6 @@ public class T0100 extends JTMessage {
         this.cityId = cityId;
     }
 
-    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = {-1, 0})
-    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)
     public String getMakerId() {
         return makerId;
     }
@@ -146,19 +146,16 @@ public class JT808Endpoint {
 
     @Mapping(types = 0x0100, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
-        Header header = message.getHeader();
+        T8100 result = new T8100();
+        result.setResponseSerialNo(message.getSerialNo());
 
-        T8100 result = new T8100(session.nextSerialNo(), header.getMobileNo());
-        result.setSerialNo(header.getSerialNo());
+        DeviceInfo device = deviceService.register(message);
+        if (device != null) {
+            session.register(message);
 
-        String token = deviceService.register(message);
-        if (token != null) {
-            session.register(header);
-
+            result.setToken("test");
             result.setResultCode(T8100.Success);
-            result.setToken(token);
         } else {
-
             result.setResultCode(T8100.NotFoundTerminal);
         }
         return result;
@@ -177,13 +174,12 @@ public class JT808Controller {
     @Autowired
     private MessageManager messageManager;
 
-    @Operation(summary = "设置终端参数")
-    @PutMapping("settings")
-    public T0001 putSettings(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody Parameters parameters) {
+    @Operation(summary = "8103 设置终端参数")
+    @PutMapping("parameters")
+    public T0001 setParameters(@Parameter(description = "终端手机号") @RequestParam String clientId, @RequestBody Parameters parameters) {
         Map<Integer, Object> map = parameters.toMap();
-        T8103 request = new T8103(clientId);
-        request.setParameters(map);
-        T0001 response = messageManager.request(request, T0001.class);
+        T8103 request = new T8103(map);
+        T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;
     }
 }

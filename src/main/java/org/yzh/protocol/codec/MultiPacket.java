@@ -95,18 +95,18 @@ public class MultiPacket {
 
     @Override
     public String toString() {
-        int length = packets.length;
-        final StringBuilder sb = new StringBuilder(82 + (length * 3));
+        int total = packets.length;
+        final StringBuilder sb = new StringBuilder(82 + (total * 3));
         sb.append('[');
-        sb.append("clientId=").append(firstPacket.getClientId());
-        sb.append(", messageId=").append(Integer.toHexString(firstPacket.getMessageId()));
-        sb.append(", total=").append(length);
+        sb.append("cid=").append(firstPacket.getClientId());
+        sb.append(", msg=").append(Integer.toHexString(firstPacket.getMessageId()));
+        sb.append(", total=").append(total);
         sb.append(", count=").append(count);
         sb.append(", retryCount=").append(retryCount);
         sb.append(", time=").append(getTotalWaitTime());
         sb.append(", packets=");
         sb.append('{');
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < total; i++) {
             if (packets[i] != null) sb.append(i + 1);
             else sb.append(' ');
             sb.append(',');

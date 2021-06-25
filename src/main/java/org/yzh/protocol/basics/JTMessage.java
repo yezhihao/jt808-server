@@ -227,7 +227,7 @@ public class JTMessage implements Message {
         final StringBuffer sb = new StringBuffer(768);
         sb.append(MessageId.get(messageId));
         sb.append('[');
-        sb.append("mobi=").append(clientId);
+        sb.append("cid=").append(clientId);
         sb.append(",msg=").append(messageId);
         sb.append(",ver=").append(versionNo);
         sb.append(",ser=").append(serialNo);

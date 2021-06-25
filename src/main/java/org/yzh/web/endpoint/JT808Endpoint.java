@@ -88,8 +88,8 @@ public class JT808Endpoint {
             bytes = EncryptUtils.encrypt(bytes);
             String token = Base64.getEncoder().encodeToString(bytes);
 
-            result.setResultCode(T8100.Success);
             result.setToken(token);
+            result.setResultCode(T8100.Success);
         } else {
             result.setResultCode(T8100.NotFoundTerminal);
         }

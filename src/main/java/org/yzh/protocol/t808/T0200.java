@@ -117,7 +117,7 @@ public class T0200 extends JTMessage {
         final StringBuilder sb = new StringBuilder(512);
         sb.append(MessageId.get(messageId));
         sb.append('[');
-        sb.append("mobi=").append(clientId);
+        sb.append("cid=").append(clientId);
         sb.append(",msg=").append(messageId);
         sb.append(",ver=").append(versionNo);
         sb.append(",ser=").append(serialNo);
