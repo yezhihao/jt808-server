@@ -13,11 +13,13 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.多媒体数据上传应答)
 public class T8800 extends JTMessage {
 
+    @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID(大于0) 如收到全部数据包则没有后续字段")
     private int mediaId;
+    @Field(index = 4, type = DataType.BYTE, desc = "重传包总数")
     private int total;
+    @Field(index = 5, type = DataType.WORD, desc = "重传包ID列表")
     private short[] id;
 
-    @Field(index = 0, type = DataType.DWORD, desc = "多媒体ID(大于0) 如收到全部数据包则没有后续字段")
     public int getMediaId() {
         return mediaId;
     }
@@ -26,7 +28,6 @@ public class T8800 extends JTMessage {
         this.mediaId = mediaId;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "重传包总数")
     public int getTotal() {
         return total;
     }
@@ -35,7 +36,6 @@ public class T8800 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 5, type = DataType.WORD, desc = "重传包ID列表")
     public short[] getId() {
         return id;
     }

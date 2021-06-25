@@ -13,7 +13,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询指定终端参数)
 public class T8106 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     private int total;
+    @Field(index = 1, type = DataType.DWORD, desc = "参数ID列表")
     private int[] id;
 
     public T8106() {
@@ -24,7 +26,6 @@ public class T8106 extends JTMessage {
         this.total = id.length;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public int getTotal() {
         return total;
     }
@@ -33,7 +34,6 @@ public class T8106 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 1, type = DataType.DWORD, desc = "参数ID列表")
     public int[] getId() {
         return id;
     }

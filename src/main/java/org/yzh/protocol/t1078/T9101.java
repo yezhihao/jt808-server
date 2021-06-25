@@ -13,14 +13,19 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.实时音视频传输请求)
 public class T9101 extends JTMessage {
 
+    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     private String ip;
+    @Field(index = 1, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
     private int tcpPort;
+    @Field(index = 3, type = DataType.WORD, desc = "实时视频服务器UDP端口号")
     private int udpPort;
+    @Field(index = 5, type = DataType.BYTE, desc = "逻辑通道号")
     private int channelNo;
+    @Field(index = 6, type = DataType.BYTE, desc = "数据类型: 0.音视频 1.视频 2.双向对讲 3.监听 4.中心广播 5.透传")
     private int mediaType;
+    @Field(index = 7, type = DataType.BYTE, desc = "码流类型: 0.主码流 1.子码流")
     private int streamType;
 
-    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
@@ -29,7 +34,6 @@ public class T9101 extends JTMessage {
         this.ip = ip;
     }
 
-    @Field(index = 1, type = DataType.WORD, desc = "实时视频服务器TCP端口号")
     public int getTcpPort() {
         return tcpPort;
     }
@@ -38,7 +42,6 @@ public class T9101 extends JTMessage {
         this.tcpPort = tcpPort;
     }
 
-    @Field(index = 3, type = DataType.WORD, desc = "实时视频服务器UDP端口号")
     public int getUdpPort() {
         return udpPort;
     }
@@ -47,7 +50,6 @@ public class T9101 extends JTMessage {
         this.udpPort = udpPort;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -56,7 +58,6 @@ public class T9101 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 6, type = DataType.BYTE, desc = "数据类型: 0.音视频 1.视频 2.双向对讲 3.监听 4.中心广播 5.透传")
     public int getMediaType() {
         return mediaType;
     }
@@ -65,7 +66,6 @@ public class T9101 extends JTMessage {
         this.mediaType = mediaType;
     }
 
-    @Field(index = 7, type = DataType.BYTE, desc = "码流类型: 0.主码流 1.子码流")
     public int getStreamType() {
         return streamType;
     }

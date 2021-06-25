@@ -8,6 +8,7 @@ public interface Alarm {
 
     long getSerialNo();
 
+    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
     int getState();
 
     default int getType() {

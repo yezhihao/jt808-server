@@ -15,10 +15,11 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.提问应答)
 public class T0302 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "答案ID")
     private int answerId;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -27,7 +28,6 @@ public class T0302 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "答案ID")
     public int getAnswerId() {
         return answerId;
     }

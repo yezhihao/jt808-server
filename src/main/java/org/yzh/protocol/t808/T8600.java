@@ -16,11 +16,13 @@ import java.util.List;
 public class T8600 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.ShapeAction */
+    @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
     private int action;
+    @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
     private int total;
+    @Field(index = 2, type = DataType.LIST, desc = "区域列表")
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
     public int getAction() {
         return action;
     }
@@ -29,7 +31,6 @@ public class T8600 extends JTMessage {
         this.action = action;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
     public int getTotal() {
         if (items != null)
             return items.size();
@@ -40,7 +41,6 @@ public class T8600 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 2, type = DataType.LIST, desc = "区域列表")
     public List<Item> getItems() {
         return items;
     }
@@ -51,17 +51,28 @@ public class T8600 extends JTMessage {
     }
 
     public static class Item {
+        @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         private int id;
+        @Field(index = 4, type = DataType.WORD, desc = "区域属性")
         private int attribute;
+        @Field(index = 6, type = DataType.DWORD, desc = "中心点纬度")
         private int latitude;
+        @Field(index = 10, type = DataType.DWORD, desc = "中心点经度")
         private int longitude;
+        @Field(index = 14, type = DataType.DWORD, desc = "半径(米)")
         private int radius;
+        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
         private String startTime;
+        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
         private String endTime;
+        @Field(index = 30, type = DataType.WORD, desc = "最高速度(公里每小时)")
         private int maxSpeed;
+        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间(秒)")
         private int duration;
 
+        @Field(index = 33, type = DataType.WORD, desc = "夜间最高速度", version = 1)
         private int nightMaxSpeed;
+        @Field(index = 35, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
         private String name;
 
         public Item() {
@@ -93,7 +104,6 @@ public class T8600 extends JTMessage {
             this.name = name;
         }
 
-        @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         public int getId() {
             return id;
         }
@@ -102,7 +112,6 @@ public class T8600 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 4, type = DataType.WORD, desc = "区域属性")
         public int getAttribute() {
             return attribute;
         }
@@ -111,7 +120,6 @@ public class T8600 extends JTMessage {
             this.attribute = attribute;
         }
 
-        @Field(index = 6, type = DataType.DWORD, desc = "中心点纬度")
         public int getLatitude() {
             return latitude;
         }
@@ -120,7 +128,6 @@ public class T8600 extends JTMessage {
             this.latitude = latitude;
         }
 
-        @Field(index = 10, type = DataType.DWORD, desc = "中心点经度")
         public int getLongitude() {
             return longitude;
         }
@@ -129,7 +136,6 @@ public class T8600 extends JTMessage {
             this.longitude = longitude;
         }
 
-        @Field(index = 14, type = DataType.DWORD, desc = "半径(m)")
         public int getRadius() {
             return radius;
         }
@@ -138,7 +144,6 @@ public class T8600 extends JTMessage {
             this.radius = radius;
         }
 
-        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
         public String getStartTime() {
             return startTime;
         }
@@ -147,7 +152,6 @@ public class T8600 extends JTMessage {
             this.startTime = startTime;
         }
 
-        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
         public String getEndTime() {
             return endTime;
         }
@@ -156,7 +160,6 @@ public class T8600 extends JTMessage {
             this.endTime = endTime;
         }
 
-        @Field(index = 30, type = DataType.WORD, desc = "最高速度(km/h)")
         public int getMaxSpeed() {
             return maxSpeed;
         }
@@ -165,7 +168,6 @@ public class T8600 extends JTMessage {
             this.maxSpeed = maxSpeed;
         }
 
-        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间(s)")
         public int getDuration() {
             return duration;
         }
@@ -174,7 +176,6 @@ public class T8600 extends JTMessage {
             this.duration = duration;
         }
 
-        @Field(index = 33, type = DataType.WORD, desc = "夜间最高速度", version = 1)
         public int getNightMaxSpeed() {
             return nightMaxSpeed;
         }
@@ -183,7 +184,6 @@ public class T8600 extends JTMessage {
             this.nightMaxSpeed = nightMaxSpeed;
         }
 
-        @Field(index = 35, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
         public String getName() {
             return name;
         }

@@ -17,12 +17,15 @@ public class T8108 extends JTMessage {
     public static final int CardReader = 12;
     public static final int Beidou = 52;
 
+    @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
     private int type;
+    @Field(index = 1, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码")
     private String makerId;
+    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "版本号")
     private String version;
+    @Field(index = 7, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
     private byte[] packet;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
     public int getType() {
         return type;
     }
@@ -31,7 +34,6 @@ public class T8108 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码")
     public String getMakerId() {
         return makerId;
     }
@@ -40,7 +42,6 @@ public class T8108 extends JTMessage {
         this.makerId = makerId;
     }
 
-    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "版本号")
     public String getVersion() {
         return version;
     }
@@ -49,7 +50,6 @@ public class T8108 extends JTMessage {
         this.version = version;
     }
 
-    @Field(index = 7, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
     public byte[] getPacket() {
         return packet;
     }

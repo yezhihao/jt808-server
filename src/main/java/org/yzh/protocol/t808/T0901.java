@@ -13,13 +13,14 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.数据压缩上报)
 public class T0901 extends JTMessage {
 
+    @Field(index = 0, type = DataType.DWORD, desc = "压缩消息长度")
     private int length;
+    @Field(index = 4, type = DataType.BYTES, desc = "压缩消息体")
     private byte[] body;
 
     public T0901() {
     }
 
-    @Field(index = 0, type = DataType.DWORD, desc = "压缩消息长度")
     public int getLength() {
         return length;
     }
@@ -28,7 +29,6 @@ public class T0901 extends JTMessage {
         this.length = length;
     }
 
-    @Field(index = 4, type = DataType.BYTES, desc = "压缩消息体")
     public byte[] getBody() {
         return body;
     }

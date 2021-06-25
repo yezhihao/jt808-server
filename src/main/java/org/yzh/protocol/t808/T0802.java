@@ -16,11 +16,13 @@ import java.util.List;
 @Message(JT808.存储多媒体数据检索应答)
 public class T0802 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")
     private int total;
+    @Field(index = 4, type = DataType.LIST, desc = "检索项")
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -29,7 +31,6 @@ public class T0802 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")
     public int getTotal() {
         return total;
     }
@@ -38,7 +39,6 @@ public class T0802 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 4, type = DataType.LIST, desc = "检索项")
     public List<Item> getItems() {
         return items;
     }
@@ -50,10 +50,15 @@ public class T0802 extends JTMessage implements Response {
 
     public static class Item {
 
+        @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
         private int id;
+        @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型: 0.图像 1.音频 2.视频")
         private int type;
+        @Field(index = 5, type = DataType.BYTE, desc = "通道ID")
         private int channelId;
+        @Field(index = 6, type = DataType.BYTE, desc = "事件项编码")
         private int event;
+        @Field(index = 7, type = DataType.OBJ, length = 28, desc = "位置信息")
         private T0200 location;
 
         public Item() {
@@ -67,7 +72,6 @@ public class T0802 extends JTMessage implements Response {
             this.location = location;
         }
 
-        @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
         public int getId() {
             return id;
         }
@@ -76,7 +80,6 @@ public class T0802 extends JTMessage implements Response {
             this.id = id;
         }
 
-        @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型: 0.图像 1.音频 2.视频")
         public int getType() {
             return type;
         }
@@ -85,7 +88,6 @@ public class T0802 extends JTMessage implements Response {
             this.type = type;
         }
 
-        @Field(index = 5, type = DataType.BYTE, desc = "通道ID")
         public int getChannelId() {
             return channelId;
         }
@@ -94,7 +96,6 @@ public class T0802 extends JTMessage implements Response {
             this.channelId = channelId;
         }
 
-        @Field(index = 6, type = DataType.BYTE, desc = "事件项编码")
         public int getEvent() {
             return event;
         }
@@ -103,7 +104,6 @@ public class T0802 extends JTMessage implements Response {
             this.event = event;
         }
 
-        @Field(index = 7, type = DataType.OBJ, length = 28, desc = "位置信息")
         public T0200 getLocation() {
             return location;
         }

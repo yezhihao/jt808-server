@@ -18,11 +18,13 @@ import java.util.List;
 public class T8301 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Action */
+    @Field(index = 0, type = DataType.BYTE, desc = "设置类型: 0.清空 1.更新(先清空,后追加) 2.追加 3.修改 4.指定删除")
     private int type;
+    @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     private int total;
+    @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
     private List<Event> events;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "设置类型: 0.清空 1.更新(先清空,后追加) 2.追加 3.修改 4.指定删除")
     public int getType() {
         return type;
     }
@@ -31,7 +33,6 @@ public class T8301 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     public int getTotal() {
         if (events != null)
             return events.size();
@@ -42,7 +43,6 @@ public class T8301 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
     public List<Event> getEvents() {
         return events;
     }
@@ -60,7 +60,9 @@ public class T8301 extends JTMessage {
     }
 
     public static class Event {
+        @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
         private int id;
+        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "内容")
         private String content;
 
         public Event() {
@@ -71,7 +73,6 @@ public class T8301 extends JTMessage {
             this.content = content;
         }
 
-        @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
         public int getId() {
             return id;
         }
@@ -80,7 +81,6 @@ public class T8301 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "内容")
         public String getContent() {
             return content;
         }

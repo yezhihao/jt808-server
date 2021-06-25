@@ -18,11 +18,13 @@ import java.util.List;
 public class T8303 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Action */
+    @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
     private int type;
+    @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     private int total;
+    @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
     public int getType() {
         return type;
     }
@@ -31,7 +33,6 @@ public class T8303 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
     public int getTotal() {
         if (items != null)
             return items.size();
@@ -42,7 +43,6 @@ public class T8303 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
     public List<Item> getItems() {
         return items;
     }
@@ -60,7 +60,9 @@ public class T8303 extends JTMessage {
     }
 
     public static class Item {
+        @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
         private int id;
+        @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "信息名称")
         private String content;
 
         public Item() {
@@ -71,7 +73,6 @@ public class T8303 extends JTMessage {
             this.content = content;
         }
 
-        @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
         public int getId() {
             return id;
         }
@@ -80,7 +81,6 @@ public class T8303 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "信息名称")
         public String getContent() {
             return content;
         }

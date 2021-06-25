@@ -14,10 +14,11 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.信息点播_取消)
 public class T0303 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "消息类型")
     private int type;
+    @Field(index = 1, type = DataType.BYTE, desc = "点播/取消标志 0.取消 1.点播")
     private int action;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "消息类型")
     public int getType() {
         return type;
     }
@@ -26,7 +27,6 @@ public class T0303 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "点播/取消标志 0.取消 1.点播")
     public int getAction() {
         return action;
     }

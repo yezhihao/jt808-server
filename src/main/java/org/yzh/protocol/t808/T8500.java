@@ -14,6 +14,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.车辆控制)
 public class T8500 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "控制标志: " +
+            "[0  ] 0.车门解锁 1.车门加锁 " +
+            "[1-7] 保留")
     private int sign;
 
     public T8500() {
@@ -23,9 +26,6 @@ public class T8500 extends JTMessage {
         this.sign = Bit.writeInt(sign);
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "控制标志: " +
-            "[0  ] 0.车门解锁 1.车门加锁 " +
-            "[1-7] 保留")
     public int getSign() {
         return sign;
     }

@@ -13,16 +13,23 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.驾驶员身份信息采集上报)
 public class T0702 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "状态")
     private int status;
+    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "时间")
     private String dateTime;
+    @Field(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
     private int cardStatus;
+    @Field(index = 8, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
     private String name;
+    @Field(index = 9, type = DataType.STRING, length = 20, desc = "从业资格证编码")
     private String licenseNo;
+    @Field(index = 29, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
     private String institution;
+    @Field(index = 30, type = DataType.BCD8421, length = 4, desc = "证件有效期")
     private String licenseValidPeriod;
+    @Field(index = 34, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
     private String idCard;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "状态")
     public int getStatus() {
         return status;
     }
@@ -31,7 +38,6 @@ public class T0702 extends JTMessage {
         this.status = status;
     }
 
-    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -40,7 +46,6 @@ public class T0702 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
     public int getCardStatus() {
         return cardStatus;
     }
@@ -49,7 +54,6 @@ public class T0702 extends JTMessage {
         this.cardStatus = cardStatus;
     }
 
-    @Field(index = 8, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
     public String getName() {
         return name;
     }
@@ -58,7 +62,6 @@ public class T0702 extends JTMessage {
         this.name = name;
     }
 
-    @Field(index = 9, type = DataType.STRING, length = 20, desc = "从业资格证编码")
     public String getLicenseNo() {
         return licenseNo;
     }
@@ -67,7 +70,6 @@ public class T0702 extends JTMessage {
         this.licenseNo = licenseNo;
     }
 
-    @Field(index = 29, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
     public String getInstitution() {
         return institution;
     }
@@ -76,7 +78,6 @@ public class T0702 extends JTMessage {
         this.institution = institution;
     }
 
-    @Field(index = 30, type = DataType.BCD8421, length = 4, desc = "证件有效期")
     public String getLicenseValidPeriod() {
         return licenseValidPeriod;
     }
@@ -85,7 +86,6 @@ public class T0702 extends JTMessage {
         this.licenseValidPeriod = licenseValidPeriod;
     }
 
-    @Field(index = 34, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
     public String getIdCard() {
         return idCard;
     }

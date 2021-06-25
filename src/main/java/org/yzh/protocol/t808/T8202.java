@@ -13,7 +13,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.临时位置跟踪控制)
 public class T8202 extends JTMessage {
 
+    @Field(index = 0, type = DataType.WORD, desc = "时间间隔(秒)")
     private int interval;
+    @Field(index = 2, type = DataType.DWORD, desc = "有效期(秒)")
     private int validityPeriod;
 
     public T8202() {
@@ -24,7 +26,6 @@ public class T8202 extends JTMessage {
         this.validityPeriod = validityPeriod;
     }
 
-    @Field(index = 0, type = DataType.WORD, desc = "时间间隔(秒)")
     public int getInterval() {
         return interval;
     }
@@ -33,7 +34,6 @@ public class T8202 extends JTMessage {
         this.interval = interval;
     }
 
-    @Field(index = 2, type = DataType.DWORD, desc = "有效期(秒)")
     public int getValidityPeriod() {
         return validityPeriod;
     }

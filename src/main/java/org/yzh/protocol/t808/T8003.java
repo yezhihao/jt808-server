@@ -14,11 +14,14 @@ import org.yzh.protocol.commons.JT808;
 @Message({JT808.服务器补传分包请求, JT808.终端补传分包请求})
 public class T8003 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "原始消息流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "重传包总数", version = {-1, 0})
+    @Field(index = 2, type = DataType.WORD, desc = "重传包总数", version = 1)
     private int total;
+    @Field(index = 4, type = DataType.WORD, desc = "重传包ID列表")
     private short[] id;
 
-    @Field(index = 0, type = DataType.WORD, desc = "原始消息流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -27,8 +30,6 @@ public class T8003 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "重传包总数", version = {-1, 0})
-    @Field(index = 2, type = DataType.WORD, desc = "重传包总数", version = 1)
     public int getTotal() {
         return total;
     }
@@ -37,7 +38,6 @@ public class T8003 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 4, type = DataType.WORD, desc = "重传包ID列表")
     public short[] getId() {
         return id;
     }

@@ -12,7 +12,9 @@ import io.github.yezhihao.protostar.annotation.Message;
 @Message
 public class DataInfo {
 
+    @Field(index = 0, type = DataType.DWORD, desc = "数据偏移量")
     private long offset;
+    @Field(index = 1, type = DataType.DWORD, desc = "数据长度")
     private long length;
 
     public DataInfo() {
@@ -23,7 +25,6 @@ public class DataInfo {
         this.length = length;
     }
 
-    @Field(index = 0, type = DataType.DWORD, desc = "数据偏移量")
     public long getOffset() {
         return offset;
     }
@@ -32,7 +33,6 @@ public class DataInfo {
         this.offset = offset;
     }
 
-    @Field(index = 1, type = DataType.DWORD, desc = "数据长度")
     public long getLength() {
         return length;
     }

@@ -19,11 +19,14 @@ import java.util.TreeMap;
 @Message(JT808.查询终端参数应答)
 public class T0104 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     private int total;
+    @Convert(converter = ParameterConverter.class)
+    @Field(index = 3, type = DataType.MAP, desc = "参数项列表")
     private Map<Integer, Object> parameters;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -32,10 +35,7 @@ public class T0104 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     public int getTotal() {
-        if (parameters != null)
-            return parameters.size();
         return total;
     }
 
@@ -43,19 +43,19 @@ public class T0104 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Convert(converter = ParameterConverter.class)
-    @Field(index = 3, type = DataType.MAP, desc = "参数项列表")
     public Map<Integer, Object> getParameters() {
         return parameters;
     }
 
     public void setParameters(Map<Integer, Object> parameters) {
         this.parameters = parameters;
+        this.total = parameters.size();
     }
 
     public void addParameter(Integer key, Object value) {
         if (parameters == null)
             parameters = new TreeMap();
         parameters.put(key, value);
+        total = parameters.size();
     }
 }

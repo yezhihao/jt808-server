@@ -25,12 +25,13 @@ public class T8100 extends JTMessage implements Response {
     /** 4.数据库中无该终端 */
     public static final int NotFoundTerminal = 4;
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
     private int resultCode;
+    @Field(index = 3, type = DataType.STRING, desc = "鉴权码(成功后才有该字段)")
     private String token;
 
-    /** 对应的终端注册消息的流水号 */
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -39,7 +40,6 @@ public class T8100 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
     public int getResultCode() {
         return resultCode;
     }
@@ -48,8 +48,6 @@ public class T8100 extends JTMessage implements Response {
         this.resultCode = resultCode;
     }
 
-    /** 成功后才有该字段 */
-    @Field(index = 3, type = DataType.STRING, desc = "鉴权码")
     public String getToken() {
         return token;
     }

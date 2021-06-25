@@ -13,14 +13,19 @@ import org.yzh.protocol.commons.JSATL12;
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends JTMessage {
 
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     private String ip;
+    @Field(index = 1, type = DataType.WORD, desc = "TCP端口")
     private int tcpPort;
+    @Field(index = 3, type = DataType.WORD, desc = "UDP端口")
     private int udpPort;
+    @Field(index = 5, length = 16, type = DataType.OBJ, desc = "报警标识号")
     private AlarmId alarmId;
+    @Field(index = 21, length = 32, type = DataType.BYTES, desc = "报警编号")
     private String alarmNo;
+    @Field(index = 53, length = 16, type = DataType.BYTES, desc = "预留")
     private byte[] reserved;
 
-    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器IP地址")
     public String getIp() {
         return ip;
     }
@@ -29,7 +34,6 @@ public class T9208 extends JTMessage {
         this.ip = ip;
     }
 
-    @Field(index = 1, type = DataType.WORD, desc = "TCP端口")
     public int getTcpPort() {
         return tcpPort;
     }
@@ -38,7 +42,6 @@ public class T9208 extends JTMessage {
         this.tcpPort = tcpPort;
     }
 
-    @Field(index = 3, type = DataType.WORD, desc = "UDP端口")
     public int getUdpPort() {
         return udpPort;
     }
@@ -47,7 +50,6 @@ public class T9208 extends JTMessage {
         this.udpPort = udpPort;
     }
 
-    @Field(index = 5, length = 16, type = DataType.OBJ, desc = "报警标识号")
     public AlarmId getAlarmId() {
         return alarmId;
     }
@@ -56,7 +58,6 @@ public class T9208 extends JTMessage {
         this.alarmId = alarmId;
     }
 
-    @Field(index = 21, length = 32, type = DataType.BYTES, desc = "报警编号")
     public String getAlarmNo() {
         return alarmNo;
     }
@@ -65,7 +66,6 @@ public class T9208 extends JTMessage {
         this.alarmNo = alarmNo;
     }
 
-    @Field(index = 53, length = 16, type = DataType.BYTES, desc = "预留")
     public byte[] getReserved() {
         return reserved;
     }

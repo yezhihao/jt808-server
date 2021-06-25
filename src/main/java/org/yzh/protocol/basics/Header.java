@@ -10,19 +10,23 @@ import org.yzh.protocol.commons.MessageId;
  */
 public class Header {
 
-    /** 消息类型 */
+    @Field(index = 0, type = DataType.WORD, desc = "消息ID")
     protected int messageId;
-    /** 消息体属性 */
+    @Field(index = 2, type = DataType.WORD, desc = "消息体属性")
     protected int properties;
-    /** 协议版本号 */
+    @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
     protected int versionNo;
-    /** 手机号 */
+    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
+    @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
     protected String mobileNo;
-    /** 消息序列号 */
+    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = {-1, 0})
+    @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)
     protected int serialNo;
-    /** 包总数 */
+    @Field(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0)
+    @Field(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)
     protected Integer packageTotal;
-    /** 包序号 */
+    @Field(index = 14, type = DataType.WORD, desc = "包序号", version = 0)
+    @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)
     protected Integer packageNo;
     /** bcc校验 */
     private boolean verified = true;
@@ -41,7 +45,6 @@ public class Header {
         return this;
     }
 
-    @Field(index = 0, type = DataType.WORD, desc = "消息ID")
     public int getMessageId() {
         return messageId;
     }
@@ -50,7 +53,6 @@ public class Header {
         this.messageId = messageId;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "消息体属性")
     public int getProperties() {
         return properties;
     }
@@ -59,7 +61,6 @@ public class Header {
         this.properties = properties;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
     public int getVersionNo() {
         return versionNo;
     }
@@ -68,8 +69,6 @@ public class Header {
         this.versionNo = versionNo;
     }
 
-    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
-    @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
     public String getMobileNo() {
         return mobileNo;
     }
@@ -78,8 +77,6 @@ public class Header {
         this.mobileNo = mobileNo;
     }
 
-    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = {-1, 0})
-    @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)
     public int getSerialNo() {
         return serialNo;
     }
@@ -88,8 +85,6 @@ public class Header {
         this.serialNo = serialNo;
     }
 
-    @Field(index = 12, type = DataType.WORD, desc = "消息包总数", version = 0)
-    @Field(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)
     public Integer getPackageTotal() {
         if (isSubpackage())
             return packageTotal;
@@ -100,8 +95,6 @@ public class Header {
         this.packageTotal = packageTotal;
     }
 
-    @Field(index = 14, type = DataType.WORD, desc = "包序号", version = 0)
-    @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)
     public Integer getPackageNo() {
         if (isSubpackage())
             return packageNo;

@@ -17,42 +17,10 @@ public class AlarmADAS implements Alarm {
         return id;
     }
 
-    private long serialNo;
-    private int state;
-    private int type;
-    private int level;
-    private int frontSpeed;
-    private int frontDistance;
-    private int deviateType;
-    private int roadSign;
-    private int roadSignValue;
-    private int speed;
-    private int altitude;
-    private int latitude;
-    private int longitude;
-    private LocalDateTime dateTime;
-    private int status;
-    private AlarmId alarmId;
-
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
-    public long getSerialNo() {
-        return serialNo;
-    }
-
-    public void setSerialNo(long serialNo) {
-        this.serialNo = serialNo;
-    }
-
-    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
+    private long serialNo;
     @Field(index = 4, type = DataType.BYTE, desc = "标志状态: 0.不可用 1.开始标志 2.结束标志")
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
+    private int state;
     @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型: " +
             "0x01:前向碰撞报警 " +
             "0x02:车道偏离报警 " +
@@ -65,6 +33,50 @@ public class AlarmADAS implements Alarm {
             "0x10:道路标志识别事件 " +
             "0x11:主动抓拍事件 " +
             "0x12~0x1F:用户自定义")
+    private int type;
+    @Field(index = 6, type = DataType.BYTE, desc = "报警级别")
+    private int level;
+    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250,仅报警类型为1和2时有效")
+    private int frontSpeed;
+    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms),范围0^100,仅报警类型为1、2和4时有效")
+    private int frontDistance;
+    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型: 1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
+    private int deviateType;
+    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型: 1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
+    private int roadSign;
+    @Field(index = 11, type = DataType.BYTE, desc = "道路标志识别数据")
+    private int roadSignValue;
+    @Field(index = 12, type = DataType.BYTE, desc = "车速")
+    private int speed;
+    @Field(index = 13, type = DataType.WORD, desc = "高程")
+    private int altitude;
+    @Field(index = 15, type = DataType.DWORD, desc = "纬度")
+    private int latitude;
+    @Field(index = 19, type = DataType.DWORD, desc = "经度")
+    private int longitude;
+    @Field(index = 23, type = DataType.BCD8421, length = 6, desc = "日期时间")
+    private LocalDateTime dateTime;
+    @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
+    private int status;
+    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号")
+    private AlarmId alarmId;
+
+    public long getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(long serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     public int getType() {
         return type;
     }
@@ -73,7 +85,6 @@ public class AlarmADAS implements Alarm {
         this.type = type;
     }
 
-    @Field(index = 6, type = DataType.BYTE, desc = "报警级别")
     public int getLevel() {
         return level;
     }
@@ -82,7 +93,6 @@ public class AlarmADAS implements Alarm {
         this.level = level;
     }
 
-    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250,仅报警类型为1和2时有效")
     public int getFrontSpeed() {
         return frontSpeed;
     }
@@ -91,7 +101,6 @@ public class AlarmADAS implements Alarm {
         this.frontSpeed = frontSpeed;
     }
 
-    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms),范围0^100,仅报警类型为1、2和4时有效")
     public int getFrontDistance() {
         return frontDistance;
     }
@@ -100,7 +109,6 @@ public class AlarmADAS implements Alarm {
         this.frontDistance = frontDistance;
     }
 
-    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型: 1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
     public int getDeviateType() {
         return deviateType;
     }
@@ -109,7 +117,6 @@ public class AlarmADAS implements Alarm {
         this.deviateType = deviateType;
     }
 
-    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型: 1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
     public int getRoadSign() {
         return roadSign;
     }
@@ -118,7 +125,6 @@ public class AlarmADAS implements Alarm {
         this.roadSign = roadSign;
     }
 
-    @Field(index = 11, type = DataType.BYTE, desc = "道路标志识别数据")
     public int getRoadSignValue() {
         return roadSignValue;
     }
@@ -127,7 +133,6 @@ public class AlarmADAS implements Alarm {
         this.roadSignValue = roadSignValue;
     }
 
-    @Field(index = 12, type = DataType.BYTE, desc = "车速")
     public int getSpeed() {
         return speed;
     }
@@ -136,7 +141,6 @@ public class AlarmADAS implements Alarm {
         this.speed = speed;
     }
 
-    @Field(index = 13, type = DataType.WORD, desc = "高程")
     public int getAltitude() {
         return altitude;
     }
@@ -145,7 +149,6 @@ public class AlarmADAS implements Alarm {
         this.altitude = altitude;
     }
 
-    @Field(index = 15, type = DataType.DWORD, desc = "纬度")
     public int getLatitude() {
         return latitude;
     }
@@ -154,7 +157,6 @@ public class AlarmADAS implements Alarm {
         this.latitude = latitude;
     }
 
-    @Field(index = 19, type = DataType.DWORD, desc = "经度")
     public int getLongitude() {
         return longitude;
     }
@@ -163,7 +165,6 @@ public class AlarmADAS implements Alarm {
         this.longitude = longitude;
     }
 
-    @Field(index = 23, type = DataType.BCD8421, length = 6, desc = "日期时间")
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -172,7 +173,6 @@ public class AlarmADAS implements Alarm {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }
@@ -181,7 +181,6 @@ public class AlarmADAS implements Alarm {
         this.status = status;
     }
 
-    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号")
     public AlarmId getAlarmId() {
         return alarmId;
     }

@@ -13,12 +13,15 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.终端上传乘客流量)
 public class T1005 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
     private String startTime;
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     private String endTime;
+    @Field(index = 12, type = DataType.WORD, desc = "从起始时间到结束时间的上车人数")
     private int getOnCount;
+    @Field(index = 14, type = DataType.WORD, desc = "从起始时间到结束时间的下车人数")
     private int getOffCount;
 
-    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
     public String getStartTime() {
         return startTime;
     }
@@ -27,7 +30,6 @@ public class T1005 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     public String getEndTime() {
         return endTime;
     }
@@ -36,7 +38,6 @@ public class T1005 extends JTMessage {
         this.endTime = endTime;
     }
 
-    @Field(index = 12, type = DataType.WORD, desc = "从起始时间到结束时间的上车人数")
     public int getGetOnCount() {
         return getOnCount;
     }
@@ -45,7 +46,6 @@ public class T1005 extends JTMessage {
         this.getOnCount = getOnCount;
     }
 
-    @Field(index = 14, type = DataType.WORD, desc = "从起始时间到结束时间的下车人数")
     public int getGetOffCount() {
         return getOffCount;
     }

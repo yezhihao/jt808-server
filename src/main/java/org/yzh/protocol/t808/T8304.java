@@ -14,7 +14,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.信息服务)
 public class T8304 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
     private int type;
+    @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
     private String content;
 
     public T8304() {
@@ -25,7 +27,6 @@ public class T8304 extends JTMessage {
         this.content = content;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
     public int getType() {
         return type;
     }
@@ -34,7 +35,6 @@ public class T8304 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
     public String getContent() {
         return content;
     }

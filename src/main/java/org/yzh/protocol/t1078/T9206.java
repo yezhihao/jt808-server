@@ -13,22 +13,35 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.文件上传指令)
 public class T9206 extends JTMessage {
 
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
     private String ip;
+    @Field(index = 1, type = DataType.WORD, desc = "端口")
     private int port;
+    @Field(index = 3, type = DataType.STRING, lengthSize = 1, desc = "用户名")
     private String username;
+    @Field(index = 4, type = DataType.STRING, lengthSize = 1, desc = "密码")
     private String password;
+    @Field(index = 5, type = DataType.STRING, lengthSize = 1, desc = "文件上传路径")
     private String path;
+    @Field(index = 6, type = DataType.BYTE, desc = "逻辑通道号")
     private int channelNo;
+    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "开始时间(YYMMDDHHMMSS)")
     private String startTime;
+    @Field(index = 13, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     private String endTime;
+    @Field(index = 19, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
     private int warnBit1;
+    @Field(index = 23, type = DataType.DWORD, desc = "报警标志32-63")
     private int warnBit2;
+    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型: 0.音视频 1.音频 2.视频 3.视频或音视频")
     private int mediaType;
+    @Field(index = 28, type = DataType.BYTE, desc = "码流类型: 0.所有码流 1.主码流 2.子码流")
     private int streamType;
+    @Field(index = 29, type = DataType.BYTE, desc = "存储位置: 0.所有存储器 1.主存储器 2.灾备存储器")
     private int storageType;
+    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
     private int condition;
 
-    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "服务器地址")
     public String getIp() {
         return ip;
     }
@@ -37,7 +50,6 @@ public class T9206 extends JTMessage {
         this.ip = ip;
     }
 
-    @Field(index = 1, type = DataType.WORD, desc = "端口")
     public int getPort() {
         return port;
     }
@@ -46,7 +58,6 @@ public class T9206 extends JTMessage {
         this.port = port;
     }
 
-    @Field(index = 3, type = DataType.STRING, lengthSize = 1, desc = "用户名")
     public String getUsername() {
         return username;
     }
@@ -55,7 +66,6 @@ public class T9206 extends JTMessage {
         this.username = username;
     }
 
-    @Field(index = 4, type = DataType.STRING, lengthSize = 1, desc = "密码")
     public String getPassword() {
         return password;
     }
@@ -64,7 +74,6 @@ public class T9206 extends JTMessage {
         this.password = password;
     }
 
-    @Field(index = 5, type = DataType.STRING, lengthSize = 1, desc = "文件上传路径")
     public String getPath() {
         return path;
     }
@@ -73,7 +82,6 @@ public class T9206 extends JTMessage {
         this.path = path;
     }
 
-    @Field(index = 6, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -82,7 +90,6 @@ public class T9206 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "开始时间(YYMMDDHHMMSS)")
     public String getStartTime() {
         return startTime;
     }
@@ -91,7 +98,6 @@ public class T9206 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 13, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     public String getEndTime() {
         return endTime;
     }
@@ -100,7 +106,6 @@ public class T9206 extends JTMessage {
         this.endTime = endTime;
     }
 
-    @Field(index = 19, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
     public int getWarnBit1() {
         return warnBit1;
     }
@@ -109,7 +114,6 @@ public class T9206 extends JTMessage {
         this.warnBit1 = warnBit1;
     }
 
-    @Field(index = 23, type = DataType.DWORD, desc = "报警标志32-63")
     public int getWarnBit2() {
         return warnBit2;
     }
@@ -118,7 +122,6 @@ public class T9206 extends JTMessage {
         this.warnBit2 = warnBit2;
     }
 
-    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型: 0.音视频 1.音频 2.视频 3.视频或音视频")
     public int getMediaType() {
         return mediaType;
     }
@@ -127,7 +130,6 @@ public class T9206 extends JTMessage {
         this.mediaType = mediaType;
     }
 
-    @Field(index = 28, type = DataType.BYTE, desc = "码流类型: 0.所有码流 1.主码流 2.子码流")
     public int getStreamType() {
         return streamType;
     }
@@ -136,7 +138,6 @@ public class T9206 extends JTMessage {
         this.streamType = streamType;
     }
 
-    @Field(index = 29, type = DataType.BYTE, desc = "存储位置: 0.所有存储器 1.主存储器 2.灾备存储器")
     public int getStorageType() {
         return storageType;
     }
@@ -145,7 +146,6 @@ public class T9206 extends JTMessage {
         this.storageType = storageType;
     }
 
-    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
     public int getCondition() {
         return condition;
     }

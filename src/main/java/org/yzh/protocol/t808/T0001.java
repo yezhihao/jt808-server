@@ -20,11 +20,13 @@ public class T0001 extends JTMessage implements Response {
     public static final int NotSupport = 3;//不支持
     public static final int AlarmAck = 4;//报警处理确认
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.WORD, desc = "应答ID")
     private int responseMessageId;
+    @Field(index = 4, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.消息有误 3.不支持 4.报警处理确认")
     private int resultCode;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -33,7 +35,6 @@ public class T0001 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "应答ID")
     public int getResponseMessageId() {
         return responseMessageId;
     }
@@ -42,7 +43,6 @@ public class T0001 extends JTMessage implements Response {
         this.responseMessageId = responseMessageId;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "结果 0.成功 1.失败 2.消息有误 3.不支持 4.报警处理确认")
     public int getResultCode() {
         return resultCode;
     }

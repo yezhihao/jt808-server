@@ -13,10 +13,11 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.实时音视频传输状态通知)
 public class T9105 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     private int channelNo;
+    @Field(index = 1, type = DataType.BYTE, desc = "丢包率")
     private int packetLossRate;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -25,7 +26,6 @@ public class T9105 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "丢包率")
     public int getPacketLossRate() {
         return packetLossRate;
     }

@@ -15,11 +15,13 @@ import java.util.List;
 @Message(JT808.CAN总线数据上传)
 public class T0705 extends JTMessage {
 
+    @Field(index = 0, type = DataType.WORD, desc = "数据项个数(大于0)")
     private int total;
+    @Field(index = 2, type = DataType.BCD8421, length = 5, desc = "CAN总线数据接收时间(HHMMSSMSMS)")
     private String dateTime;
+    @Field(index = 7, type = DataType.LIST, desc = "CAN总线数据项")
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.WORD, desc = "数据项个数")
     public int getTotal() {
         return total;
     }
@@ -28,7 +30,6 @@ public class T0705 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 2, type = DataType.BCD8421, length = 5, desc = "CAN 总线数据接收时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -37,7 +38,6 @@ public class T0705 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 7, type = DataType.LIST, desc = "CAN 总线数据项")
     public List<Item> getItems() {
         return items;
     }
@@ -48,7 +48,9 @@ public class T0705 extends JTMessage {
     }
 
     public static class Item {
+        @Field(index = 0, type = DataType.BYTES, length = 4, desc = "CAN ID")
         private byte[] id;
+        @Field(index = 4, type = DataType.BYTES, length = 8, desc = "CAN DATA")
         private byte[] data;
 
         public Item() {
@@ -59,7 +61,6 @@ public class T0705 extends JTMessage {
             this.data = data;
         }
 
-        @Field(index = 0, type = DataType.BYTES, length = 4, desc = "CAN ID")
         public byte[] getId() {
             return id;
         }
@@ -68,7 +69,6 @@ public class T0705 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 4, type = DataType.BYTES, length = 8, desc = "CAN DATA")
         public byte[] getData() {
             return data;
         }

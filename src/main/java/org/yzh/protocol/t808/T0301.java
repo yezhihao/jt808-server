@@ -14,9 +14,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.事件报告)
 public class T0301 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
     private int eventId;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
     public int getEventId() {
         return eventId;
     }

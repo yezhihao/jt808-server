@@ -15,13 +15,17 @@ import java.util.List;
 @Message(JSATL12.文件上传完成消息应答)
 public class T9212 extends JTMessage {
 
+    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
     private String name;
+    @Field(index = 1, type = DataType.BYTE, desc = "文件类型 0.图片 1.音频 2.视频 3.文本 4.其它")
     private int type;
+    @Field(index = 2, type = DataType.BYTE, desc = "上传结果")
     private int result;
+    @Field(index = 3, type = DataType.BYTE, desc = "补传数据包数量")
     private int total;
+    @Field(index = 4, type = DataType.LIST, desc = "补传数据包列表")
     private List<DataInfo> items;
 
-    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
     public String getName() {
         return name;
     }
@@ -30,7 +34,6 @@ public class T9212 extends JTMessage {
         this.name = name;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "文件类型 0.图片 1.音频 2.视频 3.文本 4.其它")
     public int getType() {
         return type;
     }
@@ -39,7 +42,6 @@ public class T9212 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "上传结果")
     public int getResult() {
         return result;
     }
@@ -48,7 +50,6 @@ public class T9212 extends JTMessage {
         this.result = result;
     }
 
-    @Field(index = 3, type = DataType.BYTE, desc = "补传数据包数量")
     public int getTotal() {
         return total;
     }
@@ -57,7 +58,6 @@ public class T9212 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 4, type = DataType.LIST, desc = "补传数据包列表")
     public List<DataInfo> getItems() {
         return items;
     }

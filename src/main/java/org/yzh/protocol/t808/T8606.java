@@ -15,14 +15,19 @@ import java.util.List;
 @Message(JT808.设置路线)
 public class T8606 extends JTMessage {
 
+    @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
     private int id;
+    @Field(index = 4, type = DataType.WORD, desc = "路线属性")
     private int attribute;
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
     private String startTime;
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     private String endTime;
+    @Field(index = 18, type = DataType.WORD, desc = "拐点数")
     private int total;
+    @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
     private List<Point> items;
 
-    @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
     public int getId() {
         return id;
     }
@@ -31,7 +36,6 @@ public class T8606 extends JTMessage {
         this.id = id;
     }
 
-    @Field(index = 4, type = DataType.WORD, desc = "路线属性")
     public int getAttribute() {
         return attribute;
     }
@@ -40,7 +44,6 @@ public class T8606 extends JTMessage {
         this.attribute = attribute;
     }
 
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间")
     public String getStartTime() {
         return startTime;
     }
@@ -49,7 +52,6 @@ public class T8606 extends JTMessage {
         this.startTime = startTime;
     }
 
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间")
     public String getEndTime() {
         return endTime;
     }
@@ -58,7 +60,6 @@ public class T8606 extends JTMessage {
         this.endTime = endTime;
     }
 
-    @Field(index = 18, type = DataType.WORD, desc = "拐点数")
     public int getTotal() {
         return total;
     }
@@ -67,7 +68,6 @@ public class T8606 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
     public List<Point> getItems() {
         return items;
     }
@@ -78,15 +78,25 @@ public class T8606 extends JTMessage {
     }
 
     public static class Point {
+        @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
         private int id;
+        @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
         private int routeId;
+        @Field(index = 8, type = DataType.DWORD, desc = "纬度")
         private int latitude;
+        @Field(index = 12, type = DataType.DWORD, desc = "经度")
         private int longitude;
+        @Field(index = 16, type = DataType.BYTE, desc = "宽度(米)")
         private int width;
+        @Field(index = 17, type = DataType.WORD, desc = "属性")
         private int attribute;
+        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值(秒)")
         private int upperLimit;
+        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值(秒)")
         private int lowerLimit;
+        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度(公里每小时)")
         private int maxSpeed;
+        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间(秒)")
         private int duration;
 
         public Point() {
@@ -109,7 +119,6 @@ public class T8606 extends JTMessage {
             this.duration = duration;
         }
 
-        @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
         public int getId() {
             return id;
         }
@@ -118,7 +127,6 @@ public class T8606 extends JTMessage {
             this.id = id;
         }
 
-        @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
         public int getRouteId() {
             return routeId;
         }
@@ -127,7 +135,6 @@ public class T8606 extends JTMessage {
             this.routeId = routeId;
         }
 
-        @Field(index = 8, type = DataType.DWORD, desc = "纬度")
         public int getLatitude() {
             return latitude;
         }
@@ -136,7 +143,6 @@ public class T8606 extends JTMessage {
             this.latitude = latitude;
         }
 
-        @Field(index = 12, type = DataType.DWORD, desc = "经度")
         public int getLongitude() {
             return longitude;
         }
@@ -145,7 +151,6 @@ public class T8606 extends JTMessage {
             this.longitude = longitude;
         }
 
-        @Field(index = 16, type = DataType.BYTE, desc = "宽度")
         public int getWidth() {
             return width;
         }
@@ -154,7 +159,6 @@ public class T8606 extends JTMessage {
             this.width = width;
         }
 
-        @Field(index = 17, type = DataType.WORD, desc = "属性")
         public int getAttribute() {
             return attribute;
         }
@@ -163,7 +167,6 @@ public class T8606 extends JTMessage {
             this.attribute = attribute;
         }
 
-        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值")
         public int getUpperLimit() {
             return upperLimit;
         }
@@ -172,7 +175,6 @@ public class T8606 extends JTMessage {
             this.upperLimit = upperLimit;
         }
 
-        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值")
         public int getLowerLimit() {
             return lowerLimit;
         }
@@ -181,7 +183,6 @@ public class T8606 extends JTMessage {
             this.lowerLimit = lowerLimit;
         }
 
-        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度")
         public int getMaxSpeed() {
             return maxSpeed;
         }
@@ -190,7 +191,6 @@ public class T8606 extends JTMessage {
             this.maxSpeed = maxSpeed;
         }
 
-        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间")
         public int getDuration() {
             return duration;
         }

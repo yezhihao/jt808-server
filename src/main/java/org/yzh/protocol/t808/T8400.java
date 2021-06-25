@@ -18,7 +18,9 @@ public class T8400 extends JTMessage {
     /** 监听 */
     public static final int Listen = 1;
 
+    @Field(index = 0, type = DataType.BYTE, desc = "类型: 0.通话 1.监听")
     private int type;
+    @Field(index = 1, type = DataType.STRING, length = 20, desc = "电话号码")
     private String mobileNo;
 
     public T8400() {
@@ -29,7 +31,6 @@ public class T8400 extends JTMessage {
         this.mobileNo = mobileNo;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "类型: 0.通话 1.监听")
     public int getType() {
         return type;
     }
@@ -38,7 +39,6 @@ public class T8400 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, length = 20, desc = "电话号码")
     public String getMobileNo() {
         return mobileNo;
     }

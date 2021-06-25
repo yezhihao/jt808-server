@@ -19,18 +19,28 @@ import java.util.Map;
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
 public class T0201_0500 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
     private int warnBit;
+    @Field(index = 6, type = DataType.DWORD, desc = "状态")
     private int statusBit;
+    @Field(index = 10, type = DataType.DWORD, desc = "纬度")
     private int latitude;
+    @Field(index = 14, type = DataType.DWORD, desc = "经度")
     private int longitude;
+    @Field(index = 18, type = DataType.WORD, desc = "海拔(米)")
     private int altitude;
+    @Field(index = 20, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     private int speed;
+    @Field(index = 22, type = DataType.WORD, desc = "方向")
     private int direction;
+    @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private LocalDateTime dateTime;
+    @Convert(converter = AttributeConverter.class)
+    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息")
     private Map<Integer, Object> attributes;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -39,7 +49,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
     public int getWarnBit() {
         return warnBit;
     }
@@ -48,7 +57,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.warnBit = warnBit;
     }
 
-    @Field(index = 6, type = DataType.DWORD, desc = "状态")
     public int getStatusBit() {
         return statusBit;
     }
@@ -57,7 +65,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.statusBit = statusBit;
     }
 
-    @Field(index = 10, type = DataType.DWORD, desc = "纬度")
     public int getLatitude() {
         return latitude;
     }
@@ -66,7 +73,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.latitude = latitude;
     }
 
-    @Field(index = 14, type = DataType.DWORD, desc = "经度")
     public int getLongitude() {
         return longitude;
     }
@@ -75,7 +81,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.longitude = longitude;
     }
 
-    @Field(index = 18, type = DataType.WORD, desc = "海拔")
     public int getAltitude() {
         return altitude;
     }
@@ -84,7 +89,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.altitude = altitude;
     }
 
-    @Field(index = 20, type = DataType.WORD, desc = "速度")
     public int getSpeed() {
         return speed;
     }
@@ -93,7 +97,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.speed = speed;
     }
 
-    @Field(index = 22, type = DataType.WORD, desc = "方向")
     public int getDirection() {
         return direction;
     }
@@ -102,7 +105,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.direction = direction;
     }
 
-    @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间")
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -111,8 +113,6 @@ public class T0201_0500 extends JTMessage implements Response {
         this.dateTime = dateTime;
     }
 
-    @Convert(converter = AttributeConverter.class)
-    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息")
     public Map<Integer, Object> getAttributes() {
         return attributes;
     }

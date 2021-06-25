@@ -18,19 +18,29 @@ public class AlarmTPMS implements Alarm {
         return id;
     }
 
+    @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     private long serialNo;
+    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
     private int state;
+    @Field(index = 5, type = DataType.BYTE, desc = "车速")
     private int speed;
+    @Field(index = 6, type = DataType.WORD, desc = "高程")
     private int altitude;
+    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
     private int latitude;
+    @Field(index = 12, type = DataType.DWORD, desc = "经度")
     private int longitude;
+    @Field(index = 16, type = DataType.BCD8421, length = 6, desc = "日期时间")
     private LocalDateTime dateTime;
+    @Field(index = 22, type = DataType.WORD, desc = "车辆状态")
     private int status;
+    @Field(index = 24, type = DataType.OBJ, length = 16, desc = "报警标识号")
     private AlarmId alarmId;
+    @Field(index = 39, type = DataType.BYTE, desc = "数据项个数")
     private int total;
+    @Field(index = 40, type = DataType.LIST, desc = "区域列表")
     private List<Item> items;
 
-    @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     public long getSerialNo() {
         return serialNo;
     }
@@ -39,7 +49,6 @@ public class AlarmTPMS implements Alarm {
         this.serialNo = serialNo;
     }
 
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
     public int getState() {
         return state;
     }
@@ -48,7 +57,6 @@ public class AlarmTPMS implements Alarm {
         this.state = state;
     }
 
-    @Field(index = 5, type = DataType.BYTE, desc = "车速")
     public int getSpeed() {
         return speed;
     }
@@ -57,7 +65,6 @@ public class AlarmTPMS implements Alarm {
         this.speed = speed;
     }
 
-    @Field(index = 6, type = DataType.WORD, desc = "高程")
     public int getAltitude() {
         return altitude;
     }
@@ -66,7 +73,6 @@ public class AlarmTPMS implements Alarm {
         this.altitude = altitude;
     }
 
-    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
     public int getLatitude() {
         return latitude;
     }
@@ -75,7 +81,6 @@ public class AlarmTPMS implements Alarm {
         this.latitude = latitude;
     }
 
-    @Field(index = 12, type = DataType.DWORD, desc = "经度")
     public int getLongitude() {
         return longitude;
     }
@@ -84,7 +89,6 @@ public class AlarmTPMS implements Alarm {
         this.longitude = longitude;
     }
 
-    @Field(index = 16, type = DataType.BCD8421, length = 6, desc = "日期时间")
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -93,7 +97,6 @@ public class AlarmTPMS implements Alarm {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 22, type = DataType.WORD, desc = "车辆状态")
     public int getStatus() {
         return status;
     }
@@ -102,7 +105,6 @@ public class AlarmTPMS implements Alarm {
         this.status = status;
     }
 
-    @Field(index = 24, type = DataType.OBJ, length = 16, desc = "报警标识号")
     public AlarmId getAlarmId() {
         return alarmId;
     }
@@ -111,7 +113,6 @@ public class AlarmTPMS implements Alarm {
         this.alarmId = alarmId;
     }
 
-    @Field(index = 39, type = DataType.BYTE, desc = "数据项个数")
     public int getTotal() {
         return total;
     }
@@ -120,7 +121,6 @@ public class AlarmTPMS implements Alarm {
         this.total = total;
     }
 
-    @Field(index = 40, type = DataType.LIST, desc = "区域列表")
     public List<Item> getItems() {
         return items;
     }
@@ -133,10 +133,15 @@ public class AlarmTPMS implements Alarm {
     }
 
     public static class Item {
+        @Field(index = 0, type = DataType.BYTE, desc = "胎压报警位置")
         private int position;
+        @Field(index = 2, type = DataType.DWORD, desc = "报警类型")
         private int type;
+        @Field(index = 4, type = DataType.DWORD, desc = "胎压")
         private int pressure;
+        @Field(index = 6, type = DataType.DWORD, desc = "温度")
         private int temperature;
+        @Field(index = 8, type = DataType.DWORD, desc = "电池电量")
         private int batteryLevel;
 
         public Item() {
@@ -150,7 +155,6 @@ public class AlarmTPMS implements Alarm {
             this.batteryLevel = batteryLevel;
         }
 
-        @Field(index = 0, type = DataType.BYTE, desc = "胎压报警位置")
         public int getPosition() {
             return position;
         }
@@ -159,7 +163,6 @@ public class AlarmTPMS implements Alarm {
             this.position = position;
         }
 
-        @Field(index = 2, type = DataType.DWORD, desc = "报警类型")
         public int getType() {
             return type;
         }
@@ -168,7 +171,6 @@ public class AlarmTPMS implements Alarm {
             this.type = type;
         }
 
-        @Field(index = 4, type = DataType.DWORD, desc = "胎压")
         public int getPressure() {
             return pressure;
         }
@@ -177,7 +179,6 @@ public class AlarmTPMS implements Alarm {
             this.pressure = pressure;
         }
 
-        @Field(index = 6, type = DataType.DWORD, desc = "温度")
         public int getTemperature() {
             return temperature;
         }
@@ -186,7 +187,6 @@ public class AlarmTPMS implements Alarm {
             this.temperature = temperature;
         }
 
-        @Field(index = 8, type = DataType.DWORD, desc = "电池电量")
         public int getBatteryLevel() {
             return batteryLevel;
         }

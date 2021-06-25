@@ -14,12 +14,15 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.摄像头立即拍摄命令应答)
 public class T0805 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.通道不支持")
     private int result;
+    @Field(index = 2, type = DataType.WORD, desc = "多媒体ID个数")
     private int total;
+    @Field(index = 4, type = DataType.DWORD, desc = "多媒体ID列表")
     private int[] id;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -28,7 +31,6 @@ public class T0805 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.通道不支持")
     public int getResult() {
         return result;
     }
@@ -37,7 +39,6 @@ public class T0805 extends JTMessage implements Response {
         this.result = result;
     }
 
-    @Field(index = 2, type = DataType.WORD, desc = "多媒体ID个数")
     public int getTotal() {
         return total;
     }
@@ -46,7 +47,6 @@ public class T0805 extends JTMessage implements Response {
         this.total = total;
     }
 
-    @Field(index = 4, type = DataType.DWORD, desc = "多媒体ID列表")
     public int[] getId() {
         return id;
     }

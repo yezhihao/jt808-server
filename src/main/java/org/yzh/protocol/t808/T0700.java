@@ -14,14 +14,16 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.行驶记录数据上传)
 public class T0700 extends JTMessage implements Response {
 
+    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
+    @Field(index = 2, type = DataType.BYTE, desc = "命令字")
     private int command;
+    @Field(index = 3, type = DataType.BYTES, desc = "数据块")
     private byte[] data;
 
     public T0700() {
     }
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
@@ -30,7 +32,6 @@ public class T0700 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "命令字")
     public int getCommand() {
         return command;
     }
@@ -39,7 +40,6 @@ public class T0700 extends JTMessage implements Response {
         this.command = command;
     }
 
-    @Field(index = 3, type = DataType.BYTES, desc = "数据块")
     public byte[] getData() {
         return data;
     }

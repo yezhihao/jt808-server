@@ -19,17 +19,26 @@ import java.util.Map;
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
+    @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
     private int warnBit;
+    @Field(index = 4, type = DataType.DWORD, desc = "状态")
     private int statusBit;
+    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
     private int latitude;
+    @Field(index = 12, type = DataType.DWORD, desc = "经度")
     private int longitude;
+    @Field(index = 16, type = DataType.WORD, desc = "海拔(米)")
     private int altitude;
+    @Field(index = 18, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     private int speed;
+    @Field(index = 20, type = DataType.WORD, desc = "方向")
     private int direction;
+    @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
+    @Convert(converter = AttributeConverter.class)
+    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息")
     private Map<Integer, Object> attributes;
 
-    @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
     public int getWarnBit() {
         return warnBit;
     }
@@ -38,7 +47,6 @@ public class T0200 extends JTMessage {
         this.warnBit = warnBit;
     }
 
-    @Field(index = 4, type = DataType.DWORD, desc = "状态")
     public int getStatusBit() {
         return statusBit;
     }
@@ -47,7 +55,6 @@ public class T0200 extends JTMessage {
         this.statusBit = statusBit;
     }
 
-    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
     public int getLatitude() {
         return latitude;
     }
@@ -56,7 +63,6 @@ public class T0200 extends JTMessage {
         this.latitude = latitude;
     }
 
-    @Field(index = 12, type = DataType.DWORD, desc = "经度")
     public int getLongitude() {
         return longitude;
     }
@@ -65,7 +71,6 @@ public class T0200 extends JTMessage {
         this.longitude = longitude;
     }
 
-    @Field(index = 16, type = DataType.WORD, desc = "海拔")
     public int getAltitude() {
         return altitude;
     }
@@ -74,7 +79,6 @@ public class T0200 extends JTMessage {
         this.altitude = altitude;
     }
 
-    @Field(index = 18, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     public int getSpeed() {
         return speed;
     }
@@ -83,7 +87,6 @@ public class T0200 extends JTMessage {
         this.speed = speed;
     }
 
-    @Field(index = 20, type = DataType.WORD, desc = "方向")
     public int getDirection() {
         return direction;
     }
@@ -92,7 +95,6 @@ public class T0200 extends JTMessage {
         this.direction = direction;
     }
 
-    @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -101,8 +103,6 @@ public class T0200 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Convert(converter = AttributeConverter.class)
-    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息")
     public Map<Integer, Object> getAttributes() {
         return attributes;
     }

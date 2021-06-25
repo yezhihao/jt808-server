@@ -14,26 +14,8 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.人工确认报警消息)
 public class T8203 extends JTMessage implements Response {
 
-    private int responseSerialNo;
-    private int type;
-
-    public T8203() {
-    }
-
-    public T8203(int responseSerialNo, int type) {
-        this.responseSerialNo = responseSerialNo;
-        this.type = type;
-    }
-
     @Field(index = 0, type = DataType.WORD, desc = "消息流水号")
-    public int getResponseSerialNo() {
-        return responseSerialNo;
-    }
-
-    public void setResponseSerialNo(int responseSerialNo) {
-        this.responseSerialNo = responseSerialNo;
-    }
-
+    private int responseSerialNo;
     @Field(index = 2, type = DataType.DWORD, desc = "报警类型: " +
             "[0]确认紧急报警 " +
             "[1-2]保留 " +
@@ -46,6 +28,24 @@ public class T8203 extends JTMessage implements Response {
             "[27]确认车辆非法点火报警 " +
             "[28]确认车辆非法位移报警 " +
             "[29-31]保留")
+    private int type;
+
+    public T8203() {
+    }
+
+    public T8203(int responseSerialNo, int type) {
+        this.responseSerialNo = responseSerialNo;
+        this.type = type;
+    }
+
+    public int getResponseSerialNo() {
+        return responseSerialNo;
+    }
+
+    public void setResponseSerialNo(int responseSerialNo) {
+        this.responseSerialNo = responseSerialNo;
+    }
+
     public int getType() {
         return type;
     }

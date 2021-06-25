@@ -13,6 +13,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询服务器时间应答)
 public class T8004 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "UTC时间")
     private String dateTime;
 
     public T8004() {
@@ -22,7 +23,6 @@ public class T8004 extends JTMessage {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "UTC时间")
     public String getDateTime() {
         return dateTime;
     }

@@ -10,10 +10,15 @@ import io.github.yezhihao.protostar.annotation.Field;
  */
 public class AlarmId {
 
+    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID")
     private String deviceId;
+    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
+    @Field(index = 13, type = DataType.BYTE, desc = "序号")
     private int serialNo;
+    @Field(index = 14, type = DataType.BYTE, desc = "附件数量")
     private int fileTotal;
+    @Field(index = 15, type = DataType.BYTE, desc = "预留")
     private int reserved;
 
     public AlarmId() {
@@ -27,7 +32,6 @@ public class AlarmId {
         this.reserved = reserved;
     }
 
-    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID")
     public String getDeviceId() {
         return deviceId;
     }
@@ -36,7 +40,6 @@ public class AlarmId {
         this.deviceId = deviceId;
     }
 
-    @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "时间")
     public String getDateTime() {
         return dateTime;
     }
@@ -45,7 +48,6 @@ public class AlarmId {
         this.dateTime = dateTime;
     }
 
-    @Field(index = 13, type = DataType.BYTE, desc = "序号")
     public int getSerialNo() {
         return serialNo;
     }
@@ -54,7 +56,6 @@ public class AlarmId {
         this.serialNo = serialNo;
     }
 
-    @Field(index = 14, type = DataType.BYTE, desc = "附件数量")
     public int getFileTotal() {
         return fileTotal;
     }
@@ -63,7 +64,6 @@ public class AlarmId {
         this.fileTotal = fileTotal;
     }
 
-    @Field(index = 15, type = DataType.BYTE, desc = "预留")
     public int getReserved() {
         return reserved;
     }

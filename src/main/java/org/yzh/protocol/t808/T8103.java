@@ -18,7 +18,10 @@ import java.util.TreeMap;
 @Message(JT808.设置终端参数)
 public class T8103 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     private int total;
+    @Convert(converter = ParameterConverter.class)
+    @Field(index = 1, type = DataType.MAP, desc = "参数项列表")
     private Map<Integer, Object> parameters;
 
     public T8103() {
@@ -28,10 +31,7 @@ public class T8103 extends JTMessage {
         this.parameters = parameters;
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     public int getTotal() {
-        if (parameters != null)
-            return parameters.size();
         return total;
     }
 
@@ -39,19 +39,19 @@ public class T8103 extends JTMessage {
         this.total = total;
     }
 
-    @Convert(converter = ParameterConverter.class)
-    @Field(index = 1, type = DataType.MAP, desc = "参数项列表")
     public Map<Integer, Object> getParameters() {
         return parameters;
     }
 
     public void setParameters(Map<Integer, Object> parameters) {
         this.parameters = parameters;
+        this.total = parameters.size();
     }
 
     public void addParameter(Integer key, Object value) {
         if (parameters == null)
             parameters = new TreeMap();
         parameters.put(key, value);
+        total = parameters.size();
     }
 }

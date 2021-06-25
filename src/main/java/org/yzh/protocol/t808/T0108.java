@@ -20,10 +20,11 @@ public class T0108 extends JTMessage {
     /** 北斗卫星定位模块 */
     public static final int Beidou = 52;
 
+    @Field(index = 0, type = DataType.BYTE, desc = "升级类型: 0.终端 12.道路运输证IC卡读卡器 52.北斗卫星定位模块")
     private int type;
+    @Field(index = 1, type = DataType.BYTE, desc = "升级结果: 0.成功 1.失败 2.取消")
     private int result;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
     public int getType() {
         return type;
     }
@@ -32,7 +33,6 @@ public class T0108 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "升级结果")
     public int getResult() {
         return result;
     }

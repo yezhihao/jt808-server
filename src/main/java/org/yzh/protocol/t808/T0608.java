@@ -14,11 +14,13 @@ import org.yzh.protocol.commons.JT808;
 public class T0608 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Shape */
+    @Field(index = 0, type = DataType.BYTE, desc = "查询类型")
     private int type;
+    @Field(index = 1, type = DataType.DWORD, desc = "查询返回的数据数量")
     private int total;
+    @Field(index = 5, type = DataType.BYTES)
     private byte[] bytes;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "查询类型")
     public int getType() {
         return type;
     }
@@ -27,7 +29,6 @@ public class T0608 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.DWORD, desc = "区域总数")
     public int getTotal() {
         return total;
     }
@@ -36,7 +37,6 @@ public class T0608 extends JTMessage {
         this.total = total;
     }
 
-    @Field(index = 5, type = DataType.BYTES)
     public byte[] getBytes() {
         return bytes;
     }

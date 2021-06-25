@@ -14,8 +14,19 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.文本信息下发)
 public class T8300 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "标志: " +
+            "[0]紧急 " +
+            "[1]保留 " +
+            "[2]终端显示器显示 " +
+            "[3]终端 TTS 播读 " +
+            "[4]广告屏显示 " +
+            "[5]0.中心导航信息|1.CAN故障码信息 " +
+            "[6-7]保留")
     private int sign;
+    @Field(index = 1, type = DataType.BYTE, desc = "类型: 1.通知 2.服务", version = 1)
     private int type;
+    @Field(index = 1, type = DataType.STRING, desc = "文本信息", version = 0)
+    @Field(index = 2, type = DataType.STRING, desc = "文本信息", version = 1)
     private String content;
 
     public T8300() {
@@ -32,14 +43,6 @@ public class T8300 extends JTMessage {
         this.sign = Bit.writeInt(sign);
     }
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志: " +
-            "[0]紧急 " +
-            "[1]保留 " +
-            "[2]终端显示器显示 " +
-            "[3]终端 TTS 播读 " +
-            "[4]广告屏显示 " +
-            "[5]0.中心导航信息|1.CAN故障码信息 " +
-            "[6-7]保留")
     public int getSign() {
         return sign;
     }
@@ -48,7 +51,6 @@ public class T8300 extends JTMessage {
         this.sign = sign;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "类型: 1.通知 2.服务", version = 1)
     public int getType() {
         return type;
     }
@@ -57,8 +59,6 @@ public class T8300 extends JTMessage {
         this.type = type;
     }
 
-    @Field(index = 1, type = DataType.STRING, desc = "文本信息", version = 0)
-    @Field(index = 2, type = DataType.STRING, desc = "文本信息", version = 1)
     public String getContent() {
         return content;
     }

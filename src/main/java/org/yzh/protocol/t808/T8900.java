@@ -27,6 +27,8 @@ public class T8900 extends JTMessage {
     /** 用户自定义透传 0xF0 - 0xFF */
     public static final int Custom = 0xF0;
 
+    @Convert(converter = PassthroughConverter.class)
+    @Field(index = 0, type = DataType.OBJ, desc = "透传消息")
     private KeyValuePair<Integer, Object> message;
 
     public T8900() {
@@ -36,8 +38,6 @@ public class T8900 extends JTMessage {
         this.message = message;
     }
 
-    @Convert(converter = PassthroughConverter.class)
-    @Field(index = 0, type = DataType.OBJ, desc = "透传消息")
     public KeyValuePair<Integer, Object> getMessage() {
         return message;
     }

@@ -13,12 +13,23 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.音视频实时传输控制)
 public class T9102 extends JTMessage {
 
+    @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     private int channelNo;
+    @Field(index = 1, type = DataType.BYTE, desc = "控制指令: " +
+            "0.关闭音视频传输指令 " +
+            "1.切换码流(增加暂停和继续) " +
+            "2.暂停该通道所有流的发送 " +
+            "3.恢复暂停前流的发送,与暂停前的流类型一致 " +
+            "4.关闭双向对讲")
     private int command;
+    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型: " +
+            "0.关闭该通道有关的音视频数据 " +
+            "1.只关闭该通道有关的音频,保留该通道有关的视频 " +
+            "2.只关闭该通道有关的视频,保留该通道有关的音频")
     private int closeType;
+    @Field(index = 3, type = DataType.BYTE, desc = "切换码流类型: 0.主码流 1.子码流")
     private int streamType;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     public int getChannelNo() {
         return channelNo;
     }
@@ -27,12 +38,6 @@ public class T9102 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    @Field(index = 1, type = DataType.BYTE, desc = "控制指令: " +
-            "0.关闭音视频传输指令 " +
-            "1.切换码流(增加暂停和继续) " +
-            "2.暂停该通道所有流的发送 " +
-            "3.恢复暂停前流的发送,与暂停前的流类型一致 " +
-            "4.关闭双向对讲")
     public int getCommand() {
         return command;
     }
@@ -41,10 +46,6 @@ public class T9102 extends JTMessage {
         this.command = command;
     }
 
-    @Field(index = 2, type = DataType.BYTE, desc = "关闭音视频类型: " +
-            "0.关闭该通道有关的音视频数据 " +
-            "1.只关闭该通道有关的音频,保留该通道有关的视频 " +
-            "2.只关闭该通道有关的视频,保留该通道有关的音频")
     public int getCloseType() {
         return closeType;
     }
@@ -53,7 +54,6 @@ public class T9102 extends JTMessage {
         this.closeType = closeType;
     }
 
-    @Field(index = 3, type = DataType.BYTE, desc = "切换码流类型: 0.主码流 1.子码流")
     public int getStreamType() {
         return streamType;
     }
