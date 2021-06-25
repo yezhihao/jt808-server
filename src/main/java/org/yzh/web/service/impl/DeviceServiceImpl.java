@@ -36,7 +36,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         DeviceDO record = new DeviceDO();
         record.setDeviceId(deviceId);
-        record.setMobileNo(request.getMobileNo());
+        record.setMobileNo(request.getClientId());
         record.setPlateNo(request.getPlateNo());
         record.setOnline(true);
         record.setBind(true);

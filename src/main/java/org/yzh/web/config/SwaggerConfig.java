@@ -23,7 +23,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PLUGIN_ORDER;
@@ -62,6 +64,26 @@ public class SwaggerConfig {
                 .build();
     }
 
+    public static final Set<String> ignores = new HashSet<>();
+
+    static {
+        ignores.add("messageId");
+        ignores.add("properties");
+        ignores.add("versionNo");
+        ignores.add("clientId");
+        ignores.add("serialNo");
+        ignores.add("packageTotal");
+        ignores.add("packageNo");
+        ignores.add("verified");
+        ignores.add("bodyLength");
+        ignores.add("encryption");
+        ignores.add("subpackage");
+        ignores.add("version");
+        ignores.add("reserved");
+        ignores.add("payload");
+        ignores.add("messageName");
+    }
+
     @Bean
     public ApiModelPropertyPropertyBuilder customApiModelPropertyPropertyBuilder(DescriptionResolver descriptions, ModelSpecificationFactory modelSpecifications) {
         return new ApiModelPropertyPropertyBuilder(descriptions, modelSpecifications) {
@@ -73,8 +95,7 @@ public class SwaggerConfig {
                     annotation = findPropertyAnnotation(beanPropertyDefinition, Field.class);
 
                     PropertySpecificationBuilder builder = context.getSpecificationBuilder();
-                    String name = beanPropertyDefinition.getName();
-                    if ("header".equals(name) || "payload".equals(name) || "messageId".equals(name) || "messageName".equals(name)) {
+                    if (ignores.contains(beanPropertyDefinition.getName())) {
                         builder.isHidden(true);
                         return;
                     }
@@ -102,9 +123,7 @@ public class SwaggerConfig {
                 RequestParameterBuilder requestParameterBuilder = context.getRequestParameterBuilder();
 
                 String parentName = context.getParentName();
-                String name = context.getFieldName();
-                boolean hidden = "header".equals(parentName) || "session".equals(parentName) || "serialNo".equals(name) ||
-                        "payload".equals(name) || "messageId".equals(name) || "messageName".equals(name);
+                boolean hidden = ignores.contains(context.getFieldName()) || "session".equals(parentName);
 
                 parameterBuilder.hidden(hidden);
                 requestParameterBuilder.hidden(hidden);

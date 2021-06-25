@@ -21,7 +21,7 @@ public class MessageManager {
         if (session == null)
             return false;
 
-        request.setMobileNo(session.getClientId());
+        request.setClientId(session.getClientId());
         request.setSerialNo(session.nextSerialNo());
         if (request.getMessageId() == 0) {
             request.setMessageId(request.reflectMessageId());
@@ -39,7 +39,7 @@ public class MessageManager {
         if (session == null)
             return null;
 
-        request.setMobileNo(session.getClientId());
+        request.setClientId(session.getClientId());
         request.setSerialNo(session.nextSerialNo());
         if (request.getMessageId() == 0) {
             request.setMessageId(request.reflectMessageId());

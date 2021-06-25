@@ -1,5 +1,6 @@
 package org.yzh.protocol.basics;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.DataType;
@@ -14,6 +15,7 @@ import java.beans.Transient;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
+@JsonIgnoreProperties({"messageId", "properties", "versionNo", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
 public class JTMessage implements Message {
 
     @Field(index = 0, type = DataType.WORD, desc = "消息ID")
@@ -24,7 +26,7 @@ public class JTMessage implements Message {
     protected int versionNo;
     @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
     @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
-    protected String mobileNo;
+    protected String clientId;
     @Field(index = 10, type = DataType.WORD, desc = "流水号", version = {-1, 0})
     @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)
     protected int serialNo;
@@ -50,14 +52,12 @@ public class JTMessage implements Message {
     }
 
     public JTMessage copyBy(JTMessage that) {
-        this.setMobileNo(that.getMobileNo());
+        this.setClientId(that.getClientId());
         this.setVersionNo(that.getVersionNo());
         this.setVersion(that.isVersion());
         return this;
     }
 
-    @Transient
-    @Override
     public int getMessageId() {
         return messageId;
     }
@@ -82,16 +82,14 @@ public class JTMessage implements Message {
         this.versionNo = versionNo;
     }
 
-    public String getMobileNo() {
-        return mobileNo;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    @Transient
-    @Override
     public int getSerialNo() {
         return serialNo;
     }
@@ -120,11 +118,46 @@ public class JTMessage implements Message {
         this.packageNo = packageNo;
     }
 
-    /** 消息头长度 */
-    public int getHeadLength() {
-        if (isVersion())
-            return isSubpackage() ? 21 : 17;
-        return isSubpackage() ? 16 : 12;
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    @Transient
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    @Transient
+    public byte[] getPayload() {
+        return payload;
+    }
+
+    public void setPayload(byte[] payload) {
+        this.payload = payload;
+    }
+
+    @Transient
+    @Override
+    public String getMessageName() {
+        return MessageId.get(messageId);
+    }
+
+    public int reflectMessageId() {
+        io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
+        if (messageType != null && messageType.value().length > 0)
+            return messageType.value()[0];
+        return 0;
+    }
+
+    public void transform() {
     }
 
     private static final int BODY_LENGTH = 0b0000_0011_1111_1111;
@@ -189,60 +222,12 @@ public class JTMessage implements Message {
             this.properties ^= (properties & RESERVED);
     }
 
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
-
-    @Transient
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    @Transient
-    public byte[] getPayload() {
-        return payload;
-    }
-
-    public void setPayload(byte[] payload) {
-        this.payload = payload;
-    }
-
-    @Transient
-    @Override
-    public String getClientId() {
-        return mobileNo;
-    }
-
-    @Transient
-    @Override
-    public String getMessageName() {
-        return MessageId.get(messageId);
-    }
-
-    public int reflectMessageId() {
-        io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
-        if (messageType != null && messageType.value().length > 0)
-            return messageType.value()[0];
-        return 0;
-    }
-
-    public void transform() {
-    }
-
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer(768);
         sb.append(MessageId.get(messageId));
         sb.append('[');
-        sb.append("mobi=").append(mobileNo);
+        sb.append("mobi=").append(clientId);
         sb.append(",msg=").append(messageId);
         sb.append(",ver=").append(versionNo);
         sb.append(",ser=").append(serialNo);
@@ -253,7 +238,7 @@ public class JTMessage implements Message {
         }
         sb.append(']');
         sb.append(',');
-        sb.append(new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE, sb, null, false, false, true).setExcludeFieldNames("header"));
+        sb.append(new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE, sb, null, false, false, true).setExcludeFieldNames("messageId", "properties", "versionNo", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"));
         return sb.toString();
     }
 }

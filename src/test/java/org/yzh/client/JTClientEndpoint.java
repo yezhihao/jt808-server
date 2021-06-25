@@ -266,7 +266,7 @@ public class JTClientEndpoint {
         T0001 result = new T0001();
         result.copyBy(message);
         result.setMessageId(JT808.终端通用应答);
-        result.setMobileNo(mobileNo);
+        result.setClientId(mobileNo);
         result.setSerialNo(serialNo.addAndGet(1));
 
         result.setResponseSerialNo(message.getSerialNo());

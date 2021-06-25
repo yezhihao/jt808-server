@@ -81,7 +81,7 @@ public class JTMessageDecoder {
 
         if (!confirmedVersion && session != null) {
             //通过缓存记录2011版本
-            Integer cachedVersion = (Integer) session.getOfflineCache(message.getMobileNo());
+            Integer cachedVersion = (Integer) session.getOfflineCache(message.getClientId());
             if (cachedVersion != null)
                 version = cachedVersion;
             session.setAttribute(SessionKey.ProtocolVersion, version);

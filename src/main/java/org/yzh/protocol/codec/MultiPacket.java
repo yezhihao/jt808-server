@@ -98,7 +98,7 @@ public class MultiPacket {
         int length = packets.length;
         final StringBuilder sb = new StringBuilder(82 + (length * 3));
         sb.append('[');
-        sb.append("clientId=").append(firstPacket.getMobileNo());
+        sb.append("clientId=").append(firstPacket.getClientId());
         sb.append(", messageId=").append(Integer.toHexString(firstPacket.getMessageId()));
         sb.append(", total=").append(length);
         sb.append(", count=").append(count);
