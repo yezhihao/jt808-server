@@ -77,7 +77,7 @@ public class T1210 extends JTMessage {
     }
 
     public static class Item {
-        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
+        @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
         private String name;
         @Field(index = 1, type = DataType.DWORD, desc = "文件大小")
         private long size;
