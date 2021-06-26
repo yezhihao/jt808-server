@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `status_bit`    INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
   `longitude`     INT NOT NULL COMMENT 'GPS经度',
   `latitude`      INT NOT NULL COMMENT 'GPS纬度',
-  `altitude`      SMALLINT NOT NULL COMMENT '海拔(米)',
+  `altitude`      SMALLINT NOT NULL COMMENT '高程(米)',
   `speed`         SMALLINT UNSIGNED NOT NULL COMMENT '速度(1/10公里每小时)',
   `direction`     SMALLINT NOT NULL COMMENT '方向',
   `alarm_type`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '报警类型',

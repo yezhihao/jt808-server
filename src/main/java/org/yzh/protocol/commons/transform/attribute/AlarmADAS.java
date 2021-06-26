@@ -19,30 +19,30 @@ public class AlarmADAS implements Alarm {
 
     @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
     private long serialNo;
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态: 0.不可用 1.开始标志 2.结束标志")
+    @Field(index = 4, type = DataType.BYTE, desc = "标志状态：0.不可用 1.开始标志 2.结束标志")
     private int state;
-    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型: " +
-            "0x01:前向碰撞报警 " +
-            "0x02:车道偏离报警 " +
-            "0x03:车距过近报警 " +
-            "0x04:行人碰撞报警 " +
-            "0x05:频繁变道报警 " +
-            "0x06:道路标识超限报警 " +
-            "0x07:障碍物报警 " +
-            "0x08^0x0F:用户自定义 " +
-            "0x10:道路标志识别事件 " +
-            "0x11:主动抓拍事件 " +
-            "0x12~0x1F:用户自定义")
+    @Field(index = 5, type = DataType.BYTE, desc = "报警/事件类型：" +
+            " 1.前向碰撞报警" +
+            " 2.车道偏离报警" +
+            " 3.车距过近报警" +
+            " 4.行人碰撞报警" +
+            " 5.频繁变道报警" +
+            " 6.道路标识超限报警" +
+            " 7.障碍物报警" +
+            " 8~15.用户自定义" +
+            " 16.道路标志识别事件" +
+            " 17.主动抓拍事件" +
+            " 18~31.用户自定义")
     private int type;
     @Field(index = 6, type = DataType.BYTE, desc = "报警级别")
     private int level;
-    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0^250,仅报警类型为1和2时有效")
+    @Field(index = 7, type = DataType.BYTE, desc = "前车车速(Km/h)范围0~250,仅报警类型为1和2时有效")
     private int frontSpeed;
-    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms),范围0^100,仅报警类型为1、2和4时有效")
+    @Field(index = 8, type = DataType.BYTE, desc = "前车/行人距离(100ms),范围0~100,仅报警类型为1、2和4时有效")
     private int frontDistance;
-    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型: 1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
+    @Field(index = 9, type = DataType.BYTE, desc = "偏离类型：1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
     private int deviateType;
-    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型: 1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
+    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型：1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
     private int roadSign;
     @Field(index = 11, type = DataType.BYTE, desc = "道路标志识别数据")
     private int roadSignValue;

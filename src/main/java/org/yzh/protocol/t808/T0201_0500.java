@@ -29,7 +29,7 @@ public class T0201_0500 extends JTMessage implements Response {
     private int latitude;
     @Field(index = 14, type = DataType.DWORD, desc = "经度")
     private int longitude;
-    @Field(index = 18, type = DataType.WORD, desc = "海拔(米)")
+    @Field(index = 18, type = DataType.WORD, desc = "高程(米)")
     private int altitude;
     @Field(index = 20, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     private int speed;

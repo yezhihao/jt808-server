@@ -16,7 +16,7 @@ public class T0805 extends JTMessage implements Response {
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.通道不支持")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果：0.成功 1.失败 2.通道不支持")
     private int result;
     @Field(index = 2, type = DataType.WORD, desc = "多媒体ID个数")
     private int total;

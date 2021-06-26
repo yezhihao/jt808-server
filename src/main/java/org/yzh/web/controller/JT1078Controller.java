@@ -86,7 +86,7 @@ public class JT1078Controller {
     @Operation(summary = "9302 9303 9304 9305 9306 云台控制")
     @GetMapping("pan_tilt/control")
     public T0001 panTiltControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9302 request,
-                                @Parameter(description = "控制类型: 9302.云台调整焦距控制 9303.云台调整光圈控制 9304.云台雨刷控制 9305.红外补光控制 9306.云台变倍控制") @RequestParam String type) {
+                                @Parameter(description = "控制类型：9302.云台调整焦距控制 9303.云台调整光圈控制 9304.云台雨刷控制 9305.红外补光控制 9306.云台变倍控制") @RequestParam String type) {
         request.setMessageId(Integer.parseInt(type, 16));
         T0001 response = messageManager.request(clientId, request, T0001.class);
         return response;

@@ -27,7 +27,7 @@ public class T8100 extends JTMessage implements Response {
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果：0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
     private int resultCode;
     @Field(index = 3, type = DataType.STRING, desc = "鉴权码(成功后才有该字段)")
     private String token;

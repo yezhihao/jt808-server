@@ -24,7 +24,7 @@ public class T0001 extends JTMessage implements Response {
     private int responseSerialNo;
     @Field(index = 2, type = DataType.WORD, desc = "应答ID")
     private int responseMessageId;
-    @Field(index = 4, type = DataType.BYTE, desc = "结果: 0.成功 1.失败 2.消息有误 3.不支持 4.报警处理确认")
+    @Field(index = 4, type = DataType.BYTE, desc = "结果：0.成功 1.失败 2.消息有误 3.不支持 4.报警处理确认")
     private int resultCode;
 
     public int getResponseSerialNo() {

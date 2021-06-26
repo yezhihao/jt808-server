@@ -24,7 +24,7 @@ public class T8900 extends JTMessage {
     public static final int SerialPortOne = 0x41;
     /** 串口2透传消息 */
     public static final int SerialPortTow = 0x42;
-    /** 用户自定义透传 0xF0 - 0xFF */
+    /** 用户自定义透传 0xF0~0xFF */
     public static final int Custom = 0xF0;
 
     @Convert(converter = PassthroughConverter.class)

@@ -15,9 +15,9 @@ public class T0800 extends JTMessage {
 
     @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
     private int id;
-    @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型: 0.图像 1.音频 2.视频 ")
+    @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型：0.图像 1.音频 2.视频 ")
     private int type;
-    @Field(index = 5, type = DataType.BYTE, desc = "多媒体格式编码: 0.JPEG 1.TIF 2.MP3 3.WAV 4.WMV ")
+    @Field(index = 5, type = DataType.BYTE, desc = "多媒体格式编码：0.JPEG 1.TIF 2.MP3 3.WAV 4.WMV ")
     private int format;
     @Field(index = 6, type = DataType.BYTE, desc = "事件项编码")
     private int event;

@@ -19,7 +19,7 @@ public class Bit {
     /**
      * 读取n的第i位
      * @param n int32
-     * @param i 取值范围0-31
+     * @param i 取值范围0~31
      */
     public static boolean get(int n, int i) {
         return (n & bits[i]) == bits[i];
@@ -28,7 +28,7 @@ public class Bit {
     /**
      * 写入bool到n的第i位
      * @param n int32
-     * @param i 取值范围0-31
+     * @param i 取值范围0~31
      */
     public static int set(int n, int i, boolean bool) {
         return bool ? n | bits[i] : n ^ (n & bits[i]);

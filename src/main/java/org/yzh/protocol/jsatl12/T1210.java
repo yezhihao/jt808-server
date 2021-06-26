@@ -21,7 +21,7 @@ public class T1210 extends JTMessage {
     private AlarmId alarmId;
     @Field(index = 23, type = DataType.STRING, length = 32, desc = "报警编号")
     private String alarmNo;
-    @Field(index = 55, type = DataType.BYTE, desc = "信息类型: 0.正常报警文件信息 1.补传报警文件信息")
+    @Field(index = 55, type = DataType.BYTE, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
     @Field(index = 56, type = DataType.BYTE, desc = "附件数量")
     private int total;

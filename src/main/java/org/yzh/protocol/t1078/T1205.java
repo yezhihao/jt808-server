@@ -52,9 +52,9 @@ public class T1205 extends JTMessage implements Response {
         private LocalDateTime startTime;
         @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间")
         private LocalDateTime endTime;
-        @Field(index = 13, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
+        @Field(index = 13, type = DataType.DWORD, desc = "报警标志0~31(参考808协议文档报警标志位定义)")
         private int warnBit1;
-        @Field(index = 17, type = DataType.DWORD, desc = "报警标志32-63")
+        @Field(index = 17, type = DataType.DWORD, desc = "报警标志32~63")
         private int warnBit2;
         @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
         private int mediaType;

@@ -14,7 +14,7 @@ import org.yzh.protocol.commons.JT808;
 public class T8608 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Shape */
-    @Field(index = 0, type = DataType.BYTE, desc = "查询类型: 1.圆形 2.矩形 3.多边形 4.路线")
+    @Field(index = 0, type = DataType.BYTE, desc = "查询类型：1.圆形 2.矩形 3.多边形 4.路线")
     private int type;
     @Field(index = 1, type = DataType.DWORD, desc = "区域总数")
     private int total;

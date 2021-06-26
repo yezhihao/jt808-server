@@ -16,7 +16,7 @@ public class T1206 extends JTMessage implements Response {
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.BYTE, desc = "结果: 0.成功 1.失败")
+    @Field(index = 2, type = DataType.BYTE, desc = "结果：0.成功 1.失败")
     private int result;
 
     public int getResponseSerialNo() {

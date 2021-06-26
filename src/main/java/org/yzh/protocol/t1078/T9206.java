@@ -29,17 +29,17 @@ public class T9206 extends JTMessage {
     private String startTime;
     @Field(index = 13, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
     private String endTime;
-    @Field(index = 19, type = DataType.DWORD, desc = "报警标志0-31(参考808协议文档报警标志位定义)")
+    @Field(index = 19, type = DataType.DWORD, desc = "报警标志0~31(参考808协议文档报警标志位定义)")
     private int warnBit1;
-    @Field(index = 23, type = DataType.DWORD, desc = "报警标志32-63")
+    @Field(index = 23, type = DataType.DWORD, desc = "报警标志32~63")
     private int warnBit2;
-    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型: 0.音视频 1.音频 2.视频 3.视频或音视频")
+    @Field(index = 27, type = DataType.BYTE, desc = "音视频资源类型：0.音视频 1.音频 2.视频 3.视频或音视频")
     private int mediaType;
-    @Field(index = 28, type = DataType.BYTE, desc = "码流类型: 0.所有码流 1.主码流 2.子码流")
+    @Field(index = 28, type = DataType.BYTE, desc = "码流类型：0.所有码流 1.主码流 2.子码流")
     private int streamType;
-    @Field(index = 29, type = DataType.BYTE, desc = "存储位置: 0.所有存储器 1.主存储器 2.灾备存储器")
+    @Field(index = 29, type = DataType.BYTE, desc = "存储位置：0.所有存储器 1.主存储器 2.灾备存储器")
     private int storageType;
-    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示): [0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
+    @Field(index = 30, type = DataType.BYTE, desc = "任务执行条件(用bit位表示)：[0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
     private int condition;
 
     public String getIp() {

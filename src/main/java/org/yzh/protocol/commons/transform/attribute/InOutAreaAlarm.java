@@ -18,7 +18,7 @@ public class InOutAreaAlarm {
     private byte positionType;
     /** 区域或路段ID */
     private int areaId;
-    /** 方向,0:进,1:出 */
+    /** 方向：0.进 1.出 */
     private byte direction;
 
     public InOutAreaAlarm() {

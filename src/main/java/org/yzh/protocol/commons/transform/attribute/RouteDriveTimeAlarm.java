@@ -16,9 +16,9 @@ public class RouteDriveTimeAlarm {
 
     /** 路段ID */
     private int routeId;
-    /** 行驶时间,单位为秒(s) */
+    /** 路段行驶时间(秒) */
     private int driveTime;
-    /** 结果,0: 不足,1:过长 */
+    /** 结果：0.不足 1.过长 */
     private byte result;
 
     public RouteDriveTimeAlarm() {

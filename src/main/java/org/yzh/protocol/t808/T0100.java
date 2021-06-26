@@ -28,9 +28,9 @@ public class T0100 extends JTMessage {
     @Field(index = 29, type = DataType.BYTES, length = 7, desc = "终端ID", version = 0)
     @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID", version = 1)
     private String deviceId;
-    @Field(index = 21, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = -1)
-    @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 0)
-    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色: 0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 1)
+    @Field(index = 21, type = DataType.BYTE, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = -1)
+    @Field(index = 36, type = DataType.BYTE, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 0)
+    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 1)
     private int plateColor;
     @Field(index = 25, type = DataType.STRING, desc = "车辆标识", version = -1)
     @Field(index = 37, type = DataType.STRING, desc = "车辆标识", version = 0)

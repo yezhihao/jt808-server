@@ -203,7 +203,7 @@ public class JT808Controller {
     @Operation(summary = "8601 8603 8605 8607 删除区域")
     @DeleteMapping("area")
     public T0001 removeArea(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                            @Parameter(description = "区域类型: 1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
+                            @Parameter(description = "区域类型：1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
                             @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
         T8601 request = new T8601(StrUtils.toInts(id, ","));
         request.setMessageId(Shape.toMessageId(type));
@@ -214,7 +214,7 @@ public class JT808Controller {
     @Operation(summary = "8608 查询区域或线路数据")
     @GetMapping("area/location")
     public T0608 findAreaLocation(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                  @Parameter(description = "查询类型: 1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
+                                  @Parameter(description = "查询类型：1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
                                   @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
         T8608 request = new T8608(type, StrUtils.toInts(id, ","));
         T0608 response = messageManager.request(clientId, request, T0608.class);

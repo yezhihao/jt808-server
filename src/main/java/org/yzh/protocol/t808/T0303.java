@@ -16,7 +16,7 @@ public class T0303 extends JTMessage {
 
     @Field(index = 0, type = DataType.BYTE, desc = "消息类型")
     private int type;
-    @Field(index = 1, type = DataType.BYTE, desc = "点播/取消标志 0.取消 1.点播")
+    @Field(index = 1, type = DataType.BYTE, desc = "点播/取消标志：0.取消 1.点播")
     private int action;
 
     public int getType() {

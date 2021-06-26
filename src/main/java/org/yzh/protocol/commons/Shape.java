@@ -20,7 +20,7 @@ public final class Shape {
     public static final int Route = 4;
 
     /**
-     * @param type 区域类型:1.圆形 2.矩形 3.多边形 4.路线
+     * @param type 区域类型：1.圆形 2.矩形 3.多边形 4.路线
      */
     public static int toMessageId(int type) {
         switch (type) {

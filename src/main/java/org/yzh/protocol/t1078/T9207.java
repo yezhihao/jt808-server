@@ -16,7 +16,7 @@ public class T9207 extends JTMessage implements Response {
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.BYTE, desc = "上传控制: 0.暂停 1.继续 2.取消")
+    @Field(index = 2, type = DataType.BYTE, desc = "上传控制：0.暂停 1.继续 2.取消")
     private int command;
 
     public int getResponseSerialNo() {

@@ -44,8 +44,8 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x001C, DataType.DWORD)//"道路运输证IC卡认证主服务器UDP端口"
                 .addSchema(0x001D, stringSchema)//"道路运输证IC卡认证主服务器IP地址或域名,端口同主服务器"
 
-                .addSchema(0x0020, DataType.DWORD)//"位置汇报策略: 0.定时汇报 1.定距汇报 2.定时和定距汇报"
-                .addSchema(0x0021, DataType.DWORD)//"位置汇报方案: 0.根据ACC状态 1.根据登录状态和ACC状态,先判断登录状态,若登录再根据ACC状态"
+                .addSchema(0x0020, DataType.DWORD)//"位置汇报策略：0.定时汇报 1.定距汇报 2.定时和定距汇报"
+                .addSchema(0x0021, DataType.DWORD)//"位置汇报方案：0.根据ACC状态 1.根据登录状态和ACC状态,先判断登录状态,若登录再根据ACC状态"
                 .addSchema(0x0022, DataType.DWORD)//"驾驶员未登录汇报时间间隔,单位为秒(s),>0"
 
                 //JT808 2019
@@ -99,11 +99,11 @@ public class ParameterType extends PrepareLoadStrategy {
                 .addSchema(0x0064, DataType.DWORD)//"定时拍照参数"
                 .addSchema(0x0065, DataType.DWORD)//"定距拍照参数"
 
-                .addSchema(0x0070, DataType.DWORD)//"图像/视频质量,1-10,1最好"
-                .addSchema(0x0071, DataType.DWORD)//"亮度,0-255"
-                .addSchema(0x0072, DataType.DWORD)//"对比度,0-127"
-                .addSchema(0x0073, DataType.DWORD)//"饱和度,0-127"
-                .addSchema(0x0074, DataType.DWORD)//"色度,0-255"
+                .addSchema(0x0070, DataType.DWORD)//"图像/视频质量,1~10,1最好"
+                .addSchema(0x0071, DataType.DWORD)//"亮度,0~255"
+                .addSchema(0x0072, DataType.DWORD)//"对比度,0~127"
+                .addSchema(0x0073, DataType.DWORD)//"饱和度,0~127"
+                .addSchema(0x0074, DataType.DWORD)//"色度,0~255"
 
                 //JT1078 start
                 .addSchema(ParamVideo.id, ParamVideo.Schema.INSTANCE)//"音视频参数设置,描述见表2"

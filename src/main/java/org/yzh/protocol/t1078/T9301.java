@@ -15,9 +15,9 @@ public class T9301 extends JTMessage {
 
     @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
     private int channelNo;
-    @Field(index = 1, type = DataType.BYTE, desc = "方向: 0.停止 1.上 2.下 3.左 4.右")
+    @Field(index = 1, type = DataType.BYTE, desc = "方向：0.停止 1.上 2.下 3.左 4.右")
     private int param1;
-    @Field(index = 2, type = DataType.BYTE, desc = "速度(0-255)")
+    @Field(index = 2, type = DataType.BYTE, desc = "速度(0~255)")
     private int param2;
 
     public int getChannelNo() {

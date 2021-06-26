@@ -18,7 +18,7 @@ public class T8400 extends JTMessage {
     /** 监听 */
     public static final int Listen = 1;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "类型: 0.通话 1.监听")
+    @Field(index = 0, type = DataType.BYTE, desc = "类型：0.通话 1.监听")
     private int type;
     @Field(index = 1, type = DataType.STRING, length = 20, desc = "电话号码")
     private String phoneNumber;

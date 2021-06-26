@@ -13,13 +13,13 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.终端上传音视频属性)
 public class T1003 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "输人音频编码方式")
+    @Field(index = 0, type = DataType.BYTE, desc = "输入音频编码方式")
     private int audioFormat;
-    @Field(index = 1, type = DataType.BYTE, desc = "输人音频声道数")
+    @Field(index = 1, type = DataType.BYTE, desc = "输入音频声道数")
     private int audioChannels;
-    @Field(index = 2, type = DataType.BYTE, desc = "输人音频采样率: 0: 8kHz 1: 22.05kHz 2: 44.1kHz 3: 48kHz")
+    @Field(index = 2, type = DataType.BYTE, desc = "输入音频采样率：0.8kHz 1.22.05kHz 2.44.1kHz 3.48kHz")
     private int audioSamplingRate;
-    @Field(index = 3, type = DataType.BYTE, desc = "输人音频采样位数: 0: 8位 1: 16位 2: 32位")
+    @Field(index = 3, type = DataType.BYTE, desc = "输入音频采样位数：0.8位 1.16位 2.32位")
     private int audioBitDepth;
     @Field(index = 4, type = DataType.WORD, desc = "音频帧长度")
     private int audioFrameLength;

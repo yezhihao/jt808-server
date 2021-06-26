@@ -17,14 +17,14 @@ import java.util.List;
 @Message(JT808.提问下发)
 public class T8302 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志: " +
-            "[0]紧急 " +
-            "[1]保留 " +
-            "[2]终端显示器显示 " +
-            "[3]终端 TTS 播读 " +
-            "[4]广告屏显示 " +
-            "[5]0.中心导航信息|1.CAN故障码信息 " +
-            "[6-7]保留")
+    @Field(index = 0, type = DataType.BYTE, desc = "标志：" +
+            " [0]紧急" +
+            " [1]保留" +
+            " [2]终端显示器显示" +
+            " [3]终端 TTS 播读" +
+            " [4]广告屏显示" +
+            " [5]0.中心导航信息|1.CAN故障码信息" +
+            " [6~7]保留")
     private int sign;
     @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "问题")
     private String content;

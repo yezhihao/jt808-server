@@ -28,7 +28,7 @@ public class T0200 extends JTMessage {
     private int latitude;
     @Field(index = 12, type = DataType.DWORD, desc = "经度")
     private int longitude;
-    @Field(index = 16, type = DataType.WORD, desc = "海拔(米)")
+    @Field(index = 16, type = DataType.WORD, desc = "高程(米)")
     private int altitude;
     @Field(index = 18, type = DataType.WORD, desc = "速度(1/10公里每小时)")
     private int speed;
