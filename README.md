@@ -104,33 +104,16 @@ public class T0100 extends JTMessage {
     private int provinceId;
     @Field(index = 2, type = DataType.WORD, desc = "市县域ID")
     private int cityId;
-    @Field(index = 4, type = DataType.BYTES, length = 5, desc = "制造商ID", version = {-1, 0})
-    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID", version = 1)
+    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID")
     private String makerId;
+    @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号")
     private String deviceModel;
+    @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID")
     private String deviceId;
+    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
     private int plateColor;
+    @Field(index = 76, type = DataType.STRING, desc = "车辆标识")
     private String plateNo;
-
-    public int getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(int provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getMakerId() {
-        return makerId;
-    }
 }
 ```
 
@@ -153,7 +136,7 @@ public class JT808Endpoint {
         if (device != null) {
             session.register(message);
 
-            result.setToken("test");
+            result.setToken("1234567890A");
             result.setResultCode(T8100.Success);
         } else {
             result.setResultCode(T8100.NotFoundTerminal);
