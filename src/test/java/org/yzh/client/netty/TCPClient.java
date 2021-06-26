@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class TCPClient {
 
-    private static final Logger log = LoggerFactory.getLogger(TCPClient.class);
+    private static final Logger log = LoggerFactory.getLogger(TCPClient.class.getSimpleName());
 
     private ClientConfig config;
 
@@ -53,18 +53,21 @@ public class TCPClient {
                                             Unpooled.wrappedBuffer(config.delimiter, config.delimiter)))
                                     .addLast("decoder", new ByteToMessageDecoder() {
                                         @Override
-                                        protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf buf, List<Object> out) {
-                                            Object message = config.decoder.decode(buf);
-                                            if (message != null)
-                                                out.add(message);
+                                        protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
+                                            log.info("<<<<<{}", ByteBufUtil.hexDump(buf));
+                                            Object msg = config.decoder.decode(buf);
+                                            log.info("<<<<<<<<<<{}", msg);
+                                            if (msg != null)
+                                                out.add(msg);
                                             buf.skipBytes(buf.readableBytes());
                                         }
                                     })
                                     .addLast("encoder", new MessageToByteEncoder<Message>() {
                                         @Override
                                         protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) {
+                                            log.info(">>>>>>>>>>{}", msg);
                                             ByteBuf buf = config.encoder.encode(msg);
-                                            log.info("<<<<<原始报文[ip={}],hex={}", ctx.channel().remoteAddress(), ByteBufUtil.hexDump(buf));
+                                            log.info(">>>>>{}", ByteBufUtil.hexDump(buf));
                                             out.writeBytes(config.delimiter).writeBytes(buf).writeBytes(config.delimiter);
                                         }
                                     })
@@ -82,7 +85,6 @@ public class TCPClient {
 
     public void writeObject(Object message) {
         channel.writeAndFlush(message);
-        log.info("<<<<<<<<<<发送消息:{}", message);
     }
 
     public synchronized TCPClient start() {

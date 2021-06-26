@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class HandlerMapping {
 
-    private Map<Object, Handler> handlerMap = new HashMap(55);
+    private Map<Integer, Handler> handlerMap = new HashMap(55);
 
     public HandlerMapping(String... packageNames) {
         for (String packageName : packageNames) {
@@ -48,8 +48,8 @@ public class HandlerMapping {
         }
     }
 
-    public Handler getHandler(Object messageType) {
-        return handlerMap.get(messageType);
+    public Handler getHandler(int messageId) {
+        return handlerMap.get(messageId);
     }
 
 }

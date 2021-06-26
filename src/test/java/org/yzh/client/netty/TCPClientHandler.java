@@ -19,7 +19,6 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
     private HandlerMapping handlerMapping;
 
-
     public TCPClientHandler(HandlerMapping handlerMapping) {
         this.handlerMapping = handlerMapping;
     }
@@ -28,26 +27,21 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (!(msg instanceof Message))
             return;
+
         Message request = (Message) msg;
-        log.info(">>>>>>>>>>收到消息:{}", request);
         Channel channel = ctx.channel();
 
         try {
             Handler handler = handlerMapping.getHandler(request.getMessageId());
+            Message response = handler.invoke(request);
 
-            Message messageResponse = handler.invoke(request);
-
-
-            if (messageResponse != null) {
-                channel.writeAndFlush(messageResponse);
-                log.info("<<<<<<<<<<返回消息:{}", request);
+            if (response != null) {
+                channel.writeAndFlush(response);
             }
-
         } catch (Exception e) {
             log.warn(String.valueOf(request), e);
         }
     }
-
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
@@ -55,14 +49,12 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.warn("<<<<<断开连接");
-        super.channelInactive(ctx);
+    public void channelInactive(ChannelHandlerContext ctx) {
+        log.warn("<<<<<断开连接{}", ctx.channel().remoteAddress());
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
         log.error("<<<<<发生异常", e);
-        super.exceptionCaught(ctx, e);
     }
 }

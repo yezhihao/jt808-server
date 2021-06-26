@@ -27,9 +27,7 @@ public class JTClientEndpoint {
     private String mobileNo = "12345678901";
 
     @Mapping(types = 平台通用应答, desc = "平台通用应答")
-    public T0001 平台通用应答(T0001 message) {
-        T0001 result = buildResult(message, T0001.Success);
-        return result;
+    public void 平台通用应答(T0001 message) {
     }
 
     @Mapping(types = 服务器补传分包请求, desc = "服务器补传分包请求")
