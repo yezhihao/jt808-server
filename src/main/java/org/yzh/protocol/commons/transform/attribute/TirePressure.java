@@ -36,8 +36,8 @@ public class TirePressure {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TirePressure{");
-        sb.append("value=").append(Arrays.toString(value));
+        final StringBuilder sb = new StringBuilder(32);
+        sb.append("TirePressure{value=").append(Arrays.toString(value));
         sb.append('}');
         return sb.toString();
     }

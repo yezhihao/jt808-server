@@ -15,24 +15,24 @@ public class OverSpeedAlarm {
     }
 
     /** 位置类型 */
-    private byte positionType;
+    private byte areaType;
     /** 区域或路段ID */
     private Integer areaId;
 
     public OverSpeedAlarm() {
     }
 
-    public OverSpeedAlarm(byte positionType, Integer areaId) {
-        this.positionType = positionType;
+    public OverSpeedAlarm(byte areaType, Integer areaId) {
+        this.areaType = areaType;
         this.areaId = areaId;
     }
 
-    public byte getPositionType() {
-        return positionType;
+    public byte getAreaType() {
+        return areaType;
     }
 
-    public void setPositionType(byte positionType) {
-        this.positionType = positionType;
+    public void setAreaType(byte areaType) {
+        this.areaType = areaType;
     }
 
     public Integer getAreaId() {
@@ -45,9 +45,9 @@ public class OverSpeedAlarm {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("OverSpeedAlarm{");
-        sb.append("positionType=").append(positionType);
-        sb.append(", areaId=").append(areaId);
+        final StringBuilder sb = new StringBuilder(80);
+        sb.append("OverSpeedAlarm{areaType=").append(areaType);
+        sb.append(",areaId=").append(areaId);
         sb.append('}');
         return sb.toString();
     }
@@ -62,16 +62,16 @@ public class OverSpeedAlarm {
         @Override
         public OverSpeedAlarm readFrom(ByteBuf input) {
             OverSpeedAlarm message = new OverSpeedAlarm();
-            message.positionType = input.readByte();
-            if (message.positionType > 0)
+            message.areaType = input.readByte();
+            if (message.areaType > 0)
                 message.areaId = (int) input.readUnsignedInt();
             return message;
         }
 
         @Override
         public void writeTo(ByteBuf output, OverSpeedAlarm message) {
-            output.writeByte(message.positionType);
-            if (message.positionType > 0)
+            output.writeByte(message.areaType);
+            if (message.areaType > 0)
                 output.writeInt(message.areaId);
         }
     }

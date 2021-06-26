@@ -1878,16 +1878,16 @@ json1 {
     },
     "6": 2,
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -1955,16 +1955,16 @@ json2 {
     },
     "6": 2,
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -2032,16 +2032,16 @@ json1 {
     },
     "6": 2,
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -2109,16 +2109,16 @@ json2 {
     },
     "6": 2,
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -2657,12 +2657,7 @@ json1 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2675,12 +2670,7 @@ json1 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2693,12 +2683,7 @@ json1 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2724,12 +2709,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2742,12 +2722,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2760,12 +2735,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2791,12 +2761,7 @@ json1 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2809,12 +2774,7 @@ json1 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2827,12 +2787,7 @@ json1 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2858,12 +2813,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2876,12 +2826,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -2894,12 +2839,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -8383,16 +8323,16 @@ json2 {
       ]
     },
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -8459,16 +8399,16 @@ json2 {
       ]
     },
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -8536,16 +8476,16 @@ json2 {
       ]
     },
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -8612,16 +8552,16 @@ json2 {
       ]
     },
     "17": {
-      "positionType": 66,
+      "areaType": 66,
       "areaId": 66
     },
     "18": {
-      "positionType": 77,
+      "areaType": 77,
       "areaId": 77,
       "direction": 77
     },
     "19": {
-      "routeId": 88,
+      "areaId": 88,
       "driveTime": 88,
       "result": 88
     },
@@ -9103,12 +9043,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9121,12 +9056,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9139,12 +9069,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9170,12 +9095,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9188,12 +9108,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9206,12 +9121,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9238,12 +9148,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9256,12 +9161,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9274,12 +9174,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9305,12 +9200,7 @@ json2 {
   "dateTime": "235959",
   "items": [
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9323,12 +9213,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,
@@ -9341,12 +9226,7 @@ json2 {
       ]
     },
     {
-      "id": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "id": 16909060,
       "data": [
         1,
         2,

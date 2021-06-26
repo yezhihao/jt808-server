@@ -15,7 +15,7 @@ public class RouteDriveTimeAlarm {
     }
 
     /** 路段ID */
-    private int routeId;
+    private int areaId;
     /** 路段行驶时间(秒) */
     private int driveTime;
     /** 结果：0.不足 1.过长 */
@@ -24,18 +24,18 @@ public class RouteDriveTimeAlarm {
     public RouteDriveTimeAlarm() {
     }
 
-    public RouteDriveTimeAlarm(int routeId, int driveTime, byte result) {
-        this.routeId = routeId;
+    public RouteDriveTimeAlarm(int areaId, int driveTime, byte result) {
+        this.areaId = areaId;
         this.driveTime = driveTime;
         this.result = result;
     }
 
-    public int getRouteId() {
-        return routeId;
+    public int getAreaId() {
+        return areaId;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
     }
 
     public int getDriveTime() {
@@ -56,10 +56,10 @@ public class RouteDriveTimeAlarm {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("RouteDriveTimeAlarm{");
-        sb.append("routeId=").append(routeId);
-        sb.append(", driveTime=").append(driveTime);
-        sb.append(", result=").append(result);
+        final StringBuilder sb = new StringBuilder(80);
+        sb.append("RouteDriveTimeAlarm{areaId=").append(areaId);
+        sb.append(",driveTime=").append(driveTime);
+        sb.append(",result=").append(result);
         sb.append('}');
         return sb.toString();
     }
@@ -74,7 +74,7 @@ public class RouteDriveTimeAlarm {
         @Override
         public RouteDriveTimeAlarm readFrom(ByteBuf input) {
             RouteDriveTimeAlarm message = new RouteDriveTimeAlarm();
-            message.routeId = (int) input.readUnsignedInt();
+            message.areaId = (int) input.readUnsignedInt();
             message.driveTime = input.readUnsignedShort();
             message.result = input.readByte();
             return message;
@@ -82,7 +82,7 @@ public class RouteDriveTimeAlarm {
 
         @Override
         public void writeTo(ByteBuf output, RouteDriveTimeAlarm message) {
-            output.writeInt(message.routeId);
+            output.writeInt(message.areaId);
             output.writeShort(message.driveTime);
             output.writeByte(message.result);
         }

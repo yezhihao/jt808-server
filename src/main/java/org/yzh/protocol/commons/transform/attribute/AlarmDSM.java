@@ -159,8 +159,8 @@ public class AlarmDSM implements Alarm {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("AlarmDSM{");
-        sb.append("serialNo=").append(serialNo);
+        final StringBuilder sb = new StringBuilder(400);
+        sb.append("AlarmDSM{serialNo=").append(serialNo);
         sb.append(", state=").append(state);
         sb.append(", type=").append(type);
         sb.append(", level=").append(level);
@@ -168,8 +168,8 @@ public class AlarmDSM implements Alarm {
         sb.append(", reserved=").append(reserved);
         sb.append(", speed=").append(speed);
         sb.append(", altitude=").append(altitude);
-        sb.append(", latitude=").append(latitude);
         sb.append(", longitude=").append(longitude);
+        sb.append(", latitude=").append(latitude);
         sb.append(", dateTime=").append(dateTime);
         sb.append(", status=").append(status);
         sb.append(", alarmId=").append(alarmId);

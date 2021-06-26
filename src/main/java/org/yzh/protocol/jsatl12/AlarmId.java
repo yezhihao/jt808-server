@@ -74,12 +74,12 @@ public class AlarmId {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("AlarmId{");
-        sb.append("deviceId='").append(deviceId).append('\'');
-        sb.append(", dateTime='").append(dateTime).append('\'');
-        sb.append(", serialNo=").append(serialNo);
-        sb.append(", fileTotal=").append(fileTotal);
-        sb.append(", reserved=").append(reserved);
+        final StringBuilder sb = new StringBuilder(100);
+        sb.append("AlarmId{deviceId=").append(deviceId);
+        sb.append(",dateTime=").append(dateTime);
+        sb.append(",serialNo=").append(serialNo);
+        sb.append(",fileTotal=").append(fileTotal);
+        sb.append(",reserved=").append(reserved);
         sb.append('}');
         return sb.toString();
     }

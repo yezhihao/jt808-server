@@ -317,9 +317,9 @@ public class JT808Beans {
         T0705 bean = new T0705();
         bean.setDateTime("235959");
         List<T0705.Item> items = new ArrayList<>();
-        items.add(new T0705.Item(new byte[]{1, 2, 3, 4}, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
-        items.add(new T0705.Item(new byte[]{1, 2, 3, 4}, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
-        items.add(new T0705.Item(new byte[]{1, 2, 3, 4}, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
         bean.setItems(items);
         return bean;
     }

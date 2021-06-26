@@ -210,13 +210,13 @@ public class AlarmTPMS implements Alarm {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("AlarmTPMS{");
-        sb.append("serialNo=").append(serialNo);
+        final StringBuilder sb = new StringBuilder(400);
+        sb.append("AlarmTPMS{serialNo=").append(serialNo);
         sb.append(", state=").append(state);
         sb.append(", speed=").append(speed);
         sb.append(", altitude=").append(altitude);
-        sb.append(", latitude=").append(latitude);
         sb.append(", longitude=").append(longitude);
+        sb.append(", latitude=").append(latitude);
         sb.append(", dateTime=").append(dateTime);
         sb.append(", status=").append(status);
         sb.append(", alarmId=").append(alarmId);
