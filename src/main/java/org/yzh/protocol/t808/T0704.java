@@ -65,5 +65,10 @@ public class T0704 extends JTMessage {
         public void setLocation(T0200 location) {
             this.location = location;
         }
+
+        @Override
+        public String toString() {
+            return location.toString();
+        }
     }
 }

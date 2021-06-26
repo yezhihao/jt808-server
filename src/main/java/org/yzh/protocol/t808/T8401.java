@@ -97,5 +97,15 @@ public class T8401 extends JTMessage {
         public void setName(String name) {
             this.name = name;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(50);
+            sb.append("{sign=").append(sign);
+            sb.append(",phone=").append(phone);
+            sb.append(",name=").append(name);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

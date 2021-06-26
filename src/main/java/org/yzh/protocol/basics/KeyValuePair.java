@@ -43,7 +43,7 @@ public class KeyValuePair<K, V> {
         final StringBuilder sb = new StringBuilder(32);
         sb.append('{');
         sb.append("id=").append(id);
-        sb.append(", value=").append(value);
+        sb.append(",value=").append(value);
         sb.append('}');
         return sb.toString();
     }

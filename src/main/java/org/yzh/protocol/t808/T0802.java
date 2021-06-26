@@ -111,5 +111,17 @@ public class T0802 extends JTMessage implements Response {
         public void setLocation(T0200 location) {
             this.location = location;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(768);
+            sb.append("{id=").append(id);
+            sb.append(",type=").append(type);
+            sb.append(",channelId=").append(channelId);
+            sb.append(",event=").append(event);
+            sb.append(",location=").append(location);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

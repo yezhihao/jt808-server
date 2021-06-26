@@ -136,5 +136,15 @@ public class T8604 extends JTMessage {
         public void setLongitude(int longitude) {
             this.longitude = longitude;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(32);
+            sb.append('{');
+            sb.append("lng=").append(longitude);
+            sb.append(",lat=").append(latitude);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

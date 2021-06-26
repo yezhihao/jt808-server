@@ -97,5 +97,14 @@ public class T1210 extends JTMessage {
         public void setSize(long size) {
             this.size = size;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(80);
+            sb.append("{name=").append(name);
+            sb.append(",size=").append(size);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

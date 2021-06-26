@@ -157,14 +157,14 @@ public class T1205 extends JTMessage implements Response {
             final StringBuilder sb = new StringBuilder(128);
             sb.append('{');
             sb.append("channelNo=").append(channelNo);
-            sb.append(", startTime='").append(startTime).append('\'');
-            sb.append(", endTime='").append(endTime).append('\'');
-            sb.append(", warnBit1=").append(Integer.toBinaryString(warnBit1));
-            sb.append(", warnBit2=").append(Integer.toBinaryString(warnBit2));
-            sb.append(", mediaType=").append(mediaType);
-            sb.append(", streamType=").append(streamType);
-            sb.append(", storageType=").append(storageType);
-            sb.append(", size=").append(size);
+            sb.append(",startTime=").append(startTime);
+            sb.append(",endTime=").append(endTime);
+            sb.append(",warnBit1=").append(Integer.toBinaryString(warnBit1));
+            sb.append(",warnBit2=").append(Integer.toBinaryString(warnBit2));
+            sb.append(",mediaType=").append(mediaType);
+            sb.append(",streamType=").append(streamType);
+            sb.append(",storageType=").append(storageType);
+            sb.append(",size=").append(size);
             sb.append('}');
             return sb.toString();
         }

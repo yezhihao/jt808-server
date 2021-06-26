@@ -5,6 +5,12 @@ import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 状态查询
+ * 外设状态信息：外设工作状态、设备报警信息
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class PeripheralStatus {
 
     public static final int ID = 0xF7;
@@ -34,16 +40,32 @@ public class PeripheralStatus {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(64);
-        sb.append('{');
+        final StringBuilder sb = new StringBuilder(150);
+        sb.append("PeripheralStatus{");
         sb.append("items=").append(items);
         sb.append('}');
         return sb.toString();
     }
 
     public static class Item {
+        /** 外设ID */
         private byte id;
+        /** 工作状态：1.正常工作 2.待机状态 3.升级维护 4.设备异常 16.断开连接 */
         private byte workState;
+        /**
+         * 报警状态：
+         * 按位设置：0.表示无 1.表示有
+         * [0]摄像头异常
+         * [1]主存储器异常
+         * [2]辅存储器异常
+         * [3]红外补光异常
+         * [4]扬声器异常
+         * [5]电池异常
+         * [6~9]预留
+         * [10]通讯模块异常
+         * [ll]定位模块异常
+         * [12~31]预留
+         */
         private int alarmStatus;
 
         public Item() {
@@ -81,10 +103,10 @@ public class PeripheralStatus {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder(32);
-            sb.append('{');
-            sb.append("workState=").append(workState);
-            sb.append(", alarmStatus=").append(alarmStatus);
+            final StringBuilder sb = new StringBuilder(50);
+            sb.append("{id=").append(id);
+            sb.append(", workState=").append(workState);
+            sb.append(", alarmStatus=").append(Integer.toBinaryString(alarmStatus));
             sb.append('}');
             return sb.toString();
         }

@@ -7,6 +7,12 @@ import org.yzh.protocol.commons.Charsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 信息查询
+ * 外设传感器的基本信息：公司信息、产品代码、版本号、外设ID、客户代码
+ * @author yezhihao
+ * @home https://gitee.com/yezhihao/jt808-server
+ */
 public class PeripheralSystem {
 
     public static final int ID = 0xF8;
@@ -126,12 +132,12 @@ public class PeripheralSystem {
             final StringBuilder sb = new StringBuilder(180);
             sb.append('{');
             sb.append("id=").append(id);
-            sb.append(", companyName='").append(companyName).append('\'');
-            sb.append(", productModel='").append(productModel).append('\'');
-            sb.append(", hardwareVersion='").append(hardwareVersion).append('\'');
-            sb.append(", firmwareVersion='").append(firmwareVersion).append('\'');
-            sb.append(", deviceId='").append(deviceId).append('\'');
-            sb.append(", userCode='").append(userCode).append('\'');
+            sb.append(",companyName=").append(companyName);
+            sb.append(",productModel=").append(productModel);
+            sb.append(",hardwareVersion=").append(hardwareVersion);
+            sb.append(",firmwareVersion=").append(firmwareVersion);
+            sb.append(",deviceId=").append(deviceId);
+            sb.append(",userCode=").append(userCode);
             sb.append('}');
             return sb.toString();
         }

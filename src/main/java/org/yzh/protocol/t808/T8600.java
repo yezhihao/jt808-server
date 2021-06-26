@@ -191,5 +191,23 @@ public class T8600 extends JTMessage {
         public void setName(String name) {
             this.name = name;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(240);
+            sb.append("{id=").append(id);
+            sb.append(",attribute=").append(attribute);
+            sb.append(",longitude=").append(longitude);
+            sb.append(",latitude=").append(latitude);
+            sb.append(",radius=").append(radius);
+            sb.append(",startTime=").append(startTime);
+            sb.append(",endTime=").append(endTime);
+            sb.append(",maxSpeed=").append(maxSpeed);
+            sb.append(",duration=").append(duration);
+            sb.append(",nightMaxSpeed=").append(nightMaxSpeed);
+            sb.append(",name=").append(name);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }

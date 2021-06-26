@@ -165,5 +165,22 @@ public class T8602 extends JTMessage {
         public void setDuration(int duration) {
             this.duration = duration;
         }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder(512);
+            sb.append("{id=").append(id);
+            sb.append(",attribute=").append(attribute);
+            sb.append(",longitudeUL=").append(longitudeUL);
+            sb.append(",latitudeUL=").append(latitudeUL);
+            sb.append(",longitudeLR=").append(longitudeLR);
+            sb.append(",latitudeLR=").append(latitudeLR);
+            sb.append(",startTime=").append(startTime);
+            sb.append(",endTime=").append(endTime);
+            sb.append(",maxSpeed=").append(maxSpeed);
+            sb.append(",duration=").append(duration);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }
