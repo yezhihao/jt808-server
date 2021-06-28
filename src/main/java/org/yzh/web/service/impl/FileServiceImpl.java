@@ -31,20 +31,19 @@ public class FileServiceImpl implements FileService {
     @Value("${tcp-server.jt808.media-file.path}")
     private String mediaFileRoot;
 
-    private File getDir(AlarmId alarmId) {
-        StringBuilder sb = new StringBuilder(32);
+    private String getDir(AlarmId alarmId) {
+        StringBuilder sb = new StringBuilder(55);
         sb.append(alarmFileRoot).append('/');
         sb.append(alarmId.getDeviceId()).append('/');
         sb.append(alarmId.getDateTime()).append('_').append(alarmId.getSerialNo()).append('/');
-        File result = new File(sb.toString());
-        return result;
+        return sb.toString();
     }
 
     /** 创建报警目录及 附件列表日志 */
     @Override
     public void createDir(T1210 alarmInfo) {
         AlarmId alarmId = alarmInfo.getAlarmId();
-        File dir = getDir(alarmId);
+        File dir = new File(getDir(alarmId));
         dir.mkdirs();
 
         List<T1210.Item> items = alarmInfo.getItems();
@@ -59,9 +58,9 @@ public class FileServiceImpl implements FileService {
     /** 创建报警文件 */
     @Override
     public void createFile(AlarmId alarmId, T1211 fileInfo) {
-        File dir = getDir(alarmId);
+        String dir = getDir(alarmId);
 
-        File file = new File(dir, fileInfo.getName() + ".tmp");
+        File file = new File(dir + fileInfo.getName() + ".tmp");
         if (!file.exists()) {
             try (RandomAccessFile r = new RandomAccessFile(file, "rw")) {
                 r.setLength(fileInfo.getSize());
@@ -74,11 +73,11 @@ public class FileServiceImpl implements FileService {
     /** 将数据块写入到报警文件，并记录日志 */
     @Override
     public void writeFile(AlarmId alarmId, DataPacket fileData) {
-        File dir = getDir(alarmId);
+        String dir = getDir(alarmId);
 
         String name = fileData.getName().trim();
-        File logFile = new File(dir, name + ".log");
-        File dataFile = new File(dir, name + ".tmp");
+        File logFile = new File(dir + name + ".log");
+        File dataFile = new File(dir + name + ".tmp");
         if (!logFile.exists())
             try {
                 logFile.createNewFile();
@@ -110,9 +109,9 @@ public class FileServiceImpl implements FileService {
     /** 根据日志检查文件完整性，并返回缺少的数据块信息 */
     @Override
     public List<DataInfo> checkFile(AlarmId alarmId, T1211 fileInfo) {
-        File dir = getDir(alarmId);
+        String dir = getDir(alarmId);
 
-        File logFile = new File(dir, fileInfo.getName() + ".log");
+        File logFile = new File(dir + fileInfo.getName() + ".log");
         if (!logFile.exists())
             return Collections.emptyList();
         long[][] items;
