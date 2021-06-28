@@ -13,7 +13,12 @@ import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.FileService;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static java.util.Comparator.comparingLong;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -94,7 +99,7 @@ public class FileServiceImpl implements FileService {
 
             file.getChannel().write(fileData.getData(), offset);
 
-            log.skipBytes((int) log.length());
+            log.seek(log.length());
             log.writeLong(offset);
             log.writeLong(length);
         } catch (IOException e) {
@@ -110,28 +115,33 @@ public class FileServiceImpl implements FileService {
         File logFile = new File(dir, fileInfo.getName() + ".log");
         if (!logFile.exists())
             return Collections.emptyList();
-        Map<Long, Long> items = new HashMap<>();
+        long[][] items;
 
         try (DataInputStream dis = new DataInputStream(new FileInputStream(logFile))) {
             int size = dis.available() / 16;
-            for (int i = 0; i < size; i++)
-                items.put(dis.readLong(), dis.readLong());
+            items = new long[size + 2][2];
+            items[size + 2][0] = fileInfo.getSize();
+
+            for (int i = 1; i < size; i++) {
+                items[i][0] = dis.readLong();
+                items[i][1] = dis.readLong();
+            }
+            Arrays.sort(items, comparingLong(a -> a[0]));
 
         } catch (IOException e) {
             log.error("检查文件完整性", e);
+            return Collections.emptyList();
         }
 
         List<DataInfo> result = new ArrayList<>();
 
-        long unit = 1024 * 64;
-        long size = fileInfo.getSize();
-
-        long r = size % unit;
-        long i = 0, s = size - r;
-        do {
-            if (!items.containsKey(i))
-                result.add(new DataInfo(i, (i + unit > size) ? r : unit));
-        } while ((i += unit) <= s);
+        int len = items.length - 1;
+        for (int i = 0; i < len; ) {
+            long a = items[i][0] + items[i][1];
+            long b = items[++i][0] - a;
+            if (b > 0)
+                result.add(new DataInfo(a, b));
+        }
 
         if (result.isEmpty()) {
             File file = new File(dir, fileInfo.getName() + ".tmp");
