@@ -30,7 +30,7 @@ public class PassthroughConverter implements Converter<KeyValuePair<Integer, Obj
             return KeyValuePair.of(key, INSTANCE.readFrom(key, input));
         byte[] bytes = new byte[input.readableBytes()];
         input.readBytes(bytes);
-        log.warn("未识别的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
+        log.debug("未识别的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
         return KeyValuePair.of(key, bytes);
     }
 

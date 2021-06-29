@@ -104,7 +104,7 @@ public class JTMessageDecoder {
             }
         }
 
-        if (verified && log.isInfoEnabled() && JTHandlerInterceptor.filter(message))
+        if (log.isInfoEnabled() && JTHandlerInterceptor.filter(message) || verified)
             log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input));
         else
             log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input));
