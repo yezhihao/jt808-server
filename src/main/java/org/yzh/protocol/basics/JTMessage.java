@@ -5,6 +5,7 @@ import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
+import io.netty.buffer.ByteBuf;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.yzh.protocol.commons.MessageId;
@@ -37,11 +38,11 @@ public class JTMessage implements Message {
     @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)
     protected Integer packageNo;
     /** bcc校验 */
-    private boolean verified = true;
+    protected boolean verified = true;
 
-    private transient Session session;
+    protected transient Session session;
 
-    private transient byte[] payload;
+    protected transient ByteBuf payload;
 
 
     public JTMessage() {
@@ -136,11 +137,11 @@ public class JTMessage implements Message {
     }
 
     @Transient
-    public byte[] getPayload() {
+    public ByteBuf getPayload() {
         return payload;
     }
 
-    public void setPayload(byte[] payload) {
+    public void setPayload(ByteBuf payload) {
         this.payload = payload;
     }
 

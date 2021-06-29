@@ -15,7 +15,7 @@ import org.yzh.protocol.codec.JTMessageEncoder;
  */
 public class DarkRepulsor {
 
-    private static JTMessageEncoder encoder;
+    public static final JTMessageEncoder encoder;
 
     static {
         FieldFactory.EXPLAIN = true;

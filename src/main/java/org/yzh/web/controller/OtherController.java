@@ -8,22 +8,27 @@ import io.netty.buffer.Unpooled;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.yzh.web.commons.StrUtils;
 import org.yzh.web.component.mybatis.Page;
 import org.yzh.web.component.mybatis.PageInfo;
 import org.yzh.web.component.mybatis.Pagination;
+import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping
@@ -66,6 +71,28 @@ public class OtherController {
     public Pagination<Location> find(LocationQuery query, PageInfo pageInfo) {
         Pagination<Location> result = Page.start(() -> locationService.find(query), pageInfo);
         return result;
+    }
+
+    @Operation(summary = "日志拦截器")
+    @GetMapping("logger/filter")
+    public Map loggerFilter(@RequestParam(required = false) String clientId,
+                            @RequestParam(required = false) String ignoreMsgIds) {
+        if (ignoreMsgIds != null) {
+            Integer[] ids = StrUtils.toInts(StrUtils.toInts(ignoreMsgIds, ","));
+            JTHandlerInterceptor.ignoreMsgIds.addAll(Arrays.asList(ids));
+        }
+        if (StringUtils.isNotBlank(clientId) && !StringUtils.equals(clientId, JTHandlerInterceptor.clientId))
+            JTHandlerInterceptor.clientId = clientId;
+        return StrUtils.newMap("clientId", JTHandlerInterceptor.clientId,
+                "ignoreMsgIds", JTHandlerInterceptor.ignoreMsgIds);
+    }
+
+    @Operation(summary = "清空日志拦截器")
+    @DeleteMapping("logger/filter")
+    public String deleteLoggerFilter() {
+        JTHandlerInterceptor.ignoreMsgIds.clear();
+        JTHandlerInterceptor.clientId = null;
+        return "success";
     }
 
     @Operation(summary = "修改日志级别")

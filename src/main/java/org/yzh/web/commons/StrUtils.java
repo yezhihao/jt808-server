@@ -1,5 +1,8 @@
 package org.yzh.web.commons;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
@@ -84,5 +87,13 @@ public class StrUtils {
                 result.append(c);
         }
         return result.toString();
+    }
+
+    public static Map newMap(Object... entry) {
+        int size = entry.length / 2;
+        Map result = new HashMap((int) (size / 0.75d) + 1);
+        for (int i = 0; i < entry.length; )
+            result.put(entry[i++], entry[i++]);
+        return result;
     }
 }

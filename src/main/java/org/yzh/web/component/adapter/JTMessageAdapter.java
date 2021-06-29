@@ -27,6 +27,10 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
         return messageEncoder.encode(message);
     }
 
+    public ByteBuf encode(JTMessage message, Session session) {
+        return messageEncoder.encode(message, session);
+    }
+
     @Override
     public JTMessage decode(ByteBuf buf) {
         return messageDecoder.decode(buf);

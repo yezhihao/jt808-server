@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
+import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.model.enums.SessionKey;
 
 import java.util.ArrayList;
@@ -26,24 +27,19 @@ public class JTMessageDecoder {
 
     private Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
 
-    private static final boolean payload = false;
-
     public JTMessageDecoder(String basePackage) {
         ProtostarUtil.initial(basePackage);
         this.headerSchemaMap = ProtostarUtil.getRuntimeSchema(JTMessage.class);
     }
 
-    public JTMessage decode(ByteBuf buf) {
-        return decode(buf, null);
+    public JTMessage decode(ByteBuf input) {
+        return decode(input, null);
     }
 
-    public JTMessage decode(ByteBuf buf, Session session) {
-        buf = unescape(buf);
+    public JTMessage decode(ByteBuf input, Session session) {
+        ByteBuf buf = unescape(input);
 
         boolean verified = verify(buf);
-        if (!verified)
-            log.error("校验码错误{},{}", session, ByteBufUtil.hexDump(buf));
-
         int messageId = buf.getUnsignedShort(0);
         int properties = buf.getUnsignedShort(2);
 
@@ -74,10 +70,11 @@ public class JTMessageDecoder {
             message = new JTMessage();
         else
             message = bodySchema.newInstance();
+        message.setVerified(verified);
         message.setSession(session);
+        message.setPayload(input);
 
         headSchema.mergeFrom(buf.slice(0, headLen), message);
-        message.setVerified(verified);
 
         if (!confirmedVersion && session != null) {
             //通过缓存记录2011版本
@@ -107,11 +104,10 @@ public class JTMessageDecoder {
             }
         }
 
-        if (payload) {
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.readBytes(bytes);
-            message.setPayload(bytes);
-        }
+        if (verified && log.isInfoEnabled() && JTHandlerInterceptor.filter(message))
+            log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input));
+        else
+            log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input));
         return message;
     }
 

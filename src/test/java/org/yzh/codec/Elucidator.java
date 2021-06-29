@@ -13,7 +13,7 @@ import org.yzh.protocol.codec.JTMessageDecoder;
  */
 public class Elucidator {
 
-    private static JTMessageDecoder decoder;
+    public static final JTMessageDecoder decoder;
 
     static {
         FieldFactory.EXPLAIN = true;
