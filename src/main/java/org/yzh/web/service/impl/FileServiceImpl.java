@@ -119,13 +119,13 @@ public class FileServiceImpl implements FileService {
         try (DataInputStream dis = new DataInputStream(new FileInputStream(logFile))) {
             int size = dis.available() / 16;
             items = new long[size + 2][2];
-            items[size + 2][0] = fileInfo.getSize();
+            items[size + 1][0] = fileInfo.getSize();
 
-            for (int i = 1; i < size; i++) {
+            for (int i = 1; i <= size; i++) {
                 items[i][0] = dis.readLong();
                 items[i][1] = dis.readLong();
             }
-            Arrays.sort(items, comparingLong(a -> a[0]));
+            Arrays.sort(items, 1, items.length - 1, comparingLong((long[] a) -> a[0]).thenComparingLong(a -> a[1]));
 
         } catch (IOException e) {
             log.error("检查文件完整性", e);

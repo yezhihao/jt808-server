@@ -28,6 +28,13 @@ public class DataPacket extends JTMessage {
     private ByteBuffer data;
 
     @Override
+    public String getClientId() {
+        if (session != null)
+            return session.getClientId();
+        return null;
+    }
+
+    @Override
     public int getMessageId() {
         return flag;
     }
@@ -70,5 +77,16 @@ public class DataPacket extends JTMessage {
 
     public void setData(ByteBuffer data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(120);
+        sb.append("DataPacket{name=").append(name);
+        sb.append(",offset=").append(offset);
+        sb.append(",length=").append(length);
+        sb.append(",data=").append(data.limit());
+        sb.append('}');
+        return sb.toString();
     }
 }
