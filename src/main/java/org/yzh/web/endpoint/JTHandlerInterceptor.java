@@ -6,23 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
+import org.yzh.protocol.commons.LoggingFilter;
 import org.yzh.protocol.t808.T0001;
 import org.yzh.web.model.enums.SessionKey;
-
-import java.util.concurrent.CopyOnWriteArraySet;
 
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
     private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class.getSimpleName());
-
-    public static final CopyOnWriteArraySet<Integer> ignoreMsgIds = new CopyOnWriteArraySet<>();
-
-    public static volatile String clientId = null;
-
-    public static boolean filter(JTMessage message) {
-        return (clientId == null || clientId.equals(message.getClientId()))
-                && !ignoreMsgIds.contains(message.getMessageId());
-    }
 
     /** 未找到对应的Handle */
     @Override
@@ -36,7 +26,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.NotSupport);
 
-        log.info("{}\n<<<<-未识别的消息{}\n>>>>-{}", session, request, response);
+        if (LoggingFilter.info(request))
+            log.info("{}\n<<<<-未识别的消息{}\n>>>>-{}", session, request, response);
         return response;
     }
 
@@ -53,7 +44,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Success);
 
-        if (filter(request))
+        if (LoggingFilter.info(request))
             log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
         return response;
     }
@@ -102,7 +93,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
                 response.setMessageId(response.reflectMessageId());
             }
         }
-        if (filter(request))
+        if (LoggingFilter.info(request))
             log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
     }
 }

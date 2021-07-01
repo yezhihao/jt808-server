@@ -81,6 +81,7 @@ public class SwaggerConfig {
         ignores.add("version");
         ignores.add("reserved");
         ignores.add("payload");
+        ignores.add("session");
         ignores.add("messageName");
     }
 
@@ -122,8 +123,7 @@ public class SwaggerConfig {
                 ParameterBuilder parameterBuilder = context.getParameterBuilder();
                 RequestParameterBuilder requestParameterBuilder = context.getRequestParameterBuilder();
 
-                String parentName = context.getParentName();
-                boolean hidden = ignores.contains(context.getFieldName()) || "session".equals(parentName);
+                boolean hidden = ignores.contains(context.getFieldName()) || ignores.contains(context.getParentName());
 
                 parameterBuilder.hidden(hidden);
                 requestParameterBuilder.hidden(hidden);

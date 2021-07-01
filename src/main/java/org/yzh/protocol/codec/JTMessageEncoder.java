@@ -6,11 +6,8 @@ import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.netty.buffer.*;
 import io.netty.util.ByteProcessor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JTUtils;
-import org.yzh.web.endpoint.JTHandlerInterceptor;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -21,8 +18,6 @@ import java.util.Map;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JTMessageEncoder {
-
-    private static final Logger log = LoggerFactory.getLogger(JTMessageEncoder.class.getSimpleName());
 
     private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
@@ -53,7 +48,6 @@ public class JTMessageEncoder {
             bodyLength = output.writerIndex() - headLength;
         } else {
             output = ALLOC.buffer(headLength, 21);
-            log.debug("未找到对应的Schema[{}]", message.getClass());
         }
 
         if (bodyLength <= 1023) {
@@ -100,8 +94,6 @@ public class JTMessageEncoder {
                 _allBuf.addComponent(true, i, msgBuf);
             }
         }
-        if (log.isInfoEnabled() && JTHandlerInterceptor.filter(message))
-            log.info(">>>>>session={},payload={}", session, ByteBufUtil.hexDump(output));
         return output;
     }
 

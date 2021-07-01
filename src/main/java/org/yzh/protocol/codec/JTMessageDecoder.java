@@ -3,13 +3,13 @@ package org.yzh.protocol.codec;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.ProtostarUtil;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
-import io.netty.buffer.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.CompositeByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
-import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.model.enums.SessionKey;
 
 import java.util.ArrayList;
@@ -22,8 +22,6 @@ import java.util.Map;
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class JTMessageDecoder {
-
-    private static final Logger log = LoggerFactory.getLogger(JTMessageDecoder.class.getSimpleName());
 
     private Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
 
@@ -103,11 +101,6 @@ public class JTMessageDecoder {
                 bodySchema.mergeFrom(buf.slice(headLen, bodyLen), message);
             }
         }
-
-        if (log.isInfoEnabled() && JTHandlerInterceptor.filter(message) || verified)
-            log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input));
-        else
-            log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input));
         return message;
     }
 

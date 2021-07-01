@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons;
 
-import org.apache.commons.lang3.StringUtils;
+import org.yzh.web.commons.StrUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class MessageId {
     }
 
     private static void put(int id, String name) {
-        String hex = StringUtils.leftPad(Integer.toHexString(id), 4, '0');
+        String hex = StrUtils.leftPad(Integer.toHexString(id), 4, '0');
         messageId.put(id, hex + name);
     }
 

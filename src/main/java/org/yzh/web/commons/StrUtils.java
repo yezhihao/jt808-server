@@ -1,5 +1,6 @@
 package org.yzh.web.commons;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,6 +95,40 @@ public class StrUtils {
         Map result = new HashMap((int) (size / 0.75d) + 1);
         for (int i = 0; i < entry.length; )
             result.put(entry[i++], entry[i++]);
+        return result;
+    }
+
+    public static boolean isNotBlank(String str) {
+        return !isBlank(str);
+    }
+
+    public static boolean isBlank(String str) {
+        return str == null || str.length() == 0 || str.trim().length() == 0;
+    }
+
+    public static String leftPad(String str, int size, char ch) {
+        int length = str.length();
+        int pads = size - length;
+        if (pads > 0) {
+            char[] result = new char[size];
+            str.getChars(0, length, result, pads);
+            while (pads > 0)
+                result[--pads] = ch;
+            return new String(result);
+        }
+        return str;
+    }
+
+    public static int[] toArray(Collection<Integer> list) {
+        if (list == null || list.isEmpty())
+            return null;
+
+        int[] result = new int[list.size()];
+        int i = 0;
+        for (Integer e : list) {
+            if (e != null)
+                result[i] = e.intValue();
+        }
         return result;
     }
 }

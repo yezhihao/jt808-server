@@ -7,7 +7,7 @@ import org.yzh.protocol.BeanTest;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.web.component.adapter.JTMessageAdapter;
+import org.yzh.protocol.codec.JTMessageAdapter;
 
 import java.util.Scanner;
 

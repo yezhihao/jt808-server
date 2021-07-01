@@ -55,7 +55,7 @@ public class TCPClient {
                                         @Override
                                         protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) {
                                             log.info("<<<<<{}", ByteBufUtil.hexDump(buf));
-                                            Object msg = config.decoder.decode(buf);
+                                            Object msg = config.decoder.decode(buf, null);
                                             log.info("<<<<<<<<<<{}", msg);
                                             if (msg != null)
                                                 out.add(msg);
@@ -66,7 +66,7 @@ public class TCPClient {
                                         @Override
                                         protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) {
                                             log.info(">>>>>>>>>>{}", msg);
-                                            ByteBuf buf = config.encoder.encode(msg);
+                                            ByteBuf buf = config.encoder.encode(msg, null);
                                             log.info(">>>>>{}", ByteBufUtil.hexDump(buf));
                                             out.writeBytes(config.delimiter).writeBytes(buf).writeBytes(config.delimiter);
                                         }

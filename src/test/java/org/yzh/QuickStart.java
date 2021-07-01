@@ -6,7 +6,7 @@ import io.github.yezhihao.netmc.core.DefaultHandlerMapping;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.web.component.adapter.JTMessageAdapter;
+import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 
 /**
