@@ -1,6 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 图像分析报警参数设置
@@ -15,9 +16,9 @@ public class ParamImageIdentifyAlarm {
         return id;
     }
 
-    //车辆核载人数
+    @Schema(description = "车辆核载人数,客运车辆核定载客人数,视频分析结果超过时产生报警")
     private byte overloadThreshold;
-    //疲劳程度阈值
+    @Schema(description = "疲劳程度阈值,视频分析疲劳驾驶报警阈值,超过时产生报警")
     private byte fatigueThreshold;
 
     public ParamImageIdentifyAlarm() {
@@ -39,11 +40,11 @@ public class ParamImageIdentifyAlarm {
         this.fatigueThreshold = fatigueThreshold;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamImageIdentifyAlarm> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamImageIdentifyAlarm> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

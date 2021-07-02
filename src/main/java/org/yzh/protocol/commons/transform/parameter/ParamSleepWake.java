@@ -2,6 +2,7 @@ package org.yzh.protocol.commons.transform.parameter;
 
 import io.github.yezhihao.protostar.util.Bcd;
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalTime;
 
@@ -18,17 +19,29 @@ public class ParamSleepWake {
         return id;
     }
 
+    @Schema(description = "休眠唤醒模式：[0]条件唤醒 [1]定时唤醒 [2]手动唤醒")
     private int mode;
-    private int condition;
+    @Schema(description = "唤醒条件类型：[0]紧急报警 [1]碰撞侧翻报警 [2]车辆开门,休眠唤醒模式中[0]为1时此字段有效,否则置0")
+    private int conditionType;
+    @Schema(description = "周定时唤醒日设置：[0]周一 [1]周二 [2]周三 [3]周四 [4]周五 [5]周六 [6]周日")
     private int dayOfWeek;
+    @Schema(description = "日定时唤醒启用标志：[0]启用时间段1 [1]启用时间段2 [2]启用时间段3 [3]启用时间段4)")
     private int timeFlag;
+    @Schema(description = "时间段1唤醒时间")
     private LocalTime wakeTime1;
+    @Schema(description = "时间段1关闭时间")
     private LocalTime sleepTime1;
+    @Schema(description = "时间段2唤醒时间")
     private LocalTime wakeTime2;
+    @Schema(description = "时间段2关闭时间")
     private LocalTime sleepTime2;
+    @Schema(description = "时间段3唤醒时间")
     private LocalTime wakeTime3;
+    @Schema(description = "时间段3关闭时间")
     private LocalTime sleepTime3;
+    @Schema(description = "时间段4唤醒时间")
     private LocalTime wakeTime4;
+    @Schema(description = "时间段4关闭时间")
     private LocalTime sleepTime4;
 
     public ParamSleepWake() {
@@ -46,12 +59,12 @@ public class ParamSleepWake {
         this.mode = mode;
     }
 
-    public int getCondition() {
-        return condition;
+    public int getConditionType() {
+        return conditionType;
     }
 
-    public void setCondition(int condition) {
-        this.condition = condition;
+    public void setConditionType(int conditionType) {
+        this.conditionType = conditionType;
     }
 
     public int getDayOfWeek() {
@@ -134,18 +147,18 @@ public class ParamSleepWake {
         this.sleepTime4 = sleepTime4;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamSleepWake> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamSleepWake> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override
         public ParamSleepWake readFrom(ByteBuf input) {
             ParamSleepWake message = new ParamSleepWake();
             message.mode = input.readByte();
-            message.condition = input.readByte();
+            message.conditionType = input.readByte();
             message.dayOfWeek = input.readByte();
             message.timeFlag = input.readByte();
             message.wakeTime1 = Bcd.readTime2(input);
@@ -162,7 +175,7 @@ public class ParamSleepWake {
         @Override
         public void writeTo(ByteBuf output, ParamSleepWake message) {
             output.writeByte(message.mode);
-            output.writeByte(message.condition);
+            output.writeByte(message.conditionType);
             output.writeByte(message.dayOfWeek);
             output.writeByte(message.timeFlag);
             Bcd.writeTime2(output, message.wakeTime1);

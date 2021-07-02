@@ -1,6 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,13 @@ public class ParamChannels {
         return id;
     }
 
+    @Schema(description = "音视频通道总数")
     private byte audioVideoChannels;
+    @Schema(description = "音频通道总数")
     private byte audioChannels;
+    @Schema(description = "视频通道总数")
     private byte videoChannels;
+    @Schema(description = "音视频通道对照表")
     private List<ChannelInfo> channels;
 
     public ParamChannels() {
@@ -59,9 +64,13 @@ public class ParamChannels {
     }
 
     public static class ChannelInfo {
+        @Schema(description = "物理通道号(从1开始)")
         private byte channelId;
+        @Schema(description = "逻辑通道号(按照JT/T 1076-2016 中的表2)")
         private byte channelNo;
+        @Schema(description = "通道类型：0.音视频 1.音频 2.视频")
         private byte channelType;
+        @Schema(description = "是否连接云台(类型为0和2时,此字段有效)：0.未连接 1.连接")
         private boolean hasPanTilt;
 
         public ChannelInfo() {
@@ -107,11 +116,11 @@ public class ParamChannels {
         }
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamChannels> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamChannels> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

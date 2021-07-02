@@ -1,6 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 特殊报警录像参数设置
@@ -15,8 +16,11 @@ public class ParamVideoSpecialAlarm {
         return id;
     }
 
+    @Schema(description = "特殊报警录像存储阈值(占用主存储器存储阈值百分比,取值1~99.默认值为20)")
     private byte storageThreshold;
+    @Schema(description = "特殊报警录像持续时间,特殊报警录像的最长持续时间(分钟),默认值为5")
     private byte duration;
+    @Schema(description = "特殊报警标识起始时间,特殊报警发生前进行标记的录像时间(分钟),默认值为1")
     private byte startTime;
 
     public byte getStorageThreshold() {
@@ -43,11 +47,11 @@ public class ParamVideoSpecialAlarm {
         this.startTime = startTime;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideoSpecialAlarm> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamVideoSpecialAlarm> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

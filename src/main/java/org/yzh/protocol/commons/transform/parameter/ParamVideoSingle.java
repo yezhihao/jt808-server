@@ -1,6 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ public class ParamVideoSingle {
         return id;
     }
 
+    @Schema(description = "单独通道视频参数设置列表")
     private Map<Integer, ParamVideo> paramVideos = new TreeMap<>();
 
     public ParamVideoSingle() {
@@ -35,11 +37,11 @@ public class ParamVideoSingle {
         this.paramVideos = paramVideos;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideoSingle> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamVideoSingle> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

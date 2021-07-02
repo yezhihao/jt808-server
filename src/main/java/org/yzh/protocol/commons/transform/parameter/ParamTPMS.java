@@ -2,6 +2,7 @@ package org.yzh.protocol.commons.transform.parameter;
 
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.nio.charset.StandardCharsets;
 
@@ -18,16 +19,27 @@ public class ParamTPMS {
         return id;
     }
 
+    @Schema(description = "轮胎规格型号(例：195/65R1591V,12个字符,默认值'900R20')")
     private String tireType;
-    private int pressureUnit;
-    private int normalValue;
-    private int imbalanceThreshold;
-    private int lowLeakThreshold;
-    private int lowPressureThreshold;
-    private int highPressureThreshold;
-    private int highTemperatureThreshold;
-    private int voltageThreshold;
-    private int reportInterval;
+    @Schema(description = "胎压单位：0.kg/cm2 1.bar 2.Kpa 3.PSI(默认值3)")
+    private int pressureUnit = 0xFFFF;
+    @Schema(description = "正常胎压值(同胎压单位,默认值140)")
+    private int normalValue = 0xFFFF;
+    @Schema(description = "胎压不平衡报警阈值(百分比0~100,达到冷态气压值,默认值20)")
+    private int imbalanceThreshold = 0xFFFF;
+    @Schema(description = "慢漏气报警阈值(百分比0~100,达到冷态气压值,默认值5)")
+    private int lowLeakThreshold = 0xFFFF;
+    @Schema(description = "低压报警阈值(同胎压单位,默认值110)")
+    private int lowPressureThreshold = 0xFFFF;
+    @Schema(description = "高压报警阈值(同胎压单位,默认值189)")
+    private int highPressureThreshold = 0xFFFF;
+    @Schema(description = "高温报警阈值(摄氏度,默认值80)")
+    private int highTemperatureThreshold = 0xFFFF;
+    @Schema(description = "电压报警阈值(百分比0~100,默认值10)")
+    private int voltageThreshold = 0xFFFF;
+    @Schema(description = "定时上报时间间隔(秒,取值0~3600,默认值60,0表示不上报)")
+    private int reportInterval = 0xFFFF;
+    @Schema(description = "保留项")
     private byte[] reserved = new byte[6];
 
     public static int getId() {
@@ -122,11 +134,11 @@ public class ParamTPMS {
         this.reserved = reserved;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamTPMS> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamTPMS> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override

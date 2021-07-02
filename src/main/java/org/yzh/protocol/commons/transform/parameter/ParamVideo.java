@@ -1,6 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.netty.buffer.ByteBuf;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 音视频参数设置
@@ -15,19 +16,40 @@ public class ParamVideo {
         return id;
     }
 
+    @Schema(description = "实时流编码模式：0.CBR(固定码率) 1.VBR(可变码率) 2.ABR(平均码率) 100~ 127.自定义")
     private byte realtimeEncode;
+    @Schema(description = "实时流分辨率：0.QCIF 1.CIF 2.WCIF 3.D1 4.WD1 5.720P 6.1080P 100~127.自定义")
     private byte realtimeResolution;
+    @Schema(description = "实时流关键帧间隔(1~1000帧)")
     private short realtimeFrameInterval;
+    @Schema(description = "实时流目标帧率(1~120帧)")
     private byte realtimeFrameRate;
+    @Schema(description = "实时流目标码率(kbps)")
     private int realtimeBitRate;
 
+    @Schema(description = "存储流编码模式：0.CBR(固定码率) 1.VBR(可变码率) 2.ABR(平均码率) 100~ 127.自定义")
     private byte storageEncode;
+    @Schema(description = "存储流分辨率：0.QCIF 1.CIF 2.WCIF 3.D1 4.WD1 5.720P 6.1080P 100~127.自定义")
     private byte storageResolution;
+    @Schema(description = "存储流关键帧间隔(1~1000帧)")
     private short storageFrameInterval;
+    @Schema(description = "存储流目标帧率(1~120帧)")
     private byte storageFrameRate;
+    @Schema(description = "存储流目标码率(kbps)")
     private int storageBitRate;
 
+    @Schema(description = "OSD字幕叠加设置(按位,0.表示不叠加 1.表示叠加)：" +
+            " [0]日期和时间" +
+            " [1]车牌号码" +
+            " [2]逻辑通道号" +
+            " [3]经纬度" +
+            " [4]行驶记录速度" +
+            " [5]卫星定位速度" +
+            " [6]连续驾驶时间" +
+            " [7~l0]保留" +
+            " [11~l5]自定义")
     private short odsConfig;
+    @Schema(description = "是否启用音频输出：0.不启用 1.启用")
     private byte audioEnable;
 
     public ParamVideo() {
@@ -129,11 +151,11 @@ public class ParamVideo {
         this.audioEnable = audioEnable;
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<ParamVideo> {
+    public static class S implements io.github.yezhihao.protostar.Schema<ParamVideo> {
 
-        public static final Schema INSTANCE = new Schema();
+        public static final S INSTANCE = new S();
 
-        private Schema() {
+        private S() {
         }
 
         @Override
