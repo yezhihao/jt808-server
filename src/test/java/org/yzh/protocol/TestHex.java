@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.jupiter.api.Test;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.web.commons.FileUtils;
+import org.yzh.web.commons.IOUtils;
 import org.yzh.web.commons.StrUtils;
 
 import java.io.File;
@@ -17,8 +17,8 @@ import java.io.File;
 public class TestHex {
 
     @Test
-    public void testHex() throws Exception {
-        FileUtils.foreach(new File("target/test-classes/test_data/JT808.txt"), hex -> {
+    public void testHex() {
+        IOUtils.foreach(new File("target/test-classes/test_data/JT808.txt"), hex -> {
             if (StrUtils.isNotBlank(hex)) {
                 BeanTest.selfCheck(hex);
             }
@@ -27,8 +27,8 @@ public class TestHex {
     }
 
     @Test
-    public void testSubpackage() throws Exception {
-        FileUtils.foreach(new File("target/test-classes/test_data/JT1078.txt"), hex -> {
+    public void testSubpackage() {
+        IOUtils.foreach(new File("target/test-classes/test_data/JT1078.txt"), hex -> {
             if (StrUtils.isNotBlank(hex)) {
                 JTMessage message = BeanTest.decoder.decode(Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex)));
                 if (message != null)

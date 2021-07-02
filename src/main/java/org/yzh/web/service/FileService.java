@@ -1,9 +1,10 @@
 package org.yzh.web.service;
 
-import org.yzh.protocol.jsatl12.*;
+import org.yzh.protocol.jsatl12.AlarmId;
+import org.yzh.protocol.jsatl12.DataPacket;
+import org.yzh.protocol.jsatl12.T1210;
+import org.yzh.protocol.jsatl12.T1211;
 import org.yzh.protocol.t808.T0801;
-
-import java.util.List;
 
 public interface FileService {
 
@@ -15,6 +16,6 @@ public interface FileService {
 
     void writeFile(AlarmId alarmId, DataPacket fileData);
 
-    List<DataInfo> checkFile(AlarmId alarmId, T1211 fileInfo);
+    int[] checkFile(AlarmId alarmId, T1211 fileInfo);
 
 }

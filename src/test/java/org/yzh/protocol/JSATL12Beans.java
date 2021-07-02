@@ -49,7 +49,8 @@ public class JSATL12Beans {
         T9212 bean = new T9212();
         bean.setName("test123");
         bean.setType(0);
-        bean.setResult(0);
+        bean.setResult(1);
+        bean.setItems(new int[]{0, 1024});
         return bean;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
+import org.yzh.web.commons.IOUtils;
 import org.yzh.web.mapper.LocationMapper;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -57,8 +58,11 @@ public class LocationServiceImpl implements LocationService {
         int size = list.size();
         T0200 request;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL)) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(SQL);
             for (int i = 0; i < size; i++) {
                 request = list.get(i);
                 int j = 1;
@@ -92,6 +96,9 @@ public class LocationServiceImpl implements LocationService {
             statement.executeLargeBatch();
         } catch (Exception e) {
             log.error("批量写入失败", e);
+        } finally {
+            IOUtils.close(statement);
+            IOUtils.close(connection);
         }
     }
 
@@ -137,14 +144,20 @@ public class LocationServiceImpl implements LocationService {
         }
         String sql = builder.substring(0, builder.length() - 1);
 
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
             int row = statement.executeUpdate(sql);
             if (row < size)
                 log.warn("批量写入存在重复的主键或唯一键,新增:{},忽略:{}", row, size - row);
         } catch (Exception e) {
             log.error(sql);
             log.error("批量写入失败", e);
+        } finally {
+            IOUtils.close(statement);
+            IOUtils.close(connection);
         }
     }
 }

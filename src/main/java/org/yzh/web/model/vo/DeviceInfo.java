@@ -1,7 +1,6 @@
 package org.yzh.web.model.vo;
 
 import io.github.yezhihao.protostar.util.Bcd;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;
@@ -101,12 +100,13 @@ public class DeviceInfo {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("issuedAt", issuedAt)
-                .append("reserved", reserved)
-                .append("deviceId", deviceId)
-                .append("plateColor", plateColor)
-                .append("plateNo", plateNo)
-                .toString();
+        final StringBuilder sb = new StringBuilder(100);
+        sb.append("DeviceInfo{issuedAt=").append(issuedAt);
+        sb.append(",reserved=").append(reserved);
+        sb.append(",deviceId=").append(deviceId);
+        sb.append(",plateColor=").append(plateColor);
+        sb.append(",plateNo=").append(plateNo);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -4,26 +4,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.yzh.protocol.jsatl12.*;
+import org.yzh.protocol.jsatl12.AlarmId;
+import org.yzh.protocol.jsatl12.DataPacket;
+import org.yzh.protocol.jsatl12.T1210;
+import org.yzh.protocol.jsatl12.T1211;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.protocol.t808.T0801;
-import org.yzh.web.commons.FileUtils;
+import org.yzh.web.commons.IOUtils;
+import org.yzh.web.commons.StrUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.FileService;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import static java.util.Comparator.comparingLong;
 
 @Service
 public class FileServiceImpl implements FileService {
 
     private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class.getSimpleName());
+
+    private static final Comparator<long[]> comparator = Comparator.comparingLong((long[] a) -> a[0]).thenComparingLong(a -> a[1]);
 
     @Value("${tcp-server.alarm-file.path}")
     private String alarmFileRoot;
@@ -50,9 +56,9 @@ public class FileServiceImpl implements FileService {
         StringBuilder fileList = new StringBuilder(items.size() * 50);
 
         for (T1210.Item item : items)
-            fileList.append(item.getName()).append('\t').append(item.getSize()).append(FileUtils.Separator);
+            fileList.append(item.getName()).append('\t').append(item.getSize()).append(IOUtils.Separator);
 
-        FileUtils.write(new File(dir, "fs.txt"), fileList.toString());
+        IOUtils.write(new File(dir, "fs.txt"), fileList.toString());
     }
 
     /** 创建报警文件 */
@@ -62,10 +68,14 @@ public class FileServiceImpl implements FileService {
 
         File file = new File(dir + fileInfo.getName() + ".tmp");
         if (!file.exists()) {
-            try (RandomAccessFile r = new RandomAccessFile(file, "rw")) {
+            RandomAccessFile r = null;
+            try {
+                r = new RandomAccessFile(file, "rw");
                 r.setLength(fileInfo.getSize());
             } catch (IOException e) {
                 log.error("创建报警文件", e);
+            } finally {
+                IOUtils.close(r);
             }
         }
     }
@@ -74,81 +84,81 @@ public class FileServiceImpl implements FileService {
     @Override
     public void writeFile(AlarmId alarmId, DataPacket fileData) {
         String dir = getDir(alarmId);
+        String name = dir + fileData.getName().trim();
 
-        String name = fileData.getName().trim();
-        File logFile = new File(dir + name + ".log");
-        File dataFile = new File(dir + name + ".tmp");
-        if (!logFile.exists())
-            try {
-                logFile.createNewFile();
-            } catch (IOException e) {
-                return;
-            }
-        if (!dataFile.exists())
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                return;
-            }
-        try (RandomAccessFile file = new RandomAccessFile(dataFile, "rw");
-             RandomAccessFile log = new RandomAccessFile(logFile, "rw")) {
+        int offset = fileData.getOffset();
+        int length = fileData.getLength();
 
-            long offset = fileData.getOffset();
-            long length = fileData.getLength();
+        byte[] buffer = ByteBuffer.allocate(8)
+                .putInt(offset).putInt(length).array();
+
+        RandomAccessFile file = null;
+        FileOutputStream filelog = null;
+        try {
+            file = new RandomAccessFile(name + ".tmp", "rw");
+            filelog = new FileOutputStream(name + ".log", true);
 
             file.getChannel().write(fileData.getData(), offset);
-
-            log.seek(log.length());
-            log.writeLong(offset);
-            log.writeLong(length);
+            filelog.write(buffer);
         } catch (IOException e) {
             log.error("写入报警文件", e);
+        } finally {
+            IOUtils.close(file);
+            IOUtils.close(filelog);
         }
     }
 
     /** 根据日志检查文件完整性，并返回缺少的数据块信息 */
     @Override
-    public List<DataInfo> checkFile(AlarmId alarmId, T1211 fileInfo) {
+    public int[] checkFile(AlarmId alarmId, T1211 fileInfo) {
         String dir = getDir(alarmId);
-
         File logFile = new File(dir + fileInfo.getName() + ".log");
-        if (!logFile.exists())
-            return Collections.emptyList();
-        long[][] items;
 
-        try (DataInputStream dis = new DataInputStream(new FileInputStream(logFile))) {
-            int size = dis.available() / 16;
-            items = new long[size + 2][2];
-            items[size + 1][0] = fileInfo.getSize();
-
-            for (int i = 1; i <= size; i++) {
-                items[i][0] = dis.readLong();
-                items[i][1] = dis.readLong();
-            }
-            Arrays.sort(items, 1, items.length - 1, comparingLong((long[] a) -> a[0]).thenComparingLong(a -> a[1]));
-
+        byte[] bytes;
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(logFile);
+            bytes = new byte[in.available()];
+            in.read(bytes);
+        } catch (FileNotFoundException e) {
+            return null;
         } catch (IOException e) {
             log.error("检查文件完整性", e);
-            return Collections.emptyList();
+            return null;
+        } finally {
+            IOUtils.close(in);
         }
 
-        List<DataInfo> result = new ArrayList<>();
+        int size = bytes.length / 8;
+        long[][] items = new long[size + 2][2];
+        items[size + 1][0] = fileInfo.getSize();
 
+        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        for (int i = 1; i <= size; i++) {
+            items[i][0] = buffer.getInt();
+            items[i][1] = buffer.getInt();
+        }
+
+        List<Integer> result = new ArrayList<>();
         int len = items.length - 1;
+        Arrays.sort(items, 1, len, comparator);
+
         for (int i = 0; i < len; ) {
             long a = items[i][0] + items[i][1];
             long b = items[++i][0] - a;
-            if (b > 0)
-                result.add(new DataInfo(a, b));
+            if (b > 0) {
+                result.add((int) a);
+                result.add((int) b);
+            }
         }
 
         if (result.isEmpty()) {
-            File file = new File(dir, fileInfo.getName() + ".tmp");
-            file.renameTo(new File(dir, fileInfo.getName()));
+            File file = new File(dir + fileInfo.getName() + ".tmp");
+            file.renameTo(new File(dir + fileInfo.getName()));
             logFile.delete();
+            return null;
         }
-
-        return result;
+        return StrUtils.toArray(result);
     }
 
     /** 多媒体数据上传 */
@@ -168,12 +178,16 @@ public class FileServiceImpl implements FileService {
         File dir = new File(mediaFileRoot, deviceInfo.getDeviceId());
         dir.mkdirs();
 
-        try (FileOutputStream fos = new FileOutputStream(new File(dir, filename.toString()))) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File(dir, filename.toString()));
             fos.write(message.getPacket());
             return true;
         } catch (IOException e) {
             log.error("多媒体数据保存失败", e);
             return false;
+        } finally {
+            IOUtils.close(fos);
         }
     }
 

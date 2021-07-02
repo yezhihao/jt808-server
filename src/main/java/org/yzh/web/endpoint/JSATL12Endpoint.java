@@ -68,14 +68,13 @@ public class JSATL12Endpoint {
         result.setName(message.getName());
         result.setType(message.getType());
 
-        List<DataInfo> items = fileService.checkFile(alarmId, message);
-        if (items.isEmpty()) {
+        int[] items = fileService.checkFile(alarmId, message);
+        if (items == null) {
             alarmIdMap.remove(message.getName());
             result.setResult(0);
         } else {
-            result.setResult(1);
             result.setItems(items);
-            result.setTotal(items.size());
+            result.setResult(1);
         }
         return result;
     }

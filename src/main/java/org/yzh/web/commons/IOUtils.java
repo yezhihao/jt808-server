@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class FileUtils {
+public class IOUtils {
 
     public static final String Separator = System.lineSeparator();
 
@@ -29,52 +29,39 @@ public class FileUtils {
     }
 
     public static String read(File file, Charset charset) {
-        try {
-            return read(new FileInputStream(file), charset);
+        try (FileInputStream is = new FileInputStream(file)) {
+            byte[] bytes = new byte[is.available()];
+            is.read(bytes);
+            return new String(bytes, charset);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-    }
-
-    public static String read(InputStream is) {
-        return read(is, StandardCharsets.UTF_8);
     }
 
     public static String read(InputStream is, Charset charset) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset))) {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder(500);
             String line;
             while ((line = reader.readLine()) != null)
                 result.append(line).append(Separator);
-
             return result.substring(0, result.length() - Separator.length());
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static boolean write(File file, String text) {
-        return write(file, text, StandardCharsets.UTF_8);
-    }
-
-    public static boolean write(File file, String text, Charset charset) {
-        try {
-            return write(new FileOutputStream(file), text, charset);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
-    public static boolean write(OutputStream os, String text, Charset charset) {
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset))) {
-            writer.write(text);
-            return true;
+    public static void write(File file, String text) {
+        write(file, text, StandardCharsets.UTF_8);
+    }
+
+    public static void write(File file, String text, Charset charset) {
+        byte[] bytes = text.getBytes(charset);
+        try (FileOutputStream os = new FileOutputStream(file)) {
+            os.write(bytes);
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -101,19 +88,19 @@ public class FileUtils {
         }
     }
 
-    public static void foreach(File file, Function<String, Boolean> mappingFunction) throws IOException {
+    public static void foreach(File file, Function<String, Boolean> function) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (Boolean.FALSE.equals(mappingFunction.apply(line)))
+                if (Boolean.FALSE == function.apply(line))
                     break;
             }
         } catch (Exception e) {
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 
-    public static void eachInterl(File root, Callback call) {
+    public static void eachInterl(File root) {
         File current = root;
         int depth = 1;
 
@@ -162,16 +149,11 @@ public class FileUtils {
         return (file.isFile() || file.list() == null || file.list().length == 0);
     }
 
-    public static void close(Closeable a) {
+    public static void close(AutoCloseable a) {
         if (a != null)
             try {
                 a.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
             }
-    }
-
-    @FunctionalInterface
-    public interface Callback {
-        boolean call(String line);
     }
 }

@@ -6,8 +6,6 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
-import java.util.List;
-
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
@@ -23,8 +21,8 @@ public class T9212 extends JTMessage {
     private int result;
     @Field(index = 3, type = DataType.BYTE, desc = "补传数据包数量")
     private int total;
-    @Field(index = 4, type = DataType.LIST, desc = "补传数据包列表")
-    private List<DataInfo> items;
+    @Field(index = 4, type = DataType.DWORD, desc = "补传数据包列表[offset,length,offset,length...]")
+    private int[] items;
 
     public String getName() {
         return name;
@@ -58,11 +56,14 @@ public class T9212 extends JTMessage {
         this.total = total;
     }
 
-    public List<DataInfo> getItems() {
+    public int[] getItems() {
         return items;
     }
 
-    public void setItems(List<DataInfo> items) {
-        this.items = items;
+    public void setItems(int[] items) {
+        if (items != null && items.length > 1) {
+            this.items = items;
+            this.total = items.length / 2;
+        }
     }
 }
