@@ -29,6 +29,7 @@ public class T8103 extends JTMessage {
 
     public T8103(Map<Integer, Object> parameters) {
         this.parameters = parameters;
+        this.total = parameters.size();
     }
 
     public int getTotal() {
