@@ -279,53 +279,69 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-hex1 7e9212000b1234567890127fff0774657374313233000000a07e
+hex1 7e921200131234567890127fff07746573743132330001010000000000000400bc7e
 json1 {
   "name": "test123",
   "type": 0,
-  "result": 0,
-  "total": 0,
+  "result": 1,
+  "total": 1,
+  "items": [
+    0,
+    1024
+  ],
   "messageId": 37394,
-  "properties": 11,
+  "properties": 19,
   "versionNo": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
 }
-hex2 7e9212000b1234567890127fff0774657374313233000000a07e
+hex2 7e921200131234567890127fff07746573743132330001010000000000000400bc7e
 json2 {
   "name": "test123",
   "type": 0,
-  "result": 0,
-  "total": 0,
+  "result": 1,
+  "total": 1,
+  "items": [
+    0,
+    1024
+  ],
   "messageId": 37394,
-  "properties": 11,
+  "properties": 19,
   "versionNo": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
 }
-hex1 7e9212400b0112345678901234567890ffff0774657374313233000000eb7e
+hex1 7e921240130112345678901234567890ffff07746573743132330001010000000000000400f77e
 json1 {
   "name": "test123",
   "type": 0,
-  "result": 0,
-  "total": 0,
+  "result": 1,
+  "total": 1,
+  "items": [
+    0,
+    1024
+  ],
   "messageId": 37394,
-  "properties": 16395,
+  "properties": 16403,
   "versionNo": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
-hex2 7e9212400b0112345678901234567890ffff0774657374313233000000eb7e
+hex2 7e921240130112345678901234567890ffff07746573743132330001010000000000000400f77e
 json2 {
   "name": "test123",
   "type": 0,
-  "result": 0,
-  "total": 0,
+  "result": 1,
+  "total": 1,
+  "items": [
+    0,
+    1024
+  ],
   "messageId": 37394,
-  "properties": 16395,
+  "properties": 16403,
   "versionNo": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
@@ -13518,7 +13534,6 @@ json2 {
 }
 
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -13546,9 +13561,8 @@ json2 {
   "serialNo": 32767,
   "verified": true
 }
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -13578,7 +13592,6 @@ json2 {
 }
 
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -13606,9 +13619,8 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
-[main] WARN org.yzh.protocol.commons.transform.PassthroughConverter[33]未识别的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 {
   "message": {
     "id": 0,
@@ -15651,8 +15663,6 @@ json2 {
 }
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=1, retryCount=0, time=0, packets={1, }]
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=2, retryCount=0, time=0, packets={1,2}]
-[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[31]未识别的终端参数项:ID[dec:2063597568,hex:7b000000], VALUE[0000]
-[main] WARN org.yzh.protocol.commons.transform.ParameterConverter[31]未识别的终端参数项:ID[dec:2080374784,hex:7c000000], VALUE[0000000000000000000000000000000000000000]
 {
   "responseSerialNo": 420,
   "total": 88,
