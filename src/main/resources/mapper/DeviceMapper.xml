@@ -15,7 +15,7 @@
     </select>
 
     <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceDO">
-        insert into device
+        insert ignore into device
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="mobileNo != null">mobile_no,</if>
             <if test="plateNo != null">plate_no,</if>

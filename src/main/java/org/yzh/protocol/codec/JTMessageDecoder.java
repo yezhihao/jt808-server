@@ -92,7 +92,7 @@ public class JTMessageDecoder {
 
                 byte[][] packages = addAndGet(message, bytes);
                 if (packages == null)
-                    return null;
+                    return message;
 
                 ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
                 bodySchema.mergeFrom(bodyBuf, message);

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.EncryptUtils;
@@ -198,7 +199,18 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
-    public T8800 mediaUploadResponse(T0801 message, Session session) {
+    public JTMessage mediaUploadResponse(T0801 message, Session session) {
+        if (message.getPacket() == null) {
+            T0001 result = new T0001();
+            result.copyBy(message);
+            result.setMessageId(JT808.平台通用应答);
+            result.setSerialNo(session.nextSerialNo());
+
+            result.setResponseSerialNo(message.getSerialNo());
+            result.setResponseMessageId(message.getMessageId());
+            result.setResultCode(T0001.Success);
+            return result;
+        }
         fileService.saveMediaFile(message);
         T8800 result = new T8800();
         result.setMediaId(message.getId());

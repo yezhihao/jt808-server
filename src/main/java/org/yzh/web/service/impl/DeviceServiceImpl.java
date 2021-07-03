@@ -58,7 +58,9 @@ public class DeviceServiceImpl implements DeviceService {
         if (row == 0) {
             record.setCreator("device");
             record.setCreateTime(now);
-            deviceMapper.insert(record);
+            row = deviceMapper.insert(record);
+            if (row == 0)
+                return null;
         }
 
         DeviceInfo device = new DeviceInfo();

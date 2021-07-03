@@ -175,7 +175,7 @@ public class FileServiceImpl implements FileService {
         filename.append(message.getId()).append('.');
         filename.append(suffix(message.getFormat()));
 
-        File dir = new File(mediaFileRoot, deviceInfo.getDeviceId());
+        File dir = new File(mediaFileRoot + "\\" + deviceInfo.getDeviceId());
         dir.mkdirs();
 
         FileOutputStream fos = null;

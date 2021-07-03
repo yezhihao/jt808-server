@@ -16,9 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
-import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
@@ -43,7 +43,7 @@ public class JTConfig {
         ) {
             NettyConfig jtConfig = NettyConfig.custom()
                     .setPort(port)
-                    .setMaxFrameLength(2 + 21 + 1023 + 2)
+                    .setMaxFrameLength(2 + 21 + 1023 + 2 + 10)
                     .setDelimiters(new Delimiter(new byte[]{0x7e}))
                     .setDecoder(messageAdapter)
                     .setEncoder(messageAdapter)
