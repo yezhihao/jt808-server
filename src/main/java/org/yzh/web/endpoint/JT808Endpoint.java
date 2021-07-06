@@ -68,15 +68,6 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
-        if (message.getPlateNo() == null) {
-            session.setOfflineCache(message.getClientId(), -1);
-            session.setAttribute(SessionKey.ProtocolVersion, -1);
-            log.warn(">>>>>>>>>>可能为2011版本协议，将在下次请求时尝试解析{},{}", session, message);
-            return null;
-        } else {
-            session.setAttribute(SessionKey.ProtocolVersion, message.getVersionNo());
-        }
-
         T8100 result = new T8100();
         result.setResponseSerialNo(message.getSerialNo());
 

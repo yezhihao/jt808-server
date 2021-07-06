@@ -100,4 +100,11 @@ public class T0100 extends JTMessage {
     public void setPlateNo(String plateNo) {
         this.plateNo = plateNo;
     }
+
+    @Override
+    public int getVersionNo() {
+        if (getBodyLength() < 37)
+            return -1;
+        return super.getVersionNo();
+    }
 }

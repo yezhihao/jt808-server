@@ -10,7 +10,6 @@ import io.netty.buffer.UnpooledByteBufAllocator;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
-import org.yzh.web.model.enums.SessionKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,24 +40,12 @@ public class JTMessageDecoder {
         int messageId = buf.getUnsignedShort(0);
         int properties = buf.getUnsignedShort(2);
 
-        Integer version = session == null ? null : (Integer) session.getAttribute(SessionKey.ProtocolVersion);
-        boolean confirmedVersion = version != null;
-        if (!confirmedVersion) {
-            //识别2019及后续版本
-            if (Bit.get(properties, 14)) {
-                version = (int) buf.getUnsignedByte(4);
-                confirmedVersion = true;
-                if (session != null)
-                    session.setAttribute(SessionKey.ProtocolVersion, version);
-            } else {
-                //缺省值为2013版本
-                version = 0;
-            }
-        }
+        int version = 0;//缺省值为2013版本
+        if (Bit.get(properties, 14))//识别2019及后续版本
+            version = (int) buf.getUnsignedByte(4);
 
-        int headLen;
         boolean isSubpackage = Bit.get(properties, 13);
-        headLen = JTUtils.headerLength(version, isSubpackage);
+        int headLen = JTUtils.headerLength(version, isSubpackage);
 
         RuntimeSchema<JTMessage> headSchema = headerSchemaMap.get(version);
         RuntimeSchema<JTMessage> bodySchema = ProtostarUtil.getRuntimeSchema(messageId, version);
@@ -74,13 +61,9 @@ public class JTMessageDecoder {
 
         headSchema.mergeFrom(buf.slice(0, headLen), message);
 
-        if (!confirmedVersion && session != null) {
-            //通过缓存记录2011版本
-            Integer cachedVersion = (Integer) session.getOfflineCache(message.getClientId());
-            if (cachedVersion != null)
-                version = cachedVersion;
-            session.setAttribute(SessionKey.ProtocolVersion, version);
-        }
+        int realVersion = message.getVersionNo();
+        if (realVersion != version)
+            bodySchema = ProtostarUtil.getRuntimeSchema(messageId, realVersion);
 
         if (bodySchema != null) {
             int bodyLen = message.getBodyLength();
