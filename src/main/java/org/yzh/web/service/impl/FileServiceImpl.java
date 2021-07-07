@@ -103,8 +103,7 @@ public class FileServiceImpl implements FileService {
         } catch (IOException e) {
             log.error("写入报警文件", e);
         } finally {
-            IOUtils.close(file);
-            IOUtils.close(filelog);
+            IOUtils.close(file, filelog);
         }
     }
 

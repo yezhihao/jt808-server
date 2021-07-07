@@ -103,7 +103,8 @@ public class T0100 extends JTMessage {
 
     @Override
     public int getVersionNo() {
-        if (getBodyLength() < 37)
+        int bodyLength = getBodyLength();
+        if (bodyLength > 0 && bodyLength < 37)
             return -1;
         return super.getVersionNo();
     }

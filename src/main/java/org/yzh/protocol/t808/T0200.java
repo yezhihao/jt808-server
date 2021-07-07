@@ -9,6 +9,8 @@ import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.MessageId;
 import org.yzh.protocol.commons.transform.AttributeConverter;
 import org.yzh.web.commons.DateUtils;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 
 import java.util.Date;
 import java.util.Map;
@@ -150,12 +152,31 @@ public class T0200 extends JTMessage {
         lat = latitude / 1000000d;
         speedKph = speed / 10f;
         deviceTime = DateUtils.parse(dateTime);
+
+        DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
+        if (device != null) {
+            deviceId = device.getDeviceId();
+            plateNo = device.getPlateNo();
+        } else {
+            deviceId = clientId;
+            plateNo = "";
+        }
     }
 
+    private transient String deviceId;
+    private transient String plateNo;
     private transient double lng;
     private transient double lat;
     private transient float speedKph;
     private transient Date deviceTime;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public String getPlateNo() {
+        return plateNo;
+    }
 
     public double getLng() {
         return lng;

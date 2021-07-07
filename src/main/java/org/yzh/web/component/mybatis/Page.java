@@ -1,6 +1,7 @@
 package org.yzh.web.component.mybatis;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author yezhihao
@@ -10,14 +11,14 @@ public class Page {
 
     private static final ThreadLocal<PageInfo> LOCAL_PAGE = new ThreadLocal<>();
 
-    public static Pagination start(ISelect select, int page, int limit) {
+    public static <T> Pagination<T> start(Supplier<List<T>> select, int page, int limit) {
         return start(select, new PageInfo(page, limit));
     }
 
-    public static Pagination start(ISelect select, PageInfo pageInfo) {
+    public static <T> Pagination<T> start(Supplier<List<T>> select, PageInfo pageInfo) {
         try {
             LOCAL_PAGE.set(pageInfo);
-            List<?> list = select.select();
+            List<T> list = select.get();
             return new Pagination<>(pageInfo, list);
         } catch (Exception e) {
             throw e;
@@ -28,10 +29,5 @@ public class Page {
 
     protected static PageInfo get() {
         return LOCAL_PAGE.get();
-    }
-
-    @FunctionalInterface
-    public interface ISelect {
-        List<?> select();
     }
 }

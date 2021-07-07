@@ -1,6 +1,5 @@
 package org.yzh.web.service.impl;
 
-import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.yzh.protocol.t808.T0200;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.IOUtils;
 import org.yzh.web.mapper.LocationMapper;
-import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
@@ -53,10 +50,7 @@ public class LocationServiceImpl implements LocationService {
 
     public void jdbcBatchInsert(List<T0200> list) {
         LocalDateTime now = LocalDateTime.now();
-        Session session;
-        String mobileNo, deviceId, plateNo;
         int size = list.size();
-        T0200 request;
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -64,23 +58,13 @@ public class LocationServiceImpl implements LocationService {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(SQL);
             for (int i = 0; i < size; i++) {
-                request = list.get(i);
+                T0200 request = list.get(i);
                 int j = 1;
 
-                session = request.getSession();
-                mobileNo = request.getClientId();
-                deviceId = mobileNo;
-                plateNo = "";
-                DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
-                if (device != null) {
-                    deviceId = device.getDeviceId();
-                    plateNo = device.getPlateNo();
-                }
-
                 statement.setObject(j++, request.getDeviceTime());
-                statement.setString(j++, deviceId);
-                statement.setString(j++, mobileNo);
-                statement.setString(j++, plateNo);
+                statement.setString(j++, request.getDeviceId());
+                statement.setString(j++, request.getClientId());
+                statement.setString(j++, request.getPlateNo());
                 statement.setInt(j++, request.getWarnBit());
                 statement.setInt(j++, request.getStatusBit());
                 statement.setInt(j++, request.getLongitude());
@@ -97,39 +81,25 @@ public class LocationServiceImpl implements LocationService {
         } catch (Exception e) {
             log.error("批量写入失败", e);
         } finally {
-            IOUtils.close(statement);
-            IOUtils.close(connection);
+            IOUtils.close(statement, connection);
         }
     }
 
     public void jdbcSQLInsert(List<T0200> list) {
         String now = DateUtils.DATE_TIME_FORMATTER.format(LocalDateTime.now());
-        Session session;
-        String mobileNo, deviceId, plateNo;
         int size = list.size();
-        T0200 request;
 
         StringBuilder builder = new StringBuilder(size * 132 + 174);
         builder.append(SQL_HEAD);
 
         for (int i = 0; i < size; i++) {
-            request = list.get(i);
-
-            session = request.getSession();
-            mobileNo = request.getClientId();
-            deviceId = mobileNo;
-            plateNo = "";
-            DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
-            if (device != null) {
-                deviceId = device.getDeviceId();
-                plateNo = device.getPlateNo();
-            }
+            T0200 request = list.get(i);
 
             builder.append('(');
             builder.append('\'').append(DateUtils.yyyyMMddHHmmss.format(request.getDeviceTime())).append('\'').append(',');
-            builder.append('\'').append(deviceId).append('\'').append(',');
-            builder.append('\'').append(mobileNo).append('\'').append(',');
-            builder.append('\'').append(plateNo).append('\'').append(',');
+            builder.append('\'').append(request.getDeviceId()).append('\'').append(',');
+            builder.append('\'').append(request.getClientId()).append('\'').append(',');
+            builder.append('\'').append(request.getPlateNo()).append('\'').append(',');
             builder.append(request.getWarnBit()).append(',');
             builder.append(request.getStatusBit()).append(',');
             builder.append(request.getLongitude()).append(',');
@@ -156,8 +126,7 @@ public class LocationServiceImpl implements LocationService {
             log.error(sql);
             log.error("批量写入失败", e);
         } finally {
-            IOUtils.close(statement);
-            IOUtils.close(connection);
+            IOUtils.close(statement, connection);
         }
     }
 }

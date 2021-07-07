@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Stack;
 import java.util.function.Function;
 
 /**
@@ -100,60 +99,22 @@ public class IOUtils {
         }
     }
 
-    public static void eachInterl(File root) {
-        File current = root;
-        int depth = 1;
-
-        while (depth > 0) {
-            File[] files = current.listFiles();
-            if (files.length > 0) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        current = file;
-                        depth++;
-                        break;
-                    }
-                    file.delete();
-                }
-            } else {
-                current.delete();
-                current = current.getParentFile();
-                depth--;
-            }
-        }
-    }
-
-    public static void deleteAll(File root) {
-        Stack<File> stack = new Stack<>();
-        File current = root;
-        while (!stack.empty() || current != null) {
-            if (isDelete(current)) {
-                current.delete();
-                current = null;
-            } else {
-                stack.push(current);
-                for (File file : current.listFiles()) {
-                    if (isDelete(file)) {
-                        file.delete();
-                    } else {
-                        stack.push(file);
-                    }
-                }
-            }
-            if (!stack.empty())
-                current = stack.pop();
-        }
-    }
-
-    public static boolean isDelete(File file) {
-        return (file.isFile() || file.list() == null || file.list().length == 0);
-    }
-
     public static void close(AutoCloseable a) {
         if (a != null)
             try {
                 a.close();
             } catch (Exception e) {
             }
+    }
+
+    public static void close(AutoCloseable a1, AutoCloseable a2) {
+        close(a1);
+        close(a2);
+    }
+
+    public static void close(AutoCloseable a1, AutoCloseable a2, AutoCloseable a3) {
+        close(a1);
+        close(a2);
+        close(a3);
     }
 }

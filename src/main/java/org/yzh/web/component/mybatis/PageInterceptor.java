@@ -9,6 +9,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yzh.web.commons.IOUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,14 +70,18 @@ public class PageInterceptor implements Interceptor {
                 .append("select count(*) from (").append(sql).append(") as total").toString();
 
         int totalCount = 0;
-        try (PreparedStatement statement = connection.prepareStatement(countSql)) {
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(countSql);
             handler.setParameters(statement);
-            ResultSet rs = statement.executeQuery();
+            rs = statement.executeQuery();
             if (rs.next())
                 totalCount = rs.getInt(1);
-            rs.close();
         } catch (SQLException e) {
             log.error("SELECT COUNT(1) ERROR", e);
+        } finally {
+            IOUtils.close(rs, statement);
         }
         return totalCount;
     }
