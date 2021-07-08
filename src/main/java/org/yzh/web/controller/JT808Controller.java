@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
-import org.yzh.protocol.commons.transform.Parameters;
+import org.yzh.web.model.vo.Parameters;
 import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;

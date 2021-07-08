@@ -1,7 +1,6 @@
 package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.DataType;
-import io.github.yezhihao.protostar.annotation.Convert;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -20,8 +19,7 @@ public class T8103 extends JTMessage {
 
     @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
     private int total;
-    @Convert(converter = ParameterConverter.class)
-    @Field(index = 1, type = DataType.MAP, desc = "参数项列表")
+    @Field(index = 1, type = DataType.MAP, desc = "参数项列表", converter = ParameterConverter.class)
     private Map<Integer, Object> parameters;
 
     public T8103() {

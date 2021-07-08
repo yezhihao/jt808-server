@@ -1,5 +1,12 @@
 部标JT808 JT/T808协议快速开发包
 ====================
+
+<p align="center">
+    <img src="https://img.shields.io/badge/JDK-1.8+-green.svg"></img>
+    <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg"></img>
+    <img src="https://img.shields.io/badge/QQ群-906230542-blue"></img>
+</p>
+
 # 项目介绍
 * 基于Netty，实现JT808 JT/T808部标协议的消息处理，与编码解码；
 * 使用SpringBoot + MyBatis提供数据入库、Web接口服务；
@@ -10,11 +17,21 @@
 * 代码足够精简，便于二次开发；
 * 致敬Spring、Hibernate设计理念，熟悉Web开发的同学上手极快；
 * 使用注解描述协议，告别繁琐的封包、解包；
-* 实时兼容2011、2013、2019部标协议版本，支持分包请求；
-* 支持T/JSATL12苏标主动安防协议，JT/T1078音视频协议（仅支持信令部分，流媒体服务需要自行搭建）；
 * 支持异步批量处理，显著提升MySQL入库性能；
 * 提供报文解释器（解析过程分析工具），编码解码不再抓瞎；
 * 全覆盖的测试用例，稳定发版。
+
+# 协议支持
+|协议名称|版本|是否支持|备注|
+|---|---|---|---|
+|JT/T 808|2011|支持|
+|JT/T 808|2013|支持|
+|JT/T 808|2019|支持|
+|JT/T 1078|2016|支持|需自建流媒体服务|
+|T/JSATL 12(主动安全-苏标)|2017|支持|基于JT/T808-2013|
+|T/GDRTA 002(主动安全-粤标)|2019|后续支持|基于JT/T808-2019|
+备注：无需手动配置，同时兼容2011、2013、2019协议版本，支持分包请求、分包应答及超时分包补传。
+1078协议支持音视频指令，流媒体服务需自行搭建。
 
 # 代码仓库
  * Gitee仓库地址：[https://gitee.com/yezhihao/jt808-server/tree/master](https://gitee.com/yezhihao/jt808-server/tree/master)

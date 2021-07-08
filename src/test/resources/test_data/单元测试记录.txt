@@ -13561,7 +13561,7 @@ json2 {
   "serialNo": 32767,
   "verified": true
 }
-[main] WARN commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter[56]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
 {
   "message": {
@@ -13619,7 +13619,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] WARN commons.transform.PassthroughConverter[49]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter[56]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
 {
   "message": {

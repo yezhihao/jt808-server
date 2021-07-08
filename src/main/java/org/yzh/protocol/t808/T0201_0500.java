@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.DataType;
-import io.github.yezhihao.protostar.annotation.Convert;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -37,8 +36,7 @@ public class T0201_0500 extends JTMessage implements Response {
     private int direction;
     @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private LocalDateTime dateTime;
-    @Convert(converter = AttributeConverter.class)
-    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息")
+    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息", converter = AttributeConverter.class)
     private Map<Integer, Object> attributes;
 
     public int getResponseSerialNo() {

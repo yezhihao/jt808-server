@@ -2,7 +2,6 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.DataType;
-import io.github.yezhihao.protostar.annotation.Convert;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -23,8 +22,7 @@ public class T0104 extends JTMessage implements Response {
     private int responseSerialNo;
     @Field(index = 2, type = DataType.BYTE, desc = "应答参数个数")
     private int total;
-    @Convert(converter = ParameterConverter.class)
-    @Field(index = 3, type = DataType.MAP, desc = "参数项列表")
+    @Field(index = 3, type = DataType.MAP, desc = "参数项列表", converter = ParameterConverter.class)
     private Map<Integer, Object> parameters;
 
     public int getResponseSerialNo() {
