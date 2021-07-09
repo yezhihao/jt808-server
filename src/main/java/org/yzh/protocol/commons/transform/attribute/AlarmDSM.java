@@ -25,9 +25,18 @@ public class AlarmDSM implements Alarm {
             " 1.疲劳驾驶报警" +
             " 2.接打电话报警" +
             " 3.抽烟报警" +
-            " 4.分神驾驶报警" +
+            " 4.分神驾驶报警|不目视前方报警(粤标)" +
             " 5.驾驶员异常报警" +
-            " 6~15.用户自定义" +
+            " 6.探头遮挡报警(粤标)" +
+            " 7.用户自定义" +
+            " 8.超时驾驶报警(粤标)" +
+            " 9.用户自定义" +
+            " 10.未系安全带报警(粤标)" +
+            " 11.红外阻断型墨镜失效报警(粤标)" +
+            " 12.双脱把报警(双手同时脱离方向盘)(粤标)" +
+            " 13.玩手机报警(粤标)" +
+            " 14.用户自定义" +
+            " 15.用户自定义" +
             " 16.自动抓拍事件" +
             " 17.驾驶员变更事件" +
             " 18~31.用户自定义")
@@ -50,7 +59,8 @@ public class AlarmDSM implements Alarm {
     private LocalDateTime dateTime;
     @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
     private int status;
-    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号")
+    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(index = 31, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
 
     public long getSerialNo() {

@@ -8,11 +8,11 @@ import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.transform.attribute.*;
 
 /**
- * 位置附加信息转换器(苏标)
+ * 位置附加信息转换器(粤标)
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class AttributeConverter extends MapConverter<Integer, Object> {
+public class AttributeConverterYue extends MapConverter<Integer, Object> {
 
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
@@ -35,10 +35,10 @@ public class AttributeConverter extends MapConverter<Integer, Object> {
                 .addSchema(AttributeId.GnssCount, DataType.BYTE)
 
 
-                .addSchema(AttributeId.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 0))
-                .addSchema(AttributeId.AlarmBSD, ProtostarUtil.getRuntimeSchema(AlarmBSD.class, 0))
-                .addSchema(AttributeId.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 0))
-                .addSchema(AttributeId.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 0))
+                .addSchema(AttributeId.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 1))
+                .addSchema(AttributeId.AlarmBSD, ProtostarUtil.getRuntimeSchema(AlarmBSD.class, 1))
+                .addSchema(AttributeId.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 1))
+                .addSchema(AttributeId.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 1))
         ;
     }
 

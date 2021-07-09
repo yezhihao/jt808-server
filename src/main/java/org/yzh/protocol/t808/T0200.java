@@ -7,6 +7,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.MessageId;
 import org.yzh.protocol.commons.transform.AttributeConverter;
+import org.yzh.protocol.commons.transform.AttributeConverterYue;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -37,7 +38,8 @@ public class T0200 extends JTMessage {
     private int direction;
     @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
-    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息", converter = AttributeConverter.class)
+    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息", converter = AttributeConverter.class, version = {-1, 0})
+    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息(粤标)", converter = AttributeConverterYue.class, version = 1)
     private Map<Integer, Object> attributes;
 
     public int getWarnBit() {

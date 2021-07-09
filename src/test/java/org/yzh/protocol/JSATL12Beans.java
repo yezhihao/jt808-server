@@ -11,12 +11,13 @@ public class JSATL12Beans {
 
     private static final String UUID = "ad72131579e54be0b0f737cfc72c5db8";
 
+    private static final String DEVICE_ID = "09876543210987654321";
 
     //报警附件信息消息
     public static T1210 T1210() {
         T1210 bean = new T1210();
-        bean.setDeviceId("1234567");
-        bean.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 3, 1));
+        bean.setDeviceId(DEVICE_ID);
+        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 3, 1));
         bean.setAlarmNo(UUID);
         bean.setType(0);
         bean.setItems(null);
@@ -38,7 +39,7 @@ public class JSATL12Beans {
         bean.setIp("47.104.97.169");
         bean.setTcpPort(8202);
         bean.setUdpPort(8203);
-        bean.setAlarmId(new AlarmId("qwe123", "200827111111", 1, 1, 1));
+        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 1, 1));
         bean.setAlarmNo(UUID);
         bean.setReserved(new byte[16]);
         return bean;

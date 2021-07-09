@@ -27,6 +27,7 @@ public class JT808Beans {
 
     private static final String STR_TIME = "200707192359";
     private static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
+    private static final String DEVICE_ID = "09876543210987654321";
 
     //平台RSA公钥|终端RSA公钥
     public static T0A00_8A00 T0A00_8A00() {
@@ -52,7 +53,7 @@ public class JT808Beans {
         bean.setCityId(115);
         bean.setMakerId("4");
         bean.setDeviceModel("BSJ-GF-06");
-        bean.setDeviceId("test123");
+        bean.setDeviceId(DEVICE_ID);
         bean.setPlateColor(1);
         bean.setPlateNo("测A888888");
         return bean;
@@ -109,7 +110,7 @@ public class JT808Beans {
         bean.setDeviceType(127);
         bean.setMakerId("2D_AN");
         bean.setDeviceModel("BSJ-GF-06");
-        bean.setDeviceId("5kw3noL");
+        bean.setDeviceId(DEVICE_ID);
         bean.setSimNo("12345678901234567890");
         bean.setFirmwareVersion("1.1.25");
         bean.setHardwareVersion("3.0.0");
@@ -196,7 +197,7 @@ public class JT808Beans {
         alarmADAS.setLongitude(222222);
         alarmADAS.setDateTime(TIME);
         alarmADAS.setStatus(1);
-        alarmADAS.setAlarmId(new AlarmId("adas", "200827111111", 1, 1, 1));
+        alarmADAS.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 1, 1));
 
         AlarmDSM alarmDSM = new AlarmDSM();
         alarmDSM.setSerialNo(65);
@@ -211,7 +212,7 @@ public class JT808Beans {
         alarmDSM.setLongitude(444444);
         alarmDSM.setDateTime(TIME);
         alarmDSM.setStatus(2);
-        alarmDSM.setAlarmId(new AlarmId("dsm", "200827111111", 2, 2, 2));
+        alarmDSM.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 2, 2, 2));
 
         AlarmTPMS alarmTPMS = new AlarmTPMS();
         alarmTPMS.setSerialNo(66);
@@ -222,7 +223,7 @@ public class JT808Beans {
         alarmTPMS.setLongitude(666666);
         alarmTPMS.setDateTime(TIME);
         alarmTPMS.setStatus(3);
-        alarmTPMS.setAlarmId(new AlarmId("tpms", "200827111111", 3, 3, 3));
+        alarmTPMS.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 3, 3, 3));
 
         AlarmBSD alarmBSD = new AlarmBSD();
         alarmBSD.setSerialNo(67);
@@ -234,7 +235,7 @@ public class JT808Beans {
         alarmBSD.setLongitude(888888);
         alarmBSD.setDateTime(TIME);
         alarmBSD.setStatus(4);
-        alarmBSD.setAlarmId(new AlarmId("bsd", "200827111111", 4, 4, 4));
+        alarmBSD.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 4, 4, 4));
 
 
         T0200 bean = T0200();

@@ -19,7 +19,8 @@ public class T9208 extends JTMessage {
     private int tcpPort;
     @Field(index = 3, type = DataType.WORD, desc = "UDP端口")
     private int udpPort;
-    @Field(index = 5, length = 16, type = DataType.OBJ, desc = "报警标识号")
+    @Field(index = 5, length = 16, type = DataType.OBJ, desc = "报警标识号", version = {-1, 0})
+    @Field(index = 5, length = 40, type = DataType.OBJ, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
     @Field(index = 21, length = 32, type = DataType.BYTES, desc = "报警编号")
     private String alarmNo;

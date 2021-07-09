@@ -24,4 +24,6 @@ public interface AttributeId {
     int AlarmDSM = 101;              // 0x65 驾驶员状态监测
     int AlarmTPMS = 102;             // 0x66 轮胎气压监测系统
     int AlarmBSD = 103;              // 0x67 盲点监测
+    int InstallErrorMsg = 241;       // 0xF1 安装异常信息,由厂家自定义(粤标)
+    int AlgorithmErrorMsg = 242;     // 0xF2 算法异常信息,由厂家自定义(粤标)
 }

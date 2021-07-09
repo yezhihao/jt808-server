@@ -32,6 +32,8 @@ public class AlarmADAS implements Alarm {
             " 8~15.用户自定义" +
             " 16.道路标志识别事件" +
             " 17.主动抓拍事件" +
+            " 18.实线变道报警(粤标)" +
+            " 19.车厢过道行人检测报警(粤标)" +
             " 18~31.用户自定义")
     private int type;
     @Field(index = 6, type = DataType.BYTE, desc = "报警级别")
@@ -42,7 +44,7 @@ public class AlarmADAS implements Alarm {
     private int frontDistance;
     @Field(index = 9, type = DataType.BYTE, desc = "偏离类型：1.左侧偏离 2.右侧偏离(报警类型为2时有效)")
     private int deviateType;
-    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型：1.限速标志 2.限高标志 3.限重标志(报警类型为6和10时有效)")
+    @Field(index = 10, type = DataType.BYTE, desc = "道路标志识别类型：1.限速标志 2.限高标志 3.限重标志 4.禁行标志(粤标) 5.禁停标志(粤标)(报警类型为6和10时有效)")
     private int roadSign;
     @Field(index = 11, type = DataType.BYTE, desc = "道路标志识别数据")
     private int roadSignValue;
@@ -58,7 +60,8 @@ public class AlarmADAS implements Alarm {
     private LocalDateTime dateTime;
     @Field(index = 29, type = DataType.WORD, desc = "车辆状态")
     private int status;
-    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号")
+    @Field(index = 31, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(index = 31, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
 
     public long getSerialNo() {

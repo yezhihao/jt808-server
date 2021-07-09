@@ -35,7 +35,8 @@ public class AlarmBSD implements Alarm {
     private LocalDateTime dateTime;
     @Field(index = 23, type = DataType.WORD, desc = "车辆状态")
     private int status;
-    @Field(index = 25, type = DataType.OBJ, length = 16, desc = "报警标识号")
+    @Field(index = 25, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(index = 25, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
 
     public long getSerialNo() {

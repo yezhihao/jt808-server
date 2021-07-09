@@ -17,95 +17,103 @@ public class ParamADAS {
     }
 
     @Schema(description = "报警判断速度阈值 BYTE")
-    private byte p00;
+    private byte p00 = -1;
     @Schema(description = "报警提示音量 BYTE")
-    private byte p01;
+    private byte p01 = -1;
     @Schema(description = "主动拍照策略 BYTE")
-    private byte p02;
+    private byte p02 = -1;
     @Schema(description = "主动定时拍照时间间隔 WORD")
-    private short p03;
+    private short p03 = -1;
     @Schema(description = "主动定距拍照距离间隔 WORD")
-    private short p05;
+    private short p05 = -1;
     @Schema(description = "单次主动拍照张数 BYTE")
-    private byte p07;
+    private byte p07 = -1;
     @Schema(description = "单次主动拍照时间间隔 BYTE")
-    private byte p08;
+    private byte p08 = -1;
     @Schema(description = "拍照分辨率 BYTE")
-    private byte p09;
+    private byte p09 = -1;
     @Schema(description = "视频录制分辨率 BYTE")
-    private byte p10;
+    private byte p10 = -1;
     @Schema(description = "报警使能 DWORD")
-    private int p11;
+    private int p11 = -1;
     @Schema(description = "事件使能 DWORD")
-    private int p15;
+    private int p15 = -1;
     @Schema(description = "预留字段 BYTE")
-    private byte p19;
+    private byte p19 = -1;
     @Schema(description = "障碍物报警距离阈值 BYTE")
-    private byte p20;
+    private byte p20 = -1;
     @Schema(description = "障碍物报警分级速度阈值 BYTE")
-    private byte p21;
+    private byte p21 = -1;
     @Schema(description = "障碍物报警前后视频录制时间 BYTE")
-    private byte p22;
+    private byte p22 = -1;
     @Schema(description = "障碍物报警拍照张数 BYTE")
-    private byte p23;
+    private byte p23 = -1;
     @Schema(description = "障碍物报警拍照间隔 BYTE")
-    private byte p24;
+    private byte p24 = -1;
     @Schema(description = "频繁变道报警判断时间段 BYTE")
-    private byte p25;
+    private byte p25 = -1;
     @Schema(description = "频繁变道报警判断次数 BYTE")
-    private byte p26;
+    private byte p26 = -1;
     @Schema(description = "频繁变道报警分级速度阈值 BYTE")
-    private byte p27;
+    private byte p27 = -1;
     @Schema(description = "频繁变道报警前后视频录制时间 BYTE")
-    private byte p28;
+    private byte p28 = -1;
     @Schema(description = "频繁变道报警拍照张数 BYTE")
-    private byte p29;
+    private byte p29 = -1;
     @Schema(description = "频繁变道报警拍照间隔 BYTE")
-    private byte p30;
+    private byte p30 = -1;
     @Schema(description = "车道偏离报警分级速度阈值 BYTE")
-    private byte p31;
+    private byte p31 = -1;
     @Schema(description = "车道偏离报警前后视频录制时间 BYTE")
-    private byte p32;
+    private byte p32 = -1;
     @Schema(description = "车道偏离报警拍照张数 BYTE")
-    private byte p33;
+    private byte p33 = -1;
     @Schema(description = "车道偏离报警拍照间隔 BYTE")
-    private byte p34;
+    private byte p34 = -1;
     @Schema(description = "前向碰撞报警时间阈值 BYTE")
-    private byte p35;
+    private byte p35 = -1;
     @Schema(description = "前向碰撞报警分级速度阈值 BYTE")
-    private byte p36;
+    private byte p36 = -1;
     @Schema(description = "前向碰撞报警前后视频录制时间 BYTE")
-    private byte p37;
+    private byte p37 = -1;
     @Schema(description = "前向碰撞报警拍照张数 BYTE")
-    private byte p38;
+    private byte p38 = -1;
     @Schema(description = "前向碰撞报警拍照间隔 BYTE")
-    private byte p39;
+    private byte p39 = -1;
     @Schema(description = "行人碰撞报警时间阈值 BYTE")
-    private byte p40;
+    private byte p40 = -1;
     @Schema(description = "行人碰撞报警使能速度阈值 BYTE")
-    private byte p41;
+    private byte p41 = -1;
     @Schema(description = "行人碰撞报警前后视频录制时间 BYTE")
-    private byte p42;
+    private byte p42 = -1;
     @Schema(description = "行人碰撞报警拍照张数 BYTE")
-    private byte p43;
+    private byte p43 = -1;
     @Schema(description = "行人碰撞报警拍照间隔 BYTE")
-    private byte p44;
+    private byte p44 = -1;
     @Schema(description = "车距监控报警距离阈值 BYTE")
-    private byte p45;
+    private byte p45 = -1;
     @Schema(description = "车距监控报警分级速度阈值 BYTE")
-    private byte p46;
+    private byte p46 = -1;
     @Schema(description = "车距过近报警前后视频录制时间 BYTE")
-    private byte p47;
+    private byte p47 = -1;
     @Schema(description = "车距过近报警拍照张数 BYTE")
-    private byte p48;
+    private byte p48 = -1;
     @Schema(description = "车距过近报警拍照间隔 BYTE")
-    private byte p49;
+    private byte p49 = -1;
     @Schema(description = "道路标志识别拍照张数 BYTE")
-    private byte p50;
+    private byte p50 = -1;
     @Schema(description = "道路标志识别拍照间隔 BYTE")
-    private byte p51;
-    @Schema(description = "保留字段 BYTE[4]")
-    private int p52;
+    private byte p51 = -1;
+    @Schema(description = "实线变道报警分级速度阈值 BYTE(粤标)")
+    private byte p52 = -1;
+    @Schema(description = "实线变道报警前后视频录制时间 BYTE(粤标)")
+    private byte p53 = -1;
+    @Schema(description = "实线变道报警拍照张数 BYTE(粤标)")
+    private byte p54 = -1;
+    @Schema(description = "实线变道报警拍照间隔 BYTE(粤标)")
+    private byte p55 = -1;
+    @Schema(description = "车厢过道行人检测报警分级速度阈值 BYTE(粤标)")
+    private byte p56 = -1;
 
     public ParamADAS() {
     }
@@ -462,12 +470,44 @@ public class ParamADAS {
         this.p51 = p51;
     }
 
-    public int getP52() {
+    public byte getP52() {
         return p52;
     }
 
-    public void setP52(int p52) {
+    public void setP52(byte p52) {
         this.p52 = p52;
+    }
+
+    public byte getP53() {
+        return p53;
+    }
+
+    public void setP53(byte p53) {
+        this.p53 = p53;
+    }
+
+    public byte getP54() {
+        return p54;
+    }
+
+    public void setP54(byte p54) {
+        this.p54 = p54;
+    }
+
+    public byte getP55() {
+        return p55;
+    }
+
+    public void setP55(byte p55) {
+        this.p55 = p55;
+    }
+
+    public byte getP56() {
+        return p56;
+    }
+
+    public void setP56(byte p56) {
+        this.p56 = p56;
     }
 
     public static class S implements io.github.yezhihao.protostar.Schema<ParamADAS> {
@@ -524,7 +564,11 @@ public class ParamADAS {
             message.p49 = input.readByte();
             message.p50 = input.readByte();
             message.p51 = input.readByte();
-            message.p52 = input.readInt();
+            message.p52 = input.readByte();
+            message.p53 = input.readByte();
+            message.p54 = input.readByte();
+            message.p55 = input.readByte();
+            message.p56 = input.readByte();
             return message;
         }
 
@@ -574,7 +618,11 @@ public class ParamADAS {
             output.writeByte(message.p49);
             output.writeByte(message.p50);
             output.writeByte(message.p51);
-            output.writeInt(message.p52);
+            output.writeByte(message.p52);
+            output.writeByte(message.p53);
+            output.writeByte(message.p54);
+            output.writeByte(message.p55);
+            output.writeByte(message.p56);
         }
     }
 }

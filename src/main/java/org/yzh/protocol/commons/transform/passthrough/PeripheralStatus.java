@@ -48,7 +48,13 @@ public class PeripheralStatus {
     }
 
     public static class Item {
-        /** 外设ID */
+        /**
+         * 外设ID：
+         * 100.高级驾驶辅助系统(ADAS)
+         * 101.驾驶员状态监控系统(DSM)
+         * 102.轮胎气压监测系统(TPMS)
+         * 103.盲点监测系统(BSD)
+         */
         private byte id;
         /** 工作状态：1.正常工作 2.待机状态 3.升级维护 4.设备异常 16.断开连接 */
         private byte workState;

@@ -10,7 +10,8 @@ import io.github.yezhihao.protostar.annotation.Field;
  */
 public class AlarmId {
 
-    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID")
+    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID", version = {-1, 0})
+    @Field(index = 0, type = DataType.STRING, length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
     @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
@@ -18,7 +19,8 @@ public class AlarmId {
     private int serialNo;
     @Field(index = 14, type = DataType.BYTE, desc = "附件数量")
     private int fileTotal;
-    @Field(index = 15, type = DataType.BYTE, desc = "预留")
+    @Field(index = 15, type = DataType.BYTE, desc = "预留", version = {-1, 0})
+    @Field(index = 38, type = DataType.WORD, desc = "预留(粤标)", version = 1)
     private int reserved;
 
     public AlarmId() {

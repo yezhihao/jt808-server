@@ -15,17 +15,19 @@ import java.util.List;
 @Message(JSATL12.报警附件信息消息)
 public class T1210 extends JTMessage {
 
-    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID")
+    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID", version = {-1, 0})
+    @Field(index = 0, type = DataType.STRING, length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
-    @Field(index = 7, type = DataType.OBJ, length = 16, desc = "报警标识号")
+    @Field(index = 7, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(index = 30, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(index = 23, type = DataType.STRING, length = 32, desc = "报警编号")
+    @Field(index = 70, type = DataType.STRING, length = 32, desc = "报警编号")
     private String alarmNo;
-    @Field(index = 55, type = DataType.BYTE, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
+    @Field(index = 102, type = DataType.BYTE, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
-    @Field(index = 56, type = DataType.BYTE, desc = "附件数量")
+    @Field(index = 103, type = DataType.BYTE, desc = "附件数量")
     private int total;
-    @Field(index = 57, type = DataType.LIST, desc = "附件信息列表")
+    @Field(index = 104, type = DataType.LIST, desc = "附件信息列表")
     private List<Item> items;
 
     public String getDeviceId() {
