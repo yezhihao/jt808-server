@@ -1,9 +1,9 @@
 package org.yzh.web.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.cglib.beans.ImmutableBean;
 import org.yzh.web.commons.ResultCode;
+import org.yzh.web.commons.StrUtils;
 import org.yzh.web.model.enums.DefaultCodes;
 
 /**
@@ -28,13 +28,13 @@ public class APIResult<T> {
     public APIResult(Exception e) {
         this.code = DefaultCodes.UnknownError.code;
         this.msg = e.getMessage();
-        this.detailMsg = ExceptionUtils.getStackTrace(e);
+        this.detailMsg = StrUtils.getStackTrace(e);
     }
 
     public APIResult(ResultCode code, Exception e) {
         this.code = code.getCode();
         this.msg = code.getMessage();
-        this.detailMsg = ExceptionUtils.getStackTrace(e);
+        this.detailMsg = StrUtils.getStackTrace(e);
     }
 
     public APIResult(APIException e) {

@@ -6,6 +6,8 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
+
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
@@ -14,20 +16,20 @@ import org.yzh.protocol.commons.JT808;
 public class T8004 extends JTMessage {
 
     @Field(index = 0, type = DataType.BCD8421, length = 6, desc = "UTC时间")
-    private String dateTime;
+    private LocalDateTime dateTime;
 
     public T8004() {
     }
 
-    public T8004(String dateTime) {
+    public T8004(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 }

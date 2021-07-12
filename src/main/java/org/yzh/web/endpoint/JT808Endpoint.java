@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
-import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.EncryptUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -20,8 +19,9 @@ import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.FileService;
 import org.yzh.web.service.LocationService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 import static org.yzh.protocol.commons.JT808.*;
@@ -58,7 +58,7 @@ public class JT808Endpoint {
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
     public T8004 serverTime(JTMessage message, Session session) {
-        T8004 result = new T8004(DateUtils.yyMMddHHmmss.format(new Date(System.currentTimeMillis() + 50)));
+        T8004 result = new T8004(LocalDateTime.now(ZoneOffset.UTC));
         return result;
     }
 

@@ -96,7 +96,7 @@ public class LocationServiceImpl implements LocationService {
             T0200 request = list.get(i);
 
             builder.append('(');
-            builder.append('\'').append(DateUtils.yyyyMMddHHmmss.format(request.getDeviceTime())).append('\'').append(',');
+            builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDeviceTime())).append('\'').append(',');
             builder.append('\'').append(request.getDeviceId()).append('\'').append(',');
             builder.append('\'').append(request.getClientId()).append('\'').append(',');
             builder.append('\'').append(request.getPlateNo()).append('\'').append(',');

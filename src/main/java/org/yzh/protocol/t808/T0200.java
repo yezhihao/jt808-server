@@ -12,7 +12,7 @@ import org.yzh.web.commons.DateUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -168,7 +168,7 @@ public class T0200 extends JTMessage {
     private transient double lng;
     private transient double lat;
     private transient float speedKph;
-    private transient Date deviceTime;
+    private transient LocalDateTime deviceTime;
 
     public String getDeviceId() {
         return deviceId;
@@ -190,7 +190,7 @@ public class T0200 extends JTMessage {
         return speedKph;
     }
 
-    public Date getDeviceTime() {
+    public LocalDateTime getDeviceTime() {
         return deviceTime;
     }
 }
