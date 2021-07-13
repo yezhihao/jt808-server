@@ -14,11 +14,12 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.yzh.protocol.commons.LoggingFilter;
-import org.yzh.web.commons.StrUtils;
 import org.yzh.web.component.mybatis.Page;
 import org.yzh.web.component.mybatis.PageInfo;
 import org.yzh.web.component.mybatis.Pagination;
+import org.yzh.web.endpoint.LoggingPusher;
+import org.yzh.web.model.APIResult;
+import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
@@ -26,7 +27,8 @@ import org.yzh.web.service.LocationService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -37,6 +39,9 @@ public class OtherController {
 
     @Autowired
     private SessionManager sessionManager;
+
+    @Autowired
+    private LoggingPusher loggingPusher;
 
     @Hidden
     @Operation(hidden = true)
@@ -49,6 +54,25 @@ public class OtherController {
     @GetMapping("terminal/all")
     public Collection<Session> all() {
         return sessionManager.all();
+    }
+
+    @Operation(summary = "获得当前所有在线设备信息")
+    @GetMapping("terminal/option")
+    public APIResult<List<String>> getClientId() {
+        Collection<Session> all = sessionManager.all();
+        List<String> result = all.stream().map(session -> session.getId()).collect(Collectors.toList());
+        return new APIResult(result);
+    }
+
+    @Operation(summary = "获得当前所有在线设备信息")
+    @PostMapping("terminal/sub")
+    public APIResult<List<String>> getClientId(@RequestParam String clientId) {
+        Session session = sessionManager.get(clientId);
+        if (session != null) {
+            loggingPusher.addClient(session.getClientId());
+            return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
+        }
+        return APIResult.SUCCESS;
     }
 
     @Operation(summary = "原始消息发送")
@@ -69,25 +93,6 @@ public class OtherController {
     public Pagination<Location> find(LocationQuery query, PageInfo pageInfo) {
         Pagination<Location> result = Page.start(() -> locationService.find(query), pageInfo);
         return result;
-    }
-
-    @Operation(summary = "日志拦截器")
-    @GetMapping("logger/filter")
-    public Map loggerFilter(@Parameter(description = "终端手机号") String clientId,
-                            @Parameter(description = "忽略的消息ID(十六进制字符串,多个以空格分隔)", example = "0002 0200") String ignoreMsgIds) {
-        LoggingFilter.setFilter(clientId, ignoreMsgIds);
-
-        return StrUtils.newMap(
-                "clientId", LoggingFilter.getClientId(),
-                "ignoreMsgIds", LoggingFilter.getIgnoreMsgIds()
-        );
-    }
-
-    @Operation(summary = "清空日志拦截器")
-    @DeleteMapping("logger/filter")
-    public String deleteLoggerFilter() {
-        LoggingFilter.clear();
-        return "success";
     }
 
     @Operation(summary = "修改日志级别")

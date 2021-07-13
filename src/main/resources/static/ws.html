@@ -1,0 +1,245 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>终端原始报文订阅</title>
+    <style type="text/css">
+        .icos a{float:left;color:#fff;margin:1px;text-align:center;font-weight:700;width:14px;height:22px;line-height:22px;padding:1px;text-decoration:none;font-family:webdings}
+        .icos a:hover{color:#fc0}
+        select.m-wrap{background-color:#fff;background-image:none!important;filter:none!important;border:1px solid #64c3ed;outline:0;height:30px!important;line-height:30px}
+        .select-hide-span{height:25px;position:absolute;top:0;border-right:1px solid #64c3ed;right:0;width:20px!important;z-index:999}
+        .select-show-b{border-color:#888 transparent transparent transparent;border-style:solid;border-width:5px 4px 0 4px;margin-left:-4px;margin-top:10px;position:absolute}
+    </style>
+</head>
+
+<body>
+<div id="Jt808-html"><div style="text-align: center;width: 100%; height: 550px; margin-top: 0px">
+
+    <div>
+        <div style="float: left; width: 0.3%;"></div>
+        <div style="float: left; width: 19.5%; display: inline-block">
+            <textarea id="jt808-0" style="height: 450px; width: 100%; border:solid 1px #64c3ed; resize:none;"></textarea>
+
+            <div style="width: 100%; height: 100px; padding-top: 5px; border: 1px solid #64c3ed;">
+                <select id="sim-0" name="sim" class="m-wrap" style="width: 200px; padding: 2px 0;">
+                    <option value="-1">---请选择订阅设备---</option>
+                </select>
+                <span class="select-hide-span">
+                    <b class="select-show-b"></b>
+                </span>
+                <div id="baseInfo-0"></div>
+
+                <input type="button" value="清空内容" onclick="document.getElementById(&#39;jt808-0&#39;).value=&#39;&#39;">
+                <input type="button" value="取消订阅" onclick="cance(0)">
+                <input type="button" value="订阅" onclick="sub(0)">
+            </div>
+        </div>
+    </div>
+
+</div></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="./axios.js"></script>
+
+<script id="Jt808-tpl" type="text/html">
+    <div>
+        <div style="float: left; width: [space-width]%;"></div>
+        <div style="float: left; width: [width]%; display: inline-block">
+            <textarea id="jt808-[idx]" style="height: 450px; width: 100%; border:solid 1px #64c3ed; resize:none;"></textarea>
+
+            <div style="width: 100%; height: 100px; padding-top: 5px; border: 1px solid #64c3ed;">
+                <select id="sim-[idx]" name="sim" class="m-wrap" style="width: 200px; padding: 2px 0;">
+                    [option]
+                </select>
+                <span class="select-hide-span">
+                    <b class="select-show-b"></b>
+                </span>
+                <div id="baseInfo-[idx]"></div>
+
+                <input type="button" value="清空内容" onclick="document.getElementById('jt808-[idx]').value=''">
+                <input type="button" value="取消订阅" onclick="cance([idx])">
+                <input type="button" value="订阅" onclick="sub([idx])">
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript">
+    var $ = function(id){
+        return document.getElementById(id)
+    }
+    var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm'); //i g m是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
+
+    var topic_jt808 = '/topic/jt808/'
+    var topic_lbs = '/topic/subscribe/lbs/'
+
+    var host = window.location.host
+    var domain = '//' + host
+
+    var stompClient = {};
+    var subscriptions = {};
+
+    var subDevice = function (deviceId, fn) {
+        axios.request({
+            url: domain + '/terminal/sub?clientId='+deviceId,
+            type: 'POST',
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                console.log(result)
+                if (status === 200 && result.code === 200) {
+                    fn(result.data)
+                    return
+                }
+                alert(result)
+            },
+        })
+    }
+
+    var getAllDeviceId = function (fn) {
+        axios.request({
+            url: domain + '/terminal/option?_='+Date.now(),
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                console.log(result)
+                if (status === 200 && result.code === 200) {
+                    fn(result.data)
+                    return
+                }
+                alert(result)
+            },
+        })
+    }
+
+    var renderJt808 = function(data) {
+
+        var options = '<option value="-1">没有可订阅的终端设备</option>\n';
+        if (data && data.length) {
+            options = '<option value="-1">---请选择订阅设备---</option>\n';
+            options += data.map(function (deviceNo) {
+                return '<option value="' + deviceNo + '">车载设备:' + deviceNo + '</option>'
+            }).join('\n');
+        }
+
+        var tpl = $('Jt808-tpl').innerHTML;
+        var jt808 = $('Jt808-html')
+        var html = ''
+        var idx = 0
+        for (var i=0; i<1; i++) {
+            html += '<div style="text-align: center;width: 100%; height: 550px; margin-top: '+ (i==0 ? 0 : 20) +'px">\n'
+            for (let j = 0; j<5; j++) {
+                html += tpl.replace(reg, function (node, key) {
+                    return ({idx: idx, width: 19.5, option: options, 'space-width': 0.3})[key]
+                })
+                ++idx
+            }
+            html += '</div>'
+        }
+        jt808.innerHTML = html
+    }
+
+    window.onload = function () {
+        getAllDeviceId(renderJt808)
+    }
+
+    function cance(idx){
+        var el = $('sim-'+idx)
+        var vech = el.value
+        if (vech === '-1') {
+            alert('请选择需要取消订阅的终端')
+            return
+        }
+        var port = el.getAttribute('data-device-plat-port')
+        if(!port) {
+            return;
+        }
+
+        var portSub = subscriptions[port]
+        if(!portSub) return;
+        console.log('取消订阅设备[' + vech + ']实时定位....\n取消订阅设备[' + vech + ']报文')
+        portSub[topic_jt808+vech+idx].unsubscribe()
+        portSub[topic_lbs+vech+idx].unsubscribe()
+        delete portSub[topic_jt808+vech+idx]
+        delete portSub[topic_lbs+vech+idx]
+        el.removeAttribute('data-device-plat-port')
+        vech.defaultValue = '011100999169'
+        $('baseInfo-'+idx).innerHTML = ''
+
+        // console.log(subscriptionquen)
+        // console.log(stompClient)
+    }
+    function sub(idx){
+        var baseInfo = $('baseInfo-'+idx);
+        var el = $('sim-'+idx)
+        var clientId = el.value
+        if (clientId === '-1') {
+            alert('请选择需要订阅的终端')
+            return
+        }
+        if (el.getAttribute('data-device-plat-port')) {
+            var portSub = subscriptions[clientId]
+            if (clientId && portSub[topic_jt808+clientId+idx]) {
+                console.warn('同一设备'+clientId+'不能重复订阅')
+                return;
+            }
+        }
+
+        var fn = function (data) {
+            if (!data) {
+                alert('终端设备'+vech+'已离线，订阅失败')
+                return
+            }
+            var clientId = data.clientId;
+            el.setAttribute('data-device-plat-port', clientId)
+            var subLbs = function () { // 订阅终端定位
+                console.log('开始订阅车辆[' + clientId + ']实时定位....')
+                var portSub = subscriptions[clientId] = subscriptions[clientId] || {}
+                portSub[topic_lbs+clientId+idx] = client.subscribe(topic_lbs + clientId,
+                    function(response) {
+                        realLocation = $('jt808-'+idx);
+                        realLocation.value = realLocation.value + '\n\n' + (clientId ? '车辆[' + clientId + ']' : '') + '定位信息：\n' + response.body + '\n';
+                    },{SIM:clientId,p:1}
+                );
+            }
+
+            var subJt808 = function () { // 订阅终端报文
+                var portSub = subscriptions[clientId] = subscriptions[clientId] || {}
+                portSub[topic_jt808+clientId+idx] = client.subscribe(topic_jt808 + clientId,
+                    function(response) {
+                        realLocation = $('jt808-'+idx);
+                        var data = JSON.parse(response.body)
+                        realLocation.value = realLocation.value + "\n" + data['data'];
+                        baseInfo.innerHTML = '<div style="float: left;">终端上线号：'+data['terminal']+'</div><br/><div style="float: left;">终端IP：'+data['clentIp']+'</div><br/><div style="float: left;">服务器IP：'+data['host']+'</div>'
+                    },{SIM:clientId,p:1}
+                );
+                console.log('开始订阅终端设备[' + clientId + ']报文....')
+                subLbs()
+            }
+
+            var client = stompClient[clientId];
+            if (!client) {
+                client = Stomp.client('ws://' + host+'/websocket');
+                client.debug = function(res){
+                    // console.log(res)
+                };
+                stompClient[clientId] = client
+            }
+            if (client.ws.readyState === 1) {
+                subJt808()
+                return;
+            } else {
+                client.connect({},function (res) {
+                    console.log('websocket connect sucess!', res)
+                    subJt808()
+                }, function (error) {
+                    alert('websocket 连接失败！')
+                    console.log('websocket connect failed!', error)
+                })
+                return;
+            }
+        }
+
+        subDevice(clientId,fn);
+    }
+
+</script>
+</body></html>

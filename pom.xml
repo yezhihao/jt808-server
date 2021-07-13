@@ -70,22 +70,14 @@
             <artifactId>spring-boot-starter-jetty</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>jakarta.websocket</groupId>
-                    <artifactId>jakarta.websocket-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.websocket</groupId>
-                    <artifactId>websocket-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.websocket</groupId>
-                    <artifactId>javax-websocket-server-impl</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.glassfish</groupId>
                     <artifactId>jakarta.el</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

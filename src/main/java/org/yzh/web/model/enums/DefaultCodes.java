@@ -7,7 +7,7 @@ import org.yzh.web.commons.ResultCode;
  */
 public enum DefaultCodes implements ResultCode {
 
-    Success(0, ""),
+    Success(200, ""),
     UnregisteredUser(402, "未注册的用户"),
     Unauthorized(403, "用户授权失败"),
     MissingParameter(400, "缺少必要的参数"),

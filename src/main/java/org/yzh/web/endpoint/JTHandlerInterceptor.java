@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.LoggingFilter;
 import org.yzh.protocol.t808.T0001;
 import org.yzh.web.model.enums.SessionKey;
 
@@ -26,8 +25,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.NotSupport);
 
-        if (LoggingFilter.info(request))
-            log.info("{}\n<<<<-未识别的消息{}\n>>>>-{}", session, request, response);
+        log.info("{}\n<<<<-未识别的消息{}\n>>>>-{}", session, request, response);
         return response;
     }
 
@@ -44,8 +42,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Success);
 
-        if (LoggingFilter.info(request))
-            log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
         return response;
     }
 
@@ -93,7 +90,6 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
                 response.setMessageId(response.reflectMessageId());
             }
         }
-        if (LoggingFilter.info(request))
-            log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
     }
 }

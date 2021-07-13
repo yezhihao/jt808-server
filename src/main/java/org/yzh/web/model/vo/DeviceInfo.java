@@ -14,7 +14,8 @@ public class DeviceInfo {
     private byte reserved;
     /** 设备ID */
     private String deviceId;
-
+    /** 终端ID */
+    private String clientId;
     /** 车牌颜色 */
     private byte plateColor;
     /** 车牌号 */
@@ -45,6 +46,14 @@ public class DeviceInfo {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public byte getPlateColor() {

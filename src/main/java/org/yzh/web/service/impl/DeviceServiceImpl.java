@@ -61,6 +61,7 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceInfo device = new DeviceInfo();
         device.setIssuedAt(LocalDate.now());
         device.setDeviceId(deviceId);
+        device.setClientId(request.getClientId());
 
         device.setReserved((byte) 0);
         device.setPlateColor((byte) request.getPlateColor());
@@ -76,6 +77,7 @@ public class DeviceServiceImpl implements DeviceService {
             bytes = Base64.getDecoder().decode(token);
             bytes = EncryptUtils.decrypt(bytes);
             DeviceInfo device = DeviceInfo.formBytes(bytes);
+            device.setClientId(request.getClientId());
 
             DeviceDO record = deviceMapper.get(device.getDeviceId());
             if (record != null) {
