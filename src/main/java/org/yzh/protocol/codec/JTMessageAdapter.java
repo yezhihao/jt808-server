@@ -34,13 +34,9 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
 
     public ByteBuf encode(JTMessage message, Session session) {
         ByteBuf output = messageEncoder.encode(message, session);
-        if (log.isInfoEnabled()) {
-            String hexDump = ByteBufUtil.hexDump(output);
-            log.info(">>>>>session={},payload={}", session, hexDump);
-            loggingPusher.info(message, hexDump);
-        } else {
-            loggingPusher.info(message, ByteBufUtil.hexDump(output));
-        }
+        if (log.isInfoEnabled())
+            log.info(">>>>>session={},payload={}", session, ByteBufUtil.hexDump(output));
+        loggingPusher.send(message, output);
         return output;
     }
 
@@ -50,15 +46,12 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
         if (message != null) {
             if (message.isVerified()) {
                 if (log.isInfoEnabled()) {
-                    String hexDump = ByteBufUtil.hexDump(input, 0, input.writerIndex());
-                    log.info("<<<<<session={},payload={}", session, hexDump);
-                    loggingPusher.info(message, hexDump);
-                } else {
-                    loggingPusher.info(message, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
+                    log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
                 }
             } else {
                 log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
             }
+            loggingPusher.send(message, input);
         }
         return message;
     }

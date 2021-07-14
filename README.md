@@ -108,6 +108,10 @@ DarkRepulsor 运行效果如下：
 
 录入参数，点击发送
 ![Knife4j UI](https://images.gitee.com/uploads/images/2020/1231/115947_bb39bcd0_670717.jpeg)
+ 
+* 设备消息监控：[http://127.0.0.1:8000/ws.html](http://127.0.0.1:8000/ws.html)
+
+![Console](https://images.gitee.com/uploads/images/2021/0714/171301_9f44b193_670717.jpeg)
 
 # 开发步骤
 

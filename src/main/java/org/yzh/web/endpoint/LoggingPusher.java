@@ -1,5 +1,7 @@
 package org.yzh.web.endpoint;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,9 @@ public class LoggingPusher {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    public void info(JTMessage message, String raw) {
+    public void send(JTMessage message, ByteBuf buf) {
         if (clientIds.contains(message.getClientId()))
-            messagingTemplate.convertAndSend("/topic/subscribe/lbs/" + message.getClientId(), message + "\n" + raw);
+            messagingTemplate.convertAndSend("/topic/subscribe/lbs/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(buf, 0, buf.writerIndex()));
     }
 
     public void clear() {
@@ -27,14 +29,18 @@ public class LoggingPusher {
     }
 
     public void addClient(String clientId) {
-        synchronized (clientIds) {
-            clientIds.add(clientId);
+        if (!clientIds.contains(clientId)) {
+            synchronized (clientIds) {
+                clientIds.add(clientId);
+            }
         }
     }
 
     public void removeClient(String clientId) {
-        synchronized (clientIds) {
-            clientIds.remove(clientId);
+        if (clientIds.contains(clientId)) {
+            synchronized (clientIds) {
+                clientIds.remove(clientId);
+            }
         }
     }
 }

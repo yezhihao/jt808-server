@@ -64,14 +64,21 @@ public class OtherController {
         return new APIResult(result);
     }
 
-    @Operation(summary = "获得当前所有在线设备信息")
+    @Operation(summary = "websocket订阅")
     @PostMapping("terminal/sub")
-    public APIResult<List<String>> getClientId(@RequestParam String clientId) {
+    public APIResult<List<String>> sub(@RequestParam String clientId) {
         Session session = sessionManager.get(clientId);
         if (session != null) {
             loggingPusher.addClient(session.getClientId());
             return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
         }
+        return APIResult.SUCCESS;
+    }
+
+    @Operation(summary = "websocket取消订阅")
+    @PostMapping("terminal/unsub")
+    public APIResult<List<String>> unsub(@RequestParam String clientId) {
+        loggingPusher.removeClient(clientId);
         return APIResult.SUCCESS;
     }
 
