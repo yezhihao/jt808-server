@@ -153,7 +153,7 @@ public class T0200 extends JTMessage {
         speedKph = speed / 10f;
         deviceTime = DateUtils.parse(dateTime);
 
-        DeviceInfo device = (DeviceInfo) session.getAttribute(SessionKey.DeviceInfo);
+        DeviceInfo device = SessionKey.getDeviceInfo(session);
         if (device != null) {
             deviceId = device.getDeviceId();
             plateNo = device.getPlateNo();

@@ -163,7 +163,7 @@ public class FileServiceImpl implements FileService {
     /** 多媒体数据上传 */
     @Override
     public boolean saveMediaFile(T0801 message) {
-        DeviceInfo deviceInfo = (DeviceInfo) message.getSession().getAttribute(SessionKey.DeviceInfo);
+        DeviceInfo deviceInfo = SessionKey.getDeviceInfo(message.getSession());
         T0200 location = message.getLocation();
 
         StringBuilder filename = new StringBuilder(32);
