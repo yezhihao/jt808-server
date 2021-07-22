@@ -42,15 +42,12 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
 
     @Override
     public JTMessage decode(ByteBuf input, Session session) {
+        if (log.isInfoEnabled())
+            log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
         JTMessage message = messageDecoder.decode(input, session);
         if (message != null) {
-            if (message.isVerified()) {
-                if (log.isInfoEnabled()) {
-                    log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
-                }
-            } else {
+            if (!message.isVerified())
                 log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
-            }
             loggingPusher.send(message, input);
         }
         return message;
