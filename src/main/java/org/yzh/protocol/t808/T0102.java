@@ -20,7 +20,7 @@ public class T0102 extends JTMessage {
     @Field(index = 2, type = DataType.STRING, length = 15, desc = "终端IMEI", version = 1)
     private String imei;
     @Field(index = 17, type = DataType.STRING, length = 20, desc = "软件版本号", version = 1)
-    private String version;
+    private String softwareVersion;
 
     public String getToken() {
         return token;
@@ -38,11 +38,11 @@ public class T0102 extends JTMessage {
         this.imei = imei;
     }
 
-    public String getVersion() {
-        return version;
+    public String getSoftwareVersion() {
+        return softwareVersion;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setSoftwareVersion(String softwareVersion) {
+        this.softwareVersion = softwareVersion;
     }
 }

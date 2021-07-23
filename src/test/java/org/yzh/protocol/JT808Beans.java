@@ -70,7 +70,7 @@ public class JT808Beans {
         T0102 bean = new T0102();
         bean.setToken("pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8=");
         bean.setImei("123456789012345");
-        bean.setVersion("3.7.15");
+        bean.setSoftwareVersion("3.7.15");
         return bean;
     }
 

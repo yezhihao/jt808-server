@@ -87,7 +87,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                 record = new DeviceDO(device.getDeviceId(), true, LocalDateTime.now());
                 record.setImei(request.getImei());
-                record.setSoftwareVersion(request.getVersion());
+                record.setSoftwareVersion(request.getSoftwareVersion());
                 deviceMapper.update(record);
             }
             return device;
