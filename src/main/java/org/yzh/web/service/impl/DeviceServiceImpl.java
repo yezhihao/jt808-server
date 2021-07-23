@@ -43,7 +43,7 @@ public class DeviceServiceImpl implements DeviceService {
         record.setMakerId(request.getMakerId());
         record.setCityId(request.getCityId());
         record.setProvinceId(request.getProvinceId());
-        record.setProtocolVersion(request.getVersionNo());
+        record.setProtocolVersion(request.getProtocolVersion());
         record.setDeviceTime(now);
         record.setRegisterTime(now);
         if (deviceDO == null || deviceDO.getInstallTime() == null)
@@ -62,7 +62,7 @@ public class DeviceServiceImpl implements DeviceService {
         device.setIssuedAt(LocalDate.now());
         device.setDeviceId(deviceId);
         device.setClientId(request.getClientId());
-        device.setProtocolVersion(request.getVersionNo());
+        device.setProtocolVersion(request.getProtocolVersion());
 
         device.setReserved((byte) 0);
         device.setPlateColor((byte) request.getPlateColor());
@@ -79,7 +79,7 @@ public class DeviceServiceImpl implements DeviceService {
             bytes = EncryptUtils.decrypt(bytes);
             DeviceInfo device = DeviceInfo.formBytes(bytes);
             device.setClientId(request.getClientId());
-            device.setProtocolVersion(request.getVersionNo());
+            device.setProtocolVersion(request.getProtocolVersion());
 
             DeviceDO record = deviceMapper.get(device.getDeviceId());
             if (record != null) {

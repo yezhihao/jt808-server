@@ -69,7 +69,7 @@ public class SwaggerConfig {
     static {
         ignores.add("messageId");
         ignores.add("properties");
-        ignores.add("versionNo");
+        ignores.add("protocolVersion");
         ignores.add("clientId");
         ignores.add("serialNo");
         ignores.add("packageTotal");

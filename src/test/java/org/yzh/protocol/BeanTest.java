@@ -59,7 +59,7 @@ public class BeanTest {
         int messageId = message.reflectMessageId();
         if (messageId != 0)
             message.setMessageId(messageId);
-        message.setVersionNo(1);
+        message.setProtocolVersion(1);
         message.setClientId("12345678901234567890");
         message.setSerialNo(65535);
         message.setEncryption(0);

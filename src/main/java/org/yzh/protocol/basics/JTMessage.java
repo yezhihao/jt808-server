@@ -15,7 +15,7 @@ import java.beans.Transient;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@JsonIgnoreProperties({"messageId", "properties", "versionNo", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
+@JsonIgnoreProperties({"messageId", "properties", "protocolVersion", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
 public class JTMessage implements Message {
 
     @Field(index = 0, type = DataType.WORD, desc = "消息ID")
@@ -23,7 +23,7 @@ public class JTMessage implements Message {
     @Field(index = 2, type = DataType.WORD, desc = "消息体属性")
     protected int properties;
     @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
-    protected int versionNo;
+    protected int protocolVersion;
     @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
     @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
     protected String clientId;
@@ -53,7 +53,7 @@ public class JTMessage implements Message {
 
     public JTMessage copyBy(JTMessage that) {
         this.setClientId(that.getClientId());
-        this.setVersionNo(that.getVersionNo());
+        this.setProtocolVersion(that.getProtocolVersion());
         this.setVersion(that.isVersion());
         return this;
     }
@@ -74,12 +74,12 @@ public class JTMessage implements Message {
         this.properties = properties;
     }
 
-    public int getVersionNo() {
-        return versionNo;
+    public int getProtocolVersion() {
+        return protocolVersion;
     }
 
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
+    public void setProtocolVersion(int protocolVersion) {
+        this.protocolVersion = protocolVersion;
     }
 
     public String getClientId() {
@@ -229,7 +229,7 @@ public class JTMessage implements Message {
         sb.append('[');
         sb.append("cid=").append(clientId);
         sb.append(",msg=").append(messageId);
-        sb.append(",ver=").append(versionNo);
+        sb.append(",ver=").append(protocolVersion);
         sb.append(",ser=").append(serialNo);
         sb.append(",prop=").append(properties);
         if (isSubpackage()) {
@@ -238,7 +238,7 @@ public class JTMessage implements Message {
         }
         sb.append(']');
         sb.append(',');
-        String result = ToStringBuilder.toString(sb, this, false, "messageId", "clientId", "versionNo", "serialNo", "properties", "packageTotal", "packageNo");
+        String result = ToStringBuilder.toString(sb, this, false, "messageId", "clientId", "protocolVersion", "serialNo", "properties", "packageTotal", "packageNo");
         return result;
     }
 }

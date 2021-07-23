@@ -102,10 +102,10 @@ public class T0100 extends JTMessage {
     }
 
     @Override
-    public int getVersionNo() {
+    public int getProtocolVersion() {
         int bodyLength = getBodyLength();
         if (bodyLength > 0 && bodyLength < 37)
             return -1;
-        return super.getVersionNo();
+        return super.getProtocolVersion();
     }
 }

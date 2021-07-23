@@ -122,7 +122,7 @@ public class T0200 extends JTMessage {
             sb.append('[');
             sb.append("cid=").append(clientId);
             sb.append(",msg=").append(messageId);
-            sb.append(",ver=").append(versionNo);
+            sb.append(",ver=").append(protocolVersion);
             sb.append(",ser=").append(serialNo);
             sb.append(",prop=").append(properties);
             if (isSubpackage()) {

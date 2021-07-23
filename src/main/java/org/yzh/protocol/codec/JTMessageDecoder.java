@@ -61,7 +61,7 @@ public class JTMessageDecoder {
 
         headSchema.mergeFrom(buf.slice(0, headLen), message);
 
-        int realVersion = message.getVersionNo();
+        int realVersion = message.getProtocolVersion();
         if (realVersion != version)
             bodySchema = ProtostarUtil.getRuntimeSchema(messageId, realVersion);
 

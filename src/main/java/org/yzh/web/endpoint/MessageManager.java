@@ -46,10 +46,10 @@ public class MessageManager {
         request.setSerialNo(session.nextSerialNo());
 
         DeviceInfo device = SessionKey.getDeviceInfo(session);
-        int versionNo = device.getProtocolVersion();
-        if (versionNo >= 0) {
+        int protocolVersion = device.getProtocolVersion();
+        if (protocolVersion >= 0) {
             request.setVersion(true);
-            request.setVersionNo(versionNo);
+            request.setProtocolVersion(protocolVersion);
         }
         if (request.getMessageId() == 0) {
             request.setMessageId(request.reflectMessageId());

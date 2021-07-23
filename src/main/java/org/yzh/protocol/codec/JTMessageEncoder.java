@@ -33,7 +33,7 @@ public class JTMessageEncoder {
     }
 
     public ByteBuf encode(JTMessage message, Session session) {
-        int version = message.getVersionNo();
+        int version = message.getProtocolVersion();
         int headLength = JTUtils.headerLength(version, false);
         int bodyLength = 0;
 
