@@ -111,7 +111,7 @@ public class JT808Beans {
         bean.setMakerId("2D_AN");
         bean.setDeviceModel("BSJ-GF-06");
         bean.setDeviceId(DEVICE_ID);
-        bean.setSimNo("12345678901234567890");
+        bean.setIccid("12345678901234567890");
         bean.setFirmwareVersion("1.1.25");
         bean.setHardwareVersion("3.0.0");
         bean.setGnssAttribute(127);

@@ -23,9 +23,9 @@ public class T0107 extends JTMessage {
     @Field(index = 27, type = DataType.STRING, length = 7, desc = "终端ID", version = 0)
     @Field(index = 37, type = DataType.STRING, length = 30, desc = "终端ID", version = 1)
     private String deviceId;
-    @Field(index = 42, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 0)
-    @Field(index = 67, type = DataType.BCD8421, length = 10, desc = "终端SIM卡ICCID", version = 1)
-    private String simNo;
+    @Field(index = 42, type = DataType.HEX, length = 10, desc = "终端SIM卡ICCID", version = 0)
+    @Field(index = 67, type = DataType.HEX, length = 10, desc = "终端SIM卡ICCID", version = 1)
+    private String iccid;
     @Field(index = 52, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 0)
     @Field(index = 77, type = DataType.STRING, lengthSize = 1, desc = "硬件版本号", version = 1)
     private String hardwareVersion;
@@ -73,12 +73,12 @@ public class T0107 extends JTMessage {
         this.deviceId = deviceId;
     }
 
-    public String getSimNo() {
-        return simNo;
+    public String getIccid() {
+        return iccid;
     }
 
-    public void setSimNo(String simNo) {
-        this.simNo = simNo;
+    public void setIccid(String iccid) {
+        this.iccid = iccid;
     }
 
     public String getHardwareVersion() {

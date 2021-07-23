@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class MessageId {
 
-    private static final Map<Integer, String> messageId = new HashMap<>(150);
+    private static final Map<Integer, String> messageId = new HashMap<>(256);
 
     static {
         for (Class clazz : new Class[]{JT808.class, JT1078.class, JSATL12.class}) {

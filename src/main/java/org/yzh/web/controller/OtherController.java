@@ -20,6 +20,7 @@ import org.yzh.web.component.mybatis.Pagination;
 import org.yzh.web.endpoint.LoggingPusher;
 import org.yzh.web.model.APIResult;
 import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
@@ -66,7 +67,7 @@ public class OtherController {
 
     @Operation(summary = "websocket订阅")
     @PostMapping("terminal/sub")
-    public APIResult<List<String>> sub(@RequestParam String clientId) {
+    public APIResult<DeviceInfo> sub(@RequestParam String clientId) {
         Session session = sessionManager.get(clientId);
         if (session != null) {
             loggingPusher.addClient(session.getClientId());
