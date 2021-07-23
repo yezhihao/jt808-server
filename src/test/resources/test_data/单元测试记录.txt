@@ -1,4 +1,6 @@
 
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e121000391234567890127fff3736353433323137363534333231200827111111010301616437323133313537396535346265306230663733376366633732633564623800007b7e
 json1 {
   "deviceId": "7654321",
@@ -14,7 +16,7 @@ json1 {
   "total": 0,
   "messageId": 4624,
   "properties": 57,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -34,7 +36,7 @@ json2 {
   "total": 0,
   "messageId": 4624,
   "properties": 57,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -54,7 +56,7 @@ json1 {
   "total": 0,
   "messageId": 4624,
   "properties": 16488,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -74,7 +76,7 @@ json2 {
   "total": 0,
   "messageId": 4624,
   "properties": 16488,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -86,7 +88,7 @@ json1 {
   "size": 1024,
   "messageId": 4625,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -98,7 +100,7 @@ json2 {
   "size": 1024,
   "messageId": 4625,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -110,7 +112,7 @@ json1 {
   "size": 1024,
   "messageId": 4625,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -122,11 +124,12 @@ json2 {
   "size": 1024,
   "messageId": 4625,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e920800521234567890127fff0d34372e3130342e39372e313639200a200b373635343332312008271111110101016164373231333135373965353462653062306637333763666337326335646238000000000000000000000000000000009e7e
 json1 {
   "ip": "47.104.97.169",
@@ -160,7 +163,7 @@ json1 {
   ],
   "messageId": 37384,
   "properties": 82,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -198,7 +201,7 @@ json2 {
   ],
   "messageId": 37384,
   "properties": 82,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -236,7 +239,7 @@ json1 {
   ],
   "messageId": 37384,
   "properties": 16490,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -274,7 +277,7 @@ json2 {
   ],
   "messageId": 37384,
   "properties": 16490,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -291,7 +294,7 @@ json1 {
   ],
   "messageId": 37394,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -308,7 +311,7 @@ json2 {
   ],
   "messageId": 37394,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -325,7 +328,7 @@ json1 {
   ],
   "messageId": 37394,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -342,7 +345,7 @@ json2 {
   ],
   "messageId": 37394,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -360,7 +363,7 @@ json1 {
   "maxVideoChannels": 8,
   "messageId": 4099,
   "properties": 10,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -378,7 +381,7 @@ json2 {
   "maxVideoChannels": 8,
   "messageId": 4099,
   "properties": 10,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -396,7 +399,7 @@ json1 {
   "maxVideoChannels": 8,
   "messageId": 4099,
   "properties": 16394,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -414,7 +417,7 @@ json2 {
   "maxVideoChannels": 8,
   "messageId": 4099,
   "properties": 16394,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -427,7 +430,7 @@ json1 {
   "getOffCount": 18450,
   "messageId": 4101,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -440,7 +443,7 @@ json2 {
   "getOffCount": 18450,
   "messageId": 4101,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -453,7 +456,7 @@ json1 {
   "getOffCount": 18450,
   "messageId": 4101,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -466,7 +469,7 @@ json2 {
   "getOffCount": 18450,
   "messageId": 4101,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -501,7 +504,7 @@ json1 {
   ],
   "messageId": 4613,
   "properties": 62,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -536,7 +539,7 @@ json2 {
   ],
   "messageId": 4613,
   "properties": 62,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -571,7 +574,7 @@ json1 {
   ],
   "messageId": 4613,
   "properties": 16446,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -606,7 +609,7 @@ json2 {
   ],
   "messageId": 4613,
   "properties": 16446,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -617,7 +620,7 @@ json1 {
   "result": 1,
   "messageId": 4614,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -628,7 +631,7 @@ json2 {
   "result": 1,
   "messageId": 4614,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -639,7 +642,7 @@ json1 {
   "result": 1,
   "messageId": 4614,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -650,7 +653,7 @@ json2 {
   "result": 1,
   "messageId": 4614,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -665,7 +668,7 @@ json1 {
   "streamType": 0,
   "messageId": 37121,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -680,7 +683,7 @@ json2 {
   "streamType": 0,
   "messageId": 37121,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -695,7 +698,7 @@ json1 {
   "streamType": 0,
   "messageId": 37121,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -710,7 +713,7 @@ json2 {
   "streamType": 0,
   "messageId": 37121,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -723,7 +726,7 @@ json1 {
   "streamType": 3,
   "messageId": 37122,
   "properties": 4,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -736,7 +739,7 @@ json2 {
   "streamType": 3,
   "messageId": 37122,
   "properties": 4,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -749,7 +752,7 @@ json1 {
   "streamType": 3,
   "messageId": 37122,
   "properties": 16388,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -762,7 +765,7 @@ json2 {
   "streamType": 3,
   "messageId": 37122,
   "properties": 16388,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -773,7 +776,7 @@ json1 {
   "packetLossRate": 3,
   "messageId": 37125,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -784,7 +787,7 @@ json2 {
   "packetLossRate": 3,
   "messageId": 37125,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -795,7 +798,7 @@ json1 {
   "packetLossRate": 3,
   "messageId": 37125,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -806,7 +809,7 @@ json2 {
   "packetLossRate": 3,
   "messageId": 37125,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -826,7 +829,7 @@ json1 {
   "endTime": "200707192359",
   "messageId": 37377,
   "properties": 36,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -846,7 +849,7 @@ json2 {
   "endTime": "200707192359",
   "messageId": 37377,
   "properties": 36,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -866,7 +869,7 @@ json1 {
   "endTime": "200707192359",
   "messageId": 37377,
   "properties": 16420,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -886,7 +889,7 @@ json2 {
   "endTime": "200707192359",
   "messageId": 37377,
   "properties": 16420,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -899,7 +902,7 @@ json1 {
   "playbackTime": "200707192359",
   "messageId": 37378,
   "properties": 9,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -912,7 +915,7 @@ json2 {
   "playbackTime": "200707192359",
   "messageId": 37378,
   "properties": 9,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -925,7 +928,7 @@ json1 {
   "playbackTime": "200707192359",
   "messageId": 37378,
   "properties": 16393,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -938,7 +941,7 @@ json2 {
   "playbackTime": "200707192359",
   "messageId": 37378,
   "properties": 16393,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -955,7 +958,7 @@ json1 {
   "storageType": 0,
   "messageId": 37381,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -972,7 +975,7 @@ json2 {
   "storageType": 0,
   "messageId": 37381,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -989,7 +992,7 @@ json1 {
   "storageType": 0,
   "messageId": 37381,
   "properties": 16408,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1006,7 +1009,7 @@ json2 {
   "storageType": 0,
   "messageId": 37381,
   "properties": 16408,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1029,7 +1032,7 @@ json1 {
   "condition": 1,
   "messageId": 37382,
   "properties": 69,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1052,7 +1055,7 @@ json2 {
   "condition": 1,
   "messageId": 37382,
   "properties": 69,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1075,7 +1078,7 @@ json1 {
   "condition": 1,
   "messageId": 37382,
   "properties": 16453,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1098,7 +1101,7 @@ json2 {
   "condition": 1,
   "messageId": 37382,
   "properties": 16453,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1109,7 +1112,7 @@ json1 {
   "command": 2,
   "messageId": 37383,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1120,7 +1123,7 @@ json2 {
   "command": 2,
   "messageId": 37383,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1131,7 +1134,7 @@ json1 {
   "command": 2,
   "messageId": 37383,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1142,7 +1145,7 @@ json2 {
   "command": 2,
   "messageId": 37383,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1154,7 +1157,7 @@ json1 {
   "param2": 3,
   "messageId": 37633,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1166,7 +1169,7 @@ json2 {
   "param2": 3,
   "messageId": 37633,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1178,7 +1181,7 @@ json1 {
   "param2": 3,
   "messageId": 37633,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1190,7 +1193,7 @@ json2 {
   "param2": 3,
   "messageId": 37633,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1201,7 +1204,7 @@ json1 {
   "param": 255,
   "messageId": 37634,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1212,7 +1215,7 @@ json2 {
   "param": 255,
   "messageId": 37634,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1223,7 +1226,7 @@ json1 {
   "param": 255,
   "messageId": 37634,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1234,7 +1237,7 @@ json2 {
   "param": 255,
   "messageId": 37634,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1246,7 +1249,7 @@ json1 {
   "resultCode": 3,
   "messageId": 32769,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1258,7 +1261,7 @@ json2 {
   "resultCode": 3,
   "messageId": 32769,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1270,7 +1273,7 @@ json1 {
   "resultCode": 3,
   "messageId": 32769,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1282,7 +1285,7 @@ json2 {
   "resultCode": 3,
   "messageId": 32769,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1291,7 +1294,7 @@ hex1 7e000200001234567890127fff087e
 json1 {
   "messageId": 2,
   "properties": 0,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1300,7 +1303,7 @@ hex2 7e000200001234567890127fff087e
 json2 {
   "messageId": 2,
   "properties": 0,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1309,7 +1312,7 @@ hex1 7e000240000112345678901234567890ffff437e
 json1 {
   "messageId": 2,
   "properties": 16384,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1318,11 +1321,12 @@ hex2 7e000240000112345678901234567890ffff437e
 json2 {
   "messageId": 2,
   "properties": 16384,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e0100002e1234567890127fff001f00730000000034000000000000000000000042534a2d47462d30363736353433323101b2e241383838383838017e
 json1 {
   "provinceId": 31,
@@ -1334,7 +1338,7 @@ json1 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1350,7 +1354,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1366,7 +1370,7 @@ json1 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 16469,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1382,7 +1386,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 16469,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1392,7 +1396,7 @@ json1 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "messageId": 258,
   "properties": 44,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1402,7 +1406,7 @@ json2 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "messageId": 258,
   "properties": 44,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1411,10 +1415,10 @@ hex1 7e010240500112345678901234567890ffff2c706d59477a47756b4f384b345a356c70494f5
 json1 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "imei": "123456789012345",
-  "version": "3.7.15",
+  "softwareVersion": "3.7.15",
   "messageId": 258,
   "properties": 16464,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1423,10 +1427,10 @@ hex2 7e010240500112345678901234567890ffff2c706d59477a47756b4f384b345a356c70494f5
 json2 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "imei": "123456789012345",
-  "version": "3.7.15",
+  "softwareVersion": "3.7.15",
   "messageId": 258,
   "properties": 16464,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1504,7 +1508,7 @@ json1 {
   },
   "messageId": 260,
   "properties": 91,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1582,7 +1586,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 91,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1660,7 +1664,7 @@ json1 {
   },
   "messageId": 260,
   "properties": 16475,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1738,25 +1742,26 @@ json2 {
   },
   "messageId": 260,
   "properties": 16475,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e0107003b1234567890127fff007f32445f414e000000000000000000000042534a2d47462d3036373635343332311234567890123456789005332e302e3006312e312e32357f7f357e
 json1 {
   "deviceType": 127,
   "makerId": "2D_AN",
   "deviceModel": "BSJ-GF-06",
   "deviceId": "7654321",
-  "simNo": "12345678901234567890",
+  "iccid": "12345678901234567890",
   "hardwareVersion": "3.0.0",
   "firmwareVersion": "1.1.25",
   "gnssAttribute": 127,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 59,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1767,14 +1772,14 @@ json2 {
   "makerId": "2D_AN",
   "deviceModel": "BSJ-GF-06",
   "deviceId": "7654321",
-  "simNo": "12345678901234567890",
+  "iccid": "12345678901234567890",
   "hardwareVersion": "3.0.0",
   "firmwareVersion": "1.1.25",
   "gnssAttribute": 127,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 59,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1785,14 +1790,14 @@ json1 {
   "makerId": "2D_AN",
   "deviceModel": "BSJ-GF-06",
   "deviceId": "09876543210987654321",
-  "simNo": "12345678901234567890",
+  "iccid": "12345678901234567890",
   "hardwareVersion": "3.0.0",
   "firmwareVersion": "1.1.25",
   "gnssAttribute": 127,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 16476,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1803,14 +1808,14 @@ json2 {
   "makerId": "2D_AN",
   "deviceModel": "BSJ-GF-06",
   "deviceId": "09876543210987654321",
-  "simNo": "12345678901234567890",
+  "iccid": "12345678901234567890",
   "hardwareVersion": "3.0.0",
   "firmwareVersion": "1.1.25",
   "gnssAttribute": 127,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 16476,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1821,7 +1826,7 @@ json1 {
   "result": 2,
   "messageId": 264,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1832,7 +1837,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -1843,7 +1848,7 @@ json1 {
   "result": 2,
   "messageId": 264,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1854,7 +1859,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -1931,7 +1936,7 @@ json1 {
   },
   "messageId": 512,
   "properties": 128,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2008,7 +2013,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 128,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2085,7 +2090,7 @@ json1 {
   },
   "messageId": 512,
   "properties": 16512,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2162,7 +2167,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 16512,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2172,7 +2177,7 @@ json1 {
   "eventId": 255,
   "messageId": 769,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2182,7 +2187,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2192,7 +2197,7 @@ json1 {
   "eventId": 255,
   "messageId": 769,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2202,7 +2207,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2213,7 +2218,7 @@ json1 {
   "answerId": 127,
   "messageId": 770,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2224,7 +2229,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2235,7 +2240,7 @@ json1 {
   "answerId": 127,
   "messageId": 770,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2246,7 +2251,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2257,7 +2262,7 @@ json1 {
   "action": 0,
   "messageId": 771,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2268,7 +2273,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2279,7 +2284,7 @@ json1 {
   "action": 0,
   "messageId": 771,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2290,7 +2295,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2306,7 +2311,7 @@ json1 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 78,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2322,7 +2327,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 78,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2338,7 +2343,7 @@ json1 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 16462,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2354,7 +2359,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 16462,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2376,7 +2381,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2393,7 +2398,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2410,7 +2415,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2427,7 +2432,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2435,7 +2440,7 @@ json1 {
   ],
   "messageId": 1796,
   "properties": 123,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2457,7 +2462,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2474,7 +2479,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2491,7 +2496,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2508,7 +2513,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2516,7 +2521,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 123,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2538,7 +2543,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2555,7 +2560,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2572,7 +2577,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2589,7 +2594,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2597,7 +2602,7 @@ json1 {
   ],
   "messageId": 1796,
   "properties": 16507,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2619,7 +2624,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2636,7 +2641,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2653,7 +2658,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2670,7 +2675,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -2678,7 +2683,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 16507,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2730,7 +2735,7 @@ json1 {
   ],
   "messageId": 1797,
   "properties": 43,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2782,7 +2787,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 43,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2834,7 +2839,7 @@ json1 {
   ],
   "messageId": 1797,
   "properties": 16427,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2886,7 +2891,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 16427,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2900,7 +2905,7 @@ json1 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 8,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2914,7 +2919,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 8,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -2928,7 +2933,7 @@ json1 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 16392,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2942,7 +2947,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 16392,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -2965,7 +2970,7 @@ json1 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -2978,7 +2983,7 @@ json1 {
   ],
   "messageId": 2049,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3001,7 +3006,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -3014,7 +3019,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3037,7 +3042,7 @@ json1 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -3050,7 +3055,7 @@ json1 {
   ],
   "messageId": 2049,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3073,7 +3078,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -3086,7 +3091,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3112,7 +3117,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3133,7 +3138,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3154,7 +3159,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3175,7 +3180,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3183,7 +3188,7 @@ json1 {
   ],
   "messageId": 2050,
   "properties": 144,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3209,7 +3214,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3230,7 +3235,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3251,7 +3256,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3272,7 +3277,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3280,7 +3285,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 144,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3306,7 +3311,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3327,7 +3332,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3348,7 +3353,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3369,7 +3374,7 @@ json1 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3377,7 +3382,7 @@ json1 {
   ],
   "messageId": 2050,
   "properties": 16528,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3403,7 +3408,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3424,7 +3429,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3445,7 +3450,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3466,7 +3471,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -3474,7 +3479,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 16528,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3497,7 +3502,7 @@ json1 {
   ],
   "messageId": 2053,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3520,7 +3525,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3543,7 +3548,7 @@ json1 {
   ],
   "messageId": 2053,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3566,7 +3571,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3587,7 +3592,7 @@ json1 {
   ],
   "messageId": 2305,
   "properties": 13,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3608,7 +3613,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 13,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3629,7 +3634,7 @@ json1 {
   ],
   "messageId": 2305,
   "properties": 16397,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3650,7 +3655,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 16397,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3672,7 +3677,7 @@ json1 {
   ],
   "messageId": 32771,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3694,7 +3699,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3716,7 +3721,7 @@ json1 {
   ],
   "messageId": 32771,
   "properties": 16406,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3738,7 +3743,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 16406,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3750,7 +3755,7 @@ json1 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3762,7 +3767,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3774,7 +3779,7 @@ json1 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3786,7 +3791,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -3863,7 +3868,7 @@ json1 {
   },
   "messageId": 33027,
   "properties": 89,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -3940,7 +3945,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 89,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4017,7 +4022,7 @@ json1 {
   },
   "messageId": 33027,
   "properties": 16473,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4094,7 +4099,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 16473,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4105,7 +4110,7 @@ json1 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4116,7 +4121,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4127,7 +4132,7 @@ json1 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4138,7 +4143,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4156,7 +4161,7 @@ json1 {
   ],
   "messageId": 33030,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4174,7 +4179,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4192,7 +4197,7 @@ json1 {
   ],
   "messageId": 33030,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4210,7 +4215,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4233,7 +4238,7 @@ json1 {
   ],
   "messageId": 33032,
   "properties": 26,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4256,7 +4261,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 26,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4279,7 +4284,7 @@ json1 {
   ],
   "messageId": 33032,
   "properties": 16410,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4302,7 +4307,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 16410,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4313,7 +4318,7 @@ json1 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4324,7 +4329,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4335,7 +4340,7 @@ json1 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4346,7 +4351,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4357,7 +4362,7 @@ json1 {
   "type": 40286,
   "messageId": 33283,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4368,7 +4373,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4379,7 +4384,7 @@ json1 {
   "type": 40286,
   "messageId": 33283,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4390,7 +4395,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4402,7 +4407,7 @@ json1 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4414,7 +4419,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4426,7 +4431,7 @@ json1 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4438,7 +4443,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4463,7 +4468,7 @@ json1 {
   ],
   "messageId": 33537,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4488,7 +4493,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4513,7 +4518,7 @@ json1 {
   ],
   "messageId": 33537,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4538,7 +4543,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4559,7 +4564,7 @@ json1 {
   ],
   "messageId": 33538,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4580,7 +4585,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4601,7 +4606,7 @@ json1 {
   ],
   "messageId": 33538,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4622,7 +4627,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4671,7 +4676,7 @@ json1 {
   ],
   "messageId": 33539,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4720,7 +4725,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4769,7 +4774,7 @@ json1 {
   ],
   "messageId": 33539,
   "properties": 16449,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4818,7 +4823,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 16449,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4829,7 +4834,7 @@ json1 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 40,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4840,7 +4845,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 40,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4851,7 +4856,7 @@ json1 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 16424,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4862,7 +4867,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 16424,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4873,7 +4878,7 @@ json1 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4884,7 +4889,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4895,7 +4900,7 @@ json1 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4906,7 +4911,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -4934,7 +4939,7 @@ json1 {
   ],
   "messageId": 33793,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4962,7 +4967,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -4990,7 +4995,7 @@ json1 {
   ],
   "messageId": 33793,
   "properties": 16430,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5018,7 +5023,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 16430,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5028,7 +5033,7 @@ json1 {
   "sign": 123,
   "messageId": 34048,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5038,7 +5043,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5048,7 +5053,7 @@ json1 {
   "sign": 123,
   "messageId": 34048,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5058,7 +5063,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5131,7 +5136,7 @@ json1 {
   ],
   "messageId": 34304,
   "properties": 167,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5204,7 +5209,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 167,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5282,7 +5287,7 @@ json1 {
   ],
   "messageId": 34304,
   "properties": 16616,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5360,7 +5365,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 16616,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5376,7 +5381,7 @@ json1 {
   ],
   "messageId": 34305,
   "properties": 17,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5392,7 +5397,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 17,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5408,7 +5413,7 @@ json1 {
   ],
   "messageId": 34305,
   "properties": 16401,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5424,7 +5429,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 16401,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5497,7 +5502,7 @@ json1 {
   ],
   "messageId": 34306,
   "properties": 187,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5570,7 +5575,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 187,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5643,7 +5648,7 @@ json1 {
   ],
   "messageId": 34306,
   "properties": 16571,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5716,7 +5721,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 16571,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5754,7 +5759,7 @@ json1 {
   ],
   "messageId": 34308,
   "properties": 63,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5792,7 +5797,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 63,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5830,7 +5835,7 @@ json1 {
   ],
   "messageId": 34308,
   "properties": 16447,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5868,7 +5873,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 16447,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -5932,7 +5937,7 @@ json1 {
   ],
   "messageId": 34310,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -5996,7 +6001,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6060,7 +6065,7 @@ json1 {
   ],
   "messageId": 34310,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6124,7 +6129,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6142,7 +6147,7 @@ json1 {
   ],
   "messageId": 34312,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6160,7 +6165,7 @@ json2 {
   ],
   "messageId": 34312,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6178,7 +6183,7 @@ json1 {
   ],
   "messageId": 34312,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6196,7 +6201,7 @@ json2 {
   ],
   "messageId": 34312,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6218,7 +6223,7 @@ json1 {
   ],
   "messageId": 34816,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6240,7 +6245,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6262,7 +6267,7 @@ json1 {
   ],
   "messageId": 34816,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6284,7 +6289,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6303,7 +6308,7 @@ json1 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 12,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6322,7 +6327,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 12,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6341,7 +6346,7 @@ json1 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 16396,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6360,7 +6365,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 16396,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6374,7 +6379,7 @@ json1 {
   "endTime": "2020-07-07T19:23:59",
   "messageId": 34818,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6388,7 +6393,7 @@ json2 {
   "endTime": "2020-07-07T19:23:59",
   "messageId": 34818,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6402,7 +6407,7 @@ json1 {
   "endTime": "2020-07-07T19:23:59",
   "messageId": 34818,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6416,7 +6421,7 @@ json2 {
   "endTime": "2020-07-07T19:23:59",
   "messageId": 34818,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6431,7 +6436,7 @@ json1 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6446,7 +6451,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6461,7 +6466,7 @@ json1 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6476,7 +6481,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6489,7 +6494,7 @@ json1 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6502,7 +6507,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6515,7 +6520,7 @@ json1 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6528,7 +6533,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6539,7 +6544,7 @@ json1 {
   "delete": 1,
   "messageId": 34821,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6550,7 +6555,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6561,7 +6566,7 @@ json1 {
   "delete": 1,
   "messageId": 34821,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6572,7 +6577,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6590,7 +6595,7 @@ json1 {
   "dateTime": "2020-07-07T19:23:59",
   "messageId": 513,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6608,7 +6613,7 @@ json2 {
   "dateTime": "2020-07-07T19:23:59",
   "messageId": 513,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6626,7 +6631,7 @@ json1 {
   "dateTime": "2020-07-07T19:23:59",
   "messageId": 513,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6644,7 +6649,7 @@ json2 {
   "dateTime": "2020-07-07T19:23:59",
   "messageId": 513,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -6784,7 +6789,7 @@ json1 {
   ],
   "messageId": 35328,
   "properties": 132,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -6924,7 +6929,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 132,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -7064,7 +7069,7 @@ json1 {
   ],
   "messageId": 35328,
   "properties": 16516,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -7204,7 +7209,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 16516,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -7247,7 +7252,7 @@ json1 {
   },
   "messageId": 2304,
   "properties": 173,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -7290,7 +7295,7 @@ json2 {
   },
   "messageId": 2304,
   "properties": 173,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -7333,7 +7338,7 @@ json1 {
   },
   "messageId": 2304,
   "properties": 16557,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -7376,11 +7381,15 @@ json2 {
   },
   "messageId": 2304,
   "properties": 16557,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e020000d41234567890127fff000004000000080006eeb6ad02633df7013800030063200707192359642f000000400101010a0a01010a0a00640001b2070003640e200707192359000137363534333231200827111111010101652f0000004102020214000000141400c8000516150006c81c200707192359000237363534333231200827111111020202662900000042031e012c00087a23000a2c2a200707192359000337363534333231200827111111030303006729000000430404280190000bde31000d9038200707192359000437363534333231200827111111040404b57e
 json1 {
   "warnBit": 1024,
@@ -7476,7 +7485,7 @@ json1 {
   },
   "messageId": 512,
   "properties": 212,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -7576,7 +7585,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 212,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 32767,
   "verified": true
@@ -7676,7 +7685,7 @@ json1 {
   },
   "messageId": 512,
   "properties": 16692,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -7776,7 +7785,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 16692,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
@@ -7788,7 +7797,7 @@ json2 {
   "resultCode": 3,
   "messageId": 1,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7800,7 +7809,7 @@ json2 {
   "resultCode": 3,
   "messageId": 1,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7813,7 +7822,7 @@ json2 {
   "resultCode": 3,
   "messageId": 1,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -7825,7 +7834,7 @@ json2 {
   "resultCode": 3,
   "messageId": 1,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -7842,7 +7851,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7858,7 +7867,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7875,7 +7884,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 16469,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -7891,7 +7900,7 @@ json2 {
   "plateNo": "测A888888",
   "messageId": 256,
   "properties": 16469,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -7902,7 +7911,7 @@ json2 {
   "token": "abc@123\u0026456",
   "messageId": 258,
   "properties": 11,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7912,7 +7921,7 @@ json2 {
   "token": "abc@123\u0026456",
   "messageId": 258,
   "properties": 11,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -7922,10 +7931,10 @@ json2 {
 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "imei": "123456789012345",
-  "version": "3.7.15",
+  "softwareVersion": "3.7.15",
   "messageId": 258,
   "properties": 16464,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -7934,10 +7943,10 @@ json2 {
 {
   "token": "pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8\u003d",
   "imei": "123456789012345",
-  "version": "3.7.15",
+  "softwareVersion": "3.7.15",
   "messageId": 258,
   "properties": 16464,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8002,7 +8011,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 511,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8066,7 +8075,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 511,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8131,7 +8140,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 16895,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8195,7 +8204,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 16895,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8207,14 +8216,14 @@ json2 {
   "makerId": "_ANEr",
   "deviceModel": "RlkgWwRK",
   "deviceId": "5kw_noL",
-  "simNo": "12812121212",
+  "iccid": "00000000012812121212",
   "hardwareVersion": "ohrnEniST",
   "firmwareVersion": "DDhZr9hy",
   "gnssAttribute": 57,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8225,14 +8234,14 @@ json2 {
   "makerId": "_ANEr",
   "deviceModel": "RlkgWwRK",
   "deviceId": "5kw_noL",
-  "simNo": "12812121212",
+  "iccid": "00000000012812121212",
   "hardwareVersion": "ohrnEniST",
   "firmwareVersion": "DDhZr9hy",
   "gnssAttribute": 57,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8244,14 +8253,14 @@ json2 {
   "makerId": "2D_AN",
   "deviceModel": "RlkgWwRK",
   "deviceId": "r5kw_noL",
-  "simNo": "12812121212",
+  "iccid": "00000000012812121212",
   "hardwareVersion": "ohrnEniST",
   "firmwareVersion": "DDhZr9hy",
   "gnssAttribute": 57,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 16483,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8262,14 +8271,14 @@ json2 {
   "makerId": "2D_AN",
   "deviceModel": "RlkgWwRK",
   "deviceId": "r5kw_noL",
-  "simNo": "12812121212",
+  "iccid": "00000000012812121212",
   "hardwareVersion": "ohrnEniST",
   "firmwareVersion": "DDhZr9hy",
   "gnssAttribute": 57,
   "networkAttribute": 127,
   "messageId": 263,
   "properties": 16483,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8281,7 +8290,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8292,7 +8301,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8304,7 +8313,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8315,7 +8324,7 @@ json2 {
   "result": 2,
   "messageId": 264,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8392,7 +8401,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8468,7 +8477,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8545,7 +8554,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8621,7 +8630,7 @@ json2 {
   },
   "messageId": 512,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8632,7 +8641,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8642,7 +8651,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8653,7 +8662,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8663,7 +8672,7 @@ json2 {
   "eventId": 255,
   "messageId": 769,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8675,7 +8684,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8686,7 +8695,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 3,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8698,7 +8707,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8709,7 +8718,7 @@ json2 {
   "answerId": 127,
   "messageId": 770,
   "properties": 16387,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8721,7 +8730,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8732,7 +8741,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 2,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8744,7 +8753,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8755,7 +8764,7 @@ json2 {
   "action": 0,
   "messageId": 771,
   "properties": 16386,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8772,7 +8781,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 78,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8788,7 +8797,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 78,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8805,7 +8814,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 16462,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8821,7 +8830,7 @@ json2 {
   "licenseValidPeriod": "20190630",
   "messageId": 1794,
   "properties": 16462,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -8844,7 +8853,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8861,7 +8870,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8878,7 +8887,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8886,7 +8895,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 93,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8908,7 +8917,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8925,7 +8934,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8942,7 +8951,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8950,7 +8959,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 93,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -8973,7 +8982,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -8990,7 +8999,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9007,7 +9016,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9015,7 +9024,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 16477,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9037,7 +9046,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9054,7 +9063,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9071,7 +9080,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9079,7 +9088,7 @@ json2 {
   ],
   "messageId": 1796,
   "properties": 16477,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9132,7 +9141,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 43,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9184,7 +9193,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 43,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9237,7 +9246,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 16427,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9289,7 +9298,7 @@ json2 {
   ],
   "messageId": 1797,
   "properties": 16427,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9304,7 +9313,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 8,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9318,7 +9327,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 8,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9333,7 +9342,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 16392,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9347,7 +9356,7 @@ json2 {
   "channelId": 1,
   "messageId": 2048,
   "properties": 16392,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9371,7 +9380,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -9384,7 +9393,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9407,7 +9416,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -9420,7 +9429,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9444,7 +9453,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -9457,7 +9466,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9480,7 +9489,7 @@ json2 {
     "dateTime": "200707192359",
     "messageId": 0,
     "properties": 0,
-    "versionNo": 0,
+    "protocolVersion": 0,
     "serialNo": 0,
     "verified": true
   },
@@ -9493,7 +9502,7 @@ json2 {
   ],
   "messageId": 2049,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9520,7 +9529,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9541,7 +9550,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9562,7 +9571,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9583,7 +9592,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9591,7 +9600,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 144,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9617,7 +9626,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9638,7 +9647,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9659,7 +9668,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9680,7 +9689,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9688,7 +9697,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 144,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9715,7 +9724,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9736,7 +9745,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9757,7 +9766,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9778,7 +9787,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9786,7 +9795,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 16528,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9812,7 +9821,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9833,7 +9842,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9854,7 +9863,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9875,7 +9884,7 @@ json2 {
         "dateTime": "200707192359",
         "messageId": 0,
         "properties": 0,
-        "versionNo": 0,
+        "protocolVersion": 0,
         "serialNo": 0,
         "verified": true
       }
@@ -9883,7 +9892,7 @@ json2 {
   ],
   "messageId": 2050,
   "properties": 16528,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9907,7 +9916,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9930,7 +9939,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 41,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -9954,7 +9963,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9977,7 +9986,7 @@ json2 {
   ],
   "messageId": 2053,
   "properties": 16425,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -9999,7 +10008,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 13,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10020,7 +10029,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 13,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10042,7 +10051,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 16397,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10063,7 +10072,7 @@ json2 {
   ],
   "messageId": 2305,
   "properties": 16397,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10086,7 +10095,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10108,7 +10117,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10131,7 +10140,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 16406,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10153,7 +10162,7 @@ json2 {
   ],
   "messageId": 32771,
   "properties": 16406,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10166,7 +10175,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10178,7 +10187,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 30,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10191,7 +10200,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10203,7 +10212,7 @@ json2 {
   "token": "chwD0SE1fchwD0SE1fchwD0SE1f",
   "messageId": 33024,
   "properties": 16414,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10267,7 +10276,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 509,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10330,7 +10339,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 509,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10394,7 +10403,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 16893,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10457,7 +10466,7 @@ json2 {
   },
   "messageId": 33027,
   "properties": 16893,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10469,7 +10478,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10480,7 +10489,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10492,7 +10501,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10503,7 +10512,7 @@ json2 {
   "parameter": "as;123;zxc;123;",
   "messageId": 33029,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10522,7 +10531,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10540,7 +10549,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 25,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10559,7 +10568,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10577,7 +10586,7 @@ json2 {
   ],
   "messageId": 33030,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10601,7 +10610,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 26,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10624,7 +10633,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 26,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10648,7 +10657,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 16410,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10671,7 +10680,7 @@ json2 {
   ],
   "messageId": 33032,
   "properties": 16410,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10683,7 +10692,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10694,7 +10703,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10706,7 +10715,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10717,7 +10726,7 @@ json2 {
   "validityPeriod": 600,
   "messageId": 33282,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10729,7 +10738,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10740,7 +10749,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 6,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10752,7 +10761,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10763,7 +10772,7 @@ json2 {
   "type": 40286,
   "messageId": 33283,
   "properties": 16390,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10776,7 +10785,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10788,7 +10797,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 24,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10801,7 +10810,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10813,7 +10822,7 @@ json2 {
   "content": "测试123@456#abc!...结束",
   "messageId": 33536,
   "properties": 16409,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10839,7 +10848,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10864,7 +10873,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10890,7 +10899,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10915,7 +10924,7 @@ json2 {
   ],
   "messageId": 33537,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -10937,7 +10946,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10958,7 +10967,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 19,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -10980,7 +10989,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11001,7 +11010,7 @@ json2 {
   ],
   "messageId": 33538,
   "properties": 16403,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11051,7 +11060,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11100,7 +11109,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 65,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11150,7 +11159,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 16449,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11199,7 +11208,7 @@ json2 {
   ],
   "messageId": 33539,
   "properties": 16449,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11211,7 +11220,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 40,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11222,7 +11231,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 40,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11234,7 +11243,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 16424,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11245,7 +11254,7 @@ json2 {
   "content": "美上将:中国导弹可将关岛\"从地图上移除\"",
   "messageId": 33540,
   "properties": 16424,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11257,7 +11266,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11268,7 +11277,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 21,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11280,7 +11289,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11291,7 +11300,7 @@ json2 {
   "phoneNumber": "1234567890123",
   "messageId": 33792,
   "properties": 16405,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11320,7 +11329,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11348,7 +11357,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 46,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11377,7 +11386,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 16430,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11405,7 +11414,7 @@ json2 {
   ],
   "messageId": 33793,
   "properties": 16430,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11416,7 +11425,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11426,7 +11435,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 1,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11437,7 +11446,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11447,7 +11456,7 @@ json2 {
   "sign": 123,
   "messageId": 34048,
   "properties": 16385,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11521,7 +11530,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 167,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11594,7 +11603,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 167,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11673,7 +11682,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 16616,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11751,7 +11760,7 @@ json2 {
   ],
   "messageId": 34304,
   "properties": 16616,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11768,7 +11777,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 17,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11784,7 +11793,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 17,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11801,7 +11810,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 16401,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11817,7 +11826,7 @@ json2 {
   ],
   "messageId": 34305,
   "properties": 16401,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -11891,7 +11900,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 187,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -11964,7 +11973,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 187,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12038,7 +12047,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 16571,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12111,7 +12120,7 @@ json2 {
   ],
   "messageId": 34306,
   "properties": 16571,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12150,7 +12159,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 63,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12188,7 +12197,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 63,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12227,7 +12236,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 16447,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12265,7 +12274,7 @@ json2 {
   ],
   "messageId": 34308,
   "properties": 16447,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12330,7 +12339,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12394,7 +12403,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 124,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12459,7 +12468,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12523,7 +12532,7 @@ json2 {
   ],
   "messageId": 34310,
   "properties": 16508,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12546,7 +12555,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12568,7 +12577,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 23,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12591,7 +12600,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12613,7 +12622,7 @@ json2 {
   ],
   "messageId": 34816,
   "properties": 16407,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12633,7 +12642,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 12,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12652,7 +12661,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 12,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12672,7 +12681,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 16396,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12691,7 +12700,7 @@ json2 {
   "chroma": 255,
   "messageId": 34817,
   "properties": 16396,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12706,7 +12715,7 @@ json2 {
   "endTime": "2020-12-01T23:58:59",
   "messageId": 34818,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12720,7 +12729,7 @@ json2 {
   "endTime": "2020-12-01T23:58:59",
   "messageId": 34818,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12735,7 +12744,7 @@ json2 {
   "endTime": "2020-12-01T23:58:59",
   "messageId": 34818,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12749,7 +12758,7 @@ json2 {
   "endTime": "2020-12-01T23:58:59",
   "messageId": 34818,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12765,7 +12774,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12780,7 +12789,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12796,7 +12805,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12811,7 +12820,7 @@ json2 {
   "delete": 0,
   "messageId": 34819,
   "properties": 16400,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12825,7 +12834,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12838,7 +12847,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12852,7 +12861,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12865,7 +12874,7 @@ json2 {
   "audioSamplingRate": 0,
   "messageId": 34820,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12877,7 +12886,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12888,7 +12897,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 5,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12900,7 +12909,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12911,7 +12920,7 @@ json2 {
   "delete": 1,
   "messageId": 34821,
   "properties": 16389,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12933,7 +12942,7 @@ json2 {
   },
   "messageId": 513,
   "properties": 36,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12954,7 +12963,7 @@ json2 {
   },
   "messageId": 513,
   "properties": 36,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -12976,7 +12985,7 @@ json2 {
   },
   "messageId": 513,
   "properties": 16420,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -12997,7 +13006,7 @@ json2 {
   },
   "messageId": 513,
   "properties": 16420,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -13138,7 +13147,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 132,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -13278,7 +13287,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 132,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -13419,7 +13428,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 16516,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -13559,7 +13568,7 @@ json2 {
   ],
   "messageId": 35328,
   "properties": 16516,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -13588,7 +13597,7 @@ json2 {
   },
   "messageId": 2304,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -13617,7 +13626,7 @@ json2 {
   },
   "messageId": 2304,
   "properties": 15,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "12345678901",
   "serialNo": 32767,
   "verified": true
@@ -13646,7 +13655,7 @@ json2 {
   },
   "messageId": 2304,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -13675,7 +13684,7 @@ json2 {
   },
   "messageId": 2304,
   "properties": 16399,
-  "versionNo": 1,
+  "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
@@ -13687,7 +13696,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8478,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17148,
   "packageTotal": 18,
@@ -13700,7 +13709,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17149,
   "packageTotal": 18,
@@ -13713,7 +13722,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17150,
   "packageTotal": 18,
@@ -13726,7 +13735,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17151,
   "packageTotal": 18,
@@ -13739,7 +13748,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17152,
   "packageTotal": 18,
@@ -13752,7 +13761,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17153,
   "packageTotal": 18,
@@ -13765,7 +13774,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17154,
   "packageTotal": 18,
@@ -13778,7 +13787,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17155,
   "packageTotal": 18,
@@ -13791,7 +13800,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17156,
   "packageTotal": 18,
@@ -13804,7 +13813,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17157,
   "packageTotal": 18,
@@ -13817,7 +13826,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17158,
   "packageTotal": 18,
@@ -13830,7 +13839,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17159,
   "packageTotal": 18,
@@ -13843,7 +13852,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17160,
   "packageTotal": 18,
@@ -13856,7 +13865,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17161,
   "packageTotal": 18,
@@ -13869,7 +13878,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17162,
   "packageTotal": 18,
@@ -13882,7 +13891,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17163,
   "packageTotal": 18,
@@ -13895,7 +13904,7 @@ json2 {
   "count": 0,
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17164,
   "packageTotal": 18,
@@ -15890,7 +15899,7 @@ json2 {
   ],
   "messageId": 4613,
   "properties": 8472,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "17299841738",
   "serialNo": 17165,
   "packageTotal": 18,
@@ -15903,7 +15912,7 @@ json2 {
   "total": 0,
   "messageId": 260,
   "properties": 9192,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "13224005528",
   "serialNo": 1162,
   "packageTotal": 2,
@@ -16191,7 +16200,7 @@ json2 {
   },
   "messageId": 260,
   "properties": 8361,
-  "versionNo": 0,
+  "protocolVersion": 0,
   "clientId": "13224005528",
   "serialNo": 1163,
   "packageTotal": 2,
