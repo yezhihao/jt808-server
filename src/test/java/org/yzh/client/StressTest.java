@@ -11,29 +11,35 @@ import java.time.LocalDateTime;
 
 /**
  * 压力测试
- * 模拟1000台设备，每100毫秒上报一次位置信息
+ * 模拟1250台设备，每100毫秒上报一次位置信息
  */
 public class StressTest {
 
+    //连接数量
+    private static final int Total = 1250;
+
+    //上报间隔(毫秒)
+    private static final long Interval = 100;
+
     public static void main(String[] args) {
-        int total = 1000;
         LocalDateTime deviceTime = LocalDateTime.now();
 
-        TCPClient[] clients = new TCPClient[total];
-        for (int i = 0; i < total; i++) {
-            clients[i] = new TCPClient(ClientTest.jtConfig).start();
-            clients[i].writeObject(T0100(String.valueOf(i)));
+        TCPClient[] clients = new TCPClient[Total];
+        for (int i = 0; i < Total; i++) {
+            String id = String.valueOf(i);
+            clients[i] = new TCPClient(id, ClientTest.jtConfig).start();
+            clients[i].writeObject(T0100(id));
         }
 
         while (true) {
             String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
             deviceTime = deviceTime.plusSeconds(1L);
 
-            for (int i = 0; i < total; i++) {
+            for (int i = 0; i < Total; i++) {
                 clients[i].writeObject(T0200(String.valueOf(i), strTime));
             }
             try {
-                Thread.sleep(100L);
+                Thread.sleep(Interval);
             } catch (InterruptedException e) {
             }
         }
@@ -42,9 +48,9 @@ public class StressTest {
     private static int ProtocolVersion = 1;
 
     public static T0100 T0100(String id) {
-        String deviceId = StrUtils.leftPad(id, 7, '0');
-        String clientId = StrUtils.leftPad(deviceId, 12, '0');
-        String plateNo = "测" + deviceId;
+        String deviceId = "T" + StrUtils.leftPad(id, 6, '0');
+        String clientId = "1" + StrUtils.leftPad(id, 10, '0');
+        String plateNo = "测A" + StrUtils.leftPad(id, 5, '0');
 
         T0100 message = new T0100();
         message.setMessageId(JT808.终端注册);

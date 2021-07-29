@@ -29,7 +29,7 @@ public class ClientTest {
 
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
-        TCPClient tcpClient = new TCPClient(jtConfig).start();
+        TCPClient tcpClient = new TCPClient("0", jtConfig).start();
         while (true) {
             System.out.println("选择发送的消息：1.注册 2.位置信息上报");
             while (scanner.hasNext()) {

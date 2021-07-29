@@ -25,13 +25,15 @@ public class TCPClient {
 
     private static final Logger log = LoggerFactory.getLogger(TCPClient.class.getSimpleName());
 
-    private ClientConfig config;
-
     private EventLoopGroup workerGroup;
 
     private Channel channel;
 
-    public TCPClient(ClientConfig config) {
+    private ClientConfig config;
+    private String id;
+
+    public TCPClient(String id, ClientConfig config) {
+        this.id = id;
         this.config = config;
     }
 
@@ -90,12 +92,12 @@ public class TCPClient {
 
     public synchronized TCPClient start() {
         startInternal();
-        log.warn("===TCP Client启动成功, port={}===", config.port);
+        log.warn("===TCP Client启动成功, id={}===", id);
         return this;
     }
 
     public synchronized void stop() {
         workerGroup.shutdownGracefully();
-        log.warn("===TCP Client已经停止, port={}===", config.port);
+        log.warn("===TCP Client已经停止, id={}===", id);
     }
 }
