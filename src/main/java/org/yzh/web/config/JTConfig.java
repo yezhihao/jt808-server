@@ -44,7 +44,7 @@ public class JTConfig {
             NettyConfig jtConfig = NettyConfig.custom()
                     .setPort(port)
                     //标识位[2] + 消息头[21] + 消息体[1023 * 2(转义预留)]  + 校验码[1] + 标识位[2]
-                    .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2 + 10)
+                    .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
                     .setDelimiters(new Delimiter(new byte[]{0x7e}))
                     .setDecoder(messageAdapter)
                     .setEncoder(messageAdapter)

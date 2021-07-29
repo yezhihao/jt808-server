@@ -7,39 +7,29 @@ import org.yzh.protocol.BeanTest;
 import org.yzh.protocol.JT808Beans;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.protocol.codec.JTMessageAdapter;
 
 import java.util.Scanner;
 
-/**
- * 不依赖spring，快速启动netty服务
- */
 public class ClientTest {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    public static final JTMessageAdapter messageAdapter = new JTMessageAdapter(
+            new JTMessageEncoder("org.yzh.protocol"),
+            new JTMessageDecoder("org.yzh.protocol")
+    );
 
-    private static TCPClient tcpClient;
-
-    static {
-        JTMessageAdapter messageAdapter = new JTMessageAdapter(
-                new JTMessageEncoder("org.yzh.protocol"),
-                new JTMessageDecoder("org.yzh.protocol")
-        );
-
-        ClientConfig jtConfig = new ClientConfig.Builder()
-                .setIp("127.0.0.1")
-                .setPort(7611)
-                .setMaxFrameLength(2 + 21 + 1023 + 2)
-                .setDelimiters(new byte[]{0x7e})
-                .setDecoder(messageAdapter)
-                .setEncoder(messageAdapter)
-                .setHandlerMapping(new HandlerMapping("org.yzh.client"))
-                .build();
-
-        tcpClient = new TCPClient(jtConfig).start();
-    }
+    public static final ClientConfig jtConfig = new ClientConfig.Builder()
+            .setIp("127.0.0.1")
+            .setPort(7611)
+            .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
+            .setDelimiters(new byte[]{0x7e})
+            .setDecoder(messageAdapter)
+            .setEncoder(messageAdapter)
+            .setHandlerMapping(new HandlerMapping("org.yzh.client"))
+            .build();
 
     public static void main(String[] args) {
+        final Scanner scanner = new Scanner(System.in);
+        TCPClient tcpClient = new TCPClient(jtConfig).start();
         while (true) {
             System.out.println("选择发送的消息：1.注册 2.位置信息上报");
             while (scanner.hasNext()) {
@@ -49,10 +39,10 @@ public class ClientTest {
                         tcpClient.stop();
                         return;
                     case 1:
-                        tcpClient.writeObject(BeanTest.H2013(JT808Beans.T0100()));
+                        tcpClient.writeObject(BeanTest.H2019(JT808Beans.T0100()));
                         break;
                     case 2:
-                        tcpClient.writeObject(BeanTest.H2013(JT808Beans.T0200Attributes()));
+                        tcpClient.writeObject(BeanTest.H2019(JT808Beans.T0200Attributes()));
                         break;
                 }
             }

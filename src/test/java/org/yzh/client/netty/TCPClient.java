@@ -69,6 +69,7 @@ public class TCPClient {
                                             ByteBuf buf = config.encoder.encode(msg, null);
                                             log.info(">>>>>{}", ByteBufUtil.hexDump(buf));
                                             out.writeBytes(config.delimiter).writeBytes(buf).writeBytes(config.delimiter);
+                                            buf.release();
                                         }
                                     })
                                     .addLast("adapter", config.adapter);
