@@ -156,7 +156,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
-                    <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/test/resources/generatorConfig.xml</configurationFile>
                 </configuration>
                 <dependencies>
                     <dependency>

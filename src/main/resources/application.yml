@@ -42,7 +42,10 @@ spring:
       time: HH:mm:ss
 
 mybatis:
-  config-location: classpath:mybatis-config.xml
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
   mapper-locations:
     - classpath:/mapper/*.xml
 
