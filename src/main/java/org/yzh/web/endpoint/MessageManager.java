@@ -47,7 +47,7 @@ public class MessageManager {
 
         DeviceInfo device = SessionKey.getDeviceInfo(session);
         int protocolVersion = device.getProtocolVersion();
-        if (protocolVersion >= 0) {
+        if (protocolVersion > 0) {
             request.setVersion(true);
             request.setProtocolVersion(protocolVersion);
         }
