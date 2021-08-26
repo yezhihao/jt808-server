@@ -67,8 +67,6 @@ public class JTMessageEncoder {
 
         } else {
 
-            headLength = JTUtils.headerLength(version, true);
-
             ByteBuf[] slices = slices(output, headLength, 1023);
             int total = slices.length;
 
@@ -78,6 +76,7 @@ public class JTMessageEncoder {
             message.setSubpackage(true);
             message.setPackageTotal(total);
 
+            headLength = JTUtils.headerLength(version, true);
             for (int i = 0; i < total; i++) {
                 ByteBuf slice = slices[i];
 
