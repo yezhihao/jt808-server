@@ -7,11 +7,11 @@
 
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="6 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
         </Console>
 
         <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="6 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
                 <SizeBasedTriggeringPolicy size="20 MB"/>

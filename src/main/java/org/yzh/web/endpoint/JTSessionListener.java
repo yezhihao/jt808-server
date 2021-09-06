@@ -4,11 +4,8 @@ import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yzh.web.mapper.DeviceMapper;
-import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
-
-import java.time.LocalDateTime;
 
 public class JTSessionListener implements SessionListener {
 
@@ -23,13 +20,13 @@ public class JTSessionListener implements SessionListener {
     public void sessionRegistered(Session session) {
         DeviceInfo device = SessionKey.getDeviceInfo(session);
         if (device != null)
-            deviceMapper.update(new DeviceDO(device.getDeviceId(), true, LocalDateTime.now()));
+            deviceMapper.deviceOnline(device.getDeviceId(), true);
     }
 
     @Override
     public void sessionDestroyed(Session session) {
         DeviceInfo device = SessionKey.getDeviceInfo(session);
         if (device != null)
-            deviceMapper.update(new DeviceDO(device.getDeviceId(), false, LocalDateTime.now()));
+            deviceMapper.deviceOnline(device.getDeviceId(), false);
     }
 }

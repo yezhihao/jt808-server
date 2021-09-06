@@ -18,14 +18,33 @@ CREATE TABLE IF NOT EXISTS `location` (
   PRIMARY KEY (`device_id`, `device_time`)
 ) ENGINE=InnoDB COMMENT '位置数据';
 
+
+CREATE TABLE IF NOT EXISTS `device_status` (
+  `online`        TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0.离线 1.在线',
+  `device_time`   DATETIME NOT NULL COMMENT '设备时间',
+  `device_id`     VARCHAR(30) NOT NULL COMMENT '设备号',
+  `mobile_no`     VARCHAR(20) NOT NULL COMMENT '手机号',
+  `plate_no`      CHAR(8) NOT NULL DEFAULT '' COMMENT '车牌号',
+  `warn_bit`      INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '报警标志',
+  `status_bit`    INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
+  `longitude`     INT NOT NULL COMMENT 'GPS经度',
+  `latitude`      INT NOT NULL COMMENT 'GPS纬度',
+  `altitude`      SMALLINT NOT NULL COMMENT '高程(米)',
+  `speed`         SMALLINT UNSIGNED NOT NULL COMMENT '速度(1/10公里每小时)',
+  `direction`     SMALLINT NOT NULL COMMENT '方向',
+  `update_time`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UNIQUE uni_mobileno(`mobile_no`),
+  PRIMARY KEY (`device_id`)
+) ENGINE=InnoDB COMMENT '设备状态';
+
+
 CREATE TABLE IF NOT EXISTS `device` (
   `device_id`         VARCHAR(30) NOT NULL COMMENT '设备号',
   `mobile_no`         VARCHAR(20) COMMENT '手机号',
   `plate_no`          CHAR(8) NOT NULL DEFAULT '' COMMENT '车牌号',
   `imei`              VARCHAR(15) NULL COMMENT 'IMEI号',
   `state`             TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
-  `online`            TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0.离线 1.在线',
-  `device_time`       DATETIME COMMENT '设备时间(离线在线时间)',
   `register_time`     DATETIME COMMENT '注册时间(最近注册时间)',
   `install_time`      DATETIME COMMENT '安装时间(首次注册时间)',
 

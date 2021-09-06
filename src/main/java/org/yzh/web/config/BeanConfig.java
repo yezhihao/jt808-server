@@ -17,6 +17,7 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.component.mybatis.PageInterceptor;
 
@@ -27,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 @MapperScan("org.yzh.web.mapper")
+@EnableScheduling
 @EnableCaching
 @Configuration
 public class BeanConfig {

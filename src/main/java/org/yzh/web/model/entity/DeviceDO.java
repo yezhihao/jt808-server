@@ -9,8 +9,6 @@ public class DeviceDO {
     private String plateNo;
     private String imei;
     private Integer state;
-    private Boolean online;
-    private LocalDateTime deviceTime;
     private LocalDateTime registerTime;
     private LocalDateTime installTime;
     private Boolean bind;
@@ -28,10 +26,8 @@ public class DeviceDO {
     public DeviceDO() {
     }
 
-    public DeviceDO(String deviceId, Boolean online, LocalDateTime deviceTime) {
+    public DeviceDO(String deviceId) {
         this.deviceId = deviceId;
-        this.online = online;
-        this.deviceTime = deviceTime;
     }
 
     public String getDeviceId() {
@@ -72,22 +68,6 @@ public class DeviceDO {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    public Boolean getOnline() {
-        return online;
-    }
-
-    public void setOnline(Boolean online) {
-        this.online = online;
-    }
-
-    public LocalDateTime getDeviceTime() {
-        return deviceTime;
-    }
-
-    public void setDeviceTime(LocalDateTime deviceTime) {
-        this.deviceTime = deviceTime;
     }
 
     public LocalDateTime getRegisterTime() {
@@ -211,9 +191,6 @@ public class DeviceDO {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getDeviceId() == null) ? 0 : getDeviceId().hashCode());
-        return result;
+        return ((getDeviceId() == null) ? 0 : getDeviceId().hashCode());
     }
 }

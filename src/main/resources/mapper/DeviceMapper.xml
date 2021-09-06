@@ -14,6 +14,12 @@
         where mobile_no = #{mobileNo,jdbcType=VARCHAR}
     </select>
 
+    <update id="deviceOnline" parameterType="map">
+        update device_status
+        set online = #{online,jdbcType=BOOLEAN}, update_time = now()
+        where device_id = #{deviceId,jdbcType=VARCHAR}
+    </update>
+
     <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceDO">
         insert ignore into device
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -21,8 +27,6 @@
             <if test="plateNo != null">plate_no,</if>
             <if test="imei != null">imei,</if>
             <if test="state != null">state,</if>
-            <if test="online != null">online,</if>
-            <if test="deviceTime != null">device_time,</if>
             <if test="registerTime != null">register_time,</if>
             <if test="installTime != null">install_time,</if>
             <if test="bind != null">bind,</if>
@@ -41,8 +45,6 @@
             <if test="plateNo != null">#{plateNo,jdbcType=CHAR},</if>
             <if test="imei != null">#{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">#{state,jdbcType=TINYINT},</if>
-            <if test="online != null">#{online,jdbcType=BOOLEAN},</if>
-            <if test="deviceTime != null">#{deviceTime,jdbcType=TIMESTAMP},</if>
             <if test="registerTime != null">#{registerTime,jdbcType=TIMESTAMP},</if>
             <if test="installTime != null">#{installTime,jdbcType=TIMESTAMP},</if>
             <if test="bind != null">#{bind,jdbcType=BOOLEAN},</if>
@@ -65,8 +67,6 @@
             <if test="plateNo != null">plate_no = #{plateNo,jdbcType=CHAR},</if>
             <if test="imei != null">imei = #{imei,jdbcType=VARCHAR},</if>
             <if test="state != null">state = #{state,jdbcType=TINYINT},</if>
-            <if test="online != null">online = #{online,jdbcType=BOOLEAN},</if>
-            <if test="deviceTime != null">device_time = #{deviceTime,jdbcType=TIMESTAMP},</if>
             <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
             <if test="installTime != null">install_time = #{installTime,jdbcType=TIMESTAMP},</if>
             <if test="bind != null">bind = #{bind,jdbcType=BOOLEAN},</if>

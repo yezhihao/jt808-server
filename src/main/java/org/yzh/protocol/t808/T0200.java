@@ -163,12 +163,17 @@ public class T0200 extends JTMessage {
         }
     }
 
+    private transient boolean updated;
     private transient String deviceId;
     private transient String plateNo;
     private transient double lng;
     private transient double lat;
     private transient float speedKph;
     private transient LocalDateTime deviceTime;
+
+    public boolean updated() {
+        return updated ? true : !(updated = true);
+    }
 
     public String getDeviceId() {
         return deviceId;

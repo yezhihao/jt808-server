@@ -13,10 +13,4 @@
             <if test="endTime != null">and device_time &lt; #{endTime,jdbcType=TIMESTAMP}</if>
         </where>
     </select>
-
-    <select id="get" parameterType="java.lang.Integer" resultType="org.yzh.web.model.vo.Location">
-        select *
-        from location
-        where and device_time = #{deviceTime,jdbcType=TIMESTAMP} and device_id = #{deviceId,jdbcType=CHAR}
-    </select>
 </mapper>

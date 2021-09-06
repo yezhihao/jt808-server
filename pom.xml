@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.9</version>
+        <version>2.4.10</version>
         <relativePath></relativePath>
     </parent>
 
@@ -156,7 +156,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
-                    <configurationFile>src/test/resources/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
                 </configuration>
                 <dependencies>
                     <dependency>
