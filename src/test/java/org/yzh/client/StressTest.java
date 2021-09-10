@@ -69,7 +69,7 @@ public class StressTest {
     }
 
     public static T0200 T0200(String id, String time) {
-        String clientId = StrUtils.leftPad(id, 12, '0');
+        String clientId = "1" + StrUtils.leftPad(id, 10, '0');
 
         T0200 message = new T0200();
         message.setMessageId(JT808.位置信息汇报);
