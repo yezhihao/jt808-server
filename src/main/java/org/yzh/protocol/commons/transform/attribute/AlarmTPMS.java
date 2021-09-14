@@ -37,9 +37,9 @@ public class AlarmTPMS implements Alarm {
     @Field(index = 24, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(index = 24, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(index = 39, type = DataType.BYTE, desc = "数据项个数")
+    @Field(index = 39, type = DataType.BYTE, desc = "事件列表总数")
     private int total;
-    @Field(index = 40, type = DataType.LIST, desc = "区域列表")
+    @Field(index = 40, type = DataType.LIST, desc = "事件信息列表")
     private List<Item> items;
 
     public long getSerialNo() {
@@ -134,15 +134,24 @@ public class AlarmTPMS implements Alarm {
     }
 
     public static class Item {
-        @Field(index = 0, type = DataType.BYTE, desc = "胎压报警位置")
+        @Field(index = 0, type = DataType.BYTE, desc = "胎压报警位置(从左前轮开始以Z字形从00依次编号,编号与是否安装TPMS无关)")
         private int position;
-        @Field(index = 2, type = DataType.DWORD, desc = "报警类型")
+        @Field(index = 2, type = DataType.WORD, desc = "报警类型：" +
+                " 0.胎压(定时上报)" +
+                " 1.胎压过高报警" +
+                " 2.胎压过低报警" +
+                " 3.胎温过高报警" +
+                " 4.传感器异常报警" +
+                " 5.胎压不平衡报警" +
+                " 6.慢漏气报警" +
+                " 7.电池电量低报警" +
+                " 8~31.预留")
         private int type;
-        @Field(index = 4, type = DataType.DWORD, desc = "胎压")
+        @Field(index = 4, type = DataType.WORD, desc = "胎压(Kpa)")
         private int pressure;
-        @Field(index = 6, type = DataType.DWORD, desc = "温度")
+        @Field(index = 6, type = DataType.WORD, desc = "温度(℃)")
         private int temperature;
-        @Field(index = 8, type = DataType.DWORD, desc = "电池电量")
+        @Field(index = 8, type = DataType.WORD, desc = "电池电量(%)")
         private int batteryLevel;
 
         public Item() {
