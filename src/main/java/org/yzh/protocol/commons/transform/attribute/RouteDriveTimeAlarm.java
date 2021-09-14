@@ -74,7 +74,7 @@ public class RouteDriveTimeAlarm {
         @Override
         public RouteDriveTimeAlarm readFrom(ByteBuf input) {
             RouteDriveTimeAlarm message = new RouteDriveTimeAlarm();
-            message.areaId = (int) input.readUnsignedInt();
+            message.areaId = input.readInt();
             message.driveTime = input.readUnsignedShort();
             message.result = input.readByte();
             return message;

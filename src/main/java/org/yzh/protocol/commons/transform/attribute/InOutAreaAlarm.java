@@ -14,7 +14,7 @@ public class InOutAreaAlarm {
         return id;
     }
 
-    /** 位置类型 */
+    /** 位置类型：1.圆型区域 2.矩形区域 3.多边形区域 4.路线 */
     private byte areaType;
     /** 区域或路段ID */
     private int areaId;
@@ -75,7 +75,7 @@ public class InOutAreaAlarm {
         public InOutAreaAlarm readFrom(ByteBuf input) {
             InOutAreaAlarm message = new InOutAreaAlarm();
             message.areaType = input.readByte();
-            message.areaId = (int) input.readUnsignedInt();
+            message.areaId = input.readInt();
             message.direction = input.readByte();
             return message;
         }

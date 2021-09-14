@@ -14,15 +14,15 @@ public class OverSpeedAlarm {
         return id;
     }
 
-    /** 位置类型 */
+    /** 位置类型：0.无特定位置 1.圆形区域 2.矩形区域 3.多边形区域 4.路段 */
     private byte areaType;
     /** 区域或路段ID */
-    private Integer areaId;
+    private int areaId;
 
     public OverSpeedAlarm() {
     }
 
-    public OverSpeedAlarm(byte areaType, Integer areaId) {
+    public OverSpeedAlarm(byte areaType, int areaId) {
         this.areaType = areaType;
         this.areaId = areaId;
     }
@@ -35,11 +35,11 @@ public class OverSpeedAlarm {
         this.areaType = areaType;
     }
 
-    public Integer getAreaId() {
+    public int getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
 
@@ -64,7 +64,7 @@ public class OverSpeedAlarm {
             OverSpeedAlarm message = new OverSpeedAlarm();
             message.areaType = input.readByte();
             if (message.areaType > 0)
-                message.areaId = (int) input.readUnsignedInt();
+                message.areaId = input.readInt();
             return message;
         }
 
