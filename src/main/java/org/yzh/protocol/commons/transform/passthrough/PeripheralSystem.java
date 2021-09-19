@@ -1,6 +1,5 @@
 package org.yzh.protocol.commons.transform.passthrough;
 
-import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.Charsets;
 
@@ -192,7 +191,7 @@ public class PeripheralSystem {
                 bytes = item.userCode.getBytes(Charsets.GBK);
                 output.writeByte(bytes.length).writeBytes(bytes);
                 int len = output.writerIndex() - begin - 1;
-                ByteBufUtils.setInt(output, 1, begin, len);
+                output.setByte(begin, len);
             }
         }
     }

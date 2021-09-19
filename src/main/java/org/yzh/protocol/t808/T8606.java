@@ -4,8 +4,10 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,14 +21,14 @@ public class T8606 extends JTMessage {
     private int id;
     @Field(index = 4, type = DataType.WORD, desc = "路线属性")
     private int attribute;
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
-    private String startTime;
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
-    private String endTime;
-    @Field(index = 18, type = DataType.WORD, desc = "拐点数")
-    private int total;
-    @Field(index = 20, type = DataType.LIST, desc = "拐点列表")
-    private List<Point> items;
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(若区域属性0位为0则没有该字段)")
+    private LocalDateTime startTime;
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(若区域属性0位为0则没有该字段)")
+    private LocalDateTime endTime;
+    @Field(index = 18, type = DataType.LIST, lengthSize = 2, desc = "拐点列表")
+    private List<Line> items;
+    @Field(index = 22, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+    private String name;
 
     public int getId() {
         return id;
@@ -44,40 +46,41 @@ public class T8606 extends JTMessage {
         this.attribute = attribute;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
+        this.attribute = Bit.set(attribute, 0, startTime != null);
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
+        this.attribute = Bit.set(attribute, 0, endTime != null);
         this.endTime = endTime;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<Point> getItems() {
+    public List<Line> getItems() {
         return items;
     }
 
-    public void setItems(List<Point> items) {
+    public void setItems(List<Line> items) {
         this.items = items;
-        this.total = items.size();
     }
 
-    public static class Point {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static class Line {
         @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
         private int id;
         @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
@@ -88,35 +91,38 @@ public class T8606 extends JTMessage {
         private int longitude;
         @Field(index = 16, type = DataType.BYTE, desc = "宽度(米)")
         private int width;
-        @Field(index = 17, type = DataType.WORD, desc = "属性")
+        @Field(index = 17, type = DataType.BYTE, desc = "属性")
         private int attribute;
-        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值(秒)")
-        private int upperLimit;
-        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值(秒)")
-        private int lowerLimit;
-        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度(公里每小时)")
-        private int maxSpeed;
-        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间(秒)")
-        private int duration;
+        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值(秒,若区域属性0位为0则没有该字段)")
+        private Integer upperLimit;
+        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值(秒,若区域属性0位为0则没有该字段)")
+        private Integer lowerLimit;
+        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+        private Integer maxSpeed;
+        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间(秒,若区域属性1位为0则没有该字段)")
+        private Integer duration;
+        @Field(index = 25, type = DataType.WORD, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
+        private Integer nightMaxSpeed;
 
-        public Point() {
+        public Line() {
         }
 
-        public Point(int id) {
-            this.id = id;
-        }
-
-        public Point(int id, int routeId, int latitude, int longitude, int width, int attribute, int upperLimit, int lowerLimit, int maxSpeed, int duration) {
+        public Line(int id, int routeId, int latitude, int longitude, int width, int attribute, Integer upperLimit, Integer lowerLimit, Integer maxSpeed, Integer duration) {
             this.id = id;
             this.routeId = routeId;
             this.latitude = latitude;
             this.longitude = longitude;
             this.width = width;
             this.attribute = attribute;
-            this.upperLimit = upperLimit;
-            this.lowerLimit = lowerLimit;
-            this.maxSpeed = maxSpeed;
-            this.duration = duration;
+            this.setUpperLimit(upperLimit);
+            this.setLowerLimit(lowerLimit);
+            this.setMaxSpeed(maxSpeed);
+            this.setDuration(duration);
+        }
+
+        public Line(int id, int routeId, int latitude, int longitude, int width, int attribute, Integer upperLimit, Integer lowerLimit, Integer maxSpeed, Integer duration, Integer nightMaxSpeed) {
+            this(id, routeId, latitude, longitude, width, attribute, upperLimit, lowerLimit, maxSpeed, duration);
+            this.setNightMaxSpeed(nightMaxSpeed);
         }
 
         public int getId() {
@@ -167,36 +173,49 @@ public class T8606 extends JTMessage {
             this.attribute = attribute;
         }
 
-        public int getUpperLimit() {
+        public Integer getUpperLimit() {
             return upperLimit;
         }
 
-        public void setUpperLimit(int upperLimit) {
+        public void setUpperLimit(Integer upperLimit) {
+            this.attribute = Bit.set(attribute, 0, upperLimit != null);
             this.upperLimit = upperLimit;
         }
 
-        public int getLowerLimit() {
+        public Integer getLowerLimit() {
             return lowerLimit;
         }
 
-        public void setLowerLimit(int lowerLimit) {
+        public void setLowerLimit(Integer lowerLimit) {
+            this.attribute = Bit.set(attribute, 0, lowerLimit != null);
             this.lowerLimit = lowerLimit;
         }
 
-        public int getMaxSpeed() {
+        public Integer getMaxSpeed() {
             return maxSpeed;
         }
 
-        public void setMaxSpeed(int maxSpeed) {
+        public void setMaxSpeed(Integer maxSpeed) {
+            this.attribute = Bit.set(attribute, 1, maxSpeed != null);
             this.maxSpeed = maxSpeed;
         }
 
-        public int getDuration() {
+        public Integer getDuration() {
             return duration;
         }
 
-        public void setDuration(int duration) {
+        public void setDuration(Integer duration) {
+            this.attribute = Bit.set(attribute, 1, duration != null);
             this.duration = duration;
+        }
+
+        public Integer getNightMaxSpeed() {
+            return nightMaxSpeed;
+        }
+
+        public void setNightMaxSpeed(Integer nightMaxSpeed) {
+            this.attribute = Bit.set(attribute, 1, nightMaxSpeed != null);
+            this.nightMaxSpeed = nightMaxSpeed;
         }
 
         @Override
@@ -207,7 +226,7 @@ public class T8606 extends JTMessage {
             sb.append(",longitude=").append(longitude);
             sb.append(",latitude=").append(latitude);
             sb.append(",width=").append(width);
-            sb.append(",attribute=").append(attribute);
+            sb.append(",attribute=[").append(Integer.toBinaryString(attribute)).append(']');
             sb.append(",upperLimit=").append(upperLimit);
             sb.append(",lowerLimit=").append(lowerLimit);
             sb.append(",maxSpeed=").append(maxSpeed);

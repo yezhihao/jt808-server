@@ -210,8 +210,8 @@ public class JT808BeansTest {
 
     @Test
     public void testT8600() {
-        selfCheck(H2013(T8600_2013()));
-        selfCheck(H2019(T8600_2019()));
+        selfCheck(H2013(T8600(2013)));
+        selfCheck(H2019(T8600(2019)));
     }
 
     @Test
@@ -228,8 +228,8 @@ public class JT808BeansTest {
 
     @Test
     public void testT8604() {
-        selfCheck(H2013(T8604()));
-        selfCheck(H2019(T8604()));
+        selfCheck(H2013(T8604(2013)));
+        selfCheck(H2019(T8604(2019)));
     }
 
     @Test
@@ -276,8 +276,8 @@ public class JT808BeansTest {
 
     @Test
     public void testT8606() {
-        selfCheck(H2013(T8606()));
-        selfCheck(H2019(T8606()));
+        selfCheck(H2013(T8606(2013)));
+        selfCheck(H2019(T8606(2019)));
     }
 
     @Test
@@ -312,8 +312,8 @@ public class JT808BeansTest {
 
     @Test
     public void testT8602() {
-        selfCheck(H2013(T8602()));
-        selfCheck(H2019(T8602()));
+        selfCheck(H2013(T8602(2013)));
+        selfCheck(H2019(T8602(2019)));
     }
 
     @Test

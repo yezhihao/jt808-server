@@ -3,7 +3,7 @@
 
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="9 [%t] %-5p%-21c{3}[%L]%msg%n"/>
+            <PatternLayout pattern="[%t] %-5p%-21c{3}[%L]%msg%n"/>
         </Console>
     </Appenders>
 

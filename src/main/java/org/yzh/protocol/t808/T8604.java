@@ -4,8 +4,10 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +22,20 @@ public class T8604 extends JTMessage {
     private int id;
     @Field(index = 4, type = DataType.WORD, desc = "区域属性")
     private int attribute;
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
-    private String startTime;
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
-    private String endTime;
-    @Field(index = 18, type = DataType.WORD, desc = "最高速度(公里每小时)")
-    private int maxSpeed;
-    @Field(index = 20, type = DataType.BYTE, desc = "超速持续时间(秒)")
-    private int duration;
-    @Field(index = 21, type = DataType.WORD, desc = "顶点数")
-    private int total;
-    @Field(index = 23, type = DataType.LIST, desc = "顶点列表")
+    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(若区域属性0位为0则没有该字段)")
+    private LocalDateTime startTime;
+    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(若区域属性0位为0则没有该字段)")
+    private LocalDateTime endTime;
+    @Field(index = 18, type = DataType.WORD, desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+    private Integer maxSpeed;
+    @Field(index = 20, type = DataType.BYTE, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
+    private Integer duration;
+    @Field(index = 21, type = DataType.LIST, lengthSize = 2, desc = "顶点项")
     private List<Point> points;
+    @Field(index = 23, type = DataType.WORD, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
+    private Integer nightMaxSpeed;
+    @Field(index = 25, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+    private String name;
 
     public int getId() {
         return id;
@@ -49,46 +53,40 @@ public class T8604 extends JTMessage {
         this.attribute = attribute;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
+        this.attribute = Bit.set(attribute, 0, startTime != null);
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
+        this.attribute = Bit.set(attribute, 0, endTime != null);
         this.endTime = endTime;
     }
 
-    public int getMaxSpeed() {
+    public Integer getMaxSpeed() {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(int maxSpeed) {
+    public void setMaxSpeed(Integer maxSpeed) {
+        this.attribute = Bit.set(attribute, 1, maxSpeed != null);
         this.maxSpeed = maxSpeed;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
+        this.attribute = Bit.set(attribute, 1, duration != null);
         this.duration = duration;
-    }
-
-    public int getTotal() {
-        if (points != null)
-            return points.size();
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public List<Point> getPoints() {
@@ -97,14 +95,29 @@ public class T8604 extends JTMessage {
 
     public void setPoints(List<Point> points) {
         this.points = points;
-        this.total = points.size();
     }
 
     public void addPoint(int longitude, int latitude) {
         if (points == null)
             points = new ArrayList();
         points.add(new Point(latitude, longitude));
-        total = points.size();
+    }
+
+    public Integer getNightMaxSpeed() {
+        return nightMaxSpeed;
+    }
+
+    public void setNightMaxSpeed(Integer nightMaxSpeed) {
+        this.attribute = Bit.set(attribute, 1, nightMaxSpeed != null);
+        this.nightMaxSpeed = nightMaxSpeed;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static class Point {

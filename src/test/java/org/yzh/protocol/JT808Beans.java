@@ -25,9 +25,11 @@ import java.util.TreeMap;
  */
 public class JT808Beans {
 
+    private static final String DEVICE_ID = "09876543210987654321";
     private static final String STR_TIME = "200707192359";
     private static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
-    private static final String DEVICE_ID = "09876543210987654321";
+    private static final LocalDateTime START_TIME = LocalDateTime.of(2020, 07, 26, 00, 00, 00);
+    private static final LocalDateTime END_TIME = LocalDateTime.of(2020, 07, 26, 23, 23, 59);
 
     //平台RSA公钥|终端RSA公钥
     public static T0A00_8A00 T0A00_8A00() {
@@ -503,28 +505,23 @@ public class JT808Beans {
     }
 
     //设置圆形区域
-    public static T8600 T8600_2013() {
+    public static T8600 T8600(int version) {
         T8600 bean = new T8600();
         bean.setAction(ShapeAction.Modify);
-        List<T8600.Item> items = new ArrayList<>();
-        items.add(new T8600.Item(1, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
-        items.add(new T8600.Item(2, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
-        items.add(new T8600.Item(3, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
-        items.add(new T8600.Item(4, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
-        items.add(new T8600.Item(5, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30));
-        bean.setItems(items);
-        return bean;
-    }
-
-    public static T8600 T8600_2019() {
-        T8600 bean = new T8600();
-        bean.setAction(ShapeAction.Modify);
-        List<T8600.Item> items = new ArrayList<>();
-        items.add(new T8600.Item(1, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏1"));
-        items.add(new T8600.Item(2, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏2"));
-        items.add(new T8600.Item(3, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏3"));
-        items.add(new T8600.Item(4, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏4"));
-        items.add(new T8600.Item(5, 2, 123123, 112312, 123, "200726000000", "200726232359", 200, 30, 40, "测试围栏5"));
+        List<T8600.Circle> items = new ArrayList<>();
+        if (version == 2013) {
+            items.add(new T8600.Circle(1, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
+            items.add(new T8600.Circle(2, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
+            items.add(new T8600.Circle(3, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
+            items.add(new T8600.Circle(4, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
+            items.add(new T8600.Circle(5, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
+        } else {
+            items.add(new T8600.Circle(1, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30, 40, "测试围栏1"));
+            items.add(new T8600.Circle(2, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30, 40, "测试围栏2"));
+            items.add(new T8600.Circle(3, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30, 40, "测试围栏3"));
+            items.add(new T8600.Circle(4, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30, 40, "测试围栏4"));
+            items.add(new T8600.Circle(5, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30, 40, "测试围栏5"));
+        }
         bean.setItems(items);
         return bean;
     }
@@ -536,26 +533,34 @@ public class JT808Beans {
     }
 
     //设置矩形区域
-    public static T8602 T8602() {
+    public static T8602 T8602(int version) {
         T8602 bean = new T8602();
         bean.setAction(ShapeAction.Update);
-        List<T8602.Item> items = new ArrayList<>();
-        items.add(new T8602.Item(1, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
-        items.add(new T8602.Item(2, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
-        items.add(new T8602.Item(3, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
-        items.add(new T8602.Item(4, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
-        items.add(new T8602.Item(5, 2, 123123, 112312, 123123, 112312, "200726000000", "200726232359", 200, 30));
+        List<T8602.Rectangle> items = new ArrayList<>();
+        if (version == 2013) {
+            items.add(new T8602.Rectangle(1, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
+            items.add(new T8602.Rectangle(2, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
+            items.add(new T8602.Rectangle(3, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
+            items.add(new T8602.Rectangle(4, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
+            items.add(new T8602.Rectangle(5, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
+        } else {
+            items.add(new T8602.Rectangle(1, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30, 40, "测试围栏1"));
+            items.add(new T8602.Rectangle(2, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30, 40, "测试围栏2"));
+            items.add(new T8602.Rectangle(3, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30, 40, "测试围栏3"));
+            items.add(new T8602.Rectangle(4, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30, 40, "测试围栏4"));
+            items.add(new T8602.Rectangle(5, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30, 40, "测试围栏5"));
+        }
         bean.setItems(items);
         return bean;
     }
 
     //设置多边形区域
-    public static T8604 T8604() {
+    public static T8604 T8604(int version) {
         T8604 bean = new T8604();
         bean.setId(3);
-        bean.setAttribute(2);
-        bean.setStartTime("200707192359");
-        bean.setEndTime("200707192359");
+        bean.setAttribute(0);
+        bean.setStartTime(START_TIME);
+        bean.setEndTime(END_TIME);
         bean.setMaxSpeed(123);
         bean.setDuration(60);
         bean.addPoint(345, 123);
@@ -563,21 +568,33 @@ public class JT808Beans {
         bean.addPoint(345, 123);
         bean.addPoint(345, 123);
         bean.addPoint(345, 123);
+        if (version >= 2019) {
+            bean.setNightMaxSpeed(40);
+            bean.setName("测试围栏");
+        }
         return bean;
     }
 
     //设置路线
-    public static T8606 T8606() {
+    public static T8606 T8606(int version) {
         T8606 bean = new T8606();
         bean.setId(59397);
-        bean.setAttribute(65195);
-        bean.setStartTime("201231235959");
-        bean.setEndTime("201231235959");
-        List<T8606.Point> item = new ArrayList<>();
-        item.add(new T8606.Point(1, 1, 123, 123, 1, 2, 3, 4, 5, 6));
-        item.add(new T8606.Point(2, 1, 123, 123, 1, 2, 3, 4, 5, 6));
-        item.add(new T8606.Point(3, 1, 123, 123, 1, 2, 3, 4, 5, 6));
-        item.add(new T8606.Point(4, 1, 123, 123, 1, 2, 3, 4, 5, 6));
+        bean.setAttribute(0);
+        bean.setStartTime(START_TIME);
+        bean.setEndTime(END_TIME);
+        List<T8606.Line> item = new ArrayList<>();
+        if (version == 2013) {
+            item.add(new T8606.Line(1, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));
+            item.add(new T8606.Line(2, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));
+            item.add(new T8606.Line(3, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));
+            item.add(new T8606.Line(4, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));
+        } else {
+            item.add(new T8606.Line(1, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4, 5));
+            item.add(new T8606.Line(2, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4, 5));
+            item.add(new T8606.Line(3, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4, 5));
+            item.add(new T8606.Line(4, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4, 5));
+            bean.setName("测试区域");
+        }
         bean.setItems(item);
         return bean;
     }

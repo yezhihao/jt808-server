@@ -4,8 +4,10 @@ import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,10 +20,8 @@ public class T8602 extends JTMessage {
     /** @see org.yzh.protocol.commons.ShapeAction */
     @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
     private int action;
-    @Field(index = 1, type = DataType.BYTE, desc = "区域总数")
-    private int total;
-    @Field(index = 2, type = DataType.LIST, desc = "区域列表")
-    private List<Item> items;
+    @Field(index = 1, type = DataType.LIST, lengthSize = 1, desc = "区域项")
+    private List<Rectangle> items;
 
     public int getAction() {
         return action;
@@ -31,24 +31,15 @@ public class T8602 extends JTMessage {
         this.action = action;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<Item> getItems() {
+    public List<Rectangle> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<Rectangle> items) {
         this.items = items;
-        this.total = items.size();
     }
 
-    public static class Item {
+    public static class Rectangle {
         @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
         private int id;
         @Field(index = 4, type = DataType.WORD, desc = "区域属性")
@@ -61,29 +52,39 @@ public class T8602 extends JTMessage {
         private int latitudeLR;
         @Field(index = 18, type = DataType.DWORD, desc = "右下点经度")
         private int longitudeLR;
-        @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "起始时间(YYMMDDHHMMSS)")
-        private String startTime;
-        @Field(index = 28, type = DataType.BCD8421, length = 6, desc = "结束时间(YYMMDDHHMMSS)")
-        private String endTime;
-        @Field(index = 34, type = DataType.WORD, desc = "最高速度(公里每小时)")
-        private int maxSpeed;
-        @Field(index = 36, type = DataType.BYTE, desc = "超速持续时间(秒)")
-        private int duration;
+        @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "起始时间(若区域属性0位为0则没有该字段)")
+        private LocalDateTime startTime;
+        @Field(index = 28, type = DataType.BCD8421, length = 6, desc = "结束时间(若区域属性0位为0则没有该字段)")
+        private LocalDateTime endTime;
+        @Field(index = 34, type = DataType.WORD, desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+        private Integer maxSpeed;
+        @Field(index = 36, type = DataType.BYTE, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
+        private Integer duration;
+        @Field(index = 37, type = DataType.WORD, desc = "夜间最高速度,若区域属性1位为0则没有该字段", version = 1)
+        private Integer nightMaxSpeed;
+        @Field(index = 39, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+        private String name;
 
-        public Item() {
+        public Rectangle() {
         }
 
-        public Item(int id, int attribute, int latitudeUL, int longitudeUL, int latitudeLR, int longitudeLR, String startTime, String endTime, int maxSpeed, int duration) {
+        public Rectangle(int id, int attribute, int latitudeUL, int longitudeUL, int latitudeLR, int longitudeLR, LocalDateTime startTime, LocalDateTime endTime, Integer maxSpeed, Integer duration) {
             this.id = id;
             this.attribute = attribute;
             this.latitudeUL = latitudeUL;
             this.longitudeUL = longitudeUL;
             this.latitudeLR = latitudeLR;
             this.longitudeLR = longitudeLR;
-            this.startTime = startTime;
-            this.endTime = endTime;
-            this.maxSpeed = maxSpeed;
-            this.duration = duration;
+            this.setStartTime(startTime);
+            this.setEndTime(endTime);
+            this.setMaxSpeed(maxSpeed);
+            this.setDuration(duration);
+        }
+
+        public Rectangle(int id, int attribute, int latitudeUL, int longitudeUL, int latitudeLR, int longitudeLR, LocalDateTime startTime, LocalDateTime endTime, Integer maxSpeed, Integer duration, Integer nightMaxSpeed, String name) {
+            this(id, attribute, latitudeUL, longitudeUL, latitudeLR, longitudeLR, startTime, endTime, maxSpeed, duration);
+            this.setNightMaxSpeed(nightMaxSpeed);
+            this.name = name;
         }
 
         public int getId() {
@@ -134,43 +135,64 @@ public class T8602 extends JTMessage {
             this.longitudeLR = longitudeLR;
         }
 
-        public String getStartTime() {
+        public LocalDateTime getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(String startTime) {
+        public void setStartTime(LocalDateTime startTime) {
+            this.attribute = Bit.set(attribute, 0, startTime != null);
             this.startTime = startTime;
         }
 
-        public String getEndTime() {
+        public LocalDateTime getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(String endTime) {
+        public void setEndTime(LocalDateTime endTime) {
+            this.attribute = Bit.set(attribute, 0, endTime != null);
             this.endTime = endTime;
         }
 
-        public int getMaxSpeed() {
+        public Integer getMaxSpeed() {
             return maxSpeed;
         }
 
-        public void setMaxSpeed(int maxSpeed) {
+        public void setMaxSpeed(Integer maxSpeed) {
+            this.attribute = Bit.set(attribute, 1, maxSpeed != null);
             this.maxSpeed = maxSpeed;
         }
 
-        public int getDuration() {
+        public Integer getDuration() {
             return duration;
         }
 
-        public void setDuration(int duration) {
+        public void setDuration(Integer duration) {
+            this.attribute = Bit.set(attribute, 1, duration != null);
             this.duration = duration;
+        }
+
+        public Integer getNightMaxSpeed() {
+            return nightMaxSpeed;
+        }
+
+        public void setNightMaxSpeed(Integer nightMaxSpeed) {
+            this.attribute = Bit.set(attribute, 1, nightMaxSpeed != null);
+            this.nightMaxSpeed = nightMaxSpeed;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder(512);
             sb.append("{id=").append(id);
-            sb.append(",attribute=").append(attribute);
+            sb.append(",attribute=[").append(Integer.toBinaryString(attribute)).append(']');
             sb.append(",longitudeUL=").append(longitudeUL);
             sb.append(",latitudeUL=").append(latitudeUL);
             sb.append(",longitudeLR=").append(longitudeLR);
