@@ -130,7 +130,7 @@ public class ParamChannels {
             message.audioChannels = input.readByte();
             message.videoChannels = input.readByte();
 
-            List<ChannelInfo> channels = new ArrayList<>();
+            List<ChannelInfo> channels = new ArrayList<>(4);
             while (input.isReadable()) {
                 byte channelId = input.readByte();
                 byte channelNo = input.readByte();

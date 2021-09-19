@@ -306,7 +306,7 @@ public class JT808Beans {
     public static T0704 T0704() {
         T0704 bean = new T0704();
         bean.setType(1);
-        List<T0704.Item> item = new ArrayList<>();
+        List<T0704.Item> item = new ArrayList<>(4);
         item.add(new T0704.Item(T0200()));
         item.add(new T0704.Item(T0200_()));
         item.add(new T0704.Item(T0200()));
@@ -319,7 +319,7 @@ public class JT808Beans {
     public static T0705 T0705() {
         T0705 bean = new T0705();
         bean.setDateTime("235959");
-        List<T0705.Item> items = new ArrayList<>();
+        List<T0705.Item> items = new ArrayList<>(3);
         items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
         items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
         items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
@@ -355,7 +355,7 @@ public class JT808Beans {
     public static T0802 T0802() {
         T0802 bean = new T0802();
         bean.setResponseSerialNo(123);
-        List<T0802.Item> items = new ArrayList<>();
+        List<T0802.Item> items = new ArrayList<>(4);
         items.add(new T0802.Item(1, 1, 1, 1, T0200()));
         items.add(new T0802.Item(2, 1, 1, 1, T0200_()));
         items.add(new T0802.Item(3, 1, 1, 1, T0200()));
@@ -446,7 +446,7 @@ public class JT808Beans {
 
     //提问下发
     public static T8302 T8302() {
-        List<T8302.Option> options = new ArrayList();
+        List<T8302.Option> options = new ArrayList<>(2);
         options.add(new T8302.Option(1, "asd1"));
         options.add(new T8302.Option(2, "zxc2"));
         T8302 bean = new T8302("123", 1);
@@ -459,15 +459,15 @@ public class JT808Beans {
         T8303 bean = new T8303();
         bean.setType(Action.Append);
         int i = 0;
-        bean.addItem(i++, "军事");
-        bean.addItem(i++, "国内");
-        bean.addItem(i++, "国际");
-        bean.addItem(i++, "股票");
-        bean.addItem(i++, "基金");
-        bean.addItem(i++, "外汇");
-        bean.addItem(i++, "体育");
-        bean.addItem(i++, "娱乐");
-        bean.addItem(i++, "汽车");
+        bean.addInfo(i++, "军事");
+        bean.addInfo(i++, "国内");
+        bean.addInfo(i++, "国际");
+        bean.addInfo(i++, "股票");
+        bean.addInfo(i++, "基金");
+        bean.addInfo(i++, "外汇");
+        bean.addInfo(i++, "体育");
+        bean.addInfo(i++, "娱乐");
+        bean.addInfo(i++, "汽车");
         return bean;
     }
 
@@ -491,9 +491,9 @@ public class JT808Beans {
     public static T8401 T8401() {
         T8401 bean = new T8401();
         bean.setType(Action.Append);
-        bean.add(new T8401.Item(2, "18217341802", "张三"));
-        bean.add(new T8401.Item(1, "123123", "李四"));
-        bean.add(new T8401.Item(3, "123123", "王五"));
+        bean.addContact(new T8401.Contact(2, "12345678901", "张三"));
+        bean.addContact(new T8401.Contact(1, "123123", "李四"));
+        bean.addContact(new T8401.Contact(3, "123123", "王五"));
         return bean;
     }
 
@@ -508,7 +508,7 @@ public class JT808Beans {
     public static T8600 T8600(int version) {
         T8600 bean = new T8600();
         bean.setAction(ShapeAction.Modify);
-        List<T8600.Circle> items = new ArrayList<>();
+        List<T8600.Circle> items = new ArrayList<>(5);
         if (version == 2013) {
             items.add(new T8600.Circle(1, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
             items.add(new T8600.Circle(2, 0, 123123, 112312, 123, START_TIME, END_TIME, 200, 30));
@@ -536,7 +536,7 @@ public class JT808Beans {
     public static T8602 T8602(int version) {
         T8602 bean = new T8602();
         bean.setAction(ShapeAction.Update);
-        List<T8602.Rectangle> items = new ArrayList<>();
+        List<T8602.Rectangle> items = new ArrayList<>(5);
         if (version == 2013) {
             items.add(new T8602.Rectangle(1, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
             items.add(new T8602.Rectangle(2, 0, 123123, 112312, 123123, 112312, START_TIME, END_TIME, 200, 30));
@@ -582,7 +582,7 @@ public class JT808Beans {
         bean.setAttribute(0);
         bean.setStartTime(START_TIME);
         bean.setEndTime(END_TIME);
-        List<T8606.Line> item = new ArrayList<>();
+        List<T8606.Line> item = new ArrayList<>(4);
         if (version == 2013) {
             item.add(new T8606.Line(1, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));
             item.add(new T8606.Line(2, 1, 31234567, 121234567, 9, 0, 1, 2, 3, 4));

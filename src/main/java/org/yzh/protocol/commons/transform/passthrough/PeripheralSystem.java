@@ -35,7 +35,7 @@ public class PeripheralSystem {
 
     public void addItem(byte id, String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
         if (items == null)
-            items = new ArrayList<>();
+            items = new ArrayList<>(4);
         items.add(new Item(id, companyName, productModel, hardwareVersion, firmwareVersion, deviceId, userCode));
     }
 

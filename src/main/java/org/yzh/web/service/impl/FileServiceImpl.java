@@ -138,7 +138,7 @@ public class FileServiceImpl implements FileService {
             items[i][1] = buffer.getInt();
         }
 
-        List<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>(items.length);
         int len = items.length - 1;
         Arrays.sort(items, 1, len, comparator);
 

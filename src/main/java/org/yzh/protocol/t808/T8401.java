@@ -19,10 +19,8 @@ public class T8401 extends JTMessage {
     /** @see org.yzh.protocol.commons.Action */
     @Field(index = 0, type = DataType.BYTE, desc = "类型")
     private int type;
-    @Field(index = 1, type = DataType.BYTE, desc = "总数")
-    private int total;
-    @Field(index = 2, type = DataType.LIST, desc = "联系人列表")
-    private List<Item> items;
+    @Field(index = 1, type = DataType.LIST, lengthSize = 1, desc = "联系人项")
+    private List<Contact> contacts;
 
     public int getType() {
         return type;
@@ -32,32 +30,21 @@ public class T8401 extends JTMessage {
         this.type = type;
     }
 
-    public int getTotal() {
-        if (items != null)
-            return items.size();
-        return total;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public void addContact(Contact contact) {
+        if (contacts == null)
+            contacts = new ArrayList<>(2);
+        contacts.add(contact);
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public void add(Item item) {
-        if (items == null)
-            items = new ArrayList();
-        items.add(item);
-        total = items.size();
-    }
-
-    public static class Item {
+    public static class Contact {
         @Field(index = 0, type = DataType.BYTE, desc = "标志")
         private int sign;
         @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "电话号码")
@@ -65,10 +52,10 @@ public class T8401 extends JTMessage {
         @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "联系人")
         private String name;
 
-        public Item() {
+        public Contact() {
         }
 
-        public Item(int sign, String phone, String name) {
+        public Contact(int sign, String phone, String name) {
             this.sign = sign;
             this.phone = phone;
             this.name = name;

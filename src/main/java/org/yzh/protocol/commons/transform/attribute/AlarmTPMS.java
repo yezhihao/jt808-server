@@ -37,9 +37,7 @@ public class AlarmTPMS implements Alarm {
     @Field(index = 24, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(index = 24, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(index = 39, type = DataType.BYTE, desc = "事件列表总数")
-    private int total;
-    @Field(index = 40, type = DataType.LIST, desc = "事件信息列表")
+    @Field(index = 39, type = DataType.LIST, lengthSize = 1, desc = "事件信息列表")
     private List<Item> items;
 
     public long getSerialNo() {
@@ -114,23 +112,12 @@ public class AlarmTPMS implements Alarm {
         this.alarmId = alarmId;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
-        if (items != null) {
-            this.items = items;
-            this.total = items.size();
-        }
+        this.items = items;
     }
 
     public static class Item {
@@ -230,7 +217,6 @@ public class AlarmTPMS implements Alarm {
         sb.append(", dateTime=").append(dateTime);
         sb.append(", status=").append(status);
         sb.append(", alarmId=").append(alarmId);
-        sb.append(", total=").append(total);
         sb.append(", items=").append(items);
         sb.append('}');
         return sb.toString();

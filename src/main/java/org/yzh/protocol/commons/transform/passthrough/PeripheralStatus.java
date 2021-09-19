@@ -34,7 +34,7 @@ public class PeripheralStatus {
 
     public void addItem(byte id, byte workState, int alarmStatus) {
         if (items == null)
-            items = new ArrayList<>();
+            items = new ArrayList<>(4);
         items.add(new Item(id, workState, alarmStatus));
     }
 

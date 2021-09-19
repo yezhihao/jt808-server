@@ -44,13 +44,12 @@ public class JT1078Beans {
 
     //终端上传音视频资源列表
     public static T1205 T1205() {
-        List<T1205.Item> items = new ArrayList<>();
+        List<T1205.Item> items = new ArrayList<>(2);
         items.add(new T1205.Item(1, startTime, endTime, 0, 0, 1, 1, 1, 1024));
         items.add(new T1205.Item(2, startTime, endTime, 0, 0, 2, 2, 2, 2048));
 
         T1205 bean = new T1205();
         bean.setResponseSerialNo(4321);
-        bean.setCount(items.size());
         bean.setItems(items);
         return bean;
     }

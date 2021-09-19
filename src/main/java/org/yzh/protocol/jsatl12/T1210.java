@@ -25,9 +25,7 @@ public class T1210 extends JTMessage {
     private String alarmNo;
     @Field(index = 102, type = DataType.BYTE, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
-    @Field(index = 103, type = DataType.BYTE, desc = "附件数量")
-    private int total;
-    @Field(index = 104, type = DataType.LIST, desc = "附件信息列表")
+    @Field(index = 103, type = DataType.LIST, lengthSize = 1, desc = "附件信息列表")
     private List<Item> items;
 
     public String getDeviceId() {
@@ -60,14 +58,6 @@ public class T1210 extends JTMessage {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public List<Item> getItems() {

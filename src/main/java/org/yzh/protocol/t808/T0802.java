@@ -18,9 +18,7 @@ public class T0802 extends JTMessage implements Response {
 
     @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.WORD, desc = "多媒体数据总项数")
-    private int total;
-    @Field(index = 4, type = DataType.LIST, desc = "检索项")
+    @Field(index = 2, type = DataType.LIST, lengthSize = 2, desc = "检索项")
     private List<Item> items;
 
     public int getResponseSerialNo() {
@@ -31,25 +29,15 @@ public class T0802 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
-        this.total = items.size();
     }
 
     public static class Item {
-
         @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
         private int id;
         @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型：0.图像 1.音频 2.视频")

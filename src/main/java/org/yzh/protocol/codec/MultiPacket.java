@@ -50,7 +50,7 @@ public class MultiPacket {
             return null;
 
         int total = packets.length;
-        List<Integer> result = new ArrayList(total - count);
+        List<Integer> result = new ArrayList<>(total - count);
         for (int i = 0; i < total; i++) {
             if (packets[i] == null)
                 result.add(i + 1);

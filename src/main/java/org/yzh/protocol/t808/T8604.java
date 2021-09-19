@@ -99,7 +99,7 @@ public class T8604 extends JTMessage {
 
     public void addPoint(int longitude, int latitude) {
         if (points == null)
-            points = new ArrayList();
+            points = new ArrayList<>(4);
         points.add(new Point(latitude, longitude));
     }
 

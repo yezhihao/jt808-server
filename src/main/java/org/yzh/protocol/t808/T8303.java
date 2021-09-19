@@ -20,10 +20,8 @@ public class T8303 extends JTMessage {
     /** @see org.yzh.protocol.commons.Action */
     @Field(index = 0, type = DataType.BYTE, desc = "设置类型")
     private int type;
-    @Field(index = 1, type = DataType.BYTE, desc = "设置总数")
-    private int total;
-    @Field(index = 2, type = DataType.LIST, desc = "事件项列表")
-    private List<Item> items;
+    @Field(index = 1, type = DataType.LIST, lengthSize = 1, desc = "信息项")
+    private List<Info> infos;
 
     public int getType() {
         return type;
@@ -33,67 +31,55 @@ public class T8303 extends JTMessage {
         this.type = type;
     }
 
-    public int getTotal() {
-        if (items != null)
-            return items.size();
-        return total;
+    public List<Info> getInfos() {
+        return infos;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setInfos(List<Info> infos) {
+        this.infos = infos;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public void addInfo(int type, String name) {
+        if (infos == null)
+            infos = new ArrayList<>(2);
+        infos.add(new Info(type, name));
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-        this.total = items.size();
-    }
-
-    public void addItem(int id, String content) {
-        if (items == null)
-            items = new ArrayList();
-        items.add(new Item(id, content));
-        total = items.size();
-    }
-
-    public static class Item {
-        @Field(index = 0, type = DataType.BYTE, desc = "事件ID")
-        private int id;
+    public static class Info {
+        @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
+        private int type;
         @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "信息名称")
-        private String content;
+        private String name;
 
-        public Item() {
+        public Info() {
         }
 
-        public Item(int id, String content) {
-            this.id = id;
-            this.content = content;
+        public Info(int type, String name) {
+            this.type = type;
+            this.name = name;
         }
 
-        public int getId() {
-            return id;
+        public int getType() {
+            return type;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setType(int type) {
+            this.type = type;
         }
 
-        public String getContent() {
-            return content;
+        public String getName() {
+            return name;
         }
 
-        public void setContent(String content) {
-            this.content = content;
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder(40);
-            sb.append("{id=").append(id);
-            sb.append(",content=").append(content);
+            sb.append("{type=").append(type);
+            sb.append(",name=").append(name);
             sb.append('}');
             return sb.toString();
         }

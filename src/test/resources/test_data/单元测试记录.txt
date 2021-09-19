@@ -13,7 +13,6 @@ json1 {
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
-  "total": 0,
   "messageId": 4624,
   "properties": 57,
   "protocolVersion": 0,
@@ -33,7 +32,6 @@ json2 {
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
-  "total": 0,
   "messageId": 4624,
   "properties": 57,
   "protocolVersion": 0,
@@ -53,7 +51,6 @@ json1 {
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
-  "total": 0,
   "messageId": 4624,
   "properties": 16488,
   "protocolVersion": 1,
@@ -73,7 +70,6 @@ json2 {
   },
   "alarmNo": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
-  "total": 0,
   "messageId": 4624,
   "properties": 16488,
   "protocolVersion": 1,
@@ -477,7 +473,6 @@ json2 {
 hex1 7e1205003e1234567890127fff10e1000000020120010100000020123123595900000000000000000101010000040002200101000000201231235959000000000000000002020200000800dc7e
 json1 {
   "responseSerialNo": 4321,
-  "count": 2,
   "items": [
     {
       "channelNo": 1,
@@ -512,7 +507,6 @@ json1 {
 hex2 7e1205003e1234567890127fff10e1000000020120010100000020123123595900000000000000000101010000040002200101000000201231235959000000000000000002020200000800dc7e
 json2 {
   "responseSerialNo": 4321,
-  "count": 2,
   "items": [
     {
       "channelNo": 1,
@@ -547,7 +541,6 @@ json2 {
 hex1 7e1205403e0112345678901234567890ffff10e1000000020120010100000020123123595900000000000000000101010000040002200101000000201231235959000000000000000002020200000800977e
 json1 {
   "responseSerialNo": 4321,
-  "count": 2,
   "items": [
     {
       "channelNo": 1,
@@ -582,7 +575,6 @@ json1 {
 hex2 7e1205403e0112345678901234567890ffff10e1000000020120010100000020123123595900000000000000000101010000040002200101000000201231235959000000000000000002020200000800977e
 json2 {
   "responseSerialNo": 4321,
-  "count": 2,
   "items": [
     {
       "channelNo": 1,
@@ -3099,7 +3091,6 @@ json2 {
 hex1 7e080200901234567890127fff007b000400000001010101000004000000080006eeb6ad02633df70138000300632007071923590000000201010100000800000010000ddd6d5a04c67bee0270000600c620070719235900000003010101000004000000080006eeb6ad02633df70138000300632007071923590000000401010100000800000010000ddd6d5a04c67bee0270000600c6200707192359eb7e
 json1 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -3196,7 +3187,6 @@ json1 {
 hex2 7e080200901234567890127fff007b000400000001010101000004000000080006eeb6ad02633df70138000300632007071923590000000201010100000800000010000ddd6d5a04c67bee0270000600c620070719235900000003010101000004000000080006eeb6ad02633df70138000300632007071923590000000401010100000800000010000ddd6d5a04c67bee0270000600c6200707192359eb7e
 json2 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -3293,7 +3283,6 @@ json2 {
 hex1 7e080240900112345678901234567890ffff007b000400000001010101000004000000080006eeb6ad02633df70138000300632007071923590000000201010100000800000010000ddd6d5a04c67bee0270000600c620070719235900000003010101000004000000080006eeb6ad02633df70138000300632007071923590000000401010100000800000010000ddd6d5a04c67bee0270000600c6200707192359a07e
 json1 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -3390,7 +3379,6 @@ json1 {
 hex2 7e080240900112345678901234567890ffff007b000400000001010101000004000000080006eeb6ad02633df70138000300632007071923590000000201010100000800000010000ddd6d5a04c67bee0270000600c620070719235900000003010101000004000000080006eeb6ad02633df70138000300632007071923590000000401010100000800000010000ddd6d5a04c67bee0270000600c6200707192359a07e
 json2 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -4451,7 +4439,6 @@ json2 {
 hex1 7e830100151234567890127fff02030104746573740205b2e2cad432030474cad432ab7e
 json1 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -4476,7 +4463,6 @@ json1 {
 hex2 7e830100151234567890127fff02030104746573740205b2e2cad432030474cad432ab7e
 json2 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -4501,7 +4487,6 @@ json2 {
 hex1 7e830140150112345678901234567890ffff02030104746573740205b2e2cad432030474cad432e07e
 json1 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -4526,7 +4511,6 @@ json1 {
 hex2 7e830140150112345678901234567890ffff02030104746573740205b2e2cad432030474cad432e07e
 json2 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -4635,43 +4619,42 @@ json2 {
 hex1 7e830300411234567890127fff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5817e
 json1 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -4684,43 +4667,42 @@ json1 {
 hex2 7e830300411234567890127fff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5817e
 json2 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -4733,43 +4715,42 @@ json2 {
 hex1 7e830340410112345678901234567890ffff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5ca7e
 json1 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -4782,43 +4763,42 @@ json1 {
 hex2 7e830340410112345678901234567890ffff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5ca7e
 json2 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -4916,14 +4896,13 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-hex1 7e8401002e1234567890127fff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5897e
+hex1 7e8401002e1234567890127fff0203020b313233343536373839303104d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5887e
 json1 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
-      "phone": "18217341802",
+      "phone": "12345678901",
       "name": "张三"
     },
     {
@@ -4944,14 +4923,13 @@ json1 {
   "serialNo": 32767,
   "verified": true
 }
-hex2 7e8401002e1234567890127fff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5897e
+hex2 7e8401002e1234567890127fff0203020b313233343536373839303104d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5887e
 json2 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
-      "phone": "18217341802",
+      "phone": "12345678901",
       "name": "张三"
     },
     {
@@ -4972,14 +4950,13 @@ json2 {
   "serialNo": 32767,
   "verified": true
 }
-hex1 7e8401402e0112345678901234567890ffff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5c27e
+hex1 7e8401402e0112345678901234567890ffff0203020b313233343536373839303104d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5c37e
 json1 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
-      "phone": "18217341802",
+      "phone": "12345678901",
       "name": "张三"
     },
     {
@@ -5000,14 +4977,13 @@ json1 {
   "serialNo": 65535,
   "verified": true
 }
-hex2 7e8401402e0112345678901234567890ffff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5c27e
+hex2 7e8401402e0112345678901234567890ffff0203020b313233343536373839303104d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5c37e
 json2 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
-      "phone": "18217341802",
+      "phone": "12345678901",
       "name": "张三"
     },
     {
@@ -7469,8 +7445,7 @@ json1 {
         "serialNo": 3,
         "fileTotal": 3,
         "reserved": 3
-      },
-      "total": 0
+      }
     },
     "103": {
       "serialNo": 67,
@@ -7569,8 +7544,7 @@ json2 {
         "serialNo": 3,
         "fileTotal": 3,
         "reserved": 3
-      },
-      "total": 0
+      }
     },
     "103": {
       "serialNo": 67,
@@ -7669,8 +7643,7 @@ json1 {
         "serialNo": 3,
         "fileTotal": 3,
         "reserved": 3
-      },
-      "total": 0
+      }
     },
     "103": {
       "serialNo": 67,
@@ -7769,8 +7742,7 @@ json2 {
         "serialNo": 3,
         "fileTotal": 3,
         "reserved": 3
-      },
-      "total": 0
+      }
     },
     "103": {
       "serialNo": 67,
@@ -9519,7 +9491,6 @@ json2 {
 7e080200900123456789017fff007b000400000001010101000004000000080006eeb6ad02633df701380003006320070719235900000002010101000004000000080006eeb6ad02633df701380003006320070719235900000003010101000004000000080006eeb6ad02633df701380003006320070719235900000004010101000004000000080006eeb6ad02633df7013800030063200707192359e97e
 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -9616,7 +9587,6 @@ json2 {
 7e080200900123456789017fff007b000400000001010101000004000000080006eeb6ad02633df701380003006320070719235900000002010101000004000000080006eeb6ad02633df701380003006320070719235900000003010101000004000000080006eeb6ad02633df701380003006320070719235900000004010101000004000000080006eeb6ad02633df7013800030063200707192359e97e
 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -9714,7 +9684,6 @@ json2 {
 7e080240900100000000017299841738ffff007b000400000001010101000004000000080006eeb6ad02633df701380003006320070719235900000002010101000004000000080006eeb6ad02633df701380003006320070719235900000003010101000004000000080006eeb6ad02633df701380003006320070719235900000004010101000004000000080006eeb6ad02633df7013800030063200707192359e17e
 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -9811,7 +9780,6 @@ json2 {
 7e080240900100000000017299841738ffff007b000400000001010101000004000000080006eeb6ad02633df701380003006320070719235900000002010101000004000000080006eeb6ad02633df701380003006320070719235900000003010101000004000000080006eeb6ad02633df701380003006320070719235900000004010101000004000000080006eeb6ad02633df7013800030063200707192359e17e
 {
   "responseSerialNo": 123,
-  "total": 4,
   "items": [
     {
       "id": 1,
@@ -10839,7 +10807,6 @@ json2 {
 7e830100150123456789017fff02030104746573740205b2e2cad432030474cad432a97e
 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -10864,7 +10831,6 @@ json2 {
 7e830100150123456789017fff02030104746573740205b2e2cad432030474cad432a97e
 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -10890,7 +10856,6 @@ json2 {
 7e830140150100000000017299841738ffff02030104746573740205b2e2cad432030474cad432a17e
 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -10915,7 +10880,6 @@ json2 {
 7e830140150100000000017299841738ffff02030104746573740205b2e2cad432030474cad432a17e
 {
   "type": 2,
-  "total": 3,
   "events": [
     {
       "id": 1,
@@ -11027,43 +10991,42 @@ json2 {
 7e830300410123456789017fff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5837e
 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -11076,43 +11039,42 @@ json2 {
 7e830300410123456789017fff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b5837e
 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -11126,43 +11088,42 @@ json2 {
 7e830340410100000000017299841738ffff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b58b7e
 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -11175,43 +11136,42 @@ json2 {
 7e830340410100000000017299841738ffff0209000004befccac2010004b9fac4da020004b9fabcca030004b9c9c6b1040004bbf9bdf0050004cde2bbe3060004cce5d3fd070004d3e9c0d6080004c6fbb3b58b7e
 {
   "type": 2,
-  "total": 9,
-  "items": [
+  "infos": [
     {
-      "id": 0,
-      "content": "军事"
+      "type": 0,
+      "name": "军事"
     },
     {
-      "id": 1,
-      "content": "国内"
+      "type": 1,
+      "name": "国内"
     },
     {
-      "id": 2,
-      "content": "国际"
+      "type": 2,
+      "name": "国际"
     },
     {
-      "id": 3,
-      "content": "股票"
+      "type": 3,
+      "name": "股票"
     },
     {
-      "id": 4,
-      "content": "基金"
+      "type": 4,
+      "name": "基金"
     },
     {
-      "id": 5,
-      "content": "外汇"
+      "type": 5,
+      "name": "外汇"
     },
     {
-      "id": 6,
-      "content": "体育"
+      "type": 6,
+      "name": "体育"
     },
     {
-      "id": 7,
-      "content": "娱乐"
+      "type": 7,
+      "name": "娱乐"
     },
     {
-      "id": 8,
-      "content": "汽车"
+      "type": 8,
+      "name": "汽车"
     }
   ],
   "messageId": 33539,
@@ -11317,8 +11277,7 @@ json2 {
 7e8401002e0123456789017fff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee58b7e
 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
       "phone": "18217341802",
@@ -11345,8 +11304,7 @@ json2 {
 7e8401002e0123456789017fff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee58b7e
 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
       "phone": "18217341802",
@@ -11374,8 +11332,7 @@ json2 {
 7e8401402e0100000000017299841738ffff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5837e
 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
       "phone": "18217341802",
@@ -11402,8 +11359,7 @@ json2 {
 7e8401402e0100000000017299841738ffff0203020b313832313733343138303204d5c5c8fd010631323331323304c0eecbc4030631323331323304cdf5cee5837e
 {
   "type": 2,
-  "total": 3,
-  "items": [
+  "contacts": [
     {
       "sign": 2,
       "phone": "18217341802",
@@ -13705,7 +13661,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=1, retryCount=0, time=0, packets={1, , , , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8478,
   "protocolVersion": 0,
@@ -13718,7 +13673,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=2, retryCount=0, time=0, packets={1,2, , , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13731,7 +13685,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=3, retryCount=0, time=0, packets={1,2,3, , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13744,7 +13697,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=4, retryCount=0, time=0, packets={1,2,3,4, , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13757,7 +13709,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=5, retryCount=0, time=0, packets={1,2,3,4,5, , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13770,7 +13721,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=6, retryCount=0, time=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13783,7 +13733,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=7, retryCount=0, time=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13796,7 +13745,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=8, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13809,7 +13757,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=9, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13822,7 +13769,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=10, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13835,7 +13781,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=11, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13848,7 +13793,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=12, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13861,7 +13805,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=13, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13874,7 +13817,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=14, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13887,7 +13829,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=15, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13900,7 +13841,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=16, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13913,7 +13853,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=17, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }]
 {
   "responseSerialNo": 0,
-  "count": 0,
   "messageId": 4613,
   "properties": 8472,
   "protocolVersion": 0,
@@ -13926,7 +13865,6 @@ json2 {
 [main] INFO MultiPacketDecoder   [51]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=18, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}]
 {
   "responseSerialNo": 2,
-  "count": 180,
   "items": [
     {
       "channelNo": 1,
