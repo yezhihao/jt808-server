@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.yzh.protocol.codec.DataFrameMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.JTMessageAdapter;
+import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 
 @Configuration
@@ -38,7 +38,7 @@ public class JSATLConfig {
 
             NettyConfig jtConfig = NettyConfig.custom()
                     .setPort(port)
-                    .setMaxFrameLength(2 + 21 + 1023 + 2)
+                    .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
                     .setLengthField(new LengthField(DataFramePrefix, 1024 * 65, 58, 4))
                     .setDelimiters(new Delimiter(new byte[]{0x7e}))
                     .setDecoder(alarmFileMessageAdapter)

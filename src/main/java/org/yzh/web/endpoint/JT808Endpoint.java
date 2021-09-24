@@ -73,8 +73,8 @@ public class JT808Endpoint {
 
         DeviceInfo device = deviceService.register(message);
         if (device != null) {
-            session.register(message);
             session.setAttribute(SessionKey.DeviceInfo, device);
+            session.register(message);
 
             byte[] bytes = DeviceInfo.toBytes(device);
             bytes = EncryptUtils.encrypt(bytes);
@@ -96,8 +96,8 @@ public class JT808Endpoint {
 
         DeviceInfo device = deviceService.authentication(message);
         if (device != null) {
-            session.register(message);
             session.setAttribute(SessionKey.DeviceInfo, device);
+            session.register(message);
             result.setResultCode(T0001.Success);
             return result;
         }
