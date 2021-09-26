@@ -38,6 +38,11 @@
  * Gitee仓库地址：[https://gitee.com/yezhihao/jt808-server/tree/master](https://gitee.com/yezhihao/jt808-server/tree/master)
  * Github仓库地址：[https://github.com/yezhihao/jt808-server/tree/master](https://github.com/yezhihao/jt808-server/tree/master)
 
+# 演示
+ * 设备接入：81.68.215.202:7611
+ * 日志监控：http://81.68.215.202:8000/ws.html
+ * 接口文档：http://81.68.215.202:8000/doc.html
+
 # 验证步骤
 
 ## 1.验证消息定义

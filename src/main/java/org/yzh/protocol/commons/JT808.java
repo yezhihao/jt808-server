@@ -62,7 +62,7 @@ public interface JT808 {
     int 信息服务 = 0x8304;//2019 del
     int 电话回拨 = 0x8400;
     int 设置电话本 = 0x8401;
-    int 车辆控制 = 0x8500;
+    int 车辆控制 = 0x8500;//2019 modify
     int 设置圆形区域 = 0x8600;//2019 modify
     int 删除圆形区域 = 0x8601;
     int 设置矩形区域 = 0x8602;//2019 modify

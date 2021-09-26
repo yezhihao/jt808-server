@@ -4,3 +4,4 @@ spring:
     username: root
     password: 123@abc
     driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: never
