@@ -22,7 +22,7 @@ dependency-reduced-pom.xml
 
 .classpath
 .project
-.settings/
+.settings
 
 # IntelliJ IDEA Files
 
@@ -31,6 +31,7 @@ dependency-reduced-pom.xml
 *.iws
 *.idea
 *.log
+*.db
 
 README.html
 
