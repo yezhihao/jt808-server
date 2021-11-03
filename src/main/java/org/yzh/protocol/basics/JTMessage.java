@@ -157,7 +157,8 @@ public class JTMessage implements Message {
         return 0;
     }
 
-    public void transform() {
+    public boolean transform() {
+        return true;
     }
 
     private static final int BODY_LENGTH = 0b0000_0011_1111_1111;

@@ -27,7 +27,7 @@ public class JSATL12Beans {
     //文件信息上传/文件上传完成消息
     public static T1211 T1211() {
         T1211 bean = new T1211();
-        bean.setName("YKJYsf3so");
+        bean.setName("www.jtt808.cn");
         bean.setType(1);
         bean.setSize(1024);
         return bean;
@@ -48,7 +48,7 @@ public class JSATL12Beans {
     //文件上传完成消息
     public static T9212 T9212() {
         T9212 bean = new T9212();
-        bean.setName("test123");
+        bean.setName("www.jtt808.cn");
         bean.setType(0);
         bean.setResult(1);
         bean.setItems(new int[]{0, 1024});

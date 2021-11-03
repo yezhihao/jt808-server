@@ -53,8 +53,8 @@ public class JT808Beans {
         T0100 bean = new T0100();
         bean.setProvinceId(31);
         bean.setCityId(115);
-        bean.setMakerId("4");
-        bean.setDeviceModel("JTT808.CN");
+        bean.setMakerId("yzh");
+        bean.setDeviceModel("www.jtt808.cn");
         bean.setDeviceId(DEVICE_ID);
         bean.setPlateColor(1);
         bean.setPlateNo("测A888888");
@@ -72,7 +72,7 @@ public class JT808Beans {
         T0102 bean = new T0102();
         bean.setToken("pmYGzGukO8K4Z5lpIOTg8dqb3eprYaHBbXSPLtdbyG8=");
         bean.setImei("123456789012345");
-        bean.setSoftwareVersion("3.7.15");
+        bean.setSoftwareVersion("www.jtt808.cn");
         return bean;
     }
 
@@ -110,12 +110,12 @@ public class JT808Beans {
     public static T0107 T0107() {
         T0107 bean = new T0107();
         bean.setDeviceType(127);
-        bean.setMakerId("2D_AN");
-        bean.setDeviceModel("JTT808.CN");
+        bean.setMakerId("yzh");
+        bean.setDeviceModel("www.jtt808.cn");
         bean.setDeviceId(DEVICE_ID);
         bean.setIccid("12345678901234567890");
-        bean.setFirmwareVersion("1.1.25");
-        bean.setHardwareVersion("3.0.0");
+        bean.setFirmwareVersion("www.jtt808.cn");
+        bean.setHardwareVersion("www.jtt808.cn");
         bean.setGnssAttribute(127);
         bean.setNetworkAttribute(127);
         return bean;
@@ -422,8 +422,8 @@ public class JT808Beans {
     public static T8108 T8108() {
         T8108 bean = new T8108();
         bean.setType(T8108.Beidou);
-        bean.setMakerId("asd");
-        bean.setVersion("1.1.12");
+        bean.setMakerId("yzh");
+        bean.setVersion("www.jtt808.cn");
         bean.setPacket(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         return bean;
     }
@@ -447,8 +447,8 @@ public class JT808Beans {
     //提问下发
     public static T8302 T8302() {
         List<T8302.Option> options = new ArrayList<>(2);
-        options.add(new T8302.Option(1, "asd1"));
-        options.add(new T8302.Option(2, "zxc2"));
+        options.add(new T8302.Option(1, "www.jtt808.cn"));
+        options.add(new T8302.Option(2, "www.jtt808.cn"));
         T8302 bean = new T8302("123", 1);
         bean.setOptions(options);
         return bean;
@@ -694,7 +694,7 @@ public class JT808Beans {
         bean.setType(Action.Append);
         bean.addEvent(1, "test");
         bean.addEvent(2, "测试2");
-        bean.addEvent(3, "t试2");
+        bean.addEvent(3, "www.jtt808.cn");
         return bean;
     }
 

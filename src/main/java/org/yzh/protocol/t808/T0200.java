@@ -147,11 +147,12 @@ public class T0200 extends JTMessage {
     //==================================
 
     @Override
-    public void transform() {
+    public boolean transform() {
         lng = longitude / 1000000d;
         lat = latitude / 1000000d;
         speedKph = speed / 10f;
-        deviceTime = DateUtils.parse(dateTime);
+        if (dateTime != null)
+            deviceTime = DateUtils.parse(dateTime);
 
         DeviceInfo device = SessionKey.getDeviceInfo(session);
         if (device != null) {
@@ -162,6 +163,7 @@ public class T0200 extends JTMessage {
             deviceId = clientId;
             plateNo = "";
         }
+        return deviceTime != null;
     }
 
     private transient boolean updated;
