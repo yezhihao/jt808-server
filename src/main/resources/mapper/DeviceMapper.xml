@@ -51,7 +51,8 @@
             <if test="deviceModel != null">device_model = #{deviceModel,jdbcType=VARCHAR},</if>
             <if test="makerId != null">maker_id = #{makerId,jdbcType=VARCHAR},</if>
             <if test="deleted != null">deleted = #{deleted,jdbcType=BOOLEAN},</if>
-            updated_by=#{updatedBy,jdbcType=VARCHAR},updated_at=now()
+            <if test="updatedBy != null">updated_by = #{updatedBy,jdbcType=VARCHAR},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt,jdbcType=TIMESTAMP},</if>
         </set>
         where device_id = #{deviceId,jdbcType=VARCHAR}
     </update>
