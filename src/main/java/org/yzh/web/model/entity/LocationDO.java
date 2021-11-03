@@ -20,7 +20,7 @@ public class LocationDO {
     private Integer alarmType;
     private LocalDate deviceDate;
     private LocalDateTime deviceTime;
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 
     public String getDeviceId() {
         return deviceId;
@@ -126,12 +126,12 @@ public class LocationDO {
         this.deviceTime = deviceTime;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

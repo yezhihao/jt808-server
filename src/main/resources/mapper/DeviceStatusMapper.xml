@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yzh.web.mapper.DeviceStatusMapper">
+
+    <select id="find" parameterType="org.yzh.web.model.entity.DeviceStatusDO" resultType="org.yzh.web.model.entity.DeviceStatusDO">
+        select t.*
+        from device_status t
+        <where>
+            <if test="online != null">and t.online = #{online,jdbcType=BIT}</if>
+            <if test="agencyId != null">and t.agency_id = #{agencyId,jdbcType=SMALLINT}</if>
+            <if test="vehicleId != null">and t.vehicle_id = #{vehicleId,jdbcType=INTEGER}</if>
+            <if test="deviceId != null">and t.device_id like concat(#{deviceId,jdbcType=VARCHAR},'%')</if>
+            <if test="mobileNo != null">and t.mobile_no like concat(#{mobileNo,jdbcType=VARCHAR},'%')</if>
+            <if test="plateNo != null">and t.plate_no like concat(#{plateNo,jdbcType=CHAR},'%')</if>
+            <if test="address != null">and t.address like concat(#{address,jdbcType=VARCHAR},'%')</if>
+            <if test="speed != null">and t.speed >= #{speed,jdbcType=SMALLINT}</if>
+            <if test="updatedAt != null">and t.updated_at >= #{updatedAt,jdbcType=TIMESTAMP}</if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="org.yzh.web.model.entity.DeviceStatusDO">
+        update device_status
+        <set>
+            <if test="online != null">online = #{online,jdbcType=BIT},</if>
+            <if test="agencyId != null">agency_id = #{agencyId,jdbcType=SMALLINT},</if>
+            <if test="plateNo != null">plate_no = #{plateNo,jdbcType=CHAR},</if>
+            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="vehicleId != null">vehicle_id = #{vehicleId,jdbcType=INTEGER},</if>
+            updated_at = now()
+        </set>
+        where device_id = #{deviceId,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceStatusDO">
+        insert into device_status (device_id, online, agency_id, plate_no, mobile_no, vehicle_id, device_time, updated_at, created_at)
+        values (#{deviceId,jdbcType=VARCHAR}, #{online,jdbcType=BIT}, #{agencyId,jdbcType=SMALLINT},
+                #{plateNo,jdbcType=CHAR}, #{mobileNo,jdbcType=VARCHAR}, #{vehicleId,jdbcType=INTEGER}, now(), now(), now())
+    </insert>
+</mapper>

@@ -20,6 +20,10 @@
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
         <javaModelGenerator targetPackage="org.yzh.web.model.entity" targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>

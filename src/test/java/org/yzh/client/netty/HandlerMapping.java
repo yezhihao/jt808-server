@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class HandlerMapping {
 
-    private Map<Integer, Handler> handlerMap = new HashMap(55);
+    private Map<Integer, Handler> handlerMap = new HashMap<>(55);
 
     public HandlerMapping(String... packageNames) {
         for (String packageName : packageNames) {

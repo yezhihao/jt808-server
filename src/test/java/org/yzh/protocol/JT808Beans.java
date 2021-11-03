@@ -54,7 +54,7 @@ public class JT808Beans {
         bean.setProvinceId(31);
         bean.setCityId(115);
         bean.setMakerId("4");
-        bean.setDeviceModel("BSJ-GF-06");
+        bean.setDeviceModel("JTT808.CN");
         bean.setDeviceId(DEVICE_ID);
         bean.setPlateColor(1);
         bean.setPlateNo("测A888888");
@@ -111,7 +111,7 @@ public class JT808Beans {
         T0107 bean = new T0107();
         bean.setDeviceType(127);
         bean.setMakerId("2D_AN");
-        bean.setDeviceModel("BSJ-GF-06");
+        bean.setDeviceModel("JTT808.CN");
         bean.setDeviceId(DEVICE_ID);
         bean.setIccid("12345678901234567890");
         bean.setFirmwareVersion("1.1.25");

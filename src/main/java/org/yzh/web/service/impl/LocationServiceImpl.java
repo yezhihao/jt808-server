@@ -45,7 +45,7 @@ public class LocationServiceImpl implements LocationService {
         jdbcSQLInsert(list);
     }
 
-    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,plate_no,warn_bit,status_bit,longitude,latitude,altitude,speed,direction,alarm_type,create_time) values ";
+    private static final String SQL_HEAD = "insert ignore into location (device_time,device_id,mobile_no,vehicle_id,warn_bit,status_bit,longitude,latitude,altitude,speed,direction,created_at) values ";
     private static final String SQL = SQL_HEAD + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public void jdbcBatchInsert(List<T0200> list) {
@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
                 statement.setObject(j++, request.getDeviceTime());
                 statement.setString(j++, request.getDeviceId());
                 statement.setString(j++, request.getClientId());
-                statement.setString(j++, request.getPlateNo());
+                statement.setInt(j++, request.getVehicleId());
                 statement.setInt(j++, request.getWarnBit());
                 statement.setInt(j++, request.getStatusBit());
                 statement.setInt(j++, request.getLongitude());
@@ -72,7 +72,6 @@ public class LocationServiceImpl implements LocationService {
                 statement.setInt(j++, request.getAltitude());
                 statement.setInt(j++, request.getSpeed());
                 statement.setInt(j++, request.getDirection());
-                statement.setInt(j++, 0);
                 statement.setObject(j, now);
 
                 statement.addBatch();
@@ -99,7 +98,7 @@ public class LocationServiceImpl implements LocationService {
             builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDeviceTime())).append('\'').append(',');
             builder.append('\'').append(request.getDeviceId()).append('\'').append(',');
             builder.append('\'').append(request.getClientId()).append('\'').append(',');
-            builder.append('\'').append(request.getPlateNo()).append('\'').append(',');
+            builder.append(request.getVehicleId()).append(',');
             builder.append(request.getWarnBit()).append(',');
             builder.append(request.getStatusBit()).append(',');
             builder.append(request.getLongitude()).append(',');
@@ -107,7 +106,6 @@ public class LocationServiceImpl implements LocationService {
             builder.append(request.getAltitude()).append(',');
             builder.append(request.getSpeed()).append(',');
             builder.append(request.getDirection()).append(',');
-            builder.append('0').append(',');
             builder.append('\'').append(now).append('\'');
             builder.append(')');
             builder.append(',');

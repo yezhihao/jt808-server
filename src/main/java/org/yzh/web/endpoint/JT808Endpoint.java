@@ -13,6 +13,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.commons.EncryptUtils;
+import org.yzh.web.model.Result;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
@@ -71,19 +72,19 @@ public class JT808Endpoint {
         T8100 result = new T8100();
         result.setResponseSerialNo(message.getSerialNo());
 
-        DeviceInfo device = deviceService.register(message);
-        if (device != null) {
-            session.setAttribute(SessionKey.DeviceInfo, device);
+        Result<DeviceInfo> device = deviceService.register(message);
+        if (device.isSuccess()) {
+            session.setAttribute(SessionKey.DeviceInfo, device.get());
             session.register(message);
 
-            byte[] bytes = DeviceInfo.toBytes(device);
+            byte[] bytes = DeviceInfo.toBytes(device.get());
             bytes = EncryptUtils.encrypt(bytes);
             String token = Base64.getEncoder().encodeToString(bytes);
 
             result.setToken(token);
             result.setResultCode(T8100.Success);
         } else {
-            result.setResultCode(T8100.NotFoundTerminal);
+            result.setResultCode(device.state());
         }
         return result;
     }

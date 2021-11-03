@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 
 /**
  * 压力测试
- * 模拟1250台设备，每100毫秒上报一次位置信息
+ * 模拟1200台设备，每100毫秒上报一次位置信息
  */
 public class StressTest {
 
     //连接数量
-    private static final int Total = 1250;
+    private static final int Total = 1200;
 
     //上报间隔(毫秒)
     private static final long Interval = 100;
@@ -24,8 +24,8 @@ public class StressTest {
     public static void main(String[] args) {
         LocalDateTime deviceTime = LocalDateTime.now();
 
-        TCPClient[] clients = new TCPClient[Total];
-        for (int i = 0; i < Total; i++) {
+        TCPClient[] clients = new TCPClient[Total + 1];
+        for (int i = 1; i <= Total; i++) {
             String id = String.valueOf(i);
             clients[i] = new TCPClient(id, ClientTest.jtConfig).start();
             clients[i].writeObject(T0100(id));
@@ -35,7 +35,7 @@ public class StressTest {
             String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
             deviceTime = deviceTime.plusSeconds(1L);
 
-            for (int i = 0; i < Total; i++) {
+            for (int i = 1; i <= Total; i++) {
                 clients[i].writeObject(T0200(String.valueOf(i), strTime));
             }
             try {
@@ -61,7 +61,7 @@ public class StressTest {
         message.setProvinceId(31);
         message.setCityId(115);
         message.setMakerId("4");
-        message.setDeviceModel("BSJ-GF-06");
+        message.setDeviceModel("JTT808.CN");
         message.setDeviceId(deviceId);
         message.setPlateColor(1);
         message.setPlateNo(plateNo);

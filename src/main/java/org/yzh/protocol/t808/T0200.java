@@ -157,6 +157,7 @@ public class T0200 extends JTMessage {
         if (device != null) {
             deviceId = device.getDeviceId();
             plateNo = device.getPlateNo();
+            vehicleId = device.getVehicleId();
         } else {
             deviceId = clientId;
             plateNo = "";
@@ -166,6 +167,7 @@ public class T0200 extends JTMessage {
     private transient boolean updated;
     private transient String deviceId;
     private transient String plateNo;
+    private transient int vehicleId;
     private transient double lng;
     private transient double lat;
     private transient float speedKph;
@@ -181,6 +183,10 @@ public class T0200 extends JTMessage {
 
     public String getPlateNo() {
         return plateNo;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
     }
 
     public double getLng() {

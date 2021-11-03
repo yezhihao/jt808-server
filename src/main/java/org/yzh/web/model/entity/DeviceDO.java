@@ -5,30 +5,24 @@ import java.time.LocalDateTime;
 public class DeviceDO {
 
     private String deviceId;
+    private Integer agencyId;
+    private Integer vehicleId;
     private String mobileNo;
-    private String plateNo;
+    private String iccid;
     private String imei;
-    private Integer state;
     private LocalDateTime registerTime;
     private LocalDateTime installTime;
-    private Boolean bind;
-    private Boolean deleted;
     private Integer protocolVersion;
     private String softwareVersion;
+    private String firmwareVersion;
     private String hardwareVersion;
     private String deviceModel;
     private String makerId;
-    private int cityId;
-    private int provinceId;
-    private String creator;
-    private LocalDateTime createTime;
-
-    public DeviceDO() {
-    }
-
-    public DeviceDO(String deviceId) {
-        this.deviceId = deviceId;
-    }
+    private Boolean deleted;
+    private String updatedBy;
+    private String createdBy;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 
     public String getDeviceId() {
         return deviceId;
@@ -36,6 +30,22 @@ public class DeviceDO {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public Integer getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(Integer agencyId) {
+        this.agencyId = agencyId;
+    }
+
+    public Integer getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(Integer vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public String getMobileNo() {
@@ -46,12 +56,12 @@ public class DeviceDO {
         this.mobileNo = mobileNo;
     }
 
-    public String getPlateNo() {
-        return plateNo;
+    public String getIccid() {
+        return iccid;
     }
 
-    public void setPlateNo(String plateNo) {
-        this.plateNo = plateNo;
+    public void setIccid(String iccid) {
+        this.iccid = iccid;
     }
 
     public String getImei() {
@@ -60,14 +70,6 @@ public class DeviceDO {
 
     public void setImei(String imei) {
         this.imei = imei;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
     }
 
     public LocalDateTime getRegisterTime() {
@@ -86,22 +88,6 @@ public class DeviceDO {
         this.installTime = installTime;
     }
 
-    public Boolean getBind() {
-        return bind;
-    }
-
-    public void setBind(Boolean bind) {
-        this.bind = bind;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
     public Integer getProtocolVersion() {
         return protocolVersion;
     }
@@ -116,6 +102,14 @@ public class DeviceDO {
 
     public void setSoftwareVersion(String softwareVersion) {
         this.softwareVersion = softwareVersion;
+    }
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
+    }
+
+    public void setFirmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
     }
 
     public String getHardwareVersion() {
@@ -142,36 +136,139 @@ public class DeviceDO {
         this.makerId = makerId;
     }
 
-    public int getCityId() {
-        return cityId;
+    public Boolean getDeleted() {
+        return deleted;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
-    public int getProvinceId() {
-        return provinceId;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
-    public void setProvinceId(int provinceId) {
-        this.provinceId = provinceId;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public DeviceDO deviceId(String deviceId) {
+        this.deviceId = deviceId;
+        return this;
+    }
+
+    public DeviceDO agencyId(Integer agencyId) {
+        this.agencyId = agencyId;
+        return this;
+    }
+
+    public DeviceDO vehicleId(Integer vehicleId) {
+        this.vehicleId = vehicleId;
+        return this;
+    }
+
+    public DeviceDO mobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+        return this;
+    }
+
+    public DeviceDO iccid(String iccid) {
+        this.iccid = iccid;
+        return this;
+    }
+
+    public DeviceDO imei(String imei) {
+        this.imei = imei;
+        return this;
+    }
+
+    public DeviceDO registerTime(LocalDateTime registerTime) {
+        this.registerTime = registerTime;
+        return this;
+    }
+
+    public DeviceDO installTime(LocalDateTime installTime) {
+        this.installTime = installTime;
+        return this;
+    }
+
+    public DeviceDO protocolVersion(Integer protocolVersion) {
+        this.protocolVersion = protocolVersion;
+        return this;
+    }
+
+    public DeviceDO softwareVersion(String softwareVersion) {
+        this.softwareVersion = softwareVersion;
+        return this;
+    }
+
+    public DeviceDO firmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
+        return this;
+    }
+
+    public DeviceDO hardwareVersion(String hardwareVersion) {
+        this.hardwareVersion = hardwareVersion;
+        return this;
+    }
+
+    public DeviceDO deviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+        return this;
+    }
+
+    public DeviceDO makerId(String makerId) {
+        this.makerId = makerId;
+        return this;
+    }
+
+    public DeviceDO deleted(Boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public DeviceDO updatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+        return this;
+    }
+
+    public DeviceDO createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public DeviceDO updatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    public DeviceDO createdAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
     }
 
     @Override

@@ -16,6 +16,10 @@ public class DeviceInfo {
     private String deviceId;
     /** 终端ID */
     private String clientId;
+    /** 机构ID */
+    private int agencyId;
+    /** 车辆ID */
+    private int vehicleId;
     /** 车牌颜色 */
     private byte plateColor;
     /** 车牌号 */
@@ -56,6 +60,22 @@ public class DeviceInfo {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+    public int getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(int agencyId) {
+        this.agencyId = agencyId;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public byte getPlateColor() {
@@ -119,12 +139,16 @@ public class DeviceInfo {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(100);
-        sb.append("DeviceInfo{issuedAt=").append(issuedAt);
-        sb.append(",reserved=").append(reserved);
-        sb.append(",deviceId=").append(deviceId);
-        sb.append(",plateColor=").append(plateColor);
-        sb.append(",plateNo=").append(plateNo);
+        final StringBuilder sb = new StringBuilder("DeviceInfo{");
+        sb.append("issuedAt=").append(issuedAt);
+        sb.append(", reserved=").append(reserved);
+        sb.append(", deviceId='").append(deviceId).append('\'');
+        sb.append(", clientId='").append(clientId).append('\'');
+        sb.append(", agencyId=").append(agencyId);
+        sb.append(", vehicleId=").append(vehicleId);
+        sb.append(", plateColor=").append(plateColor);
+        sb.append(", plateNo='").append(plateNo).append('\'');
+        sb.append(", protocolVersion=").append(protocolVersion);
         sb.append('}');
         return sb.toString();
     }

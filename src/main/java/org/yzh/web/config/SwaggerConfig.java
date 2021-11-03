@@ -5,7 +5,10 @@ import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Fs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.*;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.PropertySpecificationBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.property.ModelSpecificationFactory;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -120,24 +123,21 @@ public class SwaggerConfig {
             @Override
             public void apply(ParameterExpansionContext context) {
 
-                ParameterBuilder parameterBuilder = context.getParameterBuilder();
-                RequestParameterBuilder requestParameterBuilder = context.getRequestParameterBuilder();
-
                 boolean hidden = ignores.contains(context.getFieldName()) || ignores.contains(context.getParentName());
 
-                parameterBuilder.hidden(hidden);
-                requestParameterBuilder.hidden(hidden);
+                context.getParameterBuilder().hidden(hidden);
+                context.getRequestParameterBuilder().hidden(hidden);
 
                 if (!hidden) {
                     Field field = getField(context);
 
                     if (field != null) {
-                        parameterBuilder
+                        context.getParameterBuilder()
                                 .description(field.desc())
                                 .required(true)
                                 .order(OAS_PLUGIN_ORDER);
 
-                        requestParameterBuilder
+                        context.getRequestParameterBuilder()
                                 .description(field.desc())
                                 .required(true)
                                 .parameterIndex(field.index() + 10)

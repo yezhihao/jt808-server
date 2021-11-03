@@ -11,11 +11,16 @@ import org.springframework.stereotype.Service;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0102;
 import org.yzh.protocol.t808.T0200;
+import org.yzh.protocol.t808.T8100;
 import org.yzh.web.commons.DateUtils;
 import org.yzh.web.commons.EncryptUtils;
 import org.yzh.web.commons.IOUtils;
+import org.yzh.web.commons.StrUtils;
 import org.yzh.web.mapper.DeviceMapper;
+import org.yzh.web.mapper.VehicleMapper;
+import org.yzh.web.model.Result;
 import org.yzh.web.model.entity.DeviceDO;
+import org.yzh.web.model.entity.VehicleDO;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
@@ -33,8 +38,14 @@ public class DeviceServiceImpl implements DeviceService {
 
     private static final Logger log = LoggerFactory.getLogger(DeviceServiceImpl.class.getSimpleName());
 
+    private static final boolean vehicleCheck = false;//是否校验车牌号
+    private static final boolean deviceCheck = false;//是否校验设备ID
+
     @Autowired
     private DeviceMapper deviceMapper;
+
+    @Autowired
+    private VehicleMapper vehicleMapper;
 
     @Qualifier("dataSource")
     @Autowired
@@ -44,82 +55,106 @@ public class DeviceServiceImpl implements DeviceService {
     private SessionManager sessionManager;
 
     @Override
-    public DeviceInfo register(T0100 request) {
+    public Result<DeviceInfo> register(T0100 request) {
         String deviceId = request.getDeviceId();
-        DeviceDO deviceDO = deviceMapper.get(deviceId);
-//        if (device == null)//TODO 根据自身业务选择是否校验设备ID
-//            return null;
 
-        LocalDateTime now = LocalDateTime.now();
-
-        DeviceDO record = new DeviceDO();
-        record.setDeviceId(deviceId);
-        record.setMobileNo(request.getClientId());
-        record.setPlateNo(request.getPlateNo());
-        record.setBind(true);
-        record.setDeviceModel(request.getDeviceModel());
-        record.setMakerId(request.getMakerId());
-        record.setCityId(request.getCityId());
-        record.setProvinceId(request.getProvinceId());
-        record.setProtocolVersion(request.getProtocolVersion());
-        record.setRegisterTime(now);
-        if (deviceDO == null || deviceDO.getInstallTime() == null)
-            record.setInstallTime(now);
-
-        int row = deviceMapper.update(record);
-        if (row == 0) {
-            record.setCreator("device");
-            record.setCreateTime(now);
-            row = deviceMapper.insert(record);
-            if (row == 0)
-                return null;
+        VehicleDO vehicle = vehicleMapper.getByPlateNo(request.getPlateNo());
+        if (vehicle != null) {
+            if (!(StrUtils.isBlank(vehicle.getDeviceId()) || deviceId.equals(vehicle.getDeviceId())))
+                return Result.of(T8100.AlreadyRegisteredVehicle);
+        } else {
+            if (vehicleCheck)
+                return Result.of(T8100.NotFoundVehicle);
+            vehicle = new VehicleDO();
         }
 
-        DeviceInfo device = new DeviceInfo();
-        device.setIssuedAt(LocalDate.now());
-        device.setDeviceId(deviceId);
-        device.setClientId(request.getClientId());
-        device.setProtocolVersion(request.getProtocolVersion());
+        DeviceDO device = deviceMapper.get(deviceId);
+        if (device != null) {
+            if (!(device.getVehicleId() == null || device.getVehicleId().equals(vehicle.getId())))
+                return Result.of(T8100.AlreadyRegisteredTerminal);
+        } else {
+            if (deviceCheck)
+                return Result.of(T8100.NotFoundTerminal);
+            device = new DeviceDO();
+        }
 
-        device.setReserved((byte) 0);
-        device.setPlateColor((byte) request.getPlateColor());
-        device.setPlateNo(request.getPlateNo());
-        return device;
+        vehicle.setDeviceId(deviceId);
+        vehicle.setPlateNo(request.getPlateNo());
+        vehicle.setPlateColor(request.getPlateColor());
+        vehicle.setCityId(request.getCityId());
+        vehicle.setProvinceId(request.getProvinceId());
+
+        if (vehicle.getId() != null) {
+            vehicleMapper.update(vehicle.updatedBy("device"));
+        } else {
+            vehicleMapper.insert(vehicle.createdBy("device"));
+        }
+
+
+        device.setVehicleId(vehicle.getId());
+        device.setAgencyId(vehicle.getAgencyId());
+        device.setMobileNo(request.getClientId());
+        device.setDeviceModel(request.getDeviceModel());
+        device.setProtocolVersion(request.getProtocolVersion());
+        device.setMakerId(request.getMakerId());
+        device.setRegisterTime(LocalDateTime.now());
+
+        if (device.getDeviceId() != null) {
+            deviceMapper.update(device.updatedBy("device"));
+        } else {
+            if (device.getInstallTime() == null)
+                device.setInstallTime(LocalDateTime.now());
+            deviceMapper.insert(device.createdBy("device").deviceId(deviceId));
+        }
+
+
+        DeviceInfo deviceInfo = new DeviceInfo();
+        deviceInfo.setIssuedAt(LocalDate.now());
+        deviceInfo.setDeviceId(deviceId);
+        deviceInfo.setVehicleId(vehicle.getId());
+        deviceInfo.setClientId(request.getClientId());
+        deviceInfo.setProtocolVersion(request.getProtocolVersion());
+
+        deviceInfo.setReserved((byte) 0);
+        deviceInfo.setPlateColor((byte) request.getPlateColor());
+        deviceInfo.setPlateNo(request.getPlateNo());
+        return Result.of(deviceInfo);
     }
 
     @Override
     public DeviceInfo authentication(T0102 request) {
-        String token = request.getToken();
-        byte[] bytes;
         try {
-            bytes = Base64.getDecoder().decode(token);
+            byte[] bytes = Base64.getDecoder().decode(request.getToken());
             bytes = EncryptUtils.decrypt(bytes);
-            DeviceInfo device = DeviceInfo.formBytes(bytes);
-            device.setClientId(request.getClientId());
-            device.setProtocolVersion(request.getProtocolVersion());
+            DeviceInfo deviceInfo = DeviceInfo.formBytes(bytes);
+            deviceInfo.setClientId(request.getClientId());
+            deviceInfo.setProtocolVersion(request.getProtocolVersion());
 
-            DeviceDO record = deviceMapper.get(device.getDeviceId());
+            DeviceDO record = deviceMapper.get(deviceInfo.getDeviceId());
             if (record != null) {
-                device.setPlateNo(record.getPlateNo());
+                Integer vehicleId = record.getVehicleId();
+                if (vehicleId != null) {
+                    VehicleDO vehicle = vehicleMapper.get(vehicleId);
+                    deviceInfo.setVehicleId(vehicleId);
+                    deviceInfo.setPlateNo(vehicle.getPlateNo());
+                }
 
-                record = new DeviceDO(device.getDeviceId());
+                record = new DeviceDO();
+                record.setDeviceId(deviceInfo.getDeviceId());
+                record.setVehicleId(deviceInfo.getVehicleId());
                 record.setImei(request.getImei());
                 record.setSoftwareVersion(request.getSoftwareVersion());
                 deviceMapper.update(record);
             }
-            return device;
-        } catch (Exception e) {
-            log.warn("鉴权失败：错误的token[{}]，{}", token, e.getMessage());
-            //TODO 鉴权失败，使用测试车辆，仅供测试！
-            DeviceInfo deviceInfo = new DeviceInfo();
-            deviceInfo.setDeviceId("12345678901");
-            deviceInfo.setPlateNo("测A12345");
             return deviceInfo;
+        } catch (Exception e) {
+            log.warn("鉴权失败：错误的token[{}]，{}", request.getToken(), e.getMessage());
+            return null;
         }
     }
 
-    private static final String SQL_HEAD = "insert into device_status (device_time,device_id,mobile_no,plate_no,warn_bit,status_bit,longitude,latitude,altitude,speed,direction,update_time) values ";
-    private static final String SQL_TAIL = "on duplicate key update device_time=values(device_time),mobile_no=values(mobile_no),plate_no=values(plate_no),warn_bit=values(warn_bit),status_bit=values(status_bit),longitude=values(longitude),latitude=values(latitude),altitude=values(altitude),speed=values(speed),direction=values(direction),update_time=values(update_time)";
+    private static final String SQL_HEAD = "insert into device_status (device_time,device_id,mobile_no,warn_bit,status_bit,longitude,latitude,altitude,speed,direction,updated_at) values ";
+    private static final String SQL_TAIL = "on duplicate key update device_time=values(device_time),mobile_no=values(mobile_no),warn_bit=values(warn_bit),status_bit=values(status_bit),longitude=values(longitude),latitude=values(latitude),altitude=values(altitude),speed=values(speed),direction=values(direction),updated_at=values(updated_at)";
 
     @Scheduled(fixedDelay = 1000)
     public void updateDeviceStatus() {
@@ -141,7 +176,6 @@ public class DeviceServiceImpl implements DeviceService {
             builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDeviceTime())).append('\'').append(',');
             builder.append('\'').append(request.getDeviceId()).append('\'').append(',');
             builder.append('\'').append(request.getClientId()).append('\'').append(',');
-            builder.append('\'').append(request.getPlateNo()).append('\'').append(',');
             builder.append(request.getWarnBit()).append(',');
             builder.append(request.getStatusBit()).append(',');
             builder.append(request.getLongitude()).append(',');
