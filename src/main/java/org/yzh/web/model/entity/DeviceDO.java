@@ -24,6 +24,9 @@ public class DeviceDO {
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
 
+    private String plateNo;
+    private byte plateColor;
+
     public String getDeviceId() {
         return deviceId;
     }
@@ -174,6 +177,22 @@ public class DeviceDO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getPlateNo() {
+        return plateNo;
+    }
+
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
+    }
+
+    public byte getPlateColor() {
+        return plateColor;
+    }
+
+    public void setPlateColor(byte plateColor) {
+        this.plateColor = plateColor;
     }
 
     public DeviceDO deviceId(String deviceId) {

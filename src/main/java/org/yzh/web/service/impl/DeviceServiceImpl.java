@@ -127,25 +127,26 @@ public class DeviceServiceImpl implements DeviceService {
             byte[] bytes = Base64.getDecoder().decode(request.getToken());
             bytes = EncryptUtils.decrypt(bytes);
             DeviceInfo deviceInfo = DeviceInfo.formBytes(bytes);
-            deviceInfo.setClientId(request.getClientId());
-            deviceInfo.setProtocolVersion(request.getProtocolVersion());
 
             DeviceDO record = deviceMapper.get(deviceInfo.getDeviceId());
-            if (record != null) {
-                Integer vehicleId = record.getVehicleId();
-                if (vehicleId != null) {
-                    VehicleDO vehicle = vehicleMapper.get(vehicleId);
-                    deviceInfo.setVehicleId(vehicleId);
-                    deviceInfo.setPlateNo(vehicle.getPlateNo());
-                }
-
-                record = new DeviceDO();
-                record.setDeviceId(deviceInfo.getDeviceId());
-                record.setVehicleId(deviceInfo.getVehicleId());
-                record.setImei(request.getImei());
-                record.setSoftwareVersion(request.getSoftwareVersion());
-                deviceMapper.update(record);
+            if (record == null) {
+                log.warn("鉴权失败：不存在的设备ID[{}]", deviceInfo.getDeviceId());
+                return null;
             }
+
+            if (request.getImei() != null && !request.getImei().equals(record.getImei())) {
+                deviceMapper.update(new DeviceDO()
+                        .deviceId(deviceInfo.getDeviceId())
+                        .imei(request.getImei())
+                        .softwareVersion(request.getSoftwareVersion()));
+            }
+
+            deviceInfo.setAgencyId(record.getAgencyId());
+            deviceInfo.setVehicleId(record.getVehicleId());
+            deviceInfo.setPlateNo(record.getPlateNo());
+            deviceInfo.setPlateColor(record.getPlateColor());
+            deviceInfo.setClientId(request.getClientId());
+            deviceInfo.setProtocolVersion(request.getProtocolVersion());
             return deviceInfo;
         } catch (Exception e) {
             log.warn("鉴权失败：错误的token[{}]，{}", request.getToken(), e.getMessage());

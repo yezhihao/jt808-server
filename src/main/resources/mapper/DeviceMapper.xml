@@ -29,9 +29,10 @@
     </select>
 
     <select id="get" parameterType="java.lang.String" resultType="org.yzh.web.model.entity.DeviceDO">
-        select *
-        from device
-        where device_id = #{deviceId,jdbcType=VARCHAR}
+        select d.*, v.plate_no, v.plate_color
+        from device d
+        left join vehicle v on v.id = d.vehicle_id
+        where d.device_id = #{deviceId,jdbcType=VARCHAR}
     </select>
 
     <update id="update" parameterType="org.yzh.web.model.entity.DeviceDO">
