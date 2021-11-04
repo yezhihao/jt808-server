@@ -14,11 +14,11 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.yzh.commons.model.APIResult;
 import org.yzh.commons.mybatis.Page;
 import org.yzh.commons.mybatis.PageInfo;
 import org.yzh.commons.mybatis.Pagination;
 import org.yzh.web.endpoint.LoggingPusher;
-import org.yzh.commons.model.APIResult;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
@@ -53,8 +53,8 @@ public class OtherController {
 
     @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("terminal/all")
-    public Collection<Session> all() {
-        return sessionManager.all();
+    public APIResult<Collection<Session>> all() {
+        return APIResult.ok(sessionManager.all());
     }
 
     @Operation(summary = "获得当前所有在线设备信息")
@@ -62,7 +62,7 @@ public class OtherController {
     public APIResult<List<String>> getClientId() {
         Collection<Session> all = sessionManager.all();
         List<String> result = all.stream().map(session -> session.getId()).collect(Collectors.toList());
-        return new APIResult(result);
+        return APIResult.ok(result);
     }
 
     @Operation(summary = "websocket订阅")
@@ -78,7 +78,7 @@ public class OtherController {
 
     @Operation(summary = "websocket取消订阅")
     @PostMapping("terminal/unsub")
-    public APIResult<List<String>> unsub(@RequestParam String clientId) {
+    public APIResult unsub(@RequestParam String clientId) {
         loggingPusher.removeClient(clientId);
         return APIResult.SUCCESS;
     }
