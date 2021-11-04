@@ -13,17 +13,13 @@ public class PageInfo {
 
     @Schema(description = "当前页码")
     private int page = 1;
-
     @Schema(description = "每页显示行数")
     private int limit = 5;
-
     @Schema(description = "是否显示总页数")
     private boolean showPages = true;
-
     //是否有下一页
     @JsonIgnore
     private boolean hasNext;
-
     //总行数
     @JsonIgnore
     private int count;

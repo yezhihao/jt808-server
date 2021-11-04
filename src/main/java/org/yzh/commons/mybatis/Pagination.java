@@ -1,6 +1,5 @@
 package org.yzh.commons.mybatis;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.yzh.commons.model.APIResult;
 
@@ -13,22 +12,12 @@ import java.util.List;
  */
 public class Pagination<E> extends APIResult<List<E>> implements Serializable {
 
-    public interface All {
-    }
-
-    @JsonView(All.class)
     @Schema(description = "当前页码")
     private Integer page;
-
-    @JsonView(All.class)
     @Schema(description = "总页数")
     private Integer pages;
-
-    @JsonView(All.class)
     @Schema(description = "总行数")
     private Integer count;
-
-    @JsonView(All.class)
     @Schema(description = "是否有下一页")
     private Boolean hasNext;
 

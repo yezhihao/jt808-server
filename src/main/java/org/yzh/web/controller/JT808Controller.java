@@ -15,7 +15,7 @@ import org.yzh.protocol.t808.*;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.web.endpoint.MessageManager;
 import org.yzh.commons.model.APIException;
-import org.yzh.commons.model.ResultCodes;
+import org.yzh.commons.model.APICodes;
 
 import java.util.Base64;
 import java.util.Map;
@@ -309,7 +309,7 @@ public class JT808Controller {
             src = dest;
         }
         if (src.length != 128)
-            throw new APIException(ResultCodes.InvalidParameter, "e length is not 128");
+            throw new APIException(APICodes.InvalidParameter, "e length is not 128");
 
         T0A00_8A00 request = new T0A00_8A00(e, src);
         T0A00_8A00 response = messageManager.request(clientId, request, T0A00_8A00.class);

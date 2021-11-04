@@ -5,15 +5,11 @@ package org.yzh.commons.model;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public interface ResultCode {
+public interface APICode {
 
-    /**
-     * 状态码
-     */
+    /** 状态码 */
     int getCode();
 
-    /**
-     * 状态信息
-     */
+    /** 状态信息 */
     String getMessage();
 }

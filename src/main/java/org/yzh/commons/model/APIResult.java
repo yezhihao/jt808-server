@@ -1,7 +1,5 @@
 package org.yzh.commons.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.cglib.beans.ImmutableBean;
 import org.yzh.commons.util.StrUtils;
 
 /**
@@ -10,26 +8,25 @@ import org.yzh.commons.util.StrUtils;
  */
 public class APIResult<T> {
 
-    public static final APIResult SUCCESS = (APIResult) ImmutableBean.create(new APIResult());
+    public static final APIResult SUCCESS = new ImmutableAPIResult(new APIResult());
 
     protected int code;
     protected String msg;
     protected String detailMsg;
-
     protected T data;
 
     public APIResult() {
-        this.code = ResultCodes.Success.code;
-        this.msg = ResultCodes.Success.message;
+        this.code = APICodes.Success.getCode();
+        this.msg = APICodes.Success.getMessage();
     }
 
     public APIResult(Exception e) {
-        this.code = ResultCodes.UnknownError.code;
+        this.code = APICodes.UnknownError.getCode();
         this.msg = e.getMessage();
         this.detailMsg = StrUtils.getStackTrace(e);
     }
 
-    public APIResult(ResultCode code, Exception e) {
+    public APIResult(APICode code, Exception e) {
         this.code = code.getCode();
         this.msg = code.getMessage();
         this.detailMsg = StrUtils.getStackTrace(e);
@@ -38,47 +35,46 @@ public class APIResult<T> {
     public APIResult(APIException e) {
         this.code = e.getCode();
         this.msg = e.getMessage();
+        this.detailMsg = e.getDetailMessage();
     }
 
-    public APIResult(ResultCode code) {
+    public APIResult(APICode code) {
         this.code = code.getCode();
         this.msg = code.getMessage();
     }
 
-    public APIResult(ResultCode code, String message) {
+    public APIResult(APICode code, String message) {
         this.code = code.getCode();
         this.msg = message;
     }
 
-    public APIResult(ResultCode code, String message, String detailMsg) {
+    public APIResult(APICode code, String message, String detailMsg) {
         this.code = code.getCode();
         this.msg = message;
         this.detailMsg = detailMsg;
     }
 
     public APIResult(T t) {
-        this(ResultCodes.Success, t);
+        this(APICodes.Success, t);
     }
 
-    public APIResult(ResultCode code, T data) {
+    public APIResult(APICode code, T data) {
         this(code);
         this.data = data;
     }
 
     public boolean isSuccess() {
-        return ResultCodes.Success.code.equals(code);
+        return APICodes.Success.getCode() == code;
     }
 
-    @JsonProperty("code")
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    @JsonProperty("msg")
     public String getMsg() {
         return msg;
     }
@@ -87,7 +83,6 @@ public class APIResult<T> {
         this.msg = msg;
     }
 
-    @JsonProperty("detailMsg")
     public String getDetailMsg() {
         return detailMsg;
     }
@@ -96,7 +91,6 @@ public class APIResult<T> {
         this.detailMsg = detailMsg;
     }
 
-    @JsonProperty("data")
     public T getData() {
         return data;
     }
@@ -105,4 +99,33 @@ public class APIResult<T> {
         this.data = data;
     }
 
+    public static final class ImmutableAPIResult<T> extends APIResult<T> {
+
+        public ImmutableAPIResult(APIResult<T> that) {
+            this.code = that.code;
+            this.msg = that.msg;
+            this.detailMsg = that.detailMsg;
+            this.data = that.data;
+        }
+
+        @Override
+        public void setCode(int code) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setMsg(String msg) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setDetailMsg(String detailMsg) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setData(T data) {
+            throw new UnsupportedOperationException();
+        }
+    }
 }

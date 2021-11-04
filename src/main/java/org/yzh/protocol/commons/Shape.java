@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons;
 
 import org.yzh.commons.model.APIException;
-import org.yzh.commons.model.ResultCodes;
+import org.yzh.commons.model.APICodes;
 
 /**
  * 区域类型
@@ -33,7 +33,7 @@ public final class Shape {
             case Shape.Route:
                 return JT808.删除路线;
             default:
-                throw new APIException(ResultCodes.InvalidParameter);
+                throw new APIException(APICodes.InvalidParameter);
         }
     }
 }

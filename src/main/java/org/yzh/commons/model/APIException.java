@@ -10,17 +10,17 @@ public class APIException extends RuntimeException {
     private String message;
     private String detailMessage;
 
-    public APIException(ResultCode code) {
+    public APIException(APICode code) {
         this.code = code.getCode();
         this.message = code.getMessage();
     }
 
-    public APIException(ResultCode code, String msg) {
+    public APIException(APICode code, String msg) {
         this.code = code.getCode();
         this.message = msg;
     }
 
-    public APIException(ResultCode code, String message, String detailMessage) {
+    public APIException(APICode code, String message, String detailMessage) {
         this.code = code.getCode();
         this.message = message;
         this.detailMessage = detailMessage;
@@ -28,7 +28,7 @@ public class APIException extends RuntimeException {
 
     public APIException(Throwable e) {
         super(e);
-        this.code = ResultCodes.UnknownError.code;
+        this.code = APICodes.UnknownError.getCode();
     }
 
     public int getCode() {
