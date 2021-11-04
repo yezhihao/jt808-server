@@ -1,4 +1,4 @@
-package org.yzh.web.component.mybatis;
+package org.yzh.commons.mybatis;
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -9,7 +9,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.web.commons.IOUtils;
+import org.yzh.commons.util.IOUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

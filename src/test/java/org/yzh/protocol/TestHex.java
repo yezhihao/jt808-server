@@ -4,8 +4,8 @@ import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.jupiter.api.Test;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.web.commons.IOUtils;
-import org.yzh.web.commons.StrUtils;
+import org.yzh.commons.util.IOUtils;
+import org.yzh.commons.util.StrUtils;
 
 import java.io.File;
 

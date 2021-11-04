@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.MessageId;
 import org.yzh.protocol.commons.transform.AttributeConverter;
 import org.yzh.protocol.commons.transform.AttributeConverterYue;
-import org.yzh.web.commons.DateUtils;
+import org.yzh.commons.util.DateUtils;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 

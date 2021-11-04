@@ -1,8 +1,8 @@
-package org.yzh.web.component.mybatis;
+package org.yzh.commons.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.yzh.web.model.APIResult;
+import org.yzh.commons.model.APIResult;
 
 import java.io.Serializable;
 import java.util.List;

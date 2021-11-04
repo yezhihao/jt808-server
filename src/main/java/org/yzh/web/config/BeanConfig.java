@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.yzh.web.commons.DateUtils;
-import org.yzh.web.component.mybatis.PageInterceptor;
+import org.yzh.commons.util.DateUtils;
+import org.yzh.commons.mybatis.PageInterceptor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

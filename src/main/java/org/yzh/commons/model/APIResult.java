@@ -1,10 +1,8 @@
-package org.yzh.web.model;
+package org.yzh.commons.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.cglib.beans.ImmutableBean;
-import org.yzh.web.commons.ResultCode;
-import org.yzh.web.commons.StrUtils;
-import org.yzh.web.model.enums.DefaultCodes;
+import org.yzh.commons.util.StrUtils;
 
 /**
  * @author yezhihao
@@ -21,12 +19,12 @@ public class APIResult<T> {
     protected T data;
 
     public APIResult() {
-        this.code = DefaultCodes.Success.code;
-        this.msg = DefaultCodes.Success.message;
+        this.code = ResultCodes.Success.code;
+        this.msg = ResultCodes.Success.message;
     }
 
     public APIResult(Exception e) {
-        this.code = DefaultCodes.UnknownError.code;
+        this.code = ResultCodes.UnknownError.code;
         this.msg = e.getMessage();
         this.detailMsg = StrUtils.getStackTrace(e);
     }
@@ -59,7 +57,7 @@ public class APIResult<T> {
     }
 
     public APIResult(T t) {
-        this(DefaultCodes.Success, t);
+        this(ResultCodes.Success, t);
     }
 
     public APIResult(ResultCode code, T data) {
@@ -68,7 +66,7 @@ public class APIResult<T> {
     }
 
     public boolean isSuccess() {
-        return DefaultCodes.Success.code.equals(code);
+        return ResultCodes.Success.code.equals(code);
     }
 
     @JsonProperty("code")

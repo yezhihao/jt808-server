@@ -1,4 +1,4 @@
-package org.yzh.web.commons;
+package org.yzh.commons.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;

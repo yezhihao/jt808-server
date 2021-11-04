@@ -1,6 +1,6 @@
 package org.yzh.protocol.commons;
 
-import org.yzh.web.commons.StrUtils;
+import org.yzh.commons.util.StrUtils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

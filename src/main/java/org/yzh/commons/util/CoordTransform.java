@@ -1,54 +1,57 @@
-package org.yzh.web.commons;
+package org.yzh.commons.util;
 
 /**
+ * WGS-84 GPS坐标（谷歌地图国外）
+ * GCJ-02 国测局坐标（谷歌地图国内，高德地图）
+ * BD-09 百度坐标（百度地图）
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class CoordTransform {
 
-    private static final double x_PI = 3.14159265358979324 * 3000.0 / 180.0;
-    private static final double PI = 3.1415926535897932384626;
-    private static final double a = 6378245.0;
-    private static final double ee = 0.00669342162296594323;
+    /** 地球半径,单位米（北京54 长半轴） */
+    private static final double RADIUS = 6378245;
 
-    /**
-     * 百度坐标系 (BD-09) 与 火星坐标系 (GCJ-02)的转换
-     * 即 百度 转 谷歌、高德
-     * @param bd_lng
-     * @param bd_lat
-     * @returns {*[]}
-     */
+    /** 扁率 */
+    private static final double EE = 0.00669342162296594323;
+
+    private static final double PI = Math.PI;
+
+    private static final double X_PI = Math.PI * 3000.0 / 180.0;
+
+    public static double[] bd09togcj02(double[] bd_lng_lat) {
+        return bd09togcj02(bd_lng_lat[0], bd_lng_lat[1]);
+    }
+
+    /** BD-09 转 GCJ-02 */
     public static double[] bd09togcj02(double bd_lng, double bd_lat) {
         double x = bd_lng - 0.0065;
         double y = bd_lat - 0.006;
-        double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_PI);
-        double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_PI);
+        double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+        double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
         double gg_lng = z * Math.cos(theta);
         double gg_lat = z * Math.sin(theta);
         return new double[]{gg_lng, gg_lat};
     }
 
-    /**
-     * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换
-     * 即 谷歌、高德 转 百度
-     * @param lng
-     * @param lat
-     * @returns {*[]}
-     */
+    public static double[] gcj02tobd09(double[] lng_lat) {
+        return gcj02tobd09(lng_lat[0], lng_lat[1]);
+    }
+
+    /** GCJ-02 转 BD-09 */
     public static double[] gcj02tobd09(double lng, double lat) {
-        double z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * x_PI);
-        double theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * x_PI);
+        double z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * X_PI);
+        double theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * X_PI);
         double bd_lng = z * Math.cos(theta) + 0.0065;
         double bd_lat = z * Math.sin(theta) + 0.006;
         return new double[]{bd_lng, bd_lat};
     }
 
-    /**
-     * WGS-84 转 GCj-02
-     * @param lng
-     * @param lat
-     * @returns {*[]}
-     */
+    public static double[] wgs84togcj02(double[] lng_lat) {
+        return wgs84togcj02(lng_lat[0], lng_lat[1]);
+    }
+
+    /** WGS-84 转 GCJ-02 */
     public static double[] wgs84togcj02(double lng, double lat) {
         if (out_of_china(lng, lat)) {
             return new double[]{lng, lat};
@@ -57,22 +60,21 @@ public class CoordTransform {
             double dlng = transformlng(lng - 105.0, lat - 35.0);
             double radlat = lat / 180.0 * PI;
             double magic = Math.sin(radlat);
-            magic = 1 - ee * magic * magic;
+            magic = 1 - EE * magic * magic;
             double sqrtmagic = Math.sqrt(magic);
-            dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
-            dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+            dlat = (dlat * 180.0) / ((RADIUS * (1 - EE)) / (magic * sqrtmagic) * PI);
+            dlng = (dlng * 180.0) / (RADIUS / sqrtmagic * Math.cos(radlat) * PI);
             double mglat = lat + dlat;
             double mglng = lng + dlng;
             return new double[]{mglng, mglat};
         }
     }
 
-    /**
-     * GCJ-02 转换为 WGS-84
-     * @param lng
-     * @param lat
-     * @returns {*[]}
-     */
+    public static double[] gcj02towgs84(double[] lng_lat) {
+        return gcj02towgs84(lng_lat[0], lng_lat[1]);
+    }
+
+    /** GCJ-02 转 WGS-84 */
     public static double[] gcj02towgs84(double lng, double lat) {
         if (out_of_china(lng, lat)) {
             return new double[]{lng, lat};
@@ -81,10 +83,10 @@ public class CoordTransform {
             double dlng = transformlng(lng - 105.0, lat - 35.0);
             double radlat = lat / 180.0 * PI;
             double magic = Math.sin(radlat);
-            magic = 1 - ee * magic * magic;
+            magic = 1 - EE * magic * magic;
             double sqrtmagic = Math.sqrt(magic);
-            dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
-            dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+            dlat = (dlat * 180.0) / ((RADIUS * (1 - EE)) / (magic * sqrtmagic) * PI);
+            dlng = (dlng * 180.0) / (RADIUS / sqrtmagic * Math.cos(radlat) * PI);
             double mglat = lat + dlat;
             double mglng = lng + dlng;
             return new double[]{lng * 2 - mglng, lat * 2 - mglat};
@@ -107,13 +109,8 @@ public class CoordTransform {
         return ret;
     }
 
-    /**
-     * 判断是否在国内，不在国内则不做偏移
-     * @param lng
-     * @param lat
-     * @returns {boolean}
-     */
-    private static boolean out_of_china(double lng, double lat) {
+    /** 判断是否在国内，不在国内则不做偏移 */
+    public static boolean out_of_china(double lng, double lat) {
         // 纬度3.86~53.55,经度73.66~135.05
         return !(lng > 73.66 && lng < 135.05 && lat > 3.86 && lat < 53.55);
     }

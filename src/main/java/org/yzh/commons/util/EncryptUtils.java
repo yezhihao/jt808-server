@@ -1,4 +1,4 @@
-package org.yzh.web.commons;
+package org.yzh.commons.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

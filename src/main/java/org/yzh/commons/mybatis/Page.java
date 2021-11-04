@@ -1,4 +1,4 @@
-package org.yzh.web.component.mybatis;
+package org.yzh.commons.mybatis;
 
 import java.util.List;
 import java.util.function.Supplier;

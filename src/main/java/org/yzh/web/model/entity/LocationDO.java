@@ -1,6 +1,6 @@
 package org.yzh.web.model.entity;
 
-import org.yzh.web.commons.DateUtils;
+import org.yzh.commons.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

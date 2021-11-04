@@ -1,7 +1,4 @@
-package org.yzh.web.model;
-
-import org.yzh.web.commons.ResultCode;
-import org.yzh.web.model.enums.DefaultCodes;
+package org.yzh.commons.model;
 
 /**
  * @author yezhihao
@@ -31,7 +28,7 @@ public class APIException extends RuntimeException {
 
     public APIException(Throwable e) {
         super(e);
-        this.code = DefaultCodes.UnknownError.code;
+        this.code = ResultCodes.UnknownError.code;
     }
 
     public int getCode() {

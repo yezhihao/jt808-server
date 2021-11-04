@@ -1,11 +1,9 @@
-package org.yzh.web.model.enums;
-
-import org.yzh.web.commons.ResultCode;
+package org.yzh.commons.model;
 
 /**
  * Created by Alan.ye on 2017/5/20.
  */
-public enum DefaultCodes implements ResultCode {
+public enum ResultCodes implements ResultCode {
 
     Success(200, ""),
     UnregisteredUser(402, "未注册的用户"),
@@ -22,7 +20,7 @@ public enum DefaultCodes implements ResultCode {
 
     public final String message;
 
-    DefaultCodes(int code, String message) {
+    ResultCodes(int code, String message) {
         this.code = code;
         this.message = message;
     }

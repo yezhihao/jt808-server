@@ -1,4 +1,4 @@
-package org.yzh.web.model;
+package org.yzh.commons.model;
 
 /**
  * @author yezhihao

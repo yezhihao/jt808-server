@@ -1,4 +1,4 @@
-package org.yzh.web.component.mybatis;
+package org.yzh.commons.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;

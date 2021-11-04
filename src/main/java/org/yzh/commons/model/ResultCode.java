@@ -1,4 +1,4 @@
-package org.yzh.web.commons;
+package org.yzh.commons.model;
 
 /**
  * 响应状态枚举类接口
