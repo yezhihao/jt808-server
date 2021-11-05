@@ -1,12 +1,10 @@
 package org.yzh.web.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import org.yzh.web.model.entity.DeviceDO;
 
 import java.util.List;
 
-@Mapper
 @Repository
 public interface DeviceMapper {
 

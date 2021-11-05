@@ -106,3 +106,39 @@ CREATE TABLE IF NOT EXISTS `agency`
   `created_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT '机构表';
+
+
+CREATE TABLE IF NOT EXISTS `area_vehicle`
+(
+  `area_id`    SMALLINT UNSIGNED  NOT NULL COMMENT '区域ID',
+  `vehicle_id` MEDIUMINT UNSIGNED NOT NULL COMMENT '车辆ID',
+  `created_by` VARCHAR(32)        NOT NULL COMMENT '创建者',
+  `created_at` DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`vehicle_id`, `area_id`)
+) ENGINE = InnoDB COMMENT '区域车辆绑定';
+
+
+CREATE TABLE IF NOT EXISTS `area`
+(
+  `id`           SMALLINT UNSIGNED AUTO_INCREMENT COMMENT '区域ID',
+  `agency_id`    SMALLINT UNSIGNED NOT NULL COMMENT '机构ID',
+  `name`         VARCHAR(30)      NOT NULL COMMENT '名称',
+  `area_desc`    VARCHAR(255)      NULL COMMENT '描述',
+  `geom_type`    TINYINT UNSIGNED  NOT NULL COMMENT '几何类型: 1.圆形 2.矩形 3.多边形 4.路线',
+  `geom_text`    TEXT              NOT NULL COMMENT '几何数据: 圆形[x,y,r] 矩形[x,y,x,y] 多边形[x,y,x,y,x,y] 路线[x,y,x,y,w]',
+  `mark_type`    TINYINT UNSIGNED  NOT NULL COMMENT '标记类型: 1.作业区 2.停车场 3.禁行区',
+  `limit_in_out` TINYINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '限制出入: 0.无 1.进区域 2.出区域',
+  `limit_speed`  TINYINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '限速(公里每小时) 0不限制',
+  `limit_time`   TINYINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '限停(分钟) 0不限制',
+  `weeks`        TINYINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '生效日(按位,周一至周日)',
+  `start_date`   DATE              NULL COMMENT '开始日期',
+  `end_date`     DATE              NULL COMMENT '结束日期',
+  `start_time`   TIME              NULL COMMENT '开始时间',
+  `end_time`     TIME              NULL COMMENT '结束时间',
+  `deleted`      TINYINT(1)        NOT NULL DEFAULT 0 COMMENT '删除标志',
+  `updated_by`   VARCHAR(32)       NOT NULL COMMENT '更新者',
+  `created_by`   VARCHAR(32)       NOT NULL COMMENT '创建者',
+  `updated_at`   DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `created_at`   DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB COMMENT '区域表';
