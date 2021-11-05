@@ -9,7 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -18,8 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.yzh.commons.util.DateUtils;
 import org.yzh.commons.mybatis.PageInterceptor;
+import org.yzh.commons.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +26,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-@MapperScan("org.yzh.web.mapper")
 @EnableScheduling
 @EnableCaching
 @Configuration
