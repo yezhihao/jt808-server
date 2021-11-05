@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yzh.component.area.mapper.AreaMapper">
+
+    <select id="findAreaId" parameterType="int" resultType="int">
+        select area_id
+        from area_vehicle
+        where vehicle_id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findVehicleId" parameterType="map" resultType="int">
+        select id
+        from vehicle
+        <if test="updateTime != null">where area_updated_at >= #{updateTime,jdbcType=TIMESTAMP}</if>
+    </select>
+
+    <select id="findArea" parameterType="map" resultType="org.yzh.component.area.model.entity.AreaDO">
+        select *
+        from area
+        <where>
+            <if test="updateTime != null">where updated_at >= #{updateTime,jdbcType=TIMESTAMP}</if>
+        </where>
+    </select>
+
+    <select id="find" resultType="org.yzh.component.area.model.entity.AreaDO" parameterType="org.yzh.component.area.model.vo.AreaQuery">
+        select t.*
+        from area t
+        <where>
+            <if test="id != null">and t.id = #{id}</if>
+            <if test="deleted != null">and t.deleted = #{deleted}</if>
+            <if test="geomText != null">and t.geom_text = #{geomText}</if>
+            <if test="geomType != null">and t.geom_type = #{geomType}</if>
+            <if test="limitInOut != null">and t.limit_in_out = #{limitInOut}</if>
+            <if test="limitSpeed != null">and t.limit_speed = #{limitSpeed}</if>
+            <if test="markType != null">and t.mark_type = #{markType}</if>
+            <if test="name != null">and t.name = #{name}</if>
+            <if test="createdAt != null">and t.created_at = #{createdAt}</if>
+        </where>
+    </select>
+
+
+    <insert id="insert" keyProperty="id" parameterType="org.yzh.component.area.model.entity.AreaDO">
+        insert into area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="areaDesc != null">area_desc,</if>
+            <if test="geomType != null">geom_type,</if>
+            <if test="markType != null">mark_type,</if>
+            <if test="limitInOut != null">limit_in_out,</if>
+            <if test="limitSpeed != null">limit_speed,</if>
+            <if test="limitTime != null">limit_time,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="geomText != null">geom_text,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="areaDesc != null">#{areaDesc,jdbcType=VARCHAR},</if>
+            <if test="geomType != null">#{geomType,jdbcType=TINYINT},</if>
+            <if test="markType != null">#{markType,jdbcType=TINYINT},</if>
+            <if test="limitInOut != null">#{limitInOut,jdbcType=TINYINT},</if>
+            <if test="limitSpeed != null">#{limitSpeed,jdbcType=TINYINT},</if>
+            <if test="limitTime != null">#{limitTime,jdbcType=TINYINT},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIME},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIME},</if>
+            <if test="deleted != null">#{deleted,jdbcType=BIT},</if>
+            <if test="createdBy != null">#{createdBy,jdbcType=VARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+            <if test="geomText != null">#{geomText,jdbcType=LONGVARCHAR},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="org.yzh.component.area.model.entity.AreaDO">
+        update area
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="areaDesc != null">area_desc = #{areaDesc,jdbcType=VARCHAR},</if>
+            <if test="geomType != null">geom_type = #{geomType,jdbcType=TINYINT},</if>
+            <if test="markType != null">mark_type = #{markType,jdbcType=TINYINT},</if>
+            <if test="limitInOut != null">limit_in_out = #{limitInOut,jdbcType=TINYINT},</if>
+            <if test="limitSpeed != null">limit_speed = #{limitSpeed,jdbcType=TINYINT},</if>
+            <if test="limitTime != null">limit_time = #{limitTime,jdbcType=TINYINT},</if>
+            <if test="startTime != null">start_time = #{startTime,jdbcType=TIME},</if>
+            <if test="endTime != null">end_time = #{endTime,jdbcType=TIME},</if>
+            <if test="deleted != null">deleted = #{deleted,jdbcType=BIT},</if>
+            <if test="geomText != null">geom_text = #{geomText,jdbcType=LONGVARCHAR},</if>
+        </set>
+        where id = #{id,jdbcType=SMALLINT}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete
+        from area
+        where id = #{id,jdbcType=SMALLINT}
+    </delete>
+</mapper>
