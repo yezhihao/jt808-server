@@ -14,43 +14,42 @@ import java.time.LocalTime;
  */
 public class Area implements Geometry, DateTimeRange {
 
-    private int id;             //区域id
-    private int agencyId;       //机构id
-    private String name;        //名称
-    private String areaDesc;    //描述
-    private int geomType;       //几何类型: 1.圆形 2.矩形 3.多边形 4.路线
-    private int markType;       //标记类型: 1.作业区 2.停车场 3.禁行区
-    private int limitInOut;     //限制出入: 0.无 1.进区域 2.出区域
-    private int limitSpeed;     //限速(公里每小时)
-    private int limitTime;      //限停(分钟)
-    private int weeks;          //生效日(按位,周一至周日)
-    private LocalDate startDate;//开始日期
-    private LocalDate endDate;  //结束日期
-    private LocalTime startTime;//开始时间
-    private LocalTime endTime;  //结束时间
-    private Geometry geometry;  //区域几何图形
+    public final int id;             // 区域id
+    public final int agencyId;       // 机构id
+    public final String name;        // 名称
+    public final String areaDesc;    // 描述
+    public final int geomType;       // 几何类型: 1.圆形 2.矩形 3.多边形 4.路线
+    public final int markType;       // 标记类型: 1.作业区 2.停车场 3.禁行区
+    public final int limitInOut;     // 限制出入: 0.无 1.进区域 2.出区域
+    public final int limitSpeed;     // 限速(1/10公里每小时)
+    public final int limitTime;      // 限停(秒)
+    public final int weeks;          // 生效日(按位,周一至周日)
+    public final LocalDate startDate;// 开始日期
+    public final LocalDate endDate;  // 结束日期
+    public final LocalTime startTime;// 开始时间
+    public final LocalTime endTime;  // 结束时间
+    public final Geometry geometry;  // 区域几何图形
 
-    private Area() {
+    private Area(AreaDO record, Geometry geometry) {
+        this.id = record.getId();
+        this.agencyId = record.getAgencyId();
+        this.name = record.getName();
+        this.areaDesc = record.getAreaDesc();
+        this.geomType = record.getGeomType();
+        this.markType = record.getMarkType();
+        this.limitInOut = record.getLimitInOut();
+        this.limitSpeed = record.getLimitSpeed() <= 0 ? Integer.MAX_VALUE : record.getLimitSpeed() * 10;
+        this.limitTime = record.getLimitTime() * 60;
+        this.weeks = record.getWeeks() == null ? 127 : record.getWeeks();
+        this.startDate = record.getStartDate();
+        this.endDate = record.getEndDate();
+        this.startTime = record.getStartTime();
+        this.endTime = record.getEndTime();
+        this.geometry = geometry;
     }
 
-    public static Area build(GeometryFactory factory, AreaDO record) {
-        Area area = new Area();
-        area.id = record.getId();
-        area.agencyId = record.getAgencyId();
-        area.name = record.getName();
-        area.areaDesc = record.getAreaDesc();
-        area.geomType = record.getGeomType();
-        area.markType = record.getMarkType();
-        area.limitInOut = record.getLimitInOut();
-        area.limitSpeed = record.getLimitSpeed();
-        area.limitTime = record.getLimitTime();
-        area.weeks = record.getWeeks();
-        area.startDate = record.getStartDate();
-        area.endDate = record.getEndDate();
-        area.startTime = record.getStartTime();
-        area.endTime = record.getEndTime();
-        area.geometry = factory.getInstance(record.getGeomType(), record.getGeomText());
-        return area;
+    public static Area build(AreaDO record, GeometryFactory factory) {
+        return new Area(record, factory.getInstance(record.getGeomType(), record.getGeomText()));
     }
 
     @Override
@@ -95,7 +94,7 @@ public class Area implements Geometry, DateTimeRange {
     }
 
     @Override
-    public int getWeeks() {
+    public Integer getWeeks() {
         return weeks;
     }
 

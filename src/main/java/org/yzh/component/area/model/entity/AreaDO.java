@@ -36,7 +36,7 @@ public class AreaDO implements DateTimeRange {
     @Schema(description = "限停(分钟)")
     private Integer limitTime;
     @Schema(description = "生效日(按位,周一至周日)")
-    private int weeks;
+    private Integer weeks;
     @Schema(description = "开始日期")
     private LocalDate startDate;
     @Schema(description = "结束日期")
@@ -136,7 +136,7 @@ public class AreaDO implements DateTimeRange {
         this.limitTime = limitTime;
     }
 
-    public int getWeeks() {
+    public Integer getWeeks() {
         return weeks;
     }
 

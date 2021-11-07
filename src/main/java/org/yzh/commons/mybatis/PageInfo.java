@@ -1,27 +1,22 @@
 package org.yzh.commons.mybatis;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-@JsonIgnoreType
 public class PageInfo {
 
-    @Schema(description = "当前页码")
+    @Schema(description = "当前页码", maxProperties = 111)
     private int page = 1;
-    @Schema(description = "每页显示行数")
+    @Schema(description = "每页显示行数", maxProperties = 112)
     private int limit = 5;
-    @Schema(description = "是否显示总页数")
+    @Schema(description = "是否显示总页数", maxProperties = 113)
     private boolean showPages = true;
-    //是否有下一页
-    @JsonIgnore
+    @Schema(description = "是否有下一页", hidden = true)
     private boolean hasNext;
-    //总行数
-    @JsonIgnore
+    @Schema(description = "总行数", hidden = true)
     private int count;
 
     public PageInfo() {
@@ -71,7 +66,7 @@ public class PageInfo {
         this.showPages = showPages;
     }
 
-    public boolean hasNext() {
+    public boolean isHasNext() {
         return hasNext;
     }
 
@@ -85,25 +80,19 @@ public class PageInfo {
 
     public void setCount(int count) {
         this.count = count;
-        int pages = getPages();
-        this.hasNext = page < pages;
+        int pages = pages();
+        this.setHasNext(page < pages);
         if (count != 0 && page > pages)
-            page = pages;
+            this.setPage(pages);
     }
 
-    /**
-     * 获取总页数
-     */
-    @JsonIgnore
-    public int getPages() {
+    /** @return 总页数 */
+    public int pages() {
         return (count - 1) / limit + 1;
     }
 
-    /**
-     * 获取当页偏移量
-     */
-    @JsonIgnore
-    public int getOffset() {
+    /** @return 当前页偏移量 */
+    public int offset() {
         return (page - 1) * limit;
     }
 
@@ -112,9 +101,9 @@ public class PageInfo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         sb.append("page:").append(page);
-        sb.append(",pages:").append(getPages());
+        sb.append(",pages:").append(pages());
         sb.append(",limit:").append(limit);
-        sb.append(",offset:").append(getOffset());
+        sb.append(",offset:").append(offset());
         sb.append(",count:").append(count);
         sb.append("}");
         return sb.toString();

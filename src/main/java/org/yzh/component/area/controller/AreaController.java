@@ -1,6 +1,7 @@
 package org.yzh.component.area.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,39 +24,43 @@ public class AreaController {
     @Autowired
     private AreaMapper areaMapper;
 
-    @Operation(summary = "区域查询")
+    @Operation(summary = "查询区域")
     @GetMapping
     public Pagination<AreaDO> find(AreaQuery query, PageInfo pageInfo) {
         Pagination<AreaDO> result = Page.start(() -> areaMapper.find(query), pageInfo);
         return result;
     }
 
-    @Operation(summary = "区域新增")
+    @Operation(summary = "新增|更新区域")
     @PostMapping
-    public APIResult add(@Validated AreaDO record) {
+    public APIResult<Integer> save(@Validated AreaDO record) {
         if (record.getId() != null) {
-            areaMapper.update(record);
+            int row = areaMapper.update(record);
+            return APIResult.ok(row);
         } else {
             areaMapper.insert(record);
+            return APIResult.ok(record.getId());
         }
-        return new APIResult(record.getId());
     }
 
-    @DeleteMapping
-    public APIResult delete(@RequestParam Integer id) {
-        int row = areaMapper.delete(id);
-        return new APIResult(row);
+    @Operation(summary = "启用|禁用区域")
+    @PutMapping("enable")
+    public APIResult<Integer> enable(@Parameter(description = "区域ID") @RequestParam Integer id,
+                                     @Parameter(description = "0.禁用 1.启用") @RequestParam int enable) {
+        int row = areaMapper.delete(id, enable == 0, "system");
+        return APIResult.ok(row);
     }
 
-    @PostMapping("vehicle")
-    public APIResult addVehicle(@RequestParam Integer areaId, @RequestParam Integer vehicleId) {
-        int row = areaMapper.insertVehicle(areaId, vehicleId);
-        return new APIResult(row);
-    }
-
-    @DeleteMapping("vehicle")
-    public APIResult deleteVehicle(@RequestParam Integer areaId, @RequestParam Integer vehicleId) {
-        int row = areaMapper.deleteVehicle(areaId, vehicleId);
-        return new APIResult(row);
+    @Operation(summary = "绑定|解绑区域")
+    @PutMapping("vehicle")
+    public APIResult<Integer> addVehicle(@Parameter(description = "车辆ID") @RequestParam Integer vehicleId,
+                                         @Parameter(description = "区域ID") @RequestParam Integer areaId,
+                                         @Parameter(description = "0.解绑 1.绑定") @RequestParam int bind) {
+        int row;
+        if (bind == 0)
+            row = areaMapper.removeVehicle(vehicleId, areaId);
+        else
+            row = areaMapper.addVehicle(vehicleId, areaId, "system");
+        return APIResult.ok(row);
     }
 }

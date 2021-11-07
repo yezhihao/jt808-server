@@ -6,18 +6,14 @@ package org.yzh.component.area.model;
  */
 public class TArea {
 
-    private Area delegate;
+    private Area value;
 
-    public TArea(Area delegate) {
-        this.delegate = delegate;
-    }
-
-    public TArea update(Area delegate) {
-        this.delegate = delegate;
+    public TArea set(Area value) {
+        this.value = value;
         return this;
     }
 
-    public Area delegate() {
-        return delegate;
+    public Area get() {
+        return value;
     }
 }

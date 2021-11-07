@@ -1,5 +1,6 @@
 package org.yzh.component.area;
 
+import org.yzh.commons.util.StrUtils;
 import org.yzh.component.area.model.domain.*;
 
 /**
@@ -18,7 +19,7 @@ public class GeometryFactory {
     }
 
     public Geometry getInstance(int type, String text) {
-        return getInstance(type, toDoubles(text));
+        return getInstance(type, StrUtils.toDoubles(text, ","));
     }
 
     public Geometry getInstance(int type, double... points) {
@@ -31,25 +32,16 @@ public class GeometryFactory {
             }
         }
         switch (type) {
-            case 1:
+            case Geometry.Circle:
                 return new Circle(points);
-            case 2:
+            case Geometry.Rectangle:
                 return new Rectangle(points);
-            case 3:
+            case Geometry.Polygon:
                 return new Polygon(points);
-            case 4:
+            case Geometry.Lines:
                 return new Lines(points);
             default:
                 throw new RuntimeException("不支持的几何图形type=" + type);
         }
-    }
-
-
-    public double[] toDoubles(String str) {
-        String[] split = str.split(",");
-        double[] result = new double[split.length];
-        for (int i = 0; i < split.length; i++)
-            result[i] = Double.parseDouble(split[i]);
-        return result;
     }
 }

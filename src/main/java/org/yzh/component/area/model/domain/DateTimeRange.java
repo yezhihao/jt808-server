@@ -19,7 +19,7 @@ public interface DateTimeRange {
 
     LocalTime getEndTime();
 
-    int getWeeks();
+    Integer getWeeks();
 
     default boolean contains(LocalDateTime dateTime) {
         if (containsTime(dateTime.toLocalTime()))

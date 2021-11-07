@@ -6,27 +6,15 @@ package org.yzh.component.area.model;
  */
 public class VehicleArea {
 
-    private final int vehicleId;
-    private final int areaId;
     private final TArea area;
-    protected long entryTime;
+    private long entryTime;
 
-    public VehicleArea(int vehicleId, int areaId, TArea area) {
-        this.vehicleId = vehicleId;
-        this.areaId = areaId;
+    public VehicleArea(TArea area) {
         this.area = area;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
-    }
-
-    public int getAreaId() {
-        return areaId;
-    }
-
     public Area getArea() {
-        return area.delegate();
+        return area.get();
     }
 
     public long getEntryTime() {
