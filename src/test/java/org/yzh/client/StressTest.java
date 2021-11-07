@@ -1,12 +1,16 @@
 package org.yzh.client;
 
 import org.yzh.client.netty.TCPClient;
+import org.yzh.commons.util.DateUtils;
+import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
-import org.yzh.commons.util.DateUtils;
-import org.yzh.commons.util.StrUtils;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 /**
@@ -16,12 +20,20 @@ import java.time.LocalDateTime;
 public class StressTest {
 
     //连接数量
-    private static final int Total = 1200;
+    private static final int Total = 1;
 
     //上报间隔(毫秒)
     private static final long Interval = 100;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        Object[] points;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("target/test-classes/test_data/轨迹区域测试.txt"), StandardCharsets.UTF_8))) {
+            points = reader.lines().map(s -> {
+                double[] doubles = StrUtils.toDoubles(s, ",");
+                return new int[]{(int) (doubles[0] * 1000000d), (int) (doubles[1] * 1000000d), (int) (doubles[2])};
+            }).toArray();
+        }
+
         LocalDateTime deviceTime = LocalDateTime.now();
 
         TCPClient[] clients = new TCPClient[Total + 1];
@@ -31,12 +43,17 @@ public class StressTest {
             clients[i].writeObject(T0100(id));
         }
 
+        int i = 0;
         while (true) {
-            String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
-            deviceTime = deviceTime.plusSeconds(1L);
+            int[] point = (int[]) points[i++];
+            if (i >= points.length)
+                i = 0;
 
-            for (int i = 1; i <= Total; i++) {
-                clients[i].writeObject(T0200(String.valueOf(i), strTime));
+            String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
+            deviceTime = deviceTime.plusSeconds(20);
+
+            for (int j = 1; j <= Total; j++) {
+                clients[j].writeObject(T0200(String.valueOf(j), strTime, point));
             }
             try {
                 Thread.sleep(Interval);
@@ -60,15 +77,15 @@ public class StressTest {
 
         message.setProvinceId(31);
         message.setCityId(115);
-        message.setMakerId("4");
-        message.setDeviceModel("JTT808.CN");
+        message.setMakerId("yzh");
+        message.setDeviceModel("www.jtt808.cn");
         message.setDeviceId(deviceId);
         message.setPlateColor(1);
         message.setPlateNo(plateNo);
         return message;
     }
 
-    public static T0200 T0200(String id, String time) {
+    public static T0200 T0200(String id, String time, int[] point) {
         String clientId = "1" + StrUtils.leftPad(id, 10, '0');
 
         T0200 message = new T0200();
@@ -79,10 +96,10 @@ public class StressTest {
 
         message.setWarnBit(1024);
         message.setStatusBit(2048);
-        message.setLatitude(116307629);
-        message.setLongitude(40058359);
+        message.setLongitude(point[0]);
+        message.setLatitude(point[1]);
         message.setAltitude(312);
-        message.setSpeed(3);
+        message.setSpeed(point[2]);
         message.setDirection(99);
         message.setDateTime(time);
         return message;
