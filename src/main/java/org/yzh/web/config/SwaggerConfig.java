@@ -3,12 +3,12 @@ package org.yzh.web.config;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Fs;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.PropertySpecificationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.property.ModelSpecificationFactory;
 import springfox.documentation.service.ApiInfo;
@@ -94,26 +94,28 @@ public class SwaggerConfig {
         return new ApiModelPropertyPropertyBuilder(descriptions, modelSpecifications) {
             @Override
             public void apply(ModelPropertyContext context) {
-                Optional<Field> annotation;
-                if (context.getBeanPropertyDefinition().isPresent()) {
-                    BeanPropertyDefinition beanPropertyDefinition = context.getBeanPropertyDefinition().get();
-                    annotation = findPropertyAnnotation(beanPropertyDefinition, Field.class);
+                context.getBeanPropertyDefinition().ifPresent(definition -> {
 
-                    PropertySpecificationBuilder builder = context.getSpecificationBuilder();
-                    if (ignores.contains(beanPropertyDefinition.getName())) {
-                        builder.isHidden(true);
-                        return;
-                    }
+                    if (ignores.contains(definition.getName())) {
+                        context.getSpecificationBuilder().isHidden(true);
 
-                    if (annotation.isPresent()) {
-                        Field field = annotation.get();
-                        builder.position(field.index());
-                        String desc = field.desc();
-                        if (desc.length() > 0) {
-                            builder.description(desc);
+                    } else {
+                        Field field = getField(definition);
+                        if (field != null) {
+                            context.getSpecificationBuilder()
+                                    .position(field.index())
+                                    .description(field.desc());
+                        } else {
+                            findPropertyAnnotation(definition, Schema.class).ifPresent(schema -> {
+                                context.getSpecificationBuilder()
+                                        .isHidden(schema.hidden())
+                                        .required(schema.required())
+                                        .position(schema.maxProperties())
+                                        .description(schema.description());
+                            });
                         }
                     }
-                }
+                });
             }
         };
     }
@@ -123,15 +125,12 @@ public class SwaggerConfig {
         return new SwaggerExpandedParameterBuilder(descriptions, enumTypeDeterminer) {
             @Override
             public void apply(ParameterExpansionContext context) {
+                if (ignores.contains(context.getFieldName()) || ignores.contains(context.getParentName())) {
+                    context.getParameterBuilder().hidden(true);
+                    context.getRequestParameterBuilder().hidden(true);
 
-                boolean hidden = ignores.contains(context.getFieldName()) || ignores.contains(context.getParentName());
-
-                context.getParameterBuilder().hidden(hidden);
-                context.getRequestParameterBuilder().hidden(hidden);
-
-                if (!hidden) {
+                } else {
                     Field field = getField(context);
-
                     if (field != null) {
                         context.getParameterBuilder()
                                 .description(field.desc())
@@ -143,10 +142,35 @@ public class SwaggerConfig {
                                 .required(true)
                                 .parameterIndex(field.index() + 10)
                                 .precedence(OAS_PLUGIN_ORDER);
+                    } else {
+                        context.findAnnotation(Schema.class).ifPresent(schema -> {
+                            context.getParameterBuilder()
+                                    .hidden(schema.hidden())
+                                    .required(schema.required())
+                                    .description(schema.description())
+                                    .order(OAS_PLUGIN_ORDER);
+
+                            context.getRequestParameterBuilder()
+                                    .hidden(schema.hidden())
+                                    .required(schema.required())
+                                    .description(schema.description())
+                                    .parameterIndex(schema.maxProperties())
+                                    .precedence(OAS_PLUGIN_ORDER);
+                        });
                     }
                 }
             }
         };
+    }
+
+    private Field getField(BeanPropertyDefinition definition) {
+        Optional<Field> optionalField = findPropertyAnnotation(definition, Field.class);
+        if (optionalField.isPresent())
+            return optionalField.get();
+        Optional<Fs> optionalFs = findPropertyAnnotation(definition, Fs.class);
+        if (optionalFs.isPresent())
+            return optionalFs.get().value()[0];
+        return null;
     }
 
     private Field getField(ParameterExpansionContext context) {

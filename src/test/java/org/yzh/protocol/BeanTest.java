@@ -43,7 +43,7 @@ public class BeanTest {
 
 
     /** 2013版消息头 */
-    public static JTMessage H2013(JTMessage message) {
+    public static <T extends JTMessage> T H2013(T message) {
         int messageId = message.reflectMessageId();
         if (messageId != 0)
             message.setMessageId(messageId);
@@ -55,7 +55,7 @@ public class BeanTest {
     }
 
     /** 2019版消息头 */
-    public static JTMessage H2019(JTMessage message) {
+    public static <T extends JTMessage> T H2019(T message) {
         int messageId = message.reflectMessageId();
         if (messageId != 0)
             message.setMessageId(messageId);

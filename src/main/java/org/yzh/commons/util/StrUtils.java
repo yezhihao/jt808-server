@@ -24,6 +24,14 @@ public class StrUtils {
         return result;
     }
 
+    public static double[] toDoubles(String str, String delimiter) {
+        String[] split = str.split(delimiter);
+        double[] result = new double[split.length];
+        for (int i = 0; i < split.length; i++)
+            result[i] = Double.parseDouble(split[i]);
+        return result;
+    }
+
     public static byte[] toBytes(String str, String delimiter) {
         String[] split = str.split(delimiter);
         byte[] result = new byte[split.length];

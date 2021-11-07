@@ -13,13 +13,13 @@ import java.util.List;
 public class Pagination<E> extends APIResult<List<E>> implements Serializable {
 
     @Schema(description = "当前页码")
-    private Integer page;
+    private int page;
     @Schema(description = "总页数")
-    private Integer pages;
+    private int pages;
     @Schema(description = "总行数")
-    private Integer count;
+    private int count;
     @Schema(description = "是否有下一页")
-    private Boolean hasNext;
+    private boolean hasNext;
 
     public Pagination() {
     }
@@ -27,7 +27,7 @@ public class Pagination<E> extends APIResult<List<E>> implements Serializable {
     public Pagination(PageInfo pageInfo, List<E> list) {
         if (pageInfo != null) {
             if (pageInfo.isShowPages()) {
-                this.hasNext = pageInfo.hasNext();
+                this.hasNext = pageInfo.isHasNext();
             } else {
                 //若无需展示总页数，则PageInfo中的hasNext 以大于limit一条记录的存在与否来决定
                 this.hasNext = list.size() > pageInfo.getLimit();
@@ -37,41 +37,41 @@ public class Pagination<E> extends APIResult<List<E>> implements Serializable {
             }
 
             this.page = pageInfo.getPage();
-            this.pages = pageInfo.getPages();
+            this.pages = pageInfo.pages();
             this.count = pageInfo.getCount();
         }
         this.data = list;
     }
 
-    public Integer getPage() {
+    public int getPage() {
         return page;
     }
 
-    public void setPage(Integer page) {
+    public void setPage(int page) {
         this.page = page;
     }
 
-    public Integer getPages() {
+    public int getPages() {
         return pages;
     }
 
-    public void setPages(Integer pages) {
+    public void setPages(int pages) {
         this.pages = pages;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
-    public Boolean getHasNext() {
+    public boolean isHasNext() {
         return hasNext;
     }
 
-    public void setHasNext(Boolean hasNext) {
+    public void setHasNext(boolean hasNext) {
         this.hasNext = hasNext;
     }
 
