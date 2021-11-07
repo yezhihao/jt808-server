@@ -3,6 +3,7 @@ package org.yzh.web.endpoint;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.yzh.component.area.service.AreaService;
 import org.yzh.web.mapper.DeviceStatusMapper;
 import org.yzh.web.model.entity.DeviceStatusDO;
 import org.yzh.web.model.enums.SessionKey;
@@ -12,6 +13,9 @@ public class JTSessionListener implements SessionListener {
 
     @Autowired
     private DeviceStatusMapper deviceStatusMapper;
+
+    @Autowired
+    private AreaService areaService;
 
     @Override
     public void sessionCreated(Session session) {
@@ -32,13 +36,16 @@ public class JTSessionListener implements SessionListener {
 
             if (deviceStatusMapper.update(status) < 1)
                 deviceStatusMapper.insert(status);
+            areaService.register(session);
         }
     }
 
     @Override
     public void sessionDestroyed(Session session) {
         DeviceInfo device = SessionKey.getDeviceInfo(session);
-        if (device != null)
+        if (device != null) {
             deviceStatusMapper.update(new DeviceStatusDO().deviceId(device.getDeviceId()).online(false));
+            areaService.cancellation(session);
+        }
     }
 }
