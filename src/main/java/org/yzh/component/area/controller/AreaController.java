@@ -3,7 +3,6 @@ package org.yzh.component.area.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
 import org.yzh.commons.mybatis.Page;
@@ -33,12 +32,12 @@ public class AreaController {
 
     @Operation(summary = "新增|更新区域")
     @PostMapping
-    public APIResult<Integer> save(@Validated AreaDO record) {
+    public APIResult<Integer> save(AreaDO record) {
         if (record.getId() != null) {
-            int row = areaMapper.update(record);
+            int row = areaMapper.update(record.updatedBy("system"));
             return APIResult.ok(row);
         } else {
-            areaMapper.insert(record);
+            areaMapper.insert(record.createdBy("system"));
             return APIResult.ok(record.getId());
         }
     }
@@ -47,7 +46,7 @@ public class AreaController {
     @PutMapping("enable")
     public APIResult<Integer> enable(@Parameter(description = "区域ID") @RequestParam Integer id,
                                      @Parameter(description = "0.禁用 1.启用") @RequestParam int enable) {
-        int row = areaMapper.delete(id, enable == 0, "system");
+        int row = areaMapper.update(new AreaDO(id).deleted(enable == 0).updatedBy("system"));
         return APIResult.ok(row);
     }
 

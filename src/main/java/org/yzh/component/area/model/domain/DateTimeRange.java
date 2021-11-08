@@ -9,19 +9,23 @@ import java.time.LocalTime;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public interface DateTimeRange {
+public class DateTimeRange {
 
-    LocalDate getStartDate();
+    private final LocalTime startTime;// 开始时间
+    private final LocalTime endTime;  // 结束时间
+    private final LocalDate startDate;// 开始日期
+    private final LocalDate endDate;  // 结束日期
+    private final int weeks;          // 生效日(按位,周一至周日)
 
-    LocalDate getEndDate();
+    public DateTimeRange(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate, int weeks) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.weeks = weeks;
+    }
 
-    LocalTime getStartTime();
-
-    LocalTime getEndTime();
-
-    Integer getWeeks();
-
-    default boolean contains(LocalDateTime dateTime) {
+    public boolean contains(LocalDateTime dateTime) {
         if (containsTime(dateTime.toLocalTime()))
             if (containsWeek(dateTime.getDayOfWeek()))
                 if (containsDate(dateTime.toLocalDate()))
@@ -29,21 +33,37 @@ public interface DateTimeRange {
         return false;
     }
 
-    default boolean containsTime(LocalTime time) {
-        LocalTime start = getStartTime();
-        LocalTime end = getEndTime();
-        return (end == null || end.compareTo(time) > 0) &&
-                (start == null || start.compareTo(time) <= 0);
+    public boolean containsTime(LocalTime time) {
+        return (endTime == null || endTime.compareTo(time) > 0) &&
+                (startTime == null || startTime.compareTo(time) <= 0);
     }
 
-    default boolean containsDate(LocalDate date) {
-        LocalDate start = getStartDate();
-        LocalDate end = getEndDate();
-        return (end == null || end.compareTo(date) >= 0) &&
-                (start == null || start.compareTo(date) <= 0);
+    public boolean containsDate(LocalDate date) {
+        return (endDate == null || endDate.compareTo(date) >= 0) &&
+                (startDate == null || startDate.compareTo(date) <= 0);
     }
 
-    default boolean containsWeek(DayOfWeek dayOfWeek) {
-        return (getWeeks() & (1 << dayOfWeek.ordinal())) > 0;
+    public boolean containsWeek(DayOfWeek dayOfWeek) {
+        return (weeks & (1 << dayOfWeek.ordinal())) > 0;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public int getWeeks() {
+        return weeks;
     }
 }

@@ -25,8 +25,6 @@ public interface AreaMapper {
 
     int insert(AreaDO record);
 
-    int delete(@Param("areaId") int areaId, @Param("deleted") boolean deleted, @Param("updatedBy") String updatedBy);
-
     int removeVehicle(@Param("vehicleId") int vehicleId, @Param("areaId") Integer areaId);
 
     int addVehicle(@Param("vehicleId") int vehicleId, @Param("areaId") int areaId, @Param("createdBy") String createdBy);

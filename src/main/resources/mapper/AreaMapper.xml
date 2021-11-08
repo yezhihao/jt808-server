@@ -50,7 +50,16 @@
             <if test="geomText != null">geom_text = #{geomText,jdbcType=LONGVARCHAR},</if>
             updated_by = #{updatedBy,jdbcType=VARCHAR}, updated_at = now()
         </set>
-        where id = #{id,jdbcType=SMALLINT}
+        where id = #{id,jdbcType=SMALLINT};
+        <if test="deleted != null || weeks != null || startDate != null || endDate != null">
+            update vehicle
+            set area_updated_at = now()
+            where id in (
+            select vehicle_id
+            from area_vehicle
+            where area_id = #{id,jdbcType=SMALLINT}
+            )
+        </if>
     </update>
 
     <insert id="insert" keyProperty="id" parameterType="org.yzh.component.area.model.entity.AreaDO">
@@ -92,34 +101,6 @@
             #{createdBy,jdbcType=VARCHAR},#{createdBy,jdbcType=VARCHAR},now(),now()
         </trim>
     </insert>
-
-    <delete id="delete" parameterType="map" databaseId="h2">
-        update area
-        set deleted    = #{deleted,jdbcType=BIT},
-            updated_by = #{updatedBy,jdbcType=VARCHAR},
-            updated_at = now()
-        where id = #{areaId,jdbcType=SMALLINT}
-          and deleted != #{deleted,jdbcType=BIT};
-        update vehicle
-        set area_updated_at = now()
-        where id in (
-            select vehicle_id
-            from area_vehicle
-            where area_id = #{areaId,jdbcType=SMALLINT}
-        )
-    </delete>
-
-    <delete id="delete" parameterType="map">
-        update area a
-            left join area_vehicle av on av.area_id = a.id
-            left join vehicle v on v.id = av.vehicle_id
-        set a.deleted         = #{deleted,jdbcType=BIT},
-            a.updated_by      = #{updatedBy,jdbcType=VARCHAR},
-            a.updated_at      = now(),
-            v.area_updated_at = now()
-        where a.id = #{areaId,jdbcType=SMALLINT}
-          and a.deleted != #{deleted,jdbcType=BIT}
-    </delete>
 
     <sql id="updateVehicleAreaUpdatedAt">
         update vehicle

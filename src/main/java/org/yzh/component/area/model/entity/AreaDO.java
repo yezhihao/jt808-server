@@ -2,7 +2,6 @@ package org.yzh.component.area.model.entity;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.yzh.component.area.model.domain.DateTimeRange;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ import java.time.LocalTime;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class AreaDO implements DateTimeRange {
+public class AreaDO {
 
     @Schema(description = "区域id")
     private Integer id;
@@ -55,6 +54,13 @@ public class AreaDO implements DateTimeRange {
     private LocalDateTime updatedAt;
     @Schema(description = "创建时间")
     private LocalDateTime createdAt;
+
+    public AreaDO() {
+    }
+
+    public AreaDO(int id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -352,7 +358,7 @@ public class AreaDO implements DateTimeRange {
         sb.append(", limitInOut=").append(limitInOut);
         sb.append(", limitSpeed=").append(limitSpeed);
         sb.append(", limitTime=").append(limitTime);
-        sb.append(", weeks=[").append(Integer.toBinaryString(weeks)).append(']');
+        sb.append(", weeks=[").append(weeks).append(']');
         sb.append(", startDate=").append(startDate);
         sb.append(", endDate=").append(endDate);
         sb.append(", startTime=").append(startTime);

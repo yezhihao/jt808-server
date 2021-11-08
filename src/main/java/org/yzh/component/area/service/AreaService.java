@@ -69,7 +69,7 @@ public class AreaService {
         updateVehicleAreas(temp);
     }
 
-    private void updateAreas(LocalDateTime updateTime) {
+    private synchronized void updateAreas(LocalDateTime updateTime) {
         List<AreaDO> areas = areaMapper.find(new AreaQuery().updatedAt(updateTime));
         if (areas.isEmpty())
             return;
@@ -79,7 +79,7 @@ public class AreaService {
         List<Area> adds = new LinkedList<>();
 
         for (AreaDO area : areas) {
-            if (area.isDeleted() || !area.containsDate(now) || !area.containsWeek(now.getDayOfWeek())) {
+            if (area.isDeleted() || area.getWeeks() == 0 || (area.getEndDate() != null && now.isAfter(area.getEndDate()))) {
                 dels.add(area.getId());
             } else {
                 try {
@@ -109,7 +109,7 @@ public class AreaService {
         );
     }
 
-    private void updateVehicleAreas(LocalDateTime updateTime) {
+    private synchronized void updateVehicleAreas(LocalDateTime updateTime) {
         int[] vehicleIds = areaMapper.findVehicleId(updateTime);
         for (int vehicleId : vehicleIds) {
 
