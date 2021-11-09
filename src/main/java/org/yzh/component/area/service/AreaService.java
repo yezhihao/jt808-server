@@ -95,10 +95,12 @@ public class AreaService {
                 areaMap.remove(id);
             }
             for (Area area : adds) {
-                TArea TArea = areaMap.get(area.getId());
-                if (TArea == null)
-                    areaMap.put(area.getId(), TArea = new TArea());
-                TArea.set(area);
+                TArea tArea = areaMap.get(area.getId());
+                if (tArea == null) {
+                    areaMap.put(area.getId(), new TArea().set(area));
+                } else {
+                    tArea.set(area);
+                }
             }
         }
 
