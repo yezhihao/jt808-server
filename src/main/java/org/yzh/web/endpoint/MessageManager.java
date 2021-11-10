@@ -4,6 +4,8 @@ import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yzh.commons.model.APICodes;
+import org.yzh.commons.model.APIException;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -21,7 +23,7 @@ public class MessageManager {
     public boolean notify(String sessionId, JTMessage request) {
         Session session = sessionManager.get(sessionId);
         if (session == null)
-            return false;
+            throw new APIException(APICodes.OfflineClient);
 
         fillHeader(request, session);
         session.notify(request);
@@ -35,7 +37,7 @@ public class MessageManager {
     public <T> T request(String sessionId, JTMessage request, Class<T> responseClass, long timeout) {
         Session session = sessionManager.get(sessionId);
         if (session == null)
-            return null;
+            throw new APIException(APICodes.OfflineClient);
 
         fillHeader(request, session);
         return session.request(request, responseClass, timeout);
