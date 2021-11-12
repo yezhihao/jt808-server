@@ -208,7 +208,6 @@
             }
             if (client.ws.readyState === 1) {
                 startListener();
-                return;
             } else {
                 client.connect({}, function (res) {
                     console.log('websocket connect sucess!', res);
@@ -217,7 +216,6 @@
                     alert('websocket 连接失败！');
                     console.log('websocket connect failed!', error);
                 })
-                return;
             }
         }
 

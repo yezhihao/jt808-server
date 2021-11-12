@@ -39,7 +39,7 @@ var axios = {
         complete: function(xhr, status) {}
     }, option);
 // 参数验证
-defaultOption.headers['Origin'] = '*'
+// defaultOption.headers['Origin'] = '*'
 if (defaultOption.dataType === 'json') {
     defaultOption.headers['Content-Type'] = 'application/json'
 }
