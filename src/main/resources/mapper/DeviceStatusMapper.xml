@@ -36,4 +36,10 @@
         values (#{deviceId,jdbcType=VARCHAR}, #{online,jdbcType=BIT}, #{agencyId,jdbcType=SMALLINT},
                 #{plateNo,jdbcType=CHAR}, #{mobileNo,jdbcType=VARCHAR}, #{vehicleId,jdbcType=INTEGER}, now(), now(), now())
     </insert>
+
+    <insert id="insertOnlineRecord" parameterType="map">
+        insert ignore into online_record (agency_id, vehicle_id, mobile_no, device_id, online_time, online_duration)
+        values (#{d.agencyId,jdbcType=SMALLINT}, #{d.vehicleId,jdbcType=INTEGER}, #{d.clientId,jdbcType=VARCHAR},
+                #{d.deviceId,jdbcType=VARCHAR}, #{onlineTime,jdbcType=TIMESTAMP}, #{onlineDuration,jdbcType=INTEGER})
+    </insert>
 </mapper>

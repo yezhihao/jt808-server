@@ -143,3 +143,15 @@ CREATE TABLE IF NOT EXISTS `area`
   `created_at`   DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT '区域表';
+
+CREATE TABLE IF NOT EXISTS `online_record`
+(
+  `agency_id`       SMALLINT UNSIGNED  NOT NULL COMMENT '机构ID',
+  `vehicle_id`      MEDIUMINT UNSIGNED NOT NULL COMMENT '车辆ID',
+  `mobile_no`       VARCHAR(20)        NOT NULL COMMENT '手机号',
+  `device_id`       VARCHAR(30)        NOT NULL COMMENT '设备ID',
+  `online_time`     DATETIME           NOT NULL COMMENT '上线时间',
+  `online_duration` MEDIUMINT UNSIGNED NOT NULL COMMENT '在线时长',
+  INDEX idx_online_time (`online_time`),
+  PRIMARY KEY (`vehicle_id`, `online_time`)
+) ENGINE = InnoDB COMMENT '在线记录';

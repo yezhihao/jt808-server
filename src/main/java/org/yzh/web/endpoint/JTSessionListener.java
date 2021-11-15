@@ -9,6 +9,8 @@ import org.yzh.web.model.entity.DeviceStatusDO;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 
+import java.util.Date;
+
 public class JTSessionListener implements SessionListener {
 
     @Autowired
@@ -45,6 +47,9 @@ public class JTSessionListener implements SessionListener {
         DeviceInfo device = SessionKey.getDeviceInfo(session);
         if (device != null) {
             deviceStatusMapper.update(new DeviceStatusDO().deviceId(device.getDeviceId()).online(false));
+            long onlineTime = session.getCreationTime();
+            int onlineDuration = (int) (System.currentTimeMillis() - onlineTime) / 1000;
+            deviceStatusMapper.insertOnlineRecord(device, new Date(onlineTime), onlineDuration);
             areaService.cancellation(session);
         }
     }
