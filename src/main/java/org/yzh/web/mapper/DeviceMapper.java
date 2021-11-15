@@ -1,5 +1,7 @@
 package org.yzh.web.mapper;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.yzh.web.model.entity.DeviceDO;
 
@@ -12,8 +14,10 @@ public interface DeviceMapper {
 
     DeviceDO getByMobileNo(String mobileNo);
 
+    @Cacheable(cacheNames = "DeviceDO.deviceId")
     DeviceDO get(String deviceId);
 
+    @CacheEvict(cacheNames = "DeviceDO.deviceId", key = "#record.deviceId")
     int insert(DeviceDO record);
 
     int update(DeviceDO record);
