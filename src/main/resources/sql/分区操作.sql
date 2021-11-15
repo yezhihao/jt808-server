@@ -1,11 +1,11 @@
 -- 添加表分区
 alter table location add partition (
-	partition P_2020_01_03 values less than ('2020-01-03'),
-	partition P_2020_01_04 values less than ('2020-01-04')
+	partition 2021_01_03 values less than ('2021-01-03'),
+	partition 2021_01_04 values less than ('2021-01-04')
 );
 
 -- 删除表分区
-alter table location drop partition P_2020_01_04;
+alter table location drop partition 2021_01_04;
 
 -- 查看分区
 select *

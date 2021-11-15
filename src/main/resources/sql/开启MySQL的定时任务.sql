@@ -10,6 +10,6 @@ show variables like 'event_scheduler';
 -- 查看定时任务
 show events;
 
--- 创建定时任务 每天23点，执行存储过程 proc_create_partition('test', null)
-drop event if exists `create_partion_event`;
-create event `create_partion_event` on schedule every 1 day starts '2020-01-01 23:00:00' on completion preserve enable do call proc_create_partition('test', null);
+-- 创建定时任务 每天23点，执行存储过程 proc_add_partition('location', null)
+drop event if exists `event_add_partition_location`;
+create event `event_add_partition_location` on schedule every 1 day starts '1970-01-01 23:00:00' on completion preserve enable do call proc_add_partition('location', null);
