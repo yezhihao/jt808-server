@@ -113,8 +113,6 @@ public class GeomUtils {
             sum += angle;
         }
         //计算回转数并判断点和多边形的几何关系
-        if ((int) (sum / Math.PI) == 0)
-            return false;
-        return true;
+        return (int) (sum / Math.PI) != 0;
     }
 }

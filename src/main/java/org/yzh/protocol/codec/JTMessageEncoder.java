@@ -21,7 +21,7 @@ public class JTMessageEncoder {
 
     private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
-    private Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
+    private final Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
 
     public JTMessageEncoder(String basePackage) {
         ProtostarUtil.initial(basePackage);

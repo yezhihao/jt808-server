@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class JTMessageDecoder {
 
-    private Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
+    private final Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
 
     public JTMessageDecoder(String basePackage) {
         ProtostarUtil.initial(basePackage);
@@ -41,10 +41,10 @@ public class JTMessageDecoder {
         int properties = buf.getUnsignedShort(2);
 
         int version = 0;//缺省值为2013版本
-        if (Bit.get(properties, 14))//识别2019及后续版本
-            version = (int) buf.getUnsignedByte(4);
+        if (Bit.isTrue(properties, 14))//识别2019及后续版本
+            version = buf.getUnsignedByte(4);
 
-        boolean isSubpackage = Bit.get(properties, 13);
+        boolean isSubpackage = Bit.isTrue(properties, 13);
         int headLen = JTUtils.headerLength(version, isSubpackage);
 
         RuntimeSchema<JTMessage> headSchema = headerSchemaMap.get(version);

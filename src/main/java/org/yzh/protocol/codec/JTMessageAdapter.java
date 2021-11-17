@@ -20,9 +20,9 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
 
     private static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class.getSimpleName());
 
-    private JTMessageEncoder messageEncoder;
+    private final JTMessageEncoder messageEncoder;
 
-    private JTMessageDecoder messageDecoder;
+    private final JTMessageDecoder messageDecoder;
 
     @Autowired
     private LoggingPusher loggingPusher;

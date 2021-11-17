@@ -15,8 +15,8 @@ import org.yzh.protocol.jsatl12.DataPacket;
  */
 public class DataFrameMessageDecoder extends JTMessageDecoder {
 
-    private RuntimeSchema<DataPacket> dataFrameSchema;
-    private byte[] dataFramePrefix;
+    private final RuntimeSchema<DataPacket> dataFrameSchema;
+    private final byte[] dataFramePrefix;
 
     public DataFrameMessageDecoder(String basePackage, byte[] dataFramePrefix) {
         super(basePackage);

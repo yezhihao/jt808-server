@@ -32,7 +32,7 @@ public class JTConfig {
     @Component
     public class Starter implements InitializingBean, DisposableBean {
 
-        private TCPServer jt808Server;
+        private final TCPServer jt808Server;
 
         public Starter(@Value("${tcp-server.jt808.port}") int port,
                        JTMessageAdapter messageAdapter,

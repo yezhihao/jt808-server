@@ -29,7 +29,7 @@ public class JSATLConfig {
     @Component
     public class Starter implements InitializingBean, DisposableBean {
 
-        private TCPServer alarmFileServer;
+        private final TCPServer alarmFileServer;
 
         public Starter(@Value("${tcp-server.alarm-file.port}") int port,
                        JTMessageAdapter alarmFileMessageAdapter,

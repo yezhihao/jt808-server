@@ -23,7 +23,7 @@ public class JSATL12Endpoint {
     @Autowired
     private FileService fileService;
 
-    private Cache<String, Map<String, AlarmId>> cache = Caffeine.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES).build();
+    private final Cache<String, Map<String, AlarmId>> cache = Caffeine.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES).build();
 
     private AlarmId getAlarmId(String clientId, String filename) {
         Map<String, AlarmId> alarmIdMap = cache.getIfPresent(clientId);

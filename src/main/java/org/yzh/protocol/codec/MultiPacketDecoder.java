@@ -17,9 +17,9 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class.getSimpleName());
 
-    private static final ConcurrentHashMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap();
+    private static final ConcurrentHashMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap<>();
 
-    private MultiPacketListener multiPacketListener;
+    private final MultiPacketListener multiPacketListener;
 
     public MultiPacketDecoder(String basePackage) {
         this(basePackage, new MultiPacketListener(20));
