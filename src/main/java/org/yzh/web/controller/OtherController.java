@@ -61,7 +61,7 @@ public class OtherController {
     @GetMapping("terminal/option")
     public APIResult<List<String>> getClientId() {
         Collection<Session> all = sessionManager.all();
-        List<String> result = all.stream().map(session -> session.getId()).collect(Collectors.toList());
+        List<String> result = all.stream().map(Session::getId).collect(Collectors.toList());
         return APIResult.ok(result);
     }
 

@@ -148,7 +148,7 @@ public class Parameters {
             map.putAll(parametersInt);
 
         if (parametersLong != null && !parametersLong.isEmpty())
-            map.putAll(new AdapterMap(parametersLong, (Function<String, Long>) s -> Long.parseLong(s)));
+            map.putAll(new AdapterMap(parametersLong, (Function<String, Long>) Long::parseLong));
 
         if (parametersStr != null && !parametersStr.isEmpty())
             map.putAll(parametersStr);

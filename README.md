@@ -1,10 +1,10 @@
 部标JT808 JT/T808协议网关
 ====================
 
-<p align="center">
-    <img src="https://img.shields.io/badge/JDK-1.8+-green.svg"></img>
-    <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg"></img>
-    <img src="https://img.shields.io/badge/QQ群-107751976-blue"></img>
+<p>
+    <img src="https://img.shields.io/badge/JDK-1.8+-green.svg"/>
+    <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg"/>
+    <img src="https://img.shields.io/badge/QQ群-107751976-blue"/>
 </p>
 
 # 项目介绍

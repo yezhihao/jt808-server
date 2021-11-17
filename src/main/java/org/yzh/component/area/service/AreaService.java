@@ -31,11 +31,11 @@ public class AreaService {
 
     private static final Logger log = LoggerFactory.getLogger(AreaService.class.getSimpleName());
 
-    private Map<Integer, AreaFilter> vehicleAreaMap = new ConcurrentHashMap<>();
+    private final Map<Integer, AreaFilter> vehicleAreaMap = new ConcurrentHashMap<>();
 
-    private Map<Integer, TArea> areaMap = new HashMap<>();
+    private final Map<Integer, TArea> areaMap = new HashMap<>();
 
-    private GeometryFactory factory = new GeometryFactory();
+    private final GeometryFactory factory = new GeometryFactory();
 
     @Autowired
     private AreaMapper areaMapper;
@@ -106,7 +106,7 @@ public class AreaService {
 
         log.warn("区域更新\n移除区域{}\n加载区域{}\n当前区域{}",
                 Arrays.toString(dels.stream().mapToInt(e -> e).toArray()),
-                Arrays.toString(adds.stream().mapToInt(e -> e.getId()).toArray()),
+                Arrays.toString(adds.stream().mapToInt(Area::getId).toArray()),
                 Arrays.toString(areaMap.keySet().stream().mapToInt(k -> k).toArray())
         );
     }

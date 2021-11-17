@@ -48,7 +48,7 @@ public class BeanTest {
         if (messageId != 0)
             message.setMessageId(messageId);
         message.setClientId("123456789012");
-        message.setSerialNo((int) Short.MAX_VALUE);
+        message.setSerialNo(Short.MAX_VALUE);
         message.setEncryption(0);
         message.setReserved(false);
         return message;

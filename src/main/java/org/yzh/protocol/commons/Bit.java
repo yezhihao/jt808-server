@@ -2,18 +2,22 @@ package org.yzh.protocol.commons;
 
 /**
  * 32位整型的二进制读写
+ * << 左移
+ * &与 同为1返回1
+ * |或 其中一个为1返回1
+ * ^异或 相同为0不同为1
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
 public class Bit {
 
-    private static final int[] bits = new int[32];
-
-    static {
-        bits[0] = 1;
-        for (int i = 1; i < bits.length; i++) {
-            bits[i] = bits[i - 1] << 1;
-        }
+    /**
+     * 判断n的第i位
+     * @param n int32
+     * @param i 取值范围0~31
+     */
+    public static boolean isTrue(int n, int i) {
+        return get(n, i) > 0;
     }
 
     /**
@@ -21,8 +25,26 @@ public class Bit {
      * @param n int32
      * @param i 取值范围0~31
      */
-    public static boolean get(int n, int i) {
-        return (n & bits[i]) == bits[i];
+    public static int get(int n, int i) {
+        return (1 << i) & n;
+    }
+
+    /**
+     * 设置n的第i位为1
+     * @param n int32
+     * @param i 取值范围0~31
+     */
+    public static int set1(int n, int i) {
+        return (1 << i) | n;
+    }
+
+    /**
+     * 设置n的第i位为0
+     * @param n int32
+     * @param i 取值范围0~31
+     */
+    public static int set0(int n, int i) {
+        return get(n, i) ^ n;
     }
 
     /**
@@ -31,7 +53,7 @@ public class Bit {
      * @param i 取值范围0~31
      */
     public static int set(int n, int i, boolean bool) {
-        return bool ? n | bits[i] : n ^ (n & bits[i]);
+        return bool ? set1(n, i) : set0(n, i);
     }
 
     /**
@@ -39,9 +61,9 @@ public class Bit {
      * 数组第一个int为首位
      */
     public static int writeInt(int... bit) {
-        int r = 0;
+        int n = 0;
         for (int i = 0; i < bit.length; i++)
-            r = bit[i] > 0 ? (r | bits[i]) : (r ^ (r & bits[i]));
-        return r;
+            n = set(n, i, bit[i] > 0);
+        return n;
     }
 }

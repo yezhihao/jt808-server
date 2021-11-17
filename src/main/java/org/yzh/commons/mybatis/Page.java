@@ -20,8 +20,6 @@ public class Page {
             LOCAL_PAGE.set(pageInfo);
             List<T> list = select.get();
             return new Pagination<>(pageInfo, list);
-        } catch (Exception e) {
-            throw e;
         } finally {
             LOCAL_PAGE.remove();
         }
