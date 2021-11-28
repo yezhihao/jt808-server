@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="application.yml"/>
+    <!--<properties resource="application-test.yml"/>-->
+
+    <context id="MyBatis3NoClient" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${driver-class-name}" connectionURL="${url}" userId="${username}" password="${password}">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="org.yzh.web.model.entity" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="org.yzh.web.mapper" targetProject="src\main\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="location" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+    </context>
+</generatorConfiguration>

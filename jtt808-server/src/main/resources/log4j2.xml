@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <properties>
+        <property name="LOG_HOME">logs/jt808/</property>
+        <property name="LOG_NAME">jt808</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+        </Console>
+
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
