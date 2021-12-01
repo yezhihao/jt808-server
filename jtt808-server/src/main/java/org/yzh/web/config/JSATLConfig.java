@@ -6,6 +6,7 @@ import io.github.yezhihao.netmc.codec.Delimiter;
 import io.github.yezhihao.netmc.codec.LengthField;
 import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,11 +61,13 @@ public class JSATLConfig {
     }
 
     @Bean
-    public JTMessageAdapter alarmFileMessageAdapter() {
-        return new JTMessageAdapter(
-                new JTMessageEncoder("org.yzh.protocol"),
-                new DataFrameMessageDecoder("org.yzh.protocol", DataFramePrefix)
-        );
+    public DataFrameMessageDecoder dataFrameMessageDecoder(MultiVersionSchemaManager schemaManager) {
+        return new DataFrameMessageDecoder(schemaManager, DataFramePrefix);
+    }
+
+    @Bean
+    public JTMessageAdapter alarmFileMessageAdapter(JTMessageEncoder messageEncoder, DataFrameMessageDecoder dataFrameMessageDecoder) {
+        return new JTMessageAdapter(messageEncoder, dataFrameMessageDecoder);
     }
 
     @Bean

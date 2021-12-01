@@ -14,8 +14,8 @@ import org.yzh.component.area.model.TArea;
 import org.yzh.component.area.model.VehicleArea;
 import org.yzh.component.area.model.entity.AreaDO;
 import org.yzh.component.area.model.vo.AreaQuery;
-import org.yzh.protocol.SessionKey;
-import org.yzh.protocol.DeviceInfo;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

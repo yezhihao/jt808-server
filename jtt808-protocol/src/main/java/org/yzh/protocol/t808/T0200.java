@@ -3,16 +3,12 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.DeviceInfo;
-import org.yzh.protocol.SessionKey;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.commons.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.MessageId;
 import org.yzh.protocol.commons.transform.AttributeConverter;
 import org.yzh.protocol.commons.transform.AttributeConverterYue;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -142,68 +138,5 @@ public class T0200 extends JTMessage {
         sb.append(",attributes=").append(attributes);
         sb.append('}');
         return sb.toString();
-    }
-
-    //==================================
-
-    @Override
-    public boolean transform() {
-        lng = longitude / 1000000d;
-        lat = latitude / 1000000d;
-        speedKph = speed / 10f;
-        if (dateTime != null)
-            deviceTime = DateUtils.parse(dateTime);
-
-        DeviceInfo device = SessionKey.getDeviceInfo(session);
-        if (device != null) {
-            deviceId = device.getDeviceId();
-            plateNo = device.getPlateNo();
-            vehicleId = device.getVehicleId();
-        } else {
-            deviceId = clientId;
-            plateNo = "";
-        }
-        return deviceTime != null;
-    }
-
-    private transient boolean updated;
-    private transient String deviceId;
-    private transient String plateNo;
-    private transient int vehicleId;
-    private transient double lng;
-    private transient double lat;
-    private transient float speedKph;
-    private transient LocalDateTime deviceTime;
-
-    public boolean updated() {
-        return updated ? true : !(updated = true);
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public String getPlateNo() {
-        return plateNo;
-    }
-
-    public int getVehicleId() {
-        return vehicleId;
-    }
-
-    public double getLng() {
-        return lng;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public float getSpeedKph() {
-        return speedKph;
-    }
-
-    public LocalDateTime getDeviceTime() {
-        return deviceTime;
     }
 }

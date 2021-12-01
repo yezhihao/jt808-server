@@ -1,7 +1,7 @@
 package org.yzh.protocol.codec;
 
 import io.github.yezhihao.netmc.util.ByteBufUtils;
-import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,10 +17,10 @@ public class DataFrameMessageDecoder extends JTMessageDecoder {
     private final RuntimeSchema<DataPacket> dataFrameSchema;
     private final byte[] dataFramePrefix;
 
-    public DataFrameMessageDecoder(String basePackage, byte[] dataFramePrefix) {
-        super(basePackage);
+    public DataFrameMessageDecoder(MultiVersionSchemaManager schemaManager, byte[] dataFramePrefix) {
+        super(schemaManager);
         this.dataFramePrefix = dataFramePrefix;
-        this.dataFrameSchema = ProtostarUtil.getRuntimeSchema(DataPacket.class, 0);
+        this.dataFrameSchema = schemaManager.getRuntimeSchema(DataPacket.class, 0);
     }
 
     @Override

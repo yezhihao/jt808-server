@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.yzh.component.area.service.AreaService;
 import org.yzh.web.mapper.DeviceStatusMapper;
 import org.yzh.web.model.entity.DeviceStatusDO;
-import org.yzh.protocol.SessionKey;
-import org.yzh.protocol.DeviceInfo;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.netty.buffer.*;
@@ -20,11 +20,18 @@ public class JTMessageEncoder {
 
     private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
-    private final Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
+    private final MultiVersionSchemaManager schemaManager;
 
-    public JTMessageEncoder(String basePackage) {
-        ProtostarUtil.initial(basePackage);
-        this.headerSchemaMap = ProtostarUtil.getRuntimeSchema(JTMessage.class);
+    private final Map<Integer, RuntimeSchema> headerSchemaMap;
+
+    public JTMessageEncoder(String... basePackages) {
+        this.schemaManager = new MultiVersionSchemaManager(basePackages);
+        this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
+    }
+
+    public JTMessageEncoder(MultiVersionSchemaManager schemaManager) {
+        this.schemaManager = schemaManager;
+        this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }
 
     public ByteBuf encode(JTMessage message) {
@@ -33,7 +40,7 @@ public class JTMessageEncoder {
         int bodyLength = 0;
 
         Schema headSchema = headerSchemaMap.get(version);
-        Schema bodySchema = ProtostarUtil.getRuntimeSchema(message.getMessageId(), version);
+        Schema bodySchema = schemaManager.getRuntimeSchema(message.getMessageId(), version);
 
         ByteBuf output;
         if (bodySchema != null) {

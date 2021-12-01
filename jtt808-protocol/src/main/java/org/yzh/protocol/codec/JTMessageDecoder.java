@@ -1,6 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.protostar.ProtostarUtil;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
@@ -21,11 +21,18 @@ import java.util.Map;
  */
 public class JTMessageDecoder {
 
-    private final Map<Integer, RuntimeSchema<JTMessage>> headerSchemaMap;
+    private final MultiVersionSchemaManager schemaManager;
 
-    public JTMessageDecoder(String basePackage) {
-        ProtostarUtil.initial(basePackage);
-        this.headerSchemaMap = ProtostarUtil.getRuntimeSchema(JTMessage.class);
+    private final Map<Integer, RuntimeSchema> headerSchemaMap;
+
+    public JTMessageDecoder(String... basePackages) {
+        this.schemaManager = new MultiVersionSchemaManager(basePackages);
+        this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
+    }
+
+    public JTMessageDecoder(MultiVersionSchemaManager schemaManager) {
+        this.schemaManager = schemaManager;
+        this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }
 
     public JTMessage decode(ByteBuf input) {
@@ -43,7 +50,7 @@ public class JTMessageDecoder {
         int headLen = JTUtils.headerLength(version, isSubpackage);
 
         RuntimeSchema<JTMessage> headSchema = headerSchemaMap.get(version);
-        RuntimeSchema<JTMessage> bodySchema = ProtostarUtil.getRuntimeSchema(messageId, version);
+        RuntimeSchema<JTMessage> bodySchema = schemaManager.getRuntimeSchema(messageId, version);
 
         JTMessage message;
         if (bodySchema == null)
@@ -59,7 +66,7 @@ public class JTMessageDecoder {
 
         int realVersion = message.getProtocolVersion();
         if (realVersion != version)
-            bodySchema = ProtostarUtil.getRuntimeSchema(messageId, realVersion);
+            bodySchema = schemaManager.getRuntimeSchema(messageId, realVersion);
 
         if (bodySchema != null) {
             int bodyLen = message.getBodyLength();

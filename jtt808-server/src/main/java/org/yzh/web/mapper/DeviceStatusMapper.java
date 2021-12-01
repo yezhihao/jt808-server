@@ -3,7 +3,7 @@ package org.yzh.web.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.yzh.web.model.entity.DeviceStatusDO;
-import org.yzh.protocol.DeviceInfo;
+import org.yzh.web.model.vo.DeviceInfo;
 
 import java.util.Date;
 import java.util.List;

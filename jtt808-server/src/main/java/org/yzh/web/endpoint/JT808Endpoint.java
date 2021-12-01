@@ -14,8 +14,9 @@ import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
 import org.yzh.commons.util.EncryptUtils;
 import org.yzh.commons.model.Result;
-import org.yzh.protocol.SessionKey;
-import org.yzh.protocol.DeviceInfo;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.protocol.T0200;
+import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.FileService;
 import org.yzh.web.service.LocationService;
@@ -137,7 +138,7 @@ public class JT808Endpoint {
     public void locationBatchReport(T0704 message) {
         Session session = message.getSession();
         List<T0200> list = new AdapterList<>(message.getItems(), item -> {
-            T0200 location = item.getLocation();
+            T0200 location = (T0200) item.getLocation();
             location.copyBy(message);
             location.setSession(session);
             location.transform();

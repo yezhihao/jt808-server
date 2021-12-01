@@ -16,12 +16,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
-import org.yzh.protocol.SessionKey;
+import org.yzh.web.model.enums.SessionKey;
 
 @Configuration
 @ConditionalOnProperty(value = "tcp-server.jt808.enable", havingValue = "true")
@@ -68,11 +68,8 @@ public class JTConfig {
     }
 
     @Bean
-    public JTMessageAdapter messageAdapter() {
-        return new JTMessageAdapter(
-                new JTMessageEncoder("org.yzh.protocol"),
-                new MultiPacketDecoder("org.yzh.protocol", multiPacketListener())
-        );
+    public JTMessageAdapter messageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
+        return new JTMessageAdapter(messageEncoder, messageDecoder);
     }
 
     @Bean

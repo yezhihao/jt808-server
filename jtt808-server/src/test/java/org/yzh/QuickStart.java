@@ -4,8 +4,6 @@ import io.github.yezhihao.netmc.NettyConfig;
 import io.github.yezhihao.netmc.TCPServer;
 import io.github.yezhihao.netmc.core.DefaultHandlerMapping;
 import io.github.yezhihao.netmc.session.SessionManager;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.web.config.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 
@@ -15,10 +13,7 @@ import org.yzh.web.endpoint.JTHandlerInterceptor;
 public class QuickStart {
 
     public static void main(String[] args) {
-        JTMessageAdapter messageAdapter = new JTMessageAdapter(
-                new JTMessageEncoder("org.yzh.protocol"),
-                new JTMessageDecoder("org.yzh.protocol")
-        );
+        JTMessageAdapter messageAdapter = new JTMessageAdapter("org.yzh.protocol");
         NettyConfig jtConfig = new NettyConfig.Builder()
                 .setPort(7611)
                 .setMaxFrameLength(1024)

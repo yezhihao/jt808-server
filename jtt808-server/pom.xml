@@ -8,16 +8,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.yzh</groupId>
     <artifactId>jtt808-server</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <url>https://gitee.com/yezhihao/jt808-server</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 

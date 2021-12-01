@@ -8,7 +8,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.basics.JTMessageFilter;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
-import org.yzh.protocol.SessionKey;
+import org.yzh.web.model.enums.SessionKey;
 
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 

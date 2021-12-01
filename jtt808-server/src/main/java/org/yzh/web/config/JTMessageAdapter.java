@@ -3,6 +3,7 @@ package org.yzh.web.config;
 import io.github.yezhihao.netmc.codec.MessageDecoder;
 import io.github.yezhihao.netmc.codec.MessageEncoder;
 import io.github.yezhihao.netmc.session.Session;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
@@ -28,6 +29,15 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
 
     @Autowired
     private LoggingPusher loggingPusher;
+
+    public JTMessageAdapter(String... basePackages) {
+        this(new MultiVersionSchemaManager(basePackages));
+    }
+
+    public JTMessageAdapter(MultiVersionSchemaManager schemaManager) {
+        this.messageEncoder = new JTMessageEncoder(schemaManager);
+        this.messageDecoder = new JTMessageDecoder(schemaManager);
+    }
 
     public JTMessageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
         this.messageEncoder = messageEncoder;

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import org.yzh.commons.model.APICodes;
 import org.yzh.commons.model.APIException;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.SessionKey;
-import org.yzh.protocol.DeviceInfo;
+import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.DeviceInfo;
 
 /**
  * @author yezhihao
