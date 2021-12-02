@@ -10,6 +10,11 @@ public class APIException extends RuntimeException {
     private String message;
     private String detailMessage;
 
+    public APIException(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public APIException(APICode code) {
         this.code = code.getCode();
         this.message = code.getMessage();

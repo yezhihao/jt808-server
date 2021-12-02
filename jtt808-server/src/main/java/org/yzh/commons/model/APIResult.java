@@ -68,6 +68,11 @@ public class APIResult<T> {
         this.data = data;
     }
 
+    public APIResult(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     public static <T> APIResult<T> ok(T data) {
         return new APIResult<>(data);
     }

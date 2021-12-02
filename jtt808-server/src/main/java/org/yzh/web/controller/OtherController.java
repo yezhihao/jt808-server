@@ -105,7 +105,7 @@ public class OtherController {
 
     @Operation(summary = "修改日志级别")
     @GetMapping("logger")
-    public String logger(@RequestParam(value = "value") Level level) {
+    public String logger(@RequestParam Level level) {
         LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
         Configuration config = ctx.getConfiguration();
         LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);

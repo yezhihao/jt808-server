@@ -16,7 +16,6 @@ public enum APICodes implements APICode {
     NotSupportedType(412, "不支持的请求类型"),
     NotImplemented(413, "未实现的方法"),
     OperationFailed(420, "操作失败"),
-    OfflineClient(4000, "离线的客户端"),
     UnknownError(500, "未知错误");
 
     private final int code;
