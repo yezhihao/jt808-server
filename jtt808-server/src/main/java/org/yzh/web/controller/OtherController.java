@@ -18,7 +18,7 @@ import org.yzh.commons.model.APIResult;
 import org.yzh.commons.mybatis.Page;
 import org.yzh.commons.mybatis.PageInfo;
 import org.yzh.commons.mybatis.Pagination;
-import org.yzh.web.endpoint.LoggingPusher;
+import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.model.vo.Location;
@@ -40,9 +40,6 @@ public class OtherController {
 
     @Autowired
     private SessionManager sessionManager;
-
-    @Autowired
-    private LoggingPusher loggingPusher;
 
     @Hidden
     @Operation(hidden = true)
@@ -70,7 +67,7 @@ public class OtherController {
     public APIResult<DeviceInfo> sub(@RequestParam String clientId) {
         Session session = sessionManager.get(clientId);
         if (session != null) {
-            loggingPusher.addClient(session.getClientId());
+            WebLogAdapter.addClient(session.getClientId());
             return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
         }
         return APIResult.SUCCESS;
@@ -79,7 +76,7 @@ public class OtherController {
     @Operation(summary = "websocket取消订阅")
     @PostMapping("terminal/unsub")
     public APIResult unsub(@RequestParam String clientId) {
-        loggingPusher.removeClient(clientId);
+        WebLogAdapter.removeClient(clientId);
         return APIResult.SUCCESS;
     }
 

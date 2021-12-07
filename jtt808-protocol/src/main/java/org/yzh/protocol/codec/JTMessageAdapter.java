@@ -1,4 +1,4 @@
-package org.yzh.web.config;
+package org.yzh.protocol.codec;
 
 import io.github.yezhihao.netmc.codec.MessageDecoder;
 import io.github.yezhihao.netmc.codec.MessageEncoder;
@@ -8,11 +8,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.web.endpoint.LoggingPusher;
 
 /**
  * JT消息编解码适配器
@@ -21,22 +17,18 @@ import org.yzh.web.endpoint.LoggingPusher;
  */
 public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecoder<JTMessage> {
 
-    private static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class.getSimpleName());
+    protected static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class.getSimpleName());
 
     private final JTMessageEncoder messageEncoder;
 
     private final JTMessageDecoder messageDecoder;
-
-    @Autowired
-    private LoggingPusher loggingPusher;
 
     public JTMessageAdapter(String... basePackages) {
         this(new MultiVersionSchemaManager(basePackages));
     }
 
     public JTMessageAdapter(MultiVersionSchemaManager schemaManager) {
-        this.messageEncoder = new JTMessageEncoder(schemaManager);
-        this.messageDecoder = new JTMessageDecoder(schemaManager);
+        this(new JTMessageEncoder(schemaManager), new JTMessageDecoder(schemaManager));
     }
 
     public JTMessageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
@@ -44,25 +36,29 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
         this.messageDecoder = messageDecoder;
     }
 
+    @Override
     public ByteBuf encode(JTMessage message, Session session) {
         ByteBuf output = messageEncoder.encode(message);
-        if (log.isInfoEnabled())
-            log.info(">>>>>session={},payload={}", session, ByteBufUtil.hexDump(output));
-        loggingPusher.send(message, output);
+        encodeLog(session, message, output);
         return output;
     }
 
     @Override
     public JTMessage decode(ByteBuf input, Session session) {
+        JTMessage message = messageDecoder.decode(input);
+        if (message != null)
+            message.setSession(session);
+        encodeLog(session, message, input);
+        return message;
+    }
+
+    public void encodeLog(Session session, JTMessage message, ByteBuf output) {
+        if (log.isInfoEnabled())
+            log.info(">>>>>session={},payload={}", session, ByteBufUtil.hexDump(output));
+    }
+
+    public void decodeLog(Session session, JTMessage message, ByteBuf input) {
         if (log.isInfoEnabled())
             log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
-        JTMessage message = messageDecoder.decode(input);
-        if (message != null) {
-            message.setSession(session);
-            if (!message.isVerified())
-                log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
-            loggingPusher.send(message, input);
-        }
-        return message;
     }
 }
