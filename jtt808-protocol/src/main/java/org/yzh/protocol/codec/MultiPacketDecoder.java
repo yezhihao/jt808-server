@@ -62,25 +62,33 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
     private void startListener() {
         Thread thread = new Thread(() -> {
+            long timeout = multiPacketListener.timeout;
             for (; ; ) {
+                long nextDelay = timeout;
+                long now = System.currentTimeMillis();
+
                 for (Map.Entry<String, MultiPacket> entry : multiPacketsMap.entrySet()) {
                     MultiPacket packet = entry.getValue();
 
-                    if (packet.getWaitTime() >= multiPacketListener.timeout) {
-                        boolean keepWaiting = multiPacketListener.receiveTimeout(packet);
-                        if (!keepWaiting) {
+                    long time = timeout - (now - packet.getLastAccessedTime());
+                    if (time <= 0) {
+                        if (!multiPacketListener.receiveTimeout(packet)) {
                             log.warn("<<<<<<<<<分包接收超时{}", packet);
                             multiPacketsMap.remove(entry.getKey());
                         }
+                    } else {
+                        nextDelay = Math.min(time, nextDelay);
                     }
                 }
                 try {
-                    Thread.sleep(multiPacketListener.timeout * 1000 / 4);
+                    Thread.sleep(nextDelay);
                 } catch (InterruptedException e) {
-                    log.error("分包管理器", e);
+                    log.error("MultiPacketListener", e);
                 }
             }
-        }, "MultiPacketListener");
+        });
+        thread.setName("MultiPacketListener");
+        thread.setPriority(Thread.MIN_PRIORITY);
         thread.setDaemon(true);
         thread.start();
     }

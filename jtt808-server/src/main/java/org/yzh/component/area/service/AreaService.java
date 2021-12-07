@@ -46,7 +46,7 @@ public class AreaService {
 
         VehicleArea[] areas = getVehicleAreas(vehicleId);
         AreaFilter areaFilter = new AreaFilter().updateAreas(areas);
-        log.warn("车辆区域绑定,车辆[{}],区域{}", vehicleId, areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
+        log.info("车辆区域绑定,车辆[{}],区域{}", vehicleId, areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
 
         session.setAttribute(SessionKey.AreaFilter, areaFilter);
         vehicleAreaMap.put(vehicleId, areaFilter);
@@ -56,7 +56,7 @@ public class AreaService {
         DeviceInfo deviceInfo = SessionKey.getDeviceInfo(session);
         AreaFilter areaFilter = vehicleAreaMap.remove(deviceInfo.getVehicleId());
         VehicleArea[] areas = areaFilter.getAreas();
-        log.warn("车辆区域解绑,车辆[{}],区域{}", deviceInfo.getVehicleId(), areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
+        log.info("车辆区域解绑,车辆[{}],区域{}", deviceInfo.getVehicleId(), areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
     }
 
     private LocalDateTime lastUpdateTime;
@@ -104,7 +104,7 @@ public class AreaService {
             }
         }
 
-        log.warn("区域更新\n移除区域{}\n加载区域{}\n当前区域{}",
+        log.info("区域更新\n移除区域{}\n加载区域{}\n当前区域{}",
                 Arrays.toString(dels.stream().mapToInt(e -> e).toArray()),
                 Arrays.toString(adds.stream().mapToInt(Area::getId).toArray()),
                 Arrays.toString(areaMap.keySet().stream().mapToInt(k -> k).toArray())
@@ -120,14 +120,14 @@ public class AreaService {
 
                 VehicleArea[] areas = getVehicleAreas(vehicleId);
                 areaFilter.updateAreas(areas);
-                log.warn("车辆区域绑定,车辆[{}],区域{}", vehicleId, areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
+                log.info("车辆区域绑定,车辆[{}],区域{}", vehicleId, areas == null ? "[]" : Arrays.toString(Arrays.stream(areas).mapToInt(v -> v.getArea().getId()).toArray()));
             }
         }
     }
 
     private VehicleArea[] getVehicleAreas(int vehicleId) {
         int[] areaIds = areaMapper.findAreaId(vehicleId);
-        log.warn("车辆区域查询,车辆[{}],区域{}", vehicleId, Arrays.toString(areaIds));
+        log.info("车辆区域查询,车辆[{}],区域{}", vehicleId, Arrays.toString(areaIds));
         if (areaIds.length == 0)
             return null;
 

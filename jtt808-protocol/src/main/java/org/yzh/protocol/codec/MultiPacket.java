@@ -17,22 +17,22 @@ public class MultiPacket {
     private int serialNo = -1;
 
     private int retryCount;
-    private final int createTime;
-    private int activeTime;
+    private final long creationTime;
+    private long lastAccessedTime;
 
     private int count = 0;
     private final byte[][] packets;
 
     public MultiPacket(JTMessage firstPacket) {
         this.firstPacket = firstPacket;
-        this.createTime = (int) (System.currentTimeMillis() / 1000);
-        this.activeTime = createTime;
+        this.creationTime = System.currentTimeMillis();
+        this.lastAccessedTime = creationTime;
 
         this.packets = new byte[firstPacket.getPackageTotal()][];
     }
 
     public byte[][] addAndGet(int packetNo, byte[] packetData) {
-        activeTime = (int) (System.currentTimeMillis() / 1000);
+        lastAccessedTime = System.currentTimeMillis();
 
         packetNo = packetNo - 1;
         if (packets[packetNo] == null) {
@@ -60,21 +60,20 @@ public class MultiPacket {
 
     public void addRetryCount(int retryCount) {
         this.retryCount += retryCount;
-        this.activeTime = (int) (System.currentTimeMillis() / 1000);
+        this.lastAccessedTime = System.currentTimeMillis();
     }
 
     public int getRetryCount() {
         return retryCount;
     }
 
-    public int getWaitTime() {
-        return (int) (System.currentTimeMillis() / 1000) - activeTime;
+    public long getLastAccessedTime() {
+        return lastAccessedTime;
     }
 
-    public int getTotalWaitTime() {
-        return (int) (System.currentTimeMillis() / 1000) - createTime;
+    public long getCreationTime() {
+        return creationTime;
     }
-
 
     public boolean isComplete() {
         return count == packets.length;
@@ -103,7 +102,7 @@ public class MultiPacket {
         sb.append(", total=").append(total);
         sb.append(", count=").append(count);
         sb.append(", retryCount=").append(retryCount);
-        sb.append(", time=").append(getTotalWaitTime());
+        sb.append(", waitTime=").append((System.currentTimeMillis() - creationTime) / 1000);
         sb.append(", packets=");
         sb.append('{');
         for (int i = 0; i < total; i++) {

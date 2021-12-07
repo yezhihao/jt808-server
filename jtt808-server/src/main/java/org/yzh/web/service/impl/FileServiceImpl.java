@@ -31,10 +31,10 @@ public class FileServiceImpl implements FileService {
 
     private static final Comparator<long[]> comparator = Comparator.comparingLong((long[] a) -> a[0]).thenComparingLong(a -> a[1]);
 
-    @Value("${tcp-server.alarm-file.path}")
+    @Value("${jt-server.alarm-file.path}")
     private String alarmFileRoot;
 
-    @Value("${tcp-server.jt808.media-file.path}")
+    @Value("${jt-server.jt808.media-file.path}")
     private String mediaFileRoot;
 
     private String getDir(AlarmId alarmId) {

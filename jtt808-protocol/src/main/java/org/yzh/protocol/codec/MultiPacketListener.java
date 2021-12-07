@@ -7,7 +7,7 @@ package org.yzh.protocol.codec;
  */
 public class MultiPacketListener {
 
-    protected int timeout;
+    protected long timeout;
 
     public MultiPacketListener() {
         this(30);
@@ -18,7 +18,7 @@ public class MultiPacketListener {
      * @param timeout
      */
     public MultiPacketListener(int timeout) {
-        this.timeout = timeout;
+        this.timeout = timeout * 1000;
     }
 
     /**
