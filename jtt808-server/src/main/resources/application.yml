@@ -52,10 +52,12 @@ mybatis:
 server:
   port: 8000
 
-tcp-server:
+jt-server:
   jt808:
     enable: true
-    port: 7611
+    port:
+      udp: 7611
+      tcp: 7611
     media-file:
       path: D:/jt_data/media_file
     alarm-file:

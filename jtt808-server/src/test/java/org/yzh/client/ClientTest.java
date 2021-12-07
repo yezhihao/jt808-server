@@ -4,8 +4,7 @@ import org.yzh.client.netty.ClientConfig;
 import org.yzh.client.netty.HandlerMapping;
 import org.yzh.client.netty.TCPClient;
 import org.yzh.commons.util.StrUtils;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 
@@ -13,10 +12,7 @@ import java.util.Scanner;
 
 public class ClientTest {
 
-    public static final JTMessageAdapter messageAdapter = new JTMessageAdapter(
-            new JTMessageEncoder("org.yzh.protocol"),
-            new JTMessageDecoder("org.yzh.protocol")
-    );
+    public static final JTMessageAdapter messageAdapter = new JTMessageAdapter("org.yzh.protocol");
 
     public static final ClientConfig jtConfig = new ClientConfig.Builder()
             .setIp("127.0.0.1")

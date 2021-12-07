@@ -1,99 +1,82 @@
 package org.yzh.web.config;
 
 import io.github.yezhihao.netmc.NettyConfig;
-import io.github.yezhihao.netmc.TCPServer;
+import io.github.yezhihao.netmc.Server;
 import io.github.yezhihao.netmc.codec.Delimiter;
-import io.github.yezhihao.netmc.core.HandlerInterceptor;
+import io.github.yezhihao.netmc.codec.LengthField;
 import io.github.yezhihao.netmc.core.HandlerMapping;
-import io.github.yezhihao.netmc.core.SpringHandlerMapping;
-import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
-import org.yzh.web.endpoint.JTMultiPacketListener;
-import org.yzh.web.endpoint.JTSessionListener;
-import org.yzh.web.model.enums.SessionKey;
 
+@Order(Integer.MIN_VALUE)
 @Configuration
-@ConditionalOnProperty(value = "tcp-server.jt808.enable", havingValue = "true")
+@ConditionalOnProperty(value = "jt-server.jt808.enable", havingValue = "true")
 public class JTConfig {
 
-    @Order(Integer.MIN_VALUE)
-    @Component
-    public class Starter implements InitializingBean, DisposableBean {
+    private final JTMessageAdapter messageAdapter;
+    private final HandlerMapping handlerMapping;
+    private final JTHandlerInterceptor handlerInterceptor;
+    private final SessionManager sessionManager;
 
-        private final TCPServer jt808Server;
-
-        public Starter(@Value("${tcp-server.jt808.port}") int port,
-                       JTMessageAdapter messageAdapter,
-                       HandlerMapping handlerMapping,
-                       HandlerInterceptor handlerInterceptor,
-                       SessionManager sessionManager,
-                       SessionListener sessionListener
-        ) {
-            NettyConfig jtConfig = NettyConfig.custom()
-                    .setIdleStateTime(180, 0, 0)
-                    .setPort(port)
-                    //标识位[2] + 消息头[21] + 消息体[1023 * 2(转义预留)]  + 校验码[1] + 标识位[2]
-                    .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
-                    .setDelimiters(new Delimiter(new byte[]{0x7e}))
-                    .setDecoder(messageAdapter)
-                    .setEncoder(messageAdapter)
-                    .setHandlerMapping(handlerMapping)
-                    .setHandlerInterceptor(handlerInterceptor)
-                    .setSessionManager(sessionManager)
-                    .setSessionListener(sessionListener)
-                    .build();
-            this.jt808Server = new TCPServer("808服务", jtConfig);
-        }
-
-        @Override
-        public void afterPropertiesSet() {
-            jt808Server.start();
-        }
-
-        @Override
-        public void destroy() {
-            jt808Server.stop();
-        }
+    public JTConfig(JTMessageAdapter messageAdapter, HandlerMapping handlerMapping, JTHandlerInterceptor handlerInterceptor, SessionManager sessionManager) {
+        this.messageAdapter = messageAdapter;
+        this.handlerMapping = handlerMapping;
+        this.handlerInterceptor = handlerInterceptor;
+        this.sessionManager = sessionManager;
     }
 
-    @Bean
-    public JTMessageAdapter messageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
-        return new JTMessageAdapter(messageEncoder, messageDecoder);
+    @ConditionalOnProperty(value = "jt-server.jt808.port.tcp")
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public Server jt808TCPServer(@Value("${jt-server.jt808.port.tcp}") int port) {
+        return NettyConfig.custom()
+                .setIdleStateTime(180, 0, 0)
+                .setPort(port)
+                //标识位[2] + 消息头[21] + 消息体[1023 * 2(转义预留)]  + 校验码[1] + 标识位[2]
+                .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
+                .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                .setDecoder(messageAdapter)
+                .setEncoder(messageAdapter)
+                .setHandlerMapping(handlerMapping)
+                .setHandlerInterceptor(handlerInterceptor)
+                .setSessionManager(sessionManager)
+                .setName("808-TCP")
+                .build();
     }
 
-    @Bean
-    public JTMultiPacketListener multiPacketListener() {
-        return new JTMultiPacketListener(10);
+    @ConditionalOnProperty(value = "jt-server.jt808.port.udp")
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public Server jt808UDPServer(@Value("${jt-server.jt808.port.udp}") int port) {
+        return NettyConfig.custom()
+                .setPort(port)
+                .setDecoder(messageAdapter)
+                .setEncoder(messageAdapter)
+                .setHandlerMapping(handlerMapping)
+                .setHandlerInterceptor(handlerInterceptor)
+                .setSessionManager(sessionManager)
+                .setName("808-UDP")
+                .setEnableUDP(true)
+                .build();
     }
 
-    @Bean
-    public SessionManager sessionManager() {
-        return new SessionManager(SessionKey.class);
-    }
-
-    @Bean
-    public SessionListener sessionListener() {
-        return new JTSessionListener();
-    }
-
-    @Bean
-    public HandlerMapping handlerMapping() {
-        return new SpringHandlerMapping();
-    }
-
-    @Bean
-    public JTHandlerInterceptor handlerInterceptor() {
-        return new JTHandlerInterceptor();
+    @ConditionalOnProperty(value = "jt-server.alarm-file.enable", havingValue = "true")
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public Server alarmFileServer(@Value("${jt-server.alarm-file.port}") int port, JTMessageAdapter alarmFileMessageAdapter) {
+        return NettyConfig.custom()
+                .setPort(port)
+                .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
+                .setLengthField(new LengthField(new byte[]{0x30, 0x31, 0x63, 0x64}, 1024 * 65, 58, 4))
+                .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                .setDecoder(alarmFileMessageAdapter)
+                .setEncoder(alarmFileMessageAdapter)
+                .setHandlerMapping(handlerMapping)
+                .setHandlerInterceptor(handlerInterceptor)
+                .setName("AlarmFile")
+                .build();
     }
 }

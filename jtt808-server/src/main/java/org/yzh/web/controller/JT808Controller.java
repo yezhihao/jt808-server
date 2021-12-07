@@ -30,10 +30,10 @@ public class JT808Controller {
     @Autowired
     private MessageManager messageManager;
 
-    @Value("${tcp-server.jt808.alarm-file.host}")
+    @Value("${jt-server.jt808.alarm-file.host}")
     private String host;
 
-    @Value("${tcp-server.jt808.alarm-file.port}")
+    @Value("${jt-server.jt808.alarm-file.port}")
     private int port;
 
     @Operation(summary = "9208 报警附件上传指令")

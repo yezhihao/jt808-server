@@ -9,7 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -17,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.yzh.commons.mybatis.PageInterceptor;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.commons.DateUtils;
 
 import java.time.LocalDate;
@@ -29,21 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class BeanConfig {
-
-    @Bean
-    public MultiVersionSchemaManager schemaManager() {
-        return new MultiVersionSchemaManager("org.yzh.protocol", "org.yzh.web.model.protocol");
-    }
-
-    @Bean
-    public JTMessageEncoder messageEncoder(MultiVersionSchemaManager schemaManager) {
-        return new JTMessageEncoder(schemaManager);
-    }
-
-    @Bean
-    public JTMessageDecoder messageDecoder(MultiVersionSchemaManager schemaManager) {
-        return new JTMessageDecoder(schemaManager);
-    }
 
     @Bean
     public CacheManager cacheManager() {
