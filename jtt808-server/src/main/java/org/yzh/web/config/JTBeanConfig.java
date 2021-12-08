@@ -51,7 +51,7 @@ public class JTBeanConfig {
 
     @Bean
     public MultiVersionSchemaManager schemaManager() {
-        return new MultiVersionSchemaManager("org.yzh.protocol");
+        return new MultiVersionSchemaManager("org.yzh.protocol", "org.yzh.web.model.protocol");
     }
 
     @Bean

@@ -20,9 +20,9 @@ public class HandlerMapping {
     }
 
     private void initial(String packageName) {
-        List<Class<?>> handlerClassList = ClassUtils.getClassList(packageName, Endpoint.class);
+        List<Class> handlerClassList = ClassUtils.getClassList(packageName, Endpoint.class);
 
-        for (Class<?> handlerClass : handlerClassList) {
+        for (Class handlerClass : handlerClassList) {
             Method[] methods = handlerClass.getDeclaredMethods();
 
             for (Method method : methods) {
@@ -39,7 +39,7 @@ public class HandlerMapping {
         }
     }
 
-    private Object newInstance(Class<?> handlerClass) {
+    private Object newInstance(Class handlerClass) {
         try {
             return handlerClass.newInstance();
         } catch (Exception e) {

@@ -1,15 +1,21 @@
 package org.yzh.web.config;
 
+import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Fs;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.AlternateTypeRules;
+import springfox.documentation.schema.WildcardType;
 import springfox.documentation.schema.property.ModelSpecificationFactory;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -26,10 +32,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PLUGIN_ORDER;
@@ -41,6 +44,9 @@ import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PL
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
+    @Autowired
+    private TypeResolver resolver;
 
     @Bean
     public Docket customImplementation() {
@@ -54,7 +60,12 @@ public class SwaggerConfig {
                 .directModelSubstitute(byte[].class, int[].class)
                 .directModelSubstitute(LocalDate.class, String.class)
                 .directModelSubstitute(LocalTime.class, String.class)
-                .directModelSubstitute(LocalDateTime.class, Date.class);
+                .directModelSubstitute(LocalDateTime.class, Date.class)
+                .alternateTypeRules(
+                        AlternateTypeRules.newRule(resolver.resolve(Mono.class, WildcardType.class), resolver.resolve(WildcardType.class)),
+                        AlternateTypeRules.newRule(resolver.resolve(Flux.class, WildcardType.class), resolver.resolve(List.class, WildcardType.class))
+                )
+                .apiInfo(apiInfo());
     }
 
     ApiInfo apiInfo() {

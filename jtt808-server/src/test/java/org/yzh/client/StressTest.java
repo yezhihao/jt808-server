@@ -1,14 +1,21 @@
 package org.yzh.client;
 
-import org.yzh.client.netty.TCPClient;
-import org.yzh.protocol.commons.DateUtils;
+import io.github.yezhihao.netmc.util.Client;
+import io.github.yezhihao.netmc.util.Stopwatch;
+import io.netty.buffer.ByteBuf;
+import org.yzh.QuickStart;
 import org.yzh.commons.util.StrUtils;
+import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.commons.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -17,43 +24,43 @@ import java.time.LocalDateTime;
  * 压力测试
  * 模拟1200台设备，每100毫秒上报一次位置信息
  */
-public class StressTest {
+public abstract class StressTest {
+    public static final byte[] bytes = DatatypeConverter.parseHexBinary("7e0200407c0100000000017299841738ffff000004000000080006eeb6ad02633df701380003006320070719235901040000000b02020016030200210402002c051e3737370000000000000000000000000000000000000000000000000000001105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e310128637e");
 
-    //连接数量
-    private static final int Total = 11;
+    public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
 
-    //上报间隔(毫秒)
-    private static final long Interval = 1100;
+    private static final Stopwatch s = new Stopwatch().start();
+
+    public static final String host = "127.0.0.1";
+    public static final int port = QuickStart.port;
+
+    public static final int size = 1000;
+    public static final long Interval = 1;
 
     public static void main(String[] args) throws Exception {
-        Object[] points;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("jtt808-server/target/test-classes/轨迹区域测试.txt"), StandardCharsets.UTF_8))) {
-            points = reader.lines().map(s -> {
-                double[] doubles = StrUtils.toDoubles(s, ",");
-                return new int[]{(int) (doubles[0] * 1000000d), (int) (doubles[1] * 1000000d), (int) (doubles[2])};
-            }).toArray();
+        Client[] clients = Client.UDP(host, port, size);
+//        Client[] clients = Client.TCP(host, port, size);
+
+        for (int i = 0; i < size; i++) {
+            clients[i].send(T0100(i));
+            s.increment();
         }
 
+        Thread.sleep(500L);
+        Object[] points = locations();
         LocalDateTime deviceTime = LocalDateTime.now();
 
-        TCPClient[] clients = new TCPClient[Total + 1];
-        for (int i = 1; i <= Total; i++) {
-            String id = String.valueOf(i);
-            clients[i] = new TCPClient(id, ClientTest.jtConfig).start();
-            clients[i].writeObject(T0100(id));
-        }
-
-        int i = 0;
+        int num = 0;
         while (true) {
-            int[] point = (int[]) points[i++];
-            if (i >= points.length)
-                i = 0;
+            int[] point = (int[]) points[num++];
+            if (num >= points.length) num = 0;
 
             String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
-            deviceTime = deviceTime.plusSeconds(20);
+            deviceTime = deviceTime.plusSeconds(1);
 
-            for (int j = 1; j <= Total; j++) {
-                clients[j].writeObject(T0200(String.valueOf(j), strTime, point));
+            for (int i = 0; i < size; i++) {
+                clients[i].send(T0200(i, strTime, point));
+                s.increment();
             }
             try {
                 Thread.sleep(Interval);
@@ -62,9 +69,21 @@ public class StressTest {
         }
     }
 
+    private static Object[] locations() throws IOException {
+        Object[] points;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("jtt808-server/target/test-classes/轨迹区域测试.txt"), StandardCharsets.UTF_8))) {
+            points = reader.lines().map(s -> {
+                double[] doubles = StrUtils.toDoubles(s, ",");
+                return new int[]{(int) (doubles[0] * 1000000d), (int) (doubles[1] * 1000000d), (int) (doubles[2])};
+            }).toArray();
+        }
+        return points;
+    }
+
     private static int ProtocolVersion = 1;
 
-    public static T0100 T0100(String id) {
+    public static byte[] T0100(int i) {
+        String id = String.valueOf(i + 1);
         String deviceId = "T" + StrUtils.leftPad(id, 6, '0');
         String clientId = "1" + StrUtils.leftPad(id, 10, '0');
         String plateNo = "测A" + StrUtils.leftPad(id, 5, '0');
@@ -82,11 +101,13 @@ public class StressTest {
         message.setDeviceId(deviceId);
         message.setPlateColor(1);
         message.setPlateNo(plateNo);
-        return message;
+
+        byte[] bytes = getBytes(message);
+        return bytes;
     }
 
-    public static T0200 T0200(String id, String time, int[] point) {
-        String clientId = "1" + StrUtils.leftPad(id, 10, '0');
+    public static byte[] T0200(int id, String time, int[] point) {
+        String clientId = "1" + StrUtils.leftPad(String.valueOf(id + 1), 10, '0');
 
         T0200 message = new T0200();
         message.setMessageId(JT808.位置信息汇报);
@@ -102,6 +123,16 @@ public class StressTest {
         message.setSpeed(point[2]);
         message.setDirection(99);
         message.setDateTime(time);
-        return message;
+
+        byte[] bytes = getBytes(message);
+        return bytes;
+    }
+
+    private static byte[] getBytes(JTMessage message) {
+        ByteBuf buf = encoder.encode(message);
+        byte[] bytes = new byte[buf.readableBytes()];
+        buf.readBytes(bytes);
+        buf.release();
+        return bytes;
     }
 }

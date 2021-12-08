@@ -53,10 +53,10 @@ public class AreaFilter implements JTMessageFilter<T0200> {
 
             if (area.contains(lng, lat)) {
                 if (area.limitInOut == 1) {
-                    log.warn("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "进区域报警", area.name);
+                    log.info("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "进区域报警", area.name);
                 }
                 if (data.getSpeed() >= area.limitSpeed) {
-                    log.warn("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "区域内超速", area.name + ",当前速度:" + speed + "km/h," + "区域限速:" + area.limitSpeed / 10d + "km/h");
+                    log.info("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "区域内超速", area.name + ",当前速度:" + speed + "km/h," + "区域限速:" + area.limitSpeed / 10d + "km/h");
                 }
 
                 long currentTime = deviceTime.toEpochSecond(DateUtils.GMT8);
@@ -67,14 +67,14 @@ public class AreaFilter implements JTMessageFilter<T0200> {
                 } else {
                     int time = (int) (currentTime - beforeTime);
                     if (time > area.limitTime) {
-                        log.warn("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "区域内停车超时", area.name + ",停车:" + time + "秒,限时:" + area.limitTime + "秒");
+                        log.info("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "区域内停车超时", area.name + ",停车:" + time + "秒,限时:" + area.limitTime + "秒");
                     }
                 }
             } else {
                 if (vehicleArea.getEntryTime() != 0) {
                     vehicleArea.setEntryTime(0);
                     if (area.limitInOut == 2) {
-                        log.warn("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "出区域报警", area.name);
+                        log.info("车辆[{}]状态[{},{},{}]{}:{}", vehicleId, lng, lat, speed, "出区域报警", area.name);
                     }
                 }
             }
