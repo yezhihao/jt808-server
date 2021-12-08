@@ -1,31 +1,35 @@
 package org.yzh.web.model.vo;
 
-import io.github.yezhihao.protostar.util.Bcd;
+import io.github.yezhihao.protostar.util.DateTimeUtils.Bcd;
 import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;
 import java.time.LocalDate;
 
+/**
+ * @author yezhihao
+ * https://gitee.com/yezhihao/jt808-server
+ */
 public class DeviceInfo {
 
     /** 签发日期 */
-    private LocalDate issuedAt;
+    protected LocalDate issuedAt;
     /** 预留字段 */
-    private byte reserved;
+    protected byte reserved;
     /** 设备ID */
-    private String deviceId;
+    protected String deviceId;
     /** 终端ID */
-    private String clientId;
+    protected String clientId;
     /** 机构ID */
-    private int agencyId;
+    protected int agencyId;
     /** 车辆ID */
-    private int vehicleId;
+    protected int vehicleId;
     /** 车牌颜色 */
-    private byte plateColor;
+    protected byte plateColor;
     /** 车牌号 */
-    private String plateNo;
+    protected String plateNo;
     /** 协议版本 */
-    private int protocolVersion;
+    protected int protocolVersion;
 
     public DeviceInfo() {
     }

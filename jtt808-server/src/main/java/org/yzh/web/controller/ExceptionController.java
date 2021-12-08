@@ -51,6 +51,11 @@ public class ExceptionController {
         return new APIResult(APICodes.InvalidParameter, sb.substring(0, sb.length() - 1));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public APIResult onIllegalArgumentException(IllegalArgumentException e) {
+        return new APIResult(APICodes.InvalidParameter, e.getMessage());
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public APIResult onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.warn("系统异常:", e);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.yzh.component.area.AreaFilter;
-import org.yzh.component.area.GeometryFactory;
 import org.yzh.component.area.mapper.AreaMapper;
 import org.yzh.component.area.model.Area;
 import org.yzh.component.area.model.TArea;
@@ -34,8 +33,6 @@ public class AreaService {
     private final Map<Integer, AreaFilter> vehicleAreaMap = new ConcurrentHashMap<>();
 
     private final Map<Integer, TArea> areaMap = new HashMap<>();
-
-    private final GeometryFactory factory = new GeometryFactory();
 
     @Autowired
     private AreaMapper areaMapper;
@@ -83,7 +80,7 @@ public class AreaService {
                 dels.add(area.getId());
             } else {
                 try {
-                    adds.add(Area.build(area, factory));
+                    adds.add(Area.build(area));
                 } catch (Exception e) {
                     log.error("加载区域出错[{}],{}", area, e.getMessage());
                 }

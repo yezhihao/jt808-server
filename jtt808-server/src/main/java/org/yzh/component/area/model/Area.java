@@ -36,8 +36,8 @@ public class Area extends DateTimeRange implements Geometry {
         this.geometry = geometry;
     }
 
-    public static Area build(AreaDO record, GeometryFactory factory) {
-        return new Area(record, factory.getInstance(record.getGeomType(), record.getGeomText()));
+    public static Area build(AreaDO record) {
+        return new Area(record, GeometryFactory.build(record.getGeomType(), record.getGeomText()));
     }
 
     @Override

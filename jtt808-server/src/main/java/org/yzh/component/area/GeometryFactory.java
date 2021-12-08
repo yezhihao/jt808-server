@@ -1,5 +1,6 @@
 package org.yzh.component.area;
 
+import org.yzh.commons.util.Converter;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.component.area.model.domain.*;
 
@@ -7,26 +8,21 @@ import org.yzh.component.area.model.domain.*;
  * @author yezhihao
  * @home https://gitee.com/yezhihao/jt808-server
  */
-public class GeometryFactory {
+public abstract class GeometryFactory {
 
-    private Converter converter;
-
-    public GeometryFactory() {
+    public static Geometry build(int type, String text) {
+        return build(null, type, text);
     }
 
-    public GeometryFactory(Converter converter) {
-        this.converter = converter;
+    public static Geometry build(Converter converter, int type, String text) {
+        return build(converter, type, StrUtils.toDoubles(text, ","));
     }
 
-    public Geometry getInstance(int type, String text) {
-        return getInstance(type, StrUtils.toDoubles(text, ","));
-    }
-
-    public Geometry getInstance(int type, double... points) {
+    public static Geometry build(Converter converter, int type, double... points) {
         if (converter != null) {
             int length = points.length - (points.length % 2);
             for (int i = 0; i < length; ) {
-                double[] xy = converter.translate(points[i], points[i + 1]);
+                double[] xy = converter.convert(points[i], points[i + 1]);
                 points[i++] = xy[0];
                 points[i++] = xy[1];
             }
@@ -41,7 +37,7 @@ public class GeometryFactory {
             case Geometry.Lines:
                 return new Lines(points);
             default:
-                throw new RuntimeException("不支持的几何图形type=" + type);
+                throw new IllegalArgumentException("不支持的几何图形type=" + type);
         }
     }
 }

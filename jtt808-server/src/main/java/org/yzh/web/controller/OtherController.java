@@ -18,6 +18,7 @@ import org.yzh.commons.util.LogUtils;
 import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
+import org.yzh.web.model.vo.DeviceQuery;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 import org.yzh.web.service.LocationService;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping
@@ -45,10 +47,24 @@ public class OtherController {
         response.sendRedirect("doc.html");
     }
 
-    @Operation(summary = "获得当前所有在线设备信息")
+    @Operation(summary = "终端实时信息查询")
     @GetMapping("terminal/all")
-    public APIResult<Collection<Session>> all() {
-        return APIResult.ok(sessionManager.all());
+    public Pagination<Session> all(DeviceQuery query) {
+        Collection<Session> all = sessionManager.all();
+        Stream<Session> stream = all.stream();
+
+        if (!query.isEmpty()) {
+            all = all.stream().filter(query).collect(Collectors.toList());
+            stream = all.stream();
+        }
+
+        List<Session> page = stream
+                .skip(query.offset())
+                .limit(query.getLimit())
+                .collect(Collectors.toList());
+
+        query.setCount(all.size());
+        return new Pagination<>(query, page);
     }
 
     @Operation(summary = "获得当前所有在线设备信息")
