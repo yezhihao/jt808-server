@@ -25,7 +25,7 @@ public class JTBeanConfig {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    public JTBeanConfig(SimpMessagingTemplate messagingTemplate) {
+    public JTBeanConfig(@Autowired(required = false) SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 

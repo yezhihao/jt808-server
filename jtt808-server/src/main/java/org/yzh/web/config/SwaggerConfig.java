@@ -27,7 +27,6 @@ import springfox.documentation.spring.web.DescriptionResolver;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.readers.parameter.SwaggerExpandedParameterBuilder;
 import springfox.documentation.swagger.schema.ApiModelPropertyPropertyBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,7 +41,6 @@ import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PL
  * @home https://gitee.com/yezhihao/jt808-server
  */
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Autowired

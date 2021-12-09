@@ -1,7 +1,7 @@
 package org.yzh.protocol.commons.transform.parameter;
 
 import io.github.yezhihao.protostar.annotation.Field;
-import io.github.yezhihao.protostar.util.DateTimeUtils.Bcd;
+import io.github.yezhihao.protostar.util.Bcd;
 import io.netty.buffer.ByteBuf;
 
 import java.time.LocalTime;

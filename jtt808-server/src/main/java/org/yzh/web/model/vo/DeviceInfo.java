@@ -1,6 +1,6 @@
 package org.yzh.web.model.vo;
 
-import io.github.yezhihao.protostar.util.DateTimeUtils.Bcd;
+import io.github.yezhihao.protostar.util.Bcd;
 import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;
