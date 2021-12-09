@@ -5,7 +5,7 @@ import org.yzh.protocol.jsatl12.*;
 /**
  * JT/T 808协议单元测试数据
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class JSATL12Beans {
 

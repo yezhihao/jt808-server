@@ -6,7 +6,7 @@ import org.yzh.component.area.model.domain.*;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public abstract class GeometryFactory {
 

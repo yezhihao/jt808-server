@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * JT/T 1078协议单元测试数据
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class JT1078Beans {
 

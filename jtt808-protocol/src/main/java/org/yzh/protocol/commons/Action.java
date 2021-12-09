@@ -2,7 +2,7 @@ package org.yzh.protocol.commons;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public interface Action {
 

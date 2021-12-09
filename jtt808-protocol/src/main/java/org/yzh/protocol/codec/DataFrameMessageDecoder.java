@@ -10,7 +10,7 @@ import org.yzh.protocol.jsatl12.DataPacket;
 /**
  * 数据帧解码器
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class DataFrameMessageDecoder extends JTMessageDecoder {
 

@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT1078;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT1078.平台下发远程录像回放请求)
 public class T9201 extends JTMessage {

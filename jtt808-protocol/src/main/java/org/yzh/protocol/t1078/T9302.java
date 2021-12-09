@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT1078;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT1078.云台调整焦距控制, JT1078.云台调整光圈控制, JT1078.云台雨刷控制, JT1078.红外补光控制, JT1078.云台变倍控制})
 public class T9302 extends JTMessage {

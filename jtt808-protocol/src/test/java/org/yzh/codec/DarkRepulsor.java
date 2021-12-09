@@ -11,7 +11,7 @@ import org.yzh.protocol.codec.JTMessageEncoder;
 /**
  * 编码分析
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class DarkRepulsor {
 

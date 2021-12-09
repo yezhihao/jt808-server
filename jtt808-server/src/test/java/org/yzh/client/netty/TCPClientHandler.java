@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @ChannelHandler.Sharable
 public class TCPClientHandler extends ChannelInboundHandlerAdapter {

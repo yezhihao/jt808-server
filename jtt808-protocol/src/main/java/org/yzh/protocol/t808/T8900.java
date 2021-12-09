@@ -10,7 +10,7 @@ import org.yzh.protocol.commons.transform.PassthroughConverter;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.数据下行透传)
 public class T8900 extends JTMessage {

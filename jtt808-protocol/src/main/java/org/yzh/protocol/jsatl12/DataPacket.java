@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
  * 文件数据上传
  * 帧头标识 0x30 0x31 0x63 0x64
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message
 public class DataPacket extends JTMessage {

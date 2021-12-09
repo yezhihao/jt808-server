@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.平台RSA公钥, JT808.终端RSA公钥})
 public class T0A00_8A00 extends JTMessage {

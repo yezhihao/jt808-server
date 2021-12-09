@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.查询区域或线路数据)
 public class T8608 extends JTMessage {

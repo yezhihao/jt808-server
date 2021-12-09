@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.临时位置跟踪控制)
 public class T8202 extends JTMessage {

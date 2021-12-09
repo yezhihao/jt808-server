@@ -38,7 +38,7 @@ import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PL
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Configuration
 public class SwaggerConfig {

@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.多媒体事件信息上传)
 public class T0800 extends JTMessage {

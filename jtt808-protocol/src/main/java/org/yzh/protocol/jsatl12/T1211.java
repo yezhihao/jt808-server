@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JSATL12;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message({JSATL12.文件信息上传, JSATL12.文件上传完成消息})
 public class T1211 extends JTMessage {

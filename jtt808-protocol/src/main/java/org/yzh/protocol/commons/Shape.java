@@ -3,7 +3,7 @@ package org.yzh.protocol.commons;
 /**
  * 区域类型
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public final class Shape {
 

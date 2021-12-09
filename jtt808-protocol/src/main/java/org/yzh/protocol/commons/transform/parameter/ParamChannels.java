@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 音视频通道列表设置
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamChannels {
 

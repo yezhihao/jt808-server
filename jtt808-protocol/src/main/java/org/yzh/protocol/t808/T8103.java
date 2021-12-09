@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.设置终端参数)
 public class T8103 extends JTMessage {

@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.平台通用应答, JT808.终端通用应答})
 public class T0001 extends JTMessage implements Response {

@@ -6,7 +6,7 @@ import io.github.yezhihao.protostar.annotation.Field;
 /**
  * 报警标识号
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class AlarmId {
 

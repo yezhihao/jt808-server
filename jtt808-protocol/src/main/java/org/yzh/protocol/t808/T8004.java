@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.查询服务器时间应答)
 public class T8004 extends JTMessage {

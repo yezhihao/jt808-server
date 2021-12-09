@@ -8,7 +8,7 @@ import static org.yzh.protocol.JSATL12Beans.*;
 /**
  * T/JSATL12 协议单元测试类
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class JSATL12BeansTest {
 

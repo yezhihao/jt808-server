@@ -3,7 +3,7 @@ package org.yzh.protocol.codec;
 /**
  * 分包消息监听器
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class MultiPacketListener {
 

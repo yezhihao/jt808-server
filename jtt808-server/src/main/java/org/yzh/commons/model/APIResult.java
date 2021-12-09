@@ -5,7 +5,7 @@ import org.yzh.commons.util.StrUtils;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class APIResult<T> {
 

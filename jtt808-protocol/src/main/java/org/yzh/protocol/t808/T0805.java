@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.摄像头立即拍摄命令应答)
 public class T0805 extends JTMessage implements Response {

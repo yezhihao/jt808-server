@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JSATL12.报警附件信息消息)
 public class T1210 extends JTMessage {

@@ -3,7 +3,7 @@ package org.yzh.protocol.basics;
 /**
  * 键值对
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class KeyValuePair<K, V> {
 

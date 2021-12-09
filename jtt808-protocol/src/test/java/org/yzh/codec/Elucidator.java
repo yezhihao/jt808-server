@@ -9,7 +9,7 @@ import org.yzh.protocol.codec.JTMessageDecoder;
 /**
  * 解码分析
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Elucidator {
 

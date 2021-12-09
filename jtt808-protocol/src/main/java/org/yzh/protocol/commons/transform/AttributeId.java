@@ -3,7 +3,7 @@ package org.yzh.protocol.commons.transform;
 /**
  * 位置附加信息
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public interface AttributeId {
     int Mileage = 1;                 // 0x01 里程,数据类型为DWORD,单位为1/10km,对应车上里程表读数

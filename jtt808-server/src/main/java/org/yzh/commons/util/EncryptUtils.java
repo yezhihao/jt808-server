@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 /**
  * 加密工具类
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class EncryptUtils {
 

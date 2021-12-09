@@ -9,7 +9,7 @@ import java.util.List;
  * 状态查询
  * 外设状态信息：外设工作状态、设备报警信息
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class PeripheralStatus {
 

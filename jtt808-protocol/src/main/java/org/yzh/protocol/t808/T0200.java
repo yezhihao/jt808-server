@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {

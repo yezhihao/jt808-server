@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 /**
  * 驾驶员状态监测系统参数
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamDSM {
 

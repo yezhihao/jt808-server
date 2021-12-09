@@ -9,7 +9,7 @@ import java.util.TreeMap;
 /**
  * 单独视频通道参数设置
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamVideoSingle {
 

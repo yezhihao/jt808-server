@@ -4,7 +4,7 @@ package org.yzh.protocol.commons;
  * 中华人民共和国交通运输行业标准
  * 道路运输车辆卫星定位系统视频通信协议
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public interface JT1078 {
 

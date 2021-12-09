@@ -14,7 +14,7 @@ import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
 /**
  * 透传消息转换器
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class PassthroughConverter extends PrepareLoadStrategy implements Converter<KeyValuePair<Integer, Object>> {
 

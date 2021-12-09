@@ -4,7 +4,7 @@ package org.yzh.protocol.commons;
  * 江苏省团体标准
  * 道路运输车辆主动安全智能防控系统(通讯协议规范)
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public interface JSATL12 {
 

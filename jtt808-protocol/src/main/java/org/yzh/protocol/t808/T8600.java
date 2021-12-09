@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.设置圆形区域)
 public class T8600 extends JTMessage {

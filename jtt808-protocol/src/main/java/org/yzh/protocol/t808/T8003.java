@@ -9,7 +9,7 @@ import org.yzh.protocol.commons.JT808;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message({JT808.服务器补传分包请求, JT808.终端补传分包请求})
 public class T8003 extends JTMessage implements Response {

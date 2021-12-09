@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT1078;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT1078.云台旋转)
 public class T9301 extends JTMessage {

@@ -3,7 +3,7 @@ package org.yzh.commons.model;
 /**
  * 响应状态枚举类接口
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public interface APICode {
 

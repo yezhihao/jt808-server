@@ -10,7 +10,7 @@ import static org.yzh.protocol.JT808Beans.*;
 /**
  * JT/T 808协议单元测试类
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class JT808BeansTest {
 

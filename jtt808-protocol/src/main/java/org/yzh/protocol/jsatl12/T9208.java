@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JSATL12;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends JTMessage {

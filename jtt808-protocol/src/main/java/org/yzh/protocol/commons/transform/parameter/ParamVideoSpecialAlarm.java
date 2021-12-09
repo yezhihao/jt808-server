@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 /**
  * 特殊报警录像参数设置
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamVideoSpecialAlarm {
 

@@ -8,7 +8,7 @@ import org.yzh.protocol.commons.JT1078;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT1078.终端上传音视频属性)
 public class T1003 extends JTMessage {

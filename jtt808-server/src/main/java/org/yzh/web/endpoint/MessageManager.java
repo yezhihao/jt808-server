@@ -16,7 +16,7 @@ import java.time.Duration;
 
 /**
  * @author yezhihao
- * home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Component
 public class MessageManager {

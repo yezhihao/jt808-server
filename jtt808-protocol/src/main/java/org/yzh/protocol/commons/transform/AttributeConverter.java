@@ -10,7 +10,7 @@ import org.yzh.protocol.commons.transform.attribute.*;
 /**
  * 位置附加信息转换器(苏标)
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class AttributeConverter extends MapConverter<Integer, Object> {
 

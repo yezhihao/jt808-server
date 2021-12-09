@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * 线段
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Lines implements Geometry {
 
@@ -21,9 +21,9 @@ public class Lines implements Geometry {
 
     public Lines(double[] points, double width) {
         if (points.length % 2 != 0)
-            throw new RuntimeException("数组长度不是偶数");
+            throw new IllegalArgumentException("数组长度不是偶数");
         if (points.length < 4)
-            throw new RuntimeException("至少两个坐标点");
+            throw new IllegalArgumentException("至少两个坐标点");
 
         this.points = points.clone();
         this.width = Math.abs(width);

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Message(JT808.定位数据批量上传)
 public class T0704 extends JTMessage {

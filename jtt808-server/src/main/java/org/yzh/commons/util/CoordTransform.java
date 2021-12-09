@@ -5,7 +5,7 @@ package org.yzh.commons.util;
  * GCJ-02 国测局坐标（谷歌地图国内，高德地图）
  * BD-09 百度坐标（百度地图）
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class CoordTransform {
 

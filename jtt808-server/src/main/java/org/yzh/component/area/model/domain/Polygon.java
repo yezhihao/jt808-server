@@ -5,7 +5,7 @@ import org.yzh.commons.util.GeomUtils;
 /**
  * 多边形
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Polygon implements Geometry {
 
@@ -13,9 +13,9 @@ public class Polygon implements Geometry {
 
     public Polygon(double... points) {
         if (points.length % 2 != 0)
-            throw new RuntimeException("数组长度不是偶数");
+            throw new IllegalArgumentException("数组长度不是偶数");
         if (points.length < 6)
-            throw new RuntimeException("至少三个坐标点");
+            throw new IllegalArgumentException("至少三个坐标点");
         this.points = points.clone();
     }
 

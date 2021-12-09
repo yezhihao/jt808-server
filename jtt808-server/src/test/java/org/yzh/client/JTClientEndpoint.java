@@ -15,7 +15,7 @@ import static org.yzh.protocol.commons.JT808.*;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @Endpoint
 public class JTClientEndpoint {

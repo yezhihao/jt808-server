@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Pagination<E> extends APIResult<List<E>> implements Serializable {
 

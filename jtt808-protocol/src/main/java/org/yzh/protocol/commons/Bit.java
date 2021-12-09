@@ -7,7 +7,7 @@ package org.yzh.protocol.commons;
  * |或 其中一个为1返回1
  * ^异或 相同为0不同为1
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Bit {
 

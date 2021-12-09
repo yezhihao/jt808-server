@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @ComponentScan({"org.yzh.component.area.controller", "org.yzh.component.area.service"})
 @MapperScan("org.yzh.component.area.mapper")

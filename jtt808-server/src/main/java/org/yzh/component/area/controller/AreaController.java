@@ -14,7 +14,7 @@ import org.yzh.component.area.model.vo.AreaQuery;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 @RestController
 @RequestMapping("area")

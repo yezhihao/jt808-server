@@ -9,7 +9,7 @@ import java.time.LocalTime;
 /**
  * 终端休眠唤醒模式设置数据格式
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamSleepWake {
 

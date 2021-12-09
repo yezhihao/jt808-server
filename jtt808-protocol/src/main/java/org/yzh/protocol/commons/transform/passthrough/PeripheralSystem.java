@@ -10,7 +10,7 @@ import java.util.List;
  * 信息查询
  * 外设传感器的基本信息：公司信息、产品代码、版本号、外设ID、客户代码
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class PeripheralSystem {
 

@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 
 /**
  * @author yezhihao
- * @home https://gitee.com/yezhihao/jt808-server
+ * https://gitee.com/yezhihao/jt808-server
  */
 public class Charsets {
 
