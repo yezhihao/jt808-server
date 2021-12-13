@@ -1,9 +1,10 @@
 package org.yzh.protocol.commons.transform.parameter;
 
-import io.github.yezhihao.protostar.util.Bcd;
 import io.netty.buffer.ByteBuf;
 
 import java.time.LocalTime;
+
+import static io.github.yezhihao.protostar.util.DateTool.BCD;
 
 /**
  * @author yezhihao
@@ -58,15 +59,15 @@ public class TimeRange {
         @Override
         public TimeRange readFrom(ByteBuf input) {
             TimeRange message = new TimeRange();
-            message.startTime = Bcd.readTime2(input);
-            message.endTime = Bcd.readTime2(input);
+            message.startTime = BCD.readTime2(input);
+            message.endTime = BCD.readTime2(input);
             return message;
         }
 
         @Override
         public void writeTo(ByteBuf output, TimeRange message) {
-            Bcd.writeTime2(output, message.startTime);
-            Bcd.writeTime2(output, message.endTime);
+            BCD.writeTime2(output, message.startTime);
+            BCD.writeTime2(output, message.endTime);
         }
     }
 }

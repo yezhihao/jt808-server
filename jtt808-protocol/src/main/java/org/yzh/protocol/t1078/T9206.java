@@ -12,15 +12,15 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.文件上传指令)
 public class T9206 extends JTMessage {
 
-    @Field(lengthSize = 1, desc = "服务器地址")
+    @Field(lengthUnit = 1, desc = "服务器地址")
     private String ip;
     @Field(length = 2, desc = "端口")
     private int port;
-    @Field(lengthSize = 1, desc = "用户名")
+    @Field(lengthUnit = 1, desc = "用户名")
     private String username;
-    @Field(lengthSize = 1, desc = "密码")
+    @Field(lengthUnit = 1, desc = "密码")
     private String password;
-    @Field(lengthSize = 1, desc = "文件上传路径")
+    @Field(lengthUnit = 1, desc = "文件上传路径")
     private String path;
     @Field(length = 1, desc = "逻辑通道号")
     private int channelNo;

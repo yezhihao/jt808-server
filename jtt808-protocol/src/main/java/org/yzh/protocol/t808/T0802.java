@@ -17,7 +17,7 @@ public class T0802 extends JTMessage implements Response {
 
     @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(lengthSize = 2, desc = "检索项")
+    @Field(totalUnit = 2, desc = "检索项")
     private List<Item> items;
 
     public int getResponseSerialNo() {

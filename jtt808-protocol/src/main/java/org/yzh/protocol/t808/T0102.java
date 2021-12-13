@@ -14,7 +14,7 @@ public class T0102 extends JTMessage {
 
     /** 终端重连后上报鉴权码 */
     @Field(desc = "鉴权码", version = {-1, 0})
-    @Field(lengthSize = 1, desc = "鉴权码", version = 1)
+    @Field(lengthUnit = 1, desc = "鉴权码", version = 1)
     private String token;
     @Field(length = 15, desc = "终端IMEI", version = 1)
     private String imei;

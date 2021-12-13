@@ -15,9 +15,7 @@ public class T0608 extends JTMessage {
     /** @see org.yzh.protocol.commons.Shape */
     @Field(length = 1, desc = "查询类型")
     private int type;
-    @Field(length = 4, desc = "查询返回的数据数量")
-    private int total;
-    @Field
+    @Field(totalUnit = 4, desc = "查询返回的数据")
     private byte[] bytes;
 
     public int getType() {
@@ -26,14 +24,6 @@ public class T0608 extends JTMessage {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public byte[] getBytes() {

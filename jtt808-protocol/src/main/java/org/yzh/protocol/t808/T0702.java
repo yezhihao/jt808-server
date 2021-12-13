@@ -18,11 +18,11 @@ public class T0702 extends JTMessage {
     private String dateTime;
     @Field(length = 1, desc = "IC卡读取结果")
     private int cardStatus;
-    @Field(lengthSize = 1, desc = "驾驶员姓名")
+    @Field(lengthUnit = 1, desc = "驾驶员姓名")
     private String name;
     @Field(length = 20, desc = "从业资格证编码")
     private String licenseNo;
-    @Field(lengthSize = 1, desc = "从业资格证发证机构名称")
+    @Field(lengthUnit = 1, desc = "从业资格证发证机构名称")
     private String institution;
     @Field(length = 4, charset = "BCD", desc = "证件有效期")
     private String licenseValidPeriod;

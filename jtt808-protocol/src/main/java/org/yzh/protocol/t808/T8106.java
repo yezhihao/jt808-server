@@ -12,9 +12,7 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.查询指定终端参数)
 public class T8106 extends JTMessage {
 
-    @Field(length = 1, desc = "参数总数")
-    private int total;
-    @Field(desc = "参数ID列表")
+    @Field(totalUnit = 1, desc = "参数ID列表")
     private int[] id;
 
     public T8106() {
@@ -22,15 +20,6 @@ public class T8106 extends JTMessage {
 
     public T8106(int... id) {
         this.id = id;
-        this.total = id.length;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public int[] getId() {
@@ -39,6 +28,5 @@ public class T8106 extends JTMessage {
 
     public void setId(int[] id) {
         this.id = id;
-        this.total = id.length;
     }
 }

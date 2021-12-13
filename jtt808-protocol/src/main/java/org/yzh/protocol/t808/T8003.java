@@ -15,10 +15,8 @@ public class T8003 extends JTMessage implements Response {
 
     @Field(length = 2, desc = "原始消息流水号")
     private int responseSerialNo;
-    @Field(length = 1, desc = "重传包总数", version = {-1, 0})
-    @Field(length = 2, desc = "重传包总数", version = 1)
-    private int total;
-    @Field(desc = "重传包ID列表")
+    @Field(totalUnit = 1, desc = "重传包ID列表", version = {-1, 0})
+    @Field(totalUnit = 2, desc = "重传包ID列表", version = 1)
     private short[] id;
 
     public int getResponseSerialNo() {
@@ -29,20 +27,11 @@ public class T8003 extends JTMessage implements Response {
         this.responseSerialNo = responseSerialNo;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public short[] getId() {
         return id;
     }
 
     public void setId(short[] id) {
         this.id = id;
-        this.total = id.length;
     }
 }

@@ -12,7 +12,7 @@ import org.yzh.protocol.commons.JSATL12;
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends JTMessage {
 
-    @Field(lengthSize = 1, desc = "服务器IP地址")
+    @Field(lengthUnit = 1, desc = "服务器IP地址")
     private String ip;
     @Field(length = 2, desc = "TCP端口")
     private int tcpPort;

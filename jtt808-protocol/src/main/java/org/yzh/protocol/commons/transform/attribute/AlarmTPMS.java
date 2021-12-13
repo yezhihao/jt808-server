@@ -36,7 +36,7 @@ public class AlarmTPMS implements Alarm {
     @Field(length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(lengthSize = 1, desc = "事件信息列表")
+    @Field(totalUnit = 1, desc = "事件信息列表")
     private List<Item> items;
 
     public long getSerialNo() {

@@ -17,9 +17,7 @@ public class T0805 extends JTMessage implements Response {
     private int responseSerialNo;
     @Field(length = 1, desc = "结果：0.成功 1.失败 2.通道不支持")
     private int result;
-    @Field(length = 2, desc = "多媒体ID个数")
-    private int total;
-    @Field(desc = "多媒体ID列表")
+    @Field(totalUnit = 2, desc = "多媒体ID列表")
     private int[] id;
 
     public int getResponseSerialNo() {
@@ -38,20 +36,11 @@ public class T0805 extends JTMessage implements Response {
         this.result = result;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int[] getId() {
         return id;
     }
 
     public void setId(int[] id) {
         this.id = id;
-        this.total = id.length;
     }
 }

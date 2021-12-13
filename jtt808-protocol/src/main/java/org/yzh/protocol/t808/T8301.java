@@ -19,7 +19,7 @@ public class T8301 extends JTMessage {
     /** @see org.yzh.protocol.commons.Action */
     @Field(length = 1, desc = "设置类型：0.清空 1.更新(先清空,后追加) 2.追加 3.修改 4.指定删除")
     private int type;
-    @Field(lengthSize = 1, desc = "事件项")
+    @Field(totalUnit = 1, desc = "事件项")
     private List<Event> events;
 
     public int getType() {
@@ -47,7 +47,7 @@ public class T8301 extends JTMessage {
     public static class Event {
         @Field(length = 1, desc = "事件ID")
         private int id;
-        @Field(lengthSize = 1, desc = "内容")
+        @Field(lengthUnit = 1, desc = "内容")
         private String content;
 
         public Event() {

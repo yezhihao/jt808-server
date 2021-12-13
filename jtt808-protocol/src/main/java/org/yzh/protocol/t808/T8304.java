@@ -15,7 +15,7 @@ public class T8304 extends JTMessage {
 
     @Field(length = 1, desc = "信息类型")
     private int type;
-    @Field(lengthSize = 2, desc = "文本信息")
+    @Field(lengthUnit = 2, desc = "文本信息")
     private String content;
 
     public T8304() {

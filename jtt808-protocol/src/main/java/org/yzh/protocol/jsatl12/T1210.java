@@ -24,7 +24,7 @@ public class T1210 extends JTMessage {
     private String alarmNo;
     @Field(length = 1, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
-    @Field(lengthSize = 1, desc = "附件信息列表")
+    @Field(totalUnit = 1, desc = "附件信息列表")
     private List<Item> items;
 
     public String getDeviceId() {
@@ -68,7 +68,7 @@ public class T1210 extends JTMessage {
     }
 
     public static class Item {
-        @Field(lengthSize = 1, desc = "文件名称")
+        @Field(lengthUnit = 1, desc = "文件名称")
         private String name;
         @Field(length = 4, desc = "文件大小")
         private long size;

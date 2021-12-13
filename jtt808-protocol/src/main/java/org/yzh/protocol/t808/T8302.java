@@ -25,7 +25,7 @@ public class T8302 extends JTMessage {
             " [5]0.中心导航信息|1.CAN故障码信息" +
             " [6~7]保留")
     private int sign;
-    @Field(lengthSize = 1, desc = "问题")
+    @Field(lengthUnit = 1, desc = "问题")
     private String content;
     @Field(desc = "候选答案列表")
     private List<Option> options;
@@ -66,7 +66,7 @@ public class T8302 extends JTMessage {
 
         @Field(length = 1, desc = "答案ID")
         private int id;
-        @Field(lengthSize = 2, desc = "答案内容")
+        @Field(lengthUnit = 2, desc = "答案内容")
         private String content;
 
         public Option() {

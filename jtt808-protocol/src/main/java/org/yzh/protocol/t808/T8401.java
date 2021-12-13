@@ -18,7 +18,7 @@ public class T8401 extends JTMessage {
     /** @see org.yzh.protocol.commons.Action */
     @Field(length = 1, desc = "类型")
     private int type;
-    @Field(lengthSize = 1, desc = "联系人项")
+    @Field(totalUnit = 1, desc = "联系人项")
     private List<Contact> contacts;
 
     public int getType() {
@@ -46,9 +46,9 @@ public class T8401 extends JTMessage {
     public static class Contact {
         @Field(length = 1, desc = "标志")
         private int sign;
-        @Field(lengthSize = 1, desc = "电话号码")
+        @Field(lengthUnit = 1, desc = "电话号码")
         private String phone;
-        @Field(lengthSize = 1, desc = "联系人")
+        @Field(lengthUnit = 1, desc = "联系人")
         private String name;
 
         public Contact() {

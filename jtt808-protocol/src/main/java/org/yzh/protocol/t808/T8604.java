@@ -29,11 +29,11 @@ public class T8604 extends JTMessage {
     private Integer maxSpeed;
     @Field(length = 1, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
     private Integer duration;
-    @Field(lengthSize = 2, desc = "顶点项")
+    @Field(totalUnit = 2, desc = "顶点项")
     private List<Point> points;
     @Field(length = 2, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
     private Integer nightMaxSpeed;
-    @Field(lengthSize = 2, desc = "区域名称", version = 1)
+    @Field(lengthUnit = 2, desc = "区域名称", version = 1)
     private String name;
 
     public int getId() {

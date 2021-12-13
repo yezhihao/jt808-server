@@ -12,7 +12,7 @@ import org.yzh.protocol.commons.JT1078;
 @Message(JT1078.实时音视频传输请求)
 public class T9101 extends JTMessage {
 
-    @Field(lengthSize = 1, desc = "服务器IP地址")
+    @Field(lengthUnit = 1, desc = "服务器IP地址")
     private String ip;
     @Field(length = 2, desc = "实时视频服务器TCP端口号")
     private int tcpPort;

@@ -25,11 +25,11 @@ public class T0107 extends JTMessage {
     @Field(length = 10, charset = "HEX", desc = "终端SIM卡ICCID", version = 0)
     @Field(length = 10, charset = "HEX", desc = "终端SIM卡ICCID", version = 1)
     private String iccid;
-    @Field(lengthSize = 1, desc = "硬件版本号", version = 0)
-    @Field(lengthSize = 1, desc = "硬件版本号", version = 1)
+    @Field(lengthUnit = 1, desc = "硬件版本号", version = 0)
+    @Field(lengthUnit = 1, desc = "硬件版本号", version = 1)
     private String hardwareVersion;
-    @Field(lengthSize = 1, desc = "固件版本号", version = 0)
-    @Field(lengthSize = 1, desc = "固件版本号", version = 1)
+    @Field(lengthUnit = 1, desc = "固件版本号", version = 0)
+    @Field(lengthUnit = 1, desc = "固件版本号", version = 1)
     private String firmwareVersion;
     @Field(length = 1, desc = "GNSS模块属性", version = 0)
     @Field(length = 1, desc = "GNSS模块属性", version = 1)

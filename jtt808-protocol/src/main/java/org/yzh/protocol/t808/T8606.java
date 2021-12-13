@@ -24,9 +24,9 @@ public class T8606 extends JTMessage {
     private LocalDateTime startTime;
     @Field(length = 6, charset = "BCD", desc = "结束时间(若区域属性0位为0则没有该字段)")
     private LocalDateTime endTime;
-    @Field(lengthSize = 2, desc = "拐点列表")
+    @Field(totalUnit = 2, desc = "拐点列表")
     private List<Line> items;
-    @Field(lengthSize = 2, desc = "区域名称", version = 1)
+    @Field(lengthUnit = 2, desc = "区域名称", version = 1)
     private String name;
 
     public int getId() {

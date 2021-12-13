@@ -19,7 +19,7 @@ public class T8600 extends JTMessage {
     /** @see org.yzh.protocol.commons.ShapeAction */
     @Field(length = 1, desc = "设置属性")
     private int action;
-    @Field(lengthSize = 1, desc = "区域项")
+    @Field(totalUnit = 1, desc = "区域项")
     private List<Circle> items;
 
     public int getAction() {
@@ -59,7 +59,7 @@ public class T8600 extends JTMessage {
         private Integer duration;
         @Field(length = 2, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
         private Integer nightMaxSpeed;
-        @Field(lengthSize = 2, desc = "区域名称", version = 1)
+        @Field(lengthUnit = 2, desc = "区域名称", version = 1)
         private String name;
 
         public Circle() {

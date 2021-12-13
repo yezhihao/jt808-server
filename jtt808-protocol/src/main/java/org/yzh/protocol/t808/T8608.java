@@ -15,9 +15,7 @@ public class T8608 extends JTMessage {
     /** @see org.yzh.protocol.commons.Shape */
     @Field(length = 1, desc = "查询类型：1.圆形 2.矩形 3.多边形 4.路线")
     private int type;
-    @Field(length = 4, desc = "区域总数")
-    private int total;
-    @Field(desc = "区域列表")
+    @Field(totalUnit = 4, desc = "区域列表")
     private int[] id;
 
     public T8608() {
@@ -26,7 +24,6 @@ public class T8608 extends JTMessage {
     public T8608(int type, int... id) {
         this.type = type;
         this.id = id;
-        this.total = id.length;
     }
 
     public int getType() {
@@ -37,20 +34,11 @@ public class T8608 extends JTMessage {
         this.type = type;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int[] getId() {
         return id;
     }
 
     public void setId(int[] id) {
         this.id = id;
-        this.total = id.length;
     }
 }

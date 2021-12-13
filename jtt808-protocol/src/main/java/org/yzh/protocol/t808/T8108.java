@@ -20,9 +20,9 @@ public class T8108 extends JTMessage {
     private int type;
     @Field(length = 5, desc = "制造商ID,终端制造商编码")
     private String makerId;
-    @Field(lengthSize = 1, desc = "版本号")
+    @Field(lengthUnit = 1, desc = "版本号")
     private String version;
-    @Field(lengthSize = 4, desc = "数据包")
+    @Field(lengthUnit = 4, desc = "数据包")
     private byte[] packet;
 
     public int getType() {

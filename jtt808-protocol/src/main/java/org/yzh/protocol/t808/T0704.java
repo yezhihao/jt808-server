@@ -47,7 +47,7 @@ public class T0704 extends JTMessage {
     }
 
     public static class Item {
-        @Field(lengthSize = 2, desc = "位置汇报数据体")
+        @Field(lengthUnit = 2, desc = "位置汇报数据体")
         private T0200 location;
 
         public Item() {

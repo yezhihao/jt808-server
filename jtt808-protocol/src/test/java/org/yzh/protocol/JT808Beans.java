@@ -2,7 +2,6 @@ package org.yzh.protocol;
 
 import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.Action;
-import org.yzh.protocol.commons.Shape;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
 import org.yzh.protocol.commons.transform.attribute.*;
@@ -602,7 +601,7 @@ public class JT808Beans {
     //查询区域或线路数据
     public static T8608 T8608() {
         T8608 bean = new T8608();
-        bean.setTotal(Shape.Route);
+        bean.setType(0);
         bean.setId(new int[]{2, 4, 6, 8, 999999999});
         return bean;
     }
