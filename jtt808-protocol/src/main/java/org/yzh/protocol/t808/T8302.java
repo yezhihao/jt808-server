@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,7 +16,7 @@ import java.util.List;
 @Message(JT808.提问下发)
 public class T8302 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "标志：" +
+    @Field(length = 1, desc = "标志：" +
             " [0]紧急" +
             " [1]保留" +
             " [2]终端显示器显示" +
@@ -26,9 +25,9 @@ public class T8302 extends JTMessage {
             " [5]0.中心导航信息|1.CAN故障码信息" +
             " [6~7]保留")
     private int sign;
-    @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "问题")
+    @Field(lengthSize = 1, desc = "问题")
     private String content;
-    @Field(index = 2, type = DataType.LIST, desc = "候选答案列表")
+    @Field(desc = "候选答案列表")
     private List<Option> options;
 
     public T8302() {
@@ -65,9 +64,9 @@ public class T8302 extends JTMessage {
 
     public static class Option {
 
-        @Field(index = 0, type = DataType.BYTE, desc = "答案ID")
+        @Field(length = 1, desc = "答案ID")
         private int id;
-        @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "答案内容")
+        @Field(lengthSize = 2, desc = "答案内容")
         private String content;
 
         public Option() {

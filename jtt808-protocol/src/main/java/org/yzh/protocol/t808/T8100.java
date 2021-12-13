@@ -1,7 +1,6 @@
 package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -25,11 +24,11 @@ public class T8100 extends JTMessage implements Response {
     /** 4.数据库中无该终端 */
     public static final int NotFoundTerminal = 4;
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.BYTE, desc = "结果：0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
+    @Field(length = 1, desc = "结果：0.成功 1.车辆已被注册 2.数据库中无该车辆 3.终端已被注册 4.数据库中无该终端")
     private int resultCode;
-    @Field(index = 3, type = DataType.STRING, desc = "鉴权码(成功后才有该字段)")
+    @Field(desc = "鉴权码(成功后才有该字段)")
     private String token;
 
     public int getResponseSerialNo() {

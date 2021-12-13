@@ -1,7 +1,6 @@
 package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -14,9 +13,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.人工确认报警消息)
 public class T8203 extends JTMessage implements Response {
 
-    @Field(index = 0, type = DataType.WORD, desc = "消息流水号")
+    @Field(length = 2, desc = "消息流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.DWORD, desc = "报警类型：" +
+    @Field(length = 4, desc = "报警类型：" +
             " [0]确认紧急报警" +
             " [1~2]保留" +
             " [3]确认危险预警" +

@@ -5,9 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.protocol.codec.MultiPacketDecoder;
+import org.yzh.protocol.codec.JTMessageAdapter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,9 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class BeanTest {
 
-    public static final JTMessageDecoder decoder = new MultiPacketDecoder("org.yzh.protocol");
-
-    public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
+    public static final JTMessageAdapter coder = new JTMessageAdapter("org.yzh.protocol");
 
     private static boolean show = true;
 
@@ -108,12 +104,12 @@ public class BeanTest {
 
     public static JTMessage transform(String hex) {
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-        JTMessage bean = decoder.decode(buf);
+        JTMessage bean = coder.decode(buf);
         return bean;
     }
 
     public static String transform(JTMessage bean) {
-        ByteBuf buf = encoder.encode(bean);
+        ByteBuf buf = coder.encode(bean);
         String hex = ByteBufUtil.hexDump(buf);
         buf.release();
         return hex;

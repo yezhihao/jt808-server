@@ -1,6 +1,5 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import org.yzh.protocol.jsatl12.AlarmId;
 
@@ -18,26 +17,26 @@ public class AlarmTPMS implements Alarm {
         return id;
     }
 
-    @Field(index = 0, type = DataType.DWORD, desc = "报警ID")
+    @Field(length = 4, desc = "报警ID")
     private long serialNo;
-    @Field(index = 4, type = DataType.BYTE, desc = "标志状态")
+    @Field(length = 1, desc = "标志状态")
     private int state;
-    @Field(index = 5, type = DataType.BYTE, desc = "车速")
+    @Field(length = 1, desc = "车速")
     private int speed;
-    @Field(index = 6, type = DataType.WORD, desc = "高程")
+    @Field(length = 2, desc = "高程")
     private int altitude;
-    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
+    @Field(length = 4, desc = "纬度")
     private int latitude;
-    @Field(index = 12, type = DataType.DWORD, desc = "经度")
+    @Field(length = 4, desc = "经度")
     private int longitude;
-    @Field(index = 16, type = DataType.BCD8421, length = 6, desc = "日期时间")
+    @Field(length = 6, charset = "BCD", desc = "日期时间")
     private LocalDateTime dateTime;
-    @Field(index = 22, type = DataType.WORD, desc = "车辆状态")
+    @Field(length = 2, desc = "车辆状态")
     private int status;
-    @Field(index = 24, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
-    @Field(index = 24, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
+    @Field(length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(index = 39, type = DataType.LIST, lengthSize = 1, desc = "事件信息列表")
+    @Field(lengthSize = 1, desc = "事件信息列表")
     private List<Item> items;
 
     public long getSerialNo() {
@@ -121,9 +120,9 @@ public class AlarmTPMS implements Alarm {
     }
 
     public static class Item {
-        @Field(index = 0, type = DataType.BYTE, desc = "胎压报警位置(从左前轮开始以Z字形从00依次编号,编号与是否安装TPMS无关)")
+        @Field(length = 1, desc = "胎压报警位置(从左前轮开始以Z字形从00依次编号,编号与是否安装TPMS无关)")
         private int position;
-        @Field(index = 2, type = DataType.WORD, desc = "报警类型：" +
+        @Field(length = 2, desc = "报警类型：" +
                 " 0.胎压(定时上报)" +
                 " 1.胎压过高报警" +
                 " 2.胎压过低报警" +
@@ -134,11 +133,11 @@ public class AlarmTPMS implements Alarm {
                 " 7.电池电量低报警" +
                 " 8~31.预留")
         private int type;
-        @Field(index = 4, type = DataType.WORD, desc = "胎压(Kpa)")
+        @Field(length = 2, desc = "胎压(Kpa)")
         private int pressure;
-        @Field(index = 6, type = DataType.WORD, desc = "温度(℃)")
+        @Field(length = 2, desc = "温度(℃)")
         private int temperature;
-        @Field(index = 8, type = DataType.WORD, desc = "电池电量(%)")
+        @Field(length = 2, desc = "电池电量(%)")
         private int batteryLevel;
 
         public Item() {

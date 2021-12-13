@@ -1,7 +1,6 @@
 package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -16,9 +15,9 @@ import java.util.List;
 @Message(JT808.存储多媒体数据检索应答)
 public class T0802 extends JTMessage implements Response {
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.LIST, lengthSize = 2, desc = "检索项")
+    @Field(lengthSize = 2, desc = "检索项")
     private List<Item> items;
 
     public int getResponseSerialNo() {
@@ -38,15 +37,15 @@ public class T0802 extends JTMessage implements Response {
     }
 
     public static class Item {
-        @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
+        @Field(length = 4, desc = "多媒体数据ID")
         private int id;
-        @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型：0.图像 1.音频 2.视频")
+        @Field(length = 1, desc = "多媒体类型：0.图像 1.音频 2.视频")
         private int type;
-        @Field(index = 5, type = DataType.BYTE, desc = "通道ID")
+        @Field(length = 1, desc = "通道ID")
         private int channelId;
-        @Field(index = 6, type = DataType.BYTE, desc = "事件项编码")
+        @Field(length = 1, desc = "事件项编码")
         private int event;
-        @Field(index = 7, type = DataType.OBJ, length = 28, desc = "位置信息")
+        @Field(length = 28, desc = "位置信息")
         private T0200 location;
 
         public Item() {

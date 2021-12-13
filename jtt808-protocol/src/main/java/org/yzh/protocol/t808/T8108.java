@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,13 +16,13 @@ public class T8108 extends JTMessage {
     public static final int CardReader = 12;
     public static final int Beidou = 52;
 
-    @Field(index = 0, type = DataType.BYTE, desc = "升级类型")
+    @Field(length = 1, desc = "升级类型")
     private int type;
-    @Field(index = 1, type = DataType.STRING, length = 5, desc = "制造商ID,终端制造商编码")
+    @Field(length = 5, desc = "制造商ID,终端制造商编码")
     private String makerId;
-    @Field(index = 6, type = DataType.STRING, lengthSize = 1, desc = "版本号")
+    @Field(lengthSize = 1, desc = "版本号")
     private String version;
-    @Field(index = 7, type = DataType.BYTES, lengthSize = 4, desc = "数据包")
+    @Field(lengthSize = 4, desc = "数据包")
     private byte[] packet;
 
     public int getType() {

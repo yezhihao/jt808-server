@@ -2,7 +2,6 @@ package org.yzh.protocol.commons.transform;
 
 import io.github.yezhihao.protostar.PrepareLoadStrategy;
 import io.github.yezhihao.protostar.Schema;
-import io.github.yezhihao.protostar.converter.Converter;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
@@ -16,7 +15,7 @@ import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class PassthroughConverter extends PrepareLoadStrategy implements Converter<KeyValuePair<Integer, Object>> {
+public class PassthroughConverter extends PrepareLoadStrategy implements Schema<KeyValuePair<Integer, Object>> {
 
     private static final Logger log = LoggerFactory.getLogger(PassthroughConverter.class);
 
@@ -28,7 +27,7 @@ public class PassthroughConverter extends PrepareLoadStrategy implements Convert
     }
 
     @Override
-    public KeyValuePair<Integer, Object> convert(ByteBuf input) {
+    public KeyValuePair<Integer, Object> readFrom(ByteBuf input) {
         if (!input.isReadable())
             return null;
         int key = input.readUnsignedByte();
@@ -42,7 +41,7 @@ public class PassthroughConverter extends PrepareLoadStrategy implements Convert
     }
 
     @Override
-    public void convert(ByteBuf output, KeyValuePair<Integer, Object> keyValuePair) {
+    public void writeTo(ByteBuf output, KeyValuePair<Integer, Object> keyValuePair) {
         Integer key = keyValuePair.getId();
         Object value = keyValuePair.getValue();
         Schema schema = getSchema(key);

@@ -2,7 +2,6 @@ package org.yzh.protocol.basics;
 
 import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.util.ToStringBuilder;
 import io.netty.buffer.ByteBuf;
@@ -17,23 +16,23 @@ import java.beans.Transient;
 //@JsonIgnoreProperties({"messageId", "properties", "protocolVersion", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
 public class JTMessage implements Message {
 
-    @Field(index = 0, type = DataType.WORD, desc = "消息ID")
+    @Field(length = 2, desc = "消息ID")
     protected int messageId;
-    @Field(index = 2, type = DataType.WORD, desc = "消息体属性")
+    @Field(length = 2, desc = "消息体属性")
     protected int properties;
-    @Field(index = 4, type = DataType.BYTE, desc = "协议版本号", version = 1)
+    @Field(length = 1, desc = "协议版本号", version = 1)
     protected int protocolVersion;
-    @Field(index = 4, type = DataType.BCD8421, length = 6, desc = "终端手机号", version = {-1, 0})
-    @Field(index = 5, type = DataType.BCD8421, length = 10, desc = "终端手机号", version = 1)
+    @Field(length = 6, charset = "BCD", desc = "终端手机号", version = {-1, 0})
+    @Field(length = 10, charset = "BCD", desc = "终端手机号", version = 1)
     protected String clientId;
-    @Field(index = 10, type = DataType.WORD, desc = "流水号", version = {-1, 0})
-    @Field(index = 15, type = DataType.WORD, desc = "流水号", version = 1)
+    @Field(length = 2, desc = "流水号", version = {-1, 0})
+    @Field(length = 2, desc = "流水号", version = 1)
     protected int serialNo;
-    @Field(index = 12, type = DataType.WORD, desc = "消息包总数", version = {-1, 0})
-    @Field(index = 17, type = DataType.WORD, desc = "消息包总数", version = 1)
+    @Field(length = 2, desc = "消息包总数", version = {-1, 0})
+    @Field(length = 2, desc = "消息包总数", version = 1)
     protected Integer packageTotal;
-    @Field(index = 14, type = DataType.WORD, desc = "包序号", version = {-1, 0})
-    @Field(index = 19, type = DataType.WORD, desc = "包序号", version = 1)
+    @Field(length = 2, desc = "包序号", version = {-1, 0})
+    @Field(length = 2, desc = "包序号", version = 1)
     protected Integer packageNo;
     /** bcc校验 */
     protected boolean verified = true;

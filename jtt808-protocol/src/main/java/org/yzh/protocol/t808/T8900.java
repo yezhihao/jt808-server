@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -26,7 +25,7 @@ public class T8900 extends JTMessage {
     /** 用户自定义透传 0xF0~0xFF */
     public static final int Custom = 0xF0;
 
-    @Field(index = 0, type = DataType.OBJ, desc = "透传消息", converter = PassthroughConverter.class)
+    @Field(desc = "透传消息", converter = PassthroughConverter.class)
     private KeyValuePair<Integer, Object> message;
 
     public T8900() {

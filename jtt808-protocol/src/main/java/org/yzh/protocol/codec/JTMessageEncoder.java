@@ -3,6 +3,7 @@ package org.yzh.protocol.codec;
 import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
+import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.*;
 import io.netty.util.ByteProcessor;
 import org.yzh.protocol.basics.JTMessage;
@@ -87,6 +88,70 @@ public class JTMessageEncoder {
 
                 ByteBuf headBuf = ALLOC.buffer(headLength, headLength);
                 headSchema.writeTo(headBuf, message);
+                ByteBuf msgBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, 2)
+                        .addComponent(true, 0, headBuf)
+                        .addComponent(true, 1, slice);
+                msgBuf = sign(msgBuf);
+                msgBuf = escape(msgBuf);
+                _allBuf.addComponent(true, i, msgBuf);
+            }
+        }
+        return output;
+    }
+
+    public ByteBuf encode(JTMessage message, Explain explain) {
+        int version = message.getProtocolVersion();
+        int headLength = JTUtils.headerLength(version, false);
+        int bodyLength = 0;
+
+        Schema headSchema = headerSchemaMap.get(version);
+        Schema bodySchema = schemaManager.getRuntimeSchema(message.getMessageId(), version);
+
+        ByteBuf output;
+        if (bodySchema != null) {
+            output = ALLOC.buffer(headLength + bodySchema.length());
+            output.writerIndex(headLength);
+            bodySchema.writeTo(output, message, explain);
+            bodyLength = output.writerIndex() - headLength;
+        } else {
+            output = ALLOC.buffer(headLength, 21);
+        }
+
+        if (bodyLength <= 1023) {
+            message.setBodyLength(bodyLength);
+
+            int writerIndex = output.writerIndex();
+            if (writerIndex > 0) {
+                output.writerIndex(0);
+                headSchema.writeTo(output, message, explain);
+                output.writerIndex(writerIndex);
+            } else {
+                headSchema.writeTo(output, message, explain);
+            }
+
+            output = sign(output);
+            output = escape(output);
+
+        } else {
+
+            ByteBuf[] slices = slices(output, headLength, 1023);
+            int total = slices.length;
+
+            CompositeByteBuf _allBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, total);
+            output = _allBuf;
+
+            message.setSubpackage(true);
+            message.setPackageTotal(total);
+
+            headLength = JTUtils.headerLength(version, true);
+            for (int i = 0; i < total; i++) {
+                ByteBuf slice = slices[i];
+
+                message.setPackageNo(i + 1);
+                message.setBodyLength(slice.readableBytes());
+
+                ByteBuf headBuf = ALLOC.buffer(headLength, headLength);
+                headSchema.writeTo(headBuf, message, explain);
                 ByteBuf msgBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, 2)
                         .addComponent(true, 0, headBuf)
                         .addComponent(true, 1, slice);

@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -18,9 +17,9 @@ import java.util.List;
 public class T8600 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.ShapeAction */
-    @Field(index = 0, type = DataType.BYTE, desc = "设置属性")
+    @Field(length = 1, desc = "设置属性")
     private int action;
-    @Field(index = 1, type = DataType.LIST, lengthSize = 1, desc = "区域项")
+    @Field(lengthSize = 1, desc = "区域项")
     private List<Circle> items;
 
     public int getAction() {
@@ -40,27 +39,27 @@ public class T8600 extends JTMessage {
     }
 
     public static class Circle {
-        @Field(index = 0, type = DataType.DWORD, desc = "区域ID")
+        @Field(length = 4, desc = "区域ID")
         private int id;
-        @Field(index = 4, type = DataType.WORD, desc = "区域属性")
+        @Field(length = 2, desc = "区域属性")
         private int attribute;
-        @Field(index = 6, type = DataType.DWORD, desc = "中心点纬度")
+        @Field(length = 4, desc = "中心点纬度")
         private int latitude;
-        @Field(index = 10, type = DataType.DWORD, desc = "中心点经度")
+        @Field(length = 4, desc = "中心点经度")
         private int longitude;
-        @Field(index = 14, type = DataType.DWORD, desc = "半径(米)")
+        @Field(length = 4, desc = "半径(米)")
         private int radius;
-        @Field(index = 18, type = DataType.BCD8421, length = 6, desc = "起始时间(若区域属性0位为0则没有该字段)")
+        @Field(length = 6, charset = "BCD", desc = "起始时间(若区域属性0位为0则没有该字段)")
         private LocalDateTime startTime;
-        @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "结束时间(若区域属性0位为0则没有该字段)")
+        @Field(length = 6, charset = "BCD", desc = "结束时间(若区域属性0位为0则没有该字段)")
         private LocalDateTime endTime;
-        @Field(index = 30, type = DataType.WORD, desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+        @Field(length = 2, desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
         private Integer maxSpeed;
-        @Field(index = 32, type = DataType.BYTE, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
+        @Field(length = 1, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
         private Integer duration;
-        @Field(index = 33, type = DataType.WORD, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
+        @Field(length = 2, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
         private Integer nightMaxSpeed;
-        @Field(index = 35, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+        @Field(lengthSize = 2, desc = "区域名称", version = 1)
         private String name;
 
         public Circle() {

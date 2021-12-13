@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -14,9 +13,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.信息服务)
 public class T8304 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "信息类型")
+    @Field(length = 1, desc = "信息类型")
     private int type;
-    @Field(index = 1, type = DataType.STRING, lengthSize = 2, desc = "文本信息")
+    @Field(lengthSize = 2, desc = "文本信息")
     private String content;
 
     public T8304() {

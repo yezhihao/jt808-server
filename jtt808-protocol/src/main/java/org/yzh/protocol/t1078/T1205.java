@@ -1,7 +1,6 @@
 package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.netmc.core.model.Response;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -13,9 +12,9 @@ import java.util.List;
 @Message(JT1078.终端上传音视频资源列表)
 public class T1205 extends JTMessage implements Response {
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.LIST, lengthSize = 4, desc = "音视频资源列表")
+    @Field(lengthSize = 4, desc = "音视频资源列表")
     private List<Item> items;
 
     public int getResponseSerialNo() {
@@ -36,23 +35,23 @@ public class T1205 extends JTMessage implements Response {
 
     public static class Item {
 
-        @Field(index = 0, type = DataType.BYTE, desc = "逻辑通道号")
+        @Field(length = 1, desc = "逻辑通道号")
         private int channelNo;
-        @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "开始时间")
+        @Field(length = 6, charset = "BCD", desc = "开始时间")
         private LocalDateTime startTime;
-        @Field(index = 7, type = DataType.BCD8421, length = 6, desc = "结束时间")
+        @Field(length = 6, charset = "BCD", desc = "结束时间")
         private LocalDateTime endTime;
-        @Field(index = 13, type = DataType.DWORD, desc = "报警标志0~31(参考808协议文档报警标志位定义)")
+        @Field(length = 4, desc = "报警标志0~31(参考808协议文档报警标志位定义)")
         private int warnBit1;
-        @Field(index = 17, type = DataType.DWORD, desc = "报警标志32~63")
+        @Field(length = 4, desc = "报警标志32~63")
         private int warnBit2;
-        @Field(index = 21, type = DataType.BYTE, desc = "音视频资源类型")
+        @Field(length = 1, desc = "音视频资源类型")
         private int mediaType;
-        @Field(index = 22, type = DataType.BYTE, desc = "码流类型")
+        @Field(length = 1, desc = "码流类型")
         private int streamType = 1;
-        @Field(index = 23, type = DataType.BYTE, desc = "存储器类型")
+        @Field(length = 1, desc = "存储器类型")
         private int storageType;
-        @Field(index = 24, type = DataType.DWORD, desc = "文件大小")
+        @Field(length = 4, desc = "文件大小")
         private long size;
 
         public Item() {

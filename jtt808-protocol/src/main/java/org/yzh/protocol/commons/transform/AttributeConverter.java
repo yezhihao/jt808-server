@@ -3,8 +3,8 @@ package org.yzh.protocol.commons.transform;
 import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.PrepareLoadStrategy;
 import io.github.yezhihao.protostar.ProtostarUtil;
-import io.github.yezhihao.protostar.converter.MapConverter;
-import io.netty.buffer.ByteBuf;
+import io.github.yezhihao.protostar.schema.MapSchema;
+import io.github.yezhihao.protostar.schema.NumberSchema;
 import org.yzh.protocol.commons.transform.attribute.*;
 
 /**
@@ -12,7 +12,11 @@ import org.yzh.protocol.commons.transform.attribute.*;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class AttributeConverter extends MapConverter<Integer, Object> {
+public class AttributeConverter extends MapSchema<Integer, Object> {
+
+    public AttributeConverter() {
+        super(NumberSchema.BYTE_INT, 1);
+    }
 
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
@@ -40,20 +44,5 @@ public class AttributeConverter extends MapConverter<Integer, Object> {
                 .addSchema(AttributeId.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 0))
                 .addSchema(AttributeId.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 0))
         ;
-    }
-
-    @Override
-    protected Integer readKey(ByteBuf input) {
-        return (int) input.readUnsignedByte();
-    }
-
-    @Override
-    protected void writeKey(ByteBuf output, Integer key) {
-        output.writeByte(key);
-    }
-
-    @Override
-    protected int valueSize() {
-        return 1;
     }
 }

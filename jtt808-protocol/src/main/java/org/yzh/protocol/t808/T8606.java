@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,17 +16,17 @@ import java.util.List;
 @Message(JT808.设置路线)
 public class T8606 extends JTMessage {
 
-    @Field(index = 0, type = DataType.DWORD, desc = "路线ID")
+    @Field(length = 4, desc = "路线ID")
     private int id;
-    @Field(index = 4, type = DataType.WORD, desc = "路线属性")
+    @Field(length = 2, desc = "路线属性")
     private int attribute;
-    @Field(index = 6, type = DataType.BCD8421, length = 6, desc = "起始时间(若区域属性0位为0则没有该字段)")
+    @Field(length = 6, charset = "BCD", desc = "起始时间(若区域属性0位为0则没有该字段)")
     private LocalDateTime startTime;
-    @Field(index = 12, type = DataType.BCD8421, length = 6, desc = "结束时间(若区域属性0位为0则没有该字段)")
+    @Field(length = 6, charset = "BCD", desc = "结束时间(若区域属性0位为0则没有该字段)")
     private LocalDateTime endTime;
-    @Field(index = 18, type = DataType.LIST, lengthSize = 2, desc = "拐点列表")
+    @Field(lengthSize = 2, desc = "拐点列表")
     private List<Line> items;
-    @Field(index = 22, type = DataType.STRING, lengthSize = 2, desc = "区域名称", version = 1)
+    @Field(lengthSize = 2, desc = "区域名称", version = 1)
     private String name;
 
     public int getId() {
@@ -81,27 +80,27 @@ public class T8606 extends JTMessage {
     }
 
     public static class Line {
-        @Field(index = 0, type = DataType.DWORD, desc = "拐点ID")
+        @Field(length = 4, desc = "拐点ID")
         private int id;
-        @Field(index = 4, type = DataType.DWORD, desc = "路段ID")
+        @Field(length = 4, desc = "路段ID")
         private int routeId;
-        @Field(index = 8, type = DataType.DWORD, desc = "纬度")
+        @Field(length = 4, desc = "纬度")
         private int latitude;
-        @Field(index = 12, type = DataType.DWORD, desc = "经度")
+        @Field(length = 4, desc = "经度")
         private int longitude;
-        @Field(index = 16, type = DataType.BYTE, desc = "宽度(米)")
+        @Field(length = 1, desc = "宽度(米)")
         private int width;
-        @Field(index = 17, type = DataType.BYTE, desc = "属性")
+        @Field(length = 1, desc = "属性")
         private int attribute;
-        @Field(index = 18, type = DataType.WORD, desc = "路段行驶过长阈值(秒,若区域属性0位为0则没有该字段)")
+        @Field(length = 2, desc = "路段行驶过长阈值(秒,若区域属性0位为0则没有该字段)")
         private Integer upperLimit;
-        @Field(index = 20, type = DataType.WORD, desc = "路段行驶不足阈值(秒,若区域属性0位为0则没有该字段)")
+        @Field(length = 2, desc = "路段行驶不足阈值(秒,若区域属性0位为0则没有该字段)")
         private Integer lowerLimit;
-        @Field(index = 22, type = DataType.WORD, desc = "路段最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+        @Field(length = 2, desc = "路段最高速度(公里每小时,若区域属性1位为0则没有该字段)")
         private Integer maxSpeed;
-        @Field(index = 24, type = DataType.BYTE, desc = "路段超速持续时间(秒,若区域属性1位为0则没有该字段)")
+        @Field(length = 1, desc = "路段超速持续时间(秒,若区域属性1位为0则没有该字段)")
         private Integer duration;
-        @Field(index = 25, type = DataType.WORD, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
+        @Field(length = 2, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
         private Integer nightMaxSpeed;
 
         public Line() {

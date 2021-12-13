@@ -4,6 +4,7 @@ import io.github.yezhihao.netmc.codec.MessageDecoder;
 import io.github.yezhihao.netmc.codec.MessageEncoder;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.slf4j.Logger;
@@ -28,12 +29,28 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
     }
 
     public JTMessageAdapter(MultiVersionSchemaManager schemaManager) {
-        this(new JTMessageEncoder(schemaManager), new JTMessageDecoder(schemaManager));
+        this(new JTMessageEncoder(schemaManager), new MultiPacketDecoder(schemaManager));
     }
 
     public JTMessageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
         this.messageEncoder = messageEncoder;
         this.messageDecoder = messageDecoder;
+    }
+
+    public ByteBuf encode(JTMessage message, Explain explain) {
+        return messageEncoder.encode(message, explain);
+    }
+
+    public JTMessage decode(ByteBuf input, Explain explain) {
+        return messageDecoder.decode(input, explain);
+    }
+
+    public ByteBuf encode(JTMessage message) {
+        return messageEncoder.encode(message);
+    }
+
+    public JTMessage decode(ByteBuf input) {
+        return messageDecoder.decode(input);
     }
 
     @Override
@@ -48,7 +65,7 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
         JTMessage message = messageDecoder.decode(input);
         if (message != null)
             message.setSession(session);
-        encodeLog(session, message, input);
+        decodeLog(session, message, input);
         return message;
     }
 

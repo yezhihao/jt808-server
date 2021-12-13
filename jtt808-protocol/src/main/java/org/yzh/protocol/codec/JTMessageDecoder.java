@@ -2,6 +2,7 @@ package org.yzh.protocol.codec;
 
 import io.github.yezhihao.protostar.MultiVersionSchemaManager;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
+import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
@@ -87,6 +88,64 @@ public class JTMessageDecoder {
                 buf.readerIndex(headLen);
                 buf.writerIndex(writerIndex - 1);
                 bodySchema.mergeFrom(buf, message);
+            }
+        }
+        return message;
+    }
+
+
+    public JTMessage decode(ByteBuf input, Explain explain) {
+        ByteBuf buf = unescape(input);
+
+        boolean verified = verify(buf);
+        int messageId = buf.getUnsignedShort(0);
+        int properties = buf.getUnsignedShort(2);
+
+        int version = 0;//缺省值为2013版本
+        if (Bit.isTrue(properties, 14))//识别2019及后续版本
+            version = buf.getUnsignedByte(4);
+
+        boolean isSubpackage = Bit.isTrue(properties, 13);
+        int headLen = JTUtils.headerLength(version, isSubpackage);
+
+        RuntimeSchema<JTMessage> headSchema = headerSchemaMap.get(version);
+        RuntimeSchema<JTMessage> bodySchema = schemaManager.getRuntimeSchema(messageId, version);
+
+        JTMessage message;
+        if (bodySchema == null)
+            message = new JTMessage();
+        else
+            message = bodySchema.newInstance();
+        message.setVerified(verified);
+        message.setPayload(input);
+
+        int writerIndex = buf.writerIndex();
+        buf.writerIndex(headLen);
+        headSchema.mergeFrom(buf, message, explain);
+
+        int realVersion = message.getProtocolVersion();
+        if (realVersion != version)
+            bodySchema = schemaManager.getRuntimeSchema(messageId, realVersion);
+
+        if (bodySchema != null) {
+            int bodyLen = message.getBodyLength();
+
+            if (isSubpackage) {
+
+                byte[] bytes = new byte[bodyLen];
+                buf.getBytes(headLen, bytes);
+
+                byte[][] packages = addAndGet(message, bytes);
+                if (packages == null)
+                    return message;
+
+                ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
+                bodySchema.mergeFrom(bodyBuf, message, explain);
+
+            } else {
+                buf.readerIndex(headLen);
+                buf.writerIndex(writerIndex - 1);
+                bodySchema.mergeFrom(buf, message, explain);
             }
         }
         return message;

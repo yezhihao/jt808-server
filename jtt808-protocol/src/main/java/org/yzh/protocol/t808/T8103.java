@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,9 +16,9 @@ import java.util.TreeMap;
 @Message(JT808.设置终端参数)
 public class T8103 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "参数总数")
+    @Field(length = 1, desc = "参数总数")
     private int total;
-    @Field(index = 1, type = DataType.MAP, desc = "参数项列表", converter = ParameterConverter.class)
+    @Field(desc = "参数项列表", converter = ParameterConverter.class)
     private Map<Integer, Object> parameters;
 
     public T8103() {

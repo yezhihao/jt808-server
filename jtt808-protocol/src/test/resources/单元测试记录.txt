@@ -1,6 +1,6 @@
 
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e121000391234567890127fff3736353433323137363534333231200827111111010301616437323133313537396535346265306230663733376366633732633564623800007b7e
 json1 {
   "deviceId": "7654321",
@@ -125,7 +125,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e920800521234567890127fff0d34372e3130342e39372e313639200a200b373635343332312008271111110101016164373231333135373965353462653062306637333763666337326335646238000000000000000000000000000000009e7e
 json1 {
   "ip": "47.104.97.169",
@@ -1318,7 +1318,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e0100002e1234567890127fff001f00730000797a68000000000000007777772e6a74743830382e636e3736353433323101b2e241383838383838227e
 json1 {
   "provinceId": 31,
@@ -1739,7 +1739,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e0107004a1234567890127fff007f0000797a68000000000000007777772e6a74743830382e636e37363534333231123456789012345678900d7777772e6a74743830382e636e0d7777772e6a74743830382e636e7f7f427e
 json1 {
   "deviceType": 127,
@@ -7370,10 +7370,10 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
-[main] INFO StringSchema         [75]字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
+[main] INFO StringSchema         字符长度超出限制: 长度[7],数据长度[20],09876543210987654321
 hex1 7e020000d41234567890127fff000004000000080006eeb6ad02633df7013800030063200707192359642f000000400101010a0a01010a0a00640001b2070003640e200707192359000137363534333231200827111111010101652f0000004102020214000000141400c8000516150006c81c200707192359000237363534333231200827111111020202662900000042031e012c00087a23000a2c2a200707192359000337363534333231200827111111030303006729000000430404280190000bde31000d9038200707192359000437363534333231200827111111040404b57e
 json1 {
   "warnBit": 1024,
@@ -12167,7 +12167,7 @@ json2 {
   "verified": true
 }
 
-7e8604403f0100000000017299841738ffff000000030002200707192359200707192359007b3c00050000007b000001590000007b000001590000007b000001590000007b000001590000007b00000159dd7e
+7e860440430100000000017299841738ffff000000030002200707192359200707192359007b3c00050000007b000001590000007b000001590000007b000001590000007b000001590000007b0000015900000000a17e
 {
   "id": 3,
   "attribute": 2,
@@ -12197,14 +12197,16 @@ json2 {
       "longitude": 345
     }
   ],
+  "nightMaxSpeed": 0,
+  "name": "",
   "messageId": 34308,
-  "properties": 16447,
+  "properties": 16451,
   "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
   "verified": true
 }
-7e8604403f0100000000017299841738ffff000000030002200707192359200707192359007b3c00050000007b000001590000007b000001590000007b000001590000007b000001590000007b00000159dd7e
+7e860440430100000000017299841738ffff000000030002200707192359200707192359007b3c00050000007b000001590000007b000001590000007b000001590000007b000001590000007b0000015900000000a17e
 {
   "id": 3,
   "attribute": 2,
@@ -12234,8 +12236,10 @@ json2 {
       "longitude": 345
     }
   ],
+  "nightMaxSpeed": 0,
+  "name": "",
   "messageId": 34308,
-  "properties": 16447,
+  "properties": 16451,
   "protocolVersion": 1,
   "clientId": "17299841738",
   "serialNo": 65535,
@@ -13570,7 +13574,7 @@ json2 {
   "serialNo": 32767,
   "verified": true
 }
-[main] WARN commons.transform.PassthroughConverter[56]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900000f0123456789017fff006173647a786371776531323333354c7e
 {
   "message": {
@@ -13628,7 +13632,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-[main] WARN commons.transform.PassthroughConverter[56]未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
+[main] WARN commons.transform.PassthroughConverter未注册的透传消息:ID[dec:0,hex:0], VALUE[6173647a78637177653132333335]
 7e0900400f0100000000017299841738ffff006173647a78637177653132333335447e
 {
   "message": {
@@ -13658,7 +13662,7 @@ json2 {
   "verified": true
 }
 
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=1, retryCount=0, time=0, packets={1, , , , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=1, retryCount=0, waitTime=0, packets={1, , , , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13670,7 +13674,7 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=2, retryCount=0, time=0, packets={1,2, , , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=2, retryCount=0, waitTime=0, packets={1,2, , , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13682,7 +13686,7 @@ json2 {
   "packageNo": 2,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=3, retryCount=0, time=0, packets={1,2,3, , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=3, retryCount=0, waitTime=0, packets={1,2,3, , , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13694,7 +13698,7 @@ json2 {
   "packageNo": 3,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=4, retryCount=0, time=0, packets={1,2,3,4, , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=4, retryCount=0, waitTime=0, packets={1,2,3,4, , , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13706,7 +13710,7 @@ json2 {
   "packageNo": 4,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=5, retryCount=0, time=0, packets={1,2,3,4,5, , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=5, retryCount=0, waitTime=0, packets={1,2,3,4,5, , , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13718,7 +13722,7 @@ json2 {
   "packageNo": 5,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=6, retryCount=0, time=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=6, retryCount=0, waitTime=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13730,7 +13734,7 @@ json2 {
   "packageNo": 6,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=7, retryCount=0, time=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=7, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13742,7 +13746,7 @@ json2 {
   "packageNo": 7,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=8, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=8, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13754,7 +13758,7 @@ json2 {
   "packageNo": 8,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=9, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=9, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13766,7 +13770,7 @@ json2 {
   "packageNo": 9,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=10, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=10, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13778,7 +13782,7 @@ json2 {
   "packageNo": 10,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=11, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=11, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13790,7 +13794,7 @@ json2 {
   "packageNo": 11,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=12, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=12, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13802,7 +13806,7 @@ json2 {
   "packageNo": 12,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=13, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=13, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13814,7 +13818,7 @@ json2 {
   "packageNo": 13,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=14, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=14, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13826,7 +13830,7 @@ json2 {
   "packageNo": 14,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=15, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=15, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13838,7 +13842,7 @@ json2 {
   "packageNo": 15,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=16, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=16, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13850,7 +13854,7 @@ json2 {
   "packageNo": 16,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=17, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=17, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }]
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13862,7 +13866,7 @@ json2 {
   "packageNo": 17,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=18, retryCount=0, time=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=18, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}]
 {
   "responseSerialNo": 2,
   "items": [
@@ -15856,7 +15860,7 @@ json2 {
   "packageNo": 18,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=1, retryCount=0, time=0, packets={1, }]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=1, retryCount=0, waitTime=0, packets={1, }]
 {
   "responseSerialNo": 0,
   "total": 0,
@@ -15869,7 +15873,7 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   [56]<<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=2, retryCount=0, time=0, packets={1,2}]
+[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=2, retryCount=0, waitTime=0, packets={1,2}]
 {
   "responseSerialNo": 420,
   "total": 88,

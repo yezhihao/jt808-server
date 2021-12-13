@@ -1,7 +1,6 @@
 package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -18,25 +17,25 @@ import java.util.Map;
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
 public class T0201_0500 extends JTMessage implements Response {
 
-    @Field(index = 0, type = DataType.WORD, desc = "应答流水号")
+    @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(index = 2, type = DataType.DWORD, desc = "报警标志")
+    @Field(length = 4, desc = "报警标志")
     private int warnBit;
-    @Field(index = 6, type = DataType.DWORD, desc = "状态")
+    @Field(length = 4, desc = "状态")
     private int statusBit;
-    @Field(index = 10, type = DataType.DWORD, desc = "纬度")
+    @Field(length = 4, desc = "纬度")
     private int latitude;
-    @Field(index = 14, type = DataType.DWORD, desc = "经度")
+    @Field(length = 4, desc = "经度")
     private int longitude;
-    @Field(index = 18, type = DataType.WORD, desc = "高程(米)")
+    @Field(length = 2, desc = "高程(米)")
     private int altitude;
-    @Field(index = 20, type = DataType.WORD, desc = "速度(1/10公里每小时)")
+    @Field(length = 2, desc = "速度(1/10公里每小时)")
     private int speed;
-    @Field(index = 22, type = DataType.WORD, desc = "方向")
+    @Field(length = 2, desc = "方向")
     private int direction;
-    @Field(index = 24, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
+    @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
     private LocalDateTime dateTime;
-    @Field(index = 30, type = DataType.MAP, desc = "位置附加信息", converter = AttributeConverter.class)
+    @Field(desc = "位置附加信息", converter = AttributeConverter.class)
     private Map<Integer, Object> attributes;
 
     public int getResponseSerialNo() {

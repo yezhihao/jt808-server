@@ -1,6 +1,5 @@
 package org.yzh.protocol.jsatl12;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -15,17 +14,17 @@ import java.util.List;
 @Message(JSATL12.报警附件信息消息)
 public class T1210 extends JTMessage {
 
-    @Field(index = 0, type = DataType.STRING, length = 7, desc = "终端ID", version = {-1, 0})
-    @Field(index = 0, type = DataType.STRING, length = 30, desc = "终端ID(粤标)", version = 1)
+    @Field(length = 7, desc = "终端ID", version = {-1, 0})
+    @Field(length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
-    @Field(index = 7, type = DataType.OBJ, length = 16, desc = "报警标识号", version = {-1, 0})
-    @Field(index = 30, type = DataType.OBJ, length = 40, desc = "报警标识号(粤标)", version = 1)
+    @Field(length = 16, desc = "报警标识号", version = {-1, 0})
+    @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
-    @Field(index = 70, type = DataType.STRING, length = 32, desc = "报警编号")
+    @Field(length = 32, desc = "报警编号")
     private String alarmNo;
-    @Field(index = 102, type = DataType.BYTE, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
+    @Field(length = 1, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
-    @Field(index = 103, type = DataType.LIST, lengthSize = 1, desc = "附件信息列表")
+    @Field(lengthSize = 1, desc = "附件信息列表")
     private List<Item> items;
 
     public String getDeviceId() {
@@ -69,9 +68,9 @@ public class T1210 extends JTMessage {
     }
 
     public static class Item {
-        @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
+        @Field(lengthSize = 1, desc = "文件名称")
         private String name;
-        @Field(index = 1, type = DataType.DWORD, desc = "文件大小")
+        @Field(length = 4, desc = "文件大小")
         private long size;
 
         public String getName() {

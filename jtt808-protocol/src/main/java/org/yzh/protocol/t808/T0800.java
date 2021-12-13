@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -13,15 +12,15 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.多媒体事件信息上传)
 public class T0800 extends JTMessage {
 
-    @Field(index = 0, type = DataType.DWORD, desc = "多媒体数据ID")
+    @Field(length = 4, desc = "多媒体数据ID")
     private int id;
-    @Field(index = 4, type = DataType.BYTE, desc = "多媒体类型：0.图像 1.音频 2.视频 ")
+    @Field(length = 1, desc = "多媒体类型：0.图像 1.音频 2.视频 ")
     private int type;
-    @Field(index = 5, type = DataType.BYTE, desc = "多媒体格式编码：0.JPEG 1.TIF 2.MP3 3.WAV 4.WMV ")
+    @Field(length = 1, desc = "多媒体格式编码：0.JPEG 1.TIF 2.MP3 3.WAV 4.WMV ")
     private int format;
-    @Field(index = 6, type = DataType.BYTE, desc = "事件项编码")
+    @Field(length = 1, desc = "事件项编码")
     private int event;
-    @Field(index = 7, type = DataType.BYTE, desc = "通道ID")
+    @Field(length = 1, desc = "通道ID")
     private int channelId;
 
     public int getId() {

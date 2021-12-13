@@ -1,6 +1,5 @@
 package org.yzh.protocol.jsatl12;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -16,15 +15,15 @@ import java.nio.ByteBuffer;
 @Message
 public class DataPacket extends JTMessage {
 
-    @Field(index = 0, type = DataType.DWORD, desc = "帧头标识")
+    @Field(length = 4, desc = "帧头标识")
     private int flag;
-    @Field(index = 4, type = DataType.STRING, length = 50, desc = "文件名称")
+    @Field(length = 50, desc = "文件名称")
     private String name;
-    @Field(index = 54, type = DataType.DWORD, desc = "数据偏移量")
+    @Field(length = 4, desc = "数据偏移量")
     private int offset;
-    @Field(index = 58, type = DataType.DWORD, desc = "数据长度")
+    @Field(length = 4, desc = "数据长度")
     private int length;
-    @Field(index = 62, type = DataType.BYTES, desc = "数据体")
+    @Field(desc = "数据体")
     private ByteBuffer data;
 
     @Override

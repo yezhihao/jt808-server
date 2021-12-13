@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -14,11 +13,11 @@ import org.yzh.protocol.commons.JT808;
 public class T8608 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Shape */
-    @Field(index = 0, type = DataType.BYTE, desc = "查询类型：1.圆形 2.矩形 3.多边形 4.路线")
+    @Field(length = 1, desc = "查询类型：1.圆形 2.矩形 3.多边形 4.路线")
     private int type;
-    @Field(index = 1, type = DataType.DWORD, desc = "区域总数")
+    @Field(length = 4, desc = "区域总数")
     private int total;
-    @Field(index = 5, type = DataType.DWORD, desc = "区域列表")
+    @Field(desc = "区域列表")
     private int[] id;
 
     public T8608() {

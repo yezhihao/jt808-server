@@ -1,6 +1,5 @@
 package org.yzh.protocol.jsatl12;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -13,15 +12,15 @@ import org.yzh.protocol.commons.JSATL12;
 @Message(JSATL12.文件上传完成消息应答)
 public class T9212 extends JTMessage {
 
-    @Field(index = 0, type = DataType.STRING, lengthSize = 1, desc = "文件名称")
+    @Field(lengthSize = 1, desc = "文件名称")
     private String name;
-    @Field(index = 1, type = DataType.BYTE, desc = "文件类型：0.图片 1.音频 2.视频 3.文本 4.面部特征图片(粤标) 5.其它")
+    @Field(length = 1, desc = "文件类型：0.图片 1.音频 2.视频 3.文本 4.面部特征图片(粤标) 5.其它")
     private int type;
-    @Field(index = 2, type = DataType.BYTE, desc = "上传结果：0.完成 1.需要补传")
+    @Field(length = 1, desc = "上传结果：0.完成 1.需要补传")
     private int result;
-    @Field(index = 3, type = DataType.BYTE, desc = "补传数据包数量")
+    @Field(length = 1, desc = "补传数据包数量")
     private int total;
-    @Field(index = 4, type = DataType.DWORD, desc = "补传数据包列表[offset,length,offset,length...]")
+    @Field(desc = "补传数据包列表[offset,length,offset,length...]")
     private int[] items;
 
     public String getName() {

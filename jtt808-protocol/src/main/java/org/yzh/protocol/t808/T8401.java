@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -17,9 +16,9 @@ import java.util.List;
 public class T8401 extends JTMessage {
 
     /** @see org.yzh.protocol.commons.Action */
-    @Field(index = 0, type = DataType.BYTE, desc = "类型")
+    @Field(length = 1, desc = "类型")
     private int type;
-    @Field(index = 1, type = DataType.LIST, lengthSize = 1, desc = "联系人项")
+    @Field(lengthSize = 1, desc = "联系人项")
     private List<Contact> contacts;
 
     public int getType() {
@@ -45,11 +44,11 @@ public class T8401 extends JTMessage {
     }
 
     public static class Contact {
-        @Field(index = 0, type = DataType.BYTE, desc = "标志")
+        @Field(length = 1, desc = "标志")
         private int sign;
-        @Field(index = 1, type = DataType.STRING, lengthSize = 1, desc = "电话号码")
+        @Field(lengthSize = 1, desc = "电话号码")
         private String phone;
-        @Field(index = 2, type = DataType.STRING, lengthSize = 1, desc = "联系人")
+        @Field(lengthSize = 1, desc = "联系人")
         private String name;
 
         public Contact() {

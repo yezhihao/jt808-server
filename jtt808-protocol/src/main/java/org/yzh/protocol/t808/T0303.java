@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -14,9 +13,9 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.信息点播_取消)
 public class T0303 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "消息类型")
+    @Field(length = 1, desc = "消息类型")
     private int type;
-    @Field(index = 1, type = DataType.BYTE, desc = "点播/取消标志：0.取消 1.点播")
+    @Field(length = 1, desc = "点播/取消标志：0.取消 1.点播")
     private int action;
 
     public int getType() {

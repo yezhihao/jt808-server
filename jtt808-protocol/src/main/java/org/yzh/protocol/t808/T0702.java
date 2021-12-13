@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -13,21 +12,21 @@ import org.yzh.protocol.commons.JT808;
 @Message(JT808.驾驶员身份信息采集上报)
 public class T0702 extends JTMessage {
 
-    @Field(index = 0, type = DataType.BYTE, desc = "状态")
+    @Field(length = 1, desc = "状态")
     private int status;
-    @Field(index = 1, type = DataType.BCD8421, length = 6, desc = "时间")
+    @Field(length = 6, charset = "BCD", desc = "时间")
     private String dateTime;
-    @Field(index = 7, type = DataType.BYTE, desc = "IC卡读取结果")
+    @Field(length = 1, desc = "IC卡读取结果")
     private int cardStatus;
-    @Field(index = 8, type = DataType.STRING, lengthSize = 1, desc = "驾驶员姓名")
+    @Field(lengthSize = 1, desc = "驾驶员姓名")
     private String name;
-    @Field(index = 9, type = DataType.STRING, length = 20, desc = "从业资格证编码")
+    @Field(length = 20, desc = "从业资格证编码")
     private String licenseNo;
-    @Field(index = 29, type = DataType.STRING, lengthSize = 1, desc = "从业资格证发证机构名称")
+    @Field(lengthSize = 1, desc = "从业资格证发证机构名称")
     private String institution;
-    @Field(index = 30, type = DataType.BCD8421, length = 4, desc = "证件有效期")
+    @Field(length = 4, charset = "BCD", desc = "证件有效期")
     private String licenseValidPeriod;
-    @Field(index = 34, type = DataType.STRING, length = 4, desc = "驾驶员身份证号", version = 1)
+    @Field(length = 4, desc = "驾驶员身份证号", version = 1)
     private String idCard;
 
     public int getStatus() {

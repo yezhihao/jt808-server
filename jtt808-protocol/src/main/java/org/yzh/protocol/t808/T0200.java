@@ -1,6 +1,5 @@
 package org.yzh.protocol.t808;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
@@ -18,24 +17,24 @@ import java.util.Map;
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
-    @Field(index = 0, type = DataType.DWORD, desc = "报警标志")
+    @Field(length = 4, desc = "报警标志")
     private int warnBit;
-    @Field(index = 4, type = DataType.DWORD, desc = "状态")
+    @Field(length = 4, desc = "状态")
     private int statusBit;
-    @Field(index = 8, type = DataType.DWORD, desc = "纬度")
+    @Field(length = 4, desc = "纬度")
     private int latitude;
-    @Field(index = 12, type = DataType.DWORD, desc = "经度")
+    @Field(length = 4, desc = "经度")
     private int longitude;
-    @Field(index = 16, type = DataType.WORD, desc = "高程(米)")
+    @Field(length = 2, desc = "高程(米)")
     private int altitude;
-    @Field(index = 18, type = DataType.WORD, desc = "速度(1/10公里每小时)")
+    @Field(length = 2, desc = "速度(1/10公里每小时)")
     private int speed;
-    @Field(index = 20, type = DataType.WORD, desc = "方向")
+    @Field(length = 2, desc = "方向")
     private int direction;
-    @Field(index = 22, type = DataType.BCD8421, length = 6, desc = "时间(YYMMDDHHMMSS)")
+    @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
-    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息", converter = AttributeConverter.class, version = {-1, 0})
-    @Field(index = 28, type = DataType.MAP, desc = "位置附加信息(粤标)", converter = AttributeConverterYue.class, version = 1)
+    @Field(desc = "位置附加信息", converter = AttributeConverter.class, version = {-1, 0})
+    @Field(desc = "位置附加信息(粤标)", converter = AttributeConverterYue.class, version = 1)
     private Map<Integer, Object> attributes;
 
     public int getWarnBit() {
