@@ -1,6 +1,5 @@
 package org.yzh.protocol.commons.transform;
 
-import io.github.yezhihao.protostar.DataType;
 import io.github.yezhihao.protostar.PrepareLoadStrategy;
 import io.github.yezhihao.protostar.ProtostarUtil;
 import io.github.yezhihao.protostar.schema.MapSchema;
@@ -21,22 +20,22 @@ public class AttributeConverterYue extends MapSchema<Integer, Object> {
     @Override
     protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
         schemaRegistry
-                .addSchema(AttributeId.Mileage, DataType.DWORD)
-                .addSchema(AttributeId.Gas, DataType.WORD)
-                .addSchema(AttributeId.Speed, DataType.WORD)
-                .addSchema(AttributeId.AlarmEventId, DataType.WORD)
+                .addSchema(AttributeId.Mileage, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeId.Gas, NumberSchema.WORD_INT)
+                .addSchema(AttributeId.Speed, NumberSchema.WORD_INT)
+                .addSchema(AttributeId.AlarmEventId, NumberSchema.WORD_INT)
                 .addSchema(AttributeId.TirePressure, TirePressure.Schema.INSTANCE)
-                .addSchema(AttributeId.CarriageTemperature, DataType.WORD)
+                .addSchema(AttributeId.CarriageTemperature, NumberSchema.WORD_INT)
 
                 .addSchema(AttributeId.OverSpeedAlarm, OverSpeedAlarm.Schema.INSTANCE)
                 .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.Schema.INSTANCE)
                 .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.Schema.INSTANCE)
 
-                .addSchema(AttributeId.Signal, DataType.DWORD)
-                .addSchema(AttributeId.IoState, DataType.WORD)
-                .addSchema(AttributeId.AnalogQuantity, DataType.DWORD)
-                .addSchema(AttributeId.SignalStrength, DataType.BYTE)
-                .addSchema(AttributeId.GnssCount, DataType.BYTE)
+                .addSchema(AttributeId.Signal, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeId.IoState, NumberSchema.WORD_INT)
+                .addSchema(AttributeId.AnalogQuantity, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeId.SignalStrength, NumberSchema.BYTE_INT)
+                .addSchema(AttributeId.GnssCount, NumberSchema.BYTE_INT)
 
 
                 .addSchema(AttributeId.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 1))

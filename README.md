@@ -128,19 +128,19 @@ package org.yzh.protocol.t808;
 @Message(JT808.终端注册)
 public class T0100 extends JTMessage {
 
-    @Field(index = 0, type = DataType.WORD, desc = "省域ID")
-    private int provinceId;
-    @Field(index = 2, type = DataType.WORD, desc = "市县域ID")
-    private int cityId;
-    @Field(index = 4, type = DataType.BYTES, length = 11, desc = "制造商ID")
+    @Field(desc = "省域ID")
+    private short provinceId;
+    @Field(desc = "市县域ID")
+    private short cityId;
+    @Field(length = 11, desc = "制造商ID")
     private String makerId;
-    @Field(index = 15, type = DataType.BYTES, length = 30, desc = "终端型号")
+    @Field(length = 30, desc = "终端型号")
     private String deviceModel;
-    @Field(index = 45, type = DataType.BYTES, length = 30, desc = "终端ID")
+    @Field(length = 30, desc = "终端ID")
     private String deviceId;
-    @Field(index = 75, type = DataType.BYTE, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
-    private int plateColor;
-    @Field(index = 76, type = DataType.STRING, desc = "车辆标识")
+    @Field(desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
+    private byte plateColor;
+    @Field(desc = "车辆标识")
     private String plateNo;
 }
 ```
