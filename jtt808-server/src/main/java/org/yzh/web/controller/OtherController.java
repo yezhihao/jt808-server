@@ -2,19 +2,24 @@ package org.yzh.web.controller;
 
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
+import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.util.Explain;
+import io.github.yezhihao.protostar.util.Info;
+import io.github.yezhihao.protostar.util.StrUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
 import org.yzh.commons.mybatis.Page;
 import org.yzh.commons.mybatis.PageInfo;
 import org.yzh.commons.mybatis.Pagination;
 import org.yzh.commons.util.LogUtils;
+import org.yzh.protocol.codec.JTMessageDecoder;
+import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
@@ -34,11 +39,17 @@ import java.util.stream.Stream;
 @RequestMapping
 public class OtherController {
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
 
-    @Autowired
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
+
+    private final JTMessageDecoder decoder;
+
+    public OtherController(LocationService locationService, SessionManager sessionManager, MultiVersionSchemaManager schemaManager) {
+        this.locationService = locationService;
+        this.sessionManager = sessionManager;
+        this.decoder = new MultiPacketDecoder(schemaManager);
+    }
 
     @Hidden
     @Operation(hidden = true)
@@ -91,6 +102,27 @@ public class OtherController {
     public APIResult unsub(@RequestParam String clientId) {
         WebLogAdapter.removeClient(clientId);
         return APIResult.SUCCESS;
+    }
+
+    @Operation(summary = "808协议分析工具")
+    @RequestMapping(value = "message/explain", method = {RequestMethod.POST, RequestMethod.GET})
+    public String decode(@Parameter(description = "16进制报文") @RequestParam String hex) {
+        Explain explain = new Explain();
+        hex = hex.replace(" ", "");
+        String[] lines = hex.split("\n");
+        for (String line : lines) {
+            String[] msgs = line.split("7e7e");
+            for (String msg : msgs) {
+                ByteBuf byteBuf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(msg));
+                decoder.decode(byteBuf, explain);
+            }
+        }
+        List<Info> list = explain.getList();
+        StringBuilder result = new StringBuilder(1024);
+        for (Info info : list) {
+            result.append(info.getIndex() + "\t" + "[" + info.getRaw() + "] " + info.getDesc() + ": " + StrUtils.toString(info.getValue())).append('\n');
+        }
+        return result.toString();
     }
 
     @Operation(summary = "原始消息发送")

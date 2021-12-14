@@ -1,10 +1,11 @@
 package org.yzh.web.model.vo;
 
-import io.github.yezhihao.protostar.util.Bcd;
 import org.yzh.protocol.commons.Charsets;
 
 import java.io.*;
 import java.time.LocalDate;
+
+import static io.github.yezhihao.protostar.util.DateTool.BCD;
 
 /**
  * @author yezhihao
@@ -113,7 +114,7 @@ public class DeviceInfo {
             DeviceInfo result = new DeviceInfo();
             byte[] temp;
             dis.read(temp = new byte[3]);
-            result.setIssuedAt(Bcd.toDate(temp));
+            result.setIssuedAt(BCD.toDate(temp));
             result.setReserved(dis.readByte());
             int len = dis.readUnsignedByte();
             dis.read(temp = new byte[len]);
@@ -129,7 +130,7 @@ public class DeviceInfo {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream(32);
              DataOutputStream dos = new DataOutputStream(bos)) {
 
-            dos.write(Bcd.from(deviceInfo.getIssuedAt()));
+            dos.write(BCD.from(deviceInfo.getIssuedAt()));
             dos.writeByte(deviceInfo.getReserved());
             byte[] bytes = deviceInfo.getDeviceId().getBytes(Charsets.GBK);
             dos.writeByte(bytes.length);

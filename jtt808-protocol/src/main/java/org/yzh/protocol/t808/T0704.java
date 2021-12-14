@@ -18,7 +18,7 @@ public class T0704 extends JTMessage {
     private int total;
     @Field(length = 1, desc = "位置数据类型：0.正常位置批量汇报 1.盲区补报")
     private int type;
-    @Field(index = 3, desc = "位置汇报数据项")
+    @Field(desc = "位置汇报数据项")
     private List<Item> items;
 
     public int getTotal() {

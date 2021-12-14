@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 
 import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -18,7 +19,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
     private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class.getSimpleName());
 
-    private static final ConcurrentHashMap<String, MultiPacket> multiPacketsMap = new ConcurrentHashMap<>();
+    private final Map<String, MultiPacket> multiPacketsMap;
 
     private final MultiPacketListener multiPacketListener;
 
@@ -27,13 +28,19 @@ public class MultiPacketDecoder extends JTMessageDecoder {
     }
 
     public MultiPacketDecoder(MultiVersionSchemaManager schemaManager) {
-        this(schemaManager, new MultiPacketListener(20));
+        this(schemaManager, null);
     }
 
     public MultiPacketDecoder(MultiVersionSchemaManager schemaManager, MultiPacketListener multiPacketListener) {
         super(schemaManager);
-        this.multiPacketListener = multiPacketListener;
-        startListener();
+        if (multiPacketListener == null) {
+            this.multiPacketsMap = new WeakHashMap<>();
+            this.multiPacketListener = null;
+        } else {
+            this.multiPacketsMap = new ConcurrentHashMap<>();
+            this.multiPacketListener = multiPacketListener;
+            startListener();
+        }
     }
 
     @Override

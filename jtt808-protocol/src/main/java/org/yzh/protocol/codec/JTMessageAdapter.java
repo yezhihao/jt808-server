@@ -29,7 +29,7 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
     }
 
     public JTMessageAdapter(MultiVersionSchemaManager schemaManager) {
-        this(new JTMessageEncoder(schemaManager), new MultiPacketDecoder(schemaManager));
+        this(new JTMessageEncoder(schemaManager), new MultiPacketDecoder(schemaManager, new MultiPacketListener(20)));
     }
 
     public JTMessageAdapter(JTMessageEncoder messageEncoder, JTMessageDecoder messageDecoder) {
