@@ -1,6 +1,6 @@
 package org.yzh.protocol;
 
-import org.yzh.protocol.basics.KeyValuePair;
+import io.github.yezhihao.protostar.util.KeyValuePair;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
@@ -682,7 +682,7 @@ public class JT808Beans {
         peripheralSystem.addItem((byte) 2, "测试公司2", "TEST-002", "1.2.0", "1.1.2", "device_id_2", "user_code_2");
         peripheralSystem.addItem((byte) 3, "测试公司3", "TEST-003", "1.3.0", "1.1.3", "device_id_3", "user_code_3");
 
-        message.setId(PeripheralSystem.ID);
+        message.setKey(PeripheralSystem.ID);
         message.setValue(peripheralSystem);
         return bean;
     }

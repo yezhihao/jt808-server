@@ -23,17 +23,12 @@ public class T0100 extends JTMessage {
     @Field(length = 20, desc = "终端型号", version = 0)
     @Field(length = 30, desc = "终端型号", version = 1)
     private String deviceModel;
-    @Field(length = 7, desc = "终端ID", version = -1)
-    @Field(length = 7, desc = "终端ID", version = 0)
+    @Field(length = 7, desc = "终端ID", version = {-1, 0})
     @Field(length = 30, desc = "终端ID", version = 1)
     private String deviceId;
-    @Field(length = 1, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = -1)
-    @Field(length = 1, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 0)
-    @Field(length = 1, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他", version = 1)
+    @Field(length = 1, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
     private int plateColor;
-    @Field(desc = "车辆标识", version = -1)
-    @Field(desc = "车辆标识", version = 0)
-    @Field(desc = "车辆标识", version = 1)
+    @Field(length = -1, desc = "车辆标识")
     private String plateNo;
 
     /** 设备安装车辆所在的省域,省域ID采用GB/T2260中规定的行政区划代码6位中前两位 */

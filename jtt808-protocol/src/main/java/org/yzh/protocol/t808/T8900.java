@@ -2,8 +2,8 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import io.github.yezhihao.protostar.util.KeyValuePair;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.basics.KeyValuePair;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.PassthroughConverter;
 

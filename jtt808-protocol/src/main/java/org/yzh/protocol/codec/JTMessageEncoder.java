@@ -1,6 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.github.yezhihao.protostar.util.Explain;
@@ -21,16 +21,16 @@ public class JTMessageEncoder {
 
     private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
-    private final MultiVersionSchemaManager schemaManager;
+    private final SchemaManager schemaManager;
 
     private final Map<Integer, RuntimeSchema> headerSchemaMap;
 
     public JTMessageEncoder(String... basePackages) {
-        this.schemaManager = new MultiVersionSchemaManager(basePackages);
+        this.schemaManager = new SchemaManager(basePackages);
         this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }
 
-    public JTMessageEncoder(MultiVersionSchemaManager schemaManager) {
+    public JTMessageEncoder(SchemaManager schemaManager) {
         this.schemaManager = schemaManager;
         this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }

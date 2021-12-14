@@ -1,6 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
@@ -24,14 +24,14 @@ public class MultiPacketDecoder extends JTMessageDecoder {
     private final MultiPacketListener multiPacketListener;
 
     public MultiPacketDecoder(String... basePackages) {
-        this(new MultiVersionSchemaManager(basePackages));
+        this(new SchemaManager(basePackages));
     }
 
-    public MultiPacketDecoder(MultiVersionSchemaManager schemaManager) {
+    public MultiPacketDecoder(SchemaManager schemaManager) {
         this(schemaManager, null);
     }
 
-    public MultiPacketDecoder(MultiVersionSchemaManager schemaManager, MultiPacketListener multiPacketListener) {
+    public MultiPacketDecoder(SchemaManager schemaManager, MultiPacketListener multiPacketListener) {
         super(schemaManager);
         if (multiPacketListener == null) {
             this.multiPacketsMap = new WeakHashMap<>();

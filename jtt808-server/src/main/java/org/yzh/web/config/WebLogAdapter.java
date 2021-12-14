@@ -1,7 +1,7 @@
 package org.yzh.web.config;
 
 import io.github.yezhihao.netmc.session.Session;
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,7 +18,7 @@ public class WebLogAdapter extends JTMessageAdapter {
 
     private SimpMessagingTemplate messagingTemplate;
 
-    public WebLogAdapter(MultiVersionSchemaManager schemaManager, SimpMessagingTemplate messagingTemplate) {
+    public WebLogAdapter(SchemaManager schemaManager, SimpMessagingTemplate messagingTemplate) {
         super(schemaManager);
         this.messagingTemplate = messagingTemplate;
     }

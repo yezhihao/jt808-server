@@ -3,7 +3,7 @@ package org.yzh.protocol.codec;
 import io.github.yezhihao.netmc.codec.MessageDecoder;
 import io.github.yezhihao.netmc.codec.MessageEncoder;
 import io.github.yezhihao.netmc.session.Session;
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -25,10 +25,10 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
     private final JTMessageDecoder messageDecoder;
 
     public JTMessageAdapter(String... basePackages) {
-        this(new MultiVersionSchemaManager(basePackages));
+        this(new SchemaManager(basePackages));
     }
 
-    public JTMessageAdapter(MultiVersionSchemaManager schemaManager) {
+    public JTMessageAdapter(SchemaManager schemaManager) {
         this(new JTMessageEncoder(schemaManager), new MultiPacketDecoder(schemaManager, new MultiPacketListener(20)));
     }
 

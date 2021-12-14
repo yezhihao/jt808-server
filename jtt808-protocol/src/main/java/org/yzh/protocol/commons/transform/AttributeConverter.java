@@ -18,7 +18,7 @@ public class AttributeConverter extends MapSchema<Integer, Object> {
     }
 
     @Override
-    protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
+    protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
         schemaRegistry
                 .addSchema(AttributeId.Mileage, NumberSchema.DWORD_LONG)
                 .addSchema(AttributeId.Gas, NumberSchema.WORD_INT)

@@ -4,7 +4,7 @@ import io.github.yezhihao.netmc.core.HandlerMapping;
 import io.github.yezhihao.netmc.core.SpringHandlerMapping;
 import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,12 +50,12 @@ public class JTBeanConfig {
     }
 
     @Bean
-    public MultiVersionSchemaManager schemaManager() {
-        return new MultiVersionSchemaManager("org.yzh.protocol", "org.yzh.web.model.protocol");
+    public SchemaManager schemaManager() {
+        return new SchemaManager("org.yzh.protocol", "org.yzh.web.model.protocol");
     }
 
     @Bean
-    public JTMessageAdapter messageAdapter(MultiVersionSchemaManager schemaManager) {
+    public JTMessageAdapter messageAdapter(SchemaManager schemaManager) {
         JTMessageEncoder encoder = new JTMessageEncoder(schemaManager);
         MultiPacketDecoder decoder = new MultiPacketDecoder(schemaManager, new JTMultiPacketListener(10));
         if (messagingTemplate == null)
@@ -64,7 +64,7 @@ public class JTBeanConfig {
     }
 
     @Bean
-    public JTMessageAdapter alarmFileMessageAdapter(MultiVersionSchemaManager schemaManager) {
+    public JTMessageAdapter alarmFileMessageAdapter(SchemaManager schemaManager) {
         JTMessageEncoder encoder = new JTMessageEncoder(schemaManager);
         DataFrameMessageDecoder decoder = new DataFrameMessageDecoder(schemaManager, new byte[]{0x30, 0x31, 0x63, 0x64});
         if (messagingTemplate == null)

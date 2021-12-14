@@ -2,7 +2,7 @@ package org.yzh.web.controller;
 
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
 import io.github.yezhihao.protostar.util.Info;
 import io.github.yezhihao.protostar.util.StrUtils;
@@ -45,7 +45,7 @@ public class OtherController {
 
     private final JTMessageDecoder decoder;
 
-    public OtherController(LocationService locationService, SessionManager sessionManager, MultiVersionSchemaManager schemaManager) {
+    public OtherController(LocationService locationService, SessionManager sessionManager, SchemaManager schemaManager) {
         this.locationService = locationService;
         this.sessionManager = sessionManager;
         this.decoder = new MultiPacketDecoder(schemaManager);

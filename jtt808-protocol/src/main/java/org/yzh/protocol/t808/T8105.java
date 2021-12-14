@@ -21,7 +21,7 @@ public class T8105 extends JTMessage {
             " 6.关闭数据通信" +
             " 7.关闭所有无线通信")
     private int command;
-    @Field(desc = "命令参数")
+    @Field(length = -1, desc = "命令参数")
     private String parameter;
 
     public T8105() {

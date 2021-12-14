@@ -1,12 +1,9 @@
 package org.yzh.protocol.commons.transform;
 
 import io.github.yezhihao.protostar.PrepareLoadStrategy;
-import io.github.yezhihao.protostar.Schema;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.yzh.protocol.basics.KeyValuePair;
+import io.github.yezhihao.protostar.schema.ArraySchema;
+import io.github.yezhihao.protostar.schema.MapSchema;
+import io.github.yezhihao.protostar.schema.NumberSchema;
 import org.yzh.protocol.commons.transform.passthrough.PeripheralStatus;
 import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
 
@@ -15,47 +12,17 @@ import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class PassthroughConverter extends PrepareLoadStrategy implements Schema<KeyValuePair<Integer, Object>> {
+public class PassthroughConverter extends MapSchema<Integer, Object> {
 
-    private static final Logger log = LoggerFactory.getLogger(PassthroughConverter.class);
+    public PassthroughConverter() {
+        super(NumberSchema.BYTE_INT, 0);
+    }
 
     @Override
-    protected void addSchemas(PrepareLoadStrategy schemaRegistry) {
+    protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
         schemaRegistry
+                .addSchema(0, ArraySchema.BYTES)
                 .addSchema(PeripheralStatus.ID, PeripheralStatus.Schema.INSTANCE)
                 .addSchema(PeripheralSystem.ID, PeripheralSystem.Schema.INSTANCE);
-    }
-
-    @Override
-    public KeyValuePair<Integer, Object> readFrom(ByteBuf input) {
-        if (!input.isReadable())
-            return null;
-        int key = input.readUnsignedByte();
-        Schema schema = getSchema(key);
-        if (schema != null)
-            return KeyValuePair.of(key, schema.readFrom(input));
-        byte[] bytes = new byte[input.readableBytes()];
-        input.readBytes(bytes);
-        log.debug("未识别的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump(bytes));
-        return KeyValuePair.of(key, bytes);
-    }
-
-    @Override
-    public void writeTo(ByteBuf output, KeyValuePair<Integer, Object> keyValuePair) {
-        Integer key = keyValuePair.getId();
-        Object value = keyValuePair.getValue();
-        Schema schema = getSchema(key);
-        if (schema != null) {
-            output.writeByte(key);
-            schema.writeTo(output, value);
-        } else {
-            if (value instanceof byte[]) {
-                output.writeByte(key);
-                output.writeBytes((byte[]) value);
-                log.warn("未注册的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), ByteBufUtil.hexDump((byte[]) value));
-            } else {
-                log.warn("未注册的透传消息:ID[dec:{},hex:{}], VALUE[{}]", key, Integer.toHexString(key), value);
-            }
-        }
     }
 }

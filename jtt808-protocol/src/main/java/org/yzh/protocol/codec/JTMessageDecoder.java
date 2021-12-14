@@ -1,6 +1,6 @@
 package org.yzh.protocol.codec;
 
-import io.github.yezhihao.protostar.MultiVersionSchemaManager;
+import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
@@ -22,16 +22,16 @@ import java.util.Map;
  */
 public class JTMessageDecoder {
 
-    private final MultiVersionSchemaManager schemaManager;
+    private final SchemaManager schemaManager;
 
     private final Map<Integer, RuntimeSchema> headerSchemaMap;
 
     public JTMessageDecoder(String... basePackages) {
-        this.schemaManager = new MultiVersionSchemaManager(basePackages);
+        this.schemaManager = new SchemaManager(basePackages);
         this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }
 
-    public JTMessageDecoder(MultiVersionSchemaManager schemaManager) {
+    public JTMessageDecoder(SchemaManager schemaManager) {
         this.schemaManager = schemaManager;
         this.headerSchemaMap = schemaManager.getRuntimeSchema(JTMessage.class);
     }
