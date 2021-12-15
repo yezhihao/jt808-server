@@ -25,14 +25,11 @@ public class JTMessage implements Message {
     @Field(length = 6, charset = "BCD", desc = "终端手机号", version = {-1, 0})
     @Field(length = 10, charset = "BCD", desc = "终端手机号", version = 1)
     protected String clientId;
-    @Field(length = 2, desc = "流水号", version = {-1, 0})
-    @Field(length = 2, desc = "流水号", version = 1)
+    @Field(length = 2, desc = "流水号")
     protected int serialNo;
-    @Field(length = 2, desc = "消息包总数", version = {-1, 0})
-    @Field(length = 2, desc = "消息包总数", version = 1)
+    @Field(length = 2, desc = "消息包总数")
     protected Integer packageTotal;
-    @Field(length = 2, desc = "包序号", version = {-1, 0})
-    @Field(length = 2, desc = "包序号", version = 1)
+    @Field(length = 2, desc = "包序号")
     protected Integer packageNo;
     /** bcc校验 */
     protected boolean verified = true;

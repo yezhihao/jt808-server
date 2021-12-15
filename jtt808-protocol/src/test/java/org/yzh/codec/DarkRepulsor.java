@@ -4,28 +4,33 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.codec.JTMessageAdapter;
+import org.yzh.protocol.codec.JTMessageDecoder;
+import org.yzh.protocol.codec.JTMessageEncoder;
 
 /**
- * 编码分析
+ * 压力测试
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
 public class DarkRepulsor {
 
-    public static final JTMessageAdapter coder = new JTMessageAdapter("org.yzh.protocol");
+    private static JTMessageDecoder decoder = new JTMessageDecoder("org.yzh.protocol");
+    private static JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
 
+    //560
     public static void main(String[] args) {
-        String hex = "020000d40123456789017fff000004000000080006eeb6ad02633df7013800030063200707192359642f000000400101020a0a02010a1e00640001b2070003640e200707192359000100000061646173200827111111010101652f000000410202020a0000000a1e00c8000516150006c81c20070719235900020000000064736d200827111111020202662900000042031e012c00087a23000a2c2a200707192359000300000074706d732008271111110303030067290000004304041e0190000bde31000d90382007071923590004000000006273642008271111110404049d";
+        String hex = "7e0200407c0100000000017299841738ffff000004000000080006eeb6ad02633df701380003006320070719235901040000000b02020016030200210402002c051e3737370000000000000000000000000000000000000000000000000000001105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e310128637e";
         ByteBuf buf = Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(hex));
-
 
         while (true) {
             long s = System.currentTimeMillis();
-            for (int i = 0; i < 10000; i++) {
-                JTMessage message = coder.decode(buf);
+
+            for (int i = 0; i < 100000; i++) {
+                JTMessage message = decoder.decode(buf);
+                message.setSerialNo(message.getSerialNo() + 1);
+
                 buf.release();
-                buf = coder.encode(message);
+                buf = encoder.encode(message);
             }
             System.out.println(System.currentTimeMillis() - s);
         }

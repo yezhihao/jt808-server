@@ -46,12 +46,12 @@
         <dependency>
             <groupId>io.github.yezhihao</groupId>
             <artifactId>protostar</artifactId>
-            <version>3.0.0.SNAPSHOT</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.yezhihao</groupId>
             <artifactId>netmc</artifactId>
-            <version>2.0.9.RELEASE</version>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 </project>

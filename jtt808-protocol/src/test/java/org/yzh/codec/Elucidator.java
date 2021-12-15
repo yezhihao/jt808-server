@@ -22,8 +22,8 @@ public class Elucidator {
 
         Explain explain = new Explain();
         JTMessage message = coder.decode(buf, explain);
-        explain.println();
-        System.out.println(hex);
         System.out.println(message);
+        System.out.println(hex);
+        explain.println();
     }
 }
