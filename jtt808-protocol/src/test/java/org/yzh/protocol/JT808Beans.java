@@ -261,7 +261,7 @@ public class JT808Beans {
         bean.setAltitude(48243);
         bean.setSpeed(10001);
         bean.setDirection(300);
-        bean.setDateTime(TIME);
+        bean.setDateTime(STR_TIME);
         return bean;
     }
 
@@ -305,11 +305,11 @@ public class JT808Beans {
     public static T0704 T0704() {
         T0704 bean = new T0704();
         bean.setType(1);
-        List<T0704.Item> item = new ArrayList<>(4);
-        item.add(new T0704.Item(T0200()));
-        item.add(new T0704.Item(T0200_()));
-        item.add(new T0704.Item(T0200()));
-        item.add(new T0704.Item(T0200_()));
+        List<T0200> item = new ArrayList<>(4);
+        item.add(T0200());
+        item.add(T0200_());
+        item.add(T0200());
+        item.add(T0200_());
         bean.setItems(item);
         return bean;
     }

@@ -2,119 +2,27 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.annotation.Field;
+import io.github.yezhihao.protostar.annotation.MergeSuperclass;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.transform.AttributeConverter;
-
-import java.time.LocalDateTime;
-import java.util.Map;
 
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@MergeSuperclass
 @Message({JT808.位置信息查询应答, JT808.车辆控制应答})
-public class T0201_0500 extends JTMessage implements Response {
+public class T0201_0500 extends T0200 implements Response {
 
     @Field(length = 2, desc = "应答流水号")
     private int responseSerialNo;
-    @Field(length = 4, desc = "报警标志")
-    private int warnBit;
-    @Field(length = 4, desc = "状态")
-    private int statusBit;
-    @Field(length = 4, desc = "纬度")
-    private int latitude;
-    @Field(length = 4, desc = "经度")
-    private int longitude;
-    @Field(length = 2, desc = "高程(米)")
-    private int altitude;
-    @Field(length = 2, desc = "速度(1/10公里每小时)")
-    private int speed;
-    @Field(length = 2, desc = "方向")
-    private int direction;
-    @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
-    private LocalDateTime dateTime;
-    @Field(desc = "位置附加信息", converter = AttributeConverter.class)
-    private Map<Integer, Object> attributes;
 
+    @Override
     public int getResponseSerialNo() {
         return responseSerialNo;
     }
 
     public void setResponseSerialNo(int responseSerialNo) {
         this.responseSerialNo = responseSerialNo;
-    }
-
-    public int getWarnBit() {
-        return warnBit;
-    }
-
-    public void setWarnBit(int warnBit) {
-        this.warnBit = warnBit;
-    }
-
-    public int getStatusBit() {
-        return statusBit;
-    }
-
-    public void setStatusBit(int statusBit) {
-        this.statusBit = statusBit;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
-    }
-
-    public int getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(int altitude) {
-        this.altitude = altitude;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Map<Integer, Object> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Map<Integer, Object> attributes) {
-        this.attributes = attributes;
     }
 }
