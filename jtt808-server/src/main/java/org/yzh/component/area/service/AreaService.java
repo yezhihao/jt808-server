@@ -87,17 +87,15 @@ public class AreaService {
             }
         }
 
-        synchronized (areaMap) {
-            for (Integer id : dels) {
-                areaMap.remove(id);
-            }
-            for (Area area : adds) {
-                TArea tArea = areaMap.get(area.getId());
-                if (tArea == null) {
-                    areaMap.put(area.getId(), new TArea().set(area));
-                } else {
-                    tArea.set(area);
-                }
+        for (Integer id : dels) {
+            areaMap.remove(id);
+        }
+        for (Area area : adds) {
+            TArea tArea = areaMap.get(area.getId());
+            if (tArea == null) {
+                areaMap.put(area.getId(), new TArea().set(area));
+            } else {
+                tArea.set(area);
             }
         }
 

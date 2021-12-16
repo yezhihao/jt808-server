@@ -162,7 +162,7 @@ public class LocationDO {
     @Override
     public String toString() {
         return new StringBuilder(32)
-                .append("[").append(deviceId).append(",")
-                .append(DateUtils.yyMMddHHmmss.format(deviceTime)).append("]").toString();
+                .append('[').append(deviceId).append(',')
+                .append(DateUtils.yyMMddHHmmss.format(deviceTime)).append(']').toString();
     }
 }

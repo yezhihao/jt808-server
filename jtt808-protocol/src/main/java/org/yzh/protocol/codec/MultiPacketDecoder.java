@@ -50,7 +50,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
         int packageTotal = message.getPackageTotal();
         int packetNo = message.getPackageNo();
 
-        String key = new StringBuilder(21).append(clientId).append("/").append(messageId).append("/").append(packageTotal).toString();
+        String key = new StringBuilder(21).append(clientId).append('/').append(messageId).append('/').append(packageTotal).toString();
 
         MultiPacket multiPacket = multiPacketsMap.get(key);
         if (multiPacket == null)
@@ -60,7 +60,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
 
         byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info("<<<<<<<<<分包信息{}", multiPacket);
+        log.info("<<<<<分包消息{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);
@@ -80,7 +80,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
                     long time = timeout - (now - packet.getLastAccessedTime());
                     if (time <= 0) {
                         if (!multiPacketListener.receiveTimeout(packet)) {
-                            log.warn("<<<<<<<<<分包接收超时{}", packet);
+                            log.warn("<<<<<分包接收超时{}", packet);
                             multiPacketsMap.remove(entry.getKey());
                         }
                     } else {

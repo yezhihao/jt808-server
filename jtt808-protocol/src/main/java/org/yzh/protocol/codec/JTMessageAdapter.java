@@ -71,11 +71,11 @@ public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecod
 
     public void encodeLog(Session session, JTMessage message, ByteBuf output) {
         if (log.isInfoEnabled())
-            log.info(">>>>>session={},payload={}", session, ByteBufUtil.hexDump(output));
+            log.info("{}\n>>>>>-{},hex[{}]", session, message, ByteBufUtil.hexDump(output));
     }
 
     public void decodeLog(Session session, JTMessage message, ByteBuf input) {
         if (log.isInfoEnabled())
-            log.info("<<<<<session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
+            log.info("{}\n<<<<<-{},hex[{}]", session, message, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
     }
 }

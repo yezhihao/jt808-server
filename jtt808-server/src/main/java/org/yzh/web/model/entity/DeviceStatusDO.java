@@ -300,11 +300,9 @@ public class DeviceStatusDO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", deviceId=").append(deviceId);
+        StringBuilder sb = new StringBuilder(128);
+        sb.append("DeviceStatus[");
+        sb.append("deviceId=").append(deviceId);
         sb.append(", online=").append(online);
         sb.append(", agencyId=").append(agencyId);
         sb.append(", plateNo=").append(plateNo);
@@ -321,7 +319,7 @@ public class DeviceStatusDO {
         sb.append(", address=").append(address);
         sb.append(", updatedAt=").append(updatedAt);
         sb.append(", createdAt=").append(createdAt);
-        sb.append("]");
+        sb.append(']');
         return sb.toString();
     }
 }

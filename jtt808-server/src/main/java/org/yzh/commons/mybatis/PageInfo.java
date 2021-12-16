@@ -9,34 +9,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class PageInfo {
 
     @Schema(description = "当前页码", maxProperties = 111)
-    private int page = 1;
+    private int page;
     @Schema(description = "每页显示行数", maxProperties = 112)
-    private int limit = 5;
+    private int limit;
     @Schema(description = "是否显示总页数", maxProperties = 113)
-    private boolean showPages = true;
+    private boolean showPages;
     @Schema(description = "是否有下一页", hidden = true)
     private boolean hasNext;
     @Schema(description = "总行数", hidden = true)
     private int count;
 
     public PageInfo() {
+        this(1);
     }
 
     public PageInfo(int page) {
-        if (page > 0)
-            this.page = page;
+        this(page, 5);
     }
 
     public PageInfo(int page, int limit) {
-        this(page);
-        if (limit > 0)
-            this.limit = limit;
+        this(page, limit, true);
     }
 
     public PageInfo(int page, int limit, boolean showPages) {
-        this(page);
-        if (limit > 0)
-            this.limit = limit;
+        setPage(page);
+        setLimit(limit);
         this.showPages = showPages;
     }
 
@@ -98,14 +95,14 @@ public class PageInfo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
+        StringBuilder sb = new StringBuilder(54);
+        sb.append('{');
         sb.append("page:").append(page);
         sb.append(",pages:").append(pages());
         sb.append(",limit:").append(limit);
         sb.append(",offset:").append(offset());
         sb.append(",count:").append(count);
-        sb.append("}");
+        sb.append('}');
         return sb.toString();
     }
 }

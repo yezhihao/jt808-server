@@ -1,6 +1,7 @@
 package org.yzh.protocol.codec;
 
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.commons.MessageId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,9 +97,8 @@ public class MultiPacket {
     public String toString() {
         int total = packets.length;
         final StringBuilder sb = new StringBuilder(82 + (total * 3));
-        sb.append('[');
-        sb.append("cid=").append(firstPacket.getClientId());
-        sb.append(", msg=").append(Integer.toHexString(firstPacket.getMessageId()));
+        sb.append(MessageId.get(firstPacket.getMessageId()));
+        sb.append(", cid=").append(firstPacket.getClientId());
         sb.append(", total=").append(total);
         sb.append(", count=").append(count);
         sb.append(", retryCount=").append(retryCount);
@@ -111,7 +111,6 @@ public class MultiPacket {
             sb.append(',');
         }
         sb.setCharAt(sb.length() - 1, '}');
-        sb.append(']');
         return sb.toString();
     }
 }

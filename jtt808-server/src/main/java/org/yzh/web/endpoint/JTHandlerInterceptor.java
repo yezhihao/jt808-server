@@ -43,7 +43,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Success);
 
-        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+//        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
         return response;
     }
 
@@ -77,7 +77,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
                 areaFilter.doFilter(request);
         }
         if (!session.isRegistered()) {
-            log.info("{}未注册的设备\n<<<<-{}", session, request);
+            log.info("{}未注册的设备<<<<-{}", session, request);
             return true;
         }
         return true;
@@ -94,6 +94,6 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
                 response.setMessageId(response.reflectMessageId());
             }
         }
-        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+//        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
     }
 }

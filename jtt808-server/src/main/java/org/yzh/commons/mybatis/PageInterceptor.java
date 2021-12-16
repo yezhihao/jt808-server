@@ -94,7 +94,7 @@ public class PageInterceptor implements Interceptor {
         int limit = page.isShowPages() ? page.getLimit() : page.getLimit() + 1;
         return new StringBuilder(sql.length() + 14)
                 .append(sql).append(" limit ")
-                .append(page.offset()).append(",")
+                .append(page.offset()).append(',')
                 .append(limit).toString();
     }
 

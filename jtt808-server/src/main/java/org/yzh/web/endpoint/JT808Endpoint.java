@@ -138,7 +138,7 @@ public class JT808Endpoint {
     public void locationBatchReport(T0704 message) {
         Session session = message.getSession();
         List<T0200> list = new AdapterList<>(message.getItems(), item -> {
-            T0200 location = (T0200) item.getLocation();
+            T0200 location = (T0200) item;
             location.copyBy(message);
             location.setSession(session);
             location.transform();

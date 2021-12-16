@@ -47,7 +47,7 @@ public class ExceptionController {
         sb.append("已存在的号码:");
 
         for (int i = 0; i < len; i++)
-            sb.append(values.get(i)).append(",");
+            sb.append(values.get(i)).append(',');
         return new APIResult(APICodes.InvalidParameter, sb.substring(0, sb.length() - 1));
     }
 

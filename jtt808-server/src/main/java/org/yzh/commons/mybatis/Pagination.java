@@ -21,9 +21,6 @@ public class Pagination<E> extends APIResult<List<E>> implements Serializable {
     @Schema(description = "是否有下一页")
     private boolean hasNext;
 
-    public Pagination() {
-    }
-
     public Pagination(PageInfo pageInfo, List<E> list) {
         if (pageInfo != null) {
             if (pageInfo.isShowPages()) {
@@ -79,13 +76,13 @@ public class Pagination<E> extends APIResult<List<E>> implements Serializable {
     public String toString() {
         int size = data == null ? 0 : data.size();
         StringBuilder sb = new StringBuilder();
-        sb.append("{");
+        sb.append('{');
         sb.append("page:").append(page);
         sb.append(",pages:").append(pages);
         sb.append(",count:").append(count);
         sb.append(",hasNext:").append(hasNext);
         sb.append(",listSize:").append(size);
-        sb.append("}");
+        sb.append('}');
         return sb.toString();
     }
 }

@@ -93,7 +93,7 @@ public class StrUtils {
         for (int i = 1; i < chars.length; i++) {
             char c = chars[i];
             if (Character.isUpperCase(c))
-                result.append("_").append(Character.toLowerCase(c));
+                result.append('_').append(Character.toLowerCase(c));
             else
                 result.append(c);
         }
