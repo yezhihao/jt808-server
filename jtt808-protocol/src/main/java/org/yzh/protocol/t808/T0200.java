@@ -4,7 +4,6 @@ import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
-import org.yzh.protocol.commons.MessageId;
 import org.yzh.protocol.commons.transform.AttributeConverter;
 import org.yzh.protocol.commons.transform.AttributeConverterYue;
 
@@ -111,22 +110,8 @@ public class T0200 extends JTMessage {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(512);
-        if (clientId != null) {
-            sb.append(MessageId.get(messageId));
-            sb.append('[');
-            sb.append("cid=").append(clientId);
-            sb.append(",msg=").append(messageId);
-            sb.append(",ver=").append(protocolVersion);
-            sb.append(",ser=").append(serialNo);
-            sb.append(",prop=").append(properties);
-            if (isSubpackage()) {
-                sb.append(",pt=").append(packageTotal);
-                sb.append(",pn=").append(packageNo);
-            }
-            sb.append("],T0200");
-        }
-        sb.append("{dateTime=").append(dateTime);
+        StringBuilder sb = toStringHead();
+        sb.append("T0200{dateTime=").append(dateTime);
         sb.append(",longitude=").append(longitude);
         sb.append(",latitude=").append(latitude);
         sb.append(",altitude=").append(altitude);

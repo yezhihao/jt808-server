@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.yzh.protocol.t808.T0100;
-import org.yzh.protocol.t808.T0102;
-import org.yzh.web.model.protocol.T0200;
-import org.yzh.protocol.t808.T8100;
-import org.yzh.protocol.commons.DateUtils;
+import org.yzh.commons.model.Result;
 import org.yzh.commons.util.EncryptUtils;
 import org.yzh.commons.util.IOUtils;
 import org.yzh.commons.util.StrUtils;
+import org.yzh.protocol.commons.DateUtils;
+import org.yzh.protocol.t808.T0100;
+import org.yzh.protocol.t808.T0102;
+import org.yzh.protocol.t808.T8100;
 import org.yzh.web.mapper.DeviceMapper;
 import org.yzh.web.mapper.VehicleMapper;
-import org.yzh.commons.model.Result;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.entity.VehicleDO;
 import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.protocol.T0200;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 
@@ -37,6 +37,11 @@ import java.util.Collection;
 public class DeviceServiceImpl implements DeviceService {
 
     private static final Logger log = LoggerFactory.getLogger(DeviceServiceImpl.class.getSimpleName());
+
+    private static final Result<DeviceInfo> AlreadyRegisteredTerminal = Result.of(T8100.AlreadyRegisteredTerminal);
+    private static final Result<DeviceInfo> NotFoundTerminal = Result.of(T8100.NotFoundTerminal);
+    private static final Result<DeviceInfo> AlreadyRegisteredVehicle = Result.of(T8100.AlreadyRegisteredVehicle);
+    private static final Result<DeviceInfo> NotFoundVehicle = Result.of(T8100.NotFoundVehicle);
 
     private static final boolean vehicleCheck = false;//是否校验车牌号
     private static final boolean deviceCheck = false;//是否校验设备ID
@@ -56,30 +61,35 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Result<DeviceInfo> register(T0100 request) {
+        String clientId = request.getClientId();
         String deviceId = request.getDeviceId();
+        String plateNo = request.getPlateNo();
 
-        VehicleDO vehicle = vehicleMapper.getByPlateNo(request.getPlateNo());
+        if (StrUtils.isBlank(clientId) || StrUtils.isBlank(deviceId) || StrUtils.isBlank(plateNo))
+            return NotFoundTerminal;
+
+        VehicleDO vehicle = vehicleMapper.getByPlateNo(plateNo);
         if (vehicle != null) {
             if (!(StrUtils.isBlank(vehicle.getDeviceId()) || deviceId.equals(vehicle.getDeviceId())))
-                return Result.of(T8100.AlreadyRegisteredVehicle);
+                return AlreadyRegisteredVehicle;
         } else {
             if (vehicleCheck)
-                return Result.of(T8100.NotFoundVehicle);
+                return NotFoundVehicle;
             vehicle = new VehicleDO();
         }
 
         DeviceDO device = deviceMapper.get(deviceId);
         if (device != null) {
             if (!(device.getVehicleId() == null || device.getVehicleId().equals(vehicle.getId())))
-                return Result.of(T8100.AlreadyRegisteredTerminal);
+                return AlreadyRegisteredTerminal;
         } else {
             if (deviceCheck)
-                return Result.of(T8100.NotFoundTerminal);
+                return NotFoundTerminal;
             device = new DeviceDO();
         }
 
         vehicle.setDeviceId(deviceId);
-        vehicle.setPlateNo(request.getPlateNo());
+        vehicle.setPlateNo(plateNo);
         vehicle.setPlateColor(request.getPlateColor());
         vehicle.setCityId(request.getCityId());
         vehicle.setProvinceId(request.getProvinceId());
@@ -93,7 +103,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         device.setVehicleId(vehicle.getId());
         device.setAgencyId(vehicle.getAgencyId());
-        device.setMobileNo(request.getClientId());
+        device.setMobileNo(clientId);
         device.setDeviceModel(request.getDeviceModel());
         device.setProtocolVersion(request.getProtocolVersion());
         device.setMakerId(request.getMakerId());
@@ -112,12 +122,12 @@ public class DeviceServiceImpl implements DeviceService {
         deviceInfo.setIssuedAt(LocalDate.now());
         deviceInfo.setDeviceId(deviceId);
         deviceInfo.setVehicleId(vehicle.getId());
-        deviceInfo.setClientId(request.getClientId());
+        deviceInfo.setClientId(clientId);
         deviceInfo.setProtocolVersion(request.getProtocolVersion());
 
         deviceInfo.setReserved((byte) 0);
         deviceInfo.setPlateColor((byte) request.getPlateColor());
-        deviceInfo.setPlateNo(request.getPlateNo());
+        deviceInfo.setPlateNo(plateNo);
         return Result.of(deviceInfo);
     }
 

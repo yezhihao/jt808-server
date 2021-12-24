@@ -24,7 +24,7 @@ public class T8300 extends JTMessage {
     private int sign;
     @Field(length = 1, desc = "类型：1.通知 2.服务", version = 1)
     private int type;
-    @Field(length = -1, desc = "文本信息", version = {0, 1})
+    @Field(desc = "文本信息", version = {0, 1})
     private String content;
 
     public T8300() {

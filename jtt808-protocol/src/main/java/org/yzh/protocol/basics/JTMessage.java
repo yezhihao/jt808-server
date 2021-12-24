@@ -218,23 +218,27 @@ public class JTMessage implements Message {
             this.properties ^= (properties & RESERVED);
     }
 
-    @Override
-    public String toString() {
+    protected StringBuilder toStringHead() {
         final StringBuilder sb = new StringBuilder(768);
         sb.append(MessageId.get(messageId));
         sb.append('[');
         sb.append("cid=").append(clientId);
-        sb.append(",msg=").append(messageId);
-        sb.append(",ver=").append(protocolVersion);
-        sb.append(",ser=").append(serialNo);
-        sb.append(",prop=").append(properties);
+        sb.append(",version=").append(protocolVersion);
+        sb.append(",serialNo=").append(serialNo);
+        sb.append(",props=").append(properties);
+        sb.append(",verified=").append(verified);
         if (isSubpackage()) {
             sb.append(",pt=").append(packageTotal);
             sb.append(",pn=").append(packageNo);
         }
         sb.append(']');
         sb.append(',');
-        String result = ToStringBuilder.toString(sb, this, false, "messageId", "clientId", "protocolVersion", "serialNo", "properties", "packageTotal", "packageNo");
+        return sb;
+    }
+
+    @Override
+    public String toString() {
+        String result = ToStringBuilder.toString(toStringHead(), this, false, "messageId", "clientId", "protocolVersion", "serialNo", "properties", "packageTotal", "packageNo");
         return result;
     }
 }

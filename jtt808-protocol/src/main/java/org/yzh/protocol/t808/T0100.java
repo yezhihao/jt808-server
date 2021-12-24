@@ -28,7 +28,7 @@ public class T0100 extends JTMessage {
     private String deviceId;
     @Field(length = 1, desc = "车牌颜色：0.未上车牌 1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
     private int plateColor;
-    @Field(length = -1, desc = "车辆标识")
+    @Field(desc = "车辆标识")
     private String plateNo;
 
     /** 设备安装车辆所在的省域,省域ID采用GB/T2260中规定的行政区划代码6位中前两位 */
