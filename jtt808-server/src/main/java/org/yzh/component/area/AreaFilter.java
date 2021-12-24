@@ -2,10 +2,10 @@ package org.yzh.component.area;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yzh.protocol.commons.DateUtils;
 import org.yzh.component.area.model.Area;
 import org.yzh.component.area.model.VehicleArea;
 import org.yzh.protocol.basics.JTMessageFilter;
+import org.yzh.protocol.commons.DateUtils;
 import org.yzh.web.model.protocol.T0200;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 public class AreaFilter implements JTMessageFilter<T0200> {
 
-    private static final Logger log = LoggerFactory.getLogger(AreaFilter.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(AreaFilter.class);
 
     private VehicleArea[] areas;
 

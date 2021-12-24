@@ -1,9 +1,11 @@
 package org.yzh.web.model.vo;
 
+import org.yzh.commons.mybatis.PageInfo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class LocationQuery {
+public class LocationQuery extends PageInfo {
 
     private String deviceId;
     private String plateNo;

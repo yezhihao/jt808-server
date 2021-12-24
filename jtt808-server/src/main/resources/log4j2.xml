@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <properties>
-        <property name="LOG_HOME">logs/jt808/</property>
+        <property name="LOG_HOME">logs/</property>
         <property name="LOG_NAME">jt808</property>
     </properties>
 
@@ -10,19 +10,41 @@
             <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
         </Console>
 
-        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+        <RollingRandomAccessFile name="AppLog" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/jt808/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
                 <SizeBasedTriggeringPolicy size="20 MB"/>
             </Policies>
         </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="AreaLog" fileName="${LOG_HOME}/${LOG_NAME}-area.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-area-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p %c{1}[%L]%m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="AccessLog" fileName="${LOG_HOME}/${LOG_NAME}-access.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-access-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
     </Appenders>
 
     <Loggers>
+        <logger name="io.github.yezhihao.netmc" level="info" additivity="false">
+            <AppenderRef ref="AccessLog"/>
+        </logger>
+
+        <logger name="org.yzh.component.area" level="info" additivity="false">
+            <AppenderRef ref="AreaLog"/>
+        </logger>
+
         <Root level="info">
+            <AppenderRef ref="AppLog"/>
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingRandomAccessFile"/>
         </Root>
     </Loggers>
 </Configuration>

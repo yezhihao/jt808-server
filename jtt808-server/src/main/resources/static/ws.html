@@ -244,7 +244,7 @@
 
     var subDeviceMsg = function (deviceId, fn) {
         axios.request({
-            url: domain + '/terminal/sub?clientId=' + deviceId,
+            url: domain + '/terminal/ws?sub=1&clientId=' + deviceId,
             type: 'POST',
             success: function (result, status, xhr) {
                 console.log(result);
@@ -259,7 +259,7 @@
 
     var unsubDeviceMsg = function (deviceId) {
         axios.request({
-            url: domain + '/terminal/unsub?clientId=' + deviceId,
+            url: domain + '/terminal/ws?sub=0&clientId=' + deviceId,
             type: 'POST',
             success: function (result, status, xhr) {
                 console.log(result);

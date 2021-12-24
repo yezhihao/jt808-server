@@ -4,8 +4,6 @@ import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
 import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
-import io.github.yezhihao.protostar.util.Info;
-import io.github.yezhihao.protostar.util.StrUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
@@ -15,7 +13,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
 import org.yzh.commons.mybatis.Page;
-import org.yzh.commons.mybatis.PageInfo;
 import org.yzh.commons.mybatis.Pagination;
 import org.yzh.commons.util.LogUtils;
 import org.yzh.protocol.codec.JTMessageDecoder;
@@ -87,20 +84,17 @@ public class OtherController {
     }
 
     @Operation(summary = "websocket订阅")
-    @PostMapping("terminal/sub")
-    public APIResult<DeviceInfo> sub(@RequestParam String clientId) {
-        Session session = sessionManager.get(clientId);
-        if (session != null) {
-            WebLogAdapter.addClient(session.getClientId());
-            return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
+    @PostMapping("terminal/ws")
+    public APIResult<DeviceInfo> ws(@RequestParam String clientId, @RequestParam int sub) {
+        if (sub > 0) {
+            Session session = sessionManager.get(clientId);
+            if (session != null) {
+                WebLogAdapter.addClient(session.getClientId());
+                return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
+            }
+        } else {
+            WebLogAdapter.removeClient(clientId);
         }
-        return APIResult.SUCCESS;
-    }
-
-    @Operation(summary = "websocket取消订阅")
-    @PostMapping("terminal/unsub")
-    public APIResult unsub(@RequestParam String clientId) {
-        WebLogAdapter.removeClient(clientId);
         return APIResult.SUCCESS;
     }
 
@@ -117,12 +111,7 @@ public class OtherController {
                 decoder.decode(byteBuf, explain);
             }
         }
-        List<Info> list = explain.getList();
-        StringBuilder result = new StringBuilder(1024);
-        for (Info info : list) {
-            result.append(info.getIndex() + "\t" + "[" + info.getRaw() + "] " + info.getDesc() + ": " + StrUtils.toString(info.getValue())).append('\n');
-        }
-        return result.toString();
+        return explain.toString();
     }
 
     @Operation(summary = "原始消息发送")
@@ -140,8 +129,8 @@ public class OtherController {
 
     @Operation(summary = "位置信息查询")
     @GetMapping("location")
-    public Pagination<Location> find(LocationQuery query, PageInfo pageInfo) {
-        Pagination<Location> result = Page.start(() -> locationService.find(query), pageInfo);
+    public Pagination<Location> find(LocationQuery query) {
+        Pagination<Location> result = Page.start(() -> locationService.find(query), query);
         return result;
     }
 

@@ -139,12 +139,6 @@ public class JTMessage implements Message {
         this.payload = payload;
     }
 
-    @Transient
-    @Override
-    public String getMessageName() {
-        return MessageId.get(messageId);
-    }
-
     public int reflectMessageId() {
         io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
         if (messageType != null && messageType.value().length > 0)

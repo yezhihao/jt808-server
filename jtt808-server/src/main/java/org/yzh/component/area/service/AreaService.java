@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class AreaService {
 
-    private static final Logger log = LoggerFactory.getLogger(AreaService.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(AreaService.class);
 
     private final Map<Integer, AreaFilter> vehicleAreaMap = new ConcurrentHashMap<>();
 
