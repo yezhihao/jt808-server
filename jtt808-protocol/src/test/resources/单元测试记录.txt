@@ -13560,7 +13560,7 @@ json2 {
   "verified": true
 }
 
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=1, retryCount=0, waitTime=0, packets={1, , , , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=1, retryCount=0, waitTime=0, packets={1, , , , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13572,7 +13572,7 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=2, retryCount=0, waitTime=0, packets={1,2, , , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=2, retryCount=0, waitTime=0, packets={1,2, , , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13584,7 +13584,7 @@ json2 {
   "packageNo": 2,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=3, retryCount=0, waitTime=0, packets={1,2,3, , , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=3, retryCount=0, waitTime=0, packets={1,2,3, , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13596,7 +13596,7 @@ json2 {
   "packageNo": 3,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=4, retryCount=0, waitTime=0, packets={1,2,3,4, , , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=4, retryCount=0, waitTime=0, packets={1,2,3,4, , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13608,7 +13608,7 @@ json2 {
   "packageNo": 4,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=5, retryCount=0, waitTime=0, packets={1,2,3,4,5, , , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=5, retryCount=0, waitTime=0, packets={1,2,3,4,5, , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13620,7 +13620,7 @@ json2 {
   "packageNo": 5,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=6, retryCount=0, waitTime=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=6, retryCount=0, waitTime=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13632,7 +13632,7 @@ json2 {
   "packageNo": 6,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=7, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=7, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13644,7 +13644,7 @@ json2 {
   "packageNo": 7,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=8, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=8, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13656,7 +13656,7 @@ json2 {
   "packageNo": 8,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=9, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=9, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13668,7 +13668,7 @@ json2 {
   "packageNo": 9,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=10, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=10, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13680,7 +13680,7 @@ json2 {
   "packageNo": 10,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=11, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=11, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13692,7 +13692,7 @@ json2 {
   "packageNo": 11,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=12, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=12, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13704,7 +13704,7 @@ json2 {
   "packageNo": 12,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=13, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=13, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13716,7 +13716,7 @@ json2 {
   "packageNo": 13,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=14, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=14, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13728,7 +13728,7 @@ json2 {
   "packageNo": 14,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=15, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=15, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13740,7 +13740,7 @@ json2 {
   "packageNo": 15,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=16, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=16, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13752,7 +13752,7 @@ json2 {
   "packageNo": 16,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=17, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=17, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13764,7 +13764,7 @@ json2 {
   "packageNo": 17,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=17299841738, msg=1205, total=18, count=18, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=18, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
 {
   "responseSerialNo": 2,
   "items": [
@@ -15758,7 +15758,7 @@ json2 {
   "packageNo": 18,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=1, retryCount=0, waitTime=0, packets={1, }]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[0104]查询终端参数应答, cid=13224005528, total=2, count=1, retryCount=0, waitTime=0, packets={1, }
 {
   "responseSerialNo": 0,
   "total": 0,
@@ -15771,7 +15771,7 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<<<<<分包信息[cid=13224005528, msg=104, total=2, count=2, retryCount=0, waitTime=0, packets={1,2}]
+[main] INFO MultiPacketDecoder   <<<<<分包消息[0104]查询终端参数应答, cid=13224005528, total=2, count=2, retryCount=0, waitTime=0, packets={1,2}
 {
   "responseSerialNo": 420,
   "total": 88,
