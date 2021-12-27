@@ -1,5 +1,6 @@
 package org.yzh.protocol.codec;
 
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.MessageId;
 
@@ -22,17 +23,17 @@ public class MultiPacket {
     private long lastAccessedTime;
 
     private int count = 0;
-    private final byte[][] packets;
+    private final ByteBuf[] packets;
 
     public MultiPacket(JTMessage firstPacket) {
         this.firstPacket = firstPacket;
         this.creationTime = System.currentTimeMillis();
         this.lastAccessedTime = creationTime;
 
-        this.packets = new byte[firstPacket.getPackageTotal()][];
+        this.packets = new ByteBuf[firstPacket.getPackageTotal()];
     }
 
-    public byte[][] addAndGet(int packetNo, byte[] packetData) {
+    public ByteBuf[] addAndGet(int packetNo, ByteBuf packetData) {
         lastAccessedTime = System.currentTimeMillis();
 
         packetNo = packetNo - 1;
@@ -57,6 +58,13 @@ public class MultiPacket {
                 result.add(i + 1);
         }
         return result;
+    }
+
+    public void release() {
+        for (ByteBuf packet : packets) {
+            if (packet != null)
+                packet.release();
+        }
     }
 
     public void addRetryCount(int retryCount) {

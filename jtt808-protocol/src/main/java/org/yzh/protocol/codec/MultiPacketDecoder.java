@@ -1,6 +1,7 @@
 package org.yzh.protocol.codec;
 
 import io.github.yezhihao.protostar.SchemaManager;
+import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
@@ -44,7 +45,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
     }
 
     @Override
-    protected byte[][] addAndGet(JTMessage message, byte[] packetData) {
+    protected ByteBuf[] addAndGet(JTMessage message, ByteBuf packetData) {
         String clientId = message.getClientId();
         int messageId = message.getMessageId();
         int packageTotal = message.getPackageTotal();
@@ -59,7 +60,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
             multiPacket.setSerialNo(message.getSerialNo());
 
 
-        byte[][] packages = multiPacket.addAndGet(packetNo, packetData);
+        ByteBuf[] packages = multiPacket.addAndGet(packetNo, packetData);
         log.info("<<<<<分包消息{}", multiPacket);
         if (packages == null)
             return null;
@@ -82,6 +83,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
                         if (!multiPacketListener.receiveTimeout(packet)) {
                             log.warn("<<<<<分包接收超时{}", packet);
                             multiPacketsMap.remove(entry.getKey());
+                            packet.release();
                         }
                     } else {
                         nextDelay = Math.min(time, nextDelay);

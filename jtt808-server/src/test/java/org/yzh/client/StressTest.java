@@ -3,6 +3,7 @@ package org.yzh.client;
 import io.github.yezhihao.netmc.util.Client;
 import io.github.yezhihao.netmc.util.Stopwatch;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.yzh.QuickStart;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
@@ -11,12 +12,14 @@ import org.yzh.protocol.commons.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
+import org.yzh.protocol.t808.T0801;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
@@ -38,8 +41,8 @@ public abstract class StressTest {
     public static final long Interval = 1;
 
     public static void main(String[] args) throws Exception {
-        Client[] clients = Client.UDP(host, port, size);
-//        Client[] clients = Client.TCP(host, port, size);
+//        Client[] clients = Client.UDP(host, port, size);
+        Client[] clients = Client.TCP(host, port, size);
 
         for (int i = 0; i < size; i++) {
             clients[i].send(T0100(i));
@@ -47,6 +50,8 @@ public abstract class StressTest {
         }
 
         Thread.sleep(500L);
+        ByteBuf imagePacket = packet();
+
         Object[] points = locations();
         LocalDateTime deviceTime = LocalDateTime.now();
 
@@ -59,7 +64,13 @@ public abstract class StressTest {
             deviceTime = deviceTime.plusSeconds(1);
 
             for (int i = 0; i < size; i++) {
-                clients[i].send(T0200(i, strTime, point));
+                T0200 message = T0200(i, strTime, point);
+
+//                T0801 message = T0801(i, strTime, point);
+//                imagePacket.readerIndex(0);
+//                message.setPacket(imagePacket);
+
+                clients[i].send(getBytes(message));
                 s.increment();
             }
             try {
@@ -106,7 +117,7 @@ public abstract class StressTest {
         return bytes;
     }
 
-    public static byte[] T0200(int id, String time, int[] point) {
+    public static T0200 T0200(int id, String time, int[] point) {
         String clientId = "1" + StrUtils.leftPad(String.valueOf(id + 1), 10, '0');
 
         T0200 message = new T0200();
@@ -124,8 +135,34 @@ public abstract class StressTest {
         message.setDirection(99);
         message.setDateTime(time);
 
-        byte[] bytes = getBytes(message);
-        return bytes;
+        return message;
+    }
+
+    public static T0801 T0801(int id, String time, int[] point) {
+        String clientId = "1" + StrUtils.leftPad(String.valueOf(id + 1), 10, '0');
+
+        T0801 bean = new T0801();
+        bean.setMessageId(JT808.多媒体数据上传);
+        bean.setProtocolVersion(ProtocolVersion);
+        bean.setVersion(true);
+        bean.setClientId(clientId);
+
+        bean.setId(-1);
+        bean.setType(0);
+        bean.setFormat(0);
+        bean.setEvent(-1);
+        bean.setChannelId(1);
+        bean.setLocation(T0200(id, time, point));
+        return bean;
+    }
+
+    private static ByteBuf packet() throws IOException {
+        FileInputStream fos = new FileInputStream("D:/test.jpg");
+        FileChannel fc = fos.getChannel();
+        ByteBuf byteBuf = Unpooled.buffer(9000);
+        int size = (int) fc.size();
+        byteBuf.writeBytes(fc, 0, size);
+        return byteBuf;
     }
 
     private static byte[] getBytes(JTMessage message) {

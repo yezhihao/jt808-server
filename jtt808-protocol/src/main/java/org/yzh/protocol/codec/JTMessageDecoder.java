@@ -4,10 +4,7 @@ import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.schema.RuntimeSchema;
 import io.github.yezhihao.protostar.util.ArrayMap;
 import io.github.yezhihao.protostar.util.Explain;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.CompositeByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.buffer.*;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JTUtils;
@@ -21,6 +18,8 @@ import java.util.List;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class JTMessageDecoder {
+
+    private static final ByteBufAllocator ALLOC = PooledByteBufAllocator.DEFAULT;
 
     private final SchemaManager schemaManager;
 
@@ -78,10 +77,10 @@ public class JTMessageDecoder {
 
             if (isSubpackage) {
 
-                byte[] bytes = new byte[bodyLen];
+                ByteBuf bytes = ALLOC.buffer(bodyLen);
                 buf.getBytes(headLen, bytes);
 
-                byte[][] packages = addAndGet(message, bytes);
+                ByteBuf[] packages = addAndGet(message, bytes);
                 if (packages == null)
                     return message;
 
@@ -97,7 +96,7 @@ public class JTMessageDecoder {
         return message;
     }
 
-    protected byte[][] addAndGet(JTMessage message, byte[] bytes) {
+    protected ByteBuf[] addAndGet(JTMessage message, ByteBuf bytes) {
         return null;
     }
 

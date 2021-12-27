@@ -1,5 +1,6 @@
 package org.yzh.web.endpoint;
 
+import io.github.yezhihao.netmc.core.annotation.Async;
 import io.github.yezhihao.netmc.core.annotation.AsyncBatch;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
@@ -191,6 +192,7 @@ public class JT808Endpoint {
     public void mediaEventReport(T0800 message, Session session) {
     }
 
+    @Async
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
     public JTMessage mediaUploadResponse(T0801 message, Session session) {
         if (message.getPacket() == null) {

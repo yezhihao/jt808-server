@@ -1,5 +1,6 @@
 package org.yzh.web.service.impl;
 
+import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -174,19 +175,27 @@ public class FileServiceImpl implements FileService {
         filename.append(message.getId()).append('.');
         filename.append(suffix(message.getFormat()));
 
-        File dir = new File(mediaFileRoot + "\\" + deviceInfo.getDeviceId());
+        String deviceId;
+        if (deviceInfo == null)
+            deviceId = message.getClientId();
+        else
+            deviceId = deviceInfo.getDeviceId();
+
+        File dir = new File(mediaFileRoot + "\\" + deviceId);
         dir.mkdirs();
 
+        ByteBuf packet = message.getPacket();
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(new File(dir, filename.toString()));
-            fos.write(message.getPacket());
+            packet.readBytes(fos.getChannel(), 0, packet.readableBytes());
             return true;
         } catch (IOException e) {
             log.error("多媒体数据保存失败", e);
             return false;
         } finally {
             IOUtils.close(fos);
+            packet.release();
         }
     }
 

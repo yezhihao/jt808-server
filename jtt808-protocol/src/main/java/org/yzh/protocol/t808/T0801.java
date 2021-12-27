@@ -2,6 +2,7 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -25,7 +26,7 @@ public class T0801 extends JTMessage {
     @Field(length = 28, desc = "位置信息")
     private T0200 location;
     @Field(desc = "多媒体数据包")
-    private byte[] packet;
+    private ByteBuf packet;
 
     public int getId() {
         return id;
@@ -75,11 +76,11 @@ public class T0801 extends JTMessage {
         this.location = location;
     }
 
-    public byte[] getPacket() {
+    public ByteBuf getPacket() {
         return packet;
     }
 
-    public void setPacket(byte[] packet) {
+    public void setPacket(ByteBuf packet) {
         this.packet = packet;
     }
 }

@@ -34,6 +34,10 @@ public class BeanTest {
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
+            .registerTypeAdapter(ByteBuf.class, (JsonSerializer<ByteBuf>) (src, type, context) -> new JsonPrimitive(ByteBufUtil.hexDump(src)))
+            .registerTypeAdapter(ByteBuf.class, (JsonDeserializer<ByteBuf>) (json, type, context) -> Unpooled.wrappedBuffer(ByteBufUtil.decodeHexDump(json.getAsJsonPrimitive().getAsString())))
+//            .registerTypeAdapter(byte[].class, (JsonSerializer<byte[]>) (src, type, context) -> new JsonPrimitive(ByteBufUtil.hexDump(src)))
+//            .registerTypeAdapter(byte[].class, (JsonDeserializer<byte[]>) (json, type, context) -> ByteBufUtil.decodeHexDump(json.getAsJsonPrimitive().getAsString()))
             .setPrettyPrinting()
             .create();
 

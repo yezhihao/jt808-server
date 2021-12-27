@@ -54,6 +54,7 @@ public class JTConfig {
     public Server jt808UDPServer(@Value("${jt-server.jt808.port.udp}") int port) {
         return NettyConfig.custom()
                 .setPort(port)
+                .setDelimiters(new Delimiter(new byte[]{0x7e}))
                 .setDecoder(messageAdapter)
                 .setEncoder(messageAdapter)
                 .setHandlerMapping(handlerMapping)

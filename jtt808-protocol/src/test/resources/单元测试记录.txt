@@ -2934,13 +2934,7 @@ json1 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 41,
   "protocolVersion": 0,
@@ -2970,13 +2964,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 41,
   "protocolVersion": 0,
@@ -3006,13 +2994,7 @@ json1 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 16425,
   "protocolVersion": 1,
@@ -3042,13 +3024,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 16425,
   "protocolVersion": 1,
@@ -9284,13 +9260,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 41,
   "protocolVersion": 0,
@@ -9320,13 +9290,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 41,
   "protocolVersion": 0,
@@ -9357,13 +9321,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 16425,
   "protocolVersion": 1,
@@ -9393,13 +9351,7 @@ json2 {
     "serialNo": 0,
     "verified": true
   },
-  "packet": [
-    13,
-    123,
-    13,
-    123,
-    123
-  ],
+  "packet": "0d7b0d7b7b",
   "messageId": 2049,
   "properties": 16425,
   "protocolVersion": 1,

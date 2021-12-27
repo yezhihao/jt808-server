@@ -1,6 +1,7 @@
 package org.yzh.protocol;
 
 import io.github.yezhihao.protostar.util.KeyValuePair;
+import io.netty.buffer.Unpooled;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
@@ -346,7 +347,7 @@ public class JT808Beans {
         bean.setEvent(1);
         bean.setChannelId(2);
         bean.setLocation(T0200());
-        bean.setPacket(new byte[]{13, 123, 13, 123, 123});
+        bean.setPacket(Unpooled.wrappedBuffer(new byte[]{13, 123, 13, 123, 123}));
         return bean;
     }
 
