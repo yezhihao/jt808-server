@@ -52,7 +52,7 @@ public class JT808Controller {
         request.setIp(host);
         request.setTcpPort(port);
         request.setUdpPort(0);
-        request.setAlarmId(new AlarmId("", dateTime, serialNo, fileTotal, 0));
+        request.setAlarmId(new AlarmId(clientId, dateTime, serialNo, fileTotal, 0));
         request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
 
         Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);

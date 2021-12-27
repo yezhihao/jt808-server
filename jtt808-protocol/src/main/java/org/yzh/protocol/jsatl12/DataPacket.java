@@ -2,9 +2,8 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.basics.JTMessage;
-
-import java.nio.ByteBuffer;
 
 /**
  * 文件数据上传
@@ -24,7 +23,7 @@ public class DataPacket extends JTMessage {
     @Field(length = 4, desc = "数据长度")
     private int length;
     @Field(desc = "数据体")
-    private ByteBuffer data;
+    private ByteBuf data;
 
     @Override
     public String getClientId() {
@@ -70,11 +69,11 @@ public class DataPacket extends JTMessage {
         this.length = length;
     }
 
-    public ByteBuffer getData() {
+    public ByteBuf getData() {
         return data;
     }
 
-    public void setData(ByteBuffer data) {
+    public void setData(ByteBuf data) {
         this.data = data;
     }
 
@@ -84,7 +83,7 @@ public class DataPacket extends JTMessage {
         sb.append("DataPacket{name=").append(name);
         sb.append(",offset=").append(offset);
         sb.append(",length=").append(length);
-        sb.append(",data=").append(data.limit());
+        sb.append(",data=").append(data);
         sb.append('}');
         return sb.toString();
     }

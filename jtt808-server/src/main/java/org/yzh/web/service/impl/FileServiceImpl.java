@@ -95,11 +95,12 @@ public class FileServiceImpl implements FileService {
 
         RandomAccessFile file = null;
         FileOutputStream filelog = null;
+        ByteBuf data = fileData.getData();
         try {
             file = new RandomAccessFile(name + ".tmp", "rw");
             filelog = new FileOutputStream(name + ".log", true);
 
-            file.getChannel().write(fileData.getData(), offset);
+            data.readBytes(file.getChannel(), offset, data.readableBytes());
             filelog.write(buffer);
         } catch (IOException e) {
             log.error("写入报警文件", e);
@@ -120,8 +121,6 @@ public class FileServiceImpl implements FileService {
             in = new FileInputStream(logFile);
             bytes = new byte[in.available()];
             in.read(bytes);
-        } catch (FileNotFoundException e) {
-            return null;
         } catch (IOException e) {
             log.error("检查文件完整性", e);
             return null;
