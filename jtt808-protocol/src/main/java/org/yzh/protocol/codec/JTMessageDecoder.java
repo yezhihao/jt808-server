@@ -67,6 +67,7 @@ public class JTMessageDecoder {
         int writerIndex = buf.writerIndex();
         buf.writerIndex(headLen);
         headSchema.mergeFrom(buf, message, explain);
+        buf.writerIndex(writerIndex - 1);
 
         int realVersion = message.getProtocolVersion();
         if (realVersion != version)
@@ -89,7 +90,6 @@ public class JTMessageDecoder {
 
             } else {
                 buf.readerIndex(headLen);
-                buf.writerIndex(writerIndex - 1);
                 bodySchema.mergeFrom(buf, message, explain);
             }
         }
@@ -102,11 +102,8 @@ public class JTMessageDecoder {
 
     /** 校验 */
     public static boolean verify(ByteBuf buf) {
-        byte checkCode = buf.getByte(buf.readableBytes() - 1);
-        buf = buf.slice(0, buf.readableBytes() - 1);
-        byte calculatedCheckCode = JTUtils.bcc(buf);
-
-        return checkCode == calculatedCheckCode;
+        byte checkCode = JTUtils.bcc(buf, -1);
+        return checkCode == buf.getByte(buf.writerIndex() - 1);
     }
 
     /** 反转义 */
@@ -123,9 +120,7 @@ public class JTMessageDecoder {
 
         int mark = source.indexOf(low, high, (byte) 0x7d);
         if (mark == -1) {
-            if (low > 0 || high == last)
-                return source.slice(low, high - low);
-            return source;
+            return source.slice(low, high - low);
         }
 
         List<ByteBuf> bufList = new ArrayList<>(3);

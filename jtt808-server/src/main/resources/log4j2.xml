@@ -36,10 +36,12 @@
     <Loggers>
         <logger name="io.github.yezhihao.netmc" level="info" additivity="false">
             <AppenderRef ref="AccessLog"/>
+            <AppenderRef ref="Console"/>
         </logger>
 
         <logger name="org.yzh.component.area" level="info" additivity="false">
             <AppenderRef ref="AreaLog"/>
+            <AppenderRef ref="Console"/>
         </logger>
 
         <Root level="info">

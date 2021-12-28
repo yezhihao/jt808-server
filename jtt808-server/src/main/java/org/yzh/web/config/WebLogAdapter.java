@@ -4,6 +4,8 @@ import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.SchemaManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageAdapter;
@@ -13,6 +15,8 @@ import org.yzh.protocol.codec.JTMessageEncoder;
 import java.util.HashSet;
 
 public class WebLogAdapter extends JTMessageAdapter {
+
+    protected static final Logger log = LoggerFactory.getLogger(WebLogAdapter.class.getSimpleName());
 
     private static final HashSet<String> clientIds = new HashSet<>();
 

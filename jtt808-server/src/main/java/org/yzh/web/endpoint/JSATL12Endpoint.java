@@ -38,6 +38,9 @@ public class JSATL12Endpoint {
         session.register(message.getDeviceId(), message);
 
         List<T1210.Item> items = message.getItems();
+        if (items == null)
+            return;
+
         AlarmId alarmId = message.getAlarmId();
 
         if (StrUtils.isBlank(alarmId.getDeviceId()))
@@ -47,6 +50,7 @@ public class JSATL12Endpoint {
             alarmId.setDeviceId(message.getClientId());
 
         Map<String, AlarmId> alarmIdMap = cache.get(message.getClientId(), s -> new TreeMap<>());
+
         for (T1210.Item item : items)
             alarmIdMap.put(item.getName(), alarmId);
         fileService.createDir(message);

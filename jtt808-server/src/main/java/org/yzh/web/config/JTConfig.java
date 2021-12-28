@@ -39,7 +39,7 @@ public class JTConfig {
                 .setPort(port)
                 //标识位[2] + 消息头[21] + 消息体[1023 * 2(转义预留)]  + 校验码[1] + 标识位[2]
                 .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
-                .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                .setDelimiters(new Delimiter(new byte[]{0x7e}, false))
                 .setDecoder(messageAdapter)
                 .setEncoder(messageAdapter)
                 .setHandlerMapping(handlerMapping)
@@ -54,7 +54,7 @@ public class JTConfig {
     public Server jt808UDPServer(@Value("${jt-server.jt808.port.udp}") int port) {
         return NettyConfig.custom()
                 .setPort(port)
-                .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                .setDelimiters(new Delimiter(new byte[]{0x7e}, false))
                 .setDecoder(messageAdapter)
                 .setEncoder(messageAdapter)
                 .setHandlerMapping(handlerMapping)
@@ -72,7 +72,7 @@ public class JTConfig {
                 .setPort(port)
                 .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
                 .setLengthField(new LengthField(new byte[]{0x30, 0x31, 0x63, 0x64}, 1024 * 65, 58, 4))
-                .setDelimiters(new Delimiter(new byte[]{0x7e}))
+                .setDelimiters(new Delimiter(new byte[]{0x7e}, false))
                 .setDecoder(alarmFileMessageAdapter)
                 .setEncoder(alarmFileMessageAdapter)
                 .setHandlerMapping(handlerMapping)

@@ -7,11 +7,12 @@ public class JTUtils {
     /**
      * BCC校验(异或校验)
      */
-    public static byte bcc(ByteBuf byteBuf) {
+    public static byte bcc(ByteBuf byteBuf, int tailOffset) {
         byte cs = 0;
-        while (byteBuf.isReadable())
-            cs ^= byteBuf.readByte();
-        byteBuf.resetReaderIndex();
+        int readerIndex = byteBuf.readerIndex();
+        int writerIndex = byteBuf.writerIndex() + tailOffset;
+        while (readerIndex < writerIndex)
+            cs ^= byteBuf.getByte(readerIndex++);
         return cs;
     }
 

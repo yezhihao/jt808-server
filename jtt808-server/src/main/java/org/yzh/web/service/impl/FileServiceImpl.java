@@ -180,7 +180,7 @@ public class FileServiceImpl implements FileService {
         else
             deviceId = deviceInfo.getDeviceId();
 
-        File dir = new File(mediaFileRoot + "\\" + deviceId);
+        File dir = new File(mediaFileRoot + '/' + deviceId);
         dir.mkdirs();
 
         ByteBuf packet = message.getPacket();

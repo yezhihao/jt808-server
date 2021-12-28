@@ -23,6 +23,7 @@ public class MessageManager {
 
     private static final Logger log = LoggerFactory.getLogger(MessageManager.class);
 
+    private static final Mono<Void> NEVER = Mono.never();
     private static final Mono OFFLINE_EXCEPTION = Mono.error(new APIException(4000, "离线的客户端"));
     private static final Mono OFFLINE_RESULT = Mono.just(new APIResult<>(4000, "离线的客户端"));
     private static final Mono SENDFAIL_RESULT = Mono.just(new APIResult<>(4001, "消息发送失败"));
@@ -34,10 +35,19 @@ public class MessageManager {
         this.sessionManager = sessionManager;
     }
 
-    public Mono<Void> notify(String sessionId, JTMessage request) {
+    public Mono<Void> notifyR(String sessionId, JTMessage request) {
         Session session = sessionManager.get(sessionId);
         if (session == null)
             return OFFLINE_EXCEPTION;
+
+        fillHeader(request, session);
+        return session.notify(request);
+    }
+
+    public Mono<Void> notify(String sessionId, JTMessage request) {
+        Session session = sessionManager.get(sessionId);
+        if (session == null)
+            return NEVER;
 
         fillHeader(request, session);
         return session.notify(request);

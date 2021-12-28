@@ -119,7 +119,7 @@ public class JTMessageEncoder {
 
     /** 签名 */
     public static ByteBuf sign(ByteBuf buf) {
-        byte checkCode = JTUtils.bcc(buf);
+        byte checkCode = JTUtils.bcc(buf, 0);
         buf.writeByte(checkCode);
         return buf;
     }
