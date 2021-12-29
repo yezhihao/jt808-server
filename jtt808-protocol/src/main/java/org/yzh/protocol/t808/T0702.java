@@ -26,7 +26,7 @@ public class T0702 extends JTMessage {
     private String institution;
     @Field(length = 4, charset = "BCD", desc = "证件有效期")
     private String licenseValidPeriod;
-    @Field(length = 4, desc = "驾驶员身份证号", version = 1)
+    @Field(length = 20, desc = "驾驶员身份证号", version = 1)
     private String idCard;
 
     public int getStatus() {
