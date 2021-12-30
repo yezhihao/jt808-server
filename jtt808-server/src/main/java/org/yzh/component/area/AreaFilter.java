@@ -6,7 +6,7 @@ import org.yzh.component.area.model.Area;
 import org.yzh.component.area.model.VehicleArea;
 import org.yzh.protocol.basics.JTMessageFilter;
 import org.yzh.protocol.commons.DateUtils;
-import org.yzh.web.model.protocol.T0200;
+import org.yzh.protocol.t808.T0200;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
 package org.yzh.web.service;
 
-import org.yzh.web.model.protocol.T0200;
+import org.yzh.protocol.t808.T0200;
 import org.yzh.web.model.vo.Location;
 import org.yzh.web.model.vo.LocationQuery;
 

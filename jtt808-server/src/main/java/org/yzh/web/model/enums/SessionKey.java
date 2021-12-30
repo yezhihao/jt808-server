@@ -2,7 +2,7 @@ package org.yzh.web.model.enums;
 
 import io.github.yezhihao.netmc.session.Session;
 import org.yzh.protocol.basics.JTMessageFilter;
-import org.yzh.web.model.protocol.T0200;
+import org.yzh.protocol.t808.T0200;
 
 /**
  * @author yezhihao

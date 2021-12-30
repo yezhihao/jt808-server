@@ -10,13 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yzh.commons.model.Result;
+import org.yzh.commons.util.EncryptUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
-import org.yzh.commons.util.EncryptUtils;
-import org.yzh.commons.model.Result;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.protocol.T0200;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.FileService;
@@ -138,8 +137,7 @@ public class JT808Endpoint {
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
     public void locationBatchReport(T0704 message) {
         Session session = message.getSession();
-        List<T0200> list = new AdapterList<>(message.getItems(), item -> {
-            T0200 location = (T0200) item;
+        List<T0200> list = new AdapterList<>(message.getItems(), location -> {
             location.copyBy(message);
             location.setSession(session);
             location.transform();

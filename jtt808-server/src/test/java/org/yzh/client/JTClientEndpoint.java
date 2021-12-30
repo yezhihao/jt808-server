@@ -8,6 +8,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.endpoint.JT808Endpoint;
+import org.yzh.protocol.t808.T0200;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

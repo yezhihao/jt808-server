@@ -8,7 +8,7 @@ import org.yzh.commons.util.StrUtils;
 import org.yzh.component.area.GeometryFactory;
 import org.yzh.component.area.model.domain.Geometry;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.protocol.T0200;
+import org.yzh.protocol.t808.T0200;
 
 import java.util.function.Predicate;
 

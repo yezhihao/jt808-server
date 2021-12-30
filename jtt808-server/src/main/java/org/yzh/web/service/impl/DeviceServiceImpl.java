@@ -21,7 +21,7 @@ import org.yzh.web.mapper.VehicleMapper;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.entity.VehicleDO;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.protocol.T0200;
+import org.yzh.protocol.t808.T0200;
 import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.DeviceService;
 
