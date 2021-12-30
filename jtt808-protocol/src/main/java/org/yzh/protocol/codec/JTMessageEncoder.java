@@ -77,7 +77,7 @@ public class JTMessageEncoder {
             ByteBuf[] slices = slices(output, headLength, 1023);
             int total = slices.length;
 
-            CompositeByteBuf _allBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, total);
+            CompositeByteBuf _allBuf = new CompositeByteBuf(ALLOC, false, total);
             output = _allBuf;
 
             message.setSubpackage(true);
@@ -92,7 +92,7 @@ public class JTMessageEncoder {
 
                 ByteBuf headBuf = ALLOC.buffer(headLength, headLength);
                 headSchema.writeTo(headBuf, message, explain);
-                ByteBuf msgBuf = new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, 2)
+                ByteBuf msgBuf = new CompositeByteBuf(ALLOC, false, 2)
                         .addComponent(true, 0, headBuf)
                         .addComponent(true, 1, slice);
                 msgBuf = sign(msgBuf);
@@ -152,7 +152,7 @@ public class JTMessageEncoder {
         bufList.addFirst(delimiter);
         bufList.addLast(delimiter);
 
-        CompositeByteBuf byteBufs = Unpooled.compositeBuffer(bufList.size());
+        CompositeByteBuf byteBufs = new CompositeByteBuf(ALLOC, false, bufList.size());
         byteBufs.addComponents(true, bufList);
         return byteBufs;
     }

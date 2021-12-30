@@ -137,7 +137,7 @@ public class JTMessageDecoder {
 
         bufList.add(source.slice(low, high - low));
 
-        return new CompositeByteBuf(UnpooledByteBufAllocator.DEFAULT, false, bufList.size(), bufList);
+        return new CompositeByteBuf(ALLOC, false, bufList.size(), bufList);
     }
 
     /** 截取转义前报文，并还原转义位 */
