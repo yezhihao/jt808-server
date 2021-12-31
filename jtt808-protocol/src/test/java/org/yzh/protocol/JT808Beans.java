@@ -2,6 +2,7 @@ package org.yzh.protocol;
 
 import io.github.yezhihao.protostar.util.KeyValuePair;
 import io.netty.buffer.Unpooled;
+import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeId;
@@ -9,7 +10,8 @@ import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.commons.transform.parameter.ParamADAS;
 import org.yzh.protocol.commons.transform.parameter.ParamVideo;
 import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
-import org.yzh.protocol.jsatl12.AlarmId;
+import org.yzh.protocol.jsatl12.*;
+import org.yzh.protocol.t1078.*;
 import org.yzh.protocol.t808.*;
 
 import java.time.LocalDateTime;
@@ -25,11 +27,36 @@ import java.util.TreeMap;
  */
 public class JT808Beans {
 
-    private static final String DEVICE_ID = "09876543210987654321";
-    private static final String STR_TIME = "200707192359";
-    private static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
-    private static final LocalDateTime START_TIME = LocalDateTime.of(2020, 07, 26, 00, 00, 00);
-    private static final LocalDateTime END_TIME = LocalDateTime.of(2020, 07, 26, 23, 23, 59);
+    public static final String ALARM_NO = "ad72131579e54be0b0f737cfc72c5db8";
+    public static final String DEVICE_ID = "09876543210987654321";
+    public static final String STR_TIME = "200707192359";
+    public static final LocalDateTime TIME = LocalDateTime.of(2020, 7, 7, 19, 23, 59);
+    public static final LocalDateTime START_TIME = LocalDateTime.of(2020, 7, 26, 0, 0, 0);
+    public static final LocalDateTime END_TIME = LocalDateTime.of(2020, 7, 26, 23, 23, 59);
+
+    /** 2013版消息头 */
+    public static <T extends JTMessage> T H2013(T message) {
+        int messageId = message.reflectMessageId();
+        if (messageId != 0) message.setMessageId(messageId);
+        message.setClientId("123456789012");
+        message.setSerialNo(Short.MAX_VALUE);
+        message.setEncryption(0);
+        message.setReserved(false);
+        return message;
+    }
+
+    /** 2019版消息头 */
+    public static <T extends JTMessage> T H2019(T message) {
+        int messageId = message.reflectMessageId();
+        if (messageId != 0) message.setMessageId(messageId);
+        message.setProtocolVersion(1);
+        message.setClientId("12345678901234567890");
+        message.setSerialNo(65535);
+        message.setEncryption(0);
+        message.setVersion(true);
+        message.setReserved(false);
+        return message;
+    }
 
     //平台RSA公钥|终端RSA公钥
     public static T0A00_8A00 T0A00_8A00() {
@@ -160,7 +187,7 @@ public class JT808Beans {
     //位置信息汇报
     public static T0200 T0200Attributes() {
         T0200 bean = T0200();
-        Map<Integer, Object> attributes = new TreeMap();
+        Map<Integer, Object> attributes = new TreeMap<>();
         attributes.put(AttributeId.Mileage, 11L);
         attributes.put(AttributeId.Gas, 22);
         attributes.put(AttributeId.Speed, 33);
@@ -241,7 +268,7 @@ public class JT808Beans {
 
 
         T0200 bean = T0200();
-        Map<Integer, Object> attributes = new TreeMap();
+        Map<Integer, Object> attributes = new TreeMap<>();
         attributes.put(AlarmADAS.id, alarmADAS);
         attributes.put(AlarmDSM.id, alarmDSM);
         attributes.put(AlarmTPMS.id, alarmTPMS);
@@ -414,8 +441,7 @@ public class JT808Beans {
 
     //查询指定终端参数
     public static T8106 T8106() {
-        T8106 bean = new T8106(1, 3, 5, 7, 9, 127);
-        return bean;
+        return new T8106(1, 3, 5, 7, 9, 127);
     }
 
     //下发终端升级包
@@ -459,15 +485,15 @@ public class JT808Beans {
         T8303 bean = new T8303();
         bean.setType(Action.Append);
         int i = 0;
-        bean.addInfo(i++, "军事");
-        bean.addInfo(i++, "国内");
-        bean.addInfo(i++, "国际");
-        bean.addInfo(i++, "股票");
-        bean.addInfo(i++, "基金");
-        bean.addInfo(i++, "外汇");
-        bean.addInfo(i++, "体育");
-        bean.addInfo(i++, "娱乐");
-        bean.addInfo(i++, "汽车");
+        bean.addInfo(++i, "军事");
+        bean.addInfo(++i, "国内");
+        bean.addInfo(++i, "国际");
+        bean.addInfo(++i, "股票");
+        bean.addInfo(++i, "基金");
+        bean.addInfo(++i, "外汇");
+        bean.addInfo(++i, "体育");
+        bean.addInfo(++i, "娱乐");
+        bean.addInfo(++i, "汽车");
         return bean;
     }
 
@@ -528,8 +554,7 @@ public class JT808Beans {
 
     //删除圆形区域|删除矩形区域|删除多边形区域|删除路线
     public static T8601 T8601() {
-        T8601 bean = new T8601(1, 2, 3, 65535);
-        return bean;
+        return new T8601(1, 2, 3, 65535);
     }
 
     //设置矩形区域
@@ -700,12 +725,217 @@ public class JT808Beans {
 
     //文本信息下发
     public static T8300 T8300_2013() {
-        T8300 bean = new T8300("测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
-        return bean;
+        return new T8300("测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
     }
 
     public static T8300 T8300_2019() {
-        T8300 bean = new T8300(1, "测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
+        return new T8300(1, "测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
+    }
+
+    //===================================== 1078
+
+    //终端上传音视频属性
+    public static T1003 T1003() {
+        T1003 bean = new T1003();
+        bean.setAudioFormat(127);
+        bean.setAudioChannels(4);
+        bean.setAudioSamplingRate(2);
+        bean.setAudioBitDepth(0);
+        bean.setAudioFrameLength(37961);
+        bean.setAudioSupport(1);
+        bean.setVideoFormat(32);
+        bean.setMaxAudioChannels(8);
+        bean.setMaxVideoChannels(8);
+        return bean;
+    }
+
+    //终端上传乘客流量
+    public static T1005 T1005() {
+        T1005 bean = new T1005();
+        bean.setStartTime("200707192359");
+        bean.setEndTime("200707192359");
+        bean.setGetOffCount(18450);
+        bean.setGetOnCount(33269);
+        return bean;
+    }
+
+    //终端上传音视频资源列表
+    public static T1205 T1205() {
+        List<T1205.Item> items = new ArrayList<>(2);
+        items.add(new T1205.Item(1, START_TIME, END_TIME, 0, 0, 1, 1, 1, 1024));
+        items.add(new T1205.Item(2, START_TIME, END_TIME, 0, 0, 2, 2, 2, 2048));
+
+        T1205 bean = new T1205();
+        bean.setResponseSerialNo(4321);
+        bean.setItems(items);
+        return bean;
+    }
+
+    //文件上传完成通知
+    public static T1206 T1206() {
+        T1206 bean = new T1206();
+        bean.setResponseSerialNo(7050);
+        bean.setResult(1);
+        return bean;
+    }
+
+    //实时音视频传输请求
+    public static T9101 T9101() {
+        T9101 bean = new T9101();
+        bean.setIp("123.123.123.123");
+        bean.setTcpPort(772);
+        bean.setUdpPort(16582);
+        bean.setChannelNo(12);
+        bean.setMediaType(1);
+        bean.setStreamType(0);
+        return bean;
+    }
+
+    //音视频实时传输控制
+    public static T9102 T9102() {
+        T9102 bean = new T9102();
+        bean.setChannelNo(8);
+        bean.setCommand(1);
+        bean.setCloseType(2);
+        bean.setStreamType(3);
+        return bean;
+    }
+
+    //实时音视频传输状态通知
+    public static T9105 T9105() {
+        T9105 bean = new T9105();
+        bean.setChannelNo(2);
+        bean.setPacketLossRate(3);
+        return bean;
+    }
+
+    //平台下发远程录像回放请求
+    public static T9201 T9201() {
+        T9201 bean = new T9201();
+        bean.setIp("12.12.123.123");
+        bean.setTcpPort(42937);
+        bean.setUdpPort(15468);
+        bean.setChannelNo(26674);
+        bean.setMediaType(2);
+        bean.setStreamType(0);
+        bean.setStorageType(0);
+        bean.setPlaybackMode(0);
+        bean.setPlaybackSpeed(0);
+        bean.setStartTime("200707192359");
+        bean.setEndTime("200707192359");
+        return bean;
+    }
+
+    //平台下发远程录像回放控制
+    public static T9202 T9202() {
+        T9202 bean = new T9202();
+        bean.setChannelNo(14865);
+        bean.setPlaybackMode(1);
+        bean.setPlaybackSpeed(3);
+        bean.setPlaybackTime("200707192359");
+        return bean;
+    }
+
+    //查询资源列表
+    public static T9205 T9205() {
+        T9205 bean = new T9205();
+        bean.setChannelNo(34023);
+        bean.setMediaType(20635);
+        bean.setStartTime("200707192359");
+        bean.setEndTime("200707192359");
+        bean.setWarnBit1(0);
+        bean.setWarnBit2(0);
+        bean.setStorageType(42752);
+        bean.setStreamType(40558);
+        return bean;
+    }
+
+    //文件上传指令
+    public static T9206 T9206() {
+        T9206 bean = new T9206();
+        bean.setIp("192.168.1.1");
+        bean.setPort(11053);
+        bean.setUsername("username");
+        bean.setPassword("password");
+        bean.setPath("/alarm_file");
+        bean.setChannelNo(1);
+        bean.setStartTime("200707192359");
+        bean.setEndTime("200707192359");
+        bean.setWarnBit1(0);
+        bean.setWarnBit2(0);
+        bean.setMediaType(0);
+        bean.setStorageType(1);
+        bean.setStreamType(1);
+        bean.setCondition(1);
+        return bean;
+    }
+
+    //文件上传控制
+    public static T9207 T9207() {
+        T9207 bean = new T9207();
+        bean.setResponseSerialNo(27133);
+        bean.setCommand(2);
+        return bean;
+    }
+
+    //云台旋转
+    public static T9301 T9301() {
+        T9301 bean = new T9301();
+        bean.setChannelNo(1);
+        bean.setParam1(2);
+        bean.setParam2(3);
+        return bean;
+    }
+
+    //云台调整焦距控制
+    public static T9302 T9302() {
+        T9302 bean = new T9302();
+        bean.setChannelNo(1);
+        bean.setParam(255);
+        return bean;
+    }
+
+    //===================================== JSATL
+
+    //报警附件信息消息
+    public static T1210 T1210() {
+        T1210 bean = new T1210();
+        bean.setDeviceId(DEVICE_ID);
+        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 3, 1));
+        bean.setAlarmNo(ALARM_NO);
+        bean.setType(0);
+        bean.setItems(null);
+        return bean;
+    }
+
+    //文件信息上传/文件上传完成消息
+    public static T1211 T1211() {
+        T1211 bean = new T1211();
+        bean.setName("www.jtt808.cn");
+        bean.setType(1);
+        bean.setSize(1024);
+        return bean;
+    }
+
+    //报警附件上传指令
+    public static T9208 T9208() {
+        T9208 bean = new T9208();
+        bean.setIp("47.104.97.169");
+        bean.setTcpPort(8202);
+        bean.setUdpPort(8203);
+        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 1, 1));
+        bean.setAlarmNo(ALARM_NO);
+        bean.setReserved(new byte[16]);
+        return bean;
+    }
+
+    //文件上传完成消息
+    public static T9212 T9212() {
+        T9212 bean = new T9212();
+        bean.setName("www.jtt808.cn");
+        bean.setType(0);
+        bean.setResult(1);
+        bean.setItems(new int[]{0, 1024});
         return bean;
     }
 }

@@ -22,13 +22,6 @@ public class BeanTest {
 
     public static final JTMessageAdapter coder = new JTMessageAdapter("org.yzh.protocol");
 
-    private static boolean show = true;
-
-    private static void println(String hex1) {
-        if (show)
-            System.out.println(hex1);
-    }
-
     public static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, type, context) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME))
@@ -41,31 +34,8 @@ public class BeanTest {
             .setPrettyPrinting()
             .create();
 
-
-    /** 2013版消息头 */
-    public static <T extends JTMessage> T H2013(T message) {
-        int messageId = message.reflectMessageId();
-        if (messageId != 0)
-            message.setMessageId(messageId);
-        message.setClientId("123456789012");
-        message.setSerialNo(Short.MAX_VALUE);
-        message.setEncryption(0);
-        message.setReserved(false);
-        return message;
-    }
-
-    /** 2019版消息头 */
-    public static <T extends JTMessage> T H2019(T message) {
-        int messageId = message.reflectMessageId();
-        if (messageId != 0)
-            message.setMessageId(messageId);
-        message.setProtocolVersion(1);
-        message.setClientId("12345678901234567890");
-        message.setSerialNo(65535);
-        message.setEncryption(0);
-        message.setVersion(true);
-        message.setReserved(false);
-        return message;
+    private static void println(String hex) {
+        System.out.println(hex);
     }
 
     public static void selfCheck(String hex1) {
