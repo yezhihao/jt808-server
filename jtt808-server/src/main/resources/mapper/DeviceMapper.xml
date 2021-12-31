@@ -6,26 +6,26 @@
         select t.*
         from device t
         <where>
-            <if test="deviceId != null">and t.device_id = #{deviceId}</if>
-            <if test="agencyId != null">and t.agency_id = #{agencyId}</if>
-            <if test="vehicleId != null">and t.vehicle_id = #{vehicleId}</if>
-            <if test="mobileNo != null">and t.mobile_no = #{mobileNo}</if>
-            <if test="iccid != null">and t.iccid = #{iccid}</if>
-            <if test="imei != null">and t.imei = #{imei}</if>
-            <if test="makerId != null">and t.maker_id = #{makerId}</if>
-            <if test="deviceModel != null">and t.device_model = #{deviceModel}</if>
-            <if test="protocolVersion != null">and t.protocol_version = #{protocolVersion}</if>
-            <if test="softwareVersion != null">and t.software_version = #{softwareVersion}</if>
-            <if test="firmwareVersion != null">and t.firmware_version = #{firmwareVersion}</if>
-            <if test="hardwareVersion != null">and t.hardware_version = #{hardwareVersion}</if>
-            <if test="deleted != null">and t.deleted = #{deleted}</if>
+            <if test="deviceId != null">and t.device_id = #{deviceId,jdbcType=VARCHAR}</if>
+            <if test="agencyId != null">and t.agency_id = #{agencyId,jdbcType=SMALLINT}</if>
+            <if test="vehicleId != null">and t.vehicle_id = #{vehicleId,jdbcType=INTEGER}</if>
+            <if test="mobileNo != null">and t.mobile_no = #{mobileNo,jdbcType=BIGINT}</if>
+            <if test="iccid != null">and t.iccid = #{iccid,jdbcType=CHAR}</if>
+            <if test="imei != null">and t.imei = #{imei,jdbcType=VARCHAR}</if>
+            <if test="makerId != null">and t.maker_id = #{makerId,jdbcType=VARCHAR}</if>
+            <if test="deviceModel != null">and t.device_model = #{deviceModel,jdbcType=VARCHAR}</if>
+            <if test="protocolVersion != null">and t.protocol_version = #{protocolVersion,jdbcType=TINYINT}</if>
+            <if test="softwareVersion != null">and t.software_version = #{softwareVersion,jdbcType=VARCHAR}</if>
+            <if test="firmwareVersion != null">and t.firmware_version = #{firmwareVersion,jdbcType=VARCHAR}</if>
+            <if test="hardwareVersion != null">and t.hardware_version = #{hardwareVersion,jdbcType=VARCHAR}</if>
+            <if test="deleted != null">and t.deleted = #{deleted,jdbcType=BOOLEAN}</if>
         </where>
     </select>
 
     <select id="getByMobileNo" parameterType="java.lang.String" resultType="org.yzh.web.model.entity.DeviceDO">
         select *
         from device
-        where mobile_no = #{mobileNo,jdbcType=VARCHAR}
+        where mobile_no = #{mobileNo,jdbcType=BIGINT}
     </select>
 
     <select id="get" parameterType="java.lang.String" resultType="org.yzh.web.model.entity.DeviceDO">
@@ -39,8 +39,8 @@
         update device
         <set>
             <if test="agencyId != null">agency_id = #{agencyId,jdbcType=SMALLINT},</if>
-            <if test="vehicleId != null">vehicle_id = #{vehicleId,jdbcType=BOOLEAN},</if>
-            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="vehicleId != null">vehicle_id = #{vehicleId,jdbcType=INTEGER},</if>
+            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=BIGINT},</if>
             <if test="iccid != null">iccid = #{iccid,jdbcType=CHAR},</if>
             <if test="imei != null">imei = #{imei,jdbcType=VARCHAR},</if>
             <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
@@ -80,7 +80,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="agencyId != null">#{agencyId,jdbcType=SMALLINT},</if>
             <if test="vehicleId != null">#{vehicleId,jdbcType=INTEGER},</if>
-            <if test="mobileNo != null">#{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="mobileNo != null">#{mobileNo,jdbcType=BIGINT},</if>
             <if test="iccid != null">#{iccid,jdbcType=CHAR},</if>
             <if test="imei != null">#{imei,jdbcType=VARCHAR},</if>
             <if test="registerTime != null">#{registerTime,jdbcType=TIMESTAMP},</if>

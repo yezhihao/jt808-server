@@ -186,7 +186,7 @@ public class DeviceServiceImpl implements DeviceService {
             builder.append('(');
             builder.append('\'').append(DateUtils.DATE_TIME_FORMATTER.format(request.getDeviceTime())).append('\'').append(',');
             builder.append('\'').append(request.getDeviceId()).append('\'').append(',');
-            builder.append('\'').append(request.getClientId()).append('\'').append(',');
+            builder.append(request.getClientId()).append(',');
             builder.append(request.getWarnBit()).append(',');
             builder.append(request.getStatusBit()).append(',');
             builder.append(request.getLongitude()).append(',');

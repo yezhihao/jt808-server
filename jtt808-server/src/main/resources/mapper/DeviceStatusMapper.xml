@@ -10,7 +10,7 @@
             <if test="agencyId != null">and t.agency_id = #{agencyId,jdbcType=SMALLINT}</if>
             <if test="vehicleId != null">and t.vehicle_id = #{vehicleId,jdbcType=INTEGER}</if>
             <if test="deviceId != null">and t.device_id like concat(#{deviceId,jdbcType=VARCHAR},'%')</if>
-            <if test="mobileNo != null">and t.mobile_no like concat(#{mobileNo,jdbcType=VARCHAR},'%')</if>
+            <if test="mobileNo != null">and t.mobile_no >= #{mobileNo,jdbcType=BIGINT}</if>
             <if test="plateNo != null">and t.plate_no like concat(#{plateNo,jdbcType=CHAR},'%')</if>
             <if test="address != null">and t.address like concat(#{address,jdbcType=VARCHAR},'%')</if>
             <if test="speed != null">and t.speed >= #{speed,jdbcType=SMALLINT}</if>
@@ -24,7 +24,7 @@
             <if test="online != null">online = #{online,jdbcType=BIT},</if>
             <if test="agencyId != null">agency_id = #{agencyId,jdbcType=SMALLINT},</if>
             <if test="plateNo != null">plate_no = #{plateNo,jdbcType=CHAR},</if>
-            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=VARCHAR},</if>
+            <if test="mobileNo != null">mobile_no = #{mobileNo,jdbcType=BIGINT},</if>
             <if test="vehicleId != null">vehicle_id = #{vehicleId,jdbcType=INTEGER},</if>
             updated_at = now()
         </set>
@@ -34,7 +34,7 @@
     <insert id="insert" parameterType="org.yzh.web.model.entity.DeviceStatusDO">
         insert into device_status (device_id, online, agency_id, plate_no, mobile_no, vehicle_id, device_time, updated_at, created_at)
         values (#{deviceId,jdbcType=VARCHAR}, #{online,jdbcType=BIT}, #{agencyId,jdbcType=SMALLINT},
-                #{plateNo,jdbcType=CHAR}, #{mobileNo,jdbcType=VARCHAR}, #{vehicleId,jdbcType=INTEGER}, now(), now(), now())
+                #{plateNo,jdbcType=CHAR}, #{mobileNo,jdbcType=BIGINT}, #{vehicleId,jdbcType=INTEGER}, now(), now(), now())
     </insert>
 
     <insert id="insertOnlineRecord" parameterType="map">

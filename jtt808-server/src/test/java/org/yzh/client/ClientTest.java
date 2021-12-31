@@ -5,10 +5,12 @@ import org.yzh.client.netty.HandlerMapping;
 import org.yzh.client.netty.TCPClient;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.codec.JTMessageAdapter;
+import org.yzh.protocol.commons.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
+import org.yzh.protocol.t808.T0200;
 
-import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class ClientTest {
 
@@ -25,24 +27,15 @@ public class ClientTest {
             .build();
 
     public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
         TCPClient tcpClient = new TCPClient("0", jtConfig).start();
+        tcpClient.writeObject(T0100("1"));
         while (true) {
-            System.out.println("选择发送的消息：1.注册 2.位置信息上报");
-            while (scanner.hasNext()) {
-                int i = scanner.nextInt();
-                switch (i) {
-                    case 0:
-                        tcpClient.stop();
-                        return;
-                    case 1:
-                        tcpClient.writeObject(T0100("1"));
-                        break;
-                    case 2:
-//                        tcpClient.writeObject(BeanTest.H2019(JT808Beans.T0200Attributes()));
-                        break;
-                }
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            tcpClient.writeObject(T0200("1"));
         }
     }
 
@@ -64,6 +57,26 @@ public class ClientTest {
         message.setDeviceId(deviceId);
         message.setPlateColor(1);
         message.setPlateNo(plateNo);
+        return message;
+    }
+
+    public static T0200 T0200(String id) {
+        String clientId = "1" + StrUtils.leftPad(id, 10, '0');
+
+        T0200 message = new T0200();
+        message.setMessageId(JT808.位置信息汇报);
+        message.setProtocolVersion(1);
+        message.setVersion(true);
+        message.setClientId(clientId);
+
+        message.setWarnBit(1024);
+        message.setStatusBit(2048);
+        message.setLongitude(123);
+        message.setLatitude(32);
+        message.setAltitude(312);
+        message.setSpeed(111);
+        message.setDirection(99);
+        message.setDateTime(DateUtils.yyMMddHHmmss.format(LocalDateTime.now()));
         return message;
     }
 }
