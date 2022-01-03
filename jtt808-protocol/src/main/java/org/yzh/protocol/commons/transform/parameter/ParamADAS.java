@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -9,6 +10,8 @@ import io.netty.buffer.ByteBuf;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamADAS {
+
+    public static final Schema<ParamADAS> SCHEMA = new ParamADASSchema();
 
     public static final int id = 0xF364;
 
@@ -510,11 +513,9 @@ public class ParamADAS {
         this.p56 = p56;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamADAS> {
+    private static class ParamADASSchema implements Schema<ParamADAS> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamADASSchema() {
         }
 
         @Override
@@ -568,7 +569,8 @@ public class ParamADAS {
             message.p53 = input.readByte();
             message.p54 = input.readByte();
             message.p55 = input.readByte();
-            message.p56 = input.readByte();
+            if (input.isReadable())
+                message.p56 = input.readByte();
             return message;
         }
 

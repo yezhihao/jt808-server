@@ -1,14 +1,17 @@
 package org.yzh.protocol.commons.transform.attribute;
 
+import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.ByteBuf;
 
 /**
- * 路段行驶时间不足/过长报警附加信息见表 30
+ * 路段行驶时间不足/过长 0x13
  * length 7
  */
 public class RouteDriveTimeAlarm {
 
-    public static final int id = 0x13;
+    public static final Schema<RouteDriveTimeAlarm> SCHEMA = new RouteDriveTimeAlarmSchema();
+
+    public static final int id = 19;
 
     public static int id() {
         return id;
@@ -64,11 +67,9 @@ public class RouteDriveTimeAlarm {
         return sb.toString();
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<RouteDriveTimeAlarm> {
+    private static class RouteDriveTimeAlarmSchema implements Schema<RouteDriveTimeAlarm> {
 
-        public static final Schema INSTANCE = new Schema();
-
-        private Schema() {
+        private RouteDriveTimeAlarmSchema() {
         }
 
         @Override

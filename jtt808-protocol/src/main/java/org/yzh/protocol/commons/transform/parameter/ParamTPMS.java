@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
@@ -12,6 +13,8 @@ import java.nio.charset.StandardCharsets;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamTPMS {
+
+    public static final Schema<ParamTPMS> SCHEMA = new ParamTPMSSchema();
 
     public static final int id = 0xF366;
 
@@ -134,11 +137,9 @@ public class ParamTPMS {
         this.reserved = reserved;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamTPMS> {
+    private static class ParamTPMSSchema implements Schema<ParamTPMS> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamTPMSSchema() {
         }
 
         @Override

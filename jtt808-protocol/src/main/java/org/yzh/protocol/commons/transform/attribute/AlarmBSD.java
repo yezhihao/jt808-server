@@ -6,11 +6,11 @@ import org.yzh.protocol.jsatl12.AlarmId;
 import java.time.LocalDateTime;
 
 /**
- * 盲点监测
+ * 盲点监测 0x67
  */
 public class AlarmBSD implements Alarm {
 
-    public static final int id = 0x67;
+    public static final int id = 103;
 
     public static int id() {
         return id;

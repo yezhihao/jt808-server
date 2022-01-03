@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamChannels {
+
+    public static final Schema<ParamChannels> SCHEMA = new ParamChannelsSchema();
 
     public static final int id = 0x0076;
 
@@ -63,7 +66,7 @@ public class ParamChannels {
         this.channels = channels;
     }
 
-    public static class ChannelInfo {
+    private static class ChannelInfo {
         @Field(desc = "物理通道号(从1开始)")
         private byte channelId;
         @Field(desc = "逻辑通道号(按照JT/T 1076-2016 中的表2)")
@@ -116,11 +119,9 @@ public class ParamChannels {
         }
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamChannels> {
+    private static class ParamChannelsSchema implements Schema<ParamChannels> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamChannelsSchema() {
         }
 
         @Override

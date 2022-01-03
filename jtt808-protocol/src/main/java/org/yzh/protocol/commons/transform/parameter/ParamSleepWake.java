@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -13,6 +14,8 @@ import static io.github.yezhihao.protostar.util.DateTool.BCD;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamSleepWake {
+
+    public static final Schema<ParamSleepWake> SCHEMA = new ParamSleepWakeSchema();
 
     public static final int id = 0x007C;
 
@@ -148,11 +151,9 @@ public class ParamSleepWake {
         this.sleepTime4 = sleepTime4;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamSleepWake> {
+    private static class ParamSleepWakeSchema implements Schema<ParamSleepWake> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamSleepWakeSchema() {
         }
 
         @Override

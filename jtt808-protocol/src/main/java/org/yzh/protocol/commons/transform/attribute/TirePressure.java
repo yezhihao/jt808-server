@@ -1,17 +1,20 @@
 package org.yzh.protocol.commons.transform.attribute;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 
 import java.util.Arrays;
 
 /**
- * 胎压
+ * 胎压 0x05
  * length 30
  */
 public class TirePressure {
 
-    public static final int id = 0x05;
+    public static final Schema<TirePressure> SCHEMA = new TirePressureSchema();
+
+    public static final int id = 5;
 
     public static int id() {
         return id;
@@ -42,20 +45,16 @@ public class TirePressure {
         return sb.toString();
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<TirePressure> {
+    private static class TirePressureSchema implements Schema<TirePressure> {
 
-        public static final Schema INSTANCE = new Schema();
-
-        private final int length = 30;
-
-        private Schema() {
+        private TirePressureSchema() {
         }
 
         @Override
         public TirePressure readFrom(ByteBuf input) {
             int len = input.readableBytes();
-            if (len > length)
-                len = length;
+            if (len > 30)
+                len = 30;
             byte[] value = new byte[len];
             input.readBytes(value);
             return new TirePressure(value);
@@ -63,7 +62,7 @@ public class TirePressure {
 
         @Override
         public void writeTo(ByteBuf output, TirePressure message) {
-            ByteBufUtils.writeFixedLength(output, length, message.value);
+            ByteBufUtils.writeFixedLength(output, 30, message.value);
         }
     }
 }

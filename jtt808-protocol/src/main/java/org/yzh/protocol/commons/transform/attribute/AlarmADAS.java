@@ -6,11 +6,11 @@ import org.yzh.protocol.jsatl12.AlarmId;
 import java.time.LocalDateTime;
 
 /**
- * 高级驾驶辅助系统报警
+ * 高级驾驶辅助系统报警 0x64
  */
 public class AlarmADAS implements Alarm {
 
-    public static final int id = 0x64;
+    public static final int id = 100;
 
     public static int id() {
         return id;

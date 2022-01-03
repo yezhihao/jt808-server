@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -12,6 +13,8 @@ import java.util.TreeMap;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamVideoSingle {
+
+    public static final Schema<ParamVideoSingle> SCHEMA = new ParamVideoSingleSchema();
 
     public static final int id = 0x0077;
 
@@ -37,20 +40,18 @@ public class ParamVideoSingle {
         this.paramVideos = paramVideos;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamVideoSingle> {
+    private static class ParamVideoSingleSchema implements Schema<ParamVideoSingle> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamVideoSingleSchema() {
         }
 
         @Override
         public ParamVideoSingle readFrom(ByteBuf input) {
             byte total = input.readByte();
-            Map<Integer, ParamVideo> paramVideos = new TreeMap();
+            Map<Integer, ParamVideo> paramVideos = new TreeMap<>();
             for (int i = 0; i < total; i++) {
                 byte channelNo = input.readByte();
-                ParamVideo paramVideo = ParamVideo.Schema2.INSTANCE.readFrom(input);
+                ParamVideo paramVideo = ParamVideo.SCHEMA_2.readFrom(input);
                 paramVideos.put((int) channelNo, paramVideo);
             }
             return new ParamVideoSingle(paramVideos);
@@ -62,7 +63,7 @@ public class ParamVideoSingle {
             output.writeByte(message.paramVideos.size());
             for (Map.Entry<Integer, ParamVideo> videoEntry : paramVideos.entrySet()) {
                 output.writeByte(videoEntry.getKey());
-                ParamVideo.Schema2.INSTANCE.writeTo(output, videoEntry.getValue());
+                ParamVideo.SCHEMA_2.writeTo(output, videoEntry.getValue());
             }
         }
     }

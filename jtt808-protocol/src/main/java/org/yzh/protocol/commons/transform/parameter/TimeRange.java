@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.ByteBuf;
 
 import java.time.LocalTime;
@@ -11,6 +12,8 @@ import static io.github.yezhihao.protostar.util.DateTool.BCD;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class TimeRange {
+
+    public static final Schema<TimeRange> SCHEMA = new TimeRangeSchema();
 
     private LocalTime startTime;
     private LocalTime endTime;
@@ -49,11 +52,9 @@ public class TimeRange {
         return sb.toString();
     }
 
-    public static class Schema implements io.github.yezhihao.protostar.Schema<TimeRange> {
+    private static class TimeRangeSchema implements Schema<TimeRange> {
 
-        public static final Schema INSTANCE = new Schema();
-
-        private Schema() {
+        private TimeRangeSchema() {
         }
 
         @Override

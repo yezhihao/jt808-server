@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -9,6 +10,8 @@ import io.netty.buffer.ByteBuf;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamDSM {
+
+    public static final Schema<ParamDSM> SCHEMA = new ParamDSMSchema();
 
     public static final int id = 0xF365;
 
@@ -550,11 +553,9 @@ public class ParamDSM {
         this.p64 = p64;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamDSM> {
+    private static class ParamDSMSchema implements Schema<ParamDSM> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamDSMSchema() {
         }
 
         @Override
@@ -597,22 +598,24 @@ public class ParamDSM {
             message.p46 = input.readByte();
             message.p47 = input.readByte();
             message.p48 = input.readByte();
-            message.p49 = input.readByte();
-            message.p50 = input.readByte();
-            message.p51 = input.readByte();
-            message.p52 = input.readByte();
-            message.p53 = input.readByte();
-            message.p54 = input.readByte();
-            message.p55 = input.readByte();
-            message.p56 = input.readByte();
-            message.p57 = input.readByte();
-            message.p58 = input.readByte();
-            message.p59 = input.readByte();
-            message.p60 = input.readByte();
-            message.p61 = input.readByte();
-            message.p62 = input.readByte();
-            message.p63 = input.readByte();
-            message.p64 = input.readByte();
+            if (input.isReadable()) {
+                message.p49 = input.readByte();
+                message.p50 = input.readByte();
+                message.p51 = input.readByte();
+                message.p52 = input.readByte();
+                message.p53 = input.readByte();
+                message.p54 = input.readByte();
+                message.p55 = input.readByte();
+                message.p56 = input.readByte();
+                message.p57 = input.readByte();
+                message.p58 = input.readByte();
+                message.p59 = input.readByte();
+                message.p60 = input.readByte();
+                message.p61 = input.readByte();
+                message.p62 = input.readByte();
+                message.p63 = input.readByte();
+                message.p64 = input.readByte();
+            }
             return message;
         }
 

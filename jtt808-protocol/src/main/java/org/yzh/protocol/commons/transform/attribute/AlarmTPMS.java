@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 轮胎气压监测系统
+ * 轮胎气压监测系统 0x66
  */
 public class AlarmTPMS implements Alarm {
 
-    public static final int id = 0x66;
+    public static final int id = 102;
 
     public static int id() {
         return id;

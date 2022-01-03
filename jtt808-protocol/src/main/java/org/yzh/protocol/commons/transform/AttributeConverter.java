@@ -24,12 +24,12 @@ public class AttributeConverter extends MapSchema<Integer, Object> {
                 .addSchema(AttributeId.Gas, NumberSchema.WORD_INT)
                 .addSchema(AttributeId.Speed, NumberSchema.WORD_INT)
                 .addSchema(AttributeId.AlarmEventId, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.TirePressure, TirePressure.Schema.INSTANCE)
+                .addSchema(AttributeId.TirePressure, TirePressure.SCHEMA)
                 .addSchema(AttributeId.CarriageTemperature, NumberSchema.WORD_INT)
 
-                .addSchema(AttributeId.OverSpeedAlarm, OverSpeedAlarm.Schema.INSTANCE)
-                .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.Schema.INSTANCE)
-                .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.Schema.INSTANCE)
+                .addSchema(AttributeId.OverSpeedAlarm, OverSpeedAlarm.SCHEMA)
+                .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)
+                .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.SCHEMA)
 
                 .addSchema(AttributeId.Signal, NumberSchema.DWORD_LONG)
                 .addSchema(AttributeId.IoState, NumberSchema.WORD_INT)

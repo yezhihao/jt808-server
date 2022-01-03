@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -9,6 +10,8 @@ import io.netty.buffer.ByteBuf;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamBSD {
+
+    public static final Schema<ParamBSD> SCHEMA = new ParamBSDSchema();
 
     public static final int id = 0xF367;
 
@@ -40,11 +43,9 @@ public class ParamBSD {
         this.p1 = p1;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamBSD> {
+    private static class ParamBSDSchema implements Schema<ParamBSD> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamBSDSchema() {
         }
 
         @Override

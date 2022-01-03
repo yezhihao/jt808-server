@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -9,6 +10,8 @@ import io.netty.buffer.ByteBuf;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamImageIdentifyAlarm {
+
+    public static final Schema<ParamImageIdentifyAlarm> SCHEMA = new ParamImageIdentifyAlarmSchema();
 
     public static final int id = 0x007B;
 
@@ -40,11 +43,9 @@ public class ParamImageIdentifyAlarm {
         this.fatigueThreshold = fatigueThreshold;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamImageIdentifyAlarm> {
+    private static class ParamImageIdentifyAlarmSchema implements Schema<ParamImageIdentifyAlarm> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamImageIdentifyAlarmSchema() {
         }
 
         @Override

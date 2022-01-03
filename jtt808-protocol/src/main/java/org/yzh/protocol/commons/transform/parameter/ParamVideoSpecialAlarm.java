@@ -1,5 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
+import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
 
@@ -9,6 +10,8 @@ import io.netty.buffer.ByteBuf;
  * https://gitee.com/yezhihao/jt808-server
  */
 public class ParamVideoSpecialAlarm {
+
+    public static final Schema<ParamVideoSpecialAlarm> SCHEMA = new ParamVideoSpecialAlarmSchema();
 
     public static final int id = 0x0079;
 
@@ -47,11 +50,9 @@ public class ParamVideoSpecialAlarm {
         this.startTime = startTime;
     }
 
-    public static class S implements io.github.yezhihao.protostar.Schema<ParamVideoSpecialAlarm> {
+    private static class ParamVideoSpecialAlarmSchema implements Schema<ParamVideoSpecialAlarm> {
 
-        public static final S INSTANCE = new S();
-
-        private S() {
+        private ParamVideoSpecialAlarmSchema() {
         }
 
         @Override

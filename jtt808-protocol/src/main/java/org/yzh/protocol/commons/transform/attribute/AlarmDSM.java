@@ -6,11 +6,11 @@ import org.yzh.protocol.jsatl12.AlarmId;
 import java.time.LocalDateTime;
 
 /**
- * 驾驶员状态监测
+ * 驾驶员状态监测 0x65
  */
 public class AlarmDSM implements Alarm {
 
-    public static final int id = 0x65;
+    public static final int id = 101;
 
     public static int id() {
         return id;
