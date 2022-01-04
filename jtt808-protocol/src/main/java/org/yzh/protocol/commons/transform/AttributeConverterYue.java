@@ -31,9 +31,9 @@ public class AttributeConverterYue extends MapSchema<Integer, Object> {
                 .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)
                 .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.SCHEMA)
 
-                .addSchema(AttributeId.Signal, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeId.Signal, NumberSchema.DWORD_INT)
                 .addSchema(AttributeId.IoState, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.AnalogQuantity, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeId.AnalogQuantity, NumberSchema.DWORD_INT)
                 .addSchema(AttributeId.SignalStrength, NumberSchema.BYTE_INT)
                 .addSchema(AttributeId.GnssCount, NumberSchema.BYTE_INT)
 

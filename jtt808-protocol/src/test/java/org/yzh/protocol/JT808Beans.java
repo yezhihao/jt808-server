@@ -199,9 +199,9 @@ public class JT808Beans {
         attributes.put(AttributeId.InOutAreaAlarm, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
         attributes.put(AttributeId.RouteDriveTimeAlarm, new RouteDriveTimeAlarm(88, 88, (byte) 88));
 
-        attributes.put(AttributeId.Signal, 99L);
+        attributes.put(AttributeId.Signal, 99);
         attributes.put(AttributeId.IoState, 10);
-        attributes.put(AttributeId.AnalogQuantity, 20L);
+        attributes.put(AttributeId.AnalogQuantity, 20);
         attributes.put(AttributeId.SignalStrength, 30);
         attributes.put(AttributeId.GnssCount, 40);
         bean.setAttributes(attributes);
