@@ -15,7 +15,6 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
-import org.yzh.commons.mybatis.PageInterceptor;
 import org.yzh.protocol.commons.DateUtils;
 
 import java.time.LocalDate;
@@ -34,11 +33,6 @@ public class BeanConfig {
                 .maximumSize(500L)
                 .expireAfterWrite(30, TimeUnit.MINUTES));
         return manager;
-    }
-
-    @Bean
-    public PageInterceptor pageInterceptor() {
-        return new PageInterceptor();
     }
 
     @Bean

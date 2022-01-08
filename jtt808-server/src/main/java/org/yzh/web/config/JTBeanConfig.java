@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.yzh.component.area.service.AreaService;
 import org.yzh.protocol.codec.DataFrameMessageDecoder;
 import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.protocol.codec.JTMessageEncoder;
@@ -17,7 +16,6 @@ import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.endpoint.JTHandlerInterceptor;
 import org.yzh.web.endpoint.JTMultiPacketListener;
 import org.yzh.web.endpoint.JTSessionListener;
-import org.yzh.web.mapper.DeviceStatusMapper;
 import org.yzh.web.model.enums.SessionKey;
 
 @Configuration
@@ -40,8 +38,8 @@ public class JTBeanConfig {
     }
 
     @Bean
-    public SessionListener sessionListener(DeviceStatusMapper deviceStatusMapper, @Autowired(required = false) AreaService areaService) {
-        return new JTSessionListener(deviceStatusMapper, areaService);
+    public SessionListener sessionListener() {
+        return new JTSessionListener();
     }
 
     @Bean

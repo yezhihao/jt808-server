@@ -5,25 +5,19 @@ import io.github.yezhihao.netmc.core.annotation.AsyncBatch;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
 import io.github.yezhihao.netmc.session.Session;
-import io.github.yezhihao.netmc.util.AdapterList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yzh.commons.model.Result;
-import org.yzh.commons.util.EncryptUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
-import org.yzh.web.service.DeviceService;
 import org.yzh.web.service.FileService;
-import org.yzh.web.service.LocationService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Base64;
 import java.util.List;
 
 import static org.yzh.protocol.commons.JT808.*;
@@ -33,12 +27,6 @@ import static org.yzh.protocol.commons.JT808.*;
 public class JT808Endpoint {
 
     private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
-
-    @Autowired
-    private LocationService locationService;
-
-    @Autowired
-    private DeviceService deviceService;
 
     @Autowired
     private FileService fileService;
@@ -70,41 +58,29 @@ public class JT808Endpoint {
 
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
+        session.register(message);
+        DeviceInfo deviceInfo = new DeviceInfo();
+        deviceInfo.setDeviceId(message.getDeviceId());
+        session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
+
         T8100 result = new T8100();
         result.setResponseSerialNo(message.getSerialNo());
-
-        Result<DeviceInfo> device = deviceService.register(message);
-        if (device.isSuccess()) {
-            session.setAttribute(SessionKey.DeviceInfo, device.get());
-            session.register(message);
-
-            byte[] bytes = DeviceInfo.toBytes(device.get());
-            bytes = EncryptUtils.encrypt(bytes);
-            String token = Base64.getEncoder().encodeToString(bytes);
-
-            result.setToken(token);
-            result.setResultCode(T8100.Success);
-        } else {
-            result.setResultCode(device.state());
-        }
+        result.setToken(message.getDeviceId());
+        result.setResultCode(T8100.Success);
         return result;
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
     public T0001 authentication(T0102 message, Session session) {
+        session.register(message);
+        DeviceInfo deviceInfo = new DeviceInfo();
+        deviceInfo.setDeviceId(message.getToken());
+        session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
+
         T0001 result = new T0001();
         result.setResponseSerialNo(message.getSerialNo());
         result.setResponseMessageId(message.getMessageId());
-
-        DeviceInfo device = deviceService.authentication(message);
-        if (device != null) {
-            session.setAttribute(SessionKey.DeviceInfo, device);
-            session.register(message);
-            result.setResultCode(T0001.Success);
-            return result;
-        }
-        log.warn("终端鉴权失败，{}{}", session, message);
-        result.setResultCode(T0001.Failure);
+        result.setResultCode(T0001.Success);
         return result;
     }
 
@@ -131,19 +107,10 @@ public class JT808Endpoint {
     @AsyncBatch(poolSize = 2, maxElements = 4000, maxWait = 1000)
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
     public void locationReport(List<T0200> list) {
-        locationService.batchInsert(list);
     }
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
     public void locationBatchReport(T0704 message) {
-        Session session = message.getSession();
-        List<T0200> list = new AdapterList<>(message.getItems(), location -> {
-            location.copyBy(message);
-            location.setSession(session);
-            location.transform();
-            return location;
-        });
-        locationService.batchInsert(list);
     }
 
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")

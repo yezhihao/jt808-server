@@ -12,38 +12,28 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
-import org.yzh.commons.mybatis.Page;
-import org.yzh.commons.mybatis.Pagination;
 import org.yzh.commons.util.LogUtils;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.config.WebLogAdapter;
-import org.yzh.web.model.enums.SessionKey;
 import org.yzh.web.model.vo.DeviceInfo;
-import org.yzh.web.model.vo.DeviceQuery;
-import org.yzh.web.model.vo.Location;
-import org.yzh.web.model.vo.LocationQuery;
-import org.yzh.web.service.LocationService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping
 public class OtherController {
 
-    private final LocationService locationService;
-
     private final SessionManager sessionManager;
 
     private final JTMessageDecoder decoder;
 
-    public OtherController(LocationService locationService, SessionManager sessionManager, SchemaManager schemaManager) {
-        this.locationService = locationService;
+    public OtherController(SessionManager sessionManager, SchemaManager schemaManager) {
         this.sessionManager = sessionManager;
         this.decoder = new MultiPacketDecoder(schemaManager);
     }
@@ -57,22 +47,9 @@ public class OtherController {
 
     @Operation(summary = "终端实时信息查询")
     @GetMapping("terminal/all")
-    public Pagination<Session> all(DeviceQuery query) {
+    public APIResult<Collection<Session>> all() {
         Collection<Session> all = sessionManager.all();
-        Stream<Session> stream = all.stream();
-
-        if (!query.isEmpty()) {
-            all = all.stream().filter(query).collect(Collectors.toList());
-            stream = all.stream();
-        }
-
-        List<Session> page = stream
-                .skip(query.offset())
-                .limit(query.getLimit())
-                .collect(Collectors.toList());
-
-        query.setCount(all.size());
-        return new Pagination<>(query, page);
+        return new APIResult<>(all);
     }
 
     @Operation(summary = "获得当前所有在线设备信息")
@@ -90,7 +67,7 @@ public class OtherController {
             Session session = sessionManager.get(clientId);
             if (session != null) {
                 WebLogAdapter.addClient(session.getClientId());
-                return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
+                return new APIResult(Collections.singletonMap("clientId", session.getClientId()));
             }
         } else {
             WebLogAdapter.removeClient(clientId);
@@ -125,13 +102,6 @@ public class OtherController {
             return "success";
         }
         return "fail";
-    }
-
-    @Operation(summary = "位置信息查询")
-    @GetMapping("location")
-    public Pagination<Location> find(LocationQuery query) {
-        Pagination<Location> result = Page.start(() -> locationService.find(query), query);
-        return result;
     }
 
     @Operation(summary = "修改日志级别")

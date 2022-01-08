@@ -8,10 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.yzh.component.area.EnableArea;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@EnableArea
 @EnableCaching
 @EnableScheduling
 @EnableSwagger2

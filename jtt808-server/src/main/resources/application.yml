@@ -6,8 +6,6 @@ spring:
     driver-class-name: org.h2.Driver
     type: com.zaxxer.hikari.HikariDataSource
     initialization-mode: always
-    schema: classpath:sql/schema_mysql.sql
-    data: classpath:sql/initial.sql
     hikari:
       minimum-idle: 8
       maximum-pool-size: 8
