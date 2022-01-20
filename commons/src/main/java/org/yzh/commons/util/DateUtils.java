@@ -1,4 +1,4 @@
-package org.yzh.protocol.commons;
+package org.yzh.commons.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

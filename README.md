@@ -10,7 +10,7 @@
 # 项目介绍
 * 基于Netty，实现JT808 JT/T808部标协议的消息处理，与编码解码；
 * 无需修改代码，同时支持TCP、UDP协议；
-* 使用Spring WebFlux 提供Web接口服务；
+* 使用Spring WebFlux 提供支持高并发的Web接口服务；
 * 不依赖Spring，可移除Spring独立运行（编码解码可支持Android）；
 * 最简洁、清爽、易用的部标开发框架。
 
@@ -47,28 +47,22 @@
 # 验证步骤
 
 ## 1.验证消息定义
-编码分析工具：DarkRepulsor（对象 => 报文）
+解码分析工具：org.yzh.Elucidator
 
-解码分析工具：Elucidator（报文 => 对象）
-
-使用src\test\java\codec\DarkRepulsor
 分析报文内每个属性所处的位置以及转换后的值，以便查询报文解析出错的原因
 ```java
-package org.yzh.codec;
+package org.yzh;
 
-public class DarkRepulsor {
+public class Elucidator extends JT808Beans {
 
-    private static JTMessageEncoder encoder;
-
-    static {
-        FieldFactory.EXPLAIN = true;
-        encoder = new JTMessageEncoder("org.yzh.protocol");
-    }
+    public static final JTMessageAdapter coder = new JTMessageAdapter("org.yzh.protocol");
 
     public static void main(String[] args) {
-        ByteBuf byteBuf = encoder.encode(new T0200());
-        System.out.println();
-        System.out.println(ByteBufUtil.hexDump(byteBuf));
+        String hex = "7e0100002e0123456789017fff001f00730000000034000000000000000000000042534a2d47462d30367465737431323301b2e241383838383838157e";
+        JTMessage msg = H2019(T0200JSATL12());
+
+        msg = decode(hex);
+        hex = encode(msg);
     }
 }
 ```
@@ -89,7 +83,7 @@ DarkRepulsor 运行效果如下：
 7e0100002e0123456789017fff001f00730000000034000000000000000000000042534a2d47462d30367465737431323301b2e241383838383838157e
 ```
 ## 2.模拟设备请求
-运行src\test\resources\发包工具.exe
+运行 协议文档\发包工具.exe
 1. 协议类型：【TCP Client】
 2. 远程主机地址：127.0.0.1
 3. 远程主机端口：7611
@@ -202,11 +196,12 @@ public class JT808Controller {
 
 * @Endpoint，消息接入点，等价SpringMVC的 @Controller
 * @Mapping，消息映射到方法，等价SpringMVC中 @RequestMapping
+* @Async，异步消息处理，用于较为耗时的操作（例如文件写入）。
 * @AsyncBatch，消息批量处理，对于高并发的消息（例如：位置信息汇报），合并同类消息，提升入库性能。
 
 目录结构
 ```sh
-├── doc
+├── 协议文档
 │   ├── 808-2011协议文档
 │   ├── 808-2013协议文档
 │   ├── 808-2019协议文档
@@ -228,7 +223,6 @@ public class JT808Controller {
 │
 ├──jtt808-server
 │   ├──main
-│   │   ├── area 围栏模块
 │   │   └── web SpringBoot微服务
 │   │      ├── config 808服务配置项
 │   │      └── endpoint 808消息入口,通过netty收到的请求会根据@Mapping转发到此
@@ -247,6 +241,7 @@ public class JT808Controller {
 	- 6.江苏推米信息科技有限公司
 	- 7.山东六度信息科技有限公司
 	- 8.亚信创新技术(南京)有限公司
+	- 9.无锡创趣网络科技有限公司
     - ……
     
 > 更多接入的公司，欢迎在 [登记地址](https://gitee.com/yezhihao/jt808-server/issues/I36WKD ) 登记，登记仅仅为了项目推广(登记后可提供一次技术支持)。

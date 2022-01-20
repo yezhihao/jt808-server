@@ -5,7 +5,7 @@ import org.yzh.client.netty.HandlerMapping;
 import org.yzh.client.netty.TCPClient;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.codec.JTMessageAdapter;
-import org.yzh.protocol.commons.DateUtils;
+import org.yzh.commons.util.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;

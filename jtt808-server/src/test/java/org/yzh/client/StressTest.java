@@ -8,7 +8,7 @@ import org.yzh.QuickStart;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.protocol.commons.DateUtils;
+import org.yzh.commons.util.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;

@@ -15,7 +15,7 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
-import org.yzh.protocol.commons.DateUtils;
+import org.yzh.commons.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
