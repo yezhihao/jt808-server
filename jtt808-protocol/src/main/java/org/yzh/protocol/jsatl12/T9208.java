@@ -12,6 +12,8 @@ import org.yzh.protocol.commons.JSATL12;
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends JTMessage {
 
+    private static final byte[] RESERVED = new byte[16];
+
     @Field(lengthUnit = 1, desc = "服务器IP地址")
     private String ip;
     @Field(length = 2, desc = "TCP端口")
@@ -22,9 +24,9 @@ public class T9208 extends JTMessage {
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
     @Field(length = 32, desc = "报警编号")
-    private String alarmNo;
+    private String platformAlarmId;
     @Field(length = 16, desc = "预留")
-    private byte[] reserved;
+    private byte[] reserved = RESERVED;
 
     public String getIp() {
         return ip;
@@ -58,12 +60,12 @@ public class T9208 extends JTMessage {
         this.alarmId = alarmId;
     }
 
-    public String getAlarmNo() {
-        return alarmNo;
+    public String getPlatformAlarmId() {
+        return platformAlarmId;
     }
 
-    public void setAlarmNo(String alarmNo) {
-        this.alarmNo = alarmNo;
+    public void setPlatformAlarmId(String platformAlarmId) {
+        this.platformAlarmId = platformAlarmId;
     }
 
     public byte[] getReserved() {

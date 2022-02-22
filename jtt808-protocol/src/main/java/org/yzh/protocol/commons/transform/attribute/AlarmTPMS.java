@@ -11,14 +11,10 @@ import java.util.List;
  */
 public class AlarmTPMS implements Alarm {
 
-    public static final int id = 102;
-
-    public static int id() {
-        return id;
-    }
+    public static final int key = 102;
 
     @Field(length = 4, desc = "报警ID")
-    private long serialNo;
+    private long id;
     @Field(length = 1, desc = "标志状态")
     private int state;
     @Field(length = 1, desc = "车速")
@@ -32,19 +28,49 @@ public class AlarmTPMS implements Alarm {
     @Field(length = 6, charset = "BCD", desc = "日期时间")
     private LocalDateTime dateTime;
     @Field(length = 2, desc = "车辆状态")
-    private int status;
+    private int statusBit;
     @Field(length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
     @Field(totalUnit = 1, desc = "事件信息列表")
     private List<Item> items;
 
-    public long getSerialNo() {
-        return serialNo;
+    @Override
+    public int getCategory() {
+        return key;
     }
 
-    public void setSerialNo(long serialNo) {
-        this.serialNo = serialNo;
+    @Override
+    public int getAlarmType() {
+        return Alarm.buildType(key, 0);
+    }
+
+    @Override
+    public int getLevel() {
+        return 0;
+    }
+
+    @Override
+    public int getSerialNo() {
+        return alarmId.getSerialNo();
+    }
+
+    @Override
+    public int getFileTotal() {
+        return alarmId.getFileTotal();
+    }
+
+    @Override
+    public String getExtra() {
+        return null;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getState() {
@@ -95,12 +121,12 @@ public class AlarmTPMS implements Alarm {
         this.dateTime = dateTime;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatusBit(int statusBit) {
+        this.statusBit = statusBit;
     }
 
     public AlarmId getAlarmId() {
@@ -207,14 +233,14 @@ public class AlarmTPMS implements Alarm {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(400);
-        sb.append("AlarmTPMS{serialNo=").append(serialNo);
+        sb.append("AlarmTPMS{id=").append(id);
         sb.append(", state=").append(state);
         sb.append(", speed=").append(speed);
         sb.append(", altitude=").append(altitude);
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append(", dateTime=").append(dateTime);
-        sb.append(", status=").append(status);
+        sb.append(", statusBit=").append(statusBit);
         sb.append(", alarmId=").append(alarmId);
         sb.append(", items=").append(items);
         sb.append('}');

@@ -10,14 +10,10 @@ import java.time.LocalDateTime;
  */
 public class AlarmDSM implements Alarm {
 
-    public static final int id = 101;
-
-    public static int id() {
-        return id;
-    }
+    public static final int key = 101;
 
     @Field(length = 4, desc = "报警ID")
-    private long serialNo;
+    private long id;
     @Field(length = 1, desc = "标志状态：0.不可用 1.开始标志 2.结束标志")
     private int state;
     @Field(length = 1, desc = "报警/事件类型：" +
@@ -57,17 +53,42 @@ public class AlarmDSM implements Alarm {
     @Field(length = 6, charset = "BCD", desc = "日期时间")
     private LocalDateTime dateTime;
     @Field(length = 2, desc = "车辆状态")
-    private int status;
+    private int statusBit;
     @Field(length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
 
-    public long getSerialNo() {
-        return serialNo;
+    @Override
+    public int getCategory() {
+        return key;
     }
 
-    public void setSerialNo(long serialNo) {
-        this.serialNo = serialNo;
+    @Override
+    public int getAlarmType() {
+        return Alarm.buildType(key, type);
+    }
+
+    @Override
+    public int getSerialNo() {
+        return alarmId.getSerialNo();
+    }
+
+    @Override
+    public int getFileTotal() {
+        return alarmId.getFileTotal();
+    }
+
+    @Override
+    public String getExtra() {
+        return "fatigueDegree:" + fatigueDegree;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getState() {
@@ -150,12 +171,12 @@ public class AlarmDSM implements Alarm {
         this.dateTime = dateTime;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatusBit(int statusBit) {
+        this.statusBit = statusBit;
     }
 
     public AlarmId getAlarmId() {
@@ -169,7 +190,7 @@ public class AlarmDSM implements Alarm {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(400);
-        sb.append("AlarmDSM{serialNo=").append(serialNo);
+        sb.append("AlarmDSM{id=").append(id);
         sb.append(", state=").append(state);
         sb.append(", type=").append(type);
         sb.append(", level=").append(level);
@@ -180,7 +201,7 @@ public class AlarmDSM implements Alarm {
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append(", dateTime=").append(dateTime);
-        sb.append(", status=").append(status);
+        sb.append(", statusBit=").append(statusBit);
         sb.append(", alarmId=").append(alarmId);
         sb.append('}');
         return sb.toString();

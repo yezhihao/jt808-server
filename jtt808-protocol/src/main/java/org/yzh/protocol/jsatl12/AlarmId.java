@@ -2,6 +2,8 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 
+import java.time.LocalDateTime;
+
 /**
  * 报警标识号
  * @author yezhihao
@@ -13,8 +15,8 @@ public class AlarmId {
     @Field(length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
     @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
-    private String dateTime;
-    @Field(length = 1, desc = "序号")
+    private LocalDateTime dateTime;
+    @Field(length = 1, desc = "序号(同一时间点报警的序号，从0循环累加)")
     private int serialNo;
     @Field(length = 1, desc = "附件数量")
     private int fileTotal;
@@ -22,10 +24,12 @@ public class AlarmId {
     @Field(length = 2, desc = "预留(粤标)", version = 1)
     private int reserved;
 
+    private transient String platformAlarmId;
+
     public AlarmId() {
     }
 
-    public AlarmId(String deviceId, String dateTime, int serialNo, int fileTotal, int reserved) {
+    public AlarmId(String deviceId, LocalDateTime dateTime, int serialNo, int fileTotal, int reserved) {
         this.deviceId = deviceId;
         this.dateTime = dateTime;
         this.serialNo = serialNo;
@@ -41,11 +45,11 @@ public class AlarmId {
         this.deviceId = deviceId;
     }
 
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -71,6 +75,14 @@ public class AlarmId {
 
     public void setReserved(int reserved) {
         this.reserved = reserved;
+    }
+
+    public String getPlatformAlarmId() {
+        return platformAlarmId;
+    }
+
+    public void setPlatformAlarmId(String platformAlarmId) {
+        this.platformAlarmId = platformAlarmId;
     }
 
     @Override

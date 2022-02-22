@@ -108,13 +108,13 @@ public class ParameterConverter extends MapSchema<Integer, Object> {
                 .addSchema(0x0074, NumberSchema.DWORD_LONG)//色度,0~255
 
                 //JT1078 start
-                .addSchema(ParamVideo.id, ParamVideo.SCHEMA)//音视频参数设置,描述见表2
-                .addSchema(ParamChannels.id, ParamChannels.SCHEMA)//音视频通道列表设置,描述见表3
-                .addSchema(ParamVideoSingle.id, ParamVideoSingle.SCHEMA)//单独视频通道参数设置,描述见表5
-                .addSchema(ParamVideoSpecialAlarm.id, ParamVideoSpecialAlarm.SCHEMA)//特殊报警录像参数设置,描述见表7
+                .addSchema(ParamVideo.key, ParamVideo.SCHEMA)//音视频参数设置,描述见表2
+                .addSchema(ParamChannels.key, ParamChannels.SCHEMA)//音视频通道列表设置,描述见表3
+                .addSchema(ParamVideoSingle.key, ParamVideoSingle.SCHEMA)//单独视频通道参数设置,描述见表5
+                .addSchema(ParamVideoSpecialAlarm.key, ParamVideoSpecialAlarm.SCHEMA)//特殊报警录像参数设置,描述见表7
                 .addSchema(0x007A, NumberSchema.DWORD_LONG)//视频相关报警屏蔽字,和表13的视频报警标志位定义相对应,相应位为1则相应类型的报警被屏蔽
-                .addSchema(ParamImageIdentifyAlarm.id, ParamImageIdentifyAlarm.SCHEMA)// 图像分析报警参数设置描述见表8
-                .addSchema(ParamSleepWake.id, ParamSleepWake.SCHEMA)//终端休眠唤醒模式设置,描述见表9
+                .addSchema(ParamImageIdentifyAlarm.key, ParamImageIdentifyAlarm.SCHEMA)// 图像分析报警参数设置描述见表8
+                .addSchema(ParamSleepWake.key, ParamSleepWake.SCHEMA)//终端休眠唤醒模式设置,描述见表9
                 //JT1078 end
 
                 .addSchema(0x0080, NumberSchema.DWORD_LONG)//车辆里程表读数,1/10km
@@ -136,10 +136,10 @@ public class ParameterConverter extends MapSchema<Integer, Object> {
                 .addSchema(0x0110, ArraySchema.BYTES)//总线ID 单独采集设置
 
                 //JSATL12 start
-                .addSchema(ParamADAS.id, ParamADAS.SCHEMA)//高级驾驶辅助系统参数,见表4-10
-                .addSchema(ParamDSM.id, ParamDSM.SCHEMA)//驾驶员状态监测系统参数,见表4-11
-                .addSchema(ParamTPMS.id, ParamTPMS.SCHEMA)//胎压监测系统参数,见表4-12
-                .addSchema(ParamBSD.id, ParamBSD.SCHEMA)//盲区监测系统参数,见表4-13
+                .addSchema(ParamADAS.key, ParamADAS.SCHEMA)//高级驾驶辅助系统参数,见表4-10
+                .addSchema(ParamDSM.key, ParamDSM.SCHEMA)//驾驶员状态监测系统参数,见表4-11
+                .addSchema(ParamTPMS.key, ParamTPMS.SCHEMA)//胎压监测系统参数,见表4-12
+                .addSchema(ParamBSD.key, ParamBSD.SCHEMA)//盲区监测系统参数,见表4-13
                 //粤标
                 .addSchema(0xF370, NumberSchema.BYTE_INT)//智能视频协议版本信息,引入此智能视频协议版本信息方便平台进行版本控制初始版本是1,每次修订版本号都会递增（注：只支持获取,不支持设置）
         ;

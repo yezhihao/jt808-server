@@ -5,7 +5,7 @@ import io.netty.buffer.Unpooled;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
-import org.yzh.protocol.commons.transform.AttributeId;
+import org.yzh.protocol.commons.transform.AttributeKey;
 import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.commons.transform.parameter.ParamADAS;
 import org.yzh.protocol.commons.transform.parameter.ParamVideo;
@@ -128,8 +128,8 @@ public class JT808Beans {
         paramVideo.setAudioEnable((byte) 3);
 
         Map<Integer, Object> parameters = new TreeMap<>();
-        parameters.put(ParamVideo.id, paramVideo);
-        parameters.put(ParamADAS.id, new ParamADAS());
+        parameters.put(ParamVideo.key, paramVideo);
+        parameters.put(ParamADAS.key, new ParamADAS());
         return parameters;
     }
 
@@ -188,22 +188,22 @@ public class JT808Beans {
     public static T0200 T0200Attributes() {
         T0200 bean = T0200();
         Map<Integer, Object> attributes = new TreeMap<>();
-        attributes.put(AttributeId.Mileage, 11L);
-        attributes.put(AttributeId.Gas, 22);
-        attributes.put(AttributeId.Speed, 33);
-        attributes.put(AttributeId.AlarmEventId, 44);
-        attributes.put(AttributeId.TirePressure, new TirePressure(new byte[]{55, 55, 55}));
-        attributes.put(AttributeId.CarriageTemperature, 2);
+        attributes.put(AttributeKey.Mileage, 11L);
+        attributes.put(AttributeKey.Gas, 22);
+        attributes.put(AttributeKey.Speed, 33);
+        attributes.put(AttributeKey.AlarmEventId, 44);
+        attributes.put(AttributeKey.TirePressure, new TirePressure(new byte[]{55, 55, 55}));
+        attributes.put(AttributeKey.CarriageTemperature, 2);
 
-        attributes.put(AttributeId.OverSpeedAlarm, new OverSpeedAlarm((byte) 66, 66));
-        attributes.put(AttributeId.InOutAreaAlarm, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
-        attributes.put(AttributeId.RouteDriveTimeAlarm, new RouteDriveTimeAlarm(88, 88, (byte) 88));
+        attributes.put(AttributeKey.OverSpeedAlarm, new OverSpeedAlarm((byte) 66, 66));
+        attributes.put(AttributeKey.InOutAreaAlarm, new InOutAreaAlarm((byte) 77, 77, (byte) 77));
+        attributes.put(AttributeKey.RouteDriveTimeAlarm, new RouteDriveTimeAlarm(88, 88, (byte) 88));
 
-        attributes.put(AttributeId.Signal, 99);
-        attributes.put(AttributeId.IoState, 10);
-        attributes.put(AttributeId.AnalogQuantity, 20);
-        attributes.put(AttributeId.SignalStrength, 30);
-        attributes.put(AttributeId.GnssCount, 40);
+        attributes.put(AttributeKey.Signal, 99);
+        attributes.put(AttributeKey.IoState, 10);
+        attributes.put(AttributeKey.AnalogQuantity, 20);
+        attributes.put(AttributeKey.SignalStrength, 30);
+        attributes.put(AttributeKey.GnssCount, 40);
         bean.setAttributes(attributes);
         return bean;
     }
@@ -211,7 +211,7 @@ public class JT808Beans {
     //位置信息汇报
     public static T0200 T0200JSATL12() {
         AlarmADAS alarmADAS = new AlarmADAS();
-        alarmADAS.setSerialNo(64);
+        alarmADAS.setId(64);
         alarmADAS.setState(1);
         alarmADAS.setType(1);
         alarmADAS.setLevel(1);
@@ -225,11 +225,11 @@ public class JT808Beans {
         alarmADAS.setLatitude(111111);
         alarmADAS.setLongitude(222222);
         alarmADAS.setDateTime(TIME);
-        alarmADAS.setStatus(1);
-        alarmADAS.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 1, 1));
+        alarmADAS.setStatusBit(1);
+        alarmADAS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 1, 1));
 
         AlarmDSM alarmDSM = new AlarmDSM();
-        alarmDSM.setSerialNo(65);
+        alarmDSM.setId(65);
         alarmDSM.setState(2);
         alarmDSM.setType(2);
         alarmDSM.setLevel(2);
@@ -240,22 +240,22 @@ public class JT808Beans {
         alarmDSM.setLatitude(333333);
         alarmDSM.setLongitude(444444);
         alarmDSM.setDateTime(TIME);
-        alarmDSM.setStatus(2);
-        alarmDSM.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 2, 2, 2));
+        alarmDSM.setStatusBit(2);
+        alarmDSM.setAlarmId(new AlarmId(DEVICE_ID, TIME, 2, 2, 2));
 
         AlarmTPMS alarmTPMS = new AlarmTPMS();
-        alarmTPMS.setSerialNo(66);
+        alarmTPMS.setId(66);
         alarmTPMS.setState(3);
         alarmTPMS.setSpeed(30);
         alarmTPMS.setAltitude(300);
         alarmTPMS.setLatitude(555555);
         alarmTPMS.setLongitude(666666);
         alarmTPMS.setDateTime(TIME);
-        alarmTPMS.setStatus(3);
-        alarmTPMS.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 3, 3, 3));
+        alarmTPMS.setStatusBit(3);
+        alarmTPMS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 3, 3, 3));
 
         AlarmBSD alarmBSD = new AlarmBSD();
-        alarmBSD.setSerialNo(67);
+        alarmBSD.setId(67);
         alarmBSD.setState(4);
         alarmBSD.setType(4);
         alarmBSD.setSpeed(40);
@@ -263,16 +263,16 @@ public class JT808Beans {
         alarmBSD.setLatitude(777777);
         alarmBSD.setLongitude(888888);
         alarmBSD.setDateTime(TIME);
-        alarmBSD.setStatus(4);
-        alarmBSD.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 4, 4, 4));
+        alarmBSD.setStatusBit(4);
+        alarmBSD.setAlarmId(new AlarmId(DEVICE_ID, TIME, 4, 4, 4));
 
 
         T0200 bean = T0200();
         Map<Integer, Object> attributes = new TreeMap<>();
-        attributes.put(AlarmADAS.id, alarmADAS);
-        attributes.put(AlarmDSM.id, alarmDSM);
-        attributes.put(AlarmTPMS.id, alarmTPMS);
-        attributes.put(AlarmBSD.id, alarmBSD);
+        attributes.put(AlarmADAS.key, alarmADAS);
+        attributes.put(AlarmDSM.key, alarmDSM);
+        attributes.put(AlarmTPMS.key, alarmTPMS);
+        attributes.put(AlarmBSD.key, alarmBSD);
 
         bean.setAttributes(attributes);
         return bean;
@@ -708,7 +708,7 @@ public class JT808Beans {
         peripheralSystem.addItem((byte) 2, "测试公司2", "TEST-002", "1.2.0", "1.1.2", "device_id_2", "user_code_2");
         peripheralSystem.addItem((byte) 3, "测试公司3", "TEST-003", "1.3.0", "1.1.3", "device_id_3", "user_code_3");
 
-        message.setKey(PeripheralSystem.ID);
+        message.setKey(PeripheralSystem.key);
         message.setValue(peripheralSystem);
         return bean;
     }
@@ -901,8 +901,8 @@ public class JT808Beans {
     public static T1210 T1210() {
         T1210 bean = new T1210();
         bean.setDeviceId(DEVICE_ID);
-        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 3, 1));
-        bean.setAlarmNo(ALARM_NO);
+        bean.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 3, 1));
+        bean.setPlatformAlarmId(ALARM_NO);
         bean.setType(0);
         bean.setItems(null);
         return bean;
@@ -923,8 +923,8 @@ public class JT808Beans {
         bean.setIp("47.104.97.169");
         bean.setTcpPort(8202);
         bean.setUdpPort(8203);
-        bean.setAlarmId(new AlarmId(DEVICE_ID, "200827111111", 1, 1, 1));
-        bean.setAlarmNo(ALARM_NO);
+        bean.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 1, 1));
+        bean.setPlatformAlarmId(ALARM_NO);
         bean.setReserved(new byte[16]);
         return bean;
     }

@@ -49,6 +49,7 @@ public class JSATL12Endpoint {
         if (StrUtils.isBlank(alarmId.getDeviceId()))
             alarmId.setDeviceId(message.getClientId());
 
+        alarmId.setPlatformAlarmId(message.getPlatformAlarmId());
         Map<String, AlarmId> alarmIdMap = cache.get(message.getClientId(), s -> new TreeMap<>());
 
         for (T1210.Item item : items)

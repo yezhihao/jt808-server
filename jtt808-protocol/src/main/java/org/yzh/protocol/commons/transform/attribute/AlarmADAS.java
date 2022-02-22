@@ -10,14 +10,10 @@ import java.time.LocalDateTime;
  */
 public class AlarmADAS implements Alarm {
 
-    public static final int id = 100;
-
-    public static int id() {
-        return id;
-    }
+    public static final int key = 100;
 
     @Field(length = 4, desc = "报警ID")
-    private long serialNo;
+    private long id;
     @Field(length = 1, desc = "标志状态：0.不可用 1.开始标志 2.结束标志")
     private int state;
     @Field(length = 1, desc = "报警/事件类型：" +
@@ -58,17 +54,59 @@ public class AlarmADAS implements Alarm {
     @Field(length = 6, charset = "BCD", desc = "日期时间")
     private LocalDateTime dateTime;
     @Field(length = 2, desc = "车辆状态")
-    private int status;
+    private int statusBit;
     @Field(length = 16, desc = "报警标识号", version = {-1, 0})
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
 
-    public long getSerialNo() {
-        return serialNo;
+    @Override
+    public int getCategory() {
+        return key;
     }
 
-    public void setSerialNo(long serialNo) {
-        this.serialNo = serialNo;
+    @Override
+    public int getAlarmType() {
+        return Alarm.buildType(key, type);
+    }
+
+    @Override
+    public int getSerialNo() {
+        return alarmId.getSerialNo();
+    }
+
+    @Override
+    public int getFileTotal() {
+        return alarmId.getFileTotal();
+    }
+
+    @Override
+    public String getExtra() {
+        final StringBuilder sb = new StringBuilder(64);
+        if (type == 1 || type == 2) {
+            sb.append("frontSpeed:").append(frontSpeed).append(',');
+        }
+        if (type == 1 || type == 2 || type == 4) {
+            sb.append("frontDistance:").append(frontDistance).append(',');
+        }
+        if (type == 2) {
+            sb.append("deviateType:").append(deviateType).append(',');
+        }
+        if (type == 6 || type == 10) {
+            sb.append("roadSign:").append(roadSign).append(',');
+            sb.append("roadSignValue:").append(roadSignValue).append(',');
+        }
+        int length = sb.length();
+        if (length > 0)
+            return sb.substring(0, length - 1);
+        return null;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getState() {
@@ -175,12 +213,12 @@ public class AlarmADAS implements Alarm {
         this.dateTime = dateTime;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStatusBit() {
+        return statusBit;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatusBit(int statusBit) {
+        this.statusBit = statusBit;
     }
 
     public AlarmId getAlarmId() {
@@ -194,7 +232,7 @@ public class AlarmADAS implements Alarm {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(512);
-        sb.append("AlarmADAS{serialNo=").append(serialNo);
+        sb.append("AlarmADAS{id=").append(id);
         sb.append(", state=").append(state);
         sb.append(", type=").append(type);
         sb.append(", level=").append(level);
@@ -208,7 +246,7 @@ public class AlarmADAS implements Alarm {
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append(", dateTime=").append(dateTime);
-        sb.append(", status=").append(status);
+        sb.append(", statusBit=").append(statusBit);
         sb.append(", alarmId=").append(alarmId);
         sb.append('}');
         return sb.toString();

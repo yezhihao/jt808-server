@@ -11,15 +11,11 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamVideo {
 
+    public static final int key = 0x0075;
+
     public static final Schema<ParamVideo> SCHEMA = new ParamVideoSchema();
 
     protected static final Schema<ParamVideo> SCHEMA_2 = new ParamVideoSchema2();
-
-    public static final int id = 0x0075;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "实时流编码模式：0.CBR(固定码率) 1.VBR(可变码率) 2.ABR(平均码率) 100~ 127.自定义")
     private byte realtimeEncode;

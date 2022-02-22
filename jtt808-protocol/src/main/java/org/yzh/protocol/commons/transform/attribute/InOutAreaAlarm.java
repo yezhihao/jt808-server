@@ -9,13 +9,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class InOutAreaAlarm {
 
+    public static final int key = 18;
+
     public static final Schema<InOutAreaAlarm> SCHEMA = new InOutAreaAlarmSchema();
-
-    public static final int id = 18;
-
-    public static int id() {
-        return id;
-    }
 
     /** 位置类型：1.圆形区域 2.矩形区域 3.多边形区域 4.路线 */
     private byte areaType;

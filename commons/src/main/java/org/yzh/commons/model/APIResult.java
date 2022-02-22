@@ -1,5 +1,6 @@
 package org.yzh.commons.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.yzh.commons.util.StrUtils;
 
@@ -11,12 +12,19 @@ public class APIResult<T> {
 
     public static final APIResult SUCCESS = new ImmutableAPIResult<>(new APIResult<>());
 
+    public interface View {
+    }
+
+    @JsonView(View.class)
     @Schema(description = "响应码(成功：200；客户端错误：400-499；服务端错误：500-599)")
     protected int code;
+    @JsonView(View.class)
     @Schema(description = "响应消息")
     protected String msg;
+    @JsonView(View.class)
     @Schema(description = "响应消息详情")
     protected String detailMsg;
+    @JsonView(View.class)
     @Schema(description = "响应数据")
     protected T data;
 

@@ -12,13 +12,9 @@ import java.util.Arrays;
  */
 public class TirePressure {
 
+    public static final int key = 5;
+
     public static final Schema<TirePressure> SCHEMA = new TirePressureSchema();
-
-    public static final int id = 5;
-
-    public static int id() {
-        return id;
-    }
 
     private byte[] value;
 

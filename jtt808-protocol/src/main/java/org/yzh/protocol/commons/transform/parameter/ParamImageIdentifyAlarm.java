@@ -11,13 +11,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamImageIdentifyAlarm {
 
+    public static final int key = 0x007B;
+
     public static final Schema<ParamImageIdentifyAlarm> SCHEMA = new ParamImageIdentifyAlarmSchema();
-
-    public static final int id = 0x007B;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "车辆核载人数,客运车辆核定载客人数,视频分析结果超过时产生报警")
     private byte overloadThreshold;

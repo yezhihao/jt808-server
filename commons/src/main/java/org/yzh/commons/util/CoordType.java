@@ -24,9 +24,9 @@ public enum CoordType {
             p -> p
     );
 
-    public Converter WGS84;
-    public Converter GCJ02;
-    public Converter BD09;
+    public final Converter WGS84;
+    public final Converter GCJ02;
+    public final Converter BD09;
 
     CoordType(Converter WGS84, Converter GCJ02, Converter BD09) {
         this.WGS84 = WGS84;

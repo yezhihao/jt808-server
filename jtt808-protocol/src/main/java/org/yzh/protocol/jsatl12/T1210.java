@@ -21,7 +21,7 @@ public class T1210 extends JTMessage {
     @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
     private AlarmId alarmId;
     @Field(length = 32, desc = "报警编号")
-    private String alarmNo;
+    private String platformAlarmId;
     @Field(length = 1, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
     private int type;
     @Field(totalUnit = 1, desc = "附件信息列表")
@@ -43,12 +43,12 @@ public class T1210 extends JTMessage {
         this.alarmId = alarmId;
     }
 
-    public String getAlarmNo() {
-        return alarmNo;
+    public String getPlatformAlarmId() {
+        return platformAlarmId;
     }
 
-    public void setAlarmNo(String alarmNo) {
-        this.alarmNo = alarmNo;
+    public void setPlatformAlarmId(String platformAlarmId) {
+        this.platformAlarmId = platformAlarmId;
     }
 
     public int getType() {

@@ -105,7 +105,7 @@ public class MultiPacket {
     public String toString() {
         int total = packets.length;
         final StringBuilder sb = new StringBuilder(82 + (total * 3));
-        sb.append(MessageId.get(firstPacket.getMessageId()));
+        sb.append(MessageId.getName(firstPacket.getMessageId()));
         sb.append(", cid=").append(firstPacket.getClientId());
         sb.append(", total=").append(total);
         sb.append(", count=").append(count);

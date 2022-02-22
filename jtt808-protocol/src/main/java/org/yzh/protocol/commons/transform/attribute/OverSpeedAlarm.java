@@ -9,13 +9,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class OverSpeedAlarm {
 
+    public static final int key = 17;
+
     public static final Schema<OverSpeedAlarm> SCHEMA = new OverSpeedAlarmSchema();
-
-    public static final int id = 17;
-
-    public static int id() {
-        return id;
-    }
 
     /** 位置类型：0.无特定位置 1.圆形区域 2.矩形区域 3.多边形区域 4.路段 */
     private byte areaType;

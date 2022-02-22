@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class PeripheralStatus {
 
-    public static final int ID = 0xF7;
+    public static final int key = 0xF7;
 
     private List<Item> items;
 

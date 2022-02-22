@@ -23,6 +23,8 @@ public class DeviceInfo {
     protected String clientId;
     /** 机构ID */
     protected int agencyId;
+    /** 司机ID */
+    protected int driverId;
     /** 车辆ID */
     protected int vehicleId;
     /** 车牌颜色 */
@@ -73,6 +75,14 @@ public class DeviceInfo {
 
     public void setAgencyId(int agencyId) {
         this.agencyId = agencyId;
+    }
+
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public int getVehicleId() {

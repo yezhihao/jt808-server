@@ -18,13 +18,6 @@
             </Policies>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="AreaLog" fileName="${LOG_HOME}/${LOG_NAME}-area.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-area-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p %c{1}[%L]%m%n"/>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-            </Policies>
-        </RollingRandomAccessFile>
-
         <RollingRandomAccessFile name="AccessLog" fileName="${LOG_HOME}/${LOG_NAME}-access.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-access-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p %m%n"/>
             <Policies>
@@ -36,11 +29,6 @@
     <Loggers>
         <logger name="io.github.yezhihao.netmc" level="info" additivity="false">
             <AppenderRef ref="AccessLog"/>
-            <AppenderRef ref="Console"/>
-        </logger>
-
-        <logger name="org.yzh.component.area" level="info" additivity="false">
-            <AppenderRef ref="AreaLog"/>
             <AppenderRef ref="Console"/>
         </logger>
 

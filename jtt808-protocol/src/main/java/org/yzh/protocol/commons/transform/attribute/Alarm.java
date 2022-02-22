@@ -1,35 +1,39 @@
 package org.yzh.protocol.commons.transform.attribute;
 
-import org.yzh.protocol.jsatl12.AlarmId;
-
 import java.time.LocalDateTime;
 
 public interface Alarm {
 
-    long getSerialNo();
+    static int buildType(int key, int type) {
+        return (key * 100) + type;
+    }
 
-    /** 该字段仅适用于有开始和结束标志类型的报警或事件,报警类型或事件类型无开始和结束标志,则该位不可用,填入0x00即可 */
-    int getState();
+    LocalDateTime getDateTime();//报警时间
 
-    default int getType() {
+    //报警来源：0.设备报警 127.平台报警
+    default int getSource() {
         return 0;
     }
 
-    default int getLevel() {
-        return 0;
-    }
+    int getCategory();//报警类别
 
-    int getSpeed();
+    int getAlarmType();//报警类型
 
-    int getAltitude();
+    int getLevel();//报警级别
 
-    int getLatitude();
+    int getLongitude();//gps经度
 
-    int getLongitude();
+    int getLatitude();//gps纬度
 
-    LocalDateTime getDateTime();
+    int getAltitude();//海拔(米)
 
-    int getStatus();
+    int getSpeed();//速度(公里每小时)
 
-    AlarmId getAlarmId();
+    int getStatusBit();//车辆状态
+
+    int getSerialNo();//序号(同一时间点报警的序号，从0循环累加)
+
+    int getFileTotal();//附件总数
+
+    String getExtra();//扩展信息
 }

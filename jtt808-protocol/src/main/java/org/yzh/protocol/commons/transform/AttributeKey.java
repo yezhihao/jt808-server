@@ -5,7 +5,7 @@ package org.yzh.protocol.commons.transform;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public interface AttributeId {
+public interface AttributeKey {
     int Mileage = 1;                 // 0x01 里程,数据类型为DWORD,单位为1/10km,对应车上里程表读数
     int Gas = 2;                     // 0x02 油量,数据类型为WORD,单位为1/10L,对应车上油量表读数
     int Speed = 3;                   // 0x03 行驶记录功能获取的速度,数据类型为WORD,单位为1/10km/h

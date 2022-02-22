@@ -11,13 +11,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamVideoSpecialAlarm {
 
+    public static final int key = 0x0079;
+
     public static final Schema<ParamVideoSpecialAlarm> SCHEMA = new ParamVideoSpecialAlarmSchema();
-
-    public static final int id = 0x0079;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "特殊报警录像存储阈值(占用主存储器存储阈值百分比,取值1~99.默认值为20)")
     private byte storageThreshold;

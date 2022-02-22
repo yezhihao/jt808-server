@@ -11,13 +11,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamDSM {
 
+    public static final int key = 0xF365;
+
     public static final Schema<ParamDSM> SCHEMA = new ParamDSMSchema();
-
-    public static final int id = 0xF365;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "报警判断速度阈值 BYTE")
     private byte p00 = -1;

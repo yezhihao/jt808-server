@@ -11,13 +11,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamBSD {
 
+    public static final int key = 0xF367;
+
     public static final Schema<ParamBSD> SCHEMA = new ParamBSDSchema();
-
-    public static final int id = 0xF367;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "后方接近报警时间阈值")
     private byte p0;

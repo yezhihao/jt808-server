@@ -33,31 +33,28 @@ public class GeomUtils {
 
     /** 距离计算 点到线(单位米) */
     public static double distancePointToLine(double x1, double y1, double x2, double y2, double x0, double y0) {
-        double space;
         double a = distance_(x1, y1, x2, y2);
         double b = distance_(x1, y1, x0, y0);
         double c = distance_(x2, y2, x0, y0);
-        if (c <= 0.000001 || b <= 0.000001) {
-            space = 0.0;
-            return space;
+        if (c <= 0.001 || b <= 0.001) {
+            return 0.0;
         }
-        if (a <= 0.000001) {
-            space = b;
-            return space;
+        if (a <= 0.001) {
+            return b;
         }
-        if (c * c >= a * a + b * b) {
-            space = b;
-            return space;
+
+        double aa = a * a;
+        double bb = b * b;
+        double cc = c * c;
+        if (cc >= aa + bb) {
+            return b;
         }
-        if (b * b >= a * a + c * c) {
-            space = c;
-            return space;
-        } else {
-            double p = (a + b + c) / 2d;
-            double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
-            space = 2d * s / a;
-            return space;
+        if (bb >= aa + cc) {
+            return c;
         }
+        double p = (a + b + c) / 2D;
+        double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+        return 2D * s / a;
     }
 
     /** 判断坐标是否在矩形内 */

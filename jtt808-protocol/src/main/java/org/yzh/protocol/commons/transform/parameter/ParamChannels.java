@@ -14,13 +14,9 @@ import java.util.List;
  */
 public class ParamChannels {
 
+    public static final int key = 0x0076;
+
     public static final Schema<ParamChannels> SCHEMA = new ParamChannelsSchema();
-
-    public static final int id = 0x0076;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "音视频通道总数")
     private byte audioVideoChannels;

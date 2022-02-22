@@ -22,7 +22,7 @@ public class PassthroughConverter extends MapSchema<Integer, Object> {
     protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
         schemaRegistry
                 .addSchema(0, ArraySchema.BYTES)
-                .addSchema(PeripheralStatus.ID, PeripheralStatus.Schema.INSTANCE)
-                .addSchema(PeripheralSystem.ID, PeripheralSystem.Schema.INSTANCE);
+                .addSchema(PeripheralStatus.key, PeripheralStatus.Schema.INSTANCE)
+                .addSchema(PeripheralSystem.key, PeripheralSystem.Schema.INSTANCE);
     }
 }

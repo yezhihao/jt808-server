@@ -15,13 +15,9 @@ import static io.github.yezhihao.protostar.util.DateTool.BCD;
  */
 public class ParamSleepWake {
 
+    public static final int key = 0x007C;
+
     public static final Schema<ParamSleepWake> SCHEMA = new ParamSleepWakeSchema();
-
-    public static final int id = 0x007C;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "休眠唤醒模式：[0]条件唤醒 [1]定时唤醒 [2]手动唤醒")
     private int mode;
@@ -47,13 +43,6 @@ public class ParamSleepWake {
     private LocalTime wakeTime4;
     @Field(desc = "时间段4关闭时间")
     private LocalTime sleepTime4;
-
-    public ParamSleepWake() {
-    }
-
-    public static int getId() {
-        return id;
-    }
 
     public int getMode() {
         return mode;

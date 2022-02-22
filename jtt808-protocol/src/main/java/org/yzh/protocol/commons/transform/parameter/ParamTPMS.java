@@ -14,13 +14,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class ParamTPMS {
 
+    public static final int key = 0xF366;
+
     public static final Schema<ParamTPMS> SCHEMA = new ParamTPMSSchema();
-
-    public static final int id = 0xF366;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "轮胎规格型号(例：195/65R1591V,12个字符,默认值'900R20')")
     private String tireType;
@@ -44,10 +40,6 @@ public class ParamTPMS {
     private int reportInterval = -1;
     @Field(desc = "保留项")
     private byte[] reserved = new byte[6];
-
-    public static int getId() {
-        return id;
-    }
 
     public String getTireType() {
         return tireType;

@@ -14,13 +14,9 @@ import java.util.TreeMap;
  */
 public class ParamVideoSingle {
 
+    public static final int key = 0x0077;
+
     public static final Schema<ParamVideoSingle> SCHEMA = new ParamVideoSingleSchema();
-
-    public static final int id = 0x0077;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "单独通道视频参数设置列表")
     private Map<Integer, ParamVideo> paramVideos = new TreeMap<>();

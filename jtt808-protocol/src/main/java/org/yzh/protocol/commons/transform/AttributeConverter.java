@@ -20,28 +20,28 @@ public class AttributeConverter extends MapSchema<Integer, Object> {
     @Override
     protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
         schemaRegistry
-                .addSchema(AttributeId.Mileage, NumberSchema.DWORD_LONG)
-                .addSchema(AttributeId.Gas, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.Speed, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.AlarmEventId, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.TirePressure, TirePressure.SCHEMA)
-                .addSchema(AttributeId.CarriageTemperature, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.Mileage, NumberSchema.DWORD_LONG)
+                .addSchema(AttributeKey.Gas, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.Speed, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.AlarmEventId, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.TirePressure, TirePressure.SCHEMA)
+                .addSchema(AttributeKey.CarriageTemperature, NumberSchema.WORD_INT)
 
-                .addSchema(AttributeId.OverSpeedAlarm, OverSpeedAlarm.SCHEMA)
-                .addSchema(AttributeId.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)
-                .addSchema(AttributeId.RouteDriveTimeAlarm, RouteDriveTimeAlarm.SCHEMA)
+                .addSchema(AttributeKey.OverSpeedAlarm, OverSpeedAlarm.SCHEMA)
+                .addSchema(AttributeKey.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)
+                .addSchema(AttributeKey.RouteDriveTimeAlarm, RouteDriveTimeAlarm.SCHEMA)
 
-                .addSchema(AttributeId.Signal, NumberSchema.DWORD_INT)
-                .addSchema(AttributeId.IoState, NumberSchema.WORD_INT)
-                .addSchema(AttributeId.AnalogQuantity, NumberSchema.DWORD_INT)
-                .addSchema(AttributeId.SignalStrength, NumberSchema.BYTE_INT)
-                .addSchema(AttributeId.GnssCount, NumberSchema.BYTE_INT)
+                .addSchema(AttributeKey.Signal, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.IoState, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.AnalogQuantity, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.SignalStrength, NumberSchema.BYTE_INT)
+                .addSchema(AttributeKey.GnssCount, NumberSchema.BYTE_INT)
 
 
-                .addSchema(AttributeId.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 0))
-                .addSchema(AttributeId.AlarmBSD, ProtostarUtil.getRuntimeSchema(AlarmBSD.class, 0))
-                .addSchema(AttributeId.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 0))
-                .addSchema(AttributeId.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 0))
+                .addSchema(AttributeKey.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 0))
+                .addSchema(AttributeKey.AlarmBSD, ProtostarUtil.getRuntimeSchema(AlarmBSD.class, 0))
+                .addSchema(AttributeKey.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 0))
+                .addSchema(AttributeKey.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 0))
         ;
     }
 }

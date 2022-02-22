@@ -140,7 +140,13 @@ public class JTMessage implements Message {
     }
 
     public int reflectMessageId() {
-        io.github.yezhihao.protostar.annotation.Message messageType = this.getClass().getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
+        if (messageId != 0)
+            return messageId;
+        return reflectMessageId(this.getClass());
+    }
+
+    public static int reflectMessageId(Class<?> clazz) {
+        io.github.yezhihao.protostar.annotation.Message messageType = clazz.getAnnotation(io.github.yezhihao.protostar.annotation.Message.class);
         if (messageType != null && messageType.value().length > 0)
             return messageType.value()[0];
         return 0;
@@ -214,9 +220,10 @@ public class JTMessage implements Message {
 
     protected StringBuilder toStringHead() {
         final StringBuilder sb = new StringBuilder(768);
-        sb.append(MessageId.get(messageId));
+        sb.append(MessageId.getName(messageId));
         sb.append('[');
         sb.append("cid=").append(clientId);
+        sb.append(",msgId=").append(messageId);
         sb.append(",version=").append(protocolVersion);
         sb.append(",serialNo=").append(serialNo);
         sb.append(",props=").append(properties);

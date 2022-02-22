@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APICodes;
 import org.yzh.commons.model.APIException;
 import org.yzh.commons.model.APIResult;
+import org.yzh.commons.util.DateUtils;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
@@ -52,8 +53,8 @@ public class JT808Controller {
         request.setIp(host);
         request.setTcpPort(port);
         request.setUdpPort(0);
-        request.setAlarmId(new AlarmId(clientId, dateTime, serialNo, fileTotal, 0));
-        request.setAlarmNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        request.setAlarmId(new AlarmId(clientId, DateUtils.parse(dateTime), serialNo, fileTotal, 0));
+        request.setPlatformAlarmId(UUID.randomUUID().toString().replaceAll("-", ""));
 
         Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
         return response;
@@ -71,12 +72,12 @@ public class JT808Controller {
     @Operation(summary = "8104 8106 查询终端参数")
     @GetMapping("parameters")
     public Mono<APIResult<T0104>> getParameters(@Parameter(description = "终端手机号") @RequestParam String clientId,
-                                                @Parameter(description = "参数ID列表(为空查询全部,多个以逗号','分隔)") String id) {
+                                                @Parameter(description = "参数ID列表(为空查询全部,多个以逗号','分隔)") int[] id) {
         JTMessage request;
-        if (StrUtils.isBlank(id)) {
+        if (id == null || id.length == 0) {
             request = new JTMessage(JT808.查询终端参数);
         } else {
-            request = new T8106(StrUtils.toInts(id, ","));
+            request = new T8106(id);
         }
         Mono<APIResult<T0104>> response = messageManager.requestR(clientId, request, T0104.class);
         return response;
@@ -205,8 +206,8 @@ public class JT808Controller {
     @DeleteMapping("area")
     public Mono<APIResult<T0001>> removeArea(@Parameter(description = "终端手机号") @RequestParam String clientId,
                                              @Parameter(description = "区域类型：1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
-                                             @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
-        T8601 request = new T8601(StrUtils.toInts(id, ","));
+                                             @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam int[] id) {
+        T8601 request = new T8601(id);
         request.setMessageId(Shape.toMessageId(type));
         Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
         return response;
@@ -216,8 +217,8 @@ public class JT808Controller {
     @GetMapping("area/location")
     public Mono<APIResult<T0608>> findAreaLocation(@Parameter(description = "终端手机号") @RequestParam String clientId,
                                                    @Parameter(description = "查询类型：1.圆形 2.矩形 3.多边形 4.路线") @RequestParam int type,
-                                                   @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam String id) {
-        T8608 request = new T8608(type, StrUtils.toInts(id, ","));
+                                                   @Parameter(description = "区域ID列表(多个以逗号','分隔)") @RequestParam int[] id) {
+        T8608 request = new T8608(type, id);
         Mono<APIResult<T0608>> response = messageManager.requestR(clientId, request, T0608.class);
         return response;
     }

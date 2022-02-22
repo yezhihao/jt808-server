@@ -11,13 +11,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamADAS {
 
+    public static final int key = 0xF364;
+
     public static final Schema<ParamADAS> SCHEMA = new ParamADASSchema();
-
-    public static final int id = 0xF364;
-
-    public static int id() {
-        return id;
-    }
 
     @Field(desc = "报警判断速度阈值 BYTE")
     private byte p00 = -1;

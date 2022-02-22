@@ -154,25 +154,25 @@ public class Parameters {
             map.putAll(parametersStr);
 
         if (paramADAS != null)
-            map.put(paramADAS.id, paramADAS);
+            map.put(paramADAS.key, paramADAS);
         if (paramBSD != null)
-            map.put(paramBSD.id, paramBSD);
+            map.put(paramBSD.key, paramBSD);
         if (paramChannels != null)
-            map.put(paramChannels.id, paramChannels);
+            map.put(paramChannels.key, paramChannels);
         if (paramDSM != null)
-            map.put(paramDSM.id, paramDSM);
+            map.put(paramDSM.key, paramDSM);
         if (paramImageIdentifyAlarm != null)
-            map.put(paramImageIdentifyAlarm.id, paramImageIdentifyAlarm);
+            map.put(paramImageIdentifyAlarm.key, paramImageIdentifyAlarm);
         if (paramSleepWake != null)
-            map.put(paramSleepWake.id, paramSleepWake);
+            map.put(paramSleepWake.key, paramSleepWake);
         if (paramTPMS != null)
-            map.put(paramTPMS.id, paramTPMS);
+            map.put(paramTPMS.key, paramTPMS);
         if (paramVideo != null)
-            map.put(paramVideo.id, paramVideo);
+            map.put(paramVideo.key, paramVideo);
         if (paramVideoSingle != null)
-            map.put(paramVideoSingle.id, paramVideoSingle);
+            map.put(paramVideoSingle.key, paramVideoSingle);
         if (paramVideoSpecialAlarm != null)
-            map.put(paramVideoSpecialAlarm.id, paramVideoSpecialAlarm);
+            map.put(paramVideoSpecialAlarm.key, paramVideoSpecialAlarm);
         return map;
     }
 }

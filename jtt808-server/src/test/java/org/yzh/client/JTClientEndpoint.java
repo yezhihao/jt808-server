@@ -87,9 +87,7 @@ public class JTClientEndpoint {
 
     @Mapping(types = 位置信息查询, desc = "位置信息查询")
     public T0200 位置信息查询(JTMessage message) {
-        T0200 result = new T0200();
-        //TODO
-        return result;
+        return ClientTest.T0200("1");
     }
 
     @Mapping(types = 临时位置跟踪控制, desc = "临时位置跟踪控制")

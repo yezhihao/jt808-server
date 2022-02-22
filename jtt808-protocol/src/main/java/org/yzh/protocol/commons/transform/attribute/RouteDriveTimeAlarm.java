@@ -9,13 +9,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class RouteDriveTimeAlarm {
 
+    public static final int key = 19;
+
     public static final Schema<RouteDriveTimeAlarm> SCHEMA = new RouteDriveTimeAlarmSchema();
-
-    public static final int id = 19;
-
-    public static int id() {
-        return id;
-    }
 
     /** 路段ID */
     private int areaId;
