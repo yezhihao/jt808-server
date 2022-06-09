@@ -18,6 +18,7 @@ import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.endpoint.MessageManager;
 import org.yzh.web.model.vo.Parameters;
+import org.yzh.web.model.vo.Passthroughs;
 import reactor.core.publisher.Mono;
 
 import java.util.Base64;
@@ -295,7 +296,8 @@ public class JT808Controller {
 
     @Operation(summary = "8900 数据下行透传")
     @PostMapping("passthrough")
-    public Mono<APIResult<T0001>> passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, T8900 request) {
+    public Mono<APIResult<T0001>> passthrough(@Parameter(description = "终端手机号") @RequestParam String clientId, Passthroughs passthroughs) {
+        T8900 request = new T8900(passthroughs.toKeyValuePair());
         Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
         return response;
     }
