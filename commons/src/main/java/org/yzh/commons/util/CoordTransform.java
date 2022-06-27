@@ -19,8 +19,8 @@ public class CoordTransform {
 
     private static final double X_PI = Math.PI * 3000.0 / 180.0;
 
-    public static double[] bd09togcj02(double[] bd_lng_lat) {
-        return bd09togcj02(bd_lng_lat[0], bd_lng_lat[1]);
+    public static double[] bd09togcj02(double[] bd_lngLat) {
+        return bd09togcj02(bd_lngLat[0], bd_lngLat[1]);
     }
 
     /** BD-09 转 GCJ-02 */
@@ -34,8 +34,8 @@ public class CoordTransform {
         return new double[]{gg_lng, gg_lat};
     }
 
-    public static double[] gcj02tobd09(double[] lng_lat) {
-        return gcj02tobd09(lng_lat[0], lng_lat[1]);
+    public static double[] gcj02tobd09(double[] lngLat) {
+        return gcj02tobd09(lngLat[0], lngLat[1]);
     }
 
     /** GCJ-02 转 BD-09 */
@@ -47,15 +47,13 @@ public class CoordTransform {
         return new double[]{bd_lng, bd_lat};
     }
 
-    public static double[] wgs84togcj02(double[] lng_lat) {
-        return wgs84togcj02(lng_lat[0], lng_lat[1]);
+    public static double[] wgs84togcj02(double[] lngLat) {
+        return wgs84togcj02(lngLat[0], lngLat[1]);
     }
 
     /** WGS-84 转 GCJ-02 */
     public static double[] wgs84togcj02(double lng, double lat) {
-        if (out_of_china(lng, lat)) {
-            return new double[]{lng, lat};
-        } else {
+        if (inChina(lng, lat)) {
             double dlat = transformlat(lng - 105.0, lat - 35.0);
             double dlng = transformlng(lng - 105.0, lat - 35.0);
             double radlat = lat / 180.0 * PI;
@@ -67,18 +65,18 @@ public class CoordTransform {
             double mglat = lat + dlat;
             double mglng = lng + dlng;
             return new double[]{mglng, mglat};
+        } else {
+            return new double[]{lng, lat};
         }
     }
 
-    public static double[] gcj02towgs84(double[] lng_lat) {
-        return gcj02towgs84(lng_lat[0], lng_lat[1]);
+    public static double[] gcj02towgs84(double[] lngLat) {
+        return gcj02towgs84(lngLat[0], lngLat[1]);
     }
 
     /** GCJ-02 转 WGS-84 */
     public static double[] gcj02towgs84(double lng, double lat) {
-        if (out_of_china(lng, lat)) {
-            return new double[]{lng, lat};
-        } else {
+        if (inChina(lng, lat)) {
             double dlat = transformlat(lng - 105.0, lat - 35.0);
             double dlng = transformlng(lng - 105.0, lat - 35.0);
             double radlat = lat / 180.0 * PI;
@@ -90,6 +88,8 @@ public class CoordTransform {
             double mglat = lat + dlat;
             double mglng = lng + dlng;
             return new double[]{lng * 2 - mglng, lat * 2 - mglat};
+        } else {
+            return new double[]{lng, lat};
         }
     }
 
@@ -110,8 +110,8 @@ public class CoordTransform {
     }
 
     /** 判断是否在国内，不在国内则不做偏移 */
-    public static boolean out_of_china(double lng, double lat) {
+    public static boolean inChina(double lng, double lat) {
         // 纬度3.86~53.55,经度73.66~135.05
-        return !(lng > 73.66 && lng < 135.05 && lat > 3.86 && lat < 53.55);
+        return (lng > 73.66 && lng < 135.05 && lat > 3.86 && lat < 53.55);
     }
 }

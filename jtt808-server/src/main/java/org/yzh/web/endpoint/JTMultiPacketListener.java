@@ -32,7 +32,7 @@ public class JTMultiPacketListener extends MultiPacketListener {
         request.setId(idList);
         Session session = multiPacket.getFirstPacket().getSession();
         if (session != null) {
-            session.notify(request);
+            session.notify(request).block();
             multiPacket.addRetryCount(1);
             return true;
         }

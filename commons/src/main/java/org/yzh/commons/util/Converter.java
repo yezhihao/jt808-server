@@ -8,6 +8,7 @@ package org.yzh.commons.util;
 @FunctionalInterface
 public interface Converter {
 
-    double[] convert(double... p);
+    /** @return lngLat */
+    double[] convert(double... lngLat);
 
 }

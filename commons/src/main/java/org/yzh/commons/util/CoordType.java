@@ -3,6 +3,7 @@ package org.yzh.commons.util;
 import static org.yzh.commons.util.CoordTransform.*;
 
 /**
+ * 坐标系枚举
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
@@ -27,6 +28,21 @@ public enum CoordType {
     public final Converter WGS84;
     public final Converter GCJ02;
     public final Converter BD09;
+
+    private static final Converter DEFAULT = p -> p;
+
+    public Converter to(CoordType type) {
+        switch (type) {
+            case wgs84:
+                return this.WGS84;
+            case gcj02:
+                return this.GCJ02;
+            case bd09:
+                return this.BD09;
+            default:
+                return DEFAULT;
+        }
+    }
 
     CoordType(Converter WGS84, Converter GCJ02, Converter BD09) {
         this.WGS84 = WGS84;

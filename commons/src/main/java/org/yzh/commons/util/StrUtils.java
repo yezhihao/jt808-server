@@ -144,7 +144,7 @@ public class StrUtils {
         int i = 0;
         for (Integer e : list) {
             if (e != null)
-                result[i] = e.intValue();
+                result[i++] = e;
         }
         return result;
     }
