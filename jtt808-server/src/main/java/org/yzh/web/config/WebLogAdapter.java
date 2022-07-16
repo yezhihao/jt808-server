@@ -36,7 +36,7 @@ public class WebLogAdapter extends JTMessageAdapter {
     public void encodeLog(Session session, JTMessage message, ByteBuf output) {
         super.encodeLog(session, message, output);
         if (clientIds.contains(message.getClientId()))
-            messagingTemplate.convertAndSend("/topic/subscribe/lbs/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(output, 0, output.writerIndex()));
+            messagingTemplate.convertAndSend("client/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(output, 0, output.writerIndex()));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class WebLogAdapter extends JTMessageAdapter {
             if (!message.isVerified())
                 log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
             if (clientIds.contains(message.getClientId()))
-                messagingTemplate.convertAndSend("/topic/subscribe/lbs/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(input, 0, input.writerIndex()));
+                messagingTemplate.convertAndSend("client/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(input, 0, input.writerIndex()));
         }
     }
 

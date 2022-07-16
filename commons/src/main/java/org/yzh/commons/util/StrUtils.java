@@ -108,6 +108,12 @@ public class StrUtils {
         return result.toString();
     }
 
+    public static String subPrefix(String str, String prefix) {
+        if (str != null && str.startsWith(prefix))
+            str = str.substring(prefix.length());
+        return str;
+    }
+
     public static Map newMap(Object... entrys) {
         Map result = new HashMap((int) (entrys.length / 1.5) + 1);
         for (int i = 0; i < entrys.length; )
@@ -152,9 +158,6 @@ public class StrUtils {
     public static Set<Integer> toSet(int... num) {
         if (num == null || num.length == 0) {
             return Collections.EMPTY_SET;
-        }
-        if (num.length == 1) {
-            return Collections.singleton(num[0]);
         }
         Set<Integer> result;
         if (num.length <= 3) {

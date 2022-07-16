@@ -13,19 +13,19 @@ public class Result<T> {
     }
 
     public static <T> Result<T> of(int state) {
-        Result result = new Result<T>();
+        Result<T> result = new Result<>();
         result.state = state;
         return result;
     }
 
-    public static <T> Result of(T value) {
-        Result result = new Result<T>();
+    public static <T> Result<T> of(T value) {
+        Result<T> result = new Result<>();
         result.value = value;
         return result;
     }
 
-    public static <T> Result of(T value, int state) {
-        Result result = new Result<T>();
+    public static <T> Result<T> of(T value, int state) {
+        Result<T> result = new Result<>();
         result.value = value;
         result.state = state;
         return result;

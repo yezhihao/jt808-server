@@ -1,6 +1,3 @@
-var $ = function(id) {
-    return document.getElementById(id);
-};
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -10,7 +7,10 @@ function getQueryVariable(variable) {
     }
     return(false);
 }
-var axios = {
+const $ = function(id) {
+    return document.getElementById(id);
+};
+const axios = {
     /**
      * js封装ajax请求
      * >>使用new XMLHttpRequest 创建请求对象,所以不考虑低端IE浏览器(IE6及以下不支持XMLHttpRequest)

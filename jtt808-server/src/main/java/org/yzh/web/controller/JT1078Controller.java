@@ -16,7 +16,7 @@ import org.yzh.web.endpoint.MessageManager;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("media")
+@RequestMapping("device/media")
 public class JT1078Controller {
 
     @Autowired
@@ -24,73 +24,73 @@ public class JT1078Controller {
 
     @Operation(summary = "9003 查询终端音视频属性")
     @GetMapping("attributes")
-    public Mono<APIResult<T1003>> getAttributes(@Parameter(description = "终端手机号") @RequestParam String clientId) {
-        Mono<APIResult<T1003>> response = messageManager.requestR(clientId, new JTMessage(JT1078.查询终端音视频属性), T1003.class);
+    public Mono<APIResult<T1003>> getAttributes(@Parameter(description = "终端手机号") @RequestParam String mobileNo) {
+        Mono<APIResult<T1003>> response = messageManager.requestR(mobileNo, new JTMessage(JT1078.查询终端音视频属性), T1003.class);
         return response;
     }
 
     @Operation(summary = "9101 实时音视频传输请求")
     @GetMapping("realtime/play")
-    public Mono<APIResult<T0001>> realtimePlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9101 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> realtimePlay(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9101 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9102 音视频实时传输控制")
     @GetMapping("realtime/control")
-    public Mono<APIResult<T0001>> realtimeControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9102 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> realtimeControl(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9102 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9201 平台下发远程录像回放请求")
     @GetMapping("history/play")
-    public Mono<APIResult<T1205>> historyPlay(@Parameter(description = "终端手机号") @RequestParam String clientId, T9201 request) {
-        Mono<APIResult<T1205>> response = messageManager.requestR(clientId, request, T1205.class);
+    public Mono<APIResult<T1205>> historyPlay(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9201 request) {
+        Mono<APIResult<T1205>> response = messageManager.requestR(mobileNo, request, T1205.class);
         return response;
     }
 
     @Operation(summary = "9202 平台下发远程录像回放控制")
     @GetMapping("history/control")
-    public Mono<APIResult<T0001>> historyControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9202 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> historyControl(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9202 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9205 查询资源列表")
     @GetMapping("file/search")
-    public Mono<APIResult<T1205>> fileSearch(@Parameter(description = "终端手机号") @RequestParam String clientId, T9205 request) {
-        Mono<APIResult<T1205>> response = messageManager.requestR(clientId, request, T1205.class);
+    public Mono<APIResult<T1205>> fileSearch(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9205 request) {
+        Mono<APIResult<T1205>> response = messageManager.requestR(mobileNo, request, T1205.class);
         return response;
     }
 
     @Operation(summary = "9206 文件上传指令")
     @GetMapping("file/upload")
-    public Mono<APIResult<T0001>> fileUpload(@Parameter(description = "终端手机号") @RequestParam String clientId, T9206 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> fileUpload(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9206 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9207 文件上传控制")
     @GetMapping("file/upload/control")
-    public Mono<APIResult<T0001>> fileUploadControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9207 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> fileUploadControl(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9207 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9301 云台旋转")
     @GetMapping("pan_tilt/revolve")
-    public Mono<APIResult<T0001>> panTiltRevolve(@Parameter(description = "终端手机号") @RequestParam String clientId, T9301 request) {
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+    public Mono<APIResult<T0001>> panTiltRevolve(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9301 request) {
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 
     @Operation(summary = "9302 9303 9304 9305 9306 云台控制")
     @GetMapping("pan_tilt/control")
-    public Mono<APIResult<T0001>> panTiltControl(@Parameter(description = "终端手机号") @RequestParam String clientId, T9302 request,
+    public Mono<APIResult<T0001>> panTiltControl(@Parameter(description = "终端手机号") @RequestParam String mobileNo, T9302 request,
                                                  @Parameter(description = "控制类型：9302.云台调整焦距控制 9303.云台调整光圈控制 9304.云台雨刷控制 9305.红外补光控制 9306.云台变倍控制") @RequestParam String type) {
         request.setMessageId(Integer.parseInt(type, 16));
-        Mono<APIResult<T0001>> response = messageManager.requestR(clientId, request, T0001.class);
+        Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;
     }
 }

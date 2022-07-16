@@ -1,6 +1,5 @@
 package org.yzh.web;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 @EnableSwagger2
 @EnableWebSocketMessageBroker
-@MapperScan("org.yzh.web.mapper")
 @SpringBootApplication
 public class Application {
 

@@ -6,7 +6,7 @@ package org.yzh.commons.model;
  */
 public class APIException extends RuntimeException {
 
-    private int code;
+    private final int code;
     private String message;
     private String detailMessage;
 

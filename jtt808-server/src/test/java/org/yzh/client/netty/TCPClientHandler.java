@@ -33,10 +33,12 @@ public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
         try {
             Handler handler = handlerMapping.getHandler(request.getMessageId());
-            Message response = handler.invoke(request);
+            if (handler != null) {
+                Message response = handler.invoke(request);
 
-            if (response != null) {
-                channel.writeAndFlush(response);
+                if (response != null) {
+                    channel.writeAndFlush(response);
+                }
             }
         } catch (Exception e) {
             log.warn(String.valueOf(request), e);

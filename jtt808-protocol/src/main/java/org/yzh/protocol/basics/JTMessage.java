@@ -13,7 +13,6 @@ import java.beans.Transient;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-//@JsonIgnoreProperties({"messageId", "properties", "protocolVersion", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
 public class JTMessage implements Message {
 
     @Field(length = 2, desc = "消息ID")

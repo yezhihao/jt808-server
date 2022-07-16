@@ -8,7 +8,7 @@ public interface Alarm {
         return (key * 100) + type;
     }
 
-    LocalDateTime getDateTime();//报警时间
+    LocalDateTime getAlarmTime();//报警时间
 
     //报警来源：0.设备报警 127.平台报警
     default int getSource() {

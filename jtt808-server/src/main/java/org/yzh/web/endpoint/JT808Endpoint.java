@@ -61,11 +61,13 @@ public class JT808Endpoint {
         session.register(message);
         DeviceInfo deviceInfo = new DeviceInfo();
         deviceInfo.setDeviceId(message.getDeviceId());
+        deviceInfo.setMobileNo(message.getClientId());
+        deviceInfo.setPlateNo(message.getPlateNo());
         session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
 
         T8100 result = new T8100();
         result.setResponseSerialNo(message.getSerialNo());
-        result.setToken(message.getDeviceId());
+        result.setToken(message.getDeviceId() + "," + message.getPlateNo());
         result.setResultCode(T8100.Success);
         return result;
     }
@@ -74,7 +76,11 @@ public class JT808Endpoint {
     public T0001 authentication(T0102 message, Session session) {
         session.register(message);
         DeviceInfo deviceInfo = new DeviceInfo();
-        deviceInfo.setDeviceId(message.getToken());
+        String[] token = message.getToken().split(",");
+        deviceInfo.setMobileNo(message.getClientId());
+        deviceInfo.setDeviceId(token[0]);
+        if (token.length > 1)
+            deviceInfo.setPlateNo(token[1]);
         session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
 
         T0001 result = new T0001();

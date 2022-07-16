@@ -27,7 +27,7 @@ public class AlarmBSD implements Alarm {
     @Field(length = 4, desc = "经度")
     private int longitude;
     @Field(length = 6, charset = "BCD", desc = "日期时间")
-    private LocalDateTime dateTime;
+    private LocalDateTime alarmTime;
     @Field(length = 2, desc = "车辆状态")
     private int statusBit;
     @Field(length = 16, desc = "报警标识号", version = {-1, 0})
@@ -120,12 +120,12 @@ public class AlarmBSD implements Alarm {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getAlarmTime() {
+        return alarmTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setAlarmTime(LocalDateTime alarmTime) {
+        this.alarmTime = alarmTime;
     }
 
     public int getStatusBit() {
@@ -154,7 +154,7 @@ public class AlarmBSD implements Alarm {
         sb.append(", altitude=").append(altitude);
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
-        sb.append(", dateTime=").append(dateTime);
+        sb.append(", alarmTime=").append(alarmTime);
         sb.append(", statusBit=").append(statusBit);
         sb.append(", alarmId=").append(alarmId);
         sb.append('}');

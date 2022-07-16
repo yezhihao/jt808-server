@@ -224,7 +224,7 @@ public class JT808Beans {
         alarmADAS.setAltitude(100);
         alarmADAS.setLatitude(111111);
         alarmADAS.setLongitude(222222);
-        alarmADAS.setDateTime(TIME);
+        alarmADAS.setAlarmTime(TIME);
         alarmADAS.setStatusBit(1);
         alarmADAS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 1, 1));
 
@@ -239,7 +239,7 @@ public class JT808Beans {
         alarmDSM.setAltitude(200);
         alarmDSM.setLatitude(333333);
         alarmDSM.setLongitude(444444);
-        alarmDSM.setDateTime(TIME);
+        alarmDSM.setAlarmTime(TIME);
         alarmDSM.setStatusBit(2);
         alarmDSM.setAlarmId(new AlarmId(DEVICE_ID, TIME, 2, 2, 2));
 
@@ -250,7 +250,7 @@ public class JT808Beans {
         alarmTPMS.setAltitude(300);
         alarmTPMS.setLatitude(555555);
         alarmTPMS.setLongitude(666666);
-        alarmTPMS.setDateTime(TIME);
+        alarmTPMS.setAlarmTime(TIME);
         alarmTPMS.setStatusBit(3);
         alarmTPMS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 3, 3, 3));
 
@@ -262,7 +262,7 @@ public class JT808Beans {
         alarmBSD.setAltitude(400);
         alarmBSD.setLatitude(777777);
         alarmBSD.setLongitude(888888);
-        alarmBSD.setDateTime(TIME);
+        alarmBSD.setAlarmTime(TIME);
         alarmBSD.setStatusBit(4);
         alarmBSD.setAlarmId(new AlarmId(DEVICE_ID, TIME, 4, 4, 4));
 
@@ -526,7 +526,7 @@ public class JT808Beans {
     //车辆控制
     public static T8500 T8500() {
         T8500 bean = new T8500();
-        bean.setSign(123);
+        bean.setType(123);
         return bean;
     }
 

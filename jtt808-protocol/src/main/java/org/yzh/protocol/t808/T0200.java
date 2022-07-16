@@ -32,8 +32,8 @@ public class T0200 extends JTMessage {
     private int direction;
     @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
     private String dateTime;
-    @Field(desc = "位置附加信息", converter = AttributeConverter.class, version = {-1, 0})
-    @Field(desc = "位置附加信息(粤标)", converter = AttributeConverterYue.class, version = 1)
+    @Field(converter = AttributeConverter.class, desc = "位置附加信息", version = {-1, 0})
+    @Field(converter = AttributeConverterYue.class, desc = "位置附加信息(粤标)", version = 1)
     private Map<Integer, Object> attributes;
 
     public int getWarnBit() {

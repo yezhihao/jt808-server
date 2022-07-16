@@ -20,7 +20,7 @@ public class IOUtils {
     }
 
     public static String readIn(String classpath, Charset charset) {
-        return read(Thread.class.getResourceAsStream(classpath), charset);
+        return read(Thread.currentThread().getContextClassLoader().getResourceAsStream(classpath), charset);
     }
 
     public static String read(File file) {
@@ -37,6 +37,10 @@ public class IOUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String read(InputStream is) {
+        return read(is, StandardCharsets.UTF_8);
     }
 
     public static String read(InputStream is, Charset charset) {
@@ -103,7 +107,7 @@ public class IOUtils {
         if (a != null)
             try {
                 a.close();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
     }
 

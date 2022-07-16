@@ -15,7 +15,7 @@ public class AlarmId {
     @Field(length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
     @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
-    private LocalDateTime dateTime;
+    private LocalDateTime alarmTime;
     @Field(length = 1, desc = "序号(同一时间点报警的序号，从0循环累加)")
     private int serialNo;
     @Field(length = 1, desc = "附件数量")
@@ -29,9 +29,9 @@ public class AlarmId {
     public AlarmId() {
     }
 
-    public AlarmId(String deviceId, LocalDateTime dateTime, int serialNo, int fileTotal, int reserved) {
+    public AlarmId(String deviceId, LocalDateTime alarmTime, int serialNo, int fileTotal, int reserved) {
         this.deviceId = deviceId;
-        this.dateTime = dateTime;
+        this.alarmTime = alarmTime;
         this.serialNo = serialNo;
         this.fileTotal = fileTotal;
         this.reserved = reserved;
@@ -45,12 +45,12 @@ public class AlarmId {
         this.deviceId = deviceId;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getAlarmTime() {
+        return alarmTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setAlarmTime(LocalDateTime alarmTime) {
+        this.alarmTime = alarmTime;
     }
 
     public int getSerialNo() {
@@ -89,7 +89,7 @@ public class AlarmId {
     public String toString() {
         final StringBuilder sb = new StringBuilder(100);
         sb.append("AlarmId{deviceId=").append(deviceId);
-        sb.append(",dateTime=").append(dateTime);
+        sb.append(",dateTime=").append(alarmTime);
         sb.append(",serialNo=").append(serialNo);
         sb.append(",fileTotal=").append(fileTotal);
         sb.append(",reserved=").append(reserved);

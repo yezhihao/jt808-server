@@ -11,6 +11,7 @@ import org.yzh.commons.util.StrUtils;
 public class APIResult<T> {
 
     public static final APIResult SUCCESS = new ImmutableAPIResult<>(new APIResult<>());
+    public static final APIResult Unauthorized = new ImmutableAPIResult<>(new APIResult<>(APICodes.Unauthorized));
 
     public interface View {
     }

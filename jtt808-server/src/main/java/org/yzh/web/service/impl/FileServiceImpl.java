@@ -39,11 +39,7 @@ public class FileServiceImpl implements FileService {
     private String mediaFileRoot;
 
     private String getDir(AlarmId alarmId) {
-        StringBuilder sb = new StringBuilder(55);
-        sb.append(alarmFileRoot).append('/');
-        sb.append(alarmId.getDeviceId()).append('/');
-        sb.append(alarmId.getDateTime()).append('_').append(alarmId.getSerialNo()).append('/');
-        return sb.toString();
+        return FileService.buildDir(alarmId, alarmFileRoot).toString();
     }
 
     /** 创建报警目录及 附件列表日志 */

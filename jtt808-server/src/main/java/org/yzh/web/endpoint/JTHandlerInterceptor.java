@@ -5,6 +5,7 @@ import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.protocol.basics.JTMessageFilter;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
 import org.yzh.web.model.enums.SessionKey;
@@ -69,8 +70,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
         if (messageId == JT808.位置信息汇报) {
-            request.transform();
-            session.setAttribute(SessionKey.Snapshot, request);
+            boolean transform = request.transform();
+            return transform;
         }
         if (!session.isRegistered()) {
             log.info("{}未注册的设备<<<<-{}", session, request);
