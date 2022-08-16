@@ -859,8 +859,8 @@ public class JT808Beans {
         bean.setPassword("password");
         bean.setPath("/alarm_file");
         bean.setChannelNo(1);
-        bean.setStartTime("200707192359");
-        bean.setEndTime("200707192359");
+        bean.setStartTime(START_TIME);
+        bean.setEndTime(END_TIME);
         bean.setWarnBit1(0);
         bean.setWarnBit2(0);
         bean.setMediaType(0);

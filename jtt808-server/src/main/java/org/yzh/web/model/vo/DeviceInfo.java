@@ -2,7 +2,6 @@ package org.yzh.web.model.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.yzh.protocol.commons.Charsets;
-import org.yzh.protocol.t808.T0200;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -30,16 +29,13 @@ public class DeviceInfo {
     @Schema(description = "车辆id")
     protected int vehicleId;
     @Schema(description = "车牌颜色：1.蓝色 2.黄色 3.黑色 4.白色 9.其他")
-    protected byte plateColor;
+    protected int plateColor;
     @Schema(description = "车牌号")
     protected String plateNo;
     @Schema(description = "设备型号")
     protected String deviceModel;
     @Schema(description = "协议版本")
     protected int protocolVersion;
-
-    @Schema(description = "实时状态")
-    private T0200 deviceState;
 
     public DeviceInfo() {
     }
@@ -104,11 +100,11 @@ public class DeviceInfo {
         this.vehicleId = vehicleId;
     }
 
-    public byte getPlateColor() {
+    public int getPlateColor() {
         return plateColor;
     }
 
-    public void setPlateColor(byte plateColor) {
+    public void setPlateColor(int plateColor) {
         this.plateColor = plateColor;
     }
 
@@ -134,14 +130,6 @@ public class DeviceInfo {
 
     public void setProtocolVersion(int protocolVersion) {
         this.protocolVersion = protocolVersion;
-    }
-
-    public T0200 getDeviceState() {
-        return deviceState;
-    }
-
-    public void setDeviceState(T0200 deviceState) {
-        this.deviceState = deviceState;
     }
 
     public static DeviceInfo formBytes(byte[] bytes) {

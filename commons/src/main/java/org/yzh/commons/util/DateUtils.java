@@ -3,6 +3,7 @@ package org.yzh.commons.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -42,6 +43,10 @@ public class DateUtils {
 
     public static long getMillis(LocalDateTime dateTime) {
         return dateTime.atZone(GMT8).toInstant().toEpochMilli();
+    }
+
+    public static LocalDateTime getDateTime(Long millis) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), GMT8);
     }
 
     public static LocalDateTime parse(String str) {

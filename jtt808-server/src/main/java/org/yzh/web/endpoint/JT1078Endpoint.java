@@ -32,5 +32,6 @@ public class JT1078Endpoint {
 
     @Mapping(types = 文件上传完成通知, desc = "文件上传完成通知")
     public void fileUploadComplete(T1206 message, Session session) {
+        session.response(message);
     }
 }

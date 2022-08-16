@@ -87,6 +87,7 @@ public class JTMessageDecoder {
 
                 ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
                 bodySchema.mergeFrom(bodyBuf, message, explain);
+                bodyBuf.release();
 
             } else {
                 buf.readerIndex(headLen);

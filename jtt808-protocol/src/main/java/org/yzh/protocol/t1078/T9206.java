@@ -5,6 +5,8 @@ import io.github.yezhihao.protostar.annotation.Message;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
+import java.time.LocalDateTime;
+
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
@@ -25,9 +27,9 @@ public class T9206 extends JTMessage {
     @Field(length = 1, desc = "逻辑通道号")
     private int channelNo;
     @Field(length = 6, charset = "BCD", desc = "开始时间(YYMMDDHHMMSS)")
-    private String startTime;
+    private LocalDateTime startTime;
     @Field(length = 6, charset = "BCD", desc = "结束时间(YYMMDDHHMMSS)")
-    private String endTime;
+    private LocalDateTime endTime;
     @Field(length = 4, desc = "报警标志0~31(参考808协议文档报警标志位定义)")
     private int warnBit1;
     @Field(length = 4, desc = "报警标志32~63")
@@ -89,19 +91,19 @@ public class T9206 extends JTMessage {
         this.channelNo = channelNo;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -151,5 +153,75 @@ public class T9206 extends JTMessage {
 
     public void setCondition(int condition) {
         this.condition = condition;
+    }
+
+    public T9206 ip(String ip) {
+        this.ip = ip;
+        return this;
+    }
+
+    public T9206 port(int port) {
+        this.port = port;
+        return this;
+    }
+
+    public T9206 username(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public T9206 password(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public T9206 path(String path) {
+        this.path = path;
+        return this;
+    }
+
+    public T9206 channelNo(int channelNo) {
+        this.channelNo = channelNo;
+        return this;
+    }
+
+    public T9206 startTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public T9206 endTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+
+    public T9206 warnBit1(int warnBit1) {
+        this.warnBit1 = warnBit1;
+        return this;
+    }
+
+    public T9206 warnBit2(int warnBit2) {
+        this.warnBit2 = warnBit2;
+        return this;
+    }
+
+    public T9206 mediaType(int mediaType) {
+        this.mediaType = mediaType;
+        return this;
+    }
+
+    public T9206 streamType(int streamType) {
+        this.streamType = streamType;
+        return this;
+    }
+
+    public T9206 storageType(int storageType) {
+        this.storageType = storageType;
+        return this;
+    }
+
+    public T9206 condition(int condition) {
+        this.condition = condition;
+        return this;
     }
 }

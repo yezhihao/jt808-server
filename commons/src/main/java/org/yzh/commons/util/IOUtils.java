@@ -55,14 +55,30 @@ public class IOUtils {
         }
     }
 
-    public static void write(File file, String text) {
-        write(file, text, StandardCharsets.UTF_8);
+    public static void write(String source, File target) {
+        write(source, StandardCharsets.UTF_8, target);
     }
 
-    public static void write(File file, String text, Charset charset) {
-        byte[] bytes = text.getBytes(charset);
-        try (FileOutputStream os = new FileOutputStream(file)) {
+    public static void write(String source, Charset charset, File target) {
+        byte[] bytes = source.getBytes(charset);
+        try (FileOutputStream os = new FileOutputStream(target)) {
             os.write(bytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void write(InputStream source, File target) {
+        int buffer_size = 8192;
+        try (BufferedInputStream bis = new BufferedInputStream(source, buffer_size);
+             FileOutputStream fos = new FileOutputStream(target)) {
+
+            byte[] buffer = new byte[buffer_size];
+            int length;
+
+            while ((length = bis.read(buffer)) != -1) {
+                fos.write(buffer, 0, length);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,7 +95,7 @@ public class IOUtils {
              FileChannel ifc = fis.getChannel();
              FileChannel ofc = fos.getChannel()) {
 
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteBuffer buffer = ByteBuffer.allocate(8192);
 
             while (ifc.read(buffer) != -1) {
                 buffer.flip();//切换为读模式 设置limit为position，并重置position为0

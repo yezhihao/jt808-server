@@ -129,6 +129,10 @@ public class StrUtils {
         return str == null || str.length() == 0 || str.trim().length() == 0;
     }
 
+    public static <T> T getDefault(T value, T defaultValue) {
+        return value != null ? value : defaultValue;
+    }
+
     public static String leftPad(String str, int size, char ch) {
         int length = str.length();
         int pads = size - length;
@@ -189,5 +193,50 @@ public class StrUtils {
         final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
+    }
+
+    private static final char[] hexCode = "0123456789abcdef".toCharArray();
+
+    public static String bytes2Hex(byte[] bytes) {
+        char[] hex = new char[bytes.length << 1];
+        for (int j = 0, i = 0; i < bytes.length; i++) {
+            byte b = bytes[i];
+            hex[j++] = hexCode[(b >> 4) & 0xF];
+            hex[j++] = hexCode[(b & 0xF)];
+        }
+        return new String(hex);
+    }
+
+    public static byte[] hex2Bytes(String hex) {
+        final int len = hex.length();
+
+        if (len % 2 != 0) {
+            throw new IllegalArgumentException("hexBinary needs to be even-length: " + hex);
+        }
+
+        byte[] out = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+
+            int h = hexToBin(hex.charAt(i));
+            int l = hexToBin(hex.charAt(i + 1));
+            if (h == -1 || l == -1) {
+                throw new IllegalArgumentException("contains illegal character for hexBinary: " + hex);
+            }
+            out[i / 2] = (byte) (h * 16 + l);
+        }
+        return out;
+    }
+
+    public static int hexToBin(char ch) {
+        if ('0' <= ch && ch <= '9') {
+            return ch - '0';
+        }
+        if ('A' <= ch && ch <= 'F') {
+            return ch - 'A' + 10;
+        }
+        if ('a' <= ch && ch <= 'f') {
+            return ch - 'a' + 10;
+        }
+        return -1;
     }
 }

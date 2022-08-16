@@ -7,21 +7,21 @@
 
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="9 %d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
         </Console>
 
         <RollingRandomAccessFile name="AppLog" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/jt808/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %p %c{3}[%L]%m%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
-                <SizeBasedTriggeringPolicy size="20 MB"/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
             </Policies>
         </RollingRandomAccessFile>
 
         <RollingRandomAccessFile name="AccessLog" fileName="${LOG_HOME}/${LOG_NAME}-access.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-access-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %p %m%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingRandomAccessFile>
     </Appenders>

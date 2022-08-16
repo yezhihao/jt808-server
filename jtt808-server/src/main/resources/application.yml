@@ -16,6 +16,7 @@ spring:
         sslMode: disabled
         serverTimezone: GMT+8
         characterEncoding: UTF-8
+        zeroDateTimeBehavior: convertToNull #日期时间0000-00-00 00:00:00转换为null
         allowPublicKeyRetrieval: true #MySQL8.0 允许特殊的握手往返，直接从服务器获取RSA公钥。
         cachePrepStmts: true #是否缓存客户端的预编译语句(PreparedStatement)，检查预编译语句的可准备性？
         cacheResultSetMetadata: true #是否应该缓存预编译语句的元数据(ResultSetMetaData)？
@@ -29,9 +30,9 @@ spring:
         elideSetAutoCommits: true #是否应该仅在服务器状态与Connection.setAutoCommit(boolean)所请求的状态不匹配时才发出“set autocommit = n”查询？
         allowMultiQueries: true #是否允许使用“;”在一条语句中分隔多个语句。它不影响addBatch()和executeBatch()方法，它们依赖于rewriteBatchStatements。
         rewriteBatchedStatements: true #当executeBatch()被调用时，驱动程序是否应该重写预编译语句以多值方式批量插入?
-#        useCompression: true #与服务器通信时使用zlib压缩
         enableQueryTimeouts: false #启用后，通过Statement.setQueryTimeout()设置的timeout将使用共享的java.util.Timer实例进行调度。即便查询没有超时，TimerTask也会在指定的timeout时间内使用内存，如果没有被驱动程序取消，这些内存直到timeout到期时才会被回收。高负载环境可能需要考虑禁用此功能。
         maintainTimeStats: false #与服务器连接失败时，驱动程序是否应该维护各种内部计时器以启用空闲时间计算以及更多详细的错误消息？设为false会取消每个查询至少两次调用System.getCurrentTimeMillis()。
+        useCompression: false #与服务器通信时使用zlib压缩
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   mvc:

@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
         for (T1210.Item item : items)
             fileList.append(item.getName()).append('\t').append(item.getSize()).append(IOUtils.Separator);
 
-        IOUtils.write(new File(dir, "fs.txt"), fileList.toString());
+        IOUtils.write(fileList.toString(), new File(dir, "fs.txt"));
     }
 
     /** 创建报警文件 */

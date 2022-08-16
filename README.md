@@ -174,7 +174,7 @@ public class JT808Endpoint {
 package org.yzh.web.controller;
 
 @RestController
-@RequestMapping("terminal")
+@RequestMapping("device")
 public class JT808Controller {
 
     @Autowired
@@ -243,6 +243,10 @@ public class JT808Controller {
 	- 7.山东六度信息科技有限公司
 	- 8.亚信创新技术(南京)有限公司
 	- 9.无锡创趣网络科技有限公司
+	- 10.新疆智联云信息科技有限公司
+	- 11.杭州品铂科技有限公司
+	- 12.萍乡萍钢安源钢铁有限公司
+	- 13.承德统凯网络科技有限公司
     - ……
     
 > 更多接入的公司，欢迎在 [登记地址](https://gitee.com/yezhihao/jt808-server/issues/I36WKD ) 登记，登记仅仅为了项目推广(登记后可提供一次技术支持)。

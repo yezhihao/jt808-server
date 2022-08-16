@@ -11,6 +11,7 @@ import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.JTMessageEncoder;
+import org.yzh.protocol.commons.JT808;
 
 import java.util.HashSet;
 
@@ -18,7 +19,12 @@ public class WebLogAdapter extends JTMessageAdapter {
 
     protected static final Logger log = LoggerFactory.getLogger(WebLogAdapter.class.getSimpleName());
 
-    private static final HashSet<String> clientIds = new HashSet<>();
+    public static final HashSet<String> clientIds = new HashSet<>();
+    public static final HashSet<Integer> ignoreMsgs = new HashSet<>();
+
+    static {
+        ignoreMsgs.add(JT808.定位数据批量上传);
+    }
 
     private SimpMessagingTemplate messagingTemplate;
 
@@ -34,23 +40,50 @@ public class WebLogAdapter extends JTMessageAdapter {
 
     @Override
     public void encodeLog(Session session, JTMessage message, ByteBuf output) {
-        super.encodeLog(session, message, output);
-        if (clientIds.contains(message.getClientId()))
+        boolean isClient = clientIds.contains(message.getClientId());
+        if (isClient)
             messagingTemplate.convertAndSend("client/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(output, 0, output.writerIndex()));
+        if ((!ignoreMsgs.contains(message.getMessageId())) && (isClient || clientIds.isEmpty()))
+            super.encodeLog(session, message, output);
     }
 
     @Override
     public void decodeLog(Session session, JTMessage message, ByteBuf input) {
-        super.decodeLog(session, message, input);
         if (message != null) {
+            boolean isClient = clientIds.contains(message.getClientId());
+            if (isClient)
+                messagingTemplate.convertAndSend("client/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(input, 0, input.writerIndex()));
+            if (!ignoreMsgs.contains(message.getMessageId()) && (isClient || clientIds.isEmpty()))
+                super.decodeLog(session, message, input);
+
             if (!message.isVerified())
                 log.error("<<<<<校验码错误session={},payload={}", session, ByteBufUtil.hexDump(input, 0, input.writerIndex()));
-            if (clientIds.contains(message.getClientId()))
-                messagingTemplate.convertAndSend("client/" + message.getClientId(), message + "\n" + ByteBufUtil.hexDump(input, 0, input.writerIndex()));
         }
     }
 
-    public static void clear() {
+    public static void clearMessage() {
+        synchronized (ignoreMsgs) {
+            ignoreMsgs.clear();
+        }
+    }
+
+    public static void addMessage(int messageId) {
+        if (!ignoreMsgs.contains(messageId)) {
+            synchronized (ignoreMsgs) {
+                ignoreMsgs.add(messageId);
+            }
+        }
+    }
+
+    public static void removeMessage(int messageId) {
+        if (ignoreMsgs.contains(messageId)) {
+            synchronized (ignoreMsgs) {
+                ignoreMsgs.remove(messageId);
+            }
+        }
+    }
+
+    public static void clearClient() {
         synchronized (clientIds) {
             clientIds.clear();
         }

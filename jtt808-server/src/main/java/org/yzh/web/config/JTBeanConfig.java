@@ -49,7 +49,7 @@ public class JTBeanConfig {
 
     @Bean
     public SchemaManager schemaManager() {
-        return new SchemaManager("org.yzh.protocol", "org.yzh.web.model.protocol");
+        return new SchemaManager("org.yzh.protocol");
     }
 
     @Bean
