@@ -16,7 +16,7 @@ public class DataPacket extends JTMessage {
 
     @Field(length = 4, desc = "帧头标识")
     private int flag;
-    @Field(length = 50, desc = "文件名称")
+    @Field(length = 50, desc = "文件名称(文件类型_通道号_报警类型_序号_报警编号.后缀名)")
     private String name;
     @Field(length = 4, desc = "数据偏移量")
     private int offset;

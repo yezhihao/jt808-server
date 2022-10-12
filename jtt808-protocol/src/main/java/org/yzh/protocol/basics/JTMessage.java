@@ -155,6 +155,10 @@ public class JTMessage implements Message {
         return true;
     }
 
+    public boolean noBuffer() {
+        return true;
+    }
+
     private static final int BODY_LENGTH = 0b0000_0011_1111_1111;
     private static final int ENCRYPTION = 0b00011_100_0000_0000;
     private static final int SUBPACKAGE = 0b0010_0000_0000_0000;

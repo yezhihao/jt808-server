@@ -61,7 +61,7 @@ public class MultiPacketDecoder extends JTMessageDecoder {
 
 
         ByteBuf[] packages = multiPacket.addAndGet(packetNo, packetData);
-        log.info("<<<<<分包消息{}", multiPacket);
+        log.debug("<<<<<分包消息{}", multiPacket);
         if (packages == null)
             return null;
         multiPacketsMap.remove(key);

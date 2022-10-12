@@ -33,4 +33,8 @@ public class T1206 extends JTMessage implements Response {
     public void setResult(int result) {
         this.result = result;
     }
+
+    public boolean isSuccess() {
+        return result == 0;
+    }
 }

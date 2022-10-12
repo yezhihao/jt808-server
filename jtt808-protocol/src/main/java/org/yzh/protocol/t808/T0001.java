@@ -49,4 +49,8 @@ public class T0001 extends JTMessage implements Response {
     public void setResultCode(int resultCode) {
         this.resultCode = resultCode;
     }
+
+    public boolean isSuccess() {
+        return this.resultCode == Success;
+    }
 }

@@ -87,8 +87,9 @@ public class JTMessageDecoder {
 
                 ByteBuf bodyBuf = Unpooled.wrappedBuffer(packages);
                 bodySchema.mergeFrom(bodyBuf, message, explain);
-                bodyBuf.release();
-
+                if (message.noBuffer()) {
+                    bodyBuf.release();
+                }
             } else {
                 buf.readerIndex(headLen);
                 bodySchema.mergeFrom(buf, message, explain);
@@ -144,9 +145,13 @@ public class JTMessageDecoder {
     /** 截取转义前报文，并还原转义位 */
     protected static ByteBuf slice(ByteBuf byteBuf, int index, int length) {
         byte second = byteBuf.getByte(index + length - 1);
-        if (second == 0x02) {
+        if (second == 0x01) {
+            return byteBuf.slice(index, length - 1);
+        } else if (second == 0x02) {
             byteBuf.setByte(index + length - 2, 0x7e);
+            return byteBuf.slice(index, length - 1);
+        } else {
+            return byteBuf;
         }
-        return byteBuf.slice(index, length - 1);
     }
 }

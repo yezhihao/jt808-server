@@ -83,4 +83,9 @@ public class T0801 extends JTMessage {
     public void setPacket(ByteBuf packet) {
         this.packet = packet;
     }
+
+    @Override
+    public boolean noBuffer() {
+        return false;
+    }
 }
