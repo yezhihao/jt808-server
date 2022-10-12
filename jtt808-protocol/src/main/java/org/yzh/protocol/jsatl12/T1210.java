@@ -2,9 +2,11 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,9 +19,20 @@ public class T1210 extends JTMessage {
     @Field(length = 7, desc = "终端ID", version = {-1, 0})
     @Field(length = 30, desc = "终端ID(粤标)", version = 1)
     private String deviceId;
-    @Field(length = 16, desc = "报警标识号", version = {-1, 0})
-    @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
-    private AlarmId alarmId;
+
+    @Field(length = 7, desc = "终端ID", version = {-1, 0})
+    @Field(length = 30, desc = "终端ID(粤标)", version = 1)
+    private String deviceId_;
+    @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
+    private LocalDateTime dateTime;
+    @Field(length = 1, desc = "序号(同一时间点报警的序号，从0循环累加)")
+    private int sequenceNo;
+    @Field(length = 1, desc = "附件数量")
+    private int fileTotal;
+    @Field(length = 1, desc = "预留", version = {-1, 0})
+    @Field(length = 2, desc = "预留(粤标)", version = 1)
+    private int reserved;
+
     @Field(length = 32, desc = "报警编号")
     private String platformAlarmId;
     @Field(length = 1, desc = "信息类型：0.正常报警文件信息 1.补传报警文件信息")
@@ -28,19 +41,46 @@ public class T1210 extends JTMessage {
     private List<Item> items;
 
     public String getDeviceId() {
+        if (StrUtils.isBlank(deviceId))
+            return deviceId_;
         return deviceId;
     }
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+        this.deviceId_ = deviceId;
     }
 
-    public AlarmId getAlarmId() {
-        return alarmId;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setAlarmId(AlarmId alarmId) {
-        this.alarmId = alarmId;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public int getFileTotal() {
+        return fileTotal;
+    }
+
+    public void setFileTotal(int fileTotal) {
+        this.fileTotal = fileTotal;
+    }
+
+    public int getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
     }
 
     public String getPlatformAlarmId() {

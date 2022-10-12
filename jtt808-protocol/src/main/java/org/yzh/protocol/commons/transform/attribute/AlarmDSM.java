@@ -1,14 +1,13 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.annotation.Field;
-import org.yzh.protocol.jsatl12.AlarmId;
 
 import java.time.LocalDateTime;
 
 /**
  * 驾驶员状态监测 0x65
  */
-public class AlarmDSM implements Alarm {
+public class AlarmDSM extends Alarm {
 
     public static final int key = 101;
 
@@ -41,7 +40,7 @@ public class AlarmDSM implements Alarm {
     @Field(length = 1, desc = "疲劳程度")
     private int fatigueDegree;
     @Field(length = 4, desc = "预留")
-    private int reserved;
+    private int reserves;
     @Field(length = 1, desc = "车速")
     private int speed;
     @Field(length = 2, desc = "高程")
@@ -54,9 +53,24 @@ public class AlarmDSM implements Alarm {
     private LocalDateTime alarmTime;
     @Field(length = 2, desc = "车辆状态")
     private int statusBit;
-    @Field(length = 16, desc = "报警标识号", version = {-1, 0})
-    @Field(length = 40, desc = "报警标识号(粤标)", version = 1)
-    private AlarmId alarmId;
+
+    @Field(length = 7, desc = "终端ID", version = {-1, 0})
+    @Field(length = 30, desc = "终端ID(粤标)", version = 1)
+    private String deviceId;
+    @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
+    private LocalDateTime dateTime;
+    @Field(length = 1, desc = "序号(同一时间点报警的序号，从0循环累加)")
+    private int sequenceNo;
+    @Field(length = 1, desc = "附件数量")
+    private int fileTotal;
+    @Field(length = 1, desc = "预留", version = {-1, 0})
+    @Field(length = 2, desc = "预留(粤标)", version = 1)
+    private int reserved;
+
+    @Override
+    public int getSource() {
+        return 1;
+    }
 
     @Override
     public int getCategory() {
@@ -66,16 +80,6 @@ public class AlarmDSM implements Alarm {
     @Override
     public int getAlarmType() {
         return Alarm.buildType(key, type);
-    }
-
-    @Override
-    public int getSerialNo() {
-        return alarmId.getSerialNo();
-    }
-
-    @Override
-    public int getFileTotal() {
-        return alarmId.getFileTotal();
     }
 
     @Override
@@ -123,12 +127,12 @@ public class AlarmDSM implements Alarm {
         this.fatigueDegree = fatigueDegree;
     }
 
-    public int getReserved() {
-        return reserved;
+    public int getReserves() {
+        return reserves;
     }
 
-    public void setReserved(int reserved) {
-        this.reserved = reserved;
+    public void setReserves(int reserves) {
+        this.reserves = reserves;
     }
 
     public int getSpeed() {
@@ -179,12 +183,44 @@ public class AlarmDSM implements Alarm {
         this.statusBit = statusBit;
     }
 
-    public AlarmId getAlarmId() {
-        return alarmId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setAlarmId(AlarmId alarmId) {
-        this.alarmId = alarmId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public int getFileTotal() {
+        return fileTotal;
+    }
+
+    public void setFileTotal(int fileTotal) {
+        this.fileTotal = fileTotal;
+    }
+
+    public int getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
     }
 
     @Override
@@ -195,14 +231,18 @@ public class AlarmDSM implements Alarm {
         sb.append(", type=").append(type);
         sb.append(", level=").append(level);
         sb.append(", fatigueDegree=").append(fatigueDegree);
-        sb.append(", reserved=").append(reserved);
+        sb.append(", reserves=").append(reserves);
         sb.append(", speed=").append(speed);
         sb.append(", altitude=").append(altitude);
         sb.append(", longitude=").append(longitude);
         sb.append(", latitude=").append(latitude);
         sb.append(", alarmTime=").append(alarmTime);
         sb.append(", statusBit=").append(statusBit);
-        sb.append(", alarmId=").append(alarmId);
+        sb.append(", deviceId=").append(deviceId);
+        sb.append(", dateTime=").append(dateTime);
+        sb.append(", sequenceNo=").append(sequenceNo);
+        sb.append(", fileTotal=").append(fileTotal);
+        sb.append(", reserved=").append(reserved);
         sb.append('}');
         return sb.toString();
     }

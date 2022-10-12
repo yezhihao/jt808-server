@@ -10,7 +10,10 @@ import org.yzh.protocol.commons.transform.attribute.*;
 import org.yzh.protocol.commons.transform.parameter.ParamADAS;
 import org.yzh.protocol.commons.transform.parameter.ParamVideo;
 import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
-import org.yzh.protocol.jsatl12.*;
+import org.yzh.protocol.jsatl12.T1210;
+import org.yzh.protocol.jsatl12.T1211;
+import org.yzh.protocol.jsatl12.T9208;
+import org.yzh.protocol.jsatl12.T9212;
 import org.yzh.protocol.t1078.*;
 import org.yzh.protocol.t808.*;
 
@@ -226,7 +229,11 @@ public class JT808Beans {
         alarmADAS.setLongitude(222222);
         alarmADAS.setAlarmTime(TIME);
         alarmADAS.setStatusBit(1);
-        alarmADAS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 1, 1));
+        alarmADAS.setDeviceId(DEVICE_ID);
+        alarmADAS.setDateTime(TIME);
+        alarmADAS.setSequenceNo(1);
+        alarmADAS.setFileTotal(1);
+        alarmADAS.setReserved(1);
 
         AlarmDSM alarmDSM = new AlarmDSM();
         alarmDSM.setId(65);
@@ -234,14 +241,18 @@ public class JT808Beans {
         alarmDSM.setType(2);
         alarmDSM.setLevel(2);
         alarmDSM.setFatigueDegree(20);
-        alarmDSM.setReserved(20);
+        alarmDSM.setReserves(20);
         alarmDSM.setSpeed(20);
         alarmDSM.setAltitude(200);
         alarmDSM.setLatitude(333333);
         alarmDSM.setLongitude(444444);
         alarmDSM.setAlarmTime(TIME);
         alarmDSM.setStatusBit(2);
-        alarmDSM.setAlarmId(new AlarmId(DEVICE_ID, TIME, 2, 2, 2));
+        alarmDSM.setDeviceId(DEVICE_ID);
+        alarmDSM.setDateTime(TIME);
+        alarmDSM.setSequenceNo(2);
+        alarmDSM.setFileTotal(2);
+        alarmDSM.setReserved(2);
 
         AlarmTPMS alarmTPMS = new AlarmTPMS();
         alarmTPMS.setId(66);
@@ -252,7 +263,11 @@ public class JT808Beans {
         alarmTPMS.setLongitude(666666);
         alarmTPMS.setAlarmTime(TIME);
         alarmTPMS.setStatusBit(3);
-        alarmTPMS.setAlarmId(new AlarmId(DEVICE_ID, TIME, 3, 3, 3));
+        alarmTPMS.setDeviceId(DEVICE_ID);
+        alarmTPMS.setDateTime(TIME);
+        alarmTPMS.setSequenceNo(3);
+        alarmTPMS.setFileTotal(3);
+        alarmTPMS.setReserved(3);
 
         AlarmBSD alarmBSD = new AlarmBSD();
         alarmBSD.setId(67);
@@ -264,7 +279,11 @@ public class JT808Beans {
         alarmBSD.setLongitude(888888);
         alarmBSD.setAlarmTime(TIME);
         alarmBSD.setStatusBit(4);
-        alarmBSD.setAlarmId(new AlarmId(DEVICE_ID, TIME, 4, 4, 4));
+        alarmBSD.setDeviceId(DEVICE_ID);
+        alarmBSD.setDateTime(TIME);
+        alarmBSD.setSequenceNo(4);
+        alarmBSD.setFileTotal(4);
+        alarmBSD.setReserved(4);
 
 
         T0200 bean = T0200();
@@ -901,7 +920,11 @@ public class JT808Beans {
     public static T1210 T1210() {
         T1210 bean = new T1210();
         bean.setDeviceId(DEVICE_ID);
-        bean.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 3, 1));
+        bean.setDeviceId(DEVICE_ID);
+        bean.setDateTime(TIME);
+        bean.setSequenceNo(1);
+        bean.setFileTotal(3);
+        bean.setReserved(1);
         bean.setPlatformAlarmId(ALARM_NO);
         bean.setType(0);
         bean.setItems(null);
@@ -923,9 +946,13 @@ public class JT808Beans {
         bean.setIp("47.104.97.169");
         bean.setTcpPort(8202);
         bean.setUdpPort(8203);
-        bean.setAlarmId(new AlarmId(DEVICE_ID, TIME, 1, 1, 1));
+        bean.setDeviceId(DEVICE_ID);
+        bean.setDateTime(TIME);
+        bean.setSequenceNo(1);
+        bean.setFileTotal(1);
+        bean.setReserved(1);
         bean.setPlatformAlarmId(ALARM_NO);
-        bean.setReserved(new byte[16]);
+        bean.setReserves(new byte[16]);
         return bean;
     }
 

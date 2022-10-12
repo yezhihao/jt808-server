@@ -2659,13 +2659,11 @@ json2 {
 hex1 7e121000391234567890127fff373635343332313736353433323120070719235901030161643732313331353739653534626530623066373337636663373263356462380000267e
 json1 {
   "deviceId": "7654321",
-  "alarmId": {
-    "deviceId": "7654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 3,
-    "reserved": 1
-  },
+  "deviceId_": "7654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 3,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
   "messageId": 4624,
@@ -2678,13 +2676,11 @@ json1 {
 hex2 7e121000391234567890127fff373635343332313736353433323120070719235901030161643732313331353739653534626530623066373337636663373263356462380000267e
 json2 {
   "deviceId": "7654321",
-  "alarmId": {
-    "deviceId": "7654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 3,
-    "reserved": 1
-  },
+  "deviceId_": "7654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 3,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
   "messageId": 4624,
@@ -2697,13 +2693,11 @@ json2 {
 hex1 7e121040680112345678901234567890ffff30393837363534333231303938373635343332310000000000000000000030393837363534333231303938373635343332310000000000000000000020070719235901030001616437323133313537396535346265306230663733376366633732633564623800003c7e
 json1 {
   "deviceId": "09876543210987654321",
-  "alarmId": {
-    "deviceId": "09876543210987654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 3,
-    "reserved": 1
-  },
+  "deviceId_": "09876543210987654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 3,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
   "messageId": 4624,
@@ -2716,13 +2710,11 @@ json1 {
 hex2 7e121040680112345678901234567890ffff30393837363534333231303938373635343332310000000000000000000030393837363534333231303938373635343332310000000000000000000020070719235901030001616437323133313537396535346265306230663733376366633732633564623800003c7e
 json2 {
   "deviceId": "09876543210987654321",
-  "alarmId": {
-    "deviceId": "09876543210987654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 3,
-    "reserved": 1
-  },
+  "deviceId_": "09876543210987654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 3,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
   "type": 0,
   "messageId": 4624,
@@ -6038,7 +6030,7 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-hex1 7e920600451234567890127fff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200707192359200707192359000000000000000000010101fa7e
+hex1 7e920600451234567890127fff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200726000000200726232359000000000000000000010101a37e
 json1 {
   "ip": "192.168.1.1",
   "port": 11053,
@@ -6046,8 +6038,8 @@ json1 {
   "password": "password",
   "path": "/alarm_file",
   "channelNo": 1,
-  "startTime": "200707192359",
-  "endTime": "200707192359",
+  "startTime": "2020-07-26T00:00:00",
+  "endTime": "2020-07-26T23:23:59",
   "warnBit1": 0,
   "warnBit2": 0,
   "mediaType": 0,
@@ -6061,7 +6053,7 @@ json1 {
   "serialNo": 32767,
   "verified": true
 }
-hex2 7e920600451234567890127fff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200707192359200707192359000000000000000000010101fa7e
+hex2 7e920600451234567890127fff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200726000000200726232359000000000000000000010101a37e
 json2 {
   "ip": "192.168.1.1",
   "port": 11053,
@@ -6069,8 +6061,8 @@ json2 {
   "password": "password",
   "path": "/alarm_file",
   "channelNo": 1,
-  "startTime": "200707192359",
-  "endTime": "200707192359",
+  "startTime": "2020-07-26T00:00:00",
+  "endTime": "2020-07-26T23:23:59",
   "warnBit1": 0,
   "warnBit2": 0,
   "mediaType": 0,
@@ -6084,7 +6076,7 @@ json2 {
   "serialNo": 32767,
   "verified": true
 }
-hex1 7e920640450112345678901234567890ffff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200707192359200707192359000000000000000000010101b17e
+hex1 7e920640450112345678901234567890ffff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200726000000200726232359000000000000000000010101e87e
 json1 {
   "ip": "192.168.1.1",
   "port": 11053,
@@ -6092,8 +6084,8 @@ json1 {
   "password": "password",
   "path": "/alarm_file",
   "channelNo": 1,
-  "startTime": "200707192359",
-  "endTime": "200707192359",
+  "startTime": "2020-07-26T00:00:00",
+  "endTime": "2020-07-26T23:23:59",
   "warnBit1": 0,
   "warnBit2": 0,
   "mediaType": 0,
@@ -6107,7 +6099,7 @@ json1 {
   "serialNo": 65535,
   "verified": true
 }
-hex2 7e920640450112345678901234567890ffff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200707192359200707192359000000000000000000010101b17e
+hex2 7e920640450112345678901234567890ffff0b3139322e3136382e312e312b2d08757365726e616d650870617373776f72640b2f616c61726d5f66696c6501200726000000200726232359000000000000000000010101e87e
 json2 {
   "ip": "192.168.1.1",
   "port": 11053,
@@ -6115,8 +6107,8 @@ json2 {
   "password": "password",
   "path": "/alarm_file",
   "channelNo": 1,
-  "startTime": "200707192359",
-  "endTime": "200707192359",
+  "startTime": "2020-07-26T00:00:00",
+  "endTime": "2020-07-26T23:23:59",
   "warnBit1": 0,
   "warnBit2": 0,
   "mediaType": 0,
@@ -6179,15 +6171,13 @@ json1 {
   "ip": "47.104.97.169",
   "tcpPort": 8202,
   "udpPort": 8203,
-  "alarmId": {
-    "deviceId": "7654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 1,
-    "reserved": 1
-  },
+  "deviceId": "7654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 1,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
-  "reserved": [
+  "reserves": [
     0,
     0,
     0,
@@ -6217,15 +6207,13 @@ json2 {
   "ip": "47.104.97.169",
   "tcpPort": 8202,
   "udpPort": 8203,
-  "alarmId": {
-    "deviceId": "7654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 1,
-    "reserved": 1
-  },
+  "deviceId": "7654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 1,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
-  "reserved": [
+  "reserves": [
     0,
     0,
     0,
@@ -6255,15 +6243,13 @@ json1 {
   "ip": "47.104.97.169",
   "tcpPort": 8202,
   "udpPort": 8203,
-  "alarmId": {
-    "deviceId": "09876543210987654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 1,
-    "reserved": 1
-  },
+  "deviceId": "09876543210987654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 1,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
-  "reserved": [
+  "reserves": [
     0,
     0,
     0,
@@ -6293,15 +6279,13 @@ json2 {
   "ip": "47.104.97.169",
   "tcpPort": 8202,
   "udpPort": 8203,
-  "alarmId": {
-    "deviceId": "09876543210987654321",
-    "alarmTime": "2020-07-07T19:23:59",
-    "serialNo": 1,
-    "fileTotal": 1,
-    "reserved": 1
-  },
+  "deviceId": "09876543210987654321",
+  "dateTime": "2020-07-07T19:23:59",
+  "sequenceNo": 1,
+  "fileTotal": 1,
+  "reserved": 1,
   "platformAlarmId": "ad72131579e54be0b0f737cfc72c5db8",
-  "reserved": [
+  "reserves": [
     0,
     0,
     0,
@@ -7317,13 +7301,11 @@ json1 {
       "longitude": 222222,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 1,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 1,
-        "fileTotal": 1,
-        "reserved": 1
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 1,
+      "fileTotal": 1,
+      "reserved": 1
     },
     "101": {
       "id": 65,
@@ -7331,20 +7313,18 @@ json1 {
       "type": 2,
       "level": 2,
       "fatigueDegree": 20,
-      "reserved": 20,
+      "reserves": 20,
       "speed": 20,
       "altitude": 200,
       "latitude": 333333,
       "longitude": 444444,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 2,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 2,
-        "fileTotal": 2,
-        "reserved": 2
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 2,
+      "fileTotal": 2,
+      "reserved": 2
     },
     "102": {
       "id": 66,
@@ -7355,13 +7335,11 @@ json1 {
       "longitude": 666666,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 3,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 3,
-        "fileTotal": 3,
-        "reserved": 3
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 3,
+      "fileTotal": 3,
+      "reserved": 3
     },
     "103": {
       "id": 67,
@@ -7373,13 +7351,11 @@ json1 {
       "longitude": 888888,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 4,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 4,
-        "fileTotal": 4,
-        "reserved": 4
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 4,
+      "fileTotal": 4,
+      "reserved": 4
     }
   },
   "messageId": 512,
@@ -7416,13 +7392,11 @@ json2 {
       "longitude": 222222,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 1,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 1,
-        "fileTotal": 1,
-        "reserved": 1
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 1,
+      "fileTotal": 1,
+      "reserved": 1
     },
     "101": {
       "id": 65,
@@ -7430,20 +7404,18 @@ json2 {
       "type": 2,
       "level": 2,
       "fatigueDegree": 20,
-      "reserved": 20,
+      "reserves": 20,
       "speed": 20,
       "altitude": 200,
       "latitude": 333333,
       "longitude": 444444,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 2,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 2,
-        "fileTotal": 2,
-        "reserved": 2
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 2,
+      "fileTotal": 2,
+      "reserved": 2
     },
     "102": {
       "id": 66,
@@ -7454,13 +7426,11 @@ json2 {
       "longitude": 666666,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 3,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 3,
-        "fileTotal": 3,
-        "reserved": 3
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 3,
+      "fileTotal": 3,
+      "reserved": 3
     },
     "103": {
       "id": 67,
@@ -7472,13 +7442,11 @@ json2 {
       "longitude": 888888,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 4,
-      "alarmId": {
-        "deviceId": "7654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 4,
-        "fileTotal": 4,
-        "reserved": 4
-      }
+      "deviceId": "7654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 4,
+      "fileTotal": 4,
+      "reserved": 4
     }
   },
   "messageId": 512,
@@ -7515,13 +7483,11 @@ json1 {
       "longitude": 222222,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 1,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 1,
-        "fileTotal": 1,
-        "reserved": 1
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 1,
+      "fileTotal": 1,
+      "reserved": 1
     },
     "101": {
       "id": 65,
@@ -7529,20 +7495,18 @@ json1 {
       "type": 2,
       "level": 2,
       "fatigueDegree": 20,
-      "reserved": 20,
+      "reserves": 20,
       "speed": 20,
       "altitude": 200,
       "latitude": 333333,
       "longitude": 444444,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 2,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 2,
-        "fileTotal": 2,
-        "reserved": 2
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 2,
+      "fileTotal": 2,
+      "reserved": 2
     },
     "102": {
       "id": 66,
@@ -7553,13 +7517,11 @@ json1 {
       "longitude": 666666,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 3,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 3,
-        "fileTotal": 3,
-        "reserved": 3
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 3,
+      "fileTotal": 3,
+      "reserved": 3
     },
     "103": {
       "id": 67,
@@ -7571,13 +7533,11 @@ json1 {
       "longitude": 888888,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 4,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 4,
-        "fileTotal": 4,
-        "reserved": 4
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 4,
+      "fileTotal": 4,
+      "reserved": 4
     }
   },
   "messageId": 512,
@@ -7614,13 +7574,11 @@ json2 {
       "longitude": 222222,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 1,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 1,
-        "fileTotal": 1,
-        "reserved": 1
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 1,
+      "fileTotal": 1,
+      "reserved": 1
     },
     "101": {
       "id": 65,
@@ -7628,20 +7586,18 @@ json2 {
       "type": 2,
       "level": 2,
       "fatigueDegree": 20,
-      "reserved": 20,
+      "reserves": 20,
       "speed": 20,
       "altitude": 200,
       "latitude": 333333,
       "longitude": 444444,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 2,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 2,
-        "fileTotal": 2,
-        "reserved": 2
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 2,
+      "fileTotal": 2,
+      "reserved": 2
     },
     "102": {
       "id": 66,
@@ -7652,13 +7608,11 @@ json2 {
       "longitude": 666666,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 3,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 3,
-        "fileTotal": 3,
-        "reserved": 3
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 3,
+      "fileTotal": 3,
+      "reserved": 3
     },
     "103": {
       "id": 67,
@@ -7670,13 +7624,11 @@ json2 {
       "longitude": 888888,
       "alarmTime": "2020-07-07T19:23:59",
       "statusBit": 4,
-      "alarmId": {
-        "deviceId": "09876543210987654321",
-        "alarmTime": "2020-07-07T19:23:59",
-        "serialNo": 4,
-        "fileTotal": 4,
-        "reserved": 4
-      }
+      "deviceId": "09876543210987654321",
+      "dateTime": "2020-07-07T19:23:59",
+      "sequenceNo": 4,
+      "fileTotal": 4,
+      "reserved": 4
     }
   },
   "messageId": 512,
@@ -13514,7 +13466,6 @@ json2 {
   "verified": true
 }
 
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=1, retryCount=0, waitTime=0, packets={1, , , , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13526,7 +13477,6 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=2, retryCount=0, waitTime=0, packets={1,2, , , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13538,7 +13488,6 @@ json2 {
   "packageNo": 2,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=3, retryCount=0, waitTime=0, packets={1,2,3, , , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13550,7 +13499,6 @@ json2 {
   "packageNo": 3,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=4, retryCount=0, waitTime=0, packets={1,2,3,4, , , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13562,7 +13510,6 @@ json2 {
   "packageNo": 4,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=5, retryCount=0, waitTime=0, packets={1,2,3,4,5, , , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13574,7 +13521,6 @@ json2 {
   "packageNo": 5,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=6, retryCount=0, waitTime=0, packets={1,2,3,4,5,6, , , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13586,7 +13532,6 @@ json2 {
   "packageNo": 6,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=7, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7, , , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13598,7 +13543,6 @@ json2 {
   "packageNo": 7,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=8, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8, , , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13610,7 +13554,6 @@ json2 {
   "packageNo": 8,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=9, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9, , , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13622,7 +13565,6 @@ json2 {
   "packageNo": 9,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=10, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10, , , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13634,7 +13576,6 @@ json2 {
   "packageNo": 10,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=11, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11, , , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13646,7 +13587,6 @@ json2 {
   "packageNo": 11,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=12, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12, , , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13658,7 +13598,6 @@ json2 {
   "packageNo": 12,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=13, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13, , , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13670,7 +13609,6 @@ json2 {
   "packageNo": 13,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=14, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14, , , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13682,7 +13620,6 @@ json2 {
   "packageNo": 14,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=15, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, , , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13694,7 +13631,6 @@ json2 {
   "packageNo": 15,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=16, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, , }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13706,7 +13642,6 @@ json2 {
   "packageNo": 16,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=17, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, }
 {
   "responseSerialNo": 0,
   "messageId": 4613,
@@ -13718,7 +13653,6 @@ json2 {
   "packageNo": 17,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[1205]终端上传音视频资源列表, cid=17299841738, total=18, count=18, retryCount=0, waitTime=0, packets={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
 {
   "responseSerialNo": 2,
   "items": [
@@ -15712,7 +15646,6 @@ json2 {
   "packageNo": 18,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[0104]查询终端参数应答, cid=13224005528, total=2, count=1, retryCount=0, waitTime=0, packets={1, }
 {
   "responseSerialNo": 0,
   "total": 0,
@@ -15725,7 +15658,6 @@ json2 {
   "packageNo": 1,
   "verified": true
 }
-[main] INFO MultiPacketDecoder   <<<<<分包消息[0104]查询终端参数应答, cid=13224005528, total=2, count=2, retryCount=0, waitTime=0, packets={1,2}
 {
   "responseSerialNo": 420,
   "total": 88,

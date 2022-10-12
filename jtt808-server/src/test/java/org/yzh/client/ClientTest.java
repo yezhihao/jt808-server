@@ -11,7 +11,6 @@ import org.yzh.protocol.commons.transform.attribute.AlarmADAS;
 import org.yzh.protocol.commons.transform.attribute.AlarmBSD;
 import org.yzh.protocol.commons.transform.attribute.AlarmDSM;
 import org.yzh.protocol.commons.transform.attribute.AlarmTPMS;
-import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
 
@@ -111,7 +110,11 @@ public class ClientTest {
             alarmADAS.setLongitude(123111111);
             alarmADAS.setAlarmTime(dateTime);
             alarmADAS.setStatusBit(1);
-            alarmADAS.setAlarmId(new AlarmId(clientId, dateTime, 1, 1, 1));
+            alarmADAS.setDeviceId(clientId);
+            alarmADAS.setDateTime(dateTime);
+            alarmADAS.setSequenceNo(1);
+            alarmADAS.setFileTotal(1);
+            alarmADAS.setReserved(1);
 
             AlarmDSM alarmDSM = new AlarmDSM();
             alarmDSM.setId(65);
@@ -126,7 +129,11 @@ public class ClientTest {
             alarmDSM.setLongitude(123222222);
             alarmDSM.setAlarmTime(dateTime);
             alarmDSM.setStatusBit(2);
-            alarmDSM.setAlarmId(new AlarmId(clientId, dateTime, 2, 2, 2));
+            alarmDSM.setDeviceId(clientId);
+            alarmDSM.setDateTime(dateTime);
+            alarmDSM.setSequenceNo(2);
+            alarmDSM.setFileTotal(2);
+            alarmDSM.setReserved(2);
 
             AlarmTPMS alarmTPMS = new AlarmTPMS();
             alarmTPMS.setId(66);
@@ -137,7 +144,11 @@ public class ClientTest {
             alarmTPMS.setLongitude(123333333);
             alarmTPMS.setAlarmTime(dateTime);
             alarmTPMS.setStatusBit(3);
-            alarmTPMS.setAlarmId(new AlarmId(clientId, dateTime, 3, 3, 3));
+            alarmTPMS.setDeviceId(clientId);
+            alarmTPMS.setDateTime(dateTime);
+            alarmTPMS.setSequenceNo(3);
+            alarmTPMS.setFileTotal(3);
+            alarmTPMS.setReserved(3);
 
             AlarmBSD alarmBSD = new AlarmBSD();
             alarmBSD.setId(67);
@@ -149,7 +160,11 @@ public class ClientTest {
             alarmBSD.setLongitude(123444444);
             alarmBSD.setAlarmTime(dateTime);
             alarmBSD.setStatusBit(4);
-            alarmBSD.setAlarmId(new AlarmId(clientId, dateTime, 4, 4, 4));
+            alarmBSD.setDeviceId(clientId);
+            alarmBSD.setDateTime(dateTime);
+            alarmBSD.setSequenceNo(4);
+            alarmBSD.setFileTotal(4);
+            alarmBSD.setReserved(4);
 
 
             Map<Integer, Object> attributes = new TreeMap<>();
