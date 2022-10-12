@@ -34,6 +34,7 @@ spring:
         maintainTimeStats: false #与服务器连接失败时，驱动程序是否应该维护各种内部计时器以启用空闲时间计算以及更多详细的错误消息？设为false会取消每个查询至少两次调用System.getCurrentTimeMillis()。
         useCompression: false #与服务器通信时使用zlib压缩
   jackson:
+    time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   mvc:
     format:

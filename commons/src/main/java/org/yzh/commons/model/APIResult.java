@@ -12,6 +12,7 @@ public class APIResult<T> {
 
     public static final APIResult SUCCESS = new ImmutableAPIResult<>(new APIResult<>());
     public static final APIResult Unauthorized = new ImmutableAPIResult<>(new APIResult<>(APICodes.Unauthorized));
+    public static final APIResult NotPermission = new ImmutableAPIResult<>(new APIResult<>(APICodes.NotPermission));
 
     public interface View {
     }
@@ -43,13 +44,13 @@ public class APIResult<T> {
     public APIResult(APICode code, Exception e) {
         this.code = code.getCode();
         this.msg = code.getMessage();
-        this.detailMsg = StrUtils.getStackTrace(e);
+        this.detailMsg = e.getMessage();
     }
 
     public APIResult(APIException e) {
         this.code = e.getCode();
         this.msg = e.getMessage();
-        this.detailMsg = e.getDetailMessage();
+        this.detailMsg = StrUtils.getStackTrace(e);
     }
 
     public APIResult(APICode code) {

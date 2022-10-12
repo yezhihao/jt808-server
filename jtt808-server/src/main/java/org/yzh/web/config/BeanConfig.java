@@ -1,24 +1,14 @@
 package org.yzh.web.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.yzh.commons.util.DateUtils;
+import org.yzh.commons.util.JsonUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +16,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-@MapperScan("org.yzh.web.mapper")
 @Configuration
 public class BeanConfig {
 
@@ -40,26 +29,8 @@ public class BeanConfig {
     }
 
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer customizeJackson2ObjectMapper() {
-        return builder -> {
-            SimpleModule longModule = new SimpleModule();
-            longModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
-            longModule.addSerializer(Long.class, ToStringSerializer.instance);
-
-            JavaTimeModule timeModule = new JavaTimeModule();
-
-            timeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateUtils.DATE_TIME_FORMATTER));
-            timeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateUtils.DATE_TIME_FORMATTER));
-
-            timeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE));
-            timeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ISO_LOCAL_DATE));
-
-            timeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
-            timeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ISO_LOCAL_TIME));
-
-            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
-            builder.modules(longModule, timeModule);
-        };
+    public ObjectMapper objectMapper() {
+        return JsonUtils.mapper;
     }
 
     @Bean

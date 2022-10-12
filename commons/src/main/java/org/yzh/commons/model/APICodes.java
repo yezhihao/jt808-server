@@ -9,7 +9,8 @@ public enum APICodes implements APICode {
 
     Success(200, ""),
     UnregisteredUser(402, "未注册的用户"),
-    Unauthorized(403, "用户授权失败"),
+    Unauthorized(403, "授权失败"),
+    NotPermission(404, "没有权限"),
     MissingParameter(400, "缺少必要的参数"),
     TypeMismatch(410, "参数格式不正确"),
     InvalidParameter(411, "无效的参数"),
