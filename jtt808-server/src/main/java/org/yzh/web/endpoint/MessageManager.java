@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import org.yzh.commons.model.APIException;
 import org.yzh.commons.model.APIResult;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -40,7 +38,6 @@ public class MessageManager {
         if (session == null)
             return OFFLINE_EXCEPTION;
 
-        fillHeader(request, session);
         return session.notify(request);
     }
 
@@ -49,7 +46,6 @@ public class MessageManager {
         if (session == null)
             return NEVER;
 
-        fillHeader(request, session);
         return session.notify(request);
     }
 
@@ -58,7 +54,6 @@ public class MessageManager {
         if (session == null)
             return OFFLINE_RESULT;
 
-        fillHeader(request, session);
         return session.request(request, responseClass)
                 .map(message -> APIResult.ok(message))
                 .timeout(Duration.ofSeconds(10), TIMEOUT_RESULT)
@@ -77,23 +72,6 @@ public class MessageManager {
         if (session == null)
             return OFFLINE_EXCEPTION;
 
-        fillHeader(request, session);
         return session.request(request, responseClass);
-    }
-
-    public static <T extends JTMessage> T fillHeader(T request, Session session) {
-        request.setClientId(session.getClientId());
-        request.setSerialNo(session.nextSerialNo());
-
-        DeviceInfo device = SessionKey.getDeviceInfo(session);
-        int protocolVersion = device.getProtocolVersion();
-        if (protocolVersion > 0) {
-            request.setVersion(true);
-            request.setProtocolVersion(protocolVersion);
-        }
-        if (request.getMessageId() == 0) {
-            request.setMessageId(request.reflectMessageId());
-        }
-        return request;
     }
 }

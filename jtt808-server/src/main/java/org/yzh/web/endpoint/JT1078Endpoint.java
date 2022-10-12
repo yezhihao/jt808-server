@@ -15,23 +15,23 @@ import static org.yzh.protocol.commons.JT1078.*;
 @Component
 public class JT1078Endpoint {
 
-    @Mapping(types = 终端上传音视频属性, desc = "终端上传音视频属性")
-    public void mediaAttributesResponse(T1003 message, Session session) {
+    @Mapping(types = 终端上传音视频资源列表, desc = "终端上传音视频资源列表")
+    public void fileSearchResponse(T1205 message, Session session) {
         session.response(message);
     }
 
-    @Mapping(types = 终端上传乘客流量, desc = "终端上传乘客流量")
-    public void passengerVolumeReport(T1005 message, Session session) {
-
-    }
-
-    @Mapping(types = 终端上传音视频资源列表, desc = "终端上传音视频资源列表")
-    public void fileSearchResponse(T1205 message, Session session) {
+    @Mapping(types = 终端上传音视频属性, desc = "终端上传音视频属性")
+    public void mediaAttributesResponse(T1003 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 文件上传完成通知, desc = "文件上传完成通知")
     public void fileUploadComplete(T1206 message, Session session) {
         session.response(message);
+    }
+
+    @Mapping(types = 终端上传乘客流量, desc = "终端上传乘客流量")
+    public void passengerVolumeReport(T1005 message, Session session) {
+
     }
 }

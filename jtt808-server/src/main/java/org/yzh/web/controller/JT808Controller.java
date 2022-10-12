@@ -13,7 +13,6 @@ import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.Shape;
-import org.yzh.protocol.jsatl12.AlarmId;
 import org.yzh.protocol.jsatl12.T9208;
 import org.yzh.protocol.t808.*;
 import org.yzh.web.endpoint.MessageManager;
@@ -42,7 +41,7 @@ public class JT808Controller {
     @GetMapping("alarm_file/upload")
     public Mono<APIResult<T0001>> alarmFileUpload(@Parameter(description = "终端手机号") @RequestParam String mobileNo,
                                                   @Parameter(description = "时间(YYMMDDHHMMSS)") @RequestParam String dateTime,
-                                                  @Parameter(description = "报警序号") @RequestParam int serialNo,
+                                                  @Parameter(description = "报警序号") @RequestParam int sequenceNo,
                                                   @Parameter(description = "附件数量") @RequestParam int fileTotal,
                                                   @Parameter(description = "IP地址") String host,
                                                   @Parameter(description = "端口号") Integer port) {
@@ -53,8 +52,12 @@ public class JT808Controller {
         T9208 request = new T9208();
         request.setIp(host);
         request.setTcpPort(port);
-        request.setUdpPort(0);
-        request.setAlarmId(new AlarmId(mobileNo, DateUtils.parse(dateTime), serialNo, fileTotal, 0));
+        request.setUdpPort(port);
+        request.setDeviceId("");
+        request.setDateTime(DateUtils.parse(dateTime));
+        request.setSequenceNo(sequenceNo);
+        request.setFileTotal(fileTotal);
+        request.setReserved(0);
         request.setPlatformAlarmId(UUID.randomUUID().toString().replaceAll("-", ""));
 
         Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
