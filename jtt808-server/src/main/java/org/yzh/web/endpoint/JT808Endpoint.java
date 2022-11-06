@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 import org.yzh.web.service.FileService;
 
 import java.time.LocalDateTime;
@@ -59,11 +59,11 @@ public class JT808Endpoint {
     @Mapping(types = 终端注册, desc = "终端注册")
     public T8100 register(T0100 message, Session session) {
         session.register(message);
-        DeviceInfo deviceInfo = new DeviceInfo();
-        deviceInfo.setDeviceId(message.getDeviceId());
-        deviceInfo.setMobileNo(message.getClientId());
-        deviceInfo.setPlateNo(message.getPlateNo());
-        session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
+        DeviceDO device = new DeviceDO();
+        device.setDeviceId(message.getDeviceId());
+        device.setMobileNo(message.getClientId());
+        device.setPlateNo(message.getPlateNo());
+        session.setAttribute(SessionKey.Device, device);
 
         T8100 result = new T8100();
         result.setResponseSerialNo(message.getSerialNo());
@@ -75,13 +75,13 @@ public class JT808Endpoint {
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
     public T0001 authentication(T0102 message, Session session) {
         session.register(message);
-        DeviceInfo deviceInfo = new DeviceInfo();
+        DeviceDO device = new DeviceDO();
         String[] token = message.getToken().split(",");
-        deviceInfo.setMobileNo(message.getClientId());
-        deviceInfo.setDeviceId(token[0]);
+        device.setMobileNo(message.getClientId());
+        device.setDeviceId(token[0]);
         if (token.length > 1)
-            deviceInfo.setPlateNo(token[1]);
-        session.setAttribute(SessionKey.DeviceInfo, deviceInfo);
+            device.setPlateNo(token[1]);
+        session.setAttribute(SessionKey.Device, device);
 
         T0001 result = new T0001();
         result.setResponseSerialNo(message.getSerialNo());

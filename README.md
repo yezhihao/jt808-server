@@ -40,9 +40,9 @@
  * Github仓库地址：[https://github.com/yezhihao/jt808-server/tree/master](https://github.com/yezhihao/jt808-server/tree/master)
 
 # 演示
- * 设备接入：81.68.215.202:7611
- * 日志监控：http://81.68.215.202:8000/ws.html
- * 接口文档：http://81.68.215.202:8000/doc.html
+ * 设备接入：127.0.0.1:7611
+ * 日志监控：http://127.0.0.1:8000/ws.html
+ * 接口文档：http://127.0.0.1:8000/doc.html
 
 # 验证步骤
 

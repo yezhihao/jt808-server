@@ -38,6 +38,17 @@ public class StrUtils {
         return result;
     }
 
+    public static String merge(String delimiter, Collection value) {
+        if (value == null || value.size() == 0)
+            return null;
+
+        StringBuilder result = new StringBuilder(value.size() * 5);
+        for (Object id : value)
+            result.append(id).append(delimiter);
+
+        return result.substring(0, result.length() - 1);
+    }
+
     public static String merge(String delimiter, Object... value) {
         if (value == null || value.length == 0)
             return null;
@@ -46,8 +57,7 @@ public class StrUtils {
         for (Object id : value)
             result.append(id).append(delimiter);
 
-        result.deleteCharAt(result.length() - 1);
-        return result.toString();
+        return result.substring(0, result.length() - 1);
     }
 
     public static String merge(String delimiter, int... value) {
@@ -55,11 +65,10 @@ public class StrUtils {
             return null;
 
         StringBuilder result = new StringBuilder(value.length * 5);
-        for (Object id : value)
+        for (int id : value)
             result.append(id).append(delimiter);
 
-        result.deleteCharAt(result.length() - 1);
-        return result.toString();
+        return result.substring(0, result.length() - 1);
     }
 
     public static int[] toInts(Integer[] src) {

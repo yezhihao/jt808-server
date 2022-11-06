@@ -5,9 +5,10 @@ import io.github.yezhihao.netmc.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
-import org.yzh.protocol.basics.JTMessageFilter;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
+import org.yzh.protocol.t808.T0200;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
@@ -43,7 +44,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         response.setResponseMessageId(request.getMessageId());
         response.setResultCode(T0001.Success);
 
-//        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
         return response;
     }
 
@@ -71,6 +72,9 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
             return true;
         if (messageId == JT808.位置信息汇报) {
             boolean transform = request.transform();
+            DeviceDO device = SessionKey.getDevice(session);
+            if (device != null)
+                device.setLocation((T0200) request);
             return transform;
         }
         if (!session.isRegistered()) {
@@ -91,6 +95,6 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
                 response.setMessageId(response.reflectMessageId());
             }
         }
-//        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
+        log.info("{}\n<<<<-{}\n>>>>-{}", session, request, response);
     }
 }

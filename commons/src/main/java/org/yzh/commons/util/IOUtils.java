@@ -119,6 +119,19 @@ public class IOUtils {
         }
     }
 
+    public static void delete(File file) {
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
+                if (child.isDirectory()) {
+                    delete(child);
+                } else {
+                    child.delete();
+                }
+            }
+        }
+        file.delete();
+    }
+
     public static void close(AutoCloseable a) {
         if (a != null)
             try {

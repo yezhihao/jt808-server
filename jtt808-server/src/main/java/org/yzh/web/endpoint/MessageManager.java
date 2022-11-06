@@ -22,10 +22,10 @@ public class MessageManager {
     private static final Logger log = LoggerFactory.getLogger(MessageManager.class);
 
     private static final Mono<Void> NEVER = Mono.never();
-    private static final Mono OFFLINE_EXCEPTION = Mono.error(new APIException(4000, "离线的客户端"));
-    private static final Mono OFFLINE_RESULT = Mono.just(new APIResult<>(4000, "离线的客户端"));
+    private static final Mono OFFLINE_EXCEPTION = Mono.error(new APIException(4000, "离线的客户端（请检查设备是否注册或者鉴权）"));
+    private static final Mono OFFLINE_RESULT = Mono.just(new APIResult<>(4000, "离线的客户端（请检查设备是否注册或者鉴权）"));
     private static final Mono SENDFAIL_RESULT = Mono.just(new APIResult<>(4001, "消息发送失败"));
-    private static final Mono TIMEOUT_RESULT = Mono.just(new APIResult<>(4002, "消息发送成功,客户端响应超时"));
+    private static final Mono TIMEOUT_RESULT = Mono.just(new APIResult<>(4002, "消息发送成功,客户端响应超时（至于设备为什么不应答，请联系设备厂商）"));
 
     private SessionManager sessionManager;
 

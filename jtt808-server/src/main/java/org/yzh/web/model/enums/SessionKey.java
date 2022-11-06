@@ -1,6 +1,7 @@
 package org.yzh.web.model.enums;
 
 import io.github.yezhihao.netmc.session.Session;
+import org.yzh.web.model.entity.DeviceDO;
 
 /**
  * @author yezhihao
@@ -8,9 +9,9 @@ import io.github.yezhihao.netmc.session.Session;
  */
 public enum SessionKey {
 
-    DeviceInfo;
+    Device;
 
-    public static org.yzh.web.model.vo.DeviceInfo getDeviceInfo(Session session) {
-        return (org.yzh.web.model.vo.DeviceInfo) session.getAttribute(DeviceInfo);
+    public static DeviceDO getDevice(Session session) {
+        return (DeviceDO) session.getAttribute(Device);
     }
 }

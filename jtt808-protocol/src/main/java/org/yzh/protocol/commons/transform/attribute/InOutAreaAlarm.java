@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
  * 进出区域/路线报警 0x12
  * length 6
  */
-public class InOutAreaAlarm {
+public class InOutAreaAlarm extends Alarm {
 
     public static final int key = 18;
 
@@ -51,6 +51,11 @@ public class InOutAreaAlarm {
 
     public void setDirection(byte direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public int getAlarmType() {
+        return key;
     }
 
     @Override

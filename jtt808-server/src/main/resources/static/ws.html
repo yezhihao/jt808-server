@@ -23,11 +23,19 @@
 
         select {
             width: 210px;
-            height: 35px;
-            display: block;
+            height: 30px;
             margin: 0 auto 5px auto;
             color: #BABABA;
             font-size: 16px;
+            padding: 2px;
+            border: 1px solid #646464;
+            background-color: #414141;
+        }
+
+        input {
+            width: 100px;
+            height: 23px;
+            color: #BABABA;
             padding: 2px;
             border: 1px solid #646464;
             background-color: #414141;
@@ -97,9 +105,11 @@
                 <div class="textarea" id="dev_text_[idx]"></div>
                 <div class="tool">
                     <select id="dev_sel_[idx]">[option]</select>
+                    <input type="text" onkeyup="onSearch(this)">
+                    <button type="button" onclick="onSub([idx], 'client/')">订阅</button>
+                    <button type="button" onclick="onUnsub([idx], 'client/')">取消</button>
                     <button type="button" onclick="$('dev_text_[idx]').innerHTML=''">清空</button>
-                    <button type="button" onclick="unsub([idx], 'client/')">取消订阅</button>
-                    <button type="button" onclick="sub([idx], 'client/')">订阅</button>
+                    <button type="button" onclick="onExport([idx])">导出</button>
                 </div>
             </div>
         </td>
@@ -126,12 +136,12 @@
         if (data && data.length) {
             options = '<option value="">---请选择订阅设备---</option>\n';
             options += data.map(function (device) {
-                return '<option value="' + device.mobileNo + '">' + device.mobileNo + ' - ' + device.plateNo + '</option>'
+                return `<option value="${device.mobileNo}">${device.mobileNo} - ${device.plateNo}</option>`
             }).join('\n');
         }
 
         let size = [1, 1];
-        const s = getQueryVariable('s');
+        const s = axios.getQueryVariable('s');
         if (s)
             size = s.split(',');
         const row = size[0] > 3 ? 3 : size[0];
@@ -145,7 +155,7 @@
         let idx = 0;
 
         for (let i = 0; i < row; i++) {
-            html += '<tr style="height: ' + height + 'px">';
+            html += `<tr style="height: ${height}px">`;
             for (let j = 0; j < column; j++) {
                 html += td.replace(reg, function (node, key) {
                     return ({idx: idx, option: options})[key]
@@ -157,40 +167,61 @@
         table.innerHTML = html;
     };
 
-    function sub(idx, topic) {
-        const select = $('dev_sel_' + idx);
-        const text = $('dev_text_' + idx);
+    function onSearch(e) {
+        let value = e.value;
+        let select = e.previousElementSibling;
+        if (!select.disabled) {
+            const options = select.querySelectorAll('option');
+            options[0].selected = true;
+            if (value) {
+                options.forEach(option => {
+                    if (option.innerHTML.search(value) >= 0) {
+                        option.selected = true;
+                    }
+                });
+            }
+        }
+    }
 
+    function onExport(idx) {
+        const data = $('dev_text_' + idx).innerText;
+        if (data) {
+            const a = document.createElement('a');
+            a.download = $('dev_sel_' + idx).value + '_' + new Date().toLocaleString().replaceAll(/[^0-9]/g, '_') + '.txt';
+            a.href = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(data)));
+            a.click();
+        }
+    }
+
+    function onSub(idx, topic) {
+        const select = $('dev_sel_' + idx);
         const clientId = select.value;
         if (!clientId) {
-            alert('请选择需要订阅的设备');
             return;
         }
-        if (select.getAttribute('data-client-id')) {
-            if (subscriptions[topic + clientId]) {
-                console.warn('同一设备' + clientId + '不能重复订阅');
-                return;
-            }
+
+        const key = topic + clientId;
+        if (subscriptions[key]) {
+            console.log(`同一设备[${clientId}]不能重复订阅`);
+            return;
         }
 
-        const fn = function (data) {
-            if (!data) {
-                alert('设备:' + clientId + '已离线，订阅失败');
-                return
+        subscriber.sub(clientId, function (online) {
+            if (!online) {
+                alert(`设备[${clientId}]已离线，订阅失败`);
+                return;
             }
-            const clientId = data.mobileNo;
-            select.setAttribute('data-client-id', clientId);
             select.disabled = true;
-            const startListener = function () {
-                console.log('开始订阅车辆[' + clientId + ']实时定位....');
+            const startListener = function (client) {
+                console.log(`开始订阅[${clientId}]实时定位....`);
 
-                subscriptions[topic + clientId] = client.subscribe(topic + clientId,
-                    function (response) {
-                        const c = text.scrollTop + text.offsetHeight;
+                const text = $('dev_text_' + idx);
+                subscriptions[key] = client.subscribe(key, function (response) {
+                        const c = text.scrollTop + text.offsetHeight + 4;
                         const h = text.scrollHeight;
 
                         const p = document.createElement('p');
-                        p.append(new Date().toISOString().replace('T', ' ').substring(0, 19) + ' ');
+                        p.append(new Date().toLocaleString().replaceAll('/', '-') + ' ');
                         p.append(response.body);
                         text.append(p);
 
@@ -202,79 +233,73 @@
 
             let client = stompClient[clientId];
             if (!client) {
-                client = stompClient[clientId] = Stomp.client('ws://' + host + '/websocket');
+                client = stompClient[clientId] = Stomp.client(`ws://${host}/websocket`);
                 client.debug = function (res) {
                     // console.log(res)
                 };
             }
             if (client.ws.readyState === 1) {
-                startListener();
+                startListener(client);
             } else {
                 client.connect({}, function (res) {
-                    console.log('websocket connect sucess!', res);
-                    startListener()
+                    console.log('websocket connect success!', res);
+                    startListener(client)
                 }, function (error) {
+                    select.disabled = false;
                     alert('websocket 连接失败！');
                     console.log('websocket connect failed!', error);
                 })
             }
-        }
-
-        subDeviceMsg(clientId, fn);
+        });
     }
 
-    function unsub(idx, topic) {
+    function onUnsub(idx, topic) {
         const select = $('dev_sel_' + idx);
         const clientId = select.value;
         if (!clientId) {
-            alert('请选择需要取消订阅的设备');
             return;
         }
-        if (!select.getAttribute('data-client-id')) return;
 
-        let subscription = subscriptions[topic + clientId];
-        if (!subscription) return;
-
-        console.log('取消订阅设备[' + clientId + ']....');
-        subscription.unsubscribe();
-        delete subscriptions[topic + clientId];
-        select.removeAttribute('data-client-id');
-        unsubDeviceMsg(clientId);
-        select.disabled = false;
+        const key = topic + clientId;
+        if (subscriptions[key]) {
+            console.log(`取消订阅设备[${clientId}]....`);
+            subscriptions[key].unsubscribe();
+            delete subscriptions[key];
+            select.disabled = false;
+            subscriber.unsub(clientId);
+        }
     }
 
-    const subDeviceMsg = function (clientId, fn) {
-        axios.request({
-            url: domain + '/device/ws?sub=1&clientId=' + clientId,
-            type: 'POST',
-            success: function (result, status, xhr) {
-                console.log(result);
-                if (status === 200 && result.code === 200) {
-                    fn(result.data);
-                    return;
+    const subscriber = {
+        sub: function (clientId, fn) {
+            this.request(clientId, 1, fn);
+        },
+        unsub: function (clientId, fn) {
+            this.request(clientId, 0, fn);
+        },
+        request: function (clientId, sub, fn) {
+            axios.request({
+                url: domain + '/device/ws',
+                method: 'post',
+                params: {
+                    sub: sub,
+                    clientId: clientId
+                },
+                success: function (result, status, xhr) {
+                    console.log(result);
+                    if (status === 200) {
+                        if (fn) fn(result);
+                    } else {
+                        alert(result)
+                    }
                 }
-                alert(result)
-            }
-        })
-    };
-
-    const unsubDeviceMsg = function (clientId) {
-        axios.request({
-            url: domain + '/device/ws?sub=0&clientId=' + clientId,
-            type: 'POST',
-            success: function (result, status, xhr) {
-                console.log(result);
-                if (status === 200 && result.code === 200) {
-                    return;
-                }
-                alert(result);
-            }
-        })
-    };
+            })
+        }
+    }
 
     const findOnlineClientId = function (fn) {
         axios.request({
-            url: domain + '/device/option?_=' + Date.now(),
+            url: domain + '/device/option',
             success: function (result, status, xhr) {
                 console.log(result);
                 if (status === 200 && result.code === 200) {

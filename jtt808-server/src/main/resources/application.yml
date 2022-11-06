@@ -10,7 +10,7 @@ spring:
     hikari:
       minimum-idle: 8
       maximum-pool-size: 8
-      transaction-isolation: TRANSACTION_READ_UNCOMMITTED #降低事务隔离级别，提高写入速度
+      transaction-isolation: TRANSACTION_READ_COMMITTED #降低事务隔离级别，提高写入速度
       data-source-properties:
         useSSL: false
         sslMode: disabled
@@ -41,6 +41,8 @@ spring:
       date-time: yyyy-MM-dd HH:mm:ss
       date: yyyy-MM-dd
       time: HH:mm:ss
+    path-match:
+      matching-strategy: ant_path_matcher
 
 mybatis:
   configuration:

@@ -4,8 +4,8 @@ import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionListener;
 import org.yzh.protocol.basics.JTMessage;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 
 import java.util.function.BiConsumer;
 
@@ -20,7 +20,7 @@ public class JTSessionListener implements SessionListener {
             request.setMessageId(request.reflectMessageId());
         }
 
-        DeviceInfo device = SessionKey.getDeviceInfo(session);
+        DeviceDO device = SessionKey.getDevice(session);
         if (device != null) {
             int protocolVersion = device.getProtocolVersion();
             if (protocolVersion > 0) {

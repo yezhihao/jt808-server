@@ -46,10 +46,11 @@ public class T8103 extends JTMessage {
         this.total = parameters.size();
     }
 
-    public void addParameter(Integer key, Object value) {
+    public T8103 addParameter(Integer key, Object value) {
         if (parameters == null)
             parameters = new TreeMap();
         parameters.put(key, value);
         total = parameters.size();
+        return this;
     }
 }

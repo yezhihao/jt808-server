@@ -2,6 +2,7 @@ package org.yzh.web.controller;
 
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
+import io.github.yezhihao.netmc.util.AdapterCollection;
 import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
@@ -16,17 +17,14 @@ import org.yzh.commons.util.LogUtils;
 import org.yzh.protocol.codec.JTMessageDecoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.config.WebLogAdapter;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -57,30 +55,28 @@ public class OtherController {
 
     @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("device/option")
-    public APIResult<List<DeviceInfo>> getClientId() {
-        Collection<Session> all = sessionManager.all();
-        List<DeviceInfo> result = all.stream().map(session -> {
-            DeviceInfo deviceInfo = SessionKey.getDeviceInfo(session);
-            if (deviceInfo != null)
-                return deviceInfo;
-            return new DeviceInfo(session.getClientId());
-        }).sorted(Comparator.comparing(DeviceInfo::getMobileNo)).collect(Collectors.toList());
+    public APIResult<Collection<DeviceDO>> getClientId() {
+        AdapterCollection<Session, DeviceDO> result = new AdapterCollection<>(sessionManager.all(), session -> {
+            DeviceDO device = SessionKey.getDevice(session);
+            if (device != null)
+                return device;
+            return new DeviceDO().mobileNo(session.getClientId());
+        });
         return APIResult.ok(result);
     }
 
     @Operation(summary = "websocket订阅")
     @PostMapping("device/ws")
-    public APIResult<DeviceInfo> ws(@RequestParam String clientId, @RequestParam int sub) {
-        if (sub > 0) {
+    public String ws(@RequestParam String clientId, @RequestParam boolean sub) {
+        if (sub) {
             Session session = sessionManager.get(clientId);
-            if (session != null) {
-                WebLogAdapter.addClient(session.getClientId());
-                return new APIResult(session.getAttribute(SessionKey.DeviceInfo));
-            }
+            if (session == null)
+                return "0";
+            WebLogAdapter.addClient(session.getClientId());
         } else {
             WebLogAdapter.removeClient(clientId);
         }
-        return APIResult.SUCCESS;
+        return "1";
     }
 
     @Operation(summary = "808协议分析工具")

@@ -13,8 +13,8 @@ import org.yzh.protocol.jsatl12.T1210;
 import org.yzh.protocol.jsatl12.T1211;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.protocol.t808.T0801;
+import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
-import org.yzh.web.model.vo.DeviceInfo;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -35,7 +35,7 @@ public class FileService {
     private String workDirPath;
 
     @Value("${jt-server.jt808.media-file.path}")
-    private String mediaDirPath;
+    private String mediaFileRoot;
 
     private String getDir(T1210 alarmId) {
         StringBuilder sb = new StringBuilder(80);
@@ -160,24 +160,25 @@ public class FileService {
 
     /** 多媒体数据上传 */
     public boolean saveMediaFile(T0801 message) {
-        DeviceInfo deviceInfo = SessionKey.getDeviceInfo(message.getSession());
+        DeviceDO device = SessionKey.getDevice(message.getSession());
         T0200 location = message.getLocation();
 
         StringBuilder filename = new StringBuilder(32);
         filename.append(type(message.getType())).append('_');
-        filename.append(location.getDateTime()).append('_');
+        DateUtils.yyMMddHHmmss.formatTo(location.getDeviceTime(), filename);
+        filename.append('_');
         filename.append(message.getChannelId()).append('_');
         filename.append(message.getEvent()).append('_');
         filename.append(message.getId()).append('.');
         filename.append(suffix(message.getFormat()));
 
         String deviceId;
-        if (deviceInfo == null)
+        if (device == null)
             deviceId = message.getClientId();
         else
-            deviceId = deviceInfo.getDeviceId();
+            deviceId = device.getDeviceId();
 
-        File dir = new File(mediaDirPath + '/' + deviceId);
+        File dir = new File(mediaFileRoot + '/' + deviceId);
         dir.mkdirs();
 
         ByteBuf packet = message.getPacket();

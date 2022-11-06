@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -45,17 +44,12 @@ public class JsonUtils {
         timeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
         timeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ISO_LOCAL_TIME));
 
+        mapper.registerModules(longModule, timeModule);
         mapper.setSerializationInclusion(Include.NON_NULL);
-
         mapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true);
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
-    public static <T> void register(Class<T> type, JsonDeserializer<? extends T> deserializer) {
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(type, deserializer);
-        mapper.registerModule(module);
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);// 兼容高德地图api
     }
 
     public static String toJson_(Object value) throws JsonProcessingException {
@@ -93,5 +87,4 @@ public class JsonUtils {
             throw new RuntimeException(e);
         }
     }
-
 }

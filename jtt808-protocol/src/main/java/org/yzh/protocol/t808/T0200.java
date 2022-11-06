@@ -7,6 +7,7 @@ import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.AttributeConverter;
 import org.yzh.protocol.commons.transform.AttributeConverterYue;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -16,6 +17,10 @@ import java.util.Map;
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
+    /**
+     * 使用 Bit.isTrue判断报警和状态标志位
+     * @see org.yzh.protocol.commons.Bit
+     */
     @Field(length = 4, desc = "报警标志")
     private int warnBit;
     @Field(length = 4, desc = "状态")
@@ -31,7 +36,7 @@ public class T0200 extends JTMessage {
     @Field(length = 2, desc = "方向")
     private int direction;
     @Field(length = 6, charset = "BCD", desc = "时间(YYMMDDHHMMSS)")
-    private String dateTime;
+    private LocalDateTime deviceTime;
     @Field(converter = AttributeConverter.class, desc = "位置附加信息", version = {-1, 0})
     @Field(converter = AttributeConverterYue.class, desc = "位置附加信息(粤标)", version = 1)
     private Map<Integer, Object> attributes;
@@ -92,12 +97,12 @@ public class T0200 extends JTMessage {
         this.direction = direction;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public LocalDateTime getDeviceTime() {
+        return deviceTime;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDeviceTime(LocalDateTime deviceTime) {
+        this.deviceTime = deviceTime;
     }
 
     public Map<Integer, Object> getAttributes() {
@@ -111,7 +116,7 @@ public class T0200 extends JTMessage {
     @Override
     public String toString() {
         StringBuilder sb = toStringHead();
-        sb.append("T0200{dateTime=").append(dateTime);
+        sb.append("T0200{deviceTime=").append(deviceTime);
         sb.append(",longitude=").append(longitude);
         sb.append(",latitude=").append(latitude);
         sb.append(",altitude=").append(altitude);

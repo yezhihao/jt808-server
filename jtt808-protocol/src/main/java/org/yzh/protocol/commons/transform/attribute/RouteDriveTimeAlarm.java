@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
  * 路段行驶时间不足/过长 0x13
  * length 7
  */
-public class RouteDriveTimeAlarm {
+public class RouteDriveTimeAlarm extends Alarm {
 
     public static final int key = 19;
 
@@ -51,6 +51,11 @@ public class RouteDriveTimeAlarm {
 
     public void setResult(byte result) {
         this.result = result;
+    }
+
+    @Override
+    public int getAlarmType() {
+        return key;
     }
 
     @Override

@@ -91,7 +91,7 @@ public class ClientTest {
         message.setSpeed(111);
         message.setDirection(99);
         LocalDateTime dateTime = LocalDateTime.now();
-        message.setDateTime(DateUtils.yyMMddHHmmss.format(dateTime));
+        message.setDeviceTime(dateTime);
 
         if (alarm) {
             AlarmADAS alarmADAS = new AlarmADAS();

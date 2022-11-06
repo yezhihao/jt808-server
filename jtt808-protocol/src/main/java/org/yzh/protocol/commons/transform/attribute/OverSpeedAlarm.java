@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
  * 超速报警 0x11
  * length 1 或 5
  */
-public class OverSpeedAlarm {
+public class OverSpeedAlarm extends Alarm {
 
     public static final int key = 17;
 
@@ -40,6 +40,11 @@ public class OverSpeedAlarm {
 
     public void setAreaId(int areaId) {
         this.areaId = areaId;
+    }
+
+    @Override
+    public int getAlarmType() {
+        return key;
     }
 
     @Override

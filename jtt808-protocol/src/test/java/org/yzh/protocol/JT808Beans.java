@@ -169,7 +169,7 @@ public class JT808Beans {
         bean.setAltitude(312);
         bean.setSpeed(3);
         bean.setDirection(99);
-        bean.setDateTime(STR_TIME);
+        bean.setDeviceTime(TIME);
         return bean;
     }
 
@@ -183,7 +183,7 @@ public class JT808Beans {
         bean.setAltitude(312 * 2);
         bean.setSpeed(3 * 2);
         bean.setDirection(99 * 2);
-        bean.setDateTime(STR_TIME);
+        bean.setDeviceTime(TIME);
         return bean;
     }
 
@@ -308,7 +308,7 @@ public class JT808Beans {
         bean.setAltitude(48243);
         bean.setSpeed(10001);
         bean.setDirection(300);
-        bean.setDateTime(STR_TIME);
+        bean.setDeviceTime(TIME);
         return bean;
     }
 

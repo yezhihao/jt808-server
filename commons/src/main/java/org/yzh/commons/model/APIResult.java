@@ -50,7 +50,7 @@ public class APIResult<T> {
     public APIResult(APIException e) {
         this.code = e.getCode();
         this.msg = e.getMessage();
-        this.detailMsg = StrUtils.getStackTrace(e);
+        this.detailMsg = e.getDetailMessage();
     }
 
     public APIResult(APICode code) {

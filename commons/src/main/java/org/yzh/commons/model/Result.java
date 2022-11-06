@@ -39,7 +39,7 @@ public class Result<T> {
         return state;
     }
 
-    public T get() {
+    public T value() {
         return value;
     }
 }

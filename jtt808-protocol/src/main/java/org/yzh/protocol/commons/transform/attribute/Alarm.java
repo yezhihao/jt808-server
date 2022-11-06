@@ -1,8 +1,30 @@
 package org.yzh.protocol.commons.transform.attribute;
 
+import org.yzh.protocol.t808.T0200;
+
 import java.time.LocalDateTime;
 
 public abstract class Alarm {
+
+    private T0200 location;
+
+    private String platformAlarmId;
+
+    public T0200 getLocation() {
+        return location;
+    }
+
+    public void setLocation(T0200 location) {
+        this.location = location;
+    }
+
+    public String getPlatformAlarmId() {
+        return platformAlarmId;
+    }
+
+    public void setPlatformAlarmId(String platformAlarmId) {
+        this.platformAlarmId = platformAlarmId;
+    }
 
     static int buildType(int key, int type) {
         return (key * 100) + type;
@@ -21,29 +43,61 @@ public abstract class Alarm {
         return 1;
     }
 
-    public abstract LocalDateTime getAlarmTime();//报警时间
+    //报警时间
+    public LocalDateTime getAlarmTime() {
+        return location.getDeviceTime();
+    }
 
-    public abstract String getDeviceId();//设备id
+    //报警类别<=255
+    public int getCategory() {
+        return 0;
+    }
 
-    public abstract int getCategory();//报警类别
+    //报警类型
+    public abstract int getAlarmType();
 
-    public abstract int getAlarmType();//报警类型
+    //报警级别
+    public int getLevel() {
+        return 0;
+    }
 
-    public abstract int getLevel();//报警级别
+    //gps经度
+    public int getLongitude() {
+        return location.getLongitude();
+    }
 
-    public abstract int getLongitude();//gps经度
+    //gps纬度
+    public int getLatitude() {
+        return location.getLatitude();
+    }
 
-    public abstract int getLatitude();//gps纬度
+    //海拔(米)
+    public int getAltitude() {
+        return location.getAltitude();
+    }
 
-    public abstract int getAltitude();//海拔(米)
+    //速度(公里每小时)
+    public int getSpeed() {
+        return location.getSpeed() / 10;
+    }
 
-    public abstract int getSpeed();//速度(公里每小时)
+    //车辆状态
+    public int getStatusBit() {
+        return location.getStatusBit();
+    }
 
-    public abstract int getStatusBit();//车辆状态
+    //序号(同一时间点报警的序号，从0循环累加)
+    public int getSequenceNo() {
+        return 0;
+    }
 
-    public abstract int getSequenceNo();//序号(同一时间点报警的序号，从0循环累加)
+    //附件总数
+    public int getFileTotal() {
+        return 0;
+    }
 
-    public abstract int getFileTotal();//附件总数
-
-    public abstract String getExtra();//扩展信息
+    //扩展信息
+    public String getExtra() {
+        return null;
+    }
 }

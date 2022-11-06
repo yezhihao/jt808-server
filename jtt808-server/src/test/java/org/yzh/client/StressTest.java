@@ -8,7 +8,6 @@ import org.yzh.QuickStart;
 import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.codec.JTMessageEncoder;
-import org.yzh.commons.util.DateUtils;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
@@ -38,7 +37,7 @@ public abstract class StressTest {
     public static final int port = QuickStart.port;
 
     public static final int size = 1000;
-    public static final long Interval = 1;
+    public static final long Interval = 4;
 
     public static void main(String[] args) throws Exception {
 //        Client[] clients = Client.UDP(host, port, size);
@@ -60,11 +59,10 @@ public abstract class StressTest {
             int[] point = (int[]) points[num++];
             if (num >= points.length) num = 0;
 
-            String strTime = DateUtils.yyMMddHHmmss.format(deviceTime);
             deviceTime = deviceTime.plusSeconds(1);
 
             for (int i = 0; i < size; i++) {
-                T0200 message = T0200(i, strTime, point);
+                T0200 message = T0200(i, deviceTime, point);
 
 //                T0801 message = T0801(i, strTime, point);
 //                imagePacket.readerIndex(0);
@@ -117,7 +115,7 @@ public abstract class StressTest {
         return bytes;
     }
 
-    public static T0200 T0200(int id, String time, int[] point) {
+    public static T0200 T0200(int id, LocalDateTime time, int[] point) {
         String clientId = "1" + StrUtils.leftPad(String.valueOf(id + 1), 10, '0');
 
         T0200 message = new T0200();
@@ -133,12 +131,12 @@ public abstract class StressTest {
         message.setAltitude(312);
         message.setSpeed(point[2]);
         message.setDirection(99);
-        message.setDateTime(time);
+        message.setDeviceTime(time);
 
         return message;
     }
 
-    public static T0801 T0801(int id, String time, int[] point) {
+    public static T0801 T0801(int id, LocalDateTime time, int[] point) {
         String clientId = "1" + StrUtils.leftPad(String.valueOf(id + 1), 10, '0');
 
         T0801 bean = new T0801();
