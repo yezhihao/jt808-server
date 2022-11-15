@@ -105,15 +105,15 @@ public class JTMessageEncoder {
 
     public static ByteBuf[] slices(ByteBuf output, int start, int unitSize) {
         int totalSize = output.writerIndex() - start;
-        int sliceTotal = (totalSize - 1) / unitSize + 1;
+        int tailIndex = (totalSize - 1) / unitSize;
 
-        ByteBuf[] slices = new ByteBuf[sliceTotal];
+        ByteBuf[] slices = new ByteBuf[tailIndex + 1];
         output.skipBytes(start);
-        for (int i = 0; i < slices.length; i++) {
-            if (!output.isReadable(unitSize))
-                unitSize = output.readableBytes();
-            slices[i] = output.readRetainedSlice(unitSize);
+        for (int i = 0; i < tailIndex; i++) {
+            slices[i] = output.readSlice(unitSize);
         }
+        slices[tailIndex] = output.readSlice(output.readableBytes());
+        output.retain(tailIndex);
         return slices;
     }
 
