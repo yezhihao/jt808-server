@@ -40,6 +40,8 @@ public class MultiPacket {
         if (packets[packetNo] == null) {
             packets[packetNo] = packetData;
             count++;
+        } else {
+            packetData.release();
         }
 
         if (isComplete())
