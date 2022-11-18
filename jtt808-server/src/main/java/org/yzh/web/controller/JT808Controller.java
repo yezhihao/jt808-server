@@ -22,7 +22,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.Base64;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("device")
@@ -53,12 +52,12 @@ public class JT808Controller {
         request.setIp(host);
         request.setTcpPort(port);
         request.setUdpPort(port);
-        request.setDeviceId("");
+        request.setDeviceId(mobileNo);
         request.setDateTime(DateUtils.parse(dateTime));
         request.setSequenceNo(sequenceNo);
         request.setFileTotal(fileTotal);
         request.setReserved(0);
-        request.setPlatformAlarmId(UUID.randomUUID().toString().replaceAll("-", ""));
+        request.setPlatformAlarmId(mobileNo + "-" + sequenceNo + "-" + dateTime);
 
         Mono<APIResult<T0001>> response = messageManager.requestR(mobileNo, request, T0001.class);
         return response;

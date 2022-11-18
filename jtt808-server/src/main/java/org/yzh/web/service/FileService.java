@@ -61,24 +61,6 @@ public class FileService {
         IOUtils.write(fileList.toString(), new File(dirPath, "fs.txt"));
     }
 
-    /** 创建报警文件 */
-    public void createFile(T1210 alarmId, T1211 fileInfo) {
-        String dir = getDir(alarmId);
-
-        File file = new File(dir + fileInfo.getName() + ".tmp");
-        if (!file.exists()) {
-            RandomAccessFile r = null;
-            try {
-                r = new RandomAccessFile(file, "rw");
-                r.setLength(fileInfo.getSize());
-            } catch (IOException e) {
-                log.error("创建报警文件", e);
-            } finally {
-                IOUtils.close(r);
-            }
-        }
-    }
-
     /** 将数据块写入到报警文件，并记录日志 */
     public void writeFile(T1210 alarmId, DataPacket fileData) {
         String dir = getDir(alarmId);

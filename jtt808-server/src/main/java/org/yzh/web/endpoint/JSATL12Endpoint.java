@@ -52,10 +52,6 @@ public class JSATL12Endpoint {
     @Mapping(types = JSATL12.文件信息上传, desc = "文件信息上传")
     public void alarmFileInfo(T1211 message, Session session) {
         if (!session.isRegistered()) session.register(message);
-
-        T1210 alarmId = getAlarmId(message.getClientId(), message.getName());
-        if (alarmId == null) throw new RuntimeException("alarmId not found");
-        fileService.createFile(alarmId, message);
     }
 
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
