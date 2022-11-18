@@ -192,7 +192,7 @@ public class JT808Beans {
         T0200 bean = T0200();
         Map<Integer, Object> attributes = new TreeMap<>();
         attributes.put(AttributeKey.Mileage, 11L);
-        attributes.put(AttributeKey.Gas, 22);
+        attributes.put(AttributeKey.Fuel, 22);
         attributes.put(AttributeKey.Speed, 33);
         attributes.put(AttributeKey.AlarmEventId, 44);
         attributes.put(AttributeKey.TirePressure, new TirePressure(new byte[]{55, 55, 55}));

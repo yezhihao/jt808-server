@@ -21,7 +21,7 @@ public class AttributeConverter extends MapSchema<Integer, Object> {
     protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
         schemaRegistry
                 .addSchema(AttributeKey.Mileage, NumberSchema.DWORD_LONG)
-                .addSchema(AttributeKey.Gas, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.Fuel, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.Speed, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.AlarmEventId, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.TirePressure, TirePressure.SCHEMA)

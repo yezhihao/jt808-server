@@ -7,7 +7,7 @@ package org.yzh.protocol.commons.transform;
  */
 public interface AttributeKey {
     int Mileage = 1;                 // 0x01 里程,数据类型为DWORD,单位为1/10km,对应车上里程表读数
-    int Gas = 2;                     // 0x02 油量,数据类型为WORD,单位为1/10L,对应车上油量表读数
+    int Fuel = 2;                    // 0x02 油量,数据类型为WORD,单位为1/10L,对应车上油量表读数
     int Speed = 3;                   // 0x03 行驶记录功能获取的速度,数据类型为WORD,单位为1/10km/h
     int AlarmEventId = 4;            // 0x04 需要人工确认报警事件的ID,数据类型为WORD,从1开始计数
     int TirePressure = 5;            // 0x05 胎压,单位为Pa,标定轮子的顺序为从车头开始从左到右顺序排列,多余的字节为0xFF,表示无效数据
