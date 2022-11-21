@@ -28,6 +28,12 @@ public class ExceptionController {
 
     private static final Pattern compile = Pattern.compile("'[\\w]*'");
 
+    @ExceptionHandler(Exception.class)
+    public APIResult onException(Exception e) {
+        log.error("系统异常", e);
+        return new APIResult(e);
+    }
+
     @ExceptionHandler(APIException.class)
     public APIResult onAPIException(APIException e) {
         return new APIResult(e);

@@ -45,6 +45,8 @@ public abstract class Alarm {
 
     //报警时间
     public LocalDateTime getAlarmTime() {
+        if (location == null)
+            return null;
         return location.getDeviceTime();
     }
 
@@ -63,26 +65,36 @@ public abstract class Alarm {
 
     //gps经度
     public int getLongitude() {
+        if (location == null)
+            return 0;
         return location.getLongitude();
     }
 
     //gps纬度
     public int getLatitude() {
+        if (location == null)
+            return 0;
         return location.getLatitude();
     }
 
     //海拔(米)
     public int getAltitude() {
+        if (location == null)
+            return 0;
         return location.getAltitude();
     }
 
     //速度(公里每小时)
     public int getSpeed() {
+        if (location == null)
+            return 0;
         return location.getSpeed() / 10;
     }
 
     //车辆状态
     public int getStatusBit() {
+        if (location == null)
+            return 0;
         return location.getStatusBit();
     }
 

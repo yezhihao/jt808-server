@@ -119,7 +119,6 @@
 <a href="?s=1,4" target="_blank">1*4</a>
 <a href="?s=2,6" target="_blank">2*6</a>
 
-<script src="./axios.js"></script>
 <script src="//lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/stomp.js/2.3.3/stomp.min.js"></script>
 <script type="text/javascript">
     const reg = new RegExp("\\[([^\\[\\]]*?)]", 'igm'); //igm是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
@@ -130,6 +129,21 @@
     const stompClient = {};
     const subscriptions = {};
 
+    const $ = function (id) {
+        return document.getElementById(id);
+    };
+
+    function getQueryVariable(key) {
+        const query = window.location.search.substring(1);
+        const paramsArr = query.split("&");
+        for (let i = 0; i < paramsArr.length; i++) {
+            const pair = paramsArr[i].split("=");
+            if (pair[0] === key) {
+                return pair[1];
+            }
+        }
+        return null;
+    }
 
     const renderForm = function (data) {
         let options = '<option value="">没有可订阅的设备</option>\n';
@@ -141,7 +155,7 @@
         }
 
         let size = [1, 1];
-        const s = axios.getQueryVariable('s');
+        const s = getQueryVariable('s');
         if (s)
             size = s.split(',');
         const row = size[0] > 3 ? 3 : size[0];
@@ -278,41 +292,25 @@
             this.request(clientId, 0, fn);
         },
         request: function (clientId, sub, fn) {
-            axios.request({
-                url: domain + '/device/ws',
-                method: 'post',
-                params: {
-                    sub: sub,
-                    clientId: clientId
-                },
-                success: function (result, status, xhr) {
-                    console.log(result);
-                    if (status === 200) {
-                        if (fn) fn(result);
-                    } else {
-                        alert(result)
-                    }
-                }
-            })
+            fetch(`${domain}/device/ws?sub=${sub}&clientId=${clientId}`, {method: 'post'})
+                .then(res => res.json())
+                .then(function (res) {
+                    console.log(res);
+                    if (fn) fn(res);
+                }).catch(err => console.error(err));
+        },
+        option: function (fn) {
+            fetch(`${domain}/device/option`)
+                .then(res => res.json())
+                .then(function (res) {
+                    console.log(res);
+                    if (fn) fn(res.data);
+                }).catch(err => console.error(err));
         }
     }
 
-    const findOnlineClientId = function (fn) {
-        axios.request({
-            url: domain + '/device/option',
-            success: function (result, status, xhr) {
-                console.log(result);
-                if (status === 200 && result.code === 200) {
-                    fn(result.data);
-                    return
-                }
-                alert(result);
-            }
-        })
-    };
-
     window.onload = function () {
-        findOnlineClientId(renderForm)
+        subscriber.option(renderForm)
     }
 </script>
 </body>

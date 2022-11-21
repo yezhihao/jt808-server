@@ -57,6 +57,8 @@ public class BeanConfig {
 
             builder.modules(longModule, timeModule);
             builder.postConfigurer(mapper -> {
+                mapper.configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, true);//忽略循环引用
+                mapper.configure(SerializationFeature.WRITE_SELF_REFERENCES_AS_NULL, true);//循环引用写入null
                 mapper.setSerializationInclusion(Include.NON_NULL);
                 mapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true);
                 mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
