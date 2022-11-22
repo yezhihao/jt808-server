@@ -14,9 +14,9 @@ import org.yzh.protocol.jsatl12.T1211;
 import org.yzh.protocol.jsatl12.T9212;
 import org.yzh.web.service.FileService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 @Endpoint
@@ -26,14 +26,7 @@ public class JSATL12Endpoint {
     @Autowired
     private FileService fileService;
 
-    private final Cache<String, Map<String, T1210>> cache = Caffeine.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES).build();
-
-    private T1210 getAlarmId(String clientId, String filename) {
-        Map<String, T1210> alarmIdMap = cache.getIfPresent(clientId);
-        if (alarmIdMap != null)
-            return alarmIdMap.get(filename);
-        return null;
-    }
+    private final Cache<String, Map<String, T1210.Item>> cache = Caffeine.newBuilder().expireAfterAccess(20, TimeUnit.MINUTES).build();
 
     @Mapping(types = JSATL12.报警附件信息消息, desc = "报警附件信息消息")
     public void alarmFileInfoList(T1210 message, Session session) {
@@ -42,10 +35,10 @@ public class JSATL12Endpoint {
         List<T1210.Item> items = message.getItems();
         if (items == null) return;
 
-        Map<String, T1210> alarmIdMap = cache.get(message.getClientId(), s -> new TreeMap<>());
+        Map<String, T1210.Item> fileInfos = cache.get(message.getClientId(), s -> new HashMap<>((int) (items.size() / 0.75) + 1));
 
         for (T1210.Item item : items)
-            alarmIdMap.put(item.getName(), message);
+            fileInfos.put(item.getName(), item.parent(message));
         fileService.createDir(message);
     }
 
@@ -55,23 +48,37 @@ public class JSATL12Endpoint {
     }
 
     @Mapping(types = JSATL12.文件数据上传, desc = "文件数据上传")
-    public Object alarmFile(DataPacket message, Session session) {
-        T1210 alarmId = getAlarmId(session.getClientId(), message.getName().trim());
-        if (alarmId != null) fileService.writeFile(alarmId, message);
+    public Object alarmFile(DataPacket dataPacket, Session session) {
+        Map<String, T1210.Item> fileInfos = cache.getIfPresent(session.getClientId());
+        if (fileInfos != null) {
+
+            T1210.Item fileInfo = fileInfos.get(dataPacket.getName().trim());
+            if (fileInfo != null) {
+
+                if (dataPacket.getOffset() == 0 && dataPacket.getLength() >= fileInfo.getSize()) {
+                    fileService.writeFileSingle(fileInfo.parent(), dataPacket);
+                } else {
+                    fileService.writeFile(fileInfo.parent(), dataPacket);
+                }
+            }
+        }
         return null;
     }
 
     @Mapping(types = JSATL12.文件上传完成消息, desc = "文件上传完成消息")
     public T9212 alarmFileComplete(T1211 message) {
-        Map<String, T1210> alarmIdMap = cache.getIfPresent(message.getClientId());
-        T1210 alarmId = alarmIdMap.get(message.getName());
+        Map<String, T1210.Item> fileInfos = cache.getIfPresent(message.getClientId());
+        T1210.Item fileInfo = fileInfos.get(message.getName());
         T9212 result = new T9212();
         result.setName(message.getName());
         result.setType(message.getType());
 
-        int[] items = fileService.checkFile(alarmId, message);
+        int[] items = fileService.checkFile(fileInfo.parent(), message);
         if (items == null) {
-            alarmIdMap.remove(message.getName());
+            fileInfos.remove(message.getName());
+            if (fileInfos.isEmpty()) {
+                cache.invalidate(message.getClientId());
+            }
             result.setResult(0);
         } else {
             result.setItems(items);

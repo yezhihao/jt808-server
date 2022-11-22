@@ -113,6 +113,8 @@ public class T1210 extends JTMessage {
         @Field(length = 4, desc = "文件大小")
         private long size;
 
+        private transient T1210 parent;
+
         public String getName() {
             return name;
         }
@@ -127,6 +129,15 @@ public class T1210 extends JTMessage {
 
         public void setSize(long size) {
             this.size = size;
+        }
+
+        public T1210 parent() {
+            return parent;
+        }
+
+        public Item parent(T1210 parent) {
+            this.parent = parent;
+            return this;
         }
 
         @Override

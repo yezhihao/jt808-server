@@ -40,8 +40,8 @@ public class FileService {
     private String getDir(T1210 alarmId) {
         StringBuilder sb = new StringBuilder(80);
         sb.append(workDirPath).append('/');
-        sb.append(alarmId.getClientId());
-        sb.append('_').append(DateUtils.yyMMddHHmmss.format(alarmId.getDateTime()));
+        sb.append(alarmId.getClientId()).append('_');
+        DateUtils.yyMMddHHmmss.formatTo(alarmId.getDateTime(), sb);
         sb.append('_').append(alarmId.getSerialNo()).append('/');
         return sb.toString();
     }
@@ -88,6 +88,24 @@ public class FileService {
         }
     }
 
+    public void writeFileSingle(T1210 alarmId, DataPacket fileData) {
+        String dir = getDir(alarmId);
+        String name = dir + fileData.getName().trim();
+
+        int offset = fileData.getOffset();
+
+        RandomAccessFile file = null;
+        ByteBuf data = fileData.getData();
+        try {
+            file = new RandomAccessFile(name, "rw");
+            data.readBytes(file.getChannel(), offset, data.readableBytes());
+        } catch (IOException e) {
+            log.error("写入报警文件", e);
+        } finally {
+            IOUtils.close(file);
+        }
+    }
+
     /** 根据日志检查文件完整性，并返回缺少的数据块信息 */
     public int[] checkFile(T1210 alarmId, T1211 fileInfo) {
         String dir = getDir(alarmId);
@@ -99,6 +117,8 @@ public class FileService {
             in = new FileInputStream(logFile);
             bytes = new byte[in.available()];
             in.read(bytes);
+        } catch (FileNotFoundException e) {
+            return null;
         } catch (IOException e) {
             log.error("检查文件完整性", e);
             return null;
