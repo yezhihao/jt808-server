@@ -86,6 +86,6 @@ public class T0801 extends JTMessage {
 
     @Override
     public boolean noBuffer() {
-        return false;
+        return packet == null;
     }
 }
