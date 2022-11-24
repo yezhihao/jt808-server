@@ -106,8 +106,8 @@
                 <div class="tool">
                     <select id="dev_sel_[idx]">[option]</select>
                     <input type="text" onkeyup="onSearch(this)">
-                    <button type="button" onclick="onSub([idx], 'client/')">订阅</button>
-                    <button type="button" onclick="onUnsub([idx], 'client/')">取消</button>
+                    <button type="button" onclick="onSub([idx])">订阅</button>
+                    <button type="button" onclick="onUnsub([idx])">取消</button>
                     <button type="button" onclick="$('dev_text_[idx]').innerHTML=''">清空</button>
                     <button type="button" onclick="onExport([idx])">导出</button>
                 </div>
@@ -119,14 +119,13 @@
 <a href="?s=1,4" target="_blank">1*4</a>
 <a href="?s=2,6" target="_blank">2*6</a>
 
-<script src="//lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/stomp.js/2.3.3/stomp.min.js"></script>
 <script type="text/javascript">
     const reg = new RegExp("\\[([^\\[\\]]*?)]", 'igm'); //igm是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
 
     const host = window.location.host;
     const domain = '//' + host;
 
-    const stompClient = {};
+    let eventSource = null;
     const subscriptions = {};
 
     const $ = function (id) {
@@ -207,110 +206,85 @@
         }
     }
 
-    function onSub(idx, topic) {
+    function onSub(idx) {
         const select = $('dev_sel_' + idx);
+        if (select.disabled) {
+            return;
+        }
         const clientId = select.value;
         if (!clientId) {
             return;
         }
-
-        const key = topic + clientId;
-        if (subscriptions[key]) {
-            console.log(`同一设备[${clientId}]不能重复订阅`);
+        if (subscriptions[clientId]) {
+            alert(`同一设备[${clientId}]不能重复订阅`);
             return;
         }
 
-        subscriber.sub(clientId, function (online) {
-            if (!online) {
-                alert(`设备[${clientId}]已离线，订阅失败`);
-                return;
-            }
-            select.disabled = true;
-            const startListener = function (client) {
-                console.log(`开始订阅[${clientId}]实时定位....`);
+        select.disabled = true;
+        const text = $('dev_text_' + idx);
+        text.println = function (data) {
+            const c = this.scrollTop + this.offsetHeight + 4;
+            const h = this.scrollHeight;
 
-                const text = $('dev_text_' + idx);
-                subscriptions[key] = client.subscribe(key, function (response) {
-                        const c = text.scrollTop + text.offsetHeight + 4;
-                        const h = text.scrollHeight;
+            const p = document.createElement('p');
+            p.append(new Date().toLocaleString().replaceAll('/', '-') + ' ');
+            p.append(data);
+            this.append(p);
 
-                        const p = document.createElement('p');
-                        p.append(new Date().toLocaleString().replaceAll('/', '-') + ' ');
-                        p.append(response.body);
-                        text.append(p);
+            if (c >= h)
+                this.scrollTop = this.scrollHeight;
+        }
 
-                        if (c >= h)
-                            text.scrollTop = h;
-                    }
-                );
-            };
-
-            let client = stompClient[clientId];
-            if (!client) {
-                client = stompClient[clientId] = Stomp.client(`ws://${host}/websocket`);
-                client.debug = function (res) {
-                    // console.log(res)
-                };
-            }
-            if (client.ws.readyState === 1) {
-                startListener(client);
-            } else {
-                client.connect({}, function (res) {
-                    console.log('websocket connect success!', res);
-                    startListener(client)
-                }, function (error) {
-                    select.disabled = false;
-                    alert('websocket 连接失败！');
-                    console.log('websocket connect failed!', error);
-                })
-            }
+        eventSource.addEventListener(clientId, subscriptions[clientId] = function (event) {
+            text.println(event.data);
         });
+
+        fetch(`${domain}/device/sse?sub=1&clientId=${clientId}`, {method: 'post'})
+            .then(res => res.json())
+            .then(function (res) {
+                if (res) {
+                    text.println('开始订阅');
+                } else {
+                    text.println('订阅失败,请刷新页面');
+                }
+            }).catch(err => text.println('连接服务器失败'));
     }
 
-    function onUnsub(idx, topic) {
+    function onUnsub(idx) {
         const select = $('dev_sel_' + idx);
         const clientId = select.value;
         if (!clientId) {
             return;
         }
 
-        const key = topic + clientId;
-        if (subscriptions[key]) {
-            console.log(`取消订阅设备[${clientId}]....`);
-            subscriptions[key].unsubscribe();
-            delete subscriptions[key];
-            select.disabled = false;
-            subscriber.unsub(clientId);
-        }
-    }
-
-    const subscriber = {
-        sub: function (clientId, fn) {
-            this.request(clientId, 1, fn);
-        },
-        unsub: function (clientId, fn) {
-            this.request(clientId, 0, fn);
-        },
-        request: function (clientId, sub, fn) {
-            fetch(`${domain}/device/ws?sub=${sub}&clientId=${clientId}`, {method: 'post'})
-                .then(res => res.json())
-                .then(function (res) {
-                    console.log(res);
-                    if (fn) fn(res);
-                }).catch(err => console.error(err));
-        },
-        option: function (fn) {
-            fetch(`${domain}/device/option`)
-                .then(res => res.json())
-                .then(function (res) {
-                    console.log(res);
-                    if (fn) fn(res.data);
-                }).catch(err => console.error(err));
-        }
+        fetch(`${domain}/device/sse?sub=0&clientId=${clientId}`, {method: 'post'})
+            .then(res => res.json())
+            .then(function (res) {
+                if (res) {
+                    console.log(`取消订阅设备[${clientId}]....`);
+                    eventSource.removeEventListener(clientId, subscriptions[clientId]);
+                    delete subscriptions[clientId];
+                    select.disabled = false;
+                    $('dev_text_' + idx).println('结束订阅');
+                }
+            }).catch(err => console.error(err));
     }
 
     window.onload = function () {
-        subscriber.option(renderForm)
+        fetch(`${domain}/device/option`)
+            .then(res => res.json())
+            .then(function (res) {
+                renderForm(res.data);
+                eventSource = new EventSource(`${domain}/device/sse`);
+
+                eventSource.addEventListener('open', function (e) {
+                    console.log(`建立连接`);
+                });
+
+                eventSource.addEventListener('error', function (e) {
+                    console.log(`断开连接`);
+                });
+            }).catch(err => console.error(err));
     }
 </script>
 </body>
