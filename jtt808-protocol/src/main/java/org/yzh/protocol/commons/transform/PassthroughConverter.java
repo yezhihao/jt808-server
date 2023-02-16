@@ -12,14 +12,14 @@ import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class PassthroughConverter extends MapSchema<Integer, Object> {
+public class PassthroughConverter extends MapSchema<Number, Object> {
 
     public PassthroughConverter() {
         super(NumberSchema.BYTE_INT, 0);
     }
 
     @Override
-    protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
+    protected void addSchemas(PrepareLoadStrategy<Number> schemaRegistry) {
         schemaRegistry
                 .addSchema(0, ArraySchema.BYTES)
                 .addSchema(PeripheralStatus.key, PeripheralStatus.Schema.INSTANCE)

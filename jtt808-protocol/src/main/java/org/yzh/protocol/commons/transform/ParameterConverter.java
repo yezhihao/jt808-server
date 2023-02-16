@@ -12,14 +12,14 @@ import org.yzh.protocol.commons.transform.parameter.*;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class ParameterConverter extends MapSchema<Integer, Object> {
+public class ParameterConverter extends MapSchema<Number, Object> {
 
     public ParameterConverter() {
         super(NumberSchema.DWORD_INT, 1);
     }
 
     @Override
-    protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
+    protected void addSchemas(PrepareLoadStrategy<Number> schemaRegistry) {
         schemaRegistry
                 .addSchema(0x0001, NumberSchema.DWORD_LONG)//终端心跳发送间隔,单位为秒(s)
                 .addSchema(0x0002, NumberSchema.DWORD_LONG)//TCP消息应答超时时间,单位为秒(s)

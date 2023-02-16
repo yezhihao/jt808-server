@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>2.7.8</version>
         <relativePath/>
     </parent>
 
@@ -33,13 +33,11 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <name>Maven Central</name>
-            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+            <id>sonatype</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
+            <id>apache</id>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>

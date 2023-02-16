@@ -11,21 +11,21 @@ import org.yzh.protocol.commons.transform.attribute.*;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-public class AttributeConverterYue extends MapSchema<Integer, Object> {
+public class AttributeConverterYue extends MapSchema<Number, Object> {
 
     public AttributeConverterYue() {
         super(NumberSchema.BYTE_INT, 1);
     }
 
     @Override
-    protected void addSchemas(PrepareLoadStrategy<Integer> schemaRegistry) {
+    protected void addSchemas(PrepareLoadStrategy<Number> schemaRegistry) {
         schemaRegistry
                 .addSchema(AttributeKey.Mileage, NumberSchema.DWORD_LONG)
                 .addSchema(AttributeKey.Fuel, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.Speed, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.AlarmEventId, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.TirePressure, TirePressure.SCHEMA)
-                .addSchema(AttributeKey.CarriageTemperature, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.CarriageTemperature, NumberSchema.WORD_SHORT)
 
                 .addSchema(AttributeKey.OverSpeedAlarm, OverSpeedAlarm.SCHEMA)
                 .addSchema(AttributeKey.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)

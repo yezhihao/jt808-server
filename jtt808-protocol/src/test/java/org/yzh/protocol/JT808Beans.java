@@ -191,7 +191,7 @@ public class JT808Beans {
     public static T0200 T0200Attributes() {
         T0200 bean = T0200();
         Map<Integer, Object> attributes = new TreeMap<>();
-        attributes.put(AttributeKey.Mileage, 11L);
+        attributes.put(AttributeKey.Mileage, 11);
         attributes.put(AttributeKey.Fuel, 22);
         attributes.put(AttributeKey.Speed, 33);
         attributes.put(AttributeKey.AlarmEventId, 44);
