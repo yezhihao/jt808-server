@@ -112,15 +112,14 @@ public class JTMessageDecoder {
     public static ByteBuf unescape(ByteBuf source) {
         int low = source.readerIndex();
         int high = source.writerIndex();
-        int last = high - 1;
 
-        if (source.getByte(0) == 0x7e)
-            low = low + 1;
+        if (source.getByte(low) == 0x7e)
+            low++;
 
-        if (source.getByte(last) == 0x7e)
-            high = last;
+        if (source.getByte(high - 1) == 0x7e)
+            high--;
 
-        int mark = source.indexOf(low, high, (byte) 0x7d);
+        int mark = source.indexOf(low, high - 1, (byte) 0x7d);
         if (mark == -1) {
             return source.slice(low, high - low);
         }
@@ -151,7 +150,7 @@ public class JTMessageDecoder {
             byteBuf.setByte(index + length - 2, 0x7e);
             return byteBuf.slice(index, length - 1);
         } else {
-            return byteBuf;
+            return byteBuf.slice(index, length);
         }
     }
 }
