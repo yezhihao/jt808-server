@@ -3,7 +3,6 @@ package org.yzh.web.controller;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
 import io.github.yezhihao.netmc.util.AdapterCollection;
-import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -11,12 +10,12 @@ import io.netty.buffer.Unpooled;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
 import org.yzh.commons.util.LogUtils;
 import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.protocol.codec.MultiPacketDecoder;
 import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
@@ -36,14 +35,10 @@ import java.util.Set;
 @RequestMapping
 public class OtherController {
 
-    private final SessionManager sessionManager;
-
-    private final JTMessageDecoder decoder;
-
-    public OtherController(SessionManager sessionManager, SchemaManager schemaManager) {
-        this.sessionManager = sessionManager;
-        this.decoder = new MultiPacketDecoder(schemaManager);
-    }
+    @Autowired
+    private SessionManager sessionManager;
+    @Autowired
+    private JTMessageDecoder decoder;
 
     @Hidden
     @Operation(hidden = true)

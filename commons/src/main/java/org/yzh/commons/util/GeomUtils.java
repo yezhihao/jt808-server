@@ -7,11 +7,11 @@ package org.yzh.commons.util;
  */
 public class GeomUtils {
 
-    /** 地球半径,单位米（WGS-84 长半轴） */
-    private static final double RADIUS = 6378137;
+    /** 长半轴（赤道半径,单位米,WGS-84） */
+    public static final double A = 6378137;
 
     /** 弧度 */
-    private static final double RADIAN = Math.PI / 180.0;
+    public static final double RADIAN = Math.PI / 180.0;
 
     /** 计算球面点到点距离(单位米) */
     public static double distance(double lng1, double lat1, double lng2, double lat2) {
@@ -20,7 +20,7 @@ public class GeomUtils {
         double a = radLat1 - radLat2;
         double b = lng1 * RADIAN - lng2 * RADIAN;
 
-        double distance = RADIUS * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        double distance = A * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
         distance = Math.round(distance * 10000) / 10000D;
         return distance;
     }

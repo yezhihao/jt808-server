@@ -52,6 +52,11 @@ public class JTMessage implements Message {
         return this;
     }
 
+    public JTMessage messageId(int messageId) {
+        this.messageId = messageId;
+        return this;
+    }
+
     public int getMessageId() {
         return messageId;
     }

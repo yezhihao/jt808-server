@@ -43,6 +43,13 @@ public abstract class Alarm {
         return 1;
     }
 
+    //上报时间
+    public LocalDateTime getDateTime() {
+        if (location == null)
+            return null;
+        return location.getDeviceTime();
+    }
+
     //报警时间
     public LocalDateTime getAlarmTime() {
         if (location == null)

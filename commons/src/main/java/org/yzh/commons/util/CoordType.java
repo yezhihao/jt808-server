@@ -1,7 +1,5 @@
 package org.yzh.commons.util;
 
-import static org.yzh.commons.util.CoordTransform.*;
-
 /**
  * 坐标系枚举
  * @author yezhihao
@@ -10,26 +8,24 @@ import static org.yzh.commons.util.CoordTransform.*;
 public enum CoordType {
 
     wgs84(
-            p -> p,
-            p -> wgs84togcj02(p),
-            p -> gcj02tobd09(wgs84togcj02(p))
+            Converter.DEFAULT,
+            CoordTransform::wgs84togcj02,
+            CoordTransform::wgs84tobd09
     ),
     gcj02(
-            p -> gcj02towgs84(p),
-            p -> p,
-            p -> gcj02tobd09(p)
+            CoordTransform::gcj02towgs84,
+            Converter.DEFAULT,
+            CoordTransform::gcj02tobd09
     ),
     bd09(
-            p -> gcj02towgs84(bd09togcj02(p)),
-            p -> bd09togcj02(p),
-            p -> p
+            CoordTransform::bd09towgs84,
+            CoordTransform::bd09togcj02,
+            Converter.DEFAULT
     );
 
     public final Converter WGS84;
     public final Converter GCJ02;
     public final Converter BD09;
-
-    private static final Converter DEFAULT = p -> p;
 
     public Converter to(CoordType type) {
         switch (type) {
@@ -40,7 +36,7 @@ public enum CoordType {
             case bd09:
                 return this.BD09;
             default:
-                return DEFAULT;
+                return Converter.DEFAULT;
         }
     }
 

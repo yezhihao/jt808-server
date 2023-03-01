@@ -32,38 +32,38 @@ public class JT808Endpoint {
     private FileService fileService;
 
     @Mapping(types = 终端通用应答, desc = "终端通用应答")
-    public Object generalResponse(T0001 message, Session session) {
+    public Object T0001(T0001 message, Session session) {
         session.response(message);
         return null;
     }
 
     @Mapping(types = 终端心跳, desc = "终端心跳")
-    public void heartbeat(JTMessage message, Session session) {
+    public void T0002(JTMessage message, Session session) {
     }
 
     @Mapping(types = 终端注销, desc = "终端注销")
-    public void unregister(JTMessage message, Session session) {
+    public void T0003(JTMessage message, Session session) {
         session.invalidate();
     }
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
-    public T8004 serverTime(JTMessage message, Session session) {
+    public T8004 T0004(JTMessage message, Session session) {
         T8004 result = new T8004(LocalDateTime.now(ZoneOffset.UTC));
         return result;
     }
 
     @Mapping(types = 终端补传分包请求, desc = "终端补传分包请求")
-    public void retransmissionPacket(T8003 message, Session session) {
+    public void T8003(T8003 message, Session session) {
     }
 
     @Mapping(types = 终端注册, desc = "终端注册")
-    public T8100 register(T0100 message, Session session) {
+    public T8100 T0100(T0100 message, Session session) {
         session.register(message);
         DeviceDO device = new DeviceDO();
-        device.setDeviceId(message.getDeviceId());
-        device.setMobileNo(message.getClientId());
-        device.setPlateNo(message.getPlateNo());
         device.setProtocolVersion(message.getProtocolVersion());
+        device.setMobileNo(message.getClientId());
+        device.setDeviceId(message.getDeviceId());
+        device.setPlateNo(message.getPlateNo());
         session.setAttribute(SessionKey.Device, device);
 
         T8100 result = new T8100();
@@ -74,10 +74,11 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 终端鉴权, desc = "终端鉴权")
-    public T0001 authentication(T0102 message, Session session) {
+    public T0001 T0102(T0102 message, Session session) {
         session.register(message);
         DeviceDO device = new DeviceDO();
         String[] token = message.getToken().split(",");
+        device.setProtocolVersion(message.getProtocolVersion());
         device.setMobileNo(message.getClientId());
         device.setDeviceId(token[0]);
         if (token.length > 1)
@@ -92,17 +93,17 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 查询终端参数应答, desc = "查询终端参数应答")
-    public void parametersResponse(T0104 message, Session session) {
+    public void T0104(T0104 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 查询终端属性应答, desc = "查询终端属性应答")
-    public void attributesResponse(T0107 message, Session session) {
+    public void T0107(T0107 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 终端升级结果通知, desc = "终端升级结果通知")
-    public void upgradeResponse(T0108 message, Session session) {
+    public void T0108(T0108 message, Session session) {
     }
 
     /**
@@ -113,60 +114,60 @@ public class JT808Endpoint {
      */
     @AsyncBatch(poolSize = 2, maxElements = 4000, maxWait = 1000)
     @Mapping(types = 位置信息汇报, desc = "位置信息汇报")
-    public void locationReport(List<T0200> list) {
+    public void T0200(List<T0200> list) {
     }
 
     @Mapping(types = 定位数据批量上传, desc = "定位数据批量上传")
-    public void locationBatchReport(T0704 message) {
+    public void T0704(T0704 message) {
     }
 
     @Mapping(types = {位置信息查询应答, 车辆控制应答}, desc = "位置信息查询应答/车辆控制应答")
-    public void locationResponse(T0201_0500 message, Session session) {
+    public void T0201_0500(T0201_0500 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 事件报告, desc = "事件报告")
-    public void eventReport(T0301 message, Session session) {
+    public void T0301(T0301 message, Session session) {
     }
 
     @Mapping(types = 提问应答, desc = "提问应答")
-    public void questionResponse(T0302 message, Session session) {
+    public void T0302(T0302 message, Session session) {
     }
 
     @Mapping(types = 信息点播_取消, desc = "信息点播/取消")
-    public void newsCancel(T0303 message, Session session) {
+    public void T0303(T0303 message, Session session) {
     }
 
     @Mapping(types = 查询区域或线路数据应答, desc = "查询区域或线路数据应答")
-    public void areaLocationResponse(T0608 message, Session session) {
+    public void T0608(T0608 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 行驶记录数据上传, desc = "行驶记录仪数据上传")
-    public void driveRecorderResponse(T0700 message, Session session) {
+    public void T0700(T0700 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 电子运单上报, desc = "电子运单上报")
-    public void ewaybillReport(JTMessage message, Session session) {
+    public void T0701(JTMessage message, Session session) {
     }
 
     @Mapping(types = 驾驶员身份信息采集上报, desc = "驾驶员身份信息采集上报")
-    public void driverInfoResponse(T0702 message, Session session) {
+    public void T0702(T0702 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = CAN总线数据上传, desc = "CAN总线数据上传")
-    public void canBusDataReport(T0705 message, Session session) {
+    public void T0705(T0705 message, Session session) {
     }
 
     @Mapping(types = 多媒体事件信息上传, desc = "多媒体事件信息上传")
-    public void mediaEventReport(T0800 message, Session session) {
+    public void T0800(T0800 message, Session session) {
     }
 
     @Async
     @Mapping(types = 多媒体数据上传, desc = "多媒体数据上传")
-    public JTMessage mediaUploadResponse(T0801 message, Session session) {
+    public JTMessage T0801(T0801 message, Session session) {
         if (message.getPacket() == null) {
             T0001 result = new T0001();
             result.copyBy(message);
@@ -185,25 +186,25 @@ public class JT808Endpoint {
     }
 
     @Mapping(types = 存储多媒体数据检索应答, desc = "存储多媒体数据检索应答")
-    public void mediaSearchResponse(T0802 message, Session session) {
+    public void T0802(T0802 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 摄像头立即拍摄命令应答, desc = "摄像头立即拍摄命令应答")
-    public void mediaVideoRecordResponse(T0805 message, Session session) {
+    public void T0805(T0805 message, Session session) {
         session.response(message);
     }
 
     @Mapping(types = 数据上行透传, desc = "数据上行透传")
-    public void passthrough(T0900 message, Session session) {
+    public void T0900(T0900 message, Session session) {
     }
 
     @Mapping(types = 数据压缩上报, desc = "数据压缩上报")
-    public void gzipPackReport(T0901 message, Session session) {
+    public void T0901(T0901 message, Session session) {
     }
 
     @Mapping(types = 终端RSA公钥, desc = "终端RSA公钥")
-    public void rsaSwap(T0A00_8A00 message, Session session) {
+    public void T0A00(T0A00_8A00 message, Session session) {
         session.response(message);
     }
 }

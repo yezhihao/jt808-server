@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
-import org.yzh.web.endpoint.JT808Endpoint;
-import org.yzh.protocol.t808.T0200;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,7 +19,7 @@ import static org.yzh.protocol.commons.JT808.*;
 @Endpoint
 public class JTClientEndpoint {
 
-    private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(JTClientEndpoint.class.getSimpleName());
 
     private AtomicInteger serialNo = new AtomicInteger();
 

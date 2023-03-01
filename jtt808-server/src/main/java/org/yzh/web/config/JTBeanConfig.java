@@ -7,7 +7,6 @@ import io.github.yezhihao.netmc.session.SessionManager;
 import io.github.yezhihao.protostar.SchemaManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.yzh.protocol.codec.DataFrameMessageDecoder;
 import org.yzh.protocol.codec.JTMessageAdapter;
 import org.yzh.protocol.codec.JTMessageEncoder;
 import org.yzh.protocol.codec.MultiPacketDecoder;
@@ -52,9 +51,7 @@ public class JTBeanConfig {
     }
 
     @Bean
-    public JTMessageAdapter alarmFileMessageAdapter(SchemaManager schemaManager) {
-        JTMessageEncoder encoder = new JTMessageEncoder(schemaManager);
-        DataFrameMessageDecoder decoder = new DataFrameMessageDecoder(schemaManager, new byte[]{0x30, 0x31, 0x63, 0x64});
-        return new WebLogAdapter(encoder, decoder);
+    public MultiPacketDecoder multiPacketDecoder(SchemaManager schemaManager) {
+        return new MultiPacketDecoder(schemaManager);
     }
 }

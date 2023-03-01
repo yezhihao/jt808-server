@@ -49,7 +49,11 @@ public class IOUtils {
             String line;
             while ((line = reader.readLine()) != null)
                 result.append(line).append(Separator);
-            return result.substring(0, result.length() - Separator.length());
+
+            int length = result.length();
+            if (length == 0)
+                return null;
+            return result.substring(0, length - Separator.length());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

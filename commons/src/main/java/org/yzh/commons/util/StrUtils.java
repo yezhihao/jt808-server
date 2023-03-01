@@ -92,12 +92,16 @@ public class StrUtils {
     }
 
     public static Integer parseInt(String num) {
+        return parseInt(num, null);
+    }
+
+    public static Integer parseInt(String num, Integer defVal) {
         if (isBlank(num))
-            return null;
+            return defVal;
         try {
             return Integer.parseInt(num);
         } catch (NumberFormatException e) {
-            return null;
+            return defVal;
         }
     }
 

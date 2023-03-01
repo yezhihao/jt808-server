@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.WildcardType;
@@ -49,11 +48,10 @@ public class SwaggerConfig {
     @Bean
     public Docket customImplementation() {
         return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.any())
                 .build()
+                .apiInfo(apiInfo())
                 .directModelSubstitute(boolean.class, int.class)
                 .directModelSubstitute(Boolean.class, int.class)
                 .directModelSubstitute(byte.class, int.class)
@@ -69,11 +67,10 @@ public class SwaggerConfig {
                 .alternateTypeRules(
                         AlternateTypeRules.newRule(resolver.resolve(Mono.class, WildcardType.class), resolver.resolve(WildcardType.class)),
                         AlternateTypeRules.newRule(resolver.resolve(Flux.class, WildcardType.class), resolver.resolve(List.class, WildcardType.class))
-                )
-                .apiInfo(apiInfo());
+                );
     }
 
-    ApiInfo apiInfo() {
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("部标JT/T808协议接入平台")
                 .contact(new Contact("问题交流群：906230542", "https://gitee.com/yezhihao", ""))
@@ -90,7 +87,6 @@ public class SwaggerConfig {
         ignores.add("messageId");
         ignores.add("properties");
         ignores.add("protocolVersion");
-        ignores.add("clientId");
         ignores.add("serialNo");
         ignores.add("packageTotal");
         ignores.add("packageNo");

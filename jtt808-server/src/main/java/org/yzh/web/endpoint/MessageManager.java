@@ -63,6 +63,20 @@ public class MessageManager {
                 });
     }
 
+    public <T> Mono<APIResult<T>> requestR(JTMessage request, Class<T> responseClass) {
+        Session session = sessionManager.get(request.getClientId());
+        if (session == null)
+            return OFFLINE_RESULT;
+
+        return session.request(request, responseClass)
+                .map(message -> APIResult.ok(message))
+                .timeout(Duration.ofSeconds(10), TIMEOUT_RESULT)
+                .onErrorResume(e -> {
+                    log.warn("消息发送失败", e);
+                    return SENDFAIL_RESULT;
+                });
+    }
+
     public <T> Mono<T> request(String sessionId, JTMessage request, Class<T> responseClass, long timeout) {
         return request(sessionId, request, responseClass).timeout(Duration.ofMillis(timeout));
     }
