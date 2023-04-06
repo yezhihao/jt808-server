@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class AlarmTPMS extends Alarm {
 
-    public static final int key = 102;
+    public static final Integer key = 102;
 
     @Field(length = 4, desc = "报警ID")
     private long id;

@@ -227,7 +227,7 @@ public class StrUtils {
             throw new IllegalArgumentException("hexBinary needs to be even-length: " + hex);
         }
 
-        byte[] out = new byte[len / 2];
+        byte[] out = new byte[len >> 1];
         for (int i = 0; i < len; i += 2) {
 
             int h = hexToBin(hex.charAt(i));
@@ -235,7 +235,7 @@ public class StrUtils {
             if (h == -1 || l == -1) {
                 throw new IllegalArgumentException("contains illegal character for hexBinary: " + hex);
             }
-            out[i / 2] = (byte) (h * 16 + l);
+            out[i >> 1] = (byte) (h * 16 + l);
         }
         return out;
     }
@@ -245,10 +245,10 @@ public class StrUtils {
             return ch - '0';
         }
         if ('A' <= ch && ch <= 'F') {
-            return ch - 'A' + 10;
+            return ch - ('A' - 10);
         }
         if ('a' <= ch && ch <= 'f') {
-            return ch - 'a' + 10;
+            return ch - ('a' - 10);
         }
         return -1;
     }

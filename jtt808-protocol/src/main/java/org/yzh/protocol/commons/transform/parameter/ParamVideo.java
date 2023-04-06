@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamVideo {
 
-    public static final int key = 0x0075;
+    public static final Integer key = 0x0075;
 
     public static final Schema<ParamVideo> SCHEMA = new ParamVideoSchema();
 

@@ -15,7 +15,7 @@ import static io.github.yezhihao.protostar.util.DateTool.BCD;
  */
 public class ParamSleepWake {
 
-    public static final int key = 0x007C;
+    public static final Integer key = 0x007C;
 
     public static final Schema<ParamSleepWake> SCHEMA = new ParamSleepWakeSchema();
 

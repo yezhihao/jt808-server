@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class OverSpeedAlarm extends Alarm {
 
-    public static final int key = 17;
+    public static final Integer key = 17;
 
     public static final Schema<OverSpeedAlarm> SCHEMA = new OverSpeedAlarmSchema();
 

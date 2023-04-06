@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class MultiPacketDecoder extends JTMessageDecoder {
 
-    private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class);
 
     private final Map<String, MultiPacket> multiPacketsMap;
 

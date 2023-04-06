@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamADAS {
 
-    public static final int key = 0xF364;
+    public static final Integer key = 0xF364;
 
     public static final Schema<ParamADAS> SCHEMA = new ParamADASSchema();
 

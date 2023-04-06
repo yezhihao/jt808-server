@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class RouteDriveTimeAlarm extends Alarm {
 
-    public static final int key = 19;
+    public static final Integer key = 19;
 
     public static final Schema<RouteDriveTimeAlarm> SCHEMA = new RouteDriveTimeAlarmSchema();
 

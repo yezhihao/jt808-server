@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ParamChannels {
 
-    public static final int key = 0x0076;
+    public static final Integer key = 0x0076;
 
     public static final Schema<ParamChannels> SCHEMA = new ParamChannelsSchema();
 

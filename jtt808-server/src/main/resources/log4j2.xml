@@ -10,7 +10,8 @@
             <PatternLayout pattern="[%p] %d{HH:mm:ss.SSS} [%t] %c{2}[%L]%m%n"/>
         </Console>
 
-        <RollingRandomAccessFile name="AppLog" fileName="${LOG_HOME}/${LOG_NAME}.log" filePattern="${LOG_HOME}/jt808/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
+        <RollingRandomAccessFile name="AppLog" fileName="${LOG_HOME}/${LOG_NAME}.log"
+                                 filePattern="${LOG_HOME}/jt808/$${date:yyyy-MM}/${LOG_NAME}-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="[%p] %d{HH:mm:ss.SSS} [%t] %c{2}[%L]%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -18,7 +19,8 @@
             </Policies>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="AccessLog" fileName="${LOG_HOME}/${LOG_NAME}-access.log" filePattern="${LOG_HOME}/jt808/${LOG_NAME}-access-%d{yyyy-MM-dd}-%i.log">
+        <RollingRandomAccessFile name="AccessLog" fileName="${LOG_HOME}/${LOG_NAME}-access.log"
+                                 filePattern="${LOG_HOME}/jt808/${LOG_NAME}-access-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="[%p] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %m%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -27,14 +29,24 @@
     </Appenders>
 
     <Loggers>
-        <logger name="io.github.yezhihao.netmc" level="info" additivity="false">
-            <AppenderRef ref="AccessLog"/>
-            <AppenderRef ref="Console"/>
-        </logger>
-
         <Root level="info">
             <AppenderRef ref="AppLog"/>
             <AppenderRef ref="Console"/>
         </Root>
+
+        <logger name="io.github.yezhihao.netmc.session.Session" level="info">
+            <AppenderRef ref="AccessLog"/>
+            <AppenderRef ref="Console"/>
+        </logger>
+
+        <logger name="io.github.yezhihao.netmc.handler.TCPMessageAdapter" level="info">
+            <AppenderRef ref="AccessLog"/>
+            <AppenderRef ref="Console"/>
+        </logger>
+
+        <logger name="io.github.yezhihao.netmc.handler.UDPMessageAdapter" level="info">
+            <AppenderRef ref="AccessLog"/>
+            <AppenderRef ref="Console"/>
+        </logger>
     </Loggers>
 </Configuration>

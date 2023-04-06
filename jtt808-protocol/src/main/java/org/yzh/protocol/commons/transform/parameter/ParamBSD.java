@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamBSD {
 
-    public static final int key = 0xF367;
+    public static final Integer key = 0xF367;
 
     public static final Schema<ParamBSD> SCHEMA = new ParamBSDSchema();
 

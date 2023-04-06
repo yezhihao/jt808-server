@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class WebLogAdapter extends JTMessageAdapter {
 
-    protected static final Logger log = LoggerFactory.getLogger(WebLogAdapter.class.getSimpleName());
+    protected static final Logger log = LoggerFactory.getLogger(WebLogAdapter.class);
 
     public static final HashMap<String, Set<FluxSink<Object>>> clientIds = new HashMap<>();
     public static final HashSet<Integer> ignoreMsgs = new HashSet<>();

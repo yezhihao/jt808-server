@@ -26,7 +26,7 @@ import static org.yzh.protocol.commons.JT808.*;
 @Component
 public class JT808Endpoint {
 
-    private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class);
 
     @Autowired
     private FileService fileService;

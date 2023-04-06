@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class AlarmDSM extends Alarm {
 
-    public static final int key = 101;
+    public static final Integer key = 101;
 
     @Field(length = 4, desc = "报警ID")
     private long id;

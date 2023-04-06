@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 @ChannelHandler.Sharable
 public class TCPClientHandler extends ChannelInboundHandlerAdapter {
 
-    private static final Logger log = LoggerFactory.getLogger(TCPClientHandler.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(TCPClientHandler.class);
 
     private HandlerMapping handlerMapping;
 

@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamVideoSpecialAlarm {
 
-    public static final int key = 0x0079;
+    public static final Integer key = 0x0079;
 
     public static final Schema<ParamVideoSpecialAlarm> SCHEMA = new ParamVideoSpecialAlarmSchema();
 

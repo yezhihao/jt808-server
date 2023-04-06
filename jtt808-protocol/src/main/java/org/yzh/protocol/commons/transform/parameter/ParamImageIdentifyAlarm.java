@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamImageIdentifyAlarm {
 
-    public static final int key = 0x007B;
+    public static final Integer key = 0x007B;
 
     public static final Schema<ParamImageIdentifyAlarm> SCHEMA = new ParamImageIdentifyAlarmSchema();
 

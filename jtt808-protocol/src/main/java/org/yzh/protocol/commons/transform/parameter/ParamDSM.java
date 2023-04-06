@@ -11,7 +11,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class ParamDSM {
 
-    public static final int key = 0xF365;
+    public static final Integer key = 0xF365;
 
     public static final Schema<ParamDSM> SCHEMA = new ParamDSMSchema();
 

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class TCPClient {
 
-    private static final Logger log = LoggerFactory.getLogger(TCPClient.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(TCPClient.class);
 
     private EventLoopGroup workerGroup;
 

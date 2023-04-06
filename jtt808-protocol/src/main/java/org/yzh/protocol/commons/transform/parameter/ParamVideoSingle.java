@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class ParamVideoSingle {
 
-    public static final int key = 0x0077;
+    public static final Integer key = 0x0077;
 
     public static final Schema<ParamVideoSingle> SCHEMA = new ParamVideoSingleSchema();
 

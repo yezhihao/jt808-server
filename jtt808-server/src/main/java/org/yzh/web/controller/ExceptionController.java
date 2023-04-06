@@ -16,6 +16,7 @@ import org.yzh.commons.model.APICodes;
 import org.yzh.commons.model.APIException;
 import org.yzh.commons.model.APIResult;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -36,7 +37,7 @@ public class ExceptionController {
 
     @ExceptionHandler(APIException.class)
     public APIResult onAPIException(APIException e) {
-        return new APIResult(e);
+        return new APIResult<>(e);
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
@@ -54,18 +55,28 @@ public class ExceptionController {
 
         for (int i = 0; i < len; i++)
             sb.append(values.get(i)).append(',');
-        return new APIResult(APICodes.InvalidParameter, sb.substring(0, sb.length() - 1));
+        return new APIResult<>(APICodes.InvalidParameter, sb.substring(0, sb.length() - 1));
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public APIResult onIllegalArgumentException(SQLException e) {
+        String message = e.getMessage();
+        if (message.endsWith("have a default value"))
+            return new APIResult<>(APICodes.MissingParameter, e);
+        log.warn("系统异常:", e);
+        return new APIResult<>(e);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public APIResult onIllegalArgumentException(IllegalArgumentException e) {
-        return new APIResult(APICodes.InvalidParameter, e.getMessage());
+        log.warn("系统异常:", e);
+        return new APIResult<>(APICodes.InvalidParameter, e.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public APIResult onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.warn("系统异常:", e);
-        return new APIResult(APICodes.TypeMismatch, e);
+        return new APIResult<>(APICodes.TypeMismatch, e);
     }
 
     @ExceptionHandler(BindException.class)
@@ -74,27 +85,27 @@ public class ExceptionController {
         StringBuilder sb = new StringBuilder();
         for (FieldError fieldError : fieldErrors)
             sb.append(fieldError.getField()).append(fieldError.getDefaultMessage());
-        return new APIResult(APICodes.MissingParameter, sb.toString());
+        return new APIResult<>(APICodes.MissingParameter, sb.toString());
     }
 
     @ExceptionHandler(HttpMediaTypeException.class)
     public APIResult onHttpMessageNotReadableException(HttpMediaTypeException e) {
         log.warn("系统异常:", e);
-        return new APIResult(APICodes.NotSupportedType, e.getMessage());
+        return new APIResult<>(APICodes.NotSupportedType, e.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public APIResult onHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        return new APIResult(APICodes.NotImplemented);
+        return new APIResult<>(APICodes.NotImplemented);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public APIResult onMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        return new APIResult(APICodes.MissingParameter, ":" + e.getParameterName());
+        return new APIResult<>(APICodes.MissingParameter, ":" + e.getParameterName());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public APIResult onMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        return new APIResult(APICodes.TypeMismatch, ":" + e.getName() + "=" + e.getValue(), e.getMessage());
+        return new APIResult<>(APICodes.TypeMismatch, ":" + e.getName() + "=" + e.getValue(), e.getMessage());
     }
 }

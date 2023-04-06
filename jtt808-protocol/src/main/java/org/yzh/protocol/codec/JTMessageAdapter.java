@@ -18,7 +18,7 @@ import org.yzh.protocol.basics.JTMessage;
  */
 public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecoder<JTMessage> {
 
-    protected static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class.getSimpleName());
+    protected static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class);
 
     private final JTMessageEncoder messageEncoder;
 

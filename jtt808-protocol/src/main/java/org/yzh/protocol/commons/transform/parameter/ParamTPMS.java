@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class ParamTPMS {
 
-    public static final int key = 0xF366;
+    public static final Integer key = 0xF366;
 
     public static final Schema<ParamTPMS> SCHEMA = new ParamTPMSSchema();
 

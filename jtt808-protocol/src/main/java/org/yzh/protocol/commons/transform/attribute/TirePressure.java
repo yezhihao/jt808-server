@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class TirePressure {
 
-    public static final int key = 5;
+    public static final Integer key = 5;
 
     public static final Schema<TirePressure> SCHEMA = new TirePressureSchema();
 

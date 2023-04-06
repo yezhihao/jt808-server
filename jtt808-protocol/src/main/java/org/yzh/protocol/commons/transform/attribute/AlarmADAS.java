@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class AlarmADAS extends Alarm {
 
-    public static final int key = 100;
+    public static final Integer key = 100;
 
     @Field(length = 4, desc = "报警ID")
     private long id;

@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class InOutAreaAlarm extends Alarm {
 
-    public static final int key = 18;
+    public static final Integer key = 18;
 
     public static final Schema<InOutAreaAlarm> SCHEMA = new InOutAreaAlarmSchema();
 

@@ -19,7 +19,7 @@ import static org.yzh.protocol.commons.JT808.*;
 @Endpoint
 public class JTClientEndpoint {
 
-    private static final Logger log = LoggerFactory.getLogger(JTClientEndpoint.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(JTClientEndpoint.class);
 
     private AtomicInteger serialNo = new AtomicInteger();
 

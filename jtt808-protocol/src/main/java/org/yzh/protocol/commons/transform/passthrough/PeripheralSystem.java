@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class PeripheralSystem {
 
-    public static final int key = 0xF8;
+    public static final Integer key = 0xF8;
 
     private List<Item> items;
 

@@ -13,7 +13,7 @@ import org.yzh.web.model.enums.SessionKey;
 
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
-    private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class);
 
     /** 未找到对应的Handle */
     @Override
