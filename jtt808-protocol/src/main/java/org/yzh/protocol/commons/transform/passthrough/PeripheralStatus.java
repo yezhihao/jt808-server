@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class PeripheralStatus {
 
-    public static final int key = 0xF7;
+    public static final Integer key = 0xF7;
 
     private List<Item> items;
 
@@ -129,12 +129,13 @@ public class PeripheralStatus {
         public PeripheralStatus readFrom(ByteBuf input) {
             byte total = input.readByte();
             List<Item> list = new ArrayList<>(total);
-            while (input.isReadable()) {
+            for (int i = 0; i < total && input.isReadable(); i++) {
                 Item item = new Item();
                 item.id = input.readByte();
-                input.readByte();
+                int len = input.readUnsignedByte();
                 item.workState = input.readByte();
                 item.alarmStatus = input.readInt();
+                input.skipBytes(len - 5);
                 list.add(item);
             }
             return new PeripheralStatus(list);
