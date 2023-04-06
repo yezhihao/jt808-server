@@ -41,7 +41,7 @@ public class T9206 extends JTMessage {
     @Field(length = 1, desc = "存储位置：0.所有存储器 1.主存储器 2.灾备存储器")
     private int storageType;
     @Field(length = 1, desc = "任务执行条件(用bit位表示)：[0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
-    private int condition;
+    private int condition = -1;
 
     public String getIp() {
         return ip;

@@ -49,15 +49,15 @@ public class T8600 extends JTMessage {
         private int longitude;
         @Field(length = 4, desc = "半径(米)")
         private int radius;
-        @Field(length = 6, charset = "BCD", desc = "起始时间(若区域属性0位为0则没有该字段)")
+        @Field(length = 6, lengthExpression = "attrBit(0) ? 6 : 0", charset = "BCD", desc = "起始时间(若区域属性0位为0则没有该字段)")
         private LocalDateTime startTime;
-        @Field(length = 6, charset = "BCD", desc = "结束时间(若区域属性0位为0则没有该字段)")
+        @Field(length = 6, lengthExpression = "attrBit(0) ? 6 : 0", charset = "BCD", desc = "结束时间(若区域属性0位为0则没有该字段)")
         private LocalDateTime endTime;
-        @Field(length = 2, desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
+        @Field(length = 2, lengthExpression = "attrBit(1) ? 2 : 0", desc = "最高速度(公里每小时,若区域属性1位为0则没有该字段)")
         private Integer maxSpeed;
-        @Field(length = 1, desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
+        @Field(length = 1, lengthExpression = "attrBit(1) ? 1 : 0", desc = "超速持续时间(秒,若区域属性1位为0则没有该字段)")
         private Integer duration;
-        @Field(length = 2, desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
+        @Field(length = 2, lengthExpression = "attrBit(1) ? 2 : 0", desc = "夜间最高速度(公里每小时,若区域属性1位为0则没有该字段)", version = 1)
         private Integer nightMaxSpeed;
         @Field(lengthUnit = 2, desc = "区域名称", version = 1)
         private String name;
@@ -81,6 +81,10 @@ public class T8600 extends JTMessage {
             this(id, attribute, latitude, longitude, radius, startTime, endTime, maxSpeed, duration);
             this.setNightMaxSpeed(nightMaxSpeed);
             this.name = name;
+        }
+
+        public boolean attrBit(int i) {
+            return Bit.isTrue(attribute, i);
         }
 
         public int getId() {
