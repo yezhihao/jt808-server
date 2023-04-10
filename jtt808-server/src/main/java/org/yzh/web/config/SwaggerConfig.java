@@ -1,86 +1,34 @@
 package org.yzh.web.config;
 
-import com.fasterxml.classmate.TypeResolver;
-import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Fs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.customizers.PropertyCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.AlternateTypeRules;
-import springfox.documentation.schema.WildcardType;
-import springfox.documentation.schema.property.ModelSpecificationFactory;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.schema.EnumTypeDeterminer;
-import springfox.documentation.spi.schema.contexts.ModelPropertyContext;
-import springfox.documentation.spi.service.contexts.ParameterExpansionContext;
-import springfox.documentation.spring.web.DescriptionResolver;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.readers.parameter.SwaggerExpandedParameterBuilder;
-import springfox.documentation.swagger.schema.ApiModelPropertyPropertyBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
-
-import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
-import static springfox.documentation.swagger.common.SwaggerPluginSupport.OAS_PLUGIN_ORDER;
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
-    @Autowired
-    private TypeResolver resolver;
-
     @Bean
-    public Docket customImplementation() {
-        return new Docket(DocumentationType.OAS_30)
-                .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .build()
-                .apiInfo(apiInfo())
-                .directModelSubstitute(boolean.class, int.class)
-                .directModelSubstitute(Boolean.class, int.class)
-                .directModelSubstitute(byte.class, int.class)
-                .directModelSubstitute(byte[].class, String.class)
-                .directModelSubstitute(int[].class, String.class)
-                .directModelSubstitute(Integer[].class, String.class)
-                .directModelSubstitute(long[].class, String.class)
-                .directModelSubstitute(Long[].class, String.class)
-                .directModelSubstitute(String[].class, String.class)
-                .directModelSubstitute(LocalDate.class, String.class)
-                .directModelSubstitute(LocalTime.class, String.class)
-                .directModelSubstitute(LocalDateTime.class, Date.class)
-                .alternateTypeRules(
-                        AlternateTypeRules.newRule(resolver.resolve(Mono.class, WildcardType.class), resolver.resolve(WildcardType.class)),
-                        AlternateTypeRules.newRule(resolver.resolve(Flux.class, WildcardType.class), resolver.resolve(List.class, WildcardType.class))
-                );
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("部标JT/T808协议接入平台")
-                .contact(new Contact("问题交流群：906230542", "https://gitee.com/yezhihao", ""))
-                .termsOfServiceUrl("https://gitee.com/yezhihao")
-                .license("")
-                .licenseUrl("")
-                .version("1.0.0")
-                .build();
+    public OpenAPI OpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("部标JT/T808协议接入平台")
+                        .contact(new Contact().name("问题交流群：906230542").url("https://gitee.com/yezhihao"))
+                        .license(new License().name("Apache-2.0").url("https://www.apache.org/licenses"))
+                        .version("1.0.0"));
     }
 
     public static final Set<String> ignores = new HashSet<>();
@@ -104,96 +52,34 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public ApiModelPropertyPropertyBuilder customApiModelPropertyPropertyBuilder(DescriptionResolver descriptions, ModelSpecificationFactory modelSpecifications) {
-        return new ApiModelPropertyPropertyBuilder(descriptions, modelSpecifications) {
-            @Override
-            public void apply(ModelPropertyContext context) {
-                context.getBeanPropertyDefinition().ifPresent(definition -> {
+    public PropertyCustomizer propertyCustomizer() {
+        return (schema, type) -> {
+            String propertyName = type.getPropertyName();
+            boolean readOnly = ignores.contains(propertyName);
+            schema.readOnly(readOnly);
 
-                    if (ignores.contains(definition.getName())) {
-                        context.getSpecificationBuilder().isHidden(true);
-
-                    } else {
-                        Field field = getField(definition);
-                        if (field != null) {
-                            context.getSpecificationBuilder()
-                                    .position(field.index())
-                                    .description(field.desc());
-                        } else {
-                            findPropertyAnnotation(definition, Schema.class).ifPresent(schema -> {
-                                context.getSpecificationBuilder()
-                                        .isHidden(schema.hidden())
-                                        .required(schema.required())
-                                        .position(schema.maxProperties())
-                                        .description(schema.description());
-                            });
-                        }
-                    }
-                });
-            }
-        };
-    }
-
-    @Bean
-    public SwaggerExpandedParameterBuilder customSwaggerExpandedParameterBuilder(DescriptionResolver descriptions, EnumTypeDeterminer enumTypeDeterminer) {
-        return new SwaggerExpandedParameterBuilder(descriptions, enumTypeDeterminer) {
-            @Override
-            public void apply(ParameterExpansionContext context) {
-                if (ignores.contains(context.getFieldName()) || ignores.contains(context.getParentName())) {
-                    context.getParameterBuilder().hidden(true);
-                    context.getRequestParameterBuilder().hidden(true);
-
-                } else {
-                    Field field = getField(context);
-                    if (field != null) {
-                        context.getParameterBuilder()
-                                .description(field.desc())
-                                .required(true)
-                                .order(OAS_PLUGIN_ORDER);
-
-                        context.getRequestParameterBuilder()
-                                .description(field.desc())
-                                .required(true)
-                                .parameterIndex(field.index() + 10)
-                                .precedence(OAS_PLUGIN_ORDER);
-                    } else {
-                        context.findAnnotation(Schema.class).ifPresent(schema -> {
-                            context.getParameterBuilder()
-                                    .hidden(schema.hidden())
-                                    .required(schema.required())
-                                    .description(schema.description())
-                                    .order(OAS_PLUGIN_ORDER);
-
-                            context.getRequestParameterBuilder()
-                                    .hidden(schema.hidden())
-                                    .required(schema.required())
-                                    .description(schema.description())
-                                    .parameterIndex(schema.maxProperties())
-                                    .precedence(OAS_PLUGIN_ORDER);
-                        });
-                    }
+            Field field = getField(type.getCtxAnnotations());
+            if (field != null) {
+                schema.description(field.desc());
+                if (!readOnly) {
+                    schema.addRequiredItem("true");
                 }
             }
+            return schema;
         };
     }
 
-    private Field getField(BeanPropertyDefinition definition) {
-        Optional<Field> optionalField = findPropertyAnnotation(definition, Field.class);
-        if (optionalField.isPresent())
-            return optionalField.get();
-        Optional<Fs> optionalFs = findPropertyAnnotation(definition, Fs.class);
-        if (optionalFs.isPresent())
-            return optionalFs.get().value()[0];
-        return null;
-    }
-
-    private Field getField(ParameterExpansionContext context) {
-        Optional<Field> optionalField = context.findAnnotation(Field.class);
-        if (optionalField.isPresent())
-            return optionalField.get();
-        Optional<Fs> optionalFs = context.findAnnotation(Fs.class);
-        if (optionalFs.isPresent())
-            return optionalFs.get().value()[0];
+    private Field getField(Annotation[] annotations) {
+        if (annotations != null) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof Field) {
+                    return (Field) annotation;
+                }
+                if (annotation instanceof Fs) {
+                    return ((Fs) annotation).value()[0];
+                }
+            }
+        }
         return null;
     }
 }

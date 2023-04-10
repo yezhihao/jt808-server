@@ -41,8 +41,6 @@ spring:
       date-time: yyyy-MM-dd HH:mm:ss
       date: yyyy-MM-dd
       time: HH:mm:ss
-    path-match:
-      matching-strategy: ant_path_matcher
 
 mybatis:
   configuration:
