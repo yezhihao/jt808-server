@@ -31,17 +31,25 @@ public class AttributeConverter extends MapSchema<Number, Object> {
                 .addSchema(AttributeKey.InOutAreaAlarm, InOutAreaAlarm.SCHEMA)
                 .addSchema(AttributeKey.RouteDriveTimeAlarm, RouteDriveTimeAlarm.SCHEMA)
 
+                .addSchema(AttributeKey.VideoRelatedAlarm, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.VideoMissingStatus, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.VideoObscuredStatus, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.StorageFailureStatus, NumberSchema.WORD_INT)
+                .addSchema(AttributeKey.DriverBehaviorAlarm, NumberSchema.WORD_INT)
+
                 .addSchema(AttributeKey.Signal, NumberSchema.DWORD_INT)
                 .addSchema(AttributeKey.IoState, NumberSchema.WORD_INT)
                 .addSchema(AttributeKey.AnalogQuantity, NumberSchema.DWORD_INT)
                 .addSchema(AttributeKey.SignalStrength, NumberSchema.BYTE_INT)
                 .addSchema(AttributeKey.GnssCount, NumberSchema.BYTE_INT)
 
-
                 .addSchema(AttributeKey.AlarmADAS, ProtostarUtil.getRuntimeSchema(AlarmADAS.class, 0))
                 .addSchema(AttributeKey.AlarmBSD, ProtostarUtil.getRuntimeSchema(AlarmBSD.class, 0))
                 .addSchema(AttributeKey.AlarmDSM, ProtostarUtil.getRuntimeSchema(AlarmDSM.class, 0))
                 .addSchema(AttributeKey.AlarmTPMS, ProtostarUtil.getRuntimeSchema(AlarmTPMS.class, 0))
+
+                .addSchema(AttributeKey.InstallErrorMsg, NumberSchema.DWORD_INT)
+                .addSchema(AttributeKey.AlgorithmErrorMsg, NumberSchema.DWORD_INT)
         ;
     }
 }
