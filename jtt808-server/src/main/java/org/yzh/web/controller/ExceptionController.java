@@ -27,21 +27,30 @@ public class ExceptionController {
 
     private static final Logger log = LoggerFactory.getLogger(ExceptionController.class);
 
-    private static final Pattern compile = Pattern.compile("'[\\w]*'");
+    private static final Pattern compile = Pattern.compile("'\\w*'");
 
     @ExceptionHandler(Exception.class)
-    public APIResult onException(Exception e) {
+    public APIResult<?> onException(Exception e) {
         log.error("系统异常", e);
-        return new APIResult(e);
+        return new APIResult<>(e);
     }
 
     @ExceptionHandler(APIException.class)
-    public APIResult onAPIException(APIException e) {
+    public APIResult<?> onAPIException(APIException e) {
+        return new APIResult<>(e);
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public APIResult<?> onSQLException(SQLException e) {
+        String message = e.getMessage();
+        if (message.endsWith("have a default value"))
+            return new APIResult<>(APICodes.MissingParameter, e);
+        log.warn("系统异常:", e);
         return new APIResult<>(e);
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
-    public APIResult onDuplicateKeyException(DuplicateKeyException e) {
+    public APIResult<?> onDuplicateKeyException(DuplicateKeyException e) {
         Matcher matcher = compile.matcher(e.getCause().getMessage());
         List<String> values = new ArrayList<>(4);
         while (matcher.find())
@@ -58,29 +67,20 @@ public class ExceptionController {
         return new APIResult<>(APICodes.InvalidParameter, sb.substring(0, sb.length() - 1));
     }
 
-    @ExceptionHandler(SQLException.class)
-    public APIResult onIllegalArgumentException(SQLException e) {
-        String message = e.getMessage();
-        if (message.endsWith("have a default value"))
-            return new APIResult<>(APICodes.MissingParameter, e);
-        log.warn("系统异常:", e);
-        return new APIResult<>(e);
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
-    public APIResult onIllegalArgumentException(IllegalArgumentException e) {
+    public APIResult<?> onIllegalArgumentException(IllegalArgumentException e) {
         log.warn("系统异常:", e);
         return new APIResult<>(APICodes.InvalidParameter, e.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public APIResult onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public APIResult<?> onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.warn("系统异常:", e);
         return new APIResult<>(APICodes.TypeMismatch, e);
     }
 
     @ExceptionHandler(BindException.class)
-    public APIResult onConstraintViolationException(BindException e) {
+    public APIResult<?> onBindException(BindException e) {
         List<FieldError> fieldErrors = e.getFieldErrors();
         StringBuilder sb = new StringBuilder();
         for (FieldError fieldError : fieldErrors)
@@ -89,23 +89,23 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(HttpMediaTypeException.class)
-    public APIResult onHttpMessageNotReadableException(HttpMediaTypeException e) {
+    public APIResult<?> onHttpMediaTypeException(HttpMediaTypeException e) {
         log.warn("系统异常:", e);
         return new APIResult<>(APICodes.NotSupportedType, e.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public APIResult onHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    public APIResult<?> onHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         return new APIResult<>(APICodes.NotImplemented);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public APIResult onMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+    public APIResult<?> onMissingServletRequestParameterException(MissingServletRequestParameterException e) {
         return new APIResult<>(APICodes.MissingParameter, ":" + e.getParameterName());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public APIResult onMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    public APIResult<?> onMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         return new APIResult<>(APICodes.TypeMismatch, ":" + e.getName() + "=" + e.getValue(), e.getMessage());
     }
 }

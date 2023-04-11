@@ -19,7 +19,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
 import org.yzh.commons.util.DateUtils;
 
 import java.time.LocalDate;
@@ -65,36 +64,6 @@ public class BeanConfig {
                 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);// 兼容高德地图api
             });
-        };
-    }
-
-    @Bean
-    public Converter<String, LocalDateTime> localDateTimeConverter() {
-        return new Converter<String, LocalDateTime>() {
-            @Override
-            public LocalDateTime convert(String s) {
-                return LocalDateTime.parse(s, DateUtils.DATE_TIME_FORMATTER);
-            }
-        };
-    }
-
-    @Bean
-    public Converter<String, LocalDate> localDateConverter() {
-        return new Converter<String, LocalDate>() {
-            @Override
-            public LocalDate convert(String s) {
-                return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);
-            }
-        };
-    }
-
-    @Bean
-    public Converter<String, LocalTime> localTimeConverter() {
-        return new Converter<String, LocalTime>() {
-            @Override
-            public LocalTime convert(String s) {
-                return LocalTime.parse(s, DateTimeFormatter.ISO_LOCAL_TIME);
-            }
         };
     }
 }

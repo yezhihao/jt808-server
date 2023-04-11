@@ -22,7 +22,7 @@ import java.util.Set;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI OpenAPI() {
+    public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
                         .title("部标JT/T808协议接入平台")
