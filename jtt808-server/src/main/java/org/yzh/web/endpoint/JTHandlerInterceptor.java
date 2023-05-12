@@ -70,8 +70,8 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         int messageId = request.getMessageId();
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
+        boolean transform = request.transform();
         if (messageId == JT808.位置信息汇报) {
-            boolean transform = request.transform();
             DeviceDO device = SessionKey.getDevice(session);
             if (device != null)
                 device.setLocation((T0200) request);

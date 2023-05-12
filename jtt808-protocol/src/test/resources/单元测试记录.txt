@@ -190,10 +190,10 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-hex1 7e0104005b123456789012000100680200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8d7e
+hex1 7e0104008a1234567890120001006806000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffffa57e
 json1 {
   "responseSerialNo": 104,
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -208,6 +208,29 @@ json1 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -259,19 +282,23 @@ json1 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 260,
-  "properties": 91,
+  "properties": 138,
   "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 1,
   "verified": true
 }
-hex2 7e0104005b123456789012000100680200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8d7e
+hex2 7e0104008a1234567890120001006806000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffffa57e
 json2 {
   "responseSerialNo": 104,
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -286,6 +313,29 @@ json2 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -337,19 +387,23 @@ json2 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 260,
-  "properties": 91,
+  "properties": 138,
   "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 1,
   "verified": true
 }
-hex1 7e0104405b0112345678901234567890ffff00680200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff477e
+hex1 7e0104408a0112345678901234567890ffff006806000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff6f7e
 json1 {
   "responseSerialNo": 104,
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -364,6 +418,29 @@ json1 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -415,19 +492,23 @@ json1 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 260,
-  "properties": 16475,
+  "properties": 16522,
   "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
-hex2 7e0104405b0112345678901234567890ffff00680200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff477e
+hex2 7e0104408a0112345678901234567890ffff006806000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff6f7e
 json2 {
   "responseSerialNo": 104,
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -442,6 +523,29 @@ json2 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -493,10 +597,14 @@ json2 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 260,
-  "properties": 16475,
+  "properties": 16522,
   "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
@@ -2904,9 +3012,9 @@ json2 {
   "serialNo": 65535,
   "verified": true
 }
-hex1 7e8103005912345678901200010200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff607e
+hex1 7e81030088123456789012000106000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff487e
 json1 {
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -2921,6 +3029,29 @@ json1 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -2972,18 +3103,22 @@ json1 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 33027,
-  "properties": 89,
+  "properties": 136,
   "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 1,
   "verified": true
 }
-hex2 7e8103005912345678901200010200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff607e
+hex2 7e81030088123456789012000106000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff487e
 json2 {
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -2998,6 +3133,29 @@ json2 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -3049,18 +3207,22 @@ json2 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 33027,
-  "properties": 89,
+  "properties": 136,
   "protocolVersion": 0,
   "clientId": "123456789012",
   "serialNo": 1,
   "verified": true
 }
-hex1 7e810340590112345678901234567890ffff0200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaa7e
+hex1 7e810340880112345678901234567890ffff06000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff827e
 json1 {
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -3075,6 +3237,29 @@ json1 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -3126,18 +3311,22 @@ json1 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 33027,
-  "properties": 16473,
+  "properties": 16520,
   "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
   "verified": true
 }
-hex2 7e810340590112345678901234567890ffff0200000075150101000101000000010202000202000000020003030000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaa7e
+hex2 7e810340880112345678901234567890ffff06000000751501010001010000000102020002020000000200030300000079030000000000007b0200000000007c1400000000000000000000000000000000000000000000f36439ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000f36702ffff827e
 json2 {
-  "total": 2,
+  "total": 6,
   "parameters": {
     "117": {
       "realtimeEncode": 1,
@@ -3152,6 +3341,29 @@ json2 {
       "storageBitRate": 2,
       "odsConfig": 3,
       "audioEnable": 3
+    },
+    "121": {
+      "storageThreshold": 0,
+      "duration": 0,
+      "startTime": 0
+    },
+    "123": {
+      "overloadThreshold": 0,
+      "fatigueThreshold": 0
+    },
+    "124": {
+      "mode": 0,
+      "conditionType": 0,
+      "dayOfWeek": 0,
+      "timeFlag": 0,
+      "wakeTime1": "00:00:00",
+      "sleepTime1": "00:00:00",
+      "wakeTime2": "00:00:00",
+      "sleepTime2": "00:00:00",
+      "wakeTime3": "00:00:00",
+      "sleepTime3": "00:00:00",
+      "wakeTime4": "00:00:00",
+      "sleepTime4": "00:00:00"
     },
     "62308": {
       "p00": -1,
@@ -3203,10 +3415,14 @@ json2 {
       "p54": -1,
       "p55": -1,
       "p56": -1
+    },
+    "62311": {
+      "rearApproachAlarmTimeThreshold": -1,
+      "rearSideApproachAlarmTimeThreshold": -1
     }
   },
   "messageId": 33027,
-  "properties": 16473,
+  "properties": 16520,
   "protocolVersion": 1,
   "clientId": "12345678901234567890",
   "serialNo": 65535,
@@ -7843,18 +8059,8 @@ json2 {
     "48": 1851350890,
     "49": 27201,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 260,
@@ -7907,18 +8113,8 @@ json2 {
     "48": 1851350890,
     "49": 27201,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 260,
@@ -7972,18 +8168,8 @@ json2 {
     "48": 1514825776,
     "49": 27748,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 260,
@@ -8036,18 +8222,8 @@ json2 {
     "48": 1514825776,
     "49": 27748,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 260,
@@ -10050,18 +10226,8 @@ json2 {
     "48": 1714779999,
     "49": 18810,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 33027,
@@ -10113,18 +10279,8 @@ json2 {
     "48": 1714779999,
     "49": 18810,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 33027,
@@ -10177,18 +10333,8 @@ json2 {
     "48": 1886934632,
     "49": 23145,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 33027,
@@ -10240,18 +10386,8 @@ json2 {
     "48": 1886934632,
     "49": 23145,
     "50": {
-      "startTime": {
-        "hour": 9,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      },
-      "endTime": {
-        "hour": 21,
-        "minute": 30,
-        "second": 0,
-        "nano": 0
-      }
+      "startTime": "09:30:00",
+      "endTime": "21:30:00"
     }
   },
   "messageId": 33027,

@@ -7,8 +7,7 @@ import org.yzh.protocol.commons.Action;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeKey;
 import org.yzh.protocol.commons.transform.attribute.*;
-import org.yzh.protocol.commons.transform.parameter.ParamADAS;
-import org.yzh.protocol.commons.transform.parameter.ParamVideo;
+import org.yzh.protocol.commons.transform.parameter.*;
 import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
 import org.yzh.protocol.jsatl12.T1210;
 import org.yzh.protocol.jsatl12.T1211;
@@ -133,6 +132,10 @@ public class JT808Beans {
         Map<Integer, Object> parameters = new TreeMap<>();
         parameters.put(ParamVideo.key, paramVideo);
         parameters.put(ParamADAS.key, new ParamADAS());
+        parameters.put(ParamBSD.key, new ParamBSD());
+        parameters.put(ParamSleepWake.key, new ParamSleepWake());
+        parameters.put(ParamVideoSpecialAlarm.key, new ParamVideoSpecialAlarm());
+        parameters.put(ParamImageIdentifyAlarm.key, new ParamImageIdentifyAlarm());
         return parameters;
     }
 
