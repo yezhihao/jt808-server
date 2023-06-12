@@ -35,6 +35,7 @@ public class JTConfig {
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server jt808TCPServer(@Value("${jt-server.jt808.port.tcp}") int port) {
         return NettyConfig.custom()
+                //心跳超时(秒)
                 .setIdleStateTime(180, 0, 0)
                 .setPort(port)
                 //标识位[2] + 消息头[21] + 消息体[1023 * 2(转义预留)]  + 校验码[1] + 标识位[2]

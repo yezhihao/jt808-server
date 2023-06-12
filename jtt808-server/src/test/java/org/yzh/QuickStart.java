@@ -16,7 +16,7 @@ import org.yzh.web.endpoint.JTHandlerInterceptor;
  */
 public class QuickStart {
     public static final JTMessageAdapter messageAdapter = new JTMessageAdapter("org.yzh.protocol");
-    public static final DefaultHandlerMapping handlerMapping = new DefaultHandlerMapping("org.yzh.client");
+    public static final DefaultHandlerMapping handlerMapping = new DefaultHandlerMapping("org.yzh.web.endpoint");
     public static final JTHandlerInterceptor handlerInterceptor = new JTHandlerInterceptor();
     public static final SessionManager sessionManager = new SessionManager(new SessionListener() {
     });

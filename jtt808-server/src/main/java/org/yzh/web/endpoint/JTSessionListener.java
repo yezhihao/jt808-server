@@ -11,6 +11,9 @@ import java.util.function.BiConsumer;
 
 public class JTSessionListener implements SessionListener {
 
+    /**
+     * 下行消息拦截器
+     */
     private static final BiConsumer<Session, Message> requestInterceptor = (session, message) -> {
         JTMessage request = (JTMessage) message;
         request.setClientId(session.getClientId());
@@ -30,15 +33,24 @@ public class JTSessionListener implements SessionListener {
         }
     };
 
+    /**
+     * 设备连接
+     */
     @Override
     public void sessionCreated(Session session) {
         session.requestInterceptor(requestInterceptor);
     }
 
+    /**
+     * 设备注册
+     */
     @Override
     public void sessionRegistered(Session session) {
     }
 
+    /**
+     * 设备离线
+     */
     @Override
     public void sessionDestroyed(Session session) {
     }

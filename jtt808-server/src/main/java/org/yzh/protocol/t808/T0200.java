@@ -15,7 +15,7 @@ import java.util.Map;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
-@JsonIgnoreProperties({"lat", "lng", "latitude", "longitude", "attributes", "alarmList", "dateTime", "messageId", "properties", "protocolVersion", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
+@JsonIgnoreProperties({"attributes", "alarmList", "dateTime", "messageId", "properties", "protocolVersion", "clientId", "serialNo", "packageTotal", "packageNo", "verified", "bodyLength", "encryption", "subpackage", "version", "reserved"})
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
