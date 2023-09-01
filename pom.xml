@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.12</version>
+        <version>2.7.15</version>
         <relativePath/>
     </parent>
 
@@ -46,12 +46,12 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-                <version>4.1.0</version>
+                <version>4.3.0</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.8</version>
+                <version>2.2.15</version>
             </dependency>
 
             <dependency>
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>31.1-jre</version>
+                <version>32.1.1-jre</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
