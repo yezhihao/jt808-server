@@ -120,7 +120,8 @@
 <a href="?s=2,6" target="_blank">2*6</a>
 
 <script type="text/javascript">
-    const reg = new RegExp("\\[([^\\[\\]]*?)]", 'igm'); //igm是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
+    const userId = Math.floor(Math.random() * (Math.pow(2, 31) - 1))
+    const reg = new RegExp('\\[([^\\[\\]]*?)]', 'igm') //igm是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
 
     const host = window.location.host;
     const domain = '//' + host;
@@ -132,18 +133,6 @@
         return document.getElementById(id);
     };
 
-    function getQueryVariable(key) {
-        const query = window.location.search.substring(1);
-        const paramsArr = query.split("&");
-        for (let i = 0; i < paramsArr.length; i++) {
-            const pair = paramsArr[i].split("=");
-            if (pair[0] === key) {
-                return pair[1];
-            }
-        }
-        return null;
-    }
-
     const renderForm = function (data) {
         let options = '<option value="">没有可订阅的设备</option>\n';
         if (data && data.length) {
@@ -154,7 +143,7 @@
         }
 
         let size = [1, 1];
-        const s = getQueryVariable('s');
+        const s = new URLSearchParams(window.location.search).get('s')
         if (s)
             size = s.split(',');
         const row = size[0] > 3 ? 3 : size[0];
@@ -239,7 +228,7 @@
             text.println(event.data);
         });
 
-        fetch(`${domain}/device/sse?sub=1&clientId=${clientId}`, {method: 'post'})
+        fetch(`${domain}/device/sse?sub=1&userId=${userId}&clientId=${clientId}`, {method: 'post'})
             .then(res => res.json())
             .then(function (res) {
                 if (res) {
@@ -257,7 +246,7 @@
             return;
         }
 
-        fetch(`${domain}/device/sse?sub=0&clientId=${clientId}`, {method: 'post'})
+        fetch(`${domain}/device/sse?sub=0&userId=${userId}&clientId=${clientId}`, {method: 'post'})
             .then(res => res.json())
             .then(function (res) {
                 if (res) {
@@ -274,16 +263,16 @@
         fetch(`${domain}/device/option`)
             .then(res => res.json())
             .then(function (res) {
-                renderForm(res.data);
-                eventSource = new EventSource(`${domain}/device/sse`);
+                renderForm(res.data)
+                eventSource = new EventSource(`${domain}/device/sse?userId=${userId}`)
 
                 eventSource.addEventListener('open', function (e) {
-                    console.log(`建立连接`);
-                });
+                    console.log(`建立连接`)
+                })
 
                 eventSource.addEventListener('error', function (e) {
-                    console.log(`断开连接`);
-                });
+                    console.log(`断开连接`)
+                })
             }).catch(err => console.error(err));
     }
 </script>

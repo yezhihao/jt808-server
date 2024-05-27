@@ -21,7 +21,7 @@ public class QuickStart {
     public static final SessionManager sessionManager = new SessionManager(new SessionListener() {
     });
 
-    public static final int port = 7611;
+    public static final int port = 7100;
 
     public static void main(String[] args) {
         LogUtils.setLevel(Level.WARN);

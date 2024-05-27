@@ -51,21 +51,21 @@ mybatis:
     - classpath:/mapper/*.xml
 
 server:
-  port: 8000
+  port: 8100
 
 jt-server:
   jt808:
     enable: true
     port:
-      udp: 7611
-      tcp: 7611
+      udp: 7100
+      tcp: 7100
     media-file:
       path: D:/jt_data/media_file
     alarm-file:
       host: 127.0.0.1
-      port: 7612
+      port: 7200
 
   alarm-file:
     enable: true
-    port: 7612
+    port: 7200
     path: D:/jt_data/alarm_file

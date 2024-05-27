@@ -40,9 +40,9 @@
  * Github仓库地址：[https://github.com/yezhihao/jt808-server/tree/master](https://github.com/yezhihao/jt808-server/tree/master)
 
 # 演示
- * 设备接入：127.0.0.1:7611
- * 日志监控：http://127.0.0.1:8000/ws.html
- * 接口文档：http://127.0.0.1:8000/doc.html
+ * 设备接入：127.0.0.1:7100
+ * 日志监控：http://127.0.0.1:8100/ws.html
+ * 接口文档：http://127.0.0.1:8100/doc.html
 
 # 验证步骤
 
@@ -87,7 +87,7 @@ Elucidator 运行效果如下：
 运行 \协议文档\发包工具.exe
 1. 协议类型：【TCP Client】
 2. 远程主机地址：127.0.0.1
-3. 远程主机端口：7611
+3. 远程主机端口：7100
 4. 接收设置：⊙HEX
 5. 发送设置：⊙HEX
 6. 点击按钮【连接】

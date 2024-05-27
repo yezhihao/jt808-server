@@ -3,6 +3,7 @@ package org.yzh.client;
 import io.github.yezhihao.netmc.util.Client;
 import io.github.yezhihao.netmc.util.Stopwatch;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.yzh.QuickStart;
 import org.yzh.commons.util.StrUtils;
@@ -13,7 +14,6 @@ import org.yzh.protocol.t808.T0100;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.protocol.t808.T0801;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  * 模拟1200台设备，每100毫秒上报一次位置信息
  */
 public abstract class StressTest {
-    public static final byte[] bytes = DatatypeConverter.parseHexBinary("7e0200407c0100000000017299841738ffff000004000000080006eeb6ad02633df701380003006320070719235901040000000b02020016030200210402002c051e3737370000000000000000000000000000000000000000000000000000001105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e310128637e");
+    public static final byte[] bytes = ByteBufUtil.decodeHexDump("7e0200407c0100000000017299841738ffff000004000000080006eeb6ad02633df701380003006320070719235901040000000b02020016030200210402002c051e3737370000000000000000000000000000000000000000000000000000001105420000004212064d0000004d4d1307000000580058582504000000632a02000a2b040000001430011e310128637e");
 
     public static final JTMessageEncoder encoder = new JTMessageEncoder("org.yzh.protocol");
 

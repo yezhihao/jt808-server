@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.async.AsyncRequestNotUsableException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.yzh.commons.model.APICodes;
 import org.yzh.commons.model.APIException;
@@ -33,6 +34,11 @@ public class ExceptionController {
     public APIResult<?> onException(Exception e) {
         log.error("系统异常", e);
         return new APIResult<>(e);
+    }
+
+    @ExceptionHandler(AsyncRequestNotUsableException.class)
+    public void onAsyncRequestNotUsableException(AsyncRequestNotUsableException e) {
+        log.warn("异步请求已断开", e);
     }
 
     @ExceptionHandler(APIException.class)

@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.2.6</version>
         <relativePath/>
     </parent>
 
@@ -23,14 +23,14 @@
     </modules>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.test.skip>true</maven.test.skip>
-        <mariadb.version>3.1.4</mariadb.version>
+        <mariadb.version>3.4.0</mariadb.version>
     </properties>
 
     <url>https://gitee.com/yezhihao/jt808-server</url>
@@ -45,19 +45,19 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-                <version>4.3.0</version>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>4.5.0</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.15</version>
+                <version>2.2.21</version>
             </dependency>
 
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.3.0</version>
+                <version>3.0.3</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -73,7 +73,7 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.5.13</version>
+                <version>3.5.16</version>
             </dependency>
 
             <dependency>
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>32.1.1-jre</version>
+                <version>33.2.0-jre</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

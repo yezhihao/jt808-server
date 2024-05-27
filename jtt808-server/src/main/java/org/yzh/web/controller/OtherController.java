@@ -10,6 +10,7 @@ import io.netty.buffer.Unpooled;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +21,11 @@ import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping
@@ -56,7 +52,7 @@ public class OtherController {
 
     @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("device/option")
-    public APIResult<Collection<DeviceDO>> getClientId(HttpSession httpSession) {
+    public APIResult<Collection<DeviceDO>> getClientId() {
         AdapterCollection<Session, DeviceDO> result = new AdapterCollection<>(sessionManager.all(), session -> {
             DeviceDO device = SessionKey.getDevice(session);
             if (device != null)
@@ -68,34 +64,19 @@ public class OtherController {
 
     @Operation(summary = "设备订阅")
     @PostMapping(value = "device/sse", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String sseSub(HttpSession httpSession, @RequestParam String clientId, @RequestParam boolean sub) {
-        FluxSink<Object> emitter = (FluxSink<Object>) httpSession.getAttribute("emitter");
-        if (emitter == null) {
-            return "0";
-        }
+    public String sseSub(@RequestParam String userId, @RequestParam String clientId, @RequestParam boolean sub) {
         if (sub) {
-            WebLogAdapter.addClient(clientId, emitter);
-            ((Set<String>) httpSession.getAttribute("clientIds")).add(clientId);
+            WebLogAdapter.addClient(userId, clientId);
         } else {
-            WebLogAdapter.removeClient(clientId, emitter);
-            ((Set<String>) httpSession.getAttribute("clientIds")).remove(clientId);
+            WebLogAdapter.removeClient(userId, clientId);
         }
         return "1";
     }
 
     @Operation(summary = "设备监控")
     @GetMapping(value = "device/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Object> sseConnect(HttpSession httpSession, String clientId) {
-        return Flux.create(emitter -> {
-            Set<String> clientIds = new HashSet<>();
-            if (clientId != null) {
-                WebLogAdapter.addClient(clientId, emitter);
-                clientIds.add(clientId);
-            }
-            httpSession.setAttribute("clientIds", clientIds);
-            httpSession.setAttribute("emitter", emitter);
-            emitter.onDispose(() -> clientIds.forEach(id -> WebLogAdapter.removeClient(id, emitter)));
-        });
+    public Flux<Object> sseConnect(@RequestParam String userId, @RequestParam(required = false, defaultValue = "0") String clientId) {
+        return WebLogAdapter.addClient(userId, clientId);
     }
 
     @Operation(summary = "808协议分析工具")
