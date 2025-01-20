@@ -15,7 +15,6 @@ import org.yzh.protocol.commons.JT808;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,8 +23,8 @@ public class WebLogAdapter extends JTMessageAdapter {
 
     protected static final Logger log = LoggerFactory.getLogger(WebLogAdapter.class);
 
-    public static final Map<String, Map<String, FluxSink<Object>>> clientIds = new HashMap<>();
-    public static final Map<String, Map<String, FluxSink<Object>>> userIds = new HashMap<>();
+    public static final ConcurrentHashMap<String, Map<String, FluxSink<Object>>> TOPICS = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<String, Map<String, FluxSink<Object>>> USERS = new ConcurrentHashMap<>();
     public static final HashSet<Integer> ignoreMsgs = new HashSet<>();
 
     static {
@@ -42,7 +41,7 @@ public class WebLogAdapter extends JTMessageAdapter {
 
     @Override
     public void encodeLog(Session session, JTMessage message, ByteBuf output) {
-        Map<String, FluxSink<Object>> emitters = clientIds.get(message.getClientId());
+        Map<String, FluxSink<Object>> emitters = TOPICS.get(message.getClientId());
         if (emitters != null) {
             ServerSentEvent<Object> event = ServerSentEvent.builder().event(message.getClientId())
                     .data(message + "hex:" + ByteBufUtil.hexDump(output, 0, output.writerIndex())).build();
@@ -50,14 +49,14 @@ public class WebLogAdapter extends JTMessageAdapter {
                 emitter.next(event);
             }
         }
-        if ((!ignoreMsgs.contains(message.getMessageId())) && (emitters != null || clientIds.isEmpty()))
+        if ((!ignoreMsgs.contains(message.getMessageId())) && (emitters != null || TOPICS.isEmpty()))
             super.encodeLog(session, message, output);
     }
 
     @Override
     public void decodeLog(Session session, JTMessage message, ByteBuf input) {
         if (message != null) {
-            Map<String, FluxSink<Object>> emitters = clientIds.get(message.getClientId());
+            Map<String, FluxSink<Object>> emitters = TOPICS.get(message.getClientId());
             if (emitters != null) {
                 ServerSentEvent<Object> event = ServerSentEvent.builder().event(message.getClientId())
                         .data(message + "hex:" + ByteBufUtil.hexDump(input, 0, input.writerIndex())).build();
@@ -65,7 +64,7 @@ public class WebLogAdapter extends JTMessageAdapter {
                     emitter.next(event);
                 }
             }
-            if (!ignoreMsgs.contains(message.getMessageId()) && (emitters != null || clientIds.isEmpty()))
+            if (!ignoreMsgs.contains(message.getMessageId()) && (emitters != null || TOPICS.isEmpty()))
                 super.decodeLog(session, message, input);
 
             if (!message.isVerified())
@@ -95,36 +94,43 @@ public class WebLogAdapter extends JTMessageAdapter {
         }
     }
 
-    public static Flux<Object> addClient(String userId, String clientId) {
-        synchronized (userIds) {
-            Map<String, FluxSink<Object>> clients = userIds.computeIfAbsent(userId, s -> new ConcurrentHashMap<>());
-            if (clients.isEmpty()) {
-                return Flux.create(emitter -> {
-                    clients.put(clientId, emitter);
-                    clientIds.computeIfAbsent(clientId, k -> new ConcurrentHashMap<>()).put(userId, emitter);
-
-                }).doFinally(signalType -> clients.keySet().forEach(cid -> removeClient(userId, cid)));
-            } else {
-                for (FluxSink emitter : clients.values()) {
-                    clients.put(clientId, emitter);
-                    clientIds.computeIfAbsent(clientId, k -> new ConcurrentHashMap<>()).put(userId, emitter);
-                    break;
-                }
+    public static boolean addClient(String user, String topic) {
+        Map<String, FluxSink<Object>> result = USERS.computeIfPresent(user, (s, topics) -> {
+            for (FluxSink<Object> emitter : topics.values()) {
+                topics.put(topic, emitter);
+                TOPICS.computeIfAbsent(topic, k -> new ConcurrentHashMap<>()).put(user, emitter);
+                break;
             }
-        }
-        return null;
+            return topics;
+        });
+        return result != null;
     }
 
-    public static void removeClient(String userId, String clientId) {
-        synchronized (userIds) {
-            Map<String, FluxSink<Object>> clients = userIds.get(userId);
-            Map<String, FluxSink<Object>> users = clientIds.get(clientId);
-            if (clients == null || users == null)
-                return;
-            clients.remove(clientId);
-            if (clients.isEmpty()) userIds.remove(userId);
-            users.remove(userId);
-            if (users.isEmpty()) clientIds.remove(clientId);
+    public static void removeClient(String user, String topic) {
+        Map<String, FluxSink<Object>> topics = USERS.get(user);
+        if (topics != null) {
+            topics.remove(topic);
+            if (topics.isEmpty())
+                USERS.remove(user);
         }
+
+        Map<String, FluxSink<Object>> users = TOPICS.get(topic);
+        if (users == null) {
+            users.remove(user);
+            if (users.isEmpty())
+                TOPICS.remove(topic);
+        }
+    }
+
+    public static Flux<Object> connect(String user) {
+        ConcurrentHashMap<String, FluxSink<Object>> topics = new ConcurrentHashMap<>();
+        if (USERS.putIfAbsent(user, topics) == null) {
+            return Flux.create(emitter -> {
+                topics.put("0", emitter);
+                TOPICS.computeIfAbsent("0", k -> new ConcurrentHashMap<>()).put(user, emitter);
+
+            }).doFinally(signalType -> topics.keySet().forEach(t -> removeClient(user, t)));
+        }
+        return Flux.empty();
     }
 }

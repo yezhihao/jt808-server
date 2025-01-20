@@ -162,7 +162,7 @@ public class FileService {
 
     /** 多媒体数据上传 */
     public boolean saveMediaFile(T0801 message) {
-        DeviceDO device = SessionKey.getDevice(message.getSession());
+        DeviceDO device = message.getSession().getAttribute(SessionKey.Device);
         T0200 location = message.getLocation();
 
         StringBuilder filename = new StringBuilder(32);

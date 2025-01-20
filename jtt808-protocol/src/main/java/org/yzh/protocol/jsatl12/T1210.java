@@ -2,7 +2,7 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
-import org.yzh.commons.util.StrUtils;
+import io.netty.util.internal.StringUtil;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
@@ -41,7 +41,7 @@ public class T1210 extends JTMessage {
     private List<Item> items;
 
     public String getDeviceId() {
-        if (StrUtils.isBlank(deviceId))
+        if (StringUtil.isNullOrEmpty(deviceId))
             return deviceId_;
         return deviceId;
     }

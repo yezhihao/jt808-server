@@ -1,7 +1,7 @@
 package org.yzh.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +17,10 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("device")
+@RequiredArgsConstructor
 public class JT1078Controller {
 
-    @Autowired
-    private MessageManager messageManager;
+    private final MessageManager messageManager;
 
     @Operation(summary = "9003 查询终端音视频属性")
     @PostMapping("9003")

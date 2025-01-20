@@ -46,7 +46,7 @@ public class StrUtils {
         for (Object id : value)
             result.append(id).append(delimiter);
 
-        return result.substring(0, result.length() - 1);
+        return result.substring(0, result.length() - delimiter.length());
     }
 
     public static String merge(String delimiter, Object... value) {
@@ -57,7 +57,7 @@ public class StrUtils {
         for (Object id : value)
             result.append(id).append(delimiter);
 
-        return result.substring(0, result.length() - 1);
+        return result.substring(0, result.length() - delimiter.length());
     }
 
     public static String merge(String delimiter, int... value) {
@@ -68,7 +68,7 @@ public class StrUtils {
         for (int id : value)
             result.append(id).append(delimiter);
 
-        return result.substring(0, result.length() - 1);
+        return result.substring(0, result.length() - delimiter.length());
     }
 
     public static int[] toInts(Integer[] src) {
@@ -100,6 +100,20 @@ public class StrUtils {
             return defVal;
         try {
             return Integer.parseInt(num);
+        } catch (NumberFormatException e) {
+            return defVal;
+        }
+    }
+
+    public static Long parseLong(String num) {
+        return parseLong(num, null);
+    }
+
+    public static Long parseLong(String num, Long defVal) {
+        if (isBlank(num))
+            return defVal;
+        try {
+            return Long.parseLong(num);
         } catch (NumberFormatException e) {
             return defVal;
         }
@@ -159,6 +173,18 @@ public class StrUtils {
         return str;
     }
 
+    public static String rightPad(String str, int size, char ch) {
+        int length = str.length();
+        if (length < size) {
+            char[] result = new char[size];
+            str.getChars(0, length, result, 0);
+            while (length < size)
+                result[length++] = ch;
+            return new String(result);
+        }
+        return str;
+    }
+
     public static int[] toArray(Collection<Integer> list) {
         if (list == null || list.isEmpty())
             return null;
@@ -199,6 +225,28 @@ public class StrUtils {
             }
         }
         return true;
+    }
+
+    public static String truncateDecimal(double num, int maximumFractionDigits) {
+        return truncateDecimal(Double.toString(num), maximumFractionDigits);
+    }
+
+    public static String truncateDecimal(String num, int maximumFractionDigits) {
+        return truncateDecimal(num, maximumFractionDigits, new StringBuilder(10)).toString();
+    }
+
+    public static StringBuilder truncateDecimal(double num, int maximumFractionDigits, StringBuilder sb) {
+        return truncateDecimal(Double.toString(num), maximumFractionDigits, sb);
+    }
+
+    public static StringBuilder truncateDecimal(String num, int maximumFractionDigits, StringBuilder sb) {
+        int end = num.indexOf('.') + 1 + maximumFractionDigits;
+        if (end < num.length()) {
+            sb.append(num, 0, end);
+        } else {
+            sb.append(num);
+        }
+        return sb;
     }
 
     public static String getStackTrace(final Throwable throwable) {

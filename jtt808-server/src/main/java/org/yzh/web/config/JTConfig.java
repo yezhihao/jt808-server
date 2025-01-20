@@ -65,20 +65,4 @@ public class JTConfig {
                 .setEnableUDP(true)
                 .build();
     }
-
-    @ConditionalOnProperty(value = "jt-server.alarm-file.enable", havingValue = "true")
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    public Server alarmFileServer(@Value("${jt-server.alarm-file.port}") int port, JTMessageAdapter alarmFileMessageAdapter) {
-        return NettyConfig.custom()
-                .setPort(port)
-                .setMaxFrameLength(2 + 21 + 1023 * 2 + 1 + 2)
-                .setLengthField(new LengthField(new byte[]{0x30, 0x31, 0x63, 0x64}, 1024 * 65, 58, 4))
-                .setDelimiters(new Delimiter(new byte[]{0x7e}, false))
-                .setDecoder(alarmFileMessageAdapter)
-                .setEncoder(alarmFileMessageAdapter)
-                .setHandlerMapping(handlerMapping)
-                .setHandlerInterceptor(handlerInterceptor)
-                .setName("AlarmFile")
-                .build();
-    }
 }

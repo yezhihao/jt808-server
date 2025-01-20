@@ -97,7 +97,7 @@ public class ExceptionController {
     @ExceptionHandler(HttpMediaTypeException.class)
     public APIResult<?> onHttpMediaTypeException(HttpMediaTypeException e) {
         log.warn("系统异常:", e);
-        return new APIResult<>(APICodes.NotSupportedType, e.getMessage());
+        return new APIResult<>(APICodes.UnsupportedMediaType, e.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)

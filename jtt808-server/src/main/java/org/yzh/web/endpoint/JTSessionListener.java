@@ -23,7 +23,7 @@ public class JTSessionListener implements SessionListener {
             request.setMessageId(request.reflectMessageId());
         }
 
-        DeviceDO device = SessionKey.getDevice(session);
+        DeviceDO device = session.getAttribute(SessionKey.Device);
         if (device != null) {
             int protocolVersion = device.getProtocolVersion();
             if (protocolVersion > 0) {

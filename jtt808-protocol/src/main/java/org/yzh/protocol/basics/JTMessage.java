@@ -7,8 +7,6 @@ import io.github.yezhihao.protostar.util.ToStringBuilder;
 import io.netty.buffer.ByteBuf;
 import org.yzh.protocol.commons.MessageId;
 
-import java.beans.Transient;
-
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
@@ -36,6 +34,12 @@ public class JTMessage implements Message {
     protected transient Session session;
 
     protected transient ByteBuf payload;
+
+    protected transient Object extData;
+
+    protected transient int vehicleId;
+
+    protected transient int driverId;
 
 
     public JTMessage() {
@@ -125,7 +129,6 @@ public class JTMessage implements Message {
         this.verified = verified;
     }
 
-    @Transient
     public Session getSession() {
         return session;
     }
@@ -134,13 +137,36 @@ public class JTMessage implements Message {
         this.session = session;
     }
 
-    @Transient
     public ByteBuf getPayload() {
         return payload;
     }
 
     public void setPayload(ByteBuf payload) {
         this.payload = payload;
+    }
+
+    public <T> T getExtData() {
+        return (T) extData;
+    }
+
+    public void setExtData(Object extData) {
+        this.extData = extData;
+    }
+
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public int reflectMessageId() {
@@ -154,10 +180,6 @@ public class JTMessage implements Message {
         if (messageType != null && messageType.value().length > 0)
             return messageType.value()[0];
         return 0;
-    }
-
-    public boolean transform() {
-        return true;
     }
 
     public boolean noBuffer() {

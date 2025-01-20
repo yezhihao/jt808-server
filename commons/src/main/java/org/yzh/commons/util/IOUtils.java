@@ -5,6 +5,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.function.Function;
 
 /**
@@ -64,7 +66,10 @@ public class IOUtils {
     }
 
     public static void write(String source, Charset charset, File target) {
-        byte[] bytes = source.getBytes(charset);
+        write(source.getBytes(charset), target);
+    }
+
+    public static void write(byte[] bytes, File target) {
         try (FileOutputStream os = new FileOutputStream(target)) {
             os.write(bytes);
         } catch (IOException e) {
@@ -124,16 +129,22 @@ public class IOUtils {
     }
 
     public static void delete(File file) {
-        if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
-                if (child.isDirectory()) {
-                    delete(child);
+        LinkedList<File> stack = new LinkedList<>();
+        stack.add(file);
+        while (!stack.isEmpty()) {
+            File parent = stack.removeLast();
+            if (parent.isDirectory()) {
+                File[] children = parent.listFiles();
+                if (children != null && children.length > 0) {
+                    stack.add(parent);
+                    Collections.addAll(stack, children);
                 } else {
-                    child.delete();
+                    parent.delete();
                 }
+            } else {
+                parent.delete();
             }
         }
-        file.delete();
     }
 
     public static void close(AutoCloseable a) {

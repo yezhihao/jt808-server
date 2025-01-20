@@ -50,7 +50,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
 
     /** 调用之后抛出异常的 */
     @Override
-    public JTMessage exceptional(JTMessage request, Session session, Exception e) {
+    public JTMessage exceptional(JTMessage request, Session session, Throwable e) {
         T0001 response = new T0001();
         response.copyBy(request);
         response.setMessageId(JT808.平台通用应答);
@@ -70,15 +70,19 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
         int messageId = request.getMessageId();
         if (messageId == JT808.终端注册 || messageId == JT808.终端鉴权)
             return true;
-        boolean transform = request.transform();
-        if (messageId == JT808.位置信息汇报) {
-            DeviceDO device = SessionKey.getDevice(session);
-            if (device != null)
-                device.setLocation((T0200) request);
-            return transform;
-        }
         if (!session.isRegistered()) {
-            log.info("{}未注册的设备<<<<-{}", session, request);
+            log.warn("{}未注册的设备<<<<-{}", session, request);
+//            return false;//忽略该消息
+        }
+
+        DeviceDO device = session.getAttribute(SessionKey.Device);
+        if (messageId == JT808.位置信息汇报) {
+            T0200 t0200 = (T0200) request;
+            if (t0200.getDeviceTime() == null) {
+                return false;//忽略没有时间的消息
+            }
+            if (device != null)
+                device.setLocation(t0200);
             return true;
         }
         return true;

@@ -1,7 +1,7 @@
 package org.yzh.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,10 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("device")
+@RequiredArgsConstructor
 public class JT808Controller {
 
-    @Autowired
-    private MessageManager messageManager;
+    private final MessageManager messageManager;
 
     @Operation(summary = "8103 设置终端参数")
     @PostMapping("8103")
@@ -239,6 +239,6 @@ public class JT808Controller {
     @Operation(summary = "8A00 平台RSA公钥")
     @PostMapping("8A00")
     public Mono<APIResult<T0A00_8A00>> T8A00(@RequestBody T0A00_8A00 request) {
-        return messageManager.requestR(request.build(), T0A00_8A00.class);
+        return messageManager.requestR(request, T0A00_8A00.class);
     }
 }

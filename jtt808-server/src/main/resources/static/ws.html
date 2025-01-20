@@ -143,7 +143,7 @@
         }
 
         let size = [1, 1];
-        const s = new URLSearchParams(window.location.search).get('s')
+        const s = new URLSearchParams(window.location.search).get('s');
         if (s)
             size = s.split(',');
         const row = size[0] > 3 ? 3 : size[0];

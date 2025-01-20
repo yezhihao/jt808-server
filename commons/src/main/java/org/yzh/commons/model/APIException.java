@@ -51,11 +51,14 @@ public class APIException extends RuntimeException {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append('{');
-        sb.append("code:").append(code);
-        sb.append(",message:").append(super.getMessage());
-        sb.append('}');
+        return toJson();
+    }
+
+    public String toJson() {
+        StringBuilder sb = new StringBuilder(50);
+        sb.append("{\"code\":").append(code);
+        sb.append(",\"message\":\"").append(message);
+        sb.append("\"}");
         return sb.toString();
     }
 }

@@ -113,6 +113,38 @@ public class T0200 extends JTMessage {
         this.attributes = attributes;
     }
 
+    public int getAttributeInt(int key) {
+        if (attributes != null) {
+            Integer value = (Integer) attributes.get(key);
+            if (value != null) {
+                return value;
+            }
+        }
+        return 0;
+    }
+
+    public long getAttributeLong(int key) {
+        if (attributes != null) {
+            Long value = (Long) attributes.get(key);
+            if (value != null) {
+                return value;
+            }
+        }
+        return 0L;
+    }
+
+    public double getLng() {
+        return longitude / 1000000d;
+    }
+
+    public double getLat() {
+        return latitude / 1000000d;
+    }
+
+    public float getSpeedKph() {
+        return latitude / 10f;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = toStringHead();

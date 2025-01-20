@@ -49,7 +49,7 @@ public abstract class StressTest {
         }
 
         Thread.sleep(500L);
-        ByteBuf imagePacket = packet();
+//        ByteBuf imagePacket = packet();
 
         Object[] points = locations();
         LocalDateTime deviceTime = LocalDateTime.now();

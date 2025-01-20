@@ -8,15 +8,19 @@ package org.yzh.commons.model;
 public enum APICodes implements APICode {
 
     Success(200, ""),
-    UnregisteredUser(402, "未注册的用户"),
-    Unauthorized(403, "授权失败"),
-    NotPermission(404, "没有权限"),
-    MissingParameter(400, "缺少必要的参数"),
-    TypeMismatch(410, "参数格式不正确"),
-    InvalidParameter(411, "无效的参数"),
-    NotSupportedType(412, "不支持的请求类型"),
-    NotImplemented(413, "未实现的方法"),
-    OperationFailed(420, "操作失败"),
+
+    TypeMismatch(400, "参数格式不正确"),
+    Unauthorized(401, "没有授权"),
+    NotPermission(403, "没有权限"),
+    OperationFailed(404, "操作失败"),
+
+    NotImplemented(405, "不支持的请求方法"),
+    NotAcceptable(406, "不支持的接收类型"),
+    UnsupportedMediaType(415, "不支持的请求类型"),
+
+    MissingParameter(417, "缺少必要的参数"),
+    InvalidParameter(422, "无效的参数"),
+
     OfflineClient(4000, "离线的客户端"),
     UnknownError(500, "未知错误");
 

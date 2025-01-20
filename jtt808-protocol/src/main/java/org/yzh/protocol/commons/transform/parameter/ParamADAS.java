@@ -1,8 +1,6 @@
 package org.yzh.protocol.commons.transform.parameter;
 
-import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
-import io.netty.buffer.ByteBuf;
 
 /**
  * 高级驾驶辅助系统参数
@@ -12,8 +10,6 @@ import io.netty.buffer.ByteBuf;
 public class ParamADAS {
 
     public static final Integer key = 0xF364;
-
-    public static final Schema<ParamADAS> SCHEMA = new ParamADASSchema();
 
     @Field(desc = "报警判断速度阈值 BYTE")
     private byte p00 = -1;
@@ -507,120 +503,5 @@ public class ParamADAS {
 
     public void setP56(byte p56) {
         this.p56 = p56;
-    }
-
-    private static class ParamADASSchema implements Schema<ParamADAS> {
-
-        private ParamADASSchema() {
-        }
-
-        @Override
-        public ParamADAS readFrom(ByteBuf input) {
-            ParamADAS message = new ParamADAS();
-            message.p00 = input.readByte();
-            message.p01 = input.readByte();
-            message.p02 = input.readByte();
-            message.p03 = input.readShort();
-            message.p05 = input.readShort();
-            message.p07 = input.readByte();
-            message.p08 = input.readByte();
-            message.p09 = input.readByte();
-            message.p10 = input.readByte();
-            message.p11 = input.readInt();
-            message.p15 = input.readInt();
-            message.p19 = input.readByte();
-            message.p20 = input.readByte();
-            message.p21 = input.readByte();
-            message.p22 = input.readByte();
-            message.p23 = input.readByte();
-            message.p24 = input.readByte();
-            message.p25 = input.readByte();
-            message.p26 = input.readByte();
-            message.p27 = input.readByte();
-            message.p28 = input.readByte();
-            message.p29 = input.readByte();
-            message.p30 = input.readByte();
-            message.p31 = input.readByte();
-            message.p32 = input.readByte();
-            message.p33 = input.readByte();
-            message.p34 = input.readByte();
-            message.p35 = input.readByte();
-            message.p36 = input.readByte();
-            message.p37 = input.readByte();
-            message.p38 = input.readByte();
-            message.p39 = input.readByte();
-            message.p40 = input.readByte();
-            message.p41 = input.readByte();
-            message.p42 = input.readByte();
-            message.p43 = input.readByte();
-            message.p44 = input.readByte();
-            message.p45 = input.readByte();
-            message.p46 = input.readByte();
-            message.p47 = input.readByte();
-            message.p48 = input.readByte();
-            message.p49 = input.readByte();
-            message.p50 = input.readByte();
-            message.p51 = input.readByte();
-            message.p52 = input.readByte();
-            message.p53 = input.readByte();
-            message.p54 = input.readByte();
-            message.p55 = input.readByte();
-            if (input.isReadable())
-                message.p56 = input.readByte();
-            return message;
-        }
-
-        @Override
-        public void writeTo(ByteBuf output, ParamADAS message) {
-            output.writeByte(message.p00);
-            output.writeByte(message.p01);
-            output.writeByte(message.p02);
-            output.writeShort(message.p03);
-            output.writeShort(message.p05);
-            output.writeByte(message.p07);
-            output.writeByte(message.p08);
-            output.writeByte(message.p09);
-            output.writeByte(message.p10);
-            output.writeInt(message.p11);
-            output.writeInt(message.p15);
-            output.writeByte(message.p19);
-            output.writeByte(message.p20);
-            output.writeByte(message.p21);
-            output.writeByte(message.p22);
-            output.writeByte(message.p23);
-            output.writeByte(message.p24);
-            output.writeByte(message.p25);
-            output.writeByte(message.p26);
-            output.writeByte(message.p27);
-            output.writeByte(message.p28);
-            output.writeByte(message.p29);
-            output.writeByte(message.p30);
-            output.writeByte(message.p31);
-            output.writeByte(message.p32);
-            output.writeByte(message.p33);
-            output.writeByte(message.p34);
-            output.writeByte(message.p35);
-            output.writeByte(message.p36);
-            output.writeByte(message.p37);
-            output.writeByte(message.p38);
-            output.writeByte(message.p39);
-            output.writeByte(message.p40);
-            output.writeByte(message.p41);
-            output.writeByte(message.p42);
-            output.writeByte(message.p43);
-            output.writeByte(message.p44);
-            output.writeByte(message.p45);
-            output.writeByte(message.p46);
-            output.writeByte(message.p47);
-            output.writeByte(message.p48);
-            output.writeByte(message.p49);
-            output.writeByte(message.p50);
-            output.writeByte(message.p51);
-            output.writeByte(message.p52);
-            output.writeByte(message.p53);
-            output.writeByte(message.p54);
-            output.writeByte(message.p55);
-            output.writeByte(message.p56);
-        }
     }
 }

@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.yzh.commons.model.APIResult;
@@ -29,12 +29,11 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping
+@RequiredArgsConstructor
 public class OtherController {
 
-    @Autowired
-    private SessionManager sessionManager;
-    @Autowired
-    private JTMessageDecoder decoder;
+    private final SessionManager sessionManager;
+    private final JTMessageDecoder decoder;
 
     @Hidden
     @Operation(hidden = true)
@@ -46,15 +45,15 @@ public class OtherController {
     @Operation(summary = "终端实时信息查询")
     @GetMapping("device/all")
     public APIResult<Collection<Session>> all() {
-        Collection<Session> all = sessionManager.all();
+        Collection<Session> all = sessionManager.values();
         return APIResult.ok(all);
     }
 
     @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("device/option")
     public APIResult<Collection<DeviceDO>> getClientId() {
-        AdapterCollection<Session, DeviceDO> result = new AdapterCollection<>(sessionManager.all(), session -> {
-            DeviceDO device = SessionKey.getDevice(session);
+        AdapterCollection<Session, DeviceDO> result = new AdapterCollection<>(sessionManager.values(), session -> {
+            DeviceDO device = session.getAttribute(SessionKey.Device);
             if (device != null)
                 return device;
             return new DeviceDO().mobileNo(session.getClientId());
@@ -75,8 +74,8 @@ public class OtherController {
 
     @Operation(summary = "设备监控")
     @GetMapping(value = "device/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Object> sseConnect(@RequestParam String userId, @RequestParam(required = false, defaultValue = "0") String clientId) {
-        return WebLogAdapter.addClient(userId, clientId);
+    public Flux<Object> sseConnect(@RequestParam String userId) {
+        return WebLogAdapter.connect(userId);
     }
 
     @Operation(summary = "808协议分析工具")

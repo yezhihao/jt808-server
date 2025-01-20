@@ -136,7 +136,7 @@ public class ParameterConverter extends MapSchema<Number, Object> {
                 .addSchema(0x0110, ArraySchema.BYTES)//总线ID 单独采集设置
 
                 //JSATL12 start
-                .addSchema(ParamADAS.key, ParamADAS.SCHEMA)//高级驾驶辅助系统参数,见表4-10
+                .addSchema(ParamADAS.key, ParamADAS.class)//高级驾驶辅助系统参数,见表4-10
                 .addSchema(ParamDSM.key, ParamDSM.SCHEMA)//驾驶员状态监测系统参数,见表4-11
                 .addSchema(ParamTPMS.key, ParamTPMS.SCHEMA)//胎压监测系统参数,见表4-12
                 .addSchema(ParamBSD.key, ParamBSD.class)//盲区监测系统参数,见表4-13

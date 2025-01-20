@@ -34,8 +34,6 @@ public class DateUtils {
             .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2, LocalDate.now().minusYears(80))
             .toFormatter();
 
-    public static final ZoneOffset ZONE = ZoneOffset.systemDefault().getRules().getStandardOffset(Instant.now());
-
     private static final TemporalQuery<LocalDate> dateQuery = TemporalQueries.localDate();
 
     private static final TemporalQuery<LocalTime> timeQuery = TemporalQueries.localTime();
@@ -44,17 +42,25 @@ public class DateUtils {
         return System.currentTimeMillis() / 1000L;
     }
 
-    public static long getMillis(LocalDateTime dateTime) {
-        return dateTime.toInstant(ZONE).toEpochMilli();
+    public static long toEpochMilli(LocalDateTime dateTime) {
+        Instant instant = dateTime.toInstant(getZoneOffset(dateTime));
+        return instant.toEpochMilli();
+    }
+
+    public static long toEpochSecond(LocalDateTime dateTime) {
+        return dateTime.toEpochSecond(getZoneOffset(dateTime));
+    }
+
+    public static ZoneOffset getZoneOffset(LocalDateTime dateTime) {
+        return ZoneId.systemDefault().getRules().getOffset(dateTime);
     }
 
     public static LocalDateTime getDateTime(Long millis) {
-        Instant instant = Instant.ofEpochMilli(millis);
-        return LocalDateTime.ofEpochSecond(instant.getEpochSecond(), instant.getNano(), ZONE);
+        return getDateTime(Instant.ofEpochMilli(millis));
     }
 
     public static LocalDateTime getDateTime(Instant instant) {
-        return LocalDateTime.ofEpochSecond(instant.getEpochSecond(), instant.getNano(), ZONE);
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 
     public static LocalDateTime parse(String str) {
