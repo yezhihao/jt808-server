@@ -7,8 +7,7 @@ import io.github.yezhihao.protostar.SchemaManager;
 import io.github.yezhihao.protostar.util.Explain;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.yzh.protocol.basics.JTMessage;
 
 /**
@@ -16,9 +15,8 @@ import org.yzh.protocol.basics.JTMessage;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 public class JTMessageAdapter implements MessageEncoder<JTMessage>, MessageDecoder<JTMessage> {
-
-    protected static final Logger log = LoggerFactory.getLogger(JTMessageAdapter.class);
 
     private final JTMessageEncoder messageEncoder;
 

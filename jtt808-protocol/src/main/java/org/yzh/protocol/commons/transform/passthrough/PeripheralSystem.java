@@ -1,6 +1,9 @@
 package org.yzh.protocol.commons.transform.passthrough;
 
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.commons.Charsets;
 
 import java.util.ArrayList;
@@ -12,26 +15,14 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class PeripheralSystem {
 
     public static final Integer key = 0xF8;
 
     private List<Item> items;
-
-    public PeripheralSystem() {
-    }
-
-    public PeripheralSystem(List<Item> items) {
-        this.items = items;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 
     public void addItem(byte id, String companyName, String productModel, String hardwareVersion, String firmwareVersion, String deviceId, String userCode) {
         if (items == null)
@@ -39,15 +30,9 @@ public class PeripheralSystem {
         items.add(new Item(id, companyName, productModel, hardwareVersion, firmwareVersion, deviceId, userCode));
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(360);
-        sb.append('{');
-        sb.append("items=").append(items);
-        sb.append('}');
-        return sb.toString();
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Item {
         private byte id;
         private String companyName;
@@ -68,77 +53,6 @@ public class PeripheralSystem {
             this.firmwareVersion = firmwareVersion;
             this.deviceId = deviceId;
             this.userCode = userCode;
-        }
-
-        public byte getId() {
-            return id;
-        }
-
-        public void setId(byte id) {
-            this.id = id;
-        }
-
-        public String getCompanyName() {
-            return companyName;
-        }
-
-        public void setCompanyName(String companyName) {
-            this.companyName = companyName;
-        }
-
-        public String getProductModel() {
-            return productModel;
-        }
-
-        public void setProductModel(String productModel) {
-            this.productModel = productModel;
-        }
-
-        public String getHardwareVersion() {
-            return hardwareVersion;
-        }
-
-        public void setHardwareVersion(String hardwareVersion) {
-            this.hardwareVersion = hardwareVersion;
-        }
-
-        public String getFirmwareVersion() {
-            return firmwareVersion;
-        }
-
-        public void setFirmwareVersion(String firmwareVersion) {
-            this.firmwareVersion = firmwareVersion;
-        }
-
-        public String getDeviceId() {
-            return deviceId;
-        }
-
-        public void setDeviceId(String deviceId) {
-            this.deviceId = deviceId;
-        }
-
-        public String getUserCode() {
-            return userCode;
-        }
-
-        public void setUserCode(String userCode) {
-            this.userCode = userCode;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(180);
-            sb.append('{');
-            sb.append("id=").append(id);
-            sb.append(",companyName=").append(companyName);
-            sb.append(",productModel=").append(productModel);
-            sb.append(",hardwareVersion=").append(hardwareVersion);
-            sb.append(",firmwareVersion=").append(firmwareVersion);
-            sb.append(",deviceId=").append(deviceId);
-            sb.append(",userCode=").append(userCode);
-            sb.append('}');
-            return sb.toString();
         }
     }
 
@@ -165,7 +79,7 @@ public class PeripheralSystem {
                 item.userCode = input.readCharSequence(input.readByte(), Charsets.GBK).toString();
                 list.add(item);
             }
-            return new PeripheralSystem(list);
+            return new PeripheralSystem().setItems(list);
         }
 
         @Override

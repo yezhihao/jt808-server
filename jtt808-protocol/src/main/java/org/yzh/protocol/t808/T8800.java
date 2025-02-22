@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.多媒体数据上传应答)
 public class T8800 extends JTMessage {
 
@@ -17,19 +23,4 @@ public class T8800 extends JTMessage {
     @Field(totalUnit = 1, desc = "重传包ID列表")
     private short[] id;
 
-    public int getMediaId() {
-        return mediaId;
-    }
-
-    public void setMediaId(int mediaId) {
-        this.mediaId = mediaId;
-    }
-
-    public short[] getId() {
-        return id;
-    }
-
-    public void setId(short[] id) {
-        this.id = id;
-    }
 }

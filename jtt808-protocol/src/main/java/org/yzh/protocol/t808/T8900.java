@@ -4,6 +4,9 @@ import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.github.yezhihao.protostar.util.KeyValuePair;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.PassthroughConverter;
@@ -14,6 +17,9 @@ import org.yzh.protocol.commons.transform.passthrough.PeripheralSystem;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.数据下行透传)
 public class T8900 extends JTMessage {
 
@@ -31,42 +37,11 @@ public class T8900 extends JTMessage {
     @Field(desc = "透传消息", converter = PassthroughConverter.class)
     private KeyValuePair<Integer, Object> message;
 
-    public T8900() {
-    }
-
-    public T8900(KeyValuePair<Integer, Object> message) {
-        this.message = message;
-    }
-
-    public KeyValuePair<Integer, Object> getMessage() {
-        return message;
-    }
-
-    public void setMessage(KeyValuePair<Integer, Object> message) {
-        this.message = message;
-    }
-
     @Schema(description = "状态查询(外设状态信息：外设工作状态、设备报警信息)")
     private PeripheralStatus peripheralStatus;
 
     @Schema(description = "信息查询(外设传感器的基本信息：公司信息、产品代码、版本号、外设ID、客户代码)")
     private PeripheralSystem peripheralSystem;
-
-    public PeripheralStatus getPeripheralStatus() {
-        return peripheralStatus;
-    }
-
-    public void setPeripheralStatus(PeripheralStatus peripheralStatus) {
-        this.peripheralStatus = peripheralStatus;
-    }
-
-    public PeripheralSystem getPeripheralSystem() {
-        return peripheralSystem;
-    }
-
-    public void setPeripheralSystem(PeripheralSystem peripheralSystem) {
-        this.peripheralSystem = peripheralSystem;
-    }
 
     public T8900 build() {
         KeyValuePair<Integer, Object> message = new KeyValuePair<>();

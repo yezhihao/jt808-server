@@ -2,6 +2,9 @@ package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT1078.文件上传指令)
 public class T9206 extends JTMessage {
 
@@ -43,185 +49,4 @@ public class T9206 extends JTMessage {
     @Field(length = 1, desc = "任务执行条件(用bit位表示)：[0]WIFI下可下载 [1]LAN连接时可下载 [2]3G/4G连接时可下载")
     private int condition = -1;
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public int getChannelNo() {
-        return channelNo;
-    }
-
-    public void setChannelNo(int channelNo) {
-        this.channelNo = channelNo;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getWarnBit1() {
-        return warnBit1;
-    }
-
-    public void setWarnBit1(int warnBit1) {
-        this.warnBit1 = warnBit1;
-    }
-
-    public int getWarnBit2() {
-        return warnBit2;
-    }
-
-    public void setWarnBit2(int warnBit2) {
-        this.warnBit2 = warnBit2;
-    }
-
-    public int getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(int mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public int getStreamType() {
-        return streamType;
-    }
-
-    public void setStreamType(int streamType) {
-        this.streamType = streamType;
-    }
-
-    public int getStorageType() {
-        return storageType;
-    }
-
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
-    }
-
-    public int getCondition() {
-        return condition;
-    }
-
-    public void setCondition(int condition) {
-        this.condition = condition;
-    }
-
-    public T9206 ip(String ip) {
-        this.ip = ip;
-        return this;
-    }
-
-    public T9206 port(int port) {
-        this.port = port;
-        return this;
-    }
-
-    public T9206 username(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public T9206 password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public T9206 path(String path) {
-        this.path = path;
-        return this;
-    }
-
-    public T9206 channelNo(int channelNo) {
-        this.channelNo = channelNo;
-        return this;
-    }
-
-    public T9206 startTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-        return this;
-    }
-
-    public T9206 endTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
-    public T9206 warnBit1(int warnBit1) {
-        this.warnBit1 = warnBit1;
-        return this;
-    }
-
-    public T9206 warnBit2(int warnBit2) {
-        this.warnBit2 = warnBit2;
-        return this;
-    }
-
-    public T9206 mediaType(int mediaType) {
-        this.mediaType = mediaType;
-        return this;
-    }
-
-    public T9206 streamType(int streamType) {
-        this.streamType = streamType;
-        return this;
-    }
-
-    public T9206 storageType(int storageType) {
-        this.storageType = storageType;
-        return this;
-    }
-
-    public T9206 condition(int condition) {
-        this.condition = condition;
-        return this;
-    }
 }

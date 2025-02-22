@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.AttributeConverter;
@@ -14,6 +17,9 @@ import java.util.Map;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.位置信息汇报)
 public class T0200 extends JTMessage {
 
@@ -40,78 +46,6 @@ public class T0200 extends JTMessage {
     @Field(converter = AttributeConverter.class, desc = "位置附加信息", version = {-1, 0})
     @Field(converter = AttributeConverterYue.class, desc = "位置附加信息(粤标)", version = 1)
     private Map<Integer, Object> attributes;
-
-    public int getWarnBit() {
-        return warnBit;
-    }
-
-    public void setWarnBit(int warnBit) {
-        this.warnBit = warnBit;
-    }
-
-    public int getStatusBit() {
-        return statusBit;
-    }
-
-    public void setStatusBit(int statusBit) {
-        this.statusBit = statusBit;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
-    }
-
-    public int getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(int altitude) {
-        this.altitude = altitude;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public LocalDateTime getDeviceTime() {
-        return deviceTime;
-    }
-
-    public void setDeviceTime(LocalDateTime deviceTime) {
-        this.deviceTime = deviceTime;
-    }
-
-    public Map<Integer, Object> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Map<Integer, Object> attributes) {
-        this.attributes = attributes;
-    }
 
     public int getAttributeInt(int key) {
         if (attributes != null) {
@@ -143,21 +77,5 @@ public class T0200 extends JTMessage {
 
     public float getSpeedKph() {
         return latitude / 10f;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = toStringHead();
-        sb.append("T0200{deviceTime=").append(deviceTime);
-        sb.append(",longitude=").append(longitude);
-        sb.append(",latitude=").append(latitude);
-        sb.append(",altitude=").append(altitude);
-        sb.append(",speed=").append(speed);
-        sb.append(",direction=").append(direction);
-        sb.append(",warnBit=").append(Integer.toBinaryString(warnBit));
-        sb.append(",statusBit=").append(Integer.toBinaryString(statusBit));
-        sb.append(",attributes=").append(attributes);
-        sb.append('}');
-        return sb.toString();
     }
 }

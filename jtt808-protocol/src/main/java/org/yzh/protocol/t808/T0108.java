@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.终端升级结果通知)
 public class T0108 extends JTMessage {
 
@@ -24,19 +30,4 @@ public class T0108 extends JTMessage {
     @Field(length = 1, desc = "升级结果：0.成功 1.失败 2.取消")
     private int result;
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
 }

@@ -3,6 +3,9 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -10,6 +13,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.多媒体数据上传)
 public class T0801 extends JTMessage {
 
@@ -27,62 +33,6 @@ public class T0801 extends JTMessage {
     private T0200 location;
     @Field(desc = "多媒体数据包")
     private ByteBuf packet;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getFormat() {
-        return format;
-    }
-
-    public void setFormat(int format) {
-        this.format = format;
-    }
-
-    public int getEvent() {
-        return event;
-    }
-
-    public void setEvent(int event) {
-        this.event = event;
-    }
-
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
-    }
-
-    public T0200 getLocation() {
-        return location;
-    }
-
-    public void setLocation(T0200 location) {
-        this.location = location;
-    }
-
-    public ByteBuf getPacket() {
-        return packet;
-    }
-
-    public void setPacket(ByteBuf packet) {
-        this.packet = packet;
-    }
 
     @Override
     public boolean noBuffer() {

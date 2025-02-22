@@ -1,64 +1,47 @@
 package org.yzh.commons.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
+@JsonIgnoreProperties(value = {"stackTrace", "suppressed", "localizedMessage"})
 public class APIException extends RuntimeException {
 
     private final int code;
-    private String message;
-    private String detailMessage;
+    private String msg;
+    private String details;
 
-    public APIException(int code, String message) {
+    public APIException(int code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public APIException(APICode code) {
         this.code = code.getCode();
-        this.message = code.getMessage();
+        this.msg = code.getMessage();
     }
 
     public APIException(APICode code, String msg) {
         this.code = code.getCode();
-        this.message = msg;
+        this.msg = msg;
     }
 
-    public APIException(APICode code, String message, String detailMessage) {
+    public APIException(APICode code, String msg, String details) {
         this.code = code.getCode();
-        this.message = message;
-        this.detailMessage = detailMessage;
+        this.msg = msg;
+        this.details = details;
     }
 
     public APIException(Throwable e) {
         super(e);
-        this.code = APICodes.UnknownError.getCode();
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDetailMessage() {
-        return detailMessage;
-    }
-
-    @Override
-    public String toString() {
-        return toJson();
-    }
-
-    public String toJson() {
-        StringBuilder sb = new StringBuilder(50);
-        sb.append("{\"code\":").append(code);
-        sb.append(",\"message\":\"").append(message);
-        sb.append("\"}");
-        return sb.toString();
+        this.code = APICodes.InternalError.getCode();
     }
 }

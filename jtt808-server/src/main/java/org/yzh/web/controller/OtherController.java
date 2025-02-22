@@ -14,10 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.yzh.commons.model.APIResult;
+import org.yzh.commons.model.APICodes;
+import org.yzh.commons.model.R;
+import org.yzh.commons.spring.SSEService;
 import org.yzh.commons.util.LogUtils;
 import org.yzh.protocol.codec.JTMessageDecoder;
-import org.yzh.web.config.WebLogAdapter;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 import reactor.core.publisher.Flux;
@@ -34,6 +35,7 @@ public class OtherController {
 
     private final SessionManager sessionManager;
     private final JTMessageDecoder decoder;
+    private final SSEService sseService;
 
     @Hidden
     @Operation(hidden = true)
@@ -44,38 +46,37 @@ public class OtherController {
 
     @Operation(summary = "终端实时信息查询")
     @GetMapping("device/all")
-    public APIResult<Collection<Session>> all() {
+    public R<Collection<Session>> all() {
         Collection<Session> all = sessionManager.values();
-        return APIResult.ok(all);
+        return R.success(all);
     }
 
     @Operation(summary = "获得当前所有在线设备信息")
     @GetMapping("device/option")
-    public APIResult<Collection<DeviceDO>> getClientId() {
+    public R<Collection<DeviceDO>> getClientId() {
         AdapterCollection<Session, DeviceDO> result = new AdapterCollection<>(sessionManager.values(), session -> {
             DeviceDO device = session.getAttribute(SessionKey.Device);
             if (device != null)
                 return device;
-            return new DeviceDO().mobileNo(session.getClientId());
+            return new DeviceDO().setMobileNo(session.getClientId());
         });
-        return APIResult.ok(result);
+        return R.success(result);
     }
 
-    @Operation(summary = "设备订阅")
-    @PostMapping(value = "device/sse", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String sseSub(@RequestParam String userId, @RequestParam String clientId, @RequestParam boolean sub) {
-        if (sub) {
-            WebLogAdapter.addClient(userId, clientId);
-        } else {
-            WebLogAdapter.removeClient(userId, clientId);
-        }
-        return "1";
+    @Operation(summary = "SSE事件订阅")
+    @PostMapping(value = "sse/event")
+    public R sseEvent(@RequestParam String userId, String add, String del) {
+        sseService.delEvent(userId, del);
+        if (!sseService.addEvent(userId, add))
+            return R.error(APICodes.InvalidParameter, "未建立连接");
+        return R.SUCCESS;
     }
 
-    @Operation(summary = "设备监控")
-    @GetMapping(value = "device/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Object> sseConnect(@RequestParam String userId) {
-        return WebLogAdapter.connect(userId);
+    @Operation(summary = "SSE连接建立")
+    @GetMapping(value = "sse/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Object> sseConnect(HttpServletResponse response) {
+        response.addHeader("X-Accel-Buffering", "no");
+        return sseService.connect();
     }
 
     @Operation(summary = "808协议分析工具")

@@ -12,8 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -21,9 +20,8 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 public class TCPClient {
-
-    private static final Logger log = LoggerFactory.getLogger(TCPClient.class);
 
     private EventLoopGroup workerGroup;
 

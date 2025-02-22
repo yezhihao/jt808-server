@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.终端控制)
 public class T8105 extends JTMessage {
 
@@ -24,27 +30,4 @@ public class T8105 extends JTMessage {
     @Field(desc = "命令参数")
     private String parameter;
 
-    public T8105() {
-    }
-
-    public T8105(int command, String parameter) {
-        this.command = command;
-        this.parameter = parameter;
-    }
-
-    public int getCommand() {
-        return command;
-    }
-
-    public void setCommand(int command) {
-        this.command = command;
-    }
-
-    public String getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
-    }
 }

@@ -1,10 +1,14 @@
 package org.yzh.web.model.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.t808.T0200;
 
 import java.util.Objects;
 
+@Data
+@Accessors(chain = true)
 public class DeviceDO {
 
     @Schema(description = "设备id")
@@ -15,59 +19,19 @@ public class DeviceDO {
     private String plateNo;
     @Schema(description = "机构id")
     protected int agencyId;
-    @Schema(description = "司机id")
+    @Schema(description = "司机id(人脸识别)")
     protected int driverId;
     @Schema(description = "协议版本号")
     private int protocolVersion;
     @Schema(description = "实时状态")
     private T0200 location;
 
-    public DeviceDO() {
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
-    public String getPlateNo() {
-        return plateNo;
-    }
-
-    public void setPlateNo(String plateNo) {
-        this.plateNo = plateNo;
-    }
-
-    public int getProtocolVersion() {
-        return protocolVersion;
-    }
-
-    public void setProtocolVersion(int protocolVersion) {
-        this.protocolVersion = protocolVersion;
-    }
-
-    public T0200 getLocation() {
-        return location;
-    }
-
-    public void setLocation(T0200 location) {
-        this.location = location;
-    }
-
-    public DeviceDO mobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-        return this;
+    public void updateLocation(T0200 location) {
+        if (this.location == null) {
+            this.location = location;
+        } else if (this.location.getDeviceTime().isBefore(location.getDeviceTime())) {
+            this.location = location;
+        }
     }
 
     @Override
@@ -88,16 +52,5 @@ public class DeviceDO {
     @Override
     public int hashCode() {
         return ((deviceId == null) ? 0 : deviceId.hashCode());
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(256);
-        sb.append("DeviceDO{deviceId=").append(deviceId);
-        sb.append(", mobileNo=").append(mobileNo);
-        sb.append(", plateNo=").append(plateNo);
-        sb.append(", protocolVersion=").append(protocolVersion);
-        sb.append('}');
-        return sb.toString();
     }
 }

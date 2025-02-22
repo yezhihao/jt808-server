@@ -13,4 +13,13 @@ public interface Converter {
     /** @return lngLat */
     double[] convert(double... lngLat);
 
+    default double[] batchConvert(double[] coords) {
+        int length = coords.length - (coords.length & 1);
+        for (int i = 0; i < length; ) {
+            double[] xy = convert(coords[i], coords[i + 1]);
+            coords[i++] = xy[0];
+            coords[i++] = xy[1];
+        }
+        return coords;
+    }
 }

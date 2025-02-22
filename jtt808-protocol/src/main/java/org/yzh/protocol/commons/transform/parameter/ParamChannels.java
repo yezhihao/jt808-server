@@ -3,6 +3,9 @@ package org.yzh.protocol.commons.transform.parameter;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class ParamChannels {
 
     public static final Integer key = 0x0076;
@@ -27,41 +33,9 @@ public class ParamChannels {
     @Field(desc = "音视频通道对照表")
     private List<ChannelInfo> channels;
 
-    public ParamChannels() {
-    }
-
-    public byte getAudioVideoChannels() {
-        return audioVideoChannels;
-    }
-
-    public void setAudioVideoChannels(byte audioVideoChannels) {
-        this.audioVideoChannels = audioVideoChannels;
-    }
-
-    public byte getAudioChannels() {
-        return audioChannels;
-    }
-
-    public void setAudioChannels(byte audioChannels) {
-        this.audioChannels = audioChannels;
-    }
-
-    public byte getVideoChannels() {
-        return videoChannels;
-    }
-
-    public void setVideoChannels(byte videoChannels) {
-        this.videoChannels = videoChannels;
-    }
-
-    public List<ChannelInfo> getChannels() {
-        return channels;
-    }
-
-    public void setChannels(List<ChannelInfo> channels) {
-        this.channels = channels;
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     private static class ChannelInfo {
         @Field(desc = "物理通道号(从1开始)")
         private byte channelId;
@@ -79,38 +53,6 @@ public class ParamChannels {
             this.channelId = channelId;
             this.channelNo = channelNo;
             this.channelType = channelType;
-            this.hasPanTilt = hasPanTilt;
-        }
-
-        public byte getChannelId() {
-            return channelId;
-        }
-
-        public void setChannelId(byte channelId) {
-            this.channelId = channelId;
-        }
-
-        public byte getChannelNo() {
-            return channelNo;
-        }
-
-        public void setChannelNo(byte channelNo) {
-            this.channelNo = channelNo;
-        }
-
-        public byte getChannelType() {
-            return channelType;
-        }
-
-        public void setChannelType(byte channelType) {
-            this.channelType = channelType;
-        }
-
-        public boolean isHasPanTilt() {
-            return hasPanTilt;
-        }
-
-        public void setHasPanTilt(boolean hasPanTilt) {
             this.hasPanTilt = hasPanTilt;
         }
     }

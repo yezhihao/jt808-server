@@ -2,8 +2,6 @@ package org.yzh.commons.util;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.time.temporal.TemporalQuery;
@@ -18,21 +16,7 @@ public class DateUtils {
 
     public static final DateTimeFormatter yyMMddHHmmss = DateTimeFormatter.ofPattern("yyMMddHHmmss");
 
-    public static final DateTimeFormatter yyyyMMdd = new DateTimeFormatterBuilder()
-            .appendValue(ChronoField.YEAR_OF_ERA, 4)
-            .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-            .appendValue(ChronoField.DAY_OF_MONTH, 2)
-            .toFormatter();
-
-    public static final DateTimeFormatter yyMMdd = new DateTimeFormatterBuilder()
-            .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2, LocalDate.now().minusYears(80))
-            .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-            .appendValue(ChronoField.DAY_OF_MONTH, 2)
-            .toFormatter();
-
-    public static final DateTimeFormatter yy = new DateTimeFormatterBuilder()
-            .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2, LocalDate.now().minusYears(80))
-            .toFormatter();
+    public static final DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     private static final TemporalQuery<LocalDate> dateQuery = TemporalQueries.localDate();
 

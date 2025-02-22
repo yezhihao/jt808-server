@@ -2,6 +2,9 @@ package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT1078;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT1078.查询资源列表)
 public class T9205 extends JTMessage {
 
@@ -29,67 +35,4 @@ public class T9205 extends JTMessage {
     @Field(length = 1, desc = "存储器类型：0.所有存储器 1.主存储器 2.灾备存储器")
     private int storageType;
 
-    public int getChannelNo() {
-        return channelNo;
-    }
-
-    public void setChannelNo(int channelNo) {
-        this.channelNo = channelNo;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getWarnBit1() {
-        return warnBit1;
-    }
-
-    public void setWarnBit1(int warnBit1) {
-        this.warnBit1 = warnBit1;
-    }
-
-    public int getWarnBit2() {
-        return warnBit2;
-    }
-
-    public void setWarnBit2(int warnBit2) {
-        this.warnBit2 = warnBit2;
-    }
-
-    public int getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(int mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public int getStreamType() {
-        return streamType;
-    }
-
-    public void setStreamType(int streamType) {
-        this.streamType = streamType;
-    }
-
-    public int getStorageType() {
-        return storageType;
-    }
-
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
-    }
 }

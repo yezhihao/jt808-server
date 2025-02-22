@@ -2,6 +2,9 @@ package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT1078;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message({JT1078.云台调整焦距控制, JT1078.云台调整光圈控制, JT1078.云台雨刷控制, JT1078.红外补光控制, JT1078.云台变倍控制})
 public class T9302 extends JTMessage {
 
@@ -17,19 +23,4 @@ public class T9302 extends JTMessage {
     @Field(length = 1, desc = "参数(0.调大 1.调小)|(0.停止 1.启动)")
     private int param;
 
-    public int getChannelNo() {
-        return channelNo;
-    }
-
-    public void setChannelNo(int channelNo) {
-        this.channelNo = channelNo;
-    }
-
-    public int getParam() {
-        return param;
-    }
-
-    public void setParam(int param) {
-        this.param = param;
-    }
 }

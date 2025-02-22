@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /**
  * 压力测试
@@ -82,7 +83,7 @@ public abstract class StressTest {
         Object[] points;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("jtt808-server/target/test-classes/轨迹区域测试.txt"), StandardCharsets.UTF_8))) {
             points = reader.lines().map(s -> {
-                double[] doubles = StrUtils.toDoubles(s, ",");
+                double[] doubles = Arrays.stream(s.split(",")).mapToDouble(Double::parseDouble).toArray();
                 return new int[]{(int) (doubles[0] * 1000000d), (int) (doubles[1] * 1000000d), (int) (doubles[2])};
             }).toArray();
         }

@@ -2,8 +2,7 @@ package org.yzh.client;
 
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.*;
@@ -16,10 +15,9 @@ import static org.yzh.protocol.commons.JT808.*;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 @Endpoint
 public class JTClientEndpoint {
-
-    private static final Logger log = LoggerFactory.getLogger(JTClientEndpoint.class);
 
     private AtomicInteger serialNo = new AtomicInteger();
 

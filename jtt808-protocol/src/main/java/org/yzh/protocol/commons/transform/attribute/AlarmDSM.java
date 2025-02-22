@@ -1,12 +1,18 @@
 package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.annotation.Field;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
 /**
  * 驾驶员状态监测 0x65
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class AlarmDSM extends Alarm {
 
     public static final Integer key = 101;
@@ -85,165 +91,5 @@ public class AlarmDSM extends Alarm {
     @Override
     public String getExtra() {
         return "fatigueDegree:" + fatigueDegree;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getFatigueDegree() {
-        return fatigueDegree;
-    }
-
-    public void setFatigueDegree(int fatigueDegree) {
-        this.fatigueDegree = fatigueDegree;
-    }
-
-    public int getReserves() {
-        return reserves;
-    }
-
-    public void setReserves(int reserves) {
-        this.reserves = reserves;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(int altitude) {
-        this.altitude = altitude;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
-    }
-
-    public LocalDateTime getAlarmTime() {
-        return alarmTime;
-    }
-
-    public void setAlarmTime(LocalDateTime alarmTime) {
-        this.alarmTime = alarmTime;
-    }
-
-    public int getStatusBit() {
-        return statusBit;
-    }
-
-    public void setStatusBit(int statusBit) {
-        this.statusBit = statusBit;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public int getSequenceNo() {
-        return sequenceNo;
-    }
-
-    public void setSequenceNo(int sequenceNo) {
-        this.sequenceNo = sequenceNo;
-    }
-
-    public int getFileTotal() {
-        return fileTotal;
-    }
-
-    public void setFileTotal(int fileTotal) {
-        this.fileTotal = fileTotal;
-    }
-
-    public int getReserved() {
-        return reserved;
-    }
-
-    public void setReserved(int reserved) {
-        this.reserved = reserved;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(400);
-        sb.append("AlarmDSM{id=").append(id);
-        sb.append(", state=").append(state);
-        sb.append(", type=").append(type);
-        sb.append(", level=").append(level);
-        sb.append(", fatigueDegree=").append(fatigueDegree);
-        sb.append(", reserves=").append(reserves);
-        sb.append(", speed=").append(speed);
-        sb.append(", altitude=").append(altitude);
-        sb.append(", longitude=").append(longitude);
-        sb.append(", latitude=").append(latitude);
-        sb.append(", alarmTime=").append(alarmTime);
-        sb.append(", statusBit=").append(statusBit);
-        sb.append(", deviceId=").append(deviceId);
-        sb.append(", dateTime=").append(dateTime);
-        sb.append(", sequenceNo=").append(sequenceNo);
-        sb.append(", fileTotal=").append(fileTotal);
-        sb.append(", reserved=").append(reserved);
-        sb.append('}');
-        return sb.toString();
     }
 }

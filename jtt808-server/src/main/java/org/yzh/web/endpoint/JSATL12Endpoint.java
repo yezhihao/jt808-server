@@ -1,11 +1,12 @@
-package org.yzh.web.endpoint;
+package org.yzh.file.endpoint;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
 import io.github.yezhihao.netmc.session.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.yzh.protocol.commons.JSATL12;
 import org.yzh.protocol.jsatl12.DataPacket;
@@ -19,12 +20,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Endpoint
 @Component
+@RequiredArgsConstructor
 public class JSATL12Endpoint {
 
-    @Autowired
-    private FileService fileService;
+    private final FileService fileService;
 
     private final Cache<String, Map<String, T1210.Item>> cache = Caffeine.newBuilder().expireAfterAccess(20, TimeUnit.MINUTES).build();
 
@@ -38,7 +40,7 @@ public class JSATL12Endpoint {
         Map<String, T1210.Item> fileInfos = cache.get(message.getClientId(), s -> new HashMap<>((int) (items.size() / 0.75) + 1));
 
         for (T1210.Item item : items)
-            fileInfos.put(item.getName(), item.parent(message));
+            fileInfos.put(item.getName(), item.setParent(message));
         fileService.createDir(message);
     }
 
@@ -56,9 +58,9 @@ public class JSATL12Endpoint {
             if (fileInfo != null) {
 
                 if (dataPacket.getOffset() == 0 && dataPacket.getLength() >= fileInfo.getSize()) {
-                    fileService.writeFileSingle(fileInfo.parent(), dataPacket);
+                    fileService.writeFileSingle(fileInfo.getParent(), dataPacket);
                 } else {
-                    fileService.writeFile(fileInfo.parent(), dataPacket);
+                    fileService.writeFile(fileInfo.getParent(), dataPacket);
                 }
             }
         }
@@ -73,7 +75,7 @@ public class JSATL12Endpoint {
         result.setName(message.getName());
         result.setType(message.getType());
 
-        int[] items = fileService.checkFile(fileInfo.parent(), message);
+        int[] items = fileService.checkFile(fileInfo.getParent(), message);
         if (items == null) {
             fileInfos.remove(message.getName());
             if (fileInfos.isEmpty()) {

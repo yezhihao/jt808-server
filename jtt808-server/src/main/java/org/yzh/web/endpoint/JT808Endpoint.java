@@ -6,8 +6,7 @@ import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
 import io.github.yezhihao.netmc.session.Session;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
@@ -22,12 +21,11 @@ import java.util.List;
 
 import static org.yzh.protocol.commons.JT808.*;
 
+@Slf4j
 @Endpoint
 @Component
 @RequiredArgsConstructor
 public class JT808Endpoint {
-
-    private static final Logger log = LoggerFactory.getLogger(JT808Endpoint.class);
 
     private final FileService fileService;
 
@@ -48,7 +46,7 @@ public class JT808Endpoint {
 
     @Mapping(types = 查询服务器时间, desc = "查询服务器时间")
     public T8004 T0004(JTMessage message, Session session) {
-        T8004 result = new T8004(LocalDateTime.now(ZoneOffset.UTC));
+        T8004 result = new T8004().setDateTime(LocalDateTime.now(ZoneOffset.UTC));
         return result;
     }
 

@@ -2,11 +2,17 @@ package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * 超速报警 0x11
  * length 1 或 5
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class OverSpeedAlarm extends Alarm {
 
     public static final Integer key = 17;
@@ -26,34 +32,9 @@ public class OverSpeedAlarm extends Alarm {
         this.areaId = areaId;
     }
 
-    public byte getAreaType() {
-        return areaType;
-    }
-
-    public void setAreaType(byte areaType) {
-        this.areaType = areaType;
-    }
-
-    public int getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(int areaId) {
-        this.areaId = areaId;
-    }
-
     @Override
     public int getAlarmType() {
         return key;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(80);
-        sb.append("OverSpeedAlarm{areaType=").append(areaType);
-        sb.append(",areaId=").append(areaId);
-        sb.append('}');
-        return sb.toString();
     }
 
     private static class OverSpeedAlarmSchema implements Schema<OverSpeedAlarm> {

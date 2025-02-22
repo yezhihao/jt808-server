@@ -3,6 +3,9 @@ package org.yzh.protocol.commons.transform.parameter;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,6 +15,9 @@ import java.util.TreeMap;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class ParamVideoSingle {
 
     public static final Integer key = 0x0077;
@@ -20,21 +26,6 @@ public class ParamVideoSingle {
 
     @Field(desc = "单独通道视频参数设置列表")
     private Map<Integer, ParamVideo> paramVideos = new TreeMap<>();
-
-    public ParamVideoSingle() {
-    }
-
-    public ParamVideoSingle(Map<Integer, ParamVideo> paramVideos) {
-        this.paramVideos = paramVideos;
-    }
-
-    public Map<Integer, ParamVideo> getParamVideos() {
-        return paramVideos;
-    }
-
-    public void setParamVideos(Map<Integer, ParamVideo> paramVideos) {
-        this.paramVideos = paramVideos;
-    }
 
     private static class ParamVideoSingleSchema implements Schema<ParamVideoSingle> {
 
@@ -50,7 +41,7 @@ public class ParamVideoSingle {
                 ParamVideo paramVideo = ParamVideo.SCHEMA_2.readFrom(input);
                 paramVideos.put((int) channelNo, paramVideo);
             }
-            return new ParamVideoSingle(paramVideos);
+            return new ParamVideoSingle().setParamVideos(paramVideos);
         }
 
         @Override

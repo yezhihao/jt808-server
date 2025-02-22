@@ -2,8 +2,7 @@ package org.yzh.protocol.codec;
 
 import io.github.yezhihao.protostar.SchemaManager;
 import io.netty.buffer.ByteBuf;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.yzh.protocol.basics.JTMessage;
 
 import java.util.Map;
@@ -16,9 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 public class MultiPacketDecoder extends JTMessageDecoder {
-
-    private static final Logger log = LoggerFactory.getLogger(MultiPacketDecoder.class);
 
     private final Map<String, MultiPacket> multiPacketsMap;
 

@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.多媒体事件信息上传)
 public class T0800 extends JTMessage {
 
@@ -23,43 +29,4 @@ public class T0800 extends JTMessage {
     @Field(length = 1, desc = "通道ID")
     private int channelId;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getFormat() {
-        return format;
-    }
-
-    public void setFormat(int format) {
-        this.format = format;
-    }
-
-    public int getEvent() {
-        return event;
-    }
-
-    public void setEvent(int event) {
-        this.event = event;
-    }
-
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
-    }
 }

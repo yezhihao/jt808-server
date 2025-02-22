@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -10,6 +13,9 @@ import org.yzh.protocol.commons.JT808;
  * https://gitee.com/yezhihao/jt808-server
  * 该消息2019版本已删除
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.信息点播_取消)
 public class T0303 extends JTMessage {
 
@@ -18,19 +24,4 @@ public class T0303 extends JTMessage {
     @Field(length = 1, desc = "点播/取消标志：0.取消 1.点播")
     private int action;
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getAction() {
-        return action;
-    }
-
-    public void setAction(int action) {
-        this.action = action;
-    }
 }

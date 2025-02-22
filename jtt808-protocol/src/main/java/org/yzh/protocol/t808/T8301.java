@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -13,6 +16,9 @@ import java.util.List;
  * https://gitee.com/yezhihao/jt808-server
  * 该消息2019版本已删除
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.事件设置)
 public class T8301 extends JTMessage {
 
@@ -22,65 +28,19 @@ public class T8301 extends JTMessage {
     @Field(totalUnit = 1, desc = "事件项")
     private List<Event> events;
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
     public void addEvent(int id, String content) {
         if (events == null)
             events = new ArrayList<>(2);
-        events.add(new Event(id, content));
+        events.add(new Event().setId(id).setContent(content));
     }
 
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Event {
         @Field(length = 1, desc = "事件ID")
         private int id;
         @Field(lengthUnit = 1, desc = "内容")
         private String content;
-
-        public Event() {
-        }
-
-        public Event(int id, String content) {
-            this.id = id;
-            this.content = content;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(40);
-            sb.append("{id=").append(id);
-            sb.append(",content=").append(content);
-            sb.append('}');
-            return sb.toString();
-        }
     }
 }

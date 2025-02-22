@@ -2,6 +2,9 @@ package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT1078;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT1078.实时音视频传输请求)
 public class T9101 extends JTMessage {
 
@@ -25,51 +31,4 @@ public class T9101 extends JTMessage {
     @Field(length = 1, desc = "码流类型：0.主码流 1.子码流")
     private int streamType;
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getTcpPort() {
-        return tcpPort;
-    }
-
-    public void setTcpPort(int tcpPort) {
-        this.tcpPort = tcpPort;
-    }
-
-    public int getUdpPort() {
-        return udpPort;
-    }
-
-    public void setUdpPort(int udpPort) {
-        this.udpPort = udpPort;
-    }
-
-    public int getChannelNo() {
-        return channelNo;
-    }
-
-    public void setChannelNo(int channelNo) {
-        this.channelNo = channelNo;
-    }
-
-    public int getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(int mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public int getStreamType() {
-        return streamType;
-    }
-
-    public void setStreamType(int streamType) {
-        this.streamType = streamType;
-    }
 }

@@ -2,11 +2,17 @@ package org.yzh.protocol.commons.transform.attribute;
 
 import io.github.yezhihao.protostar.Schema;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * 进出区域/路线报警 0x12
  * length 6
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class InOutAreaAlarm extends Alarm {
 
     public static final Integer key = 18;
@@ -29,43 +35,9 @@ public class InOutAreaAlarm extends Alarm {
         this.direction = direction;
     }
 
-    public byte getAreaType() {
-        return areaType;
-    }
-
-    public void setAreaType(byte areaType) {
-        this.areaType = areaType;
-    }
-
-    public int getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(int areaId) {
-        this.areaId = areaId;
-    }
-
-    public byte getDirection() {
-        return direction;
-    }
-
-    public void setDirection(byte direction) {
-        this.direction = direction;
-    }
-
     @Override
     public int getAlarmType() {
         return key;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(80);
-        sb.append("InOutAreaAlarm{areaType=").append(areaType);
-        sb.append(",areaId=").append(areaId);
-        sb.append(",direction=").append(direction);
-        sb.append('}');
-        return sb.toString();
     }
 
     private static class InOutAreaAlarmSchema implements Schema<InOutAreaAlarm> {

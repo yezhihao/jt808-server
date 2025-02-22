@@ -3,6 +3,9 @@ package org.yzh.protocol.jsatl12;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 
 /**
@@ -11,6 +14,9 @@ import org.yzh.protocol.basics.JTMessage;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message
 public class DataPacket extends JTMessage {
 
@@ -35,56 +41,5 @@ public class DataPacket extends JTMessage {
     @Override
     public int getMessageId() {
         return flag;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public ByteBuf getData() {
-        return data;
-    }
-
-    public void setData(ByteBuf data) {
-        this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(120);
-        sb.append("DataPacket{name=").append(name);
-        sb.append(",offset=").append(offset);
-        sb.append(",length=").append(length);
-        sb.append(",data=").append(data);
-        sb.append('}');
-        return sb.toString();
     }
 }

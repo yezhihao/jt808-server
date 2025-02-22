@@ -1,8 +1,12 @@
 package org.yzh.commons.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.*;
+import org.springframework.util.StringUtils;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 /**
  * @author yezhihao
@@ -10,99 +14,16 @@ import java.util.*;
  */
 public class StrUtils {
 
-    public static final int[] EMPTY = new int[0];
-
-    public static final Integer[] EMPTY_ = new Integer[0];
-
-    public static int[] toInts(String str, String delimiter) {
-        String[] split = str.split(delimiter);
-        int[] result = new int[split.length];
-        for (int i = 0; i < split.length; i++)
-            result[i] = Integer.parseInt(split[i]);
-        return result;
+    public static <T> T ifNull(T obj, T defObj) {
+        return (obj != null) ? obj : defObj;
     }
 
-    public static double[] toDoubles(String str, String delimiter) {
-        String[] split = str.split(delimiter);
-        double[] result = new double[split.length];
-        for (int i = 0; i < split.length; i++)
-            result[i] = Double.parseDouble(split[i]);
-        return result;
+    public static <T> T ifNull(T obj, Supplier<T> defObj) {
+        return (obj != null) ? obj : defObj.get();
     }
 
-    public static byte[] toBytes(String str, String delimiter) {
-        String[] split = str.split(delimiter);
-        byte[] result = new byte[split.length];
-        for (int i = 0; i < split.length; i++)
-            result[i] = (byte) Integer.parseInt(split[i]);
-        return result;
-    }
-
-    public static String merge(String delimiter, Collection value) {
-        if (value == null || value.size() == 0)
-            return null;
-
-        StringBuilder result = new StringBuilder(value.size() * 5);
-        for (Object id : value)
-            result.append(id).append(delimiter);
-
-        return result.substring(0, result.length() - delimiter.length());
-    }
-
-    public static String merge(String delimiter, Object... value) {
-        if (value == null || value.length == 0)
-            return null;
-
-        StringBuilder result = new StringBuilder(value.length * 5);
-        for (Object id : value)
-            result.append(id).append(delimiter);
-
-        return result.substring(0, result.length() - delimiter.length());
-    }
-
-    public static String merge(String delimiter, int... value) {
-        if (value == null || value.length == 0)
-            return null;
-
-        StringBuilder result = new StringBuilder(value.length * 5);
-        for (int id : value)
-            result.append(id).append(delimiter);
-
-        return result.substring(0, result.length() - delimiter.length());
-    }
-
-    public static int[] toInts(Integer[] src) {
-        if (src == null || src.length == 0)
-            return EMPTY;
-
-        int[] dest = new int[src.length];
-        for (int i = 0; i < src.length; i++)
-            dest[i] = src[i];
-        return dest;
-    }
-
-    public static Integer[] toInts(int[] src) {
-        if (src == null || src.length == 0)
-            return EMPTY_;
-
-        Integer[] dest = new Integer[src.length];
-        for (int i = 0; i < src.length; i++)
-            dest[i] = src[i];
-        return dest;
-    }
-
-    public static Integer parseInt(String num) {
-        return parseInt(num, null);
-    }
-
-    public static Integer parseInt(String num, Integer defVal) {
-        if (isBlank(num))
-            return defVal;
-        try {
-            return Integer.parseInt(num);
-        } catch (NumberFormatException e) {
-            return defVal;
-        }
+    public static String ifBlank(String str, String defStr) {
+        return (str == null || str.isBlank()) ? defStr : str;
     }
 
     public static Long parseLong(String num) {
@@ -110,8 +31,6 @@ public class StrUtils {
     }
 
     public static Long parseLong(String num, Long defVal) {
-        if (isBlank(num))
-            return defVal;
         try {
             return Long.parseLong(num);
         } catch (NumberFormatException e) {
@@ -133,31 +52,6 @@ public class StrUtils {
                 result.append(c);
         }
         return result.toString();
-    }
-
-    public static String subPrefix(String str, String prefix) {
-        if (str != null && str.startsWith(prefix))
-            str = str.substring(prefix.length());
-        return str;
-    }
-
-    public static Map newMap(Object... entrys) {
-        Map result = new HashMap((int) (entrys.length / 1.5) + 1);
-        for (int i = 0; i < entrys.length; )
-            result.put(entrys[i++], entrys[i++]);
-        return result;
-    }
-
-    public static boolean isNotBlank(String str) {
-        return !isBlank(str);
-    }
-
-    public static boolean isBlank(String str) {
-        return str == null || str.length() == 0 || str.trim().length() == 0;
-    }
-
-    public static <T> T getDefault(T value, T defaultValue) {
-        return value != null ? value : defaultValue;
     }
 
     public static String leftPad(String str, int size, char ch) {
@@ -185,22 +79,9 @@ public class StrUtils {
         return str;
     }
 
-    public static int[] toArray(Collection<Integer> list) {
-        if (list == null || list.isEmpty())
-            return null;
-
-        int[] result = new int[list.size()];
-        int i = 0;
-        for (Integer e : list) {
-            if (e != null)
-                result[i++] = e;
-        }
-        return result;
-    }
-
     public static Set<Integer> toSet(int... num) {
         if (num == null || num.length == 0) {
-            return Collections.EMPTY_SET;
+            return Set.of();
         }
         Set<Integer> result;
         if (num.length <= 3) {
@@ -214,8 +95,8 @@ public class StrUtils {
         return result;
     }
 
-    public static boolean isNum(String val) {
-        if (isBlank(val)) {
+    public static boolean isNum(CharSequence val) {
+        if (!StringUtils.hasText(val)) {
             return false;
         }
         int sz = val.length();
@@ -247,13 +128,6 @@ public class StrUtils {
             sb.append(num);
         }
         return sb;
-    }
-
-    public static String getStackTrace(final Throwable throwable) {
-        final StringWriter sw = new StringWriter(7680);
-        final PrintWriter pw = new PrintWriter(sw, true);
-        throwable.printStackTrace(pw);
-        return sw.getBuffer().toString();
     }
 
     private static final char[] hexCode = "0123456789abcdef".toCharArray();
@@ -299,5 +173,9 @@ public class StrUtils {
             return ch - ('a' - 10);
         }
         return -1;
+    }
+
+    public static String simpleUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }

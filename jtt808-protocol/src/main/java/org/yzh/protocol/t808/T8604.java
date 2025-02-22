@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
@@ -14,6 +17,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.设置多边形区域)
 public class T8604 extends JTMessage {
 
@@ -40,33 +46,9 @@ public class T8604 extends JTMessage {
         return Bit.isTrue(attribute, i);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(int attribute) {
-        this.attribute = attribute;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
     public void setStartTime(LocalDateTime startTime) {
         this.attribute = Bit.set(attribute, 0, startTime != null);
         this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -74,17 +56,9 @@ public class T8604 extends JTMessage {
         this.endTime = endTime;
     }
 
-    public Integer getMaxSpeed() {
-        return maxSpeed;
-    }
-
     public void setMaxSpeed(Integer maxSpeed) {
         this.attribute = Bit.set(attribute, 1, maxSpeed != null);
         this.maxSpeed = maxSpeed;
-    }
-
-    public Integer getDuration() {
-        return duration;
     }
 
     public void setDuration(Integer duration) {
@@ -92,22 +66,10 @@ public class T8604 extends JTMessage {
         this.duration = duration;
     }
 
-    public List<Point> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<Point> points) {
-        this.points = points;
-    }
-
     public void addPoint(int longitude, int latitude) {
         if (points == null)
             points = new ArrayList<>(4);
-        points.add(new Point(latitude, longitude));
-    }
-
-    public Integer getNightMaxSpeed() {
-        return nightMaxSpeed;
+        points.add(new Point().setLatitude(latitude).setLongitude(longitude));
     }
 
     public void setNightMaxSpeed(Integer nightMaxSpeed) {
@@ -115,52 +77,13 @@ public class T8604 extends JTMessage {
         this.nightMaxSpeed = nightMaxSpeed;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Point {
         @Field(length = 4, desc = "纬度")
         private int latitude;
         @Field(length = 4, desc = "经度")
         private int longitude;
-
-        public Point() {
-        }
-
-        public Point(int latitude, int longitude) {
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
-
-        public int getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(int latitude) {
-            this.latitude = latitude;
-        }
-
-        public int getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(int longitude) {
-            this.longitude = longitude;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(32);
-            sb.append('{');
-            sb.append("lng=").append(longitude);
-            sb.append(",lat=").append(latitude);
-            sb.append('}');
-            return sb.toString();
-        }
     }
 }

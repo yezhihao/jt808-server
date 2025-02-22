@@ -2,6 +2,9 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JSATL12.报警附件上传指令)
 public class T9208 extends JTMessage {
 
@@ -41,83 +47,4 @@ public class T9208 extends JTMessage {
     @Field(length = 16, desc = "预留")
     private byte[] reserves = RESERVES;
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getTcpPort() {
-        return tcpPort;
-    }
-
-    public void setTcpPort(int tcpPort) {
-        this.tcpPort = tcpPort;
-    }
-
-    public int getUdpPort() {
-        return udpPort;
-    }
-
-    public void setUdpPort(int udpPort) {
-        this.udpPort = udpPort;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public int getSequenceNo() {
-        return sequenceNo;
-    }
-
-    public void setSequenceNo(int sequenceNo) {
-        this.sequenceNo = sequenceNo;
-    }
-
-    public int getFileTotal() {
-        return fileTotal;
-    }
-
-    public void setFileTotal(int fileTotal) {
-        this.fileTotal = fileTotal;
-    }
-
-    public int getReserved() {
-        return reserved;
-    }
-
-    public void setReserved(int reserved) {
-        this.reserved = reserved;
-    }
-
-    public String getPlatformAlarmId() {
-        return platformAlarmId;
-    }
-
-    public void setPlatformAlarmId(String platformAlarmId) {
-        this.platformAlarmId = platformAlarmId;
-    }
-
-    public byte[] getReserves() {
-        return reserves;
-    }
-
-    public void setReserves(byte[] reserves) {
-        this.reserves = reserves;
-    }
 }

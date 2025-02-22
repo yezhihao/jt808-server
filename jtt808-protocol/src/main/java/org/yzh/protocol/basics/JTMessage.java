@@ -1,16 +1,23 @@
 package org.yzh.protocol.basics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.util.ToStringBuilder;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.commons.MessageId;
 
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class JTMessage implements Message {
 
     @Field(length = 2, desc = "消息ID")
@@ -31,23 +38,16 @@ public class JTMessage implements Message {
     /** bcc校验 */
     protected boolean verified = true;
 
+    @JsonIgnore
     protected transient Session session;
-
+    @JsonIgnore
     protected transient ByteBuf payload;
-
+    @JsonIgnore
     protected transient Object extData;
-
+    @JsonIgnore
     protected transient int vehicleId;
-
+    @JsonIgnore
     protected transient int driverId;
-
-
-    public JTMessage() {
-    }
-
-    public JTMessage(int messageId) {
-        this.messageId = messageId;
-    }
 
     public JTMessage copyBy(JTMessage that) {
         this.setClientId(that.getClientId());
@@ -56,59 +56,10 @@ public class JTMessage implements Message {
         return this;
     }
 
-    public JTMessage messageId(int messageId) {
-        this.messageId = messageId;
-        return this;
-    }
-
-    public int getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
-    }
-
-    public int getProperties() {
-        return properties;
-    }
-
-    public void setProperties(int properties) {
-        this.properties = properties;
-    }
-
-    public int getProtocolVersion() {
-        return protocolVersion;
-    }
-
-    public void setProtocolVersion(int protocolVersion) {
-        this.protocolVersion = protocolVersion;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public int getSerialNo() {
-        return serialNo;
-    }
-
-    public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
-    }
-
     public Integer getPackageTotal() {
         if (isSubpackage())
             return packageTotal;
         return null;
-    }
-
-    public void setPackageTotal(Integer packageTotal) {
-        this.packageTotal = packageTotal;
     }
 
     public Integer getPackageNo() {
@@ -117,56 +68,8 @@ public class JTMessage implements Message {
         return null;
     }
 
-    public void setPackageNo(Integer packageNo) {
-        this.packageNo = packageNo;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public ByteBuf getPayload() {
-        return payload;
-    }
-
-    public void setPayload(ByteBuf payload) {
-        this.payload = payload;
-    }
-
     public <T> T getExtData() {
         return (T) extData;
-    }
-
-    public void setExtData(Object extData) {
-        this.extData = extData;
-    }
-
-    public int getVehicleId() {
-        return vehicleId;
-    }
-
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public int getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
     }
 
     public int reflectMessageId() {
@@ -187,7 +90,7 @@ public class JTMessage implements Message {
     }
 
     private static final int BODY_LENGTH = 0b0000_0011_1111_1111;
-    private static final int ENCRYPTION = 0b00011_100_0000_0000;
+    private static final int ENCRYPTION = 0b0001_1100_0000_0000;
     private static final int SUBPACKAGE = 0b0010_0000_0000_0000;
     private static final int VERSION = 0b0100_0000_0000_0000;
     private static final int RESERVED = 0b1000_0000_0000_0000;
@@ -198,8 +101,7 @@ public class JTMessage implements Message {
     }
 
     public void setBodyLength(int bodyLength) {
-        this.properties ^= (properties & BODY_LENGTH);
-        this.properties |= bodyLength;
+        this.properties = (properties & ~BODY_LENGTH) | (bodyLength & BODY_LENGTH);
     }
 
     /** 加密方式 */
@@ -208,8 +110,7 @@ public class JTMessage implements Message {
     }
 
     public void setEncryption(int encryption) {
-        this.properties ^= (properties & ENCRYPTION);
-        this.properties |= (encryption << 10);
+        this.properties = (properties & ~ENCRYPTION) | (encryption & ENCRYPTION);
     }
 
     /** 是否分包 */
@@ -221,7 +122,7 @@ public class JTMessage implements Message {
         if (subpackage)
             this.properties |= SUBPACKAGE;
         else
-            this.properties ^= (properties & SUBPACKAGE);
+            this.properties &= ~SUBPACKAGE;
     }
 
     /** 是否有版本 */
@@ -233,7 +134,7 @@ public class JTMessage implements Message {
         if (version)
             this.properties |= VERSION;
         else
-            this.properties ^= (properties & VERSION);
+            this.properties &= ~VERSION;
     }
 
     /** 保留位 */
@@ -245,7 +146,7 @@ public class JTMessage implements Message {
         if (reserved)
             this.properties |= RESERVED;
         else
-            this.properties ^= (properties & RESERVED);
+            this.properties &= ~RESERVED;
     }
 
     protected StringBuilder toStringHead() {

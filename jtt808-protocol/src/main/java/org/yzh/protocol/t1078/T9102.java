@@ -2,6 +2,9 @@ package org.yzh.protocol.t1078;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT1078;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT1078;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT1078.音视频实时传输控制)
 public class T9102 extends JTMessage {
 
@@ -29,35 +35,4 @@ public class T9102 extends JTMessage {
     @Field(length = 1, desc = "切换码流类型：0.主码流 1.子码流")
     private int streamType;
 
-    public int getChannelNo() {
-        return channelNo;
-    }
-
-    public void setChannelNo(int channelNo) {
-        this.channelNo = channelNo;
-    }
-
-    public int getCommand() {
-        return command;
-    }
-
-    public void setCommand(int command) {
-        this.command = command;
-    }
-
-    public int getCloseType() {
-        return closeType;
-    }
-
-    public void setCloseType(int closeType) {
-        this.closeType = closeType;
-    }
-
-    public int getStreamType() {
-        return streamType;
-    }
-
-    public void setStreamType(int streamType) {
-        this.streamType = streamType;
-    }
 }

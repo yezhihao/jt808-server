@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -10,17 +13,13 @@ import org.yzh.protocol.commons.JT808;
  * https://gitee.com/yezhihao/jt808-server
  * 该消息2019版本已删除
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.事件报告)
 public class T0301 extends JTMessage {
 
     @Field(length = 1, desc = "事件ID")
     private int eventId;
 
-    public int getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
-    }
 }

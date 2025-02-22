@@ -4,6 +4,7 @@ import io.github.yezhihao.protostar.util.KeyValuePair;
 import io.netty.buffer.Unpooled;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Action;
+import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.ShapeAction;
 import org.yzh.protocol.commons.transform.AttributeKey;
 import org.yzh.protocol.commons.transform.attribute.*;
@@ -127,12 +128,13 @@ public class JT808Beans {
         paramVideo.setStorageFrameRate((byte) 2);
         paramVideo.setStorageBitRate((byte) 2);
         paramVideo.setOdsConfig((byte) 3);
-        paramVideo.setAudioEnable((byte) 3);
+        paramVideo.setAudioEnabled((byte) 3);
 
         Map<Integer, Object> parameters = new TreeMap<>();
         parameters.put(ParamVideo.key, paramVideo);
         parameters.put(ParamADAS.key, new ParamADAS());
         parameters.put(ParamBSD.key, new ParamBSD());
+        parameters.put(ParamDSM.key, new ParamDSM());
         parameters.put(ParamSleepWake.key, new ParamSleepWake());
         parameters.put(ParamVideoSpecialAlarm.key, new ParamVideoSpecialAlarm());
         parameters.put(ParamImageIdentifyAlarm.key, new ParamImageIdentifyAlarm());
@@ -198,7 +200,7 @@ public class JT808Beans {
         attributes.put(AttributeKey.Fuel, 22);
         attributes.put(AttributeKey.Speed, 33);
         attributes.put(AttributeKey.AlarmEventId, 44);
-        attributes.put(AttributeKey.TirePressure, new TirePressure(new byte[]{55, 55, 55}));
+        attributes.put(AttributeKey.TirePressure, new TirePressure().setValue(new byte[]{55, 55, 55}));
         attributes.put(AttributeKey.CarriageTemperature, 2);
 
         attributes.put(AttributeKey.OverSpeedAlarm, new OverSpeedAlarm((byte) 66, 66));
@@ -361,6 +363,7 @@ public class JT808Beans {
         item.add(T0200());
         item.add(T0200_());
         bean.setItems(item);
+        bean.setTotal(item.size());
         return bean;
     }
 
@@ -369,9 +372,9 @@ public class JT808Beans {
         T0705 bean = new T0705();
         bean.setDateTime("235959");
         List<T0705.Item> items = new ArrayList<>(3);
-        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
-        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
-        items.add(new T0705.Item(16909060, new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item().setId(16909060).setData(new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item().setId(16909060).setData(new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
+        items.add(new T0705.Item().setId(16909060).setData(new byte[]{1, 2, 3, 4, 5, 6, 7, 8}));
         bean.setItems(items);
         return bean;
     }
@@ -405,10 +408,10 @@ public class JT808Beans {
         T0802 bean = new T0802();
         bean.setResponseSerialNo(123);
         List<T0802.Item> items = new ArrayList<>(4);
-        items.add(new T0802.Item(1, 1, 1, 1, T0200()));
-        items.add(new T0802.Item(2, 1, 1, 1, T0200_()));
-        items.add(new T0802.Item(3, 1, 1, 1, T0200()));
-        items.add(new T0802.Item(4, 1, 1, 1, T0200_()));
+        items.add(new T0802.Item().setId(1).setType(1).setChannelId(1).setEvent(1).setLocation(T0200()));
+        items.add(new T0802.Item().setId(2).setType(1).setChannelId(1).setEvent(1).setLocation(T0200_()));
+        items.add(new T0802.Item().setId(3).setType(1).setChannelId(1).setEvent(1).setLocation(T0200()));
+        items.add(new T0802.Item().setId(4).setType(1).setChannelId(1).setEvent(1).setLocation(T0200_()));
         bean.setItems(items);
         return bean;
     }
@@ -463,7 +466,7 @@ public class JT808Beans {
 
     //查询指定终端参数
     public static T8106 T8106() {
-        return new T8106(1, 3, 5, 7, 9, 127);
+        return new T8106().setId(new int[]{1, 3, 5, 7, 9, 127});
     }
 
     //下发终端升级包
@@ -495,9 +498,9 @@ public class JT808Beans {
     //提问下发
     public static T8302 T8302() {
         List<T8302.Option> options = new ArrayList<>(2);
-        options.add(new T8302.Option(1, "www.jtt808.cn"));
-        options.add(new T8302.Option(2, "www.jtt808.cn"));
-        T8302 bean = new T8302("123", 1);
+        options.add(new T8302.Option().setId(1).setContent("www.jtt808.cn"));
+        options.add(new T8302.Option().setId(2).setContent("www.jtt808.cn"));
+        T8302 bean = new T8302().setContent("123").setSign(1);
         bean.setOptions(options);
         return bean;
     }
@@ -539,9 +542,9 @@ public class JT808Beans {
     public static T8401 T8401() {
         T8401 bean = new T8401();
         bean.setType(Action.Append);
-        bean.addContact(new T8401.Contact(2, "12345678901", "张三"));
-        bean.addContact(new T8401.Contact(1, "123123", "李四"));
-        bean.addContact(new T8401.Contact(3, "123123", "王五"));
+        bean.addContact(new T8401.Contact().setSign(2).setName("张三").setPhone("12345678901"));
+        bean.addContact(new T8401.Contact().setSign(1).setName("李四").setPhone("123123"));
+        bean.addContact(new T8401.Contact().setSign(3).setName("王五").setPhone("123123"));
         return bean;
     }
 
@@ -576,7 +579,7 @@ public class JT808Beans {
 
     //删除圆形区域|删除矩形区域|删除多边形区域|删除路线
     public static T8601 T8601() {
-        return new T8601(1, 2, 3, 65535);
+        return new T8601().setId(new int[]{1, 2, 3, 65535});
     }
 
     //设置矩形区域
@@ -747,11 +750,11 @@ public class JT808Beans {
 
     //文本信息下发
     public static T8300 T8300_2013() {
-        return new T8300("测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
+        return new T8300().setContent("测试123@456#abc!...结束").setSign(Bit.writeInt(1, 1, 1, 1, 1, 1));
     }
 
     public static T8300 T8300_2019() {
-        return new T8300(1, "测试123@456#abc!...结束", 1, 1, 1, 1, 1, 1);
+        return new T8300().setContent("测试123@456#abc!...结束").setSign(Bit.writeInt(1, 1, 1, 1, 1, 1)).setType(1);
     }
 
     //===================================== 1078
@@ -784,8 +787,8 @@ public class JT808Beans {
     //终端上传音视频资源列表
     public static T1205 T1205() {
         List<T1205.Item> items = new ArrayList<>(2);
-        items.add(new T1205.Item(1, START_TIME, END_TIME, 0, 0, 1, 1, 1, 1024));
-        items.add(new T1205.Item(2, START_TIME, END_TIME, 0, 0, 2, 2, 2, 2048));
+        items.add(new T1205.Item().setChannelNo(1).setStartTime(START_TIME).setEndTime(END_TIME).setWarnBit(0).setMediaType(1).setStreamType(1).setStorageType(1).setSize(1024));
+        items.add(new T1205.Item().setChannelNo(2).setStartTime(START_TIME).setEndTime(END_TIME).setWarnBit(0).setMediaType(2).setStreamType(2).setStorageType(2).setSize(2048));
 
         T1205 bean = new T1205();
         bean.setResponseSerialNo(4321);

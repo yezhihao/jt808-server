@@ -5,17 +5,15 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 @ChannelHandler.Sharable
 public class TCPClientHandler extends ChannelInboundHandlerAdapter {
-
-    private static final Logger log = LoggerFactory.getLogger(TCPClientHandler.class);
 
     private HandlerMapping handlerMapping;
 

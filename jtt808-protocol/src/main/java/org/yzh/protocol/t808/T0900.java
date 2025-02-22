@@ -3,6 +3,9 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.github.yezhihao.protostar.util.KeyValuePair;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.PassthroughConverter;
@@ -11,6 +14,9 @@ import org.yzh.protocol.commons.transform.PassthroughConverter;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.数据上行透传)
 public class T0900 extends JTMessage {
 
@@ -28,18 +34,4 @@ public class T0900 extends JTMessage {
     @Field(desc = "透传消息", converter = PassthroughConverter.class)
     private KeyValuePair<Integer, Object> message;
 
-    public T0900() {
-    }
-
-    public T0900(KeyValuePair<Integer, Object> message) {
-        this.message = message;
-    }
-
-    public KeyValuePair<Integer, Object> getMessage() {
-        return message;
-    }
-
-    public void setMessage(KeyValuePair<Integer, Object> message) {
-        this.message = message;
-    }
 }

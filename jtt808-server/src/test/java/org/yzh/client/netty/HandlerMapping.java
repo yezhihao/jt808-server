@@ -3,6 +3,7 @@ package org.yzh.client.netty;
 import io.github.yezhihao.netmc.core.annotation.Endpoint;
 import io.github.yezhihao.netmc.core.annotation.Mapping;
 import io.github.yezhihao.netmc.util.ClassUtils;
+import lombok.SneakyThrows;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -39,12 +40,9 @@ public class HandlerMapping {
         }
     }
 
+    @SneakyThrows
     private Object newInstance(Class handlerClass) {
-        try {
-            return handlerClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return handlerClass.newInstance();
     }
 
     public Handler getHandler(int messageId) {

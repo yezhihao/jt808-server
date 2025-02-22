@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -11,6 +14,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.定位数据批量上传)
 public class T0704 extends JTMessage {
 
@@ -21,28 +27,4 @@ public class T0704 extends JTMessage {
     @Field(lengthUnit = 2, desc = "位置汇报数据项")
     private List<T0200> items;
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public List<T0200> getItems() {
-        return items;
-    }
-
-    public void setItems(List<T0200> items) {
-        this.items = items;
-        this.total = items.size();
-    }
 }

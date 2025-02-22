@@ -3,6 +3,9 @@ package org.yzh.protocol.jsatl12;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.netty.util.internal.StringUtil;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
@@ -13,6 +16,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JSATL12.报警附件信息消息)
 public class T1210 extends JTMessage {
 
@@ -51,62 +57,9 @@ public class T1210 extends JTMessage {
         this.deviceId_ = deviceId;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public int getSequenceNo() {
-        return sequenceNo;
-    }
-
-    public void setSequenceNo(int sequenceNo) {
-        this.sequenceNo = sequenceNo;
-    }
-
-    public int getFileTotal() {
-        return fileTotal;
-    }
-
-    public void setFileTotal(int fileTotal) {
-        this.fileTotal = fileTotal;
-    }
-
-    public int getReserved() {
-        return reserved;
-    }
-
-    public void setReserved(int reserved) {
-        this.reserved = reserved;
-    }
-
-    public String getPlatformAlarmId() {
-        return platformAlarmId;
-    }
-
-    public void setPlatformAlarmId(String platformAlarmId) {
-        this.platformAlarmId = platformAlarmId;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Item {
         @Field(lengthUnit = 1, desc = "文件名称")
         private String name;
@@ -114,39 +67,5 @@ public class T1210 extends JTMessage {
         private long size;
 
         private transient T1210 parent;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public long getSize() {
-            return size;
-        }
-
-        public void setSize(long size) {
-            this.size = size;
-        }
-
-        public T1210 parent() {
-            return parent;
-        }
-
-        public Item parent(T1210 parent) {
-            this.parent = parent;
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(80);
-            sb.append("{name=").append(name);
-            sb.append(",size=").append(size);
-            sb.append('}');
-            return sb.toString();
-        }
     }
 }

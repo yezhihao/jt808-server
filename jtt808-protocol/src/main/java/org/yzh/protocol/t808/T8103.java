@@ -4,6 +4,9 @@ import io.github.yezhihao.netmc.util.AdapterMap;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.commons.transform.ParameterConverter;
@@ -17,44 +20,19 @@ import java.util.function.Function;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.设置终端参数)
 public class T8103 extends JTMessage {
 
-    @Field(length = 1, desc = "参数总数")
-    private int total;
-    @Field(desc = "参数项列表", converter = ParameterConverter.class)
+    @Field(totalUnit = 1, desc = "参数项列表", converter = ParameterConverter.class)
     private Map<Integer, Object> parameters;
-
-    public T8103() {
-    }
-
-    public T8103(Map<Integer, Object> parameters) {
-        this.parameters = parameters;
-        this.total = parameters.size();
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public Map<Integer, Object> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Map<Integer, Object> parameters) {
-        this.parameters = parameters;
-        this.total = parameters.size();
-    }
 
     public T8103 addParameter(Integer key, Object value) {
         if (parameters == null)
-            parameters = new TreeMap();
+            parameters = new TreeMap<>();
         parameters.put(key, value);
-        total = parameters.size();
         return this;
     }
 
@@ -84,110 +62,6 @@ public class T8103 extends JTMessage {
     private ParamDSM paramDSM;
     @Schema(description = "高级驾驶辅助系统参数(苏标)")
     private ParamADAS paramADAS;
-
-    public Map<Integer, Integer> getParametersInt() {
-        return parametersInt;
-    }
-
-    public void setParametersInt(Map<Integer, Integer> parametersInt) {
-        this.parametersInt = parametersInt;
-    }
-
-    public Map<Integer, String> getParametersLong() {
-        return parametersLong;
-    }
-
-    public void setParametersLong(Map<Integer, String> parametersLong) {
-        this.parametersLong = parametersLong;
-    }
-
-    public Map<Integer, String> getParametersStr() {
-        return parametersStr;
-    }
-
-    public void setParametersStr(Map<Integer, String> parametersStr) {
-        this.parametersStr = parametersStr;
-    }
-
-    public ParamADAS getParamADAS() {
-        return paramADAS;
-    }
-
-    public void setParamADAS(ParamADAS paramADAS) {
-        this.paramADAS = paramADAS;
-    }
-
-    public ParamBSD getParamBSD() {
-        return paramBSD;
-    }
-
-    public void setParamBSD(ParamBSD paramBSD) {
-        this.paramBSD = paramBSD;
-    }
-
-    public ParamChannels getParamChannels() {
-        return paramChannels;
-    }
-
-    public void setParamChannels(ParamChannels paramChannels) {
-        this.paramChannels = paramChannels;
-    }
-
-    public ParamDSM getParamDSM() {
-        return paramDSM;
-    }
-
-    public void setParamDSM(ParamDSM paramDSM) {
-        this.paramDSM = paramDSM;
-    }
-
-    public ParamImageIdentifyAlarm getParamImageIdentifyAlarm() {
-        return paramImageIdentifyAlarm;
-    }
-
-    public void setParamImageIdentifyAlarm(ParamImageIdentifyAlarm paramImageIdentifyAlarm) {
-        this.paramImageIdentifyAlarm = paramImageIdentifyAlarm;
-    }
-
-    public ParamSleepWake getParamSleepWake() {
-        return paramSleepWake;
-    }
-
-    public void setParamSleepWake(ParamSleepWake paramSleepWake) {
-        this.paramSleepWake = paramSleepWake;
-    }
-
-    public ParamTPMS getParamTPMS() {
-        return paramTPMS;
-    }
-
-    public void setParamTPMS(ParamTPMS paramTPMS) {
-        this.paramTPMS = paramTPMS;
-    }
-
-    public ParamVideo getParamVideo() {
-        return paramVideo;
-    }
-
-    public void setParamVideo(ParamVideo paramVideo) {
-        this.paramVideo = paramVideo;
-    }
-
-    public ParamVideoSingle getParamVideoSingle() {
-        return paramVideoSingle;
-    }
-
-    public void setParamVideoSingle(ParamVideoSingle paramVideoSingle) {
-        this.paramVideoSingle = paramVideoSingle;
-    }
-
-    public ParamVideoSpecialAlarm getParamVideoSpecialAlarm() {
-        return paramVideoSpecialAlarm;
-    }
-
-    public void setParamVideoSpecialAlarm(ParamVideoSpecialAlarm paramVideoSpecialAlarm) {
-        this.paramVideoSpecialAlarm = paramVideoSpecialAlarm;
-    }
 
     public T8103 build() {
         Map<Integer, Object> map = new TreeMap<>();
@@ -222,7 +96,6 @@ public class T8103 extends JTMessage {
         if (paramVideoSpecialAlarm != null)
             map.put(paramVideoSpecialAlarm.key, paramVideoSpecialAlarm);
 
-        this.total = map.size();
         this.parameters = map;
         return this;
     }

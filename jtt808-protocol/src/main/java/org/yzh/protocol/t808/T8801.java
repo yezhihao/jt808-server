@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.摄像头立即拍摄命令)
 public class T8801 extends JTMessage {
 
@@ -41,86 +47,4 @@ public class T8801 extends JTMessage {
     @Field(length = 1, desc = "色度(0~255)")
     private int chroma;
 
-    public T8801() {
-    }
-
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
-    }
-
-    public int getCommand() {
-        return command;
-    }
-
-    public void setCommand(int command) {
-        this.command = command;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
-    public int getSave() {
-        return save;
-    }
-
-    public void setSave(int save) {
-        this.save = save;
-    }
-
-    public int getResolution() {
-        return resolution;
-    }
-
-    public void setResolution(int resolution) {
-        this.resolution = resolution;
-    }
-
-    public int getQuality() {
-        return quality;
-    }
-
-    public void setQuality(int quality) {
-        this.quality = quality;
-    }
-
-    public int getBrightness() {
-        return brightness;
-    }
-
-    public void setBrightness(int brightness) {
-        this.brightness = brightness;
-    }
-
-    public int getContrast() {
-        return contrast;
-    }
-
-    public void setContrast(int contrast) {
-        this.contrast = contrast;
-    }
-
-    public int getSaturation() {
-        return saturation;
-    }
-
-    public void setSaturation(int saturation) {
-        this.saturation = saturation;
-    }
-
-    public int getChroma() {
-        return chroma;
-    }
-
-    public void setChroma(int chroma) {
-        this.chroma = chroma;
-    }
 }

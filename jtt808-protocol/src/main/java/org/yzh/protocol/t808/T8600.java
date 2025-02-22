@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
@@ -13,6 +16,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.设置圆形区域)
 public class T8600 extends JTMessage {
 
@@ -22,22 +28,9 @@ public class T8600 extends JTMessage {
     @Field(totalUnit = 1, desc = "区域项")
     private List<Circle> items;
 
-    public int getAction() {
-        return action;
-    }
-
-    public void setAction(int action) {
-        this.action = action;
-    }
-
-    public List<Circle> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Circle> items) {
-        this.items = items;
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Circle {
         @Field(length = 4, desc = "区域ID")
         private int id;
@@ -87,57 +80,9 @@ public class T8600 extends JTMessage {
             return Bit.isTrue(attribute, i);
         }
 
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getAttribute() {
-            return attribute;
-        }
-
-        public void setAttribute(int attribute) {
-            this.attribute = attribute;
-        }
-
-        public int getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(int latitude) {
-            this.latitude = latitude;
-        }
-
-        public int getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(int longitude) {
-            this.longitude = longitude;
-        }
-
-        public int getRadius() {
-            return radius;
-        }
-
-        public void setRadius(int radius) {
-            this.radius = radius;
-        }
-
-        public LocalDateTime getStartTime() {
-            return startTime;
-        }
-
         public void setStartTime(LocalDateTime startTime) {
             this.attribute = Bit.set(attribute, 0, startTime != null);
             this.startTime = startTime;
-        }
-
-        public LocalDateTime getEndTime() {
-            return endTime;
         }
 
         public void setEndTime(LocalDateTime endTime) {
@@ -145,17 +90,9 @@ public class T8600 extends JTMessage {
             this.endTime = endTime;
         }
 
-        public Integer getMaxSpeed() {
-            return maxSpeed;
-        }
-
         public void setMaxSpeed(Integer maxSpeed) {
             this.attribute = Bit.set(attribute, 1, maxSpeed != null);
             this.maxSpeed = maxSpeed;
-        }
-
-        public Integer getDuration() {
-            return duration;
         }
 
         public void setDuration(Integer duration) {
@@ -163,39 +100,9 @@ public class T8600 extends JTMessage {
             this.duration = duration;
         }
 
-        public Integer getNightMaxSpeed() {
-            return nightMaxSpeed;
-        }
-
         public void setNightMaxSpeed(Integer nightMaxSpeed) {
             this.attribute = Bit.set(attribute, 1, nightMaxSpeed != null);
             this.nightMaxSpeed = nightMaxSpeed;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(240);
-            sb.append("{id=").append(id);
-            sb.append(",attribute=[").append(Integer.toBinaryString(attribute)).append(']');
-            sb.append(",longitude=").append(longitude);
-            sb.append(",latitude=").append(latitude);
-            sb.append(",radius=").append(radius);
-            sb.append(",startTime=").append(startTime);
-            sb.append(",endTime=").append(endTime);
-            sb.append(",maxSpeed=").append(maxSpeed);
-            sb.append(",duration=").append(duration);
-            sb.append(",nightMaxSpeed=").append(nightMaxSpeed);
-            sb.append(",name=").append(name);
-            sb.append('}');
-            return sb.toString();
         }
     }
 }

@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.终端鉴权)
 public class T0102 extends JTMessage {
 
@@ -21,27 +27,4 @@ public class T0102 extends JTMessage {
     @Field(length = 20, desc = "软件版本号", version = 1)
     private String softwareVersion;
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getImei() {
-        return imei;
-    }
-
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-
-    public String getSoftwareVersion() {
-        return softwareVersion;
-    }
-
-    public void setSoftwareVersion(String softwareVersion) {
-        this.softwareVersion = softwareVersion;
-    }
 }

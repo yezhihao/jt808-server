@@ -1,45 +1,43 @@
 package org.yzh.web.service;
 
 import io.netty.buffer.ByteBuf;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.yzh.commons.util.DateUtils;
+import org.yzh.commons.util.Exceptions;
 import org.yzh.commons.util.IOUtils;
-import org.yzh.commons.util.StrUtils;
 import org.yzh.protocol.jsatl12.DataPacket;
 import org.yzh.protocol.jsatl12.T1210;
 import org.yzh.protocol.jsatl12.T1211;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.protocol.t808.T0801;
+import org.yzh.web.config.JTProperties;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
-
+/**
+ * @author yezhihao
+ * https://gitee.com/yezhihao/jt808-server
+ */
+@Slf4j
 @Service
 public class FileService {
 
-    private static final Logger log = LoggerFactory.getLogger(FileService.class.getSimpleName());
+    @Resource
+    private JTProperties jtProperties;
 
     private static final Comparator<long[]> comparator = Comparator.comparingLong((long[] a) -> a[0]).thenComparingLong(a -> a[1]);
 
-    @Value("${jt-server.alarm-file.path}")
-    private String workDirPath;
-
-    @Value("${jt-server.jt808.media-file.path}")
-    private String mediaFileRoot;
-
     private String getDir(T1210 alarmId) {
         StringBuilder sb = new StringBuilder(80);
-        sb.append(workDirPath).append('/');
+        sb.append(jtProperties.getT9208().getPath()).append('/');
         sb.append(alarmId.getClientId()).append('_');
         DateUtils.yyMMddHHmmss.formatTo(alarmId.getDateTime(), sb);
         sb.append('_').append(alarmId.getSerialNo()).append('/');
@@ -53,12 +51,13 @@ public class FileService {
 
         List<T1210.Item> items = alarmId.getItems();
         StringBuilder fileList = new StringBuilder(items.size() * 50);
-        fileList.append(dirPath).append(IOUtils.Separator);
+        fileList.append(dirPath).append('\n');
 
         for (T1210.Item item : items)
-            fileList.append(item.getName()).append('\t').append(item.getSize()).append(IOUtils.Separator);
+            fileList.append(item.getName()).append('\t').append(item.getSize()).append('\n');
 
-        IOUtils.write(fileList.toString(), new File(dirPath, "fs.txt"));
+        log.warn("文件列表: {}", fileList);
+        Exceptions.ignore(() -> FileCopyUtils.copy(fileList.toString().getBytes(StandardCharsets.UTF_8), new File(dirPath, "fs.txt")));
     }
 
     /** 将数据块写入到报警文件，并记录日志 */
@@ -157,7 +156,7 @@ public class FileService {
             }
             return null;
         }
-        return StrUtils.toArray(result);
+        return result.stream().filter(Objects::nonNull).mapToInt(i -> i).toArray();
     }
 
     /** 多媒体数据上传 */
@@ -180,7 +179,7 @@ public class FileService {
         else
             deviceId = device.getDeviceId();
 
-        File dir = new File(mediaFileRoot + '/' + deviceId);
+        File dir = new File(jtProperties.getT0801().getPath() + '/' + deviceId);
         dir.mkdirs();
 
         ByteBuf packet = message.getPacket();
@@ -199,32 +198,22 @@ public class FileService {
     }
 
     private static String type(int type) {
-        switch (type) {
-            case 0:
-                return "image";
-            case 1:
-                return "audio";
-            case 2:
-                return "video";
-            default:
-                return "unknown";
-        }
+        return switch (type) {
+            case 0 -> "image";
+            case 1 -> "audio";
+            case 2 -> "video";
+            default -> "unknown";
+        };
     }
 
     private static String suffix(int format) {
-        switch (format) {
-            case 0:
-                return "jpg";
-            case 1:
-                return "tif";
-            case 2:
-                return "mp3";
-            case 3:
-                return "wav";
-            case 4:
-                return "wmv";
-            default:
-                return "bin";
-        }
+        return switch (format) {
+            case 0 -> "jpg";
+            case 1 -> "tif";
+            case 2 -> "mp3";
+            case 3 -> "wav";
+            case 4 -> "wmv";
+            default -> "bin";
+        };
     }
 }

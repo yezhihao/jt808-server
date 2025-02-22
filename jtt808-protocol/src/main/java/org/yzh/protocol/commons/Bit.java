@@ -2,10 +2,12 @@ package org.yzh.protocol.commons;
 
 /**
  * 32位整型的二进制读写
- * << 左移
- * &与 同为1返回1
- * |或 其中一个为1返回1
- * ^异或 相同为0不同为1
+ * >> 右移 (0b0010 >> 1) == 0b0001
+ * << 左移 (0b0010 << 1) == 0b0100
+ * ~ 取反 0、1互换 (~0b...0010) == 0b...1101
+ * & 与 同为1返回1      (0b0010 & 0b0001) == 0b0000   (0b0010 & 0b0010) == 0b0010
+ * | 或 其中一个为1返回1 (0b0010 | 0b0001) == 0b0011   (0b0010 | 0b0010) == 0b0010
+ * ^ 异或 相同为0不同为1 (0b0010 ^ 0b0001) == 0b0011   (0b0010 ^ 0b0010) == 0b0000
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
@@ -17,7 +19,7 @@ public class Bit {
      * @param i 取值范围0~31
      */
     public static boolean isTrue(int n, int i) {
-        return get(n, i) > 0;
+        return ((n >> i) & 1) == 1;
     }
 
     /**
@@ -26,7 +28,7 @@ public class Bit {
      * @param i 取值范围0~31
      */
     public static int get(int n, int i) {
-        return (1 << i) & n;
+        return (n >> i) & 1;
     }
 
     /**
@@ -35,7 +37,7 @@ public class Bit {
      * @param i 取值范围0~31
      */
     public static int set1(int n, int i) {
-        return (1 << i) | n;
+        return n | (1 << i);
     }
 
     /**
@@ -44,7 +46,7 @@ public class Bit {
      * @param i 取值范围0~31
      */
     public static int set0(int n, int i) {
-        return get(n, i) ^ n;
+        return n & ~(1 << i);
     }
 
     /**

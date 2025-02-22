@@ -1,6 +1,9 @@
 package org.yzh.protocol.commons.transform.passthrough;
 
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,42 +14,19 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class PeripheralStatus {
 
     public static final Integer key = 0xF7;
 
     private List<Item> items;
 
-    public PeripheralStatus() {
-    }
 
-    public PeripheralStatus(List<Item> items) {
-        this.items = items;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public void addItem(byte id, byte workState, int alarmStatus) {
-        if (items == null)
-            items = new ArrayList<>(4);
-        items.add(new Item(id, workState, alarmStatus));
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(150);
-        sb.append("PeripheralStatus{");
-        sb.append("items=").append(items);
-        sb.append('}');
-        return sb.toString();
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Item {
         /**
          * 外设ID：
@@ -82,40 +62,6 @@ public class PeripheralStatus {
             this.workState = workState;
             this.alarmStatus = alarmStatus;
         }
-
-        public byte getId() {
-            return id;
-        }
-
-        public void setId(byte id) {
-            this.id = id;
-        }
-
-        public byte getWorkState() {
-            return workState;
-        }
-
-        public void setWorkState(byte workState) {
-            this.workState = workState;
-        }
-
-        public int getAlarmStatus() {
-            return alarmStatus;
-        }
-
-        public void setAlarmStatus(int alarmStatus) {
-            this.alarmStatus = alarmStatus;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(50);
-            sb.append("{id=").append(id);
-            sb.append(", workState=").append(workState);
-            sb.append(", alarmStatus=").append(Integer.toBinaryString(alarmStatus));
-            sb.append('}');
-            return sb.toString();
-        }
     }
 
     public static class Schema implements io.github.yezhihao.protostar.Schema<PeripheralStatus> {
@@ -138,7 +84,7 @@ public class PeripheralStatus {
                 input.skipBytes(len - 5);
                 list.add(item);
             }
-            return new PeripheralStatus(list);
+            return new PeripheralStatus().setItems(list);
         }
 
         @Override

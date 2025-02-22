@@ -2,11 +2,10 @@ package org.yzh.web.endpoint;
 
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.yzh.commons.model.APIException;
-import org.yzh.commons.model.APIResult;
+import org.yzh.commons.model.R;
 import org.yzh.protocol.basics.JTMessage;
 import reactor.core.publisher.Mono;
 
@@ -16,16 +15,15 @@ import java.time.Duration;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@Slf4j
 @Component
 public class MessageManager {
 
-    private static final Logger log = LoggerFactory.getLogger(MessageManager.class);
-
     private static final Mono<Void> NEVER = Mono.never();
     private static final Mono OFFLINE_EXCEPTION = Mono.error(new APIException(4000, "离线的客户端（请检查设备是否注册或者鉴权）"));
-    private static final Mono OFFLINE_RESULT = Mono.just(new APIResult<>(4000, "离线的客户端（请检查设备是否注册或者鉴权）"));
-    private static final Mono SENDFAIL_RESULT = Mono.just(new APIResult<>(4001, "消息发送失败"));
-    private static final Mono TIMEOUT_RESULT = Mono.just(new APIResult<>(4002, "消息发送成功,客户端响应超时（至于设备为什么不应答，请联系设备厂商）"));
+    private static final Mono OFFLINE_RESULT = Mono.just(R.error("离线的客户端（请检查设备是否注册或者鉴权）").setCode(4000));
+    private static final Mono SENDFAIL_RESULT = Mono.just(R.error("消息发送失败").setCode(4001));
+    private static final Mono TIMEOUT_RESULT = Mono.just(R.error("消息发送成功,客户端响应超时（至于设备为什么不应答，请联系设备厂商）").setCode(4002));
 
     private SessionManager sessionManager;
 
@@ -49,13 +47,13 @@ public class MessageManager {
         return session.notify(request);
     }
 
-    public <T> Mono<APIResult<T>> requestR(String sessionId, JTMessage request, Class<T> responseClass) {
+    public <T> Mono<R<T>> requestR(String sessionId, JTMessage request, Class<T> responseClass) {
         Session session = sessionManager.get(sessionId);
         if (session == null)
             return OFFLINE_RESULT;
 
         return session.request(request, responseClass)
-                .map(message -> APIResult.ok(message))
+                .map(message -> R.success(message))
                 .timeout(Duration.ofSeconds(10), TIMEOUT_RESULT)
                 .onErrorResume(e -> {
                     log.warn("消息发送失败", e);
@@ -63,13 +61,13 @@ public class MessageManager {
                 });
     }
 
-    public <T> Mono<APIResult<T>> requestR(JTMessage request, Class<T> responseClass) {
+    public <T> Mono<R<T>> requestR(JTMessage request, Class<T> responseClass) {
         Session session = sessionManager.get(request.getClientId());
         if (session == null)
             return OFFLINE_RESULT;
 
         return session.request(request, responseClass)
-                .map(message -> APIResult.ok(message))
+                .map(message -> R.success(message))
                 .timeout(Duration.ofSeconds(10), TIMEOUT_RESULT)
                 .onErrorResume(e -> {
                     log.warn("消息发送失败", e);

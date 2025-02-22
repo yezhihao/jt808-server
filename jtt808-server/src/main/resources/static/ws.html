@@ -120,160 +120,133 @@
 <a href="?s=2,6" target="_blank">2*6</a>
 
 <script type="text/javascript">
-    const userId = Math.floor(Math.random() * (Math.pow(2, 31) - 1))
-    const reg = new RegExp('\\[([^\\[\\]]*?)]', 'igm') //igm是指分别用于指定区分大小写的匹配、全局匹配和多行匹配。
+    const $ = id => document.getElementById(id)
+    const reg = new RegExp('\\[([^\\[\\]]*?)]', 'igm')
+    const domain = '//' + window.location.host
+    const subscriptions = {}
+    let eventSource = null
+    let userId = null
 
-    const host = window.location.host;
-    const domain = '//' + host;
-
-    let eventSource = null;
-    const subscriptions = {};
-
-    const $ = function (id) {
-        return document.getElementById(id);
-    };
-
-    const renderForm = function (data) {
-        let options = '<option value="">没有可订阅的设备</option>\n';
+    function onRender(data) {
+        let options = '<option value="">没有可订阅的设备</option>\n'
         if (data && data.length) {
-            options = '<option value="">---请选择订阅设备---</option>\n';
-            options += data.map(function (device) {
-                return `<option value="${device.mobileNo}">${device.mobileNo} - ${device.plateNo}</option>`
-            }).join('\n');
+            options = '<option value="">---请选择订阅设备---</option>\n'
+            options += data.map(e => `<option value="${e.mobileNo}">${e.mobileNo} - ${e.plateNo}</option>`).join('\n')
         }
 
-        let size = [1, 1];
-        const s = new URLSearchParams(window.location.search).get('s');
-        if (s)
-            size = s.split(',');
-        const row = size[0] > 3 ? 3 : size[0];
-        const column = size[1] > 6 ? 6 : size[1];
+        let size = [1, 1]
+        const s = new URLSearchParams(window.location.search).get('s')
+        if (s) size = s.split(',')
+        const row = size[0] > 3 ? 3 : size[0]
+        const column = size[1] > 6 ? 6 : size[1]
 
-        const height = Math.floor((document.documentElement.clientHeight) / row) - 1;
+        const height = Math.floor((document.documentElement.clientHeight) / row) - 1
 
-        const table = $('dev_box');
-        const td = table.children[0].children[0].innerHTML;
-        let html = '';
-        let idx = 0;
+        const table = $('dev_box')
+        const td = table.children[0].children[0].innerHTML
+        let html = ''
+        let idx = 0
 
         for (let i = 0; i < row; i++) {
-            html += `<tr style="height: ${height}px">`;
+            html += `<tr style="height: ${height}px">`
             for (let j = 0; j < column; j++) {
-                html += td.replace(reg, function (node, key) {
-                    return ({idx: idx, option: options})[key]
-                });
-                ++idx;
+                html += td.replace(reg, (node, key) => ({idx: idx, option: options})[key])
+                ++idx
             }
-            html += '</tr>';
+            html += '</tr>'
         }
-        table.innerHTML = html;
-    };
+        table.innerHTML = html
+    }
 
     function onSearch(e) {
-        let value = e.value;
-        let select = e.previousElementSibling;
+        let select = e.previousElementSibling
         if (!select.disabled) {
-            const options = select.querySelectorAll('option');
-            options[0].selected = true;
+            const options = select.querySelectorAll('option')
+            options[0].selected = true
+            let value = e.value
             if (value) {
-                options.forEach(option => {
-                    if (option.innerHTML.search(value) >= 0) {
-                        option.selected = true;
-                    }
-                });
+                options.forEach(e => e.selected = (e.innerHTML.search(value) >= 0))
             }
         }
     }
 
     function onExport(idx) {
-        const data = $('dev_text_' + idx).innerText;
+        const data = $('dev_text_' + idx).innerText
         if (data) {
-            const a = document.createElement('a');
-            a.download = $('dev_sel_' + idx).value + '_' + new Date().toLocaleString().replaceAll(/[^0-9]/g, '_') + '.txt';
-            a.href = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(data)));
-            a.click();
+            const a = document.createElement('a')
+            a.download = $('dev_sel_' + idx).value + '_' + new Date().toLocaleString().replaceAll(/[^0-9]/g, '_') + '.txt'
+            a.href = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(data)))
+            a.click()
         }
     }
 
     function onSub(idx) {
-        const select = $('dev_sel_' + idx);
+        const select = $('dev_sel_' + idx)
         if (select.disabled) {
-            return;
+            return
         }
-        const clientId = select.value;
+        const clientId = select.value
         if (!clientId) {
-            return;
+            return
         }
         if (subscriptions[clientId]) {
-            alert(`同一设备[${clientId}]不能重复订阅`);
-            return;
+            alert(`同一设备[${clientId}]不能重复订阅`)
+            return
         }
 
-        select.disabled = true;
-        const text = $('dev_text_' + idx);
+        select.disabled = true
+        const text = $('dev_text_' + idx)
         text.println = function (data) {
-            const c = this.scrollTop + this.offsetHeight + 4;
-            const h = this.scrollHeight;
+            const c = this.scrollTop + this.offsetHeight + 4
+            const h = this.scrollHeight
 
-            const p = document.createElement('p');
-            p.append(new Date().toLocaleString().replaceAll('/', '-') + ' ');
-            p.append(data);
-            this.append(p);
+            const p = document.createElement('p')
+            p.append(new Date().toLocaleString().replaceAll('/', '-') + ' ')
+            p.append(data)
+            this.append(p)
 
             if (c >= h)
-                this.scrollTop = this.scrollHeight;
+                this.scrollTop = this.scrollHeight
         }
 
-        eventSource.addEventListener(clientId, subscriptions[clientId] = function (event) {
-            text.println(event.data);
-        });
+        eventSource.addEventListener(clientId, subscriptions[clientId] = e => text.println(e.data))
 
-        fetch(`${domain}/device/sse?sub=1&userId=${userId}&clientId=${clientId}`, {method: 'post'})
+        fetch(`${domain}/sse/event?userId=${userId}&add=${clientId}`, {method: 'post'})
             .then(res => res.json())
-            .then(function (res) {
-                if (res) {
-                    text.println('开始订阅');
-                } else {
-                    text.println('订阅失败,请刷新页面');
-                }
-            }).catch(err => text.println('连接服务器失败'));
+            .then(res => text.println(res ? '开始订阅' : '订阅失败,请刷新页面'))
+            .catch(err => text.println('连接服务器失败'))
     }
 
     function onUnsub(idx) {
-        const select = $('dev_sel_' + idx);
-        const clientId = select.value;
+        const select = $('dev_sel_' + idx)
+        const clientId = select.value
         if (!clientId) {
-            return;
+            return
         }
 
-        fetch(`${domain}/device/sse?sub=0&userId=${userId}&clientId=${clientId}`, {method: 'post'})
+        fetch(`${domain}/sse/event?userId=${userId}&del=${clientId}`, {method: 'post'})
             .then(res => res.json())
-            .then(function (res) {
+            .then(res => {
                 if (res) {
-                    console.log(`取消订阅设备[${clientId}]....`);
-                    eventSource.removeEventListener(clientId, subscriptions[clientId]);
-                    delete subscriptions[clientId];
-                    select.disabled = false;
-                    $('dev_text_' + idx).println('结束订阅');
+                    console.log(`取消订阅设备[${clientId}]....`)
+                    eventSource.removeEventListener(clientId, subscriptions[clientId])
+                    delete subscriptions[clientId]
+                    select.disabled = false
+                    $('dev_text_' + idx).println('结束订阅')
                 }
-            }).catch(err => console.error(err));
+            }).catch(err => console.error(err))
     }
 
-    window.onload = function () {
+    window.onload = () => {
         fetch(`${domain}/device/option`)
             .then(res => res.json())
-            .then(function (res) {
-                renderForm(res.data)
-                eventSource = new EventSource(`${domain}/device/sse?userId=${userId}`)
-
-                eventSource.addEventListener('open', function (e) {
-                    console.log(`建立连接`)
-                })
-
-                eventSource.addEventListener('error', function (e) {
-                    console.log(`断开连接`)
-                })
-            }).catch(err => console.error(err));
+            .then(res => {
+                onRender(res.data)
+                eventSource = new EventSource(`${domain}/sse/connect`)
+                eventSource.addEventListener('start', e => userId = e.data)
+                eventSource.addEventListener('open', e => console.log(`建立连接`))
+                eventSource.addEventListener('error', e => console.log(`断开连接`))
+            }).catch(err => console.error(err))
     }
 </script>
 </body>

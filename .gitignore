@@ -41,3 +41,5 @@ README.html
 
 # temp ignore
 src/main/resources/swagger.yaml
+*local.yml
+*local.yaml

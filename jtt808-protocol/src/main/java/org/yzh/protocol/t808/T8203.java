@@ -3,6 +3,9 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -10,6 +13,9 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.人工确认报警消息)
 public class T8203 extends JTMessage implements Response {
 
@@ -29,27 +35,4 @@ public class T8203 extends JTMessage implements Response {
             " [29~31]保留")
     private int type;
 
-    public T8203() {
-    }
-
-    public T8203(int responseSerialNo, int type) {
-        this.responseSerialNo = responseSerialNo;
-        this.type = type;
-    }
-
-    public int getResponseSerialNo() {
-        return responseSerialNo;
-    }
-
-    public void setResponseSerialNo(int responseSerialNo) {
-        this.responseSerialNo = responseSerialNo;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }

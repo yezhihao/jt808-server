@@ -2,6 +2,9 @@ package org.yzh.protocol.t808;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.Bit;
 import org.yzh.protocol.commons.JT808;
@@ -13,6 +16,9 @@ import java.util.List;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JT808.设置路线)
 public class T8606 extends JTMessage {
 
@@ -29,33 +35,9 @@ public class T8606 extends JTMessage {
     @Field(lengthUnit = 2, desc = "区域名称", version = 1)
     private String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(int attribute) {
-        this.attribute = attribute;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
     public void setStartTime(LocalDateTime startTime) {
         this.attribute = Bit.set(attribute, 0, startTime != null);
         this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -63,22 +45,9 @@ public class T8606 extends JTMessage {
         this.endTime = endTime;
     }
 
-    public List<Line> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Line> items) {
-        this.items = items;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @ToString
+    @Data
+    @Accessors(chain = true)
     public static class Line {
         @Field(length = 4, desc = "拐点ID")
         private int id;
@@ -124,65 +93,9 @@ public class T8606 extends JTMessage {
             this.setNightMaxSpeed(nightMaxSpeed);
         }
 
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getRouteId() {
-            return routeId;
-        }
-
-        public void setRouteId(int routeId) {
-            this.routeId = routeId;
-        }
-
-        public int getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(int latitude) {
-            this.latitude = latitude;
-        }
-
-        public int getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(int longitude) {
-            this.longitude = longitude;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getAttribute() {
-            return attribute;
-        }
-
-        public void setAttribute(int attribute) {
-            this.attribute = attribute;
-        }
-
-        public Integer getUpperLimit() {
-            return upperLimit;
-        }
-
         public void setUpperLimit(Integer upperLimit) {
             this.attribute = Bit.set(attribute, 0, upperLimit != null);
             this.upperLimit = upperLimit;
-        }
-
-        public Integer getLowerLimit() {
-            return lowerLimit;
         }
 
         public void setLowerLimit(Integer lowerLimit) {
@@ -190,17 +103,9 @@ public class T8606 extends JTMessage {
             this.lowerLimit = lowerLimit;
         }
 
-        public Integer getMaxSpeed() {
-            return maxSpeed;
-        }
-
         public void setMaxSpeed(Integer maxSpeed) {
             this.attribute = Bit.set(attribute, 1, maxSpeed != null);
             this.maxSpeed = maxSpeed;
-        }
-
-        public Integer getDuration() {
-            return duration;
         }
 
         public void setDuration(Integer duration) {
@@ -208,30 +113,9 @@ public class T8606 extends JTMessage {
             this.duration = duration;
         }
 
-        public Integer getNightMaxSpeed() {
-            return nightMaxSpeed;
-        }
-
         public void setNightMaxSpeed(Integer nightMaxSpeed) {
             this.attribute = Bit.set(attribute, 1, nightMaxSpeed != null);
             this.nightMaxSpeed = nightMaxSpeed;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder(240);
-            sb.append("{id=").append(id);
-            sb.append(",routeId=").append(routeId);
-            sb.append(",longitude=").append(longitude);
-            sb.append(",latitude=").append(latitude);
-            sb.append(",width=").append(width);
-            sb.append(",attribute=[").append(Integer.toBinaryString(attribute)).append(']');
-            sb.append(",upperLimit=").append(upperLimit);
-            sb.append(",lowerLimit=").append(lowerLimit);
-            sb.append(",maxSpeed=").append(maxSpeed);
-            sb.append(",duration=").append(duration);
-            sb.append('}');
-            return sb.toString();
         }
     }
 }

@@ -3,6 +3,9 @@ package org.yzh.protocol.t808;
 import io.github.yezhihao.netmc.core.model.Response;
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 
@@ -10,6 +13,10 @@ import org.yzh.protocol.commons.JT808;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+
+@ToString
+@Data
+@Accessors(chain = true)
 @Message({JT808.平台通用应答, JT808.终端通用应答})
 public class T0001 extends JTMessage implements Response {
 
@@ -25,30 +32,6 @@ public class T0001 extends JTMessage implements Response {
     private int responseMessageId;
     @Field(length = 1, desc = "结果：0.成功 1.失败 2.消息有误 3.不支持 4.报警处理确认")
     private int resultCode;
-
-    public int getResponseSerialNo() {
-        return responseSerialNo;
-    }
-
-    public void setResponseSerialNo(int responseSerialNo) {
-        this.responseSerialNo = responseSerialNo;
-    }
-
-    public int getResponseMessageId() {
-        return responseMessageId;
-    }
-
-    public void setResponseMessageId(int responseMessageId) {
-        this.responseMessageId = responseMessageId;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
 
     public boolean isSuccess() {
         return this.resultCode == Success;

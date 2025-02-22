@@ -3,12 +3,18 @@ package org.yzh.web.endpoint;
 import io.github.yezhihao.netmc.core.model.Message;
 import io.github.yezhihao.netmc.session.Session;
 import io.github.yezhihao.netmc.session.SessionListener;
+import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 
 import java.util.function.BiConsumer;
 
+/**
+ * @author yezhihao
+ * https://gitee.com/yezhihao/jt808-server
+ */
+@Component
 public class JTSessionListener implements SessionListener {
 
     /**

@@ -131,7 +131,7 @@ public class JTMessageEncoder {
         int low = source.readerIndex();
         int high = source.writerIndex();
 
-        LinkedList<ByteBuf> bufList = new LinkedList();
+        LinkedList<ByteBuf> bufList = new LinkedList<>();
         int mark, len;
         while ((mark = source.forEachByte(low, high - low, searcher)) > 0) {
 
@@ -142,10 +142,10 @@ public class JTMessageEncoder {
             low += len;
         }
 
-        if (bufList.size() > 0) {
-            bufList.add(source.slice(low, high - low));
-        } else {
+        if (bufList.isEmpty()) {
             bufList.add(source);
+        } else {
+            bufList.add(source.slice(low, high - low));
         }
 
         ByteBuf delimiter = Unpooled.buffer(1, 1).writeByte(0x7e).retain();

@@ -2,18 +2,19 @@ package org.yzh.web.endpoint;
 
 import io.github.yezhihao.netmc.core.HandlerInterceptor;
 import io.github.yezhihao.netmc.session.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JT808;
 import org.yzh.protocol.t808.T0001;
 import org.yzh.protocol.t808.T0200;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
+import org.yzh.web.model.vo.T0200Ext;
 
+@Slf4j
+@Component
 public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
-
-    private static final Logger log = LoggerFactory.getLogger(JTHandlerInterceptor.class);
 
     /** 未找到对应的Handle */
     @Override
@@ -81,8 +82,7 @@ public class JTHandlerInterceptor implements HandlerInterceptor<JTMessage> {
             if (t0200.getDeviceTime() == null) {
                 return false;//忽略没有时间的消息
             }
-            if (device != null)
-                device.setLocation(t0200);
+            request.setExtData(new T0200Ext(t0200));
             return true;
         }
         return true;

@@ -13,6 +13,21 @@ public class GeomUtils {
     /** 弧度 */
     public static final double RADIAN = Math.PI / 180.0;
 
+    public static double[] calculatePoint(double lng1, double lat1, double lng2, double lat2, double distance) {
+        double radLat1 = lat1 * RADIAN;
+        double radLat2 = lat2 * RADIAN;
+        double deltaLat = (lat2 - lat1) * RADIAN;
+        double deltaLng = (lng2 - lng1) * RADIAN;
+
+        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = A * c;
+
+        double lat = lat1 + (distance / d) * (lat2 - lat1);
+        double lng = lng1 + (distance / d) * (lng2 - lng1);
+        return new double[]{lng, lat};
+    }
+
     /** 计算球面点到点距离(单位米) */
     public static double distance(double lng1, double lat1, double lng2, double lat2) {
         double radLat1 = lat1 * RADIAN;

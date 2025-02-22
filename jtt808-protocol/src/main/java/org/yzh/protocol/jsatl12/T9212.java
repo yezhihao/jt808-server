@@ -2,6 +2,9 @@ package org.yzh.protocol.jsatl12;
 
 import io.github.yezhihao.protostar.annotation.Field;
 import io.github.yezhihao.protostar.annotation.Message;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.yzh.protocol.basics.JTMessage;
 import org.yzh.protocol.commons.JSATL12;
 
@@ -9,6 +12,9 @@ import org.yzh.protocol.commons.JSATL12;
  * @author yezhihao
  * https://gitee.com/yezhihao/jt808-server
  */
+@ToString
+@Data
+@Accessors(chain = true)
 @Message(JSATL12.文件上传完成消息应答)
 public class T9212 extends JTMessage {
 
@@ -22,42 +28,6 @@ public class T9212 extends JTMessage {
     private int total;
     @Field(desc = "补传数据包列表[offset,length,offset,length...]")
     private int[] items;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int[] getItems() {
-        return items;
-    }
 
     public void setItems(int[] items) {
         if (items != null && items.length > 1) {

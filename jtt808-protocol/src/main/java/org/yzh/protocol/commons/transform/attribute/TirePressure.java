@@ -3,13 +3,17 @@ package org.yzh.protocol.commons.transform.attribute;
 import io.github.yezhihao.protostar.Schema;
 import io.github.yezhihao.protostar.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-
-import java.util.Arrays;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * 胎压 0x05
  * length 30
  */
+@ToString
+@Data
+@Accessors(chain = true)
 public class TirePressure {
 
     public static final Integer key = 5;
@@ -17,29 +21,6 @@ public class TirePressure {
     public static final Schema<TirePressure> SCHEMA = new TirePressureSchema();
 
     private byte[] value;
-
-    public TirePressure() {
-    }
-
-    public TirePressure(byte[] value) {
-        this.value = value;
-    }
-
-    public byte[] getValue() {
-        return value;
-    }
-
-    public void setValue(byte[] value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(32);
-        sb.append("TirePressure{value=").append(Arrays.toString(value));
-        sb.append('}');
-        return sb.toString();
-    }
 
     private static class TirePressureSchema implements Schema<TirePressure> {
 
@@ -53,7 +34,7 @@ public class TirePressure {
                 len = 30;
             byte[] value = new byte[len];
             input.readBytes(value);
-            return new TirePressure(value);
+            return new TirePressure().setValue(value);
         }
 
         @Override
