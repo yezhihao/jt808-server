@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.9</version>
+        <version>3.3.10</version>
         <relativePath/>
     </parent>
 
@@ -30,7 +30,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.test.skip>true</maven.test.skip>
-        <mariadb.version>3.4.0</mariadb.version>
     </properties>
 
     <url>https://gitee.com/yezhihao/jt808-server</url>
@@ -46,7 +45,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-bom</artifactId>
-                <version>3.5.9</version>
+                <version>3.5.10.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -54,17 +53,17 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>4.5.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springdoc</groupId>
+                        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>2.2.25</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mariadb.jdbc</groupId>
-                <artifactId>mariadb-java-client</artifactId>
-                <version>${mariadb.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.6.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>

@@ -55,6 +55,7 @@ public class JTConfig {
                                  SessionManager sessionManager,
                                  JTProperties jtProperties) {
         return NettyConfig.custom()
+                .setIdleStateTime(jtProperties.getIdleTimeout(), 0, 0)
                 .setPort(jtProperties.getUdpPort())
                 .setDelimiters(new Delimiter(new byte[]{0x7e}, false))
                 .setDecoder(messageAdapter)
