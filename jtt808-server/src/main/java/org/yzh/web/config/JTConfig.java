@@ -5,7 +5,6 @@ import io.github.yezhihao.netmc.Server;
 import io.github.yezhihao.netmc.codec.Delimiter;
 import io.github.yezhihao.netmc.codec.LengthField;
 import io.github.yezhihao.netmc.core.HandlerMapping;
-import io.github.yezhihao.netmc.core.SpringHandlerMapping;
 import io.github.yezhihao.netmc.session.SessionListener;
 import io.github.yezhihao.netmc.session.SessionManager;
 import io.github.yezhihao.protostar.SchemaManager;
@@ -98,11 +97,6 @@ public class JTConfig {
         JTMessageEncoder messageEncoder = new JTMessageEncoder(schemaManager);
         JTMessageDecoder messageDecoder = new MultiPacketDecoder(schemaManager, new JTMultiPacketListener(10));
         return new JTMessagePushAdapter(messageEncoder, messageDecoder, sseService);
-    }
-
-    @Bean
-    public HandlerMapping handlerMapping() {
-        return new SpringHandlerMapping();
     }
 
     @Bean

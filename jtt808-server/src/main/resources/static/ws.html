@@ -122,7 +122,7 @@
 <script type="text/javascript">
     const $ = id => document.getElementById(id)
     const reg = new RegExp('\\[([^\\[\\]]*?)]', 'igm')
-    const domain = '//' + window.location.host
+    const domain = window.location.href.substring(0, window.location.href.lastIndexOf('/'))
     const subscriptions = {}
     let eventSource = null
     let userId = null
