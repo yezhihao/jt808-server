@@ -1,10 +1,14 @@
 package org.yzh.web.service;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.RemovalListener;
 import io.netty.buffer.ByteBuf;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.yzh.commons.model.Tuple2;
 import org.yzh.commons.util.DateUtils;
 import org.yzh.commons.util.Exceptions;
 import org.yzh.commons.util.IOUtils;
@@ -17,10 +21,20 @@ import org.yzh.web.config.JTProperties;
 import org.yzh.web.model.entity.DeviceDO;
 import org.yzh.web.model.enums.SessionKey;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.nio.file.StandardOpenOption.*;
 
 /**
  * @author yezhihao
@@ -60,44 +74,51 @@ public class FileService {
         Exceptions.ignore(() -> FileCopyUtils.copy(fileList.toString().getBytes(StandardCharsets.UTF_8), new File(dirPath, "fs.txt")));
     }
 
+    private final LoadingCache<String, Tuple2<FileChannel, FileChannel>> channelsCache = Caffeine.newBuilder()
+            .expireAfterAccess(10, TimeUnit.SECONDS)
+            .evictionListener((RemovalListener<String, Tuple2<FileChannel, FileChannel>>) (key, value, cause) -> IOUtils.close(value.t1(), value.t2()))
+            .build(path -> {
+                FileChannel file = FileChannel.open(Paths.get(path + ".tmp"), CREATE, WRITE);
+                FileChannel filelog = FileChannel.open(Paths.get(path + ".log"), CREATE, WRITE, APPEND);
+                return new Tuple2<>(file, filelog);
+            });
+
     /** 将数据块写入到报警文件，并记录日志 */
-    public void writeFile(T1210 alarmId, DataPacket fileData) {
+    public void writeFile(T1210 alarmId, DataPacket fileData, boolean last) {
         String dir = getDir(alarmId);
-        String name = dir + fileData.getName().trim();
+        String name = fileData.getName().strip();
 
         int offset = fileData.getOffset();
         int length = fileData.getLength();
-
-        byte[] buffer = ByteBuffer.allocate(8)
-                .putInt(offset).putInt(length).array();
-
-        RandomAccessFile file = null;
-        FileOutputStream filelog = null;
         ByteBuf data = fileData.getData();
         try {
-            file = new RandomAccessFile(name + ".tmp", "rw");
-            filelog = new FileOutputStream(name + ".log", true);
+            Tuple2<FileChannel, FileChannel> channels = channelsCache.get(dir + name);
+            FileChannel file = channels.t1();
+            FileChannel filelog = channels.t2();
 
-            data.readBytes(file.getChannel(), offset, data.readableBytes());
-            filelog.write(buffer);
+            data.readBytes(file, offset, data.readableBytes());
+            filelog.write(ByteBuffer.allocate(8).putInt(offset).putInt(length).flip());
+            if (last) {
+                file.force(false);
+                filelog.force(false);
+                IOUtils.close(file, filelog);
+            }
         } catch (IOException e) {
             log.error("写入报警文件", e);
-        } finally {
-            IOUtils.close(file, filelog);
         }
     }
 
     public void writeFileSingle(T1210 alarmId, DataPacket fileData) {
         String dir = getDir(alarmId);
-        String name = dir + fileData.getName().trim();
+        String name = fileData.getName().strip();
 
         int offset = fileData.getOffset();
 
-        RandomAccessFile file = null;
+        FileChannel file = null;
         ByteBuf data = fileData.getData();
         try {
-            file = new RandomAccessFile(name, "rw");
-            data.readBytes(file.getChannel(), offset, data.readableBytes());
+            file = FileChannel.open(Paths.get(dir + name), CREATE, WRITE);
+            data.readBytes(file, offset, data.readableBytes());
         } catch (IOException e) {
             log.error("写入报警文件", e);
         } finally {
@@ -108,28 +129,25 @@ public class FileService {
     /** 根据日志检查文件完整性，并返回缺少的数据块信息 */
     public int[] checkFile(T1210 alarmId, T1211 fileInfo) {
         String dir = getDir(alarmId);
-        File logFile = new File(dir + fileInfo.getName() + ".log");
+        String name = fileInfo.getName().strip();
+        Path logPath = Paths.get(dir + name + ".log");
 
-        byte[] bytes;
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream(logFile);
-            bytes = new byte[in.available()];
-            in.read(bytes);
-        } catch (FileNotFoundException e) {
+        int size;
+        ByteBuffer buffer;
+        try (FileChannel filelog = FileChannel.open(logPath, READ)) {
+            size = (int) (filelog.size() / 8);
+            buffer = ByteBuffer.allocate((int) filelog.size());
+            filelog.read(buffer);
+            buffer.flip();
+        } catch (NoSuchFileException e) {
             return null;
         } catch (IOException e) {
             log.error("检查文件完整性", e);
             return null;
-        } finally {
-            IOUtils.close(in);
         }
 
-        int size = bytes.length / 8;
         long[][] items = new long[size + 2][2];
         items[size + 1][0] = fileInfo.getSize();
-
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
         for (int i = 1; i <= size; i++) {
             items[i][0] = buffer.getInt();
             items[i][1] = buffer.getInt();
@@ -149,10 +167,13 @@ public class FileService {
         }
 
         if (result.isEmpty()) {
-            File file = new File(dir + fileInfo.getName() + ".tmp");
-            File dest = new File(dir + fileInfo.getName());
+            File file = new File(dir + name + ".tmp");
+            File dest = new File(dir + name);
             if (file.renameTo(dest)) {
-                logFile.delete();
+                try {
+                    Files.delete(logPath);
+                } catch (IOException ignored) {
+                }
             }
             return null;
         }
