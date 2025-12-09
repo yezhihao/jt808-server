@@ -76,6 +76,6 @@ public class T0200 extends JTMessage {
     }
 
     public float getSpeedKph() {
-        return latitude / 10f;
+        return speed / 10f;
     }
 }
