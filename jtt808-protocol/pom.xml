@@ -75,12 +75,12 @@
         <dependency>
             <groupId>io.github.yezhihao</groupId>
             <artifactId>protostar</artifactId>
-            <version>4.0.5</version>
+            <version>4.0.6</version>
         </dependency>
         <dependency>
             <groupId>io.github.yezhihao</groupId>
             <artifactId>netmc</artifactId>
-            <version>4.0.5</version>
+            <version>4.0.6</version>
         </dependency>
     </dependencies>
 </project>
